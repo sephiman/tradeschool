@@ -25,6 +25,37 @@ async def test_course_requires_auth(content_client: AsyncClient) -> None:
     assert (await content_client.get("/api/course")).status_code == 401
 
 
+async def test_course_export_theory_only(content_client: AsyncClient) -> None:
+    assert (await content_client.get("/api/course/export")).status_code == 401  # requires a login
+    await _auth(content_client)
+
+    data = (await content_client.get("/api/course/export?lang=en")).json()
+    assert data["locale"] == "en"
+    assert len(data["blocks"]) == 5
+    modules = [m for b in data["blocks"] for m in b["modules"]]
+    assert len(modules) == 23
+    lessons = [lesson for m in modules for lesson in m["lessons"]]
+    assert len(lessons) == 23  # every module has one authored lesson in v1
+
+    for m in modules:
+        assert m["summary"]  # module theory blurb present
+    for lesson in lessons:
+        assert lesson["markdown"].strip()  # prose present
+        assert "::exercise" not in lesson["markdown"]  # exercises stripped — theory only
+    # A known lesson keeps its prose (incl. :::note callouts) but not its exercise directives.
+    m12 = next(lesson for lesson in lessons if lesson["id"] == "m12-l1")
+    assert "divergence" in m12["markdown"].lower() and ":::note" in m12["markdown"]
+
+    # Spanish export is localized.
+    es = (await content_client.get("/api/course/export?lang=es")).json()
+    assert es["locale"] == "es"
+    assert _module(es, "m16")["title"] == "Sentimiento de masas"
+
+    # Download flag serves it as a file attachment.
+    dl = await content_client.get("/api/course/export?download=true")
+    assert "attachment" in dl.headers.get("content-disposition", "")
+
+
 async def test_course_tree_shape(content_client: AsyncClient) -> None:
     await _auth(content_client)
     course = (await content_client.get("/api/course")).json()

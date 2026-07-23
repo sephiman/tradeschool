@@ -81,6 +81,19 @@ Open <http://localhost:5173>, register an account, and review the full course:
   `m09-ex-1` (Wyckoff), `m10-ex-1` (moving averages), `m11-ex-1` (RSI), `m13-ex-1` (Fibonacci),
   `m14-ex-1` (volume), `m17-ex-1` (open interest); CSV export per seed on each card.
 
+## Exporting the course theory
+
+A logged-in user can pull the entire course as one JSON document — every block → module → lesson
+with its prose (localized; exercise directives stripped, theory only):
+
+```
+GET /api/course/export            # inline JSON
+GET /api/course/export?lang=es    # localized (en|es; defaults to the user's locale)
+GET /api/course/export?download=true   # served as a file attachment (tradeschool-course-<locale>.json)
+```
+
+Auth (session cookie) is required, like the rest of the content API.
+
 ## Deployment
 
 Copy `.env.example` to `.env` and fill it in (create the dedicated Postgres DB + user first, on the shared

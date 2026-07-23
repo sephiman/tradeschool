@@ -6,6 +6,7 @@ helpers used by the content endpoints. Built once at startup from `content/`.
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -29,6 +30,16 @@ logger = logging.getLogger("tradeschool.content")
 
 class ContentError(RuntimeError):
     """Raised when the manifest and content trees are inconsistent."""
+
+
+_EXERCISE_DIRECTIVE = re.compile(r"^::exercise\{[^}]*\}[ \t]*$", re.MULTILINE)
+
+
+def _theory_only(markdown: str) -> str:
+    """Strip the ``::exercise{...}`` directives (the interactive parts) so only the lesson prose —
+    headings, text, and `:::note` callouts — remains, then collapse the blank lines left behind."""
+    stripped = _EXERCISE_DIRECTIVE.sub("", markdown)
+    return re.sub(r"\n{3,}", "\n\n", stripped).strip()
 
 
 @dataclass(frozen=True)
@@ -147,6 +158,36 @@ class CourseRegistry:
                 {"id": block.id, "order": b_index, "title": block.title.get(locale), "modules": modules}
             )
         return blocks
+
+    def course_export(self, locale: str) -> dict[str, object]:
+        """The whole course as structured theory — blocks → modules → lessons with prose only
+        (exercise directives stripped). Progress-independent; used by the logged-in export endpoint."""
+        return {
+            "locale": locale,
+            "blocks": [
+                {
+                    "id": block.id,
+                    "title": block.title.get(locale),
+                    "modules": [
+                        {
+                            "id": module.id,
+                            "title": module.title.get(locale),
+                            "summary": module.summary.get(locale),
+                            "lessons": [
+                                {
+                                    "id": lesson.id,
+                                    "title": lesson.title.get(locale),
+                                    "markdown": _theory_only(self.markdown[locale][lesson.id]),
+                                }
+                                for lesson in module.lessons
+                            ],
+                        }
+                        for module in block.modules
+                    ],
+                }
+                for block in self.manifest.blocks
+            ],
+        }
 
     def lesson_detail(
         self, lesson_id: str, locale: str, completed_lesson_ids: set[str]

@@ -9,6 +9,7 @@ import uuid
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -78,6 +79,26 @@ async def get_course(
     completed = await _completed_lesson_ids(session, user.id)
     passed = await _passed_exercise_ids(session, user.id)
     return {"locale": locale, "blocks": registry.course_tree(locale, completed, passed)}
+
+
+@router.get("/course/export")
+async def export_course(
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    lang: LangQuery = None,
+    download: Annotated[bool, Query()] = False,
+) -> JSONResponse:
+    """The whole course as a single JSON document — blocks → modules → lessons with the lesson prose
+    only (exercises stripped) — for a logged-in user to read or archive. Localized via `lang` (else
+    the user's locale). `?download=true` serves it as a file attachment."""
+    locale = _resolve_locale(lang, user)
+    data = registry.course_export(locale)
+    headers = (
+        {"Content-Disposition": f'attachment; filename="tradeschool-course-{locale}.json"'}
+        if download
+        else {}
+    )
+    return JSONResponse(content=data, headers=headers)
 
 
 @router.get("/lessons/{lesson_id}")
