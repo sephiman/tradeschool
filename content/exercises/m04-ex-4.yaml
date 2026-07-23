@@ -1,0 +1,151 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: who-pays
+    prompt:
+      en: "The funding rate on a perpetual is positive. Who pays whom?"
+      es: "La tasa de funding de un perpetuo es positiva. ¿Quién paga a quién?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Longs pay shorts."
+          es: "Los largos pagan a los cortos."
+      - id: b
+        text:
+          en: "Shorts pay longs."
+          es: "Los cortos pagan a los largos."
+      - id: c
+        text:
+          en: "Both sides pay the exchange a holding fee."
+          es: "Ambos lados pagan al exchange una comisión por mantener la posición."
+      - id: d
+        text:
+          en: "The exchange pays whichever side is currently winning."
+          es: "El exchange paga al lado que va ganando en ese momento."
+    explanation:
+      en: "A positive rate appears when the perp trades above spot (longs are the crowded side), so longs pay shorts. The payment goes trader-to-trader; the exchange only moves it across, it does not collect it."
+      es: "Una tasa positiva aparece cuando el perp cotiza por encima del spot (los largos son el lado saturado), así que los largos pagan a los cortos. El pago va de trader a trader; el exchange solo lo transfiere, no se lo queda."
+  - id: why-it-exists
+    prompt:
+      en: "What is funding on a perpetual future for?"
+      es: "¿Para qué sirve el funding en un futuro perpetuo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A periodic payment between longs and shorts that tethers the perp's price to spot, since a perp never expires to force them together."
+          es: "Un pago periódico entre largos y cortos que amarra el precio del perp al spot, ya que un perp nunca vence para forzar su convergencia."
+      - id: b
+        text:
+          en: "A fee the exchange charges for holding a position overnight."
+          es: "Una comisión que cobra el exchange por mantener una posición de un día para otro."
+      - id: c
+        text:
+          en: "Interest you owe the exchange on the leverage it lent you."
+          es: "Intereses que debes al exchange por el apalancamiento que te prestó."
+      - id: d
+        text:
+          en: "A tax the exchange withholds on your realised profits."
+          es: "Un impuesto que el exchange retiene sobre tus beneficios realizados."
+    explanation:
+      en: "Because a perp has no expiry, nothing automatically pulls it back to spot — funding is that tether, paid between traders. It is not a fee the exchange charges, and it is not interest on leverage."
+      es: "Como un perp no tiene vencimiento, nada lo empuja automáticamente de vuelta al spot: el funding es ese amarre, pagado entre traders. No es una comisión que cobre el exchange ni son intereses por el apalancamiento."
+  - id: funding-fee-myth
+    kind: true_false
+    prompt:
+      en: "Funding is a fee the exchange charges you for holding a perpetual position."
+      es: "El funding es una comisión que el exchange te cobra por mantener una posición en un perpetuo."
+    answer: false
+    explanation:
+      en: "False. Funding is a payment that moves directly between longs and shorts; the exchange only transfers it from one side to the other, it does not collect it. One side pays, the other receives."
+      es: "Falso. El funding es un pago que se mueve directamente entre largos y cortos; el exchange solo lo transfiere de un lado al otro, no se lo queda. Un lado paga y el otro cobra."
+  - id: funding-is-interest-myth
+    kind: true_false
+    prompt:
+      en: "The funding rate is interest the exchange charges on the leverage it lent you."
+      es: "La tasa de funding son intereses que el exchange cobra por el apalancamiento que te prestó."
+    answer: false
+    explanation:
+      en: "False. Funding has nothing to do with leverage or interest. It is a trader-to-trader transfer, sized by notional times the funding rate, that tethers the perp's price to spot. You can pay or receive it whether your leverage is high or low."
+      es: "Falso. El funding no tiene nada que ver con el apalancamiento ni con intereses. Es una transferencia de trader a trader, dimensionada por el nocional multiplicado por la tasa de funding, que amarra el precio del perp al spot. Puedes pagarlo o cobrarlo tanto con apalancamiento alto como bajo."
+  - id: negative-rate
+    prompt:
+      en: "The funding rate on a perp is negative. What does that tell you, and who pays?"
+      es: "La tasa de funding de un perp es negativa. ¿Qué te dice eso y quién paga?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The perp is trading below spot (shorts are the crowded side), so shorts pay longs."
+          es: "El perp cotiza por debajo del spot (los cortos son el lado saturado), así que los cortos pagan a los largos."
+      - id: b
+        text:
+          en: "The perp is trading above spot, so longs pay shorts."
+          es: "El perp cotiza por encima del spot, así que los largos pagan a los cortos."
+      - id: c
+        text:
+          en: "The exchange is refunding part of your trading fees."
+          es: "El exchange te devuelve parte de tus comisiones de trading."
+      - id: d
+        text:
+          en: "Everyone holding the perp is losing money right now."
+          es: "Todo el que tiene el perp está perdiendo dinero ahora mismo."
+    explanation:
+      en: "A negative rate means the perp trades below spot, so the shorts are the crowded side and pay the longs — the mirror image of a positive rate. The sign of funding is about which side is crowded, not about who is winning or losing on price."
+      es: "Una tasa negativa significa que el perp cotiza por debajo del spot, así que los cortos son el lado saturado y pagan a los largos: la imagen especular de una tasa positiva. El signo del funding indica qué lado está saturado, no quién gana o pierde con el precio."
+  - id: rate-sign-meanings
+    kind: matching
+    prompt:
+      en: "Match each funding-rate situation to what it means."
+      es: "Empareja cada situación de la tasa de funding con lo que significa."
+    pairs:
+      - id: pos
+        left:
+          en: "Positive rate"
+          es: "Tasa positiva"
+        right:
+          en: "Perp above spot; longs are crowded and pay shorts."
+          es: "Perp por encima del spot; los largos están saturados y pagan a los cortos."
+      - id: neg
+        left:
+          en: "Negative rate"
+          es: "Tasa negativa"
+        right:
+          en: "Perp below spot; shorts are crowded and pay longs."
+          es: "Perp por debajo del spot; los cortos están saturados y pagan a los largos."
+      - id: near-zero
+        left:
+          en: "Rate near zero"
+          es: "Tasa cerca de cero"
+        right:
+          en: "Perp trading close to spot; funding is just noise, cheap to hold either side."
+          es: "Perp cotizando cerca del spot; el funding es solo ruido, barato de mantener en cualquier lado."
+    explanation:
+      en: "The sign follows which side is crowded: positive when the perp sits above spot (longs pay), negative when it sits below (shorts pay), and near zero when the perp is close to spot. Funding makes the crowded side think twice, nudging the perp back toward spot."
+      es: "El signo sigue a qué lado está saturado: positiva cuando el perp está por encima del spot (pagan los largos), negativa cuando está por debajo (pagan los cortos) y cerca de cero cuando el perp está pegado al spot. El funding hace que el lado saturado se lo piense y empuja el perp de vuelta hacia el spot."
+  - id: crowded-side-cost
+    prompt:
+      en: "You hold a long on a perp for several days while the funding rate stays clearly positive. What is the practical effect on you?"
+      es: "Mantienes un largo en un perp durante varios días mientras la tasa de funding sigue claramente positiva. ¿Cuál es el efecto práctico para ti?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A steady cost that quietly adds up — you are on the crowded side and pay funding at each interval."
+          es: "Un coste constante que se va acumulando en silencio: estás en el lado saturado y pagas funding en cada intervalo."
+      - id: b
+        text:
+          en: "A steady income — positive funding is always paid to whoever is long."
+          es: "Un ingreso constante: el funding positivo siempre se le paga a quien está largo."
+      - id: c
+        text:
+          en: "Nothing, because funding only applies if you use high leverage."
+          es: "Nada, porque el funding solo se aplica si usas apalancamiento alto."
+      - id: d
+        text:
+          en: "Nothing, because funding is only charged when you finally close the position."
+          es: "Nada, porque el funding solo se cobra cuando por fin cierras la posición."
+    explanation:
+      en: "Positive funding means longs pay shorts, so as a long you pay at every interval — a cost that compounds over days. It is charged each funding interval regardless of your leverage, and whether or not you have closed."
+      es: "Una tasa positiva significa que los largos pagan a los cortos, así que como largo pagas en cada intervalo: un coste que se acumula con los días. Se cobra en cada intervalo de funding sin importar tu apalancamiento, y hayas cerrado o no."

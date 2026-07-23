@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: expectancy
+prompt:
+  en: "Over many trades your **win rate is {win_rate}** (the fraction of trades that end in profit). Your average winning trade makes **{avg_win} USDT** and your average losing trade loses **{avg_loss} USDT**. What is the expectancy per trade? Round to 2 decimals."
+  es: "A lo largo de muchas operaciones tu **win rate es {win_rate}** (la fracción de operaciones que acaban en ganancia). Tu operación ganadora media gana **{avg_win} USDT** y tu operación perdedora media pierde **{avg_loss} USDT**. ¿Cuál es la esperanza (expectancy) por operación? Redondea a 2 decimales."
+params:
+  win_rate: { kind: choice, values: ["0.45", "0.5", "0.55"] }
+  avg_win: { kind: int_range, min: 120, max: 320, step: 10 }
+  avg_loss: { kind: int_range, min: 90, max: 240, step: 10 }
+tolerance: { abs: "1" }
+round: 2
+unit: USDT
+explanation:
+  en: "Expectancy = win% × average win − loss% × average loss, where loss% = 1 − win%. It is the average result of one trade repeated over many. A positive number means the system makes money over time; a negative one means it bleeds, however good any single trade felt. Notice that a win rate near 50% is not enough on its own — the payoff decides the sign."
+  es: "Esperanza = win% × ganancia media − loss% × pérdida media, donde loss% = 1 − win%. Es el resultado medio de una operación repetida muchas veces. Un número positivo significa que el sistema gana dinero con el tiempo; uno negativo, que sangra, por buena que se sintiera cualquier operación aislada. Fíjate en que un win rate cercano al 50% no basta por sí solo: el payoff decide el signo."

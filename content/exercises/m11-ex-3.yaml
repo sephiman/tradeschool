@@ -1,0 +1,173 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: rsi-measures
+    prompt:
+      en: "What does the RSI actually measure?"
+      es: "¿Qué mide realmente el RSI?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The relative size of recent average gains versus recent average losses, scaled to 0–100."
+          es: "El tamaño relativo de las ganancias medias recientes frente a las pérdidas medias recientes, escalado de 0 a 100."
+      - id: b
+        text:
+          en: "How far the price is above or below its all-time high, as a percentage."
+          es: "Cuánto está el precio por encima o por debajo de su máximo histórico, en porcentaje."
+      - id: c
+        text:
+          en: "How overvalued or undervalued an asset is versus its fair price."
+          es: "Lo sobrevalorado o infravalorado que está un activo respecto a su precio justo."
+      - id: d
+        text:
+          en: "The total volume traded over the last 14 bars."
+          es: "El volumen total negociado en las últimas 14 velas."
+    explanation:
+      en: "RSI compares average up-moves to average down-moves over a lookback (default 14) and maps that onto 0–100. It says nothing about fair value or how far price is from any high — only how one-sided the recent bars have been."
+      es: "El RSI compara las subidas medias con las bajadas medias en un periodo (por defecto 14) y lo lleva a una escala de 0 a 100. No dice nada sobre el valor justo ni sobre lo lejos que está el precio de ningún máximo: solo cómo de unilaterales han sido las velas recientes."
+  - id: macd-is
+    prompt:
+      en: "Which of these correctly describes the MACD?"
+      es: "¿Cuál de estas describe correctamente el MACD?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The difference between a fast and a slow EMA of price, plus a signal line (an EMA of that difference) and a histogram of the gap between them."
+          es: "La diferencia entre una EMA rápida y una lenta del precio, más una línea de señal (una EMA de esa diferencia) y un histograma de la distancia entre ambas."
+      - id: b
+        text:
+          en: "A single moving average that turns green above price and red below it."
+          es: "Una única media móvil que se pone verde por encima del precio y roja por debajo."
+      - id: c
+        text:
+          en: "An oscillator bounded between 0 and 100, just like the RSI."
+          es: "Un oscilador acotado entre 0 y 100, igual que el RSI."
+      - id: d
+        text:
+          en: "The ratio of buy orders to sell orders in the order book."
+          es: "La proporción entre órdenes de compra y de venta en el libro de órdenes."
+    explanation:
+      en: "MACD is built from two EMAs (fast 12, slow 26): their difference is the MACD line, a 9-period EMA of that line is the signal, and the histogram is the gap between the two. It is unbounded — unlike RSI it has no fixed 0–100 range."
+      es: "El MACD se construye con dos EMAs (rápida 12, lenta 26): su diferencia es la línea MACD, una EMA de 9 periodos de esa línea es la señal, y el histograma es la distancia entre ambas. No está acotado: a diferencia del RSI, no tiene un rango fijo de 0 a 100."
+  - id: macd-parts
+    kind: matching
+    prompt:
+      en: "Match each oscillator component to what it is."
+      es: "Empareja cada componente de los osciladores con lo que es."
+    pairs:
+      - id: rsi
+        left: { en: "RSI", es: "RSI" }
+        right:
+          en: "A bounded 0–100 gauge of how one-sided recent up- and down-moves have been."
+          es: "Un medidor acotado de 0 a 100 de cómo de unilaterales han sido las subidas y bajadas recientes."
+      - id: macd-line
+        left: { en: "MACD line", es: "Línea MACD" }
+        right:
+          en: "The fast EMA (12) minus the slow EMA (26) of price."
+          es: "La EMA rápida (12) menos la EMA lenta (26) del precio."
+      - id: signal
+        left: { en: "Signal line", es: "Línea de señal" }
+        right:
+          en: "A 9-period EMA of the MACD line — a smoothed, slower version of it."
+          es: "Una EMA de 9 periodos de la línea MACD: una versión suavizada y más lenta."
+      - id: histogram
+        left: { en: "Histogram", es: "Histograma" }
+        right:
+          en: "The gap between the MACD line and the signal line, drawn as bars."
+          es: "La distancia entre la línea MACD y la línea de señal, dibujada como barras."
+    explanation:
+      en: "RSI is the bounded 0–100 momentum gauge; the MACD line is fast-minus-slow EMA; the signal is a 9-period EMA of that line; the histogram is the gap between the two. Keeping the pieces straight is what stops you misreading a cross."
+      es: "El RSI es el medidor de momentum acotado de 0 a 100; la línea MACD es la EMA rápida menos la lenta; la señal es una EMA de 9 de esa línea; el histograma es la distancia entre ambas. Tener claras las piezas es lo que evita que malinterpretes un cruce."
+  - id: macd-bounded-myth
+    kind: true_false
+    prompt:
+      en: "Like the RSI, the MACD is bounded on a fixed 0–100 scale."
+      es: "Igual que el RSI, el MACD está acotado en una escala fija de 0 a 100."
+    answer: false
+    explanation:
+      en: "Only the RSI is bounded 0–100. The MACD is built from EMAs of price and is unbounded — its lines and histogram can run to any value the trend produces. Treating it as a 0–100 oscillator is a common mix-up."
+      es: "Solo el RSI está acotado de 0 a 100. El MACD se construye con EMAs del precio y no está acotado: sus líneas y su histograma pueden llegar a cualquier valor que produzca la tendencia. Tratarlo como un oscilador de 0 a 100 es una confusión habitual."
+  - id: rsi-near-100
+    prompt:
+      en: "The RSI on a chart is sitting near 100. What does that reading actually tell you?"
+      es: "El RSI de un gráfico está cerca de 100. ¿Qué te dice realmente esa lectura?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "That almost every recent bar closed up, so average losses are near zero — recent moves have been strongly one-sided to the upside."
+          es: "Que casi todas las velas recientes cerraron al alza, así que las pérdidas medias son casi cero: los movimientos recientes han sido fuertemente unilaterales al alza."
+      - id: b
+        text:
+          en: "That the price has reached its all-time high."
+          es: "Que el precio ha alcanzado su máximo histórico."
+      - id: c
+        text:
+          en: "That the asset is overvalued relative to its fair price."
+          es: "Que el activo está sobrevalorado respecto a su precio justo."
+      - id: d
+        text:
+          en: "That trading volume has spiked to a record."
+          es: "Que el volumen de negociación ha subido a un récord."
+    explanation:
+      en: "RSI is relative: near 100 means up-moves have overwhelmed down-moves over the lookback, not that price is at any particular level or that it is 'expensive'. It measures the balance of recent bars — nothing about value or volume."
+      es: "El RSI es relativo: cerca de 100 significa que las subidas han aplastado a las bajadas en el periodo, no que el precio esté en ningún nivel concreto ni que esté 'caro'. Mide el equilibrio de las velas recientes: nada sobre el valor ni el volumen."
+  - id: rsi-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the statements that are true of the RSI."
+      es: "Selecciona TODAS las afirmaciones que son ciertas del RSI."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is scaled to a fixed 0–100 range."
+          es: "Está escalado a un rango fijo de 0 a 100."
+      - id: b
+        correct: true
+        text:
+          en: "Its default lookback is 14 bars."
+          es: "Su periodo de referencia por defecto es de 14 velas."
+      - id: c
+        correct: true
+        text:
+          en: "It compares recent average gains to recent average losses."
+          es: "Compara las ganancias medias recientes con las pérdidas medias recientes."
+      - id: d
+        text:
+          en: "It measures how undervalued or overvalued an asset is versus its fair price."
+          es: "Mide lo infravalorado o sobrevalorado que está un activo respecto a su precio justo."
+    explanation:
+      en: "RSI is a bounded (0–100), 14-bar-by-default measure of how lopsided recent up- and down-moves have been. It says nothing about 'fair value' — that fourth idea is the classic misconception."
+      es: "El RSI es una medida acotada (0 a 100), de 14 velas por defecto, de cómo de desequilibradas han sido las subidas y bajadas recientes. No dice nada sobre el 'valor justo': esa cuarta idea es la confusión clásica."
+  - id: macd-build
+    kind: ordering
+    prompt:
+      en: "Put the steps of building the MACD in the right order, first to last."
+      es: "Ordena los pasos para construir el MACD, del primero al último."
+    items:
+      - id: emas
+        position: 1
+        text:
+          en: "Compute a fast EMA (12) and a slow EMA (26) of price."
+          es: "Calcula una EMA rápida (12) y una EMA lenta (26) del precio."
+      - id: macd-line
+        position: 2
+        text:
+          en: "Subtract the slow EMA from the fast EMA to get the MACD line."
+          es: "Resta la EMA lenta a la rápida para obtener la línea MACD."
+      - id: signal
+        position: 3
+        text:
+          en: "Take a 9-period EMA of the MACD line to get the signal line."
+          es: "Toma una EMA de 9 periodos de la línea MACD para obtener la línea de señal."
+      - id: histogram
+        position: 4
+        text:
+          en: "Plot the gap between the MACD line and the signal line as the histogram."
+          es: "Dibuja la distancia entre la línea MACD y la línea de señal como el histograma."
+    explanation:
+      en: "MACD is built in order: two EMAs of price, their difference (the MACD line), a 9-period EMA of that line (the signal), and finally the gap between line and signal (the histogram). Each step feeds the next, which is why the histogram can only be read once you have both lines."
+      es: "El MACD se construye por orden: dos EMAs del precio, su diferencia (la línea MACD), una EMA de 9 de esa línea (la señal) y, por último, la distancia entre la línea y la señal (el histograma). Cada paso alimenta al siguiente, y por eso el histograma solo se puede leer una vez que tienes ambas líneas."

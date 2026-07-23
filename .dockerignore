@@ -1,0 +1,13 @@
+# Build-context excludes for the backend image (context = repo root).
+.git
+.github
+.idea
+**/__pycache__
+**/*.pyc
+backend/.venv
+backend/.pytest_cache
+backend/.ruff_cache
+backend/.mypy_cache
+frontend/node_modules
+frontend/dist
+*.log

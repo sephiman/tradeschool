@@ -1,0 +1,176 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: absorption
+    prompt:
+      en: "At one price level an unusually large volume trades, yet price barely moves. What is the most likely explanation?"
+      es: "En un nivel de precio se negocia un volumen inusualmente grande y, sin embargo, el precio apenas se mueve. ¿Cuál es la explicación más probable?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A large participant is absorbing the orders — soaking up the supply or demand without letting price move."
+          es: "Un participante grande está absorbiendo las órdenes: se traga la oferta o la demanda sin dejar que el precio se mueva."
+      - id: b
+        text:
+          en: "The volume figure must be a data error, since price didn't move."
+          es: "La cifra de volumen debe de ser un error de datos, ya que el precio no se movió."
+      - id: c
+        text:
+          en: "Nothing is happening — high volume with no price move is just meaningless noise."
+          es: "No pasa nada: un volumen alto sin movimiento de precio es solo ruido sin sentido."
+      - id: d
+        text:
+          en: "The market is illiquid, which is why price cannot move."
+          es: "El mercado es ilíquido, y por eso el precio no puede moverse."
+    explanation:
+      en: "Heavy volume with a tiny range is the signature of absorption: someone big is quietly taking the other side of everything, holding price still. It often precedes a move in that participant's direction. It is a strong clue, not a receipt — you can't see who it is or be certain of intent."
+      es: "Un volumen alto con un rango minúsculo es la firma de la absorción: alguien grande toma en silencio el otro lado de todo y mantiene el precio quieto. Suele preceder a un movimiento en la dirección de ese participante. Es una pista fuerte, no un recibo: no puedes ver quién es ni estar seguro de su intención."
+  - id: pv-divergence
+    prompt:
+      en: "Price keeps making new highs, but the volume behind each new push is shrinking. What does this price/volume divergence suggest?"
+      es: "El precio sigue haciendo nuevos máximos, pero el volumen detrás de cada nuevo empujón se encoge. ¿Qué sugiere esta divergencia precio/volumen?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Fewer participants are carrying the move; momentum is thinning and the rally may be running out of fuel."
+          es: "Cada vez menos participantes cargan con el movimiento; el momentum se adelgaza y el rally puede estar quedándose sin combustible."
+      - id: b
+        text:
+          en: "It confirms the uptrend is strong and about to accelerate."
+          es: "Confirma que la tendencia alcista es fuerte y está a punto de acelerar."
+      - id: c
+        text:
+          en: "Shrinking volume guarantees an immediate reversal — sell the next candle."
+          es: "El volumen decreciente garantiza un giro inmediato: vende en la siguiente vela."
+      - id: d
+        text:
+          en: "It's impossible — volume and price always move together."
+          es: "Es imposible: el volumen y el precio siempre se mueven juntos."
+    explanation:
+      en: "Falling volume on rising price means each new high is carried by fewer people — a warning that participation is thinning, like a momentum divergence. It is a warning, not a timer: it says the fuel is low, not the minute the tank runs dry, so 'sell the next candle' overplays it."
+      es: "Un volumen decreciente con precio al alza significa que cada nuevo máximo lo cargan menos personas: un aviso de que la participación se adelgaza, como una divergencia de momentum. Es un aviso, no un cronómetro: dice que queda poco combustible, no el minuto en que se vacía el depósito, así que 'vende en la siguiente vela' lo exagera."
+  - id: concept-match
+    kind: matching
+    prompt:
+      en: "Match each volume-and-confirmation idea to what it describes on the chart."
+      es: "Empareja cada idea de volumen y confirmación con lo que describe en el gráfico."
+    pairs:
+      - id: brk
+        left:
+          en: "Confirmed breakout"
+          es: "Ruptura confirmada"
+        right:
+          en: "Price clears a level with a clear surge in volume — a crowd is behind the move."
+          es: "El precio rebasa un nivel con un claro repunte de volumen: hay una multitud detrás del movimiento."
+      - id: abs
+        left:
+          en: "Absorption"
+          es: "Absorción"
+        right:
+          en: "Heavy volume trades but price barely moves — a large participant is soaking up the orders."
+          es: "Se negocia un volumen alto pero el precio apenas se mueve: un participante grande se traga las órdenes."
+      - id: div
+        left:
+          en: "Price/volume divergence"
+          es: "Divergencia precio/volumen"
+        right:
+          en: "Price makes new highs while the volume behind each push shrinks — participation is thinning."
+          es: "El precio hace nuevos máximos mientras el volumen detrás de cada empujón se encoge: la participación se adelgaza."
+      - id: fake
+        left:
+          en: "Fakeout (false break)"
+          es: "Fakeout (ruptura falsa)"
+        right:
+          en: "Price breaks a level on weak volume and then quietly reverses."
+          es: "El precio rompe un nivel con volumen débil y luego se da la vuelta sin ruido."
+    explanation:
+      en: "These are the four volume situations from the module. The tell in each is the relationship between volume and price: a surge behind a break confirms it; heavy volume with no movement is absorption; shrinking volume under new highs is divergence; and a break on weak volume is the fakeout waiting to happen."
+      es: "Estas son las cuatro situaciones de volumen del módulo. La pista en cada una es la relación entre volumen y precio: un repunte detrás de una ruptura la confirma; un volumen alto sin movimiento es absorción; un volumen decreciente bajo nuevos máximos es divergencia; y una ruptura con volumen débil es el fakeout esperando a ocurrir."
+  - id: direction-myth
+    kind: true_false
+    prompt:
+      en: "Volume on its own tells you the direction of a move: high volume is bullish and low volume is bearish."
+      es: "El volumen por sí solo te dice la dirección de un movimiento: un volumen alto es alcista y un volumen bajo es bajista."
+    answer: false
+    explanation:
+      en: "Volume is participation, not direction. Every trade has a buyer and a seller, so volume counts the transactions, not the winning side. High volume tells you a lot of people cared about a move; whether that move was up or down, and whether it holds, you read from price and context — never from the volume bar alone."
+      es: "El volumen es participación, no dirección. Toda operación tiene un comprador y un vendedor, así que el volumen cuenta las transacciones, no el bando ganador. Un volumen alto te dice que a mucha gente le importó un movimiento; si ese movimiento fue al alza o a la baja, y si aguanta, lo lees del precio y del contexto, nunca de la barra de volumen por sí sola."
+  - id: heavy-volume-meaning
+    prompt:
+      en: "A candle closes on unusually heavy volume. Taken on its own, what does that heavy volume actually tell you?"
+      es: "Una vela cierra con un volumen inusualmente alto. Por sí solo, ¿qué te dice de verdad ese volumen alto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "That many participants were involved — it measures how many people acted, not which side won."
+          es: "Que participaron muchos: mide cuánta gente actuó, no qué bando ganó."
+      - id: b
+        text:
+          en: "That buyers clearly overwhelmed sellers on that candle."
+          es: "Que los compradores claramente arrollaron a los vendedores en esa vela."
+      - id: c
+        text:
+          en: "That the move is bullish, because heavy volume is a buy signal."
+          es: "Que el movimiento es alcista, porque el volumen alto es una señal de compra."
+      - id: d
+        text:
+          en: "Nothing useful — volume is just noise you can ignore."
+          es: "Nada útil: el volumen es solo ruido que puedes ignorar."
+    explanation:
+      en: "Volume is the 'how many people care' dial. Because every trade pairs a buyer with a seller, heavy volume never means one side outnumbered the other — it means a lot of participants transacted. It is meaningful, but only read against what price did, never as a standalone buy or sell signal."
+      es: "El volumen es el dial de 'a cuánta gente le importa'. Como toda operación empareja a un comprador con un vendedor, un volumen alto nunca significa que un bando superara al otro: significa que transaccionaron muchos participantes. Es significativo, pero solo se lee contra lo que hizo el precio, nunca como una señal de compra o venta por sí sola."
+  - id: confluence-read
+    prompt:
+      en: "A breakout happens at a level that has already held once, but on dead (below-average) volume, and RSI is flat. Applying confluence, what is the honest read?"
+      es: "Se produce una ruptura en un nivel que ya ha aguantado una vez, pero con volumen muerto (por debajo de la media), y el RSI está plano. Aplicando la confluencia, ¿cuál es la lectura honesta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Not yet — the signals disagree, so wait for participation to confirm rather than acting on the level alone."
+          es: "Todavía no: las señales discrepan, así que espera a que la participación confirme en lugar de actuar solo sobre el nivel."
+      - id: b
+        text:
+          en: "Enter now — a level that has already held is enough on its own."
+          es: "Entra ya: un nivel que ya ha aguantado basta por sí solo."
+      - id: c
+        text:
+          en: "The dead volume confirms the breakout, because quiet moves are the strongest ones."
+          es: "El volumen muerto confirma la ruptura, porque los movimientos silenciosos son los más fuertes."
+      - id: d
+        text:
+          en: "Confluence needs every indicator bullish, so the flat RSI means you should short it."
+          es: "La confluencia exige que todos los indicadores sean alcistas, así que el RSI plano significa que debes ponerte corto."
+    explanation:
+      en: "Confluence means waiting for independent lenses — structure, indicator, volume — to agree. Here the level is fine but the volume is dead and the oscillator is flat, so they disagree, and the honest read is 'not yet.' It does not flip into a short signal; it simply tells you this break has not earned an entry."
+      es: "La confluencia consiste en esperar a que lentes independientes —estructura, indicador, volumen— coincidan. Aquí el nivel está bien, pero el volumen está muerto y el oscilador plano, así que discrepan, y la lectura honesta es 'todavía no'. No se convierte en una señal de corto; simplemente te dice que esta ruptura no se ha ganado una entrada."
+  - id: absorption-facts
+    kind: multi_select
+    prompt:
+      en: "You spot heavy volume at one price with almost no price movement — absorption. Select ALL the statements about it that are true."
+      es: "Detectas un volumen alto en un precio con casi ningún movimiento de precio: absorción. Selecciona TODAS las afirmaciones ciertas al respecto."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It shows up as heavy volume paired with a very small price range."
+          es: "Se manifiesta como un volumen alto junto con un rango de precio muy pequeño."
+      - id: b
+        correct: true
+        text:
+          en: "It often precedes a move in the direction of whoever did the absorbing."
+          es: "Suele preceder a un movimiento en la dirección de quien absorbió."
+      - id: c
+        text:
+          en: "It proves exactly who the large participant is and what they intend to do."
+          es: "Demuestra exactamente quién es el participante grande y qué pretende hacer."
+      - id: d
+        text:
+          en: "It means the market is illiquid, which is why price cannot move."
+          es: "Significa que el mercado es ilíquido, y por eso el precio no puede moverse."
+    explanation:
+      en: "Absorption is heavy volume with a tiny range — someone big quietly taking the other side of everything — and it often precedes a move their way. But it is a strong clue, not a receipt: you cannot see who it is or be sure of intent. And it is the opposite of illiquidity; it takes plenty of trading to hold price still against that pressure."
+      es: "La absorción es un volumen alto con un rango minúsculo —alguien grande tomando en silencio el otro lado de todo— y suele preceder a un movimiento en su dirección. Pero es una pista fuerte, no un recibo: no puedes ver quién es ni estar seguro de su intención. Y es lo contrario de la iliquidez: hace falta mucha negociación para mantener el precio quieto contra esa presión."

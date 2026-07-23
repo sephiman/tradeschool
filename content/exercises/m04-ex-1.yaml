@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: funding_payment
+prompt:
+  en: "You are holding a **{side}** perpetual position with a notional value of **{notional} USDT** when funding is charged. The funding rate is **{rate}**. What is your funding payment, in USDT? (A negative result means you RECEIVE funding.) Round to 2 decimals."
+  es: "Mantienes una posición perpetua **{side}** con un valor nocional de **{notional} USDT** cuando se cobra el funding. La tasa de funding es **{rate}**. ¿Cuál es tu pago de funding, en USDT? (Un resultado negativo significa que RECIBES funding.) Redondea a 2 decimales."
+params:
+  notional: { kind: int_range, min: 2000, max: 20000, step: 500 }
+  rate: { kind: choice, values: ["0.0001", "0.0005", "0.001", "-0.0004"] }
+  side: { kind: choice, values: ["long", "short"] }
+tolerance: { abs: "0.5" }
+round: 2
+unit: USDT
+explanation:
+  en: "Funding = notional × rate × (+1 for a long, −1 for a short). A positive result is money you pay out; a negative result is funding you receive. A positive rate means longs pay shorts, so a long pays and a short receives."
+  es: "Funding = nocional × tasa × (+1 si largo, −1 si corto). Un resultado positivo es dinero que pagas; uno negativo es funding que recibes. Una tasa positiva significa que los largos pagan a los cortos, así que un largo paga y un corto recibe."

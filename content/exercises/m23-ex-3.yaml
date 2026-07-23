@@ -1,0 +1,148 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: hot-streak
+    prompt:
+      en: "You're on a five-trade winning streak and feel like you're reading the market perfectly. You want to raise your leverage and size for the next trade. What should size be based on?"
+      es: "Llevas una racha de cinco operaciones ganadoras y sientes que estás leyendo el mercado a la perfección. Quieres subir tu apalancamiento y tu tamaño en la siguiente operación. ¿En qué debería basarse el tamaño?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A fixed percentage of account risk per trade, unchanged by your recent results or your mood."
+          es: "Un porcentaje fijo del riesgo de la cuenta por operación, sin que lo cambien tus resultados recientes ni tu estado de ánimo."
+      - id: b
+        text:
+          en: "A larger size — you should press your edge while you're clearly in the zone."
+          es: "Un tamaño mayor: hay que apretar tu ventaja mientras estás claramente en racha."
+      - id: c
+        text:
+          en: "A larger size, since the winning streak proves the current conditions suit your strategy."
+          es: "Un tamaño mayor, ya que la racha ganadora demuestra que las condiciones actuales le van bien a tu estrategia."
+      - id: d
+        text:
+          en: "Whatever size keeps the streak's compounding on track."
+          es: "El tamaño que sea para mantener el interés compuesto de la racha en marcha."
+    explanation:
+      en: "A short streak is mostly variance, and overconfidence feels exactly like competence from the inside. Size must be a fixed function of risk, not of recent results — otherwise one perfectly ordinary loss at the inflated size erases the streak and then some."
+      es: "Una racha corta es sobre todo varianza, y el exceso de confianza se siente exactamente igual que la competencia desde dentro. El tamaño debe ser una función fija del riesgo, no de los resultados recientes; de lo contrario, una sola pérdida perfectamente normal con el tamaño inflado borra la racha y algo más."
+  - id: why-dangerous
+    prompt:
+      en: "Why is a winning streak a dangerous moment for many traders?"
+      es: "¿Por qué una racha ganadora es un momento peligroso para muchos traders?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It feels like skill and tempts you to size up, so one normal loss at the inflated size wipes out the streak."
+          es: "Se siente como habilidad y te tienta a subir el tamaño, así que una pérdida normal con el tamaño inflado borra la racha."
+      - id: b
+        text:
+          en: "A streak proves your edge has grown, so a bigger size is now mathematically justified."
+          es: "Una racha demuestra que tu ventaja ha crecido, así que un tamaño mayor ya está justificado matemáticamente."
+      - id: c
+        text:
+          en: "Winning streaks always end in a crash, so you must stop trading entirely after three wins."
+          es: "Las rachas ganadoras siempre acaban en un desplome, así que hay que dejar de operar del todo tras tres ganancias."
+      - id: d
+        text:
+          en: "Exchanges quietly raise your fees after several consecutive wins."
+          es: "Los exchanges suben discretamente tus comisiones tras varias ganancias seguidas."
+    explanation:
+      en: "The danger is psychological: a hot streak feels like proof of skill and pulls you into oversizing. It does not prove your edge grew (b), it isn't a superstition about crashes (c), and exchanges don't penalize wins (d). Keep size fixed and let confidence, not position size, absorb the good run."
+      es: "El peligro es psicológico: una racha caliente se siente como prueba de habilidad y te arrastra a sobredimensionar. No demuestra que tu ventaja creciera (b), no es una superstición sobre desplomes (c) y los exchanges no penalizan las ganancias (d). Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
+  - id: edge-grew-myth
+    kind: true_false
+    prompt:
+      en: "A five-trade winning streak is good evidence that your edge has grown, so raising your size is justified."
+      es: "Una racha de cinco operaciones ganadoras es buena prueba de que tu ventaja ha crecido, así que subir el tamaño está justificado."
+    answer: false
+    explanation:
+      en: "A short streak is mostly variance, not proof your edge changed. Overconfidence is dangerous precisely because it feels like competence. Good results are allowed to change your confidence; they are not allowed to change your size."
+      es: "Una racha corta es sobre todo varianza, no una prueba de que tu ventaja cambiara. El exceso de confianza es peligroso precisamente porque se siente como competencia. A los buenos resultados se les permite cambiar tu confianza; no se les permite cambiar tu tamaño."
+  - id: sizing-habits
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the habits that keep a winning streak from blowing up your account."
+      es: "Selecciona TODOS los hábitos que evitan que una racha ganadora reviente tu cuenta."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Risking the same fixed percentage per trade regardless of the streak."
+          es: "Arriesgar el mismo porcentaje fijo por operación al margen de la racha."
+      - id: b
+        correct: true
+        text:
+          en: "Keeping leverage unchanged whether you're winning or losing."
+          es: "Mantener el apalancamiento igual tanto si ganas como si pierdes."
+      - id: c
+        correct: true
+        text:
+          en: "Letting good results change your confidence but not your position size."
+          es: "Dejar que los buenos resultados cambien tu confianza pero no el tamaño de tu posición."
+      - id: d
+        text:
+          en: "Pressing your edge with bigger size while you're 'in the zone'."
+          es: "Apretar tu ventaja con más tamaño mientras estás 'en racha'."
+      - id: e
+        text:
+          en: "Sizing up to keep the streak's compounding on track."
+          es: "Subir el tamaño para mantener el interés compuesto de la racha en marcha."
+      - id: f
+        text:
+          en: "Raising leverage because conditions clearly suit your strategy right now."
+          es: "Subir el apalancamiento porque las condiciones le van bien a tu estrategia ahora mismo."
+    explanation:
+      en: "The fix is to keep your mood out of your sizing entirely: a fixed percentage of account risk and unchanged leverage, on a five-win streak or a five-loss one. Options d, e and f are overconfidence talking — one ordinary loss at the inflated size erases the streak and then some."
+      es: "La solución es mantener tu estado de ánimo completamente fuera de tu tamaño: un porcentaje fijo del riesgo de la cuenta y el mismo apalancamiento, tanto en una racha de cinco ganancias como de cinco pérdidas. Las opciones d, e y f son el exceso de confianza hablando: una pérdida normal con el tamaño inflado borra la racha y algo más."
+  - id: variance-vs-skill
+    prompt:
+      en: "Why does a run of wins feel like skill even when it isn't a reason to size up?"
+      es: "¿Por qué una serie de ganancias se siente como habilidad aunque no sea motivo para subir el tamaño?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A short run is mostly variance, and overconfidence is dangerous precisely because it feels like competence."
+          es: "Una serie corta es sobre todo varianza, y el exceso de confianza es peligroso justo porque se siente como competencia."
+      - id: b
+        text:
+          en: "Wins in a row mathematically prove your win rate has permanently increased."
+          es: "Ganancias seguidas demuestran matemáticamente que tu tasa de acierto ha subido de forma permanente."
+      - id: c
+        text:
+          en: "The market rewards confidence, so acting bigger helps the streak continue."
+          es: "El mercado premia la confianza, así que actuar con más tamaño ayuda a que la racha continúe."
+      - id: d
+        text:
+          en: "A streak means you've temporarily removed risk, so larger size is safe."
+          es: "Una racha significa que has eliminado el riesgo temporalmente, así que un tamaño mayor es seguro."
+    explanation:
+      en: "From the inside, a hot streak feels like you've finally 'got it', but a handful of results is dominated by variance. It doesn't change your win rate (b), the market doesn't reward mood (c), and no streak removes risk (d). Keep size fixed and let confidence, not position size, absorb the good run."
+      es: "Desde dentro, una racha caliente parece que por fin 'lo has pillado', pero un puñado de resultados está dominado por la varianza. No cambia tu tasa de acierto (b), el mercado no premia el estado de ánimo (c) y ninguna racha elimina el riesgo (d). Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
+  - id: swing-oversize
+    prompt:
+      en: "You swing trade and just had your best month ever. You're tempted to put on a much larger position for the next swing. What does the module say?"
+      es: "Haces swing trading y acabas de tener tu mejor mes. Te tienta abrir una posición mucho mayor en el siguiente swing. ¿Qué dice el módulo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Keep size a fixed function of account risk; a good month may change your confidence, not your size."
+          es: "Mantén el tamaño como una función fija del riesgo de la cuenta; un buen mes puede cambiar tu confianza, no tu tamaño."
+      - id: b
+        text:
+          en: "A great month proves the strategy works, so scaling up size is the logical next step."
+          es: "Un gran mes demuestra que la estrategia funciona, así que subir el tamaño es el siguiente paso lógico."
+      - id: c
+        text:
+          en: "Bigger swings deserve bigger size to make the long wait worthwhile."
+          es: "Los swings grandes merecen más tamaño para que valga la pena la larga espera."
+      - id: d
+        text:
+          en: "Because swing trades are slower, oversizing is safer than it would be day trading."
+          es: "Como los swings son más lentos, sobredimensionar es más seguro que en el day trading."
+    explanation:
+      en: "Over-leverage after a good run is the same mistake in slow motion. A great month is still mostly the market's mood plus some variance; more time doesn't protect you, it just gives you more room to rationalize. Size stays a fixed function of risk regardless of how the last month went."
+      es: "Sobreapalancarse tras una buena racha es el mismo error a cámara lenta. Un gran mes sigue siendo sobre todo el humor del mercado más algo de varianza; más tiempo no te protege, solo te da más margen para racionalizar. El tamaño sigue siendo una función fija del riesgo, al margen de cómo fuera el último mes."

@@ -1,0 +1,181 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: wick-poke-is-fakeout
+    prompt:
+      en: "Price rises into a resistance zone, prints a candle with a long upper wick that pokes above the zone, then closes back below it. The next few candles stay below. What happened?"
+      es: "El precio sube hacia una zona de resistencia, imprime una vela con una mecha superior larga que asoma por encima de la zona y luego cierra de vuelta por debajo. Las siguientes velas se quedan por debajo. ¿Qué ha pasado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A fakeout — price poked beyond but closed back inside, so the break was rejected."
+          es: "Un fakeout: el precio asomó más allá pero cerró de vuelta dentro, así que la ruptura fue rechazada."
+      - id: b
+        text:
+          en: "A genuine breakout, because price did trade above the resistance."
+          es: "Una ruptura genuina, porque el precio sí operó por encima de la resistencia."
+      - id: c
+        text:
+          en: "A change of character, since the resistance was touched."
+          es: "Un cambio de carácter, ya que se tocó la resistencia."
+      - id: d
+        text:
+          en: "Confirmation that resistance has turned into support."
+          es: "Confirmación de que la resistencia se ha convertido en soporte."
+    explanation:
+      en: "A wick above the zone with a close back inside is the signature of a fakeout. Trading above intrabar is not a breakout; a breakout needs a candle body that closes beyond the level and holds there."
+      es: "Una mecha por encima de la zona con un cierre de vuelta dentro es la firma de un fakeout. Operar por encima de forma intradía no es una ruptura; una ruptura necesita un cuerpo de vela que cierre más allá del nivel y aguante ahí."
+  - id: strongest-breakout-evidence
+    prompt:
+      en: "Which of these is the strongest evidence that a break above a resistance zone is genuine rather than a fakeout?"
+      es: "¿Cuál de estas es la evidencia más fuerte de que una ruptura por encima de una zona de resistencia es genuina y no un fakeout?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A full candle body closes above the zone, price then retests it as support and holds, ideally on higher volume."
+          es: "Un cuerpo de vela entero cierra por encima de la zona, el precio la retestea luego como soporte y aguanta, idealmente con más volumen."
+      - id: b
+        text:
+          en: "Price wicks well above the zone intrabar, showing strong buying pressure."
+          es: "El precio deja una mecha muy por encima de la zona de forma intradía, mostrando fuerte presión compradora."
+      - id: c
+        text:
+          en: "RSI has pushed above 70, confirming the breakout with momentum."
+          es: "El RSI ha superado 70, confirmando la ruptura con momentum."
+      - id: d
+        text:
+          en: "The candle that crosses the zone is unusually large, even if it is bearish and closes lower."
+          es: "La vela que cruza la zona es inusualmente grande, aunque sea bajista y cierre más abajo."
+    explanation:
+      en: "A genuine breakout is confirmed by a close beyond the level that holds and retests, ideally with a volume increase — not by wicks, not by an overbought RSI (which often just means a strong move that can keep going or fail), and not by a large candle that closes back on the wrong side."
+      es: "Una ruptura genuina se confirma con un cierre más allá del nivel que aguanta y retestea, idealmente con un aumento de volumen; no con mechas, ni con un RSI sobrecomprado (que a menudo solo indica un movimiento fuerte que puede seguir o fallar), ni con una vela grande que cierra de vuelta en el lado equivocado."
+  - id: wick-breakout-myth
+    kind: true_false
+    prompt:
+      en: "A wick beyond a level is a confirmed breakout, even if the candle closes back inside the range."
+      es: "Una mecha más allá de un nivel es una ruptura confirmada, aunque la vela cierre de vuelta dentro del rango."
+    answer: false
+    explanation:
+      en: "False. A wick through a level is a rumour, not the news. A breakout needs a full candle body to close beyond the level and hold. A poke that closes back inside is the signature of a fakeout, not a confirmed breakout."
+      es: "Falso. Una mecha que atraviesa un nivel es un rumor, no la noticia. Una ruptura necesita que un cuerpo de vela entero cierre más allá del nivel y aguante. Un asomo que cierra de vuelta dentro es la firma de un fakeout, no de una ruptura confirmada."
+  - id: trustworthy-breakout-select
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that make a break above a resistance zone more trustworthy."
+      es: "Selecciona TODO lo que haga más fiable una ruptura por encima de una zona de resistencia."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A full candle body closes above the zone."
+          es: "Un cuerpo de vela entero cierra por encima de la zona."
+      - id: b
+        correct: true
+        text:
+          en: "Price retests the old resistance as support and holds."
+          es: "El precio retestea la vieja resistencia como soporte y aguanta."
+      - id: c
+        correct: true
+        text:
+          en: "The break happens on higher volume than the surrounding candles."
+          es: "La ruptura ocurre con más volumen que las velas de alrededor."
+      - id: d
+        text:
+          en: "A long upper wick pokes above the zone intrabar."
+          es: "Una mecha superior larga asoma por encima de la zona de forma intradía."
+      - id: e
+        text:
+          en: "RSI has climbed above 70."
+          es: "El RSI ha subido por encima de 70."
+    explanation:
+      en: "A trustworthy break shows a body closing beyond the level, a retest that holds, and ideally higher volume — real participation got price through. A lone intrabar wick and an overbought RSI are not confirmation; they often accompany fakeouts and strong-but-unfinished moves."
+      es: "Una ruptura fiable muestra un cuerpo que cierra más allá del nivel, un retest que aguanta e idealmente más volumen: hizo falta participación real para atravesarlo. Una mecha intradía suelta y un RSI sobrecomprado no son confirmación; a menudo acompañan a fakeouts y a movimientos fuertes pero sin terminar."
+  - id: sr-zone-not-line
+    prompt:
+      en: "You drew a support level; price stopped 0.3% short of it and then bounced hard. A beginner says 'support failed.' What is the better reading?"
+      es: "Trazaste un soporte; el precio se detuvo un 0,3% antes de él y luego rebotó con fuerza. Un principiante dice «el soporte ha fallado». ¿Cuál es la mejor lectura?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Support and resistance are zones, not pixel-thin lines; price reacted inside the band, so the zone did its job."
+          es: "Los soportes y las resistencias son zonas, no líneas finísimas; el precio reaccionó dentro de la banda, así que la zona hizo su trabajo."
+      - id: b
+        text:
+          en: "The support failed, because price never reached the exact line you drew."
+          es: "El soporte falló, porque el precio nunca llegó a la línea exacta que trazaste."
+      - id: c
+        text:
+          en: "The bounce was luck; a level only counts if price touches it to the tick."
+          es: "El rebote fue suerte; un nivel solo cuenta si el precio lo toca al tick exacto."
+      - id: d
+        text:
+          en: "You should redraw the line 0.3% higher every time this happens."
+          es: "Deberías volver a trazar la línea un 0,3% más arriba cada vez que pase esto."
+    explanation:
+      en: "A level is a band a few candles wide, not one exact number — different traders' orders sit at slightly different prices. Price reacting somewhere inside the zone and holding is the zone working, not failing."
+      es: "Un nivel es una banda de unas cuantas velas de ancho, no un número exacto: las órdenes de distintos traders están a precios ligeramente distintos. Que el precio reaccione en algún punto dentro de la zona y aguante es la zona funcionando, no fallando."
+  - id: breakout-fakeout-match
+    kind: matching
+    prompt:
+      en: "Match each price-structure term to its signature."
+      es: "Empareja cada término de estructura de precio con su firma."
+    pairs:
+      - id: bo
+        left:
+          en: "Genuine breakout"
+          es: "Ruptura genuina"
+        right:
+          en: "A full body closes beyond the level and holds, ideally retesting it"
+          es: "Un cuerpo entero cierra más allá del nivel y aguanta, idealmente retesteándolo"
+      - id: fk
+        left:
+          en: "Fakeout"
+          es: "Fakeout"
+        right:
+          en: "Price pokes beyond on a wick, then closes back inside the range"
+          es: "El precio asoma más allá con una mecha y luego cierra de vuelta dentro del rango"
+      - id: rt
+        left:
+          en: "Retest"
+          es: "Retest"
+        right:
+          en: "Price returns to the broken level, which now holds as new support or resistance"
+          es: "El precio vuelve al nivel roto, que ahora aguanta como nuevo soporte o resistencia"
+      - id: zn
+        left:
+          en: "Support/resistance zone"
+          es: "Zona de soporte/resistencia"
+        right:
+          en: "A band a few candles wide, not a single exact price"
+          es: "Una banda de unas cuantas velas de ancho, no un único precio exacto"
+    explanation:
+      en: "A genuine breakout closes beyond and holds; a fakeout pokes beyond on a wick and closes back inside. A retest is price returning to the broken level and finding it holds. And the level itself is always a zone — a band, not a line."
+      es: "Una ruptura genuina cierra más allá y aguanta; un fakeout asoma con una mecha y cierra de vuelta dentro. Un retest es el precio volviendo al nivel roto y encontrando que aguanta. Y el nivel en sí siempre es una zona: una banda, no una línea."
+  - id: wait-for-the-close
+    prompt:
+      en: "As price crosses a level in real time, what is the single most useful way to tell a breakout from a fakeout?"
+      es: "Cuando el precio cruza un nivel en tiempo real, ¿cuál es la forma más útil de distinguir una ruptura de un fakeout?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Wait for the candle to close beyond the level and hold, rather than reacting to the poke."
+          es: "Esperar a que la vela cierre más allá del nivel y aguante, en lugar de reaccionar al asomo."
+      - id: b
+        text:
+          en: "Enter the instant price ticks past the level, before other traders notice."
+          es: "Entrar en el instante en que el precio rebasa el nivel, antes de que otros traders se den cuenta."
+      - id: c
+        text:
+          en: "Judge it by how large the candle crossing the level is."
+          es: "Juzgarlo por lo grande que sea la vela que cruza el nivel."
+      - id: d
+        text:
+          en: "Check whether RSI is above 70 at the moment of the cross."
+          es: "Comprobar si el RSI está por encima de 70 en el momento del cruce."
+    explanation:
+      en: "Nobody can tell a breakout from a fakeout at the instant price crosses — the close beyond that holds (and often the retest) is the discriminator. Reacting to the poke is exactly what traps the traders caught by fakeouts."
+      es: "Nadie puede distinguir una ruptura de un fakeout en el instante en que el precio cruza: el cierre más allá que aguanta (y a menudo el retest) es el discriminador. Reaccionar al asomo es justo lo que atrapa a los traders que caen en los fakeouts."

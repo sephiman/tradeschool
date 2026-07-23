@@ -1,0 +1,148 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: extreme-fear-print
+    prompt:
+      en: "The index prints an extreme reading of 8 (extreme fear). What is the correct way to use it?"
+      es: "El índice marca una lectura extrema de 8 (miedo extremo). ¿Cuál es la forma correcta de usarla?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Treat it as a contrarian zone of interest and wait for your own confirmation (structure, a level) before entering — extremes can persist."
+          es: "Tratarla como una zona contraria de interés y esperar tu propia confirmación (estructura, un nivel) antes de entrar: los extremos pueden persistir."
+      - id: b
+        text:
+          en: "Buy immediately with size — an extreme reading is a precise entry trigger."
+          es: "Comprar de inmediato y con tamaño: una lectura extrema es un disparador preciso de entrada."
+      - id: c
+        text:
+          en: "Short immediately, since fear means price will keep falling from here."
+          es: "Cortar de inmediato, ya que el miedo significa que el precio seguirá cayendo desde aquí."
+      - id: d
+        text:
+          en: "Ignore it — sentiment is never useful for anything."
+          es: "Ignorarla: el sentimiento nunca sirve para nada."
+    explanation:
+      en: "An extreme reading marks a contrarian zone, not a moment. Extremes can stay extreme for weeks, so buying on the number alone (b) gets you run over. The number frames which side is dangerous; the entry still comes from your own confirmation."
+      es: "Una lectura extrema marca una zona contraria, no un momento. Los extremos pueden seguir siendo extremos durante semanas, así que comprar solo por el número (b) te arrolla. El número enmarca qué lado es peligroso; la entrada sigue viniendo de tu propia confirmación."
+  - id: zone-not-timing
+    prompt:
+      en: "Why is an extreme sentiment reading a zone rather than a timing trigger?"
+      es: "¿Por qué una lectura extrema de sentimiento es una zona y no un disparador de timing?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because extremes can persist for weeks or months while price keeps trending; sentiment shows which side is crowded, not when it will turn."
+          es: "Porque los extremos pueden persistir semanas o meses mientras el precio sigue en tendencia; el sentimiento muestra qué lado está saturado, no cuándo girará."
+      - id: b
+        text:
+          en: "Because the exact value (for example 90) pinpoints the top or bottom to the day."
+          es: "Porque el valor exacto (por ejemplo 90) señala el techo o el suelo al día concreto."
+      - id: c
+        text:
+          en: "Because the index updates too slowly to trade, yet the number still marks the precise reversal."
+          es: "Porque el índice se actualiza demasiado despacio para operar, aunque el número marca igualmente el giro preciso."
+      - id: d
+        text:
+          en: "Because sentiment only matters in stock markets, not in crypto."
+          es: "Porque el sentimiento solo importa en los mercados de acciones, no en cripto."
+    explanation:
+      en: "Extreme greed has lasted through entire bull runs and extreme fear through long bear markets. The reading tells you the crowd is lopsided and one side is dangerous — it says nothing about the exact moment of the turn, so the timing must come from your own tools."
+      es: "La codicia extrema ha durado rallies alcistas enteros y el miedo extremo, mercados bajistas largos. La lectura te dice que la masa está desequilibrada y que un lado es peligroso; no dice nada sobre el momento exacto del giro, así que el timing debe venir de tus propias herramientas."
+  - id: precise-trigger-myth
+    kind: true_false
+    prompt:
+      en: "An extreme sentiment reading is, by itself, a precise buy or sell trigger."
+      es: "Una lectura extrema de sentimiento es, por sí sola, un disparador preciso de compra o venta."
+    answer: false
+    explanation:
+      en: "This is the classic trap. An extreme reading marks a crowded, contrarian zone — never a moment. Extremes can persist for weeks or months, so the trigger must come from your own tools: structure, a level, confirmation."
+      es: "Esta es la trampa clásica. Una lectura extrema marca una zona contraria y saturada, nunca un momento. Los extremos pueden persistir semanas o meses, así que el disparador debe venir de tus propias herramientas: estructura, un nivel, confirmación."
+  - id: greed-persist-scenario
+    prompt:
+      en: "You short the first \"extreme greed\" print at 90, but price climbs another 40% over two months while greed stays extreme. What is the lesson?"
+      es: "Te pones corto en la primera lectura de \"codicia extrema\" en 90, pero el precio sube otro 40 % en dos meses mientras la codicia sigue extrema. ¿Cuál es la lección?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Extremes can persist; sentiment marks which side is crowded, not the moment it turns, so wait for your own confirmation."
+          es: "Los extremos pueden persistir; el sentimiento marca qué lado está saturado, no el momento en que gira, así que espera tu propia confirmación."
+      - id: b
+        text:
+          en: "The index lied and should be thrown away."
+          es: "El índice mintió y hay que tirarlo."
+      - id: c
+        text:
+          en: "You simply needed more leverage to survive the move."
+          es: "Solo necesitabas más apalancamiento para sobrevivir al movimiento."
+      - id: d
+        text:
+          en: "Extreme greed always means the top arrives that same day."
+          es: "La codicia extrema siempre significa que el techo llega ese mismo día."
+    explanation:
+      en: "Greed stayed extreme through entire bull runs. Shorting the first extreme print treats a zone as a moment — the exact mistake that gets contrarians run over. The reading was fine; the timing has to come from elsewhere."
+      es: "La codicia se ha mantenido extrema durante rallies alcistas enteros. Cortar en la primera lectura extrema trata una zona como un momento: justo el error que arrolla a los contrarios. La lectura estaba bien; el timing tiene que venir de otro sitio."
+  - id: where-trigger-comes-from
+    prompt:
+      en: "If sentiment only tells you which side is dangerous, where does the actual entry trigger come from?"
+      es: "Si el sentimiento solo te dice qué lado es peligroso, ¿de dónde viene el disparador real de entrada?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "From your own tools — structure, a level, confirmation."
+          es: "De tus propias herramientas: estructura, un nivel, confirmación."
+      - id: b
+        text:
+          en: "From the exact index number crossing a round value like 90 or 10."
+          es: "De que el número exacto del índice cruce un valor redondo como 90 o 10."
+      - id: c
+        text:
+          en: "From the loudest consensus on social media that day."
+          es: "Del consenso más ruidoso de las redes sociales ese día."
+      - id: d
+        text:
+          en: "From the index crossing back through 50."
+          es: "De que el índice vuelva a cruzar el 50."
+    explanation:
+      en: "Sentiment is context, not a signal generator. It frames which side is crowded and risky; the decision to actually enter still has to be confirmed by your own analysis of price and structure."
+      es: "El sentimiento es contexto, no un generador de señales. Enmarca qué lado está saturado y es arriesgado; la decisión de entrar de verdad todavía tiene que confirmarla tu propio análisis del precio y la estructura."
+  - id: correct-use-of-extreme
+    kind: multi_select
+    prompt:
+      en: "Select ALL the correct ways to use an extreme sentiment reading."
+      es: "Selecciona TODAS las formas correctas de usar una lectura extrema de sentimiento."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Treat it as a contrarian zone where risk/reward starts to shift."
+          es: "Tratarla como una zona contraria donde el riesgo/beneficio empieza a cambiar."
+      - id: b
+        correct: true
+        text:
+          en: "Get more careful on the crowded side — size down, tighten risk."
+          es: "Ser más prudente en el lado saturado: reducir tamaño, apretar el riesgo."
+      - id: c
+        correct: true
+        text:
+          en: "Wait for your own confirmation before entering."
+          es: "Esperar tu propia confirmación antes de entrar."
+      - id: d
+        text:
+          en: "Use the exact number as an entry button the instant it prints."
+          es: "Usar el número exacto como botón de entrada en cuanto aparece."
+      - id: e
+        text:
+          en: "Short the first extreme-greed print with full size."
+          es: "Cortar la primera lectura de codicia extrema con tamaño completo."
+      - id: f
+        text:
+          en: "Assume the reading pinpoints the turn to the exact day."
+          es: "Dar por hecho que la lectura señala el giro al día exacto."
+    explanation:
+      en: "An extreme reading is a zone, not a moment: use it to lean cautious on the crowded side and to look for setups, but let your own confirmation time the entry. Using the number as an instant entry button, shorting the first extreme print, or assuming it pinpoints the turn are all the trap that gets people run over."
+      es: "Una lectura extrema es una zona, no un momento: úsala para volverte prudente en el lado saturado y para buscar setups, pero deja que tu propia confirmación marque el momento de entrar. Usar el número como botón de entrada instantáneo, cortar en la primera lectura extrema o dar por hecho que señala el giro exacto son la trampa que arrolla a la gente."

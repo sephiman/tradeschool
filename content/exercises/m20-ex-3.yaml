@@ -1,0 +1,136 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: market-24-7-overnight
+    prompt:
+      en: "Crypto trades 24/7. What does that imply for a swing trader's open position overnight?"
+      es: "Cripto opera 24/7. ¿Qué implica eso para la posición abierta de un swing trader durante la noche?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It stays live while they sleep, so the stop and position size have to do the watching."
+          es: "Sigue viva mientras duerme, así que el stop y el tamaño de posición tienen que hacer la vigilancia."
+      - id: b
+        text:
+          en: "The exchange automatically closes it at midnight and reopens it in the morning."
+          es: "El exchange la cierra automáticamente a medianoche y la reabre por la mañana."
+      - id: c
+        text:
+          en: "Nothing — prices barely move outside normal business hours."
+          es: "Nada: los precios apenas se mueven fuera del horario laboral normal."
+      - id: d
+        text:
+          en: "Funding is paused overnight, so overnight risk is effectively lower."
+          es: "El funding se pausa por la noche, así que el riesgo nocturno es efectivamente menor."
+    explanation:
+      en: "There is no close and no session: the market runs while you sleep and the decisive move can land at 3 a.m. Since you cannot watch, the stop and the position size carry the risk for you."
+      es: "No hay cierre ni sesión: el mercado corre mientras duermes y el movimiento decisivo puede caer a las 3 de la madrugada. Como no puedes vigilar, el stop y el tamaño de posición cargan con el riesgo por ti."
+  - id: attention-scalping
+    prompt:
+      en: "Which style demands continuous, intense screen focus for the whole session?"
+      es: "¿Qué estilo exige concentración intensa y continua frente a la pantalla durante toda la sesión?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Scalping."
+          es: "Scalping."
+      - id: b
+        text:
+          en: "Swing trading."
+          es: "Swing trading."
+      - id: c
+        text:
+          en: "None — all three need only a quick check once a day."
+          es: "Ninguno: los tres solo necesitan un vistazo rápido una vez al día."
+      - id: d
+        text:
+          en: "All three demand exactly the same amount of attention."
+          es: "Los tres exigen exactamente la misma atención."
+    explanation:
+      en: "Scalping means fast, frequent decisions and unbroken focus for the session. Swing trading takes only minutes a day to manage; its hard part is patience, not continuous attention."
+      es: "El scalping son decisiones rápidas y frecuentes y foco ininterrumpido durante la sesión. El swing trading solo ocupa unos minutos al día de gestión; su parte difícil es la paciencia, no la atención continua."
+  - id: style-attention-match
+    kind: matching
+    prompt:
+      en: "Match each style to the kind of attention and temperament it asks for."
+      es: "Empareja cada estilo con el tipo de atención y temperamento que pide."
+    pairs:
+      - id: scalp
+        left: { en: "Scalping", es: "Scalping" }
+        right:
+          en: "Continuous, intense focus and fast execution for the whole session."
+          es: "Concentración intensa y continua y ejecución rápida durante toda la sesión."
+      - id: day
+        left: { en: "Day trading", es: "Day trading" }
+        right:
+          en: "A few hours of concentrated attention, then close out and walk away."
+          es: "Unas horas de atención concentrada y luego cerrar y marcharse."
+      - id: swing
+        left: { en: "Swing trading", es: "Swing trading" }
+        right:
+          en: "Minutes a day to manage, but the patience to hold overnight without meddling."
+          es: "Unos minutos al día de gestión, pero la paciencia para mantener de un día para otro sin trastear."
+    explanation:
+      en: "Each style asks for a different slice of your life: scalping wants unbroken focus and reflexes, day trading a concentrated few hours and the discipline to stop, and swing trading little screen time but the patience to sit with open risk."
+      es: "Cada estilo pide una porción distinta de tu vida: el scalping quiere foco ininterrumpido y reflejos, el day trading unas horas concentradas y la disciplina de parar, y el swing trading poco tiempo de pantalla pero la paciencia de convivir con el riesgo abierto."
+  - id: rely-on-watching-overnight
+    kind: true_false
+    prompt:
+      en: "True or false: because crypto trades 24/7, a swing trader can count on being awake to react to every important move."
+      es: "Verdadero o falso: como cripto opera 24/7, un swing trader puede contar con estar despierto para reaccionar a cada movimiento importante."
+    answer: false
+    explanation:
+      en: "False. The 24/7 clock cuts the other way: the move that matters can happen at 3 a.m. in your timezone, when you cannot watch. That is exactly why the stop and the position size have to do the watching for you."
+      es: "Falso. El reloj 24/7 corta en sentido contrario: el movimiento que importa puede ocurrir a las 3 de la madrugada en tu zona horaria, cuando no puedes vigilar. Por eso justamente el stop y el tamaño de posición tienen que vigilar por ti."
+  - id: day-trader-invent-session
+    prompt:
+      en: "Crypto never closes. What does the lesson say a day trader must do about their session?"
+      es: "Cripto nunca cierra. ¿Qué dice la lección que un day trader debe hacer con su sesión?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Invent their own session and stop when it ends, instead of drifting into a marathon."
+          es: "Inventarse su propia sesión y parar cuando termina, en vez de derivar en un maratón."
+      - id: b
+        text:
+          en: "Wait for the official market open and close, like on a stock exchange."
+          es: "Esperar la apertura y el cierre oficiales del mercado, como en una bolsa de valores."
+      - id: c
+        text:
+          en: "Trade around the clock so they never miss a move."
+          es: "Operar las 24 horas para no perderse ningún movimiento."
+      - id: d
+        text:
+          en: "Only trade during the hours the New York stock market is open."
+          es: "Operar solo durante las horas en que está abierta la bolsa de Nueva York."
+    explanation:
+      en: "Because there is no closing bell, a day trader has to invent their own session and, crucially, stop when it ends — not wait for an open that never comes, and not slide into a 14-hour screen marathon."
+      es: "Como no hay campana de cierre, un day trader tiene que inventarse su propia sesión y, sobre todo, parar cuando termina; no esperar una apertura que nunca llega, ni derivar en un maratón de 14 horas frente a la pantalla."
+  - id: always-can-overtrade
+    prompt:
+      en: "The lesson calls the 24/7 clock 'freedom and trap in one.' What is the trap?"
+      es: "La lección llama al reloj 24/7 'libertad y trampa a la vez'. ¿Cuál es la trampa?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because you can always trade, you can always over-trade."
+          es: "Como siempre puedes operar, siempre puedes sobreoperar."
+      - id: b
+        text:
+          en: "Fees are charged at a higher rate during the night hours."
+          es: "Las comisiones se cobran a una tasa más alta durante las horas nocturnas."
+      - id: c
+        text:
+          en: "The exchange forces you to keep at least one position open at all times."
+          es: "El exchange te obliga a mantener al menos una posición abierta en todo momento."
+      - id: d
+        text:
+          en: "Prices only make their big moves while you are asleep."
+          es: "Los precios solo hacen sus grandes movimientos mientras duermes."
+    explanation:
+      en: "A market with no close means opportunity is always 'on' — and so is the temptation. The freedom to trade at any hour is the same thing as the freedom to over-trade at any hour."
+      es: "Un mercado sin cierre significa que la oportunidad siempre está 'encendida', y también la tentación. La libertad de operar a cualquier hora es lo mismo que la libertad de sobreoperar a cualquier hora."

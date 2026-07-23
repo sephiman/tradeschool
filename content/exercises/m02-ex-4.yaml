@@ -1,0 +1,157 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: api-key-scope
+    prompt:
+      en: "You want to connect a portfolio tracker that only needs to read your balances. What kind of API key should you give it?"
+      es: "Quieres conectar un tracker de cartera que solo necesita leer tus saldos. ¿Qué tipo de API key deberías darle?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A read-only key, with trading and withdrawals disabled."
+          es: "Una clave de solo lectura, con el trading y los retiros desactivados."
+      - id: b
+        text:
+          en: "A full-access key — it is simpler, and you can just trust the app."
+          es: "Una clave de acceso total: es más simple y basta con confiar en la app."
+      - id: c
+        text:
+          en: "A key with withdrawals enabled, so it can move funds around for you."
+          es: "Una clave con los retiros activados, para que pueda mover fondos por ti."
+      - id: d
+        text:
+          en: "Your account password, since API keys are less secure than a password."
+          es: "La contraseña de tu cuenta, ya que las API keys son menos seguras que una contraseña."
+    explanation:
+      en: "Grant the least access the tool needs: read-only is enough to show balances. A key that can trade or withdraw is a spare key to your funds, and you never share your account password."
+      es: "Concede el mínimo acceso que necesita la herramienta: solo lectura basta para mostrar saldos. Una clave que puede operar o retirar es una copia de la llave de tus fondos, y la contraseña de la cuenta no se comparte nunca."
+  - id: 2fa-whitelist
+    prompt:
+      en: "Which pair of measures best protects a CEX account?"
+      es: "¿Qué par de medidas protege mejor una cuenta de un CEX?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "App-based 2FA together with a withdrawal address whitelist."
+          es: "2FA con app de autenticación junto con una lista blanca de direcciones de retiro."
+      - id: b
+        text:
+          en: "SMS-based 2FA plus a very long password."
+          es: "2FA por SMS más una contraseña muy larga."
+      - id: c
+        text:
+          en: "A full-access API key plus email alerts on every login."
+          es: "Una API key de acceso total más alertas por correo en cada inicio de sesión."
+      - id: d
+        text:
+          en: "Reusing a strong password that already protects your email."
+          es: "Reutilizar una contraseña fuerte que ya protege tu correo."
+    explanation:
+      en: "App-based 2FA resists SIM-swap attacks (which defeat SMS), and a withdrawal whitelist stops an intruder sending coins to a new address. Reused passwords and full-access keys add exposure, not protection."
+      es: "El 2FA con app resiste los ataques de SIM-swap (que vencen al SMS), y una lista blanca de retiros impide que un intruso envíe monedas a una dirección nueva. Reutilizar contraseñas y las claves de acceso total añaden exposición, no protección."
+  - id: sms-2fa-myth
+    kind: true_false
+    prompt:
+      en: "SMS text-message 2FA is the strongest form of two-factor authentication you can use on a CEX."
+      es: "El 2FA por SMS es la forma más fuerte de autenticación de dos factores que puedes usar en un CEX."
+    answer: false
+    explanation:
+      en: "SMS is the weakest common option: SIM-swap attacks let someone hijack your number and receive the codes. An authenticator app is the stronger default."
+      es: "El SMS es la opción común más débil: los ataques de SIM-swap permiten a alguien secuestrar tu número y recibir los códigos. Una app de autenticación es el criterio por defecto más fuerte."
+  - id: security-practices
+    kind: multi_select
+    prompt:
+      en: "Select ALL practices that genuinely reduce the risk to a CEX account."
+      es: "Selecciona TODAS las prácticas que reducen de verdad el riesgo de una cuenta de un CEX."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "App-based (authenticator) 2FA."
+          es: "2FA con app de autenticación."
+      - id: b
+        correct: true
+        text:
+          en: "A withdrawal address whitelist."
+          es: "Una lista blanca de direcciones de retiro."
+      - id: c
+        correct: true
+        text:
+          en: "A read-only API key for a portfolio tracker."
+          es: "Una API key de solo lectura para un tracker de cartera."
+      - id: d
+        text:
+          en: "Reusing your email password so it's easy to remember."
+          es: "Reutilizar la contraseña de tu correo para acordarte fácil."
+      - id: e
+        text:
+          en: "An API key with withdrawals enabled, for convenience."
+          es: "Una API key con los retiros activados, por comodidad."
+    explanation:
+      en: "App 2FA, a withdrawal whitelist and least-privilege (read-only) API keys all limit the damage from a single failure. Reused passwords and withdrawal-capable keys add exposure, not protection."
+      es: "El 2FA con app, una lista blanca de retiros y las API keys de mínimo privilegio (solo lectura) limitan el daño de un solo fallo. Reutilizar contraseñas y las claves con retiros activados añaden exposición, no protección."
+  - id: measure-threat-match
+    kind: matching
+    prompt:
+      en: "Match each security measure to the threat it limits."
+      es: "Empareja cada medida de seguridad con la amenaza que limita."
+    pairs:
+      - id: app2fa
+        left: { en: "Authenticator-app 2FA", es: "2FA con app de autenticación" }
+        right:
+          en: "Resists the SIM-swap attacks that defeat SMS codes"
+          es: "Resiste los ataques de SIM-swap que vencen a los códigos por SMS"
+      - id: whitelist
+        left: { en: "Withdrawal address whitelist", es: "Lista blanca de direcciones de retiro" }
+        right:
+          en: "Stops an intruder sending coins to a new address"
+          es: "Impide que un intruso envíe monedas a una dirección nueva"
+      - id: readonly
+        left: { en: "Read-only API key", es: "API key de solo lectura" }
+        right:
+          en: "A leaked key still can't trade or withdraw"
+          es: "Una clave filtrada aún no puede operar ni retirar"
+      - id: unique-pw
+        left: { en: "A unique password per site", es: "Una contraseña única por sitio" }
+        right:
+          en: "One leaked site can't unlock your exchange"
+          es: "Un sitio filtrado no puede abrir tu exchange"
+    explanation:
+      en: "Each measure targets a specific failure: app 2FA vs SIM-swap, a whitelist vs rogue withdrawals, a read-only key vs a leaked key, and unique passwords vs credential reuse."
+      es: "Cada medida ataca un fallo concreto: el 2FA con app frente al SIM-swap, la lista blanca frente a retiros no autorizados, la clave de solo lectura frente a una clave filtrada, y las contraseñas únicas frente a la reutilización de credenciales."
+  - id: withdrawal-whitelist-use
+    prompt:
+      en: "What does a withdrawal address whitelist actually protect you from?"
+      es: "¿De qué te protege en realidad una lista blanca de direcciones de retiro?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "An attacker who gets into your account still can't send coins to a new, unapproved address."
+          es: "Un atacante que entre en tu cuenta aún no puede enviar monedas a una dirección nueva y no aprobada."
+      - id: b
+        text:
+          en: "It hides your balance from other users on the exchange."
+          es: "Oculta tu saldo a los demás usuarios del exchange."
+      - id: c
+        text:
+          en: "It lowers the fees you pay when you withdraw."
+          es: "Reduce las comisiones que pagas al retirar."
+      - id: d
+        text:
+          en: "It automatically reverses any withdrawal you regret."
+          es: "Revierte automáticamente cualquier retiro del que te arrepientas."
+    explanation:
+      en: "A whitelist locks withdrawals to addresses you pre-approved, ideally with a delay on new ones. Even an intruder in your account can't route coins somewhere new."
+      es: "Una lista blanca limita los retiros a direcciones que aprobaste de antemano, idealmente con un retardo para las nuevas. Ni siquiera un intruso en tu cuenta puede desviar monedas a un sitio nuevo."
+  - id: api-withdraw-tf
+    kind: true_false
+    prompt:
+      en: "An API key with withdrawals enabled is safe to hand to any third-party app you like the look of."
+      es: "Una API key con los retiros activados se puede dar sin problema a cualquier app de terceros que te dé buena espina."
+    answer: false
+    explanation:
+      en: "An API key that can withdraw is a spare key to your funds: if the app is malicious or gets breached, your coins can leave. Give tools the least access they need — read-only, or trade-only with withdrawals disabled."
+      es: "Una API key que puede retirar es una copia de la llave de tus fondos: si la app es maliciosa o sufre una brecha, tus monedas pueden salir. Da a las herramientas el mínimo acceso que necesitan: solo lectura, o solo trading con los retiros desactivados."

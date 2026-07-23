@@ -1,0 +1,165 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: gross-vs-net-2pct
+    prompt:
+      en: "The price of your long moved +2% from entry to exit. You paid a taker fee on both fills plus some funding while it was open. Compared with that +2% gross move, your net PnL on the trade is:"
+      es: "El precio de tu long se movió +2 % de la entrada a la salida. Pagaste comisión taker en ambas ejecuciones más algo de funding mientras estuvo abierta. Comparado con ese movimiento bruto de +2 %, tu PnL neto en la operación es:"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Smaller — the two fees and the funding are subtracted from the gross move."
+          es: "Menor: las dos comisiones y el funding se restan del movimiento bruto."
+      - id: b
+        text:
+          en: "Equal to +2% — the price move is exactly your PnL."
+          es: "Igual a +2 %: el movimiento del precio es exactamente tu PnL."
+      - id: c
+        text:
+          en: "Larger, because funding always pays you for holding a long."
+          es: "Mayor, porque el funding siempre te paga por mantener un long."
+      - id: d
+        text:
+          en: "Impossible to say without knowing your win rate."
+          es: "Imposible de saber sin conocer tu tasa de acierto."
+    explanation:
+      en: "The +2% is the gross price move. Net keeps that move minus the open fee, minus the close fee, minus any funding. It is normally below the gross, and on a small move fees alone can turn a winner into a loser. Funding can be positive or negative — it does not 'always' pay longs."
+      es: "El +2 % es el movimiento bruto del precio. El neto conserva ese movimiento menos la comisión de apertura, menos la de cierre, menos cualquier funding. Normalmente queda por debajo del bruto, y en un movimiento pequeño las comisiones por sí solas pueden convertir una ganadora en perdedora. El funding puede ser positivo o negativo: no 'siempre' paga a los longs."
+  - id: maker-vs-taker
+    prompt:
+      en: "You want to minimise trading fees on a position you're in no hurry to open. Which statement about maker vs taker fees is correct?"
+      es: "Quieres minimizar comisiones en una posición que no tienes prisa por abrir. ¿Qué afirmación sobre las comisiones maker vs taker es correcta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A resting limit order (maker) adds liquidity and is charged the lower rate; a market order (taker) removes liquidity and pays more."
+          es: "Una orden límite en espera (maker) aporta liquidez y paga la tarifa más baja; una orden a mercado (taker) retira liquidez y paga más."
+      - id: b
+        text:
+          en: "Taker orders are cheaper because they execute instantly."
+          es: "Las órdenes taker son más baratas porque se ejecutan al instante."
+      - id: c
+        text:
+          en: "Maker and taker fees are identical; the label only affects execution speed."
+          es: "Las comisiones maker y taker son idénticas; la etiqueta solo afecta a la velocidad de ejecución."
+      - id: d
+        text:
+          en: "Fees are charged on your margin, so using low leverage keeps them low."
+          es: "Las comisiones se cobran sobre tu margen, así que usar poco apalancamiento las mantiene bajas."
+    explanation:
+      en: "Maker orders (resting limit orders) add liquidity and get the lower rate; takers (market orders) remove it and pay more. Fees are charged on notional, not on margin — so leverage increases them; it doesn't dodge them."
+      es: "Las órdenes maker (límites en espera) aportan liquidez y consiguen la tarifa más baja; las taker (a mercado) la retiran y pagan más. Las comisiones se cobran sobre el notional, no sobre el margen: el apalancamiento las aumenta, no las esquiva."
+  - id: two-pct-is-not-pnl
+    kind: true_false
+    prompt:
+      en: "\"The price of my long moved +2% from entry to exit, so my net PnL on the trade is +2%.\""
+      es: "«El precio de mi long se movió +2 % de la entrada a la salida, así que mi PnL neto en la operación es +2 %.»"
+    answer: false
+    explanation:
+      en: "The +2% is the gross price move. Your net keeps that move minus the open fee, minus the close fee, minus any funding — normally less than the gross, and on a small move the fees alone can turn it negative."
+      es: "El +2 % es el movimiento bruto del precio. Tu neto conserva ese movimiento menos la comisión de apertura, menos la de cierre, menos cualquier funding: normalmente menos que el bruto, y en un movimiento pequeño las comisiones por sí solas pueden dejarlo en negativo."
+  - id: fee-terms-match
+    kind: matching
+    prompt:
+      en: "Match each term to what it describes."
+      es: "Empareja cada término con lo que describe."
+    pairs:
+      - id: maker
+        left:
+          en: "Maker fee"
+          es: "Comisión maker"
+        right:
+          en: "The lower rate, charged when a resting limit order adds liquidity to the book."
+          es: "La tarifa más baja, cobrada cuando una orden límite en espera aporta liquidez al libro."
+      - id: taker
+        left:
+          en: "Taker fee"
+          es: "Comisión taker"
+        right:
+          en: "The higher rate, charged when a market order removes liquidity."
+          es: "La tarifa más alta, cobrada cuando una orden a mercado retira liquidez."
+      - id: notional
+        left:
+          en: "Notional"
+          es: "Notional"
+        right:
+          en: "Position size × price — the base the fee is charged on, not your margin."
+          es: "Tamaño de la posición × precio: la base sobre la que se cobra la comisión, no tu margen."
+      - id: funding
+        left:
+          en: "Funding"
+          es: "Funding"
+        right:
+          en: "A periodic payment between longs and shorts that can be positive or negative."
+          es: "Un pago periódico entre longs y shorts que puede ser positivo o negativo."
+    explanation:
+      en: "Makers add liquidity and pay less; takers remove it and pay more. Fees are charged on notional (so leverage multiplies them), and funding is a separate periodic transfer that can go either way."
+      es: "Los maker aportan liquidez y pagan menos; los taker la retiran y pagan más. Las comisiones se cobran sobre el notional (así que el apalancamiento las multiplica), y el funding es una transferencia periódica aparte que puede ir en cualquier dirección."
+  - id: what-reduces-net
+    kind: multi_select
+    prompt:
+      en: "For a long trade that closed in profit, select ALL of the following that reduced your net result versus the gross price move."
+      es: "En una operación long que cerró en ganancia, selecciona TODO lo siguiente que redujo tu resultado neto frente al movimiento bruto del precio."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The fee paid to open the position."
+          es: "La comisión pagada al abrir la posición."
+      - id: b
+        correct: true
+        text:
+          en: "The fee paid to close the position."
+          es: "La comisión pagada al cerrar la posición."
+      - id: c
+        correct: true
+        text:
+          en: "Funding you paid while the position was open."
+          es: "El funding que pagaste mientras la posición estuvo abierta."
+      - id: d
+        text:
+          en: "The gross upward move in the price."
+          es: "El movimiento bruto al alza del precio."
+      - id: e
+        text:
+          en: "A take-profit order you placed that never filled."
+          es: "Una orden de take-profit que colocaste y que nunca se ejecutó."
+    explanation:
+      en: "Net = gross move − open fee − close fee − funding paid. The gross move is the source of the profit, not a deduction, and an unfilled order costs nothing. Fees (paid twice) and funding are the real drags."
+      es: "Neto = movimiento bruto − comisión de apertura − comisión de cierre − funding pagado. El movimiento bruto es la fuente de la ganancia, no un descuento, y una orden que no se ejecuta no cuesta nada. Las comisiones (pagadas dos veces) y el funding son el lastre real."
+  - id: paid-twice
+    prompt:
+      en: "Your taker fee is 0.05%, charged on notional. You open and later close a position with 10,000 USDT of notional on each fill. Ignoring the price change, roughly how much do you pay in fees over the round trip?"
+      es: "Tu comisión taker es del 0,05 %, cobrada sobre el notional. Abres y más tarde cierras una posición con 10 000 USDT de notional en cada ejecución. Ignorando el cambio de precio, ¿cuánto pagas aproximadamente en comisiones en el ida y vuelta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "About 10 USDT — 5 to open and 5 to close, because the fee is charged on both fills."
+          es: "Unos 10 USDT: 5 al abrir y 5 al cerrar, porque la comisión se cobra en ambas ejecuciones."
+      - id: b
+        text:
+          en: "About 5 USDT — you pay the fee once per position."
+          es: "Unos 5 USDT: pagas la comisión una vez por posición."
+      - id: c
+        text:
+          en: "Nothing until you close, and only if the trade is profitable."
+          es: "Nada hasta que cierras, y solo si la operación es rentable."
+      - id: d
+        text:
+          en: "It depends on your leverage — higher leverage means lower fees."
+          es: "Depende de tu apalancamiento: más apalancamiento significa comisiones más bajas."
+    explanation:
+      en: "0.05% of 10,000 is 5 USDT per fill, and you pay it on both the open and the close, so about 10 USDT round trip. The fee is on notional regardless of profit, and leverage raises fees (bigger notional); it doesn't lower them."
+      es: "El 0,05 % de 10 000 son 5 USDT por ejecución, y lo pagas tanto al abrir como al cerrar, así que unos 10 USDT en el ida y vuelta. La comisión es sobre el notional independientemente de la ganancia, y el apalancamiento sube las comisiones (más notional); no las baja."
+  - id: funding-not-always-longs
+    kind: true_false
+    prompt:
+      en: "Funding always pays you for holding a long position."
+      es: "El funding siempre te paga por mantener una posición long."
+    answer: false
+    explanation:
+      en: "Funding can be positive or negative. When the rate is positive, longs pay shorts; when it's negative, longs receive. It is not a reward for being long — it depends on which side the market is crowding into."
+      es: "El funding puede ser positivo o negativo. Cuando la tasa es positiva, los longs pagan a los shorts; cuando es negativa, los longs cobran. No es una recompensa por ir long: depende de hacia qué lado se amontona el mercado."

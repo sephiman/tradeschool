@@ -1,0 +1,148 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: why-they-work
+    prompt:
+      en: "Why do Fibonacci retracement levels have any predictive value in markets at all?"
+      es: "¿Por qué tienen los niveles de retroceso de Fibonacci algún valor predictivo en los mercados?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Largely because so many traders watch the same levels and place orders there (self-fulfilling), and because they add confluence with real structure like prior support."
+          es: "En gran parte porque muchísimos traders vigilan los mismos niveles y colocan órdenes ahí (autocumplido), y porque aportan confluencia con estructura real como un soporte previo."
+      - id: b
+        text:
+          en: "Because the golden ratio governs natural growth, so it must govern price too."
+          es: "Porque el número áureo rige el crecimiento natural, así que debe regir también el precio."
+      - id: c
+        text:
+          en: "Because price is mathematically forced to respect 61.8% of any move."
+          es: "Porque el precio está obligado matemáticamente a respetar el 61,8 % de cualquier movimiento."
+      - id: d
+        text:
+          en: "Because exchanges program the levels into the matching engine."
+          es: "Porque los exchanges programan los niveles en el motor de emparejamiento."
+    explanation:
+      en: "There is no mechanism forcing a market to respect a ratio. The levels do something because a crowd watches them (self-fulfilling) and because they can coincide with structure that already mattered — never because a spiral in a sunflower controls order flow."
+      es: "No hay ningún mecanismo que obligue a un mercado a respetar una ratio. Los niveles hacen algo porque una multitud los vigila (autocumplido) y porque pueden coincidir con estructura que ya importaba, nunca porque una espiral en un girasol controle el flujo de órdenes."
+  - id: golden-pullback
+    prompt:
+      en: "Which statement about the 0.618 'golden' pullback is correct?"
+      es: "¿Qué afirmación sobre el retroceso 'dorado' del 0,618 es correcta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It marks a zone where a reversal becomes more likely; treat it as confluence and wait for price to react, since it often overshoots or falls short."
+          es: "Marca una zona donde un giro se vuelve más probable; trátalo como confluencia y espera a que el precio reaccione, ya que suele pasarse o quedarse corto."
+      - id: b
+        text:
+          en: "Price must reverse exactly at the 0.618 level."
+          es: "El precio tiene que girar exactamente en el nivel 0,618."
+      - id: c
+        text:
+          en: "In an uptrend the 0.618 always holds; a break through it never happens."
+          es: "En una tendencia alcista el 0,618 siempre aguanta; nunca se rompe."
+      - id: d
+        text:
+          en: "The 0.618 is only valid if no other support or resistance is nearby."
+          es: "El 0,618 solo es válido si no hay ningún otro soporte o resistencia cerca."
+    explanation:
+      en: "0.618 is a zone, not a laser line: price routinely wicks past it or stops short. It is strongest as confluence with other structure, and it should be confirmed by a real reaction — not traded as a point where a turn is guaranteed."
+      es: "El 0,618 es una zona, no una línea de láser: el precio suele mechar más allá o quedarse corto. Es más fuerte como confluencia con otra estructura y debe confirmarse con una reacción real, no operarse como un punto donde el giro esté garantizado."
+  - id: exact-reversal
+    kind: true_false
+    prompt:
+      en: "Price must reverse exactly at the 0.618 level."
+      es: "El precio tiene que girar exactamente en el nivel 0,618."
+    answer: false
+    explanation:
+      en: "0.618 is a zone, not a laser line. Price routinely overshoots, wicks through, or stops short. Read it as 'a reversal is more likely around here' and wait for a real reaction — a stop placed one tick beyond a 'perfect' turn gets taken out by normal noise."
+      es: "El 0,618 es una zona, no una línea de láser. El precio se pasa de largo, mecha a través o se queda corto con toda naturalidad. Léelo como 'aquí es más probable un giro' y espera una reacción real: un stop puesto un tick más allá de un giro 'perfecto' lo saca el ruido normal."
+  - id: reasons-work
+    kind: multi_select
+    prompt:
+      en: "Select ALL the reasons a Fibonacci level can actually produce a reaction in price."
+      es: "Selecciona TODAS las razones por las que un nivel de Fibonacci puede producir realmente una reacción en el precio."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A crowd of traders and algos watch the same level and rest orders there (self-fulfilling)."
+          es: "Una multitud de traders y algoritmos vigilan el mismo nivel y dejan órdenes ahí (autocumplido)."
+      - id: b
+        correct: true
+        text:
+          en: "It coincides with structure that already mattered, like prior support or a round number (confluence)."
+          es: "Coincide con estructura que ya importaba, como un soporte previo o un número redondo (confluencia)."
+      - id: c
+        text:
+          en: "The golden ratio governs natural growth, so it must govern order flow too."
+          es: "El número áureo rige el crecimiento natural, así que debe regir también el flujo de órdenes."
+      - id: d
+        text:
+          en: "Exchanges program the levels into the matching engine."
+          es: "Los exchanges programan los niveles en el motor de emparejamiento."
+    explanation:
+      en: "Fib levels do something for two honest reasons: a watching crowd makes them briefly self-fulfilling, and they gain weight when they overlap real structure. No sunflower spiral and no exchange code forces price to a ratio."
+      es: "Los niveles de fib hacen algo por dos razones honestas: una multitud que los vigila los vuelve autocumplidos por un momento, y ganan peso cuando se solapan con estructura real. Ninguna espiral de girasol ni código de exchange obliga al precio a una ratio."
+  - id: no-guarantee
+    kind: true_false
+    prompt:
+      en: "There is a real mechanism in the market that forces price to respect 61.8% of a move."
+      es: "Existe un mecanismo real en el mercado que obliga al precio a respetar el 61,8 % de un movimiento."
+    answer: false
+    explanation:
+      en: "Nothing forces a market to a ratio — prices are set by orders, not by a spiral in a sunflower. Fib levels only do something because a crowd watches them and because they can line up with structure that already mattered."
+      es: "Nada obliga a un mercado a una ratio: los precios los fijan las órdenes, no una espiral en un girasol. Los niveles de fib solo hacen algo porque una multitud los vigila y porque pueden coincidir con estructura que ya importaba."
+  - id: fib-alone
+    prompt:
+      en: "You spot a 0.618 level sitting in open space, with no prior support, round number, or moving average anywhere near it. How much weight should it carry?"
+      es: "Detectas un nivel 0,618 en espacio abierto, sin ningún soporte previo, número redondo ni media móvil cerca. ¿Cuánto peso debería tener?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Little on its own — a lone fib is a guess; it becomes a setup only when it lines up with real structure and price reacts."
+          es: "Poco por sí solo: un fib aislado es una conjetura; se convierte en setup solo cuando coincide con estructura real y el precio reacciona."
+      - id: b
+        text:
+          en: "Full weight — 0.618 is the golden level, so it works wherever it lands."
+          es: "Todo el peso: el 0,618 es el nivel dorado, así que funciona caiga donde caiga."
+      - id: c
+        text:
+          en: "None ever — fib levels are useless unless an indicator confirms them."
+          es: "Ninguno nunca: los niveles de fib son inútiles salvo que un indicador los confirme."
+      - id: d
+        text:
+          en: "It guarantees a bounce as long as the trend is up."
+          es: "Garantiza un rebote mientras la tendencia sea alcista."
+    explanation:
+      en: "A fib in empty space is just a line; it did not create anything. Its value comes from confluence — sitting on a level that already mattered — plus a real reaction from price. Alone, treat it as a low-confidence guess."
+      es: "Un fib en espacio vacío es solo una línea; no creó nada. Su valor viene de la confluencia —caer sobre un nivel que ya importaba— más una reacción real del precio. Solo, trátalo como una conjetura de baja confianza."
+  - id: stop-at-618
+    prompt:
+      en: "You expect a bounce near the 0.618 pullback and want to act sensibly. What is the best approach?"
+      es: "Esperas un rebote cerca del retroceso 0,618 y quieres actuar con sensatez. ¿Cuál es el mejor enfoque?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Treat the level as an alert: wait for price to react there before committing, and give the zone room instead of a one-tick stop."
+          es: "Trata el nivel como un aviso: espera a que el precio reaccione ahí antes de comprometerte y da margen a la zona en vez de un stop de un tick."
+      - id: b
+        text:
+          en: "Put a limit buy exactly at 0.618 with a stop one tick below it."
+          es: "Pon una orden de compra límite exactamente en el 0,618 con un stop un tick por debajo."
+      - id: c
+        text:
+          en: "Go all-in the instant price touches 0.618."
+          es: "Entra con todo en el instante en que el precio toca el 0,618."
+      - id: d
+        text:
+          en: "Ignore the level unless price is sitting exactly on it to the cent."
+          es: "Ignora el nivel salvo que el precio esté exactamente encima al céntimo."
+    explanation:
+      en: "0.618 is a zone and price wicks around it, so a one-tick stop gets taken out by normal noise. Use the level as an alert, wait for a reaction, and size and stop with room for the overshoot the level almost always produces."
+      es: "El 0,618 es una zona y el precio mecha a su alrededor, así que un stop de un tick lo saca el ruido normal. Usa el nivel como un aviso, espera una reacción y dimensiona y coloca el stop con margen para el exceso que el nivel casi siempre produce."

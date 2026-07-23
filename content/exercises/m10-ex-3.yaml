@@ -1,0 +1,127 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: sma-vs-ema
+    prompt:
+      en: "How does an EMA differ from an SMA of the same length?"
+      es: "¿En qué se diferencia una EMA de una SMA del mismo periodo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It weights recent closes more heavily, so it reacts faster to new price and lags less than the SMA."
+          es: "Pondera más los cierres recientes, así que reacciona más rápido al precio nuevo y va con menos retardo que la SMA."
+      - id: b
+        text:
+          en: "It is always smoother and less noisy than the SMA."
+          es: "Siempre es más suave y menos ruidosa que la SMA."
+      - id: c
+        text:
+          en: "It predicts the next move, while the SMA only describes the past."
+          es: "Predice el próximo movimiento, mientras que la SMA solo describe el pasado."
+      - id: d
+        text:
+          en: "Nothing — 'EMA' is just the newer name for the same calculation."
+          es: "Nada: 'EMA' es solo el nombre más moderno del mismo cálculo."
+    explanation:
+      en: "The EMA's extra weight on recent closes makes it turn sooner — less lag — but that same speed makes it noisier, not smoother, and neither average predicts anything: both are built from prices that already happened."
+      es: "El peso extra de la EMA sobre los cierres recientes hace que gire antes (menos retardo), pero esa misma velocidad la hace más ruidosa, no más suave, y ninguna media predice nada: ambas se construyen con precios que ya ocurrieron."
+  - id: why-mas-lag
+    prompt:
+      en: "Why does every moving average lag price?"
+      es: "¿Por qué toda media móvil va con retardo respecto al precio?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is computed from past closes, so it can only describe a trend that has already happened, confirmed late."
+          es: "Se calcula con cierres pasados, así que solo puede describir una tendencia que ya ha ocurrido, confirmada tarde."
+      - id: b
+        text:
+          en: "Because the exchange publishes the average with a built-in time delay."
+          es: "Porque el exchange publica la media con un retardo de tiempo incorporado."
+      - id: c
+        text:
+          en: "A long-period average lags, but a short EMA has no lag at all."
+          es: "Una media de periodo largo va con retardo, pero una EMA corta no tiene ningún retardo."
+      - id: d
+        text:
+          en: "It does not lag; it moves exactly in step with the current price."
+          es: "No va con retardo; se mueve exactamente al compás del precio actual."
+    explanation:
+      en: "The lag is structural, not a data-feed delay: an average of past closes can only ever confirm the trend after it has started. A shorter EMA lags less, but 'less' is not 'none' — the lag never reaches zero."
+      es: "El retardo es estructural, no un retraso del feed de datos: un promedio de cierres pasados solo puede confirmar la tendencia después de que empiece. Una EMA más corta va con menos retardo, pero 'menos' no es 'ninguno': el retardo nunca llega a cero."
+  - id: ma-predicts-next
+    kind: true_false
+    prompt:
+      en: "A moving average tells you where price is likely to go next."
+      es: "Una media móvil te dice hacia dónde es probable que vaya el precio a continuación."
+    answer: false
+    explanation:
+      en: "A moving average is built entirely from past closes, so it can only describe the trend you have already had. It smooths and confirms; it never forecasts the next move."
+      es: "Una media móvil se construye por completo con cierres pasados, así que solo puede describir la tendencia que ya has tenido. Suaviza y confirma; nunca pronostica el próximo movimiento."
+  - id: ma-lag-truths
+    kind: multi_select
+    prompt:
+      en: "Select ALL the true statements about the lag in a moving average."
+      es: "Selecciona TODAS las afirmaciones verdaderas sobre el retardo de una media móvil."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The lag is structural — it comes from averaging past closes, not from a slow data feed."
+          es: "El retardo es estructural: viene de promediar cierres pasados, no de un feed de datos lento."
+      - id: b
+        correct: true
+        text:
+          en: "A shorter period lags less than a longer one, but never reaches zero lag."
+          es: "Un periodo más corto va con menos retardo que uno más largo, pero nunca llega a retardo cero."
+      - id: c
+        text:
+          en: "A short EMA removes the lag completely, so it moves in step with price."
+          es: "Una EMA corta elimina el retardo por completo, así que se mueve al compás del precio."
+      - id: d
+        text:
+          en: "The lag disappears once the trend becomes strong enough."
+          es: "El retardo desaparece cuando la tendencia se vuelve lo bastante fuerte."
+    explanation:
+      en: "Lag is baked into the maths of averaging closes that already happened, so no market condition removes it. A shorter period trims the lag but cannot delete it, and no EMA — however short — reaches zero lag."
+      es: "El retardo está incorporado en las matemáticas de promediar cierres que ya ocurrieron, así que ninguna condición de mercado lo elimina. Un periodo más corto recorta el retardo pero no puede borrarlo, y ninguna EMA —por corta que sea— llega a retardo cero."
+  - id: ma-term-meanings
+    kind: matching
+    prompt:
+      en: "Match each moving-average term to what it means."
+      es: "Empareja cada término de medias móviles con su significado."
+    pairs:
+      - { id: sma, left: { en: "SMA (simple)", es: "SMA (simple)" }, right: { en: "Averages the last N closes with equal weight", es: "Promedia los últimos N cierres con el mismo peso" } }
+      - { id: ema, left: { en: "EMA (exponential)", es: "EMA (exponencial)" }, right: { en: "Weights recent closes more, so it turns sooner", es: "Pondera más los cierres recientes, así que gira antes" } }
+      - { id: short, left: { en: "Shorter period", es: "Periodo más corto" }, right: { en: "Hugs price with less lag, but is noisier", es: "Se pega al precio con menos retardo, pero es más ruidosa" } }
+      - { id: long, left: { en: "Longer period", es: "Periodo más largo" }, right: { en: "Smoother and calmer, but slower to turn", es: "Más suave y tranquila, pero más lenta en girar" } }
+    explanation:
+      en: "SMA weights every close equally; EMA leans on recent closes and reacts faster. Separately, a shorter period reduces lag at the cost of more noise, while a longer period is smoother but slower — two different dials on the same trade-off."
+      es: "La SMA pondera cada cierre por igual; la EMA se apoya en los cierres recientes y reacciona más rápido. Aparte, un periodo más corto reduce el retardo a costa de más ruido, mientras que uno más largo es más suave pero más lento: dos mandos distintos del mismo compromiso."
+  - id: faster-not-better
+    prompt:
+      en: "A beginner switches from an SMA20 to an EMA20 and says the faster line is 'more accurate.' What is the catch?"
+      es: "Un principiante cambia de una SMA20 a una EMA20 y dice que la línea más rápida es 'más precisa'. ¿Cuál es la trampa?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The faster EMA also turns on moves that fizzle, so it is noisier — faster is a different setting, not a more accurate one."
+          es: "La EMA más rápida también gira ante movimientos que se quedan en nada, así que es más ruidosa: más rápida es otro ajuste, no uno más preciso."
+      - id: b
+        text:
+          en: "There is no catch — a faster average is strictly better."
+          es: "No hay trampa: una media más rápida es sin más mejor."
+      - id: c
+        text:
+          en: "The EMA20 predicts turns, so it can be wrong about the future."
+          es: "La EMA20 predice los giros, así que puede equivocarse sobre el futuro."
+      - id: d
+        text:
+          en: "The EMA20 is smoother than the SMA20, so it hides the real trend."
+          es: "La EMA20 es más suave que la SMA20, así que oculta la tendencia real."
+    explanation:
+      en: "Speed and accuracy are not the same thing. The EMA turns sooner, which also means it turns on moves that go nowhere — more false starts, more noise. Neither line predicts anything; both only describe prices that already happened."
+      es: "Velocidad y precisión no son lo mismo. La EMA gira antes, lo que también significa que gira ante movimientos que no van a ninguna parte: más arranques en falso, más ruido. Ninguna línea predice nada; ambas solo describen precios que ya ocurrieron."

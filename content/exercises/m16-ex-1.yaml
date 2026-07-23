@@ -1,0 +1,158 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: what-it-measures
+    prompt:
+      en: "What does the crypto Fear & Greed index actually measure?"
+      es: "¿Qué mide realmente el índice de miedo y codicia de cripto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The recent mood of the market, blended from inputs like volatility, momentum, social media and search trends into a single 0–100 score."
+          es: "El estado de ánimo reciente del mercado, mezclando ingredientes como volatilidad, momentum, redes sociales y tendencias de búsqueda en una sola cifra de 0 a 100."
+      - id: b
+        text:
+          en: "The exact direction price will take over the next few days."
+          es: "La dirección exacta que tomará el precio en los próximos días."
+      - id: c
+        text:
+          en: "The total amount of leverage open across all exchanges."
+          es: "La cantidad total de apalancamiento abierto en todos los exchanges."
+      - id: d
+        text:
+          en: "A guaranteed signal of the moment the market will reverse."
+          es: "Una señal garantizada del momento en que el mercado girará."
+    explanation:
+      en: "The index is a lagging, backward-looking composite of the crowd's recent mood on a 0–100 scale. It summarises how it has felt lately; it does not forecast direction or timing."
+      es: "El índice es un compuesto rezagado y retrospectivo del ánimo reciente de la masa en una escala de 0 a 100. Resume cómo se ha sentido últimamente; no pronostica dirección ni timing."
+  - id: half-from-price
+    prompt:
+      en: "Roughly half of the Fear & Greed score comes from which two inputs?"
+      es: "¿De qué dos ingredientes procede aproximadamente la mitad de la puntuación de miedo y codicia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Volatility and market momentum — both derived from price itself."
+          es: "Volatilidad y momentum de mercado, ambos derivados del propio precio."
+      - id: b
+        text:
+          en: "Verified surveys of every trader's real positioning."
+          es: "Encuestas verificadas del posicionamiento real de cada trader."
+      - id: c
+        text:
+          en: "The number of active wallets recorded on-chain."
+          es: "El número de carteras activas registradas on-chain."
+      - id: d
+        text:
+          en: "Central bank interest-rate decisions."
+          es: "Las decisiones de tipos de interés de los bancos centrales."
+    explanation:
+      en: "Volatility and momentum together make up about half the score, and both are computed from price. That is why the index is largely a re-description of recent price action rather than an independent measure of emotion."
+      es: "La volatilidad y el momentum suman juntos casi la mitad de la puntuación, y ambos se calculan a partir del precio. Por eso el índice es, en gran medida, una redescripción de la acción de precio reciente y no una medida independiente de la emoción."
+  - id: blend-inputs
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the inputs that the crypto Fear & Greed index actually blends into its score."
+      es: "Selecciona TODOS los ingredientes que el índice de miedo y codicia de cripto mezcla realmente en su puntuación."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Volatility — how sharply price is swinging versus its recent average."
+          es: "Volatilidad: con qué brusquedad oscila el precio frente a su media reciente."
+      - id: b
+        correct: true
+        text:
+          en: "Market momentum and volume."
+          es: "Momentum y volumen de mercado."
+      - id: c
+        correct: true
+        text:
+          en: "The volume and tone of social-media posts about crypto."
+          es: "El volumen y el tono de las publicaciones sobre cripto en redes sociales."
+      - id: d
+        correct: true
+        text:
+          en: "Bitcoin dominance — money moving into or out of BTC within crypto."
+          es: "La dominancia de Bitcoin: dinero que entra o sale de BTC dentro de cripto."
+      - id: e
+        correct: true
+        text:
+          en: "Search trends — spikes in terms like \"bitcoin\" or panic searches."
+          es: "Las tendencias de búsqueda: picos en términos como \"bitcoin\" o búsquedas de pánico."
+      - id: f
+        text:
+          en: "The total open leverage across every exchange."
+          es: "El apalancamiento abierto total en todos los exchanges."
+      - id: g
+        text:
+          en: "A verified survey of every trader's real positioning."
+          es: "Una encuesta verificada del posicionamiento real de cada trader."
+      - id: h
+        text:
+          en: "Central-bank interest-rate decisions."
+          es: "Las decisiones de tipos de interés de los bancos centrales."
+    explanation:
+      en: "The index blends volatility, momentum and volume, social media, Bitcoin dominance and search trends. It does not read anyone's real positioning, total leverage or macro policy — and note that volatility and momentum are just price, so roughly half the score is recent price action."
+      es: "El índice mezcla volatilidad, momentum y volumen, redes sociales, dominancia de Bitcoin y tendencias de búsqueda. No lee el posicionamiento real de nadie, ni el apalancamiento total, ni la política macro; y fíjate en que la volatilidad y el momentum son solo precio, así que casi la mitad de la puntuación es acción de precio reciente."
+  - id: lagging-or-forecast
+    kind: true_false
+    prompt:
+      en: "The Fear & Greed index is a forward-looking forecast that tells you where price will go next."
+      es: "El índice de miedo y codicia es un pronóstico prospectivo que te dice hacia dónde irá el precio a continuación."
+    answer: false
+    explanation:
+      en: "It is the opposite: a lagging, backward-looking read of how the market has felt lately. It summarises the recent past; it knows nothing about the future, the next turn or how much room is left."
+      es: "Es lo contrario: una lectura rezagada y retrospectiva de cómo se ha sentido el mercado últimamente. Resume el pasado reciente; no sabe nada del futuro, del próximo giro ni de cuánto recorrido queda."
+  - id: zero-vs-hundred
+    prompt:
+      en: "On the index's 0–100 scale, what do the two ends represent?"
+      es: "En la escala de 0 a 100 del índice, ¿qué representan los dos extremos?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "0 is extreme fear; 100 is extreme greed."
+          es: "0 es miedo extremo; 100 es codicia extrema."
+      - id: b
+        text:
+          en: "0 is extreme greed; 100 is extreme fear."
+          es: "0 es codicia extrema; 100 es miedo extremo."
+      - id: c
+        text:
+          en: "0 means the market is closed; 100 means it is fully open."
+          es: "0 significa que el mercado está cerrado; 100, que está totalmente abierto."
+      - id: d
+        text:
+          en: "The number is the percentage chance that price rises tomorrow."
+          es: "El número es el porcentaje de probabilidad de que el precio suba mañana."
+    explanation:
+      en: "The scale runs from 0 (extreme fear) to 100 (extreme greed). It is a reading of mood, not a probability of tomorrow's direction."
+      es: "La escala va de 0 (miedo extremo) a 100 (codicia extrema). Es una lectura de ánimo, no una probabilidad de la dirección de mañana."
+  - id: why-re-description
+    prompt:
+      en: "Why can the index fairly be called \"recent price action dressed up as emotion\"?"
+      es: "¿Por qué se puede llamar al índice, con razón, \"acción de precio reciente disfrazada de emoción\"?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Volatility and momentum — about half the score — are computed directly from price."
+          es: "La volatilidad y el momentum —casi la mitad de la puntuación— se calculan directamente a partir del precio."
+      - id: b
+        text:
+          en: "It is built only from social-media posts, which always mirror price."
+          es: "Se construye solo con publicaciones de redes sociales, que siempre reflejan el precio."
+      - id: c
+        text:
+          en: "A central authority sets the number so it matches the chart."
+          es: "Una autoridad central fija el número para que cuadre con el gráfico."
+      - id: d
+        text:
+          en: "It is a pure survey of emotions with no price data at all."
+          es: "Es una encuesta pura de emociones sin ningún dato de precio."
+    explanation:
+      en: "Two of its biggest inputs, volatility and momentum, are just transformations of price. So a large part of the \"emotion\" score is really a re-description of what price recently did — worth remembering, not a flaw."
+      es: "Dos de sus mayores ingredientes, la volatilidad y el momentum, son solo transformaciones del precio. Así que buena parte de la puntuación de \"emoción\" es en realidad una redescripción de lo que hizo el precio hace poco: conviene recordarlo, no es un defecto."

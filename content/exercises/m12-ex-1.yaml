@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: synthetic_chart
+indicator: rsi
+n: 120
+prompt:
+  en: "Study the price and its RSI. Is there a **regular** divergence here, and if so, which one? (Look at the two most recent swings.)"
+  es: "Estudia el precio y su RSI. ¿Hay aquí una divergencia **regular** y, de haberla, cuál? (Fíjate en los dos últimos swings.)"
+targets: [none, bullish_regular, bearish_regular]
+choices: [none, bullish_regular, bearish_regular]
+explanation:
+  en: "Regular divergence warns of a reversal: a higher price high on a lower RSI high is bearish; a lower price low on a higher RSI low is bullish. If the oscillator agrees with price, it is noise, not a divergence."
+  es: "La divergencia regular avisa de un giro: un máximo de precio más alto con un máximo de RSI más bajo es bajista; un mínimo de precio más bajo con un mínimo de RSI más alto es alcista. Si el oscilador acompaña al precio, es ruido, no una divergencia."

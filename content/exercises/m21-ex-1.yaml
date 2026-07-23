@@ -1,0 +1,142 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: market-tradeoff
+    prompt:
+      en: "You use a market order instead of a limit order. What are you choosing?"
+      es: "Usas una orden de mercado en lugar de una de límite. ¿Qué estás eligiendo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Immediacy — you fill now, but you accept whatever price the book offers."
+          es: "Inmediatez: te ejecutas ya, pero aceptas el precio que ofrezca el libro."
+      - id: b
+        text:
+          en: "A guaranteed better price than the current market."
+          es: "Un precio garantizado mejor que el del mercado actual."
+      - id: c
+        text:
+          en: "To wait in the book until price comes to your chosen level."
+          es: "Esperar en el libro hasta que el precio llegue a tu nivel elegido."
+      - id: d
+        text:
+          en: "Lower fees, because market orders are always cheaper."
+          es: "Comisiones más bajas, porque las órdenes de mercado siempre son más baratas."
+    explanation:
+      en: "A market order trades immediacy for price control: it fills right away at whatever the book offers. It gives no price guarantee, does not rest waiting, and as a taker it usually costs more, not less."
+      es: "Una orden de mercado cambia control del precio por inmediatez: se ejecuta al instante al precio que ofrezca el libro. No garantiza precio, no espera puesta en el libro y, como taker, suele costar más, no menos."
+  - id: maker-taker
+    prompt:
+      en: "A resting limit order that adds liquidity to the book makes you a…"
+      es: "Una orden de límite puesta en el libro que aporta liquidez te convierte en…"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Maker — you get price control but no guarantee of being filled."
+          es: "Maker: obtienes control del precio pero sin garantía de ejecutarte."
+      - id: b
+        text:
+          en: "Taker — you remove liquidity and fill immediately."
+          es: "Taker: retiras liquidez y te ejecutas de inmediato."
+      - id: c
+        text:
+          en: "Maker — and you are guaranteed to fill at your price."
+          es: "Maker: y tienes garantizada la ejecución a tu precio."
+      - id: d
+        text:
+          en: "Neither — resting orders are cancelled automatically."
+          es: "Ninguno: las órdenes puestas se cancelan automáticamente."
+    explanation:
+      en: "Adding liquidity with a resting limit order makes you a maker: you control the price but the market may never reach it, so there is no fill guarantee. A taker, by contrast, removes liquidity and fills at once."
+      es: "Aportar liquidez con una orden de límite puesta te convierte en maker: controlas el precio, pero el mercado puede no alcanzarlo nunca, así que no hay garantía de ejecución. El taker, en cambio, retira liquidez y se ejecuta al instante."
+  - id: limit-tradeoff
+    prompt:
+      en: "You use a limit order instead of a market order. What are you accepting in exchange for price control?"
+      es: "Usas una orden de límite en lugar de una de mercado. ¿Qué aceptas a cambio del control del precio?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The risk of not filling at all — the market may never reach your price."
+          es: "El riesgo de no ejecutarte en absoluto: el mercado puede no llegar nunca a tu precio."
+      - id: b
+        text:
+          en: "Guaranteed immediacy — a limit order always fills right away."
+          es: "Inmediatez garantizada: una orden de límite siempre se ejecuta al instante."
+      - id: c
+        text:
+          en: "A worse price than the market is currently showing."
+          es: "Un precio peor que el que muestra el mercado ahora mismo."
+      - id: d
+        text:
+          en: "Higher fees, because a resting limit order is a taker order."
+          es: "Comisiones más altas, porque una orden de límite puesta es una orden taker."
+    explanation:
+      en: "A limit order gives price control but no certainty of filling: if price never reaches your level, you sit unfilled while the move happens without you. A resting limit order is a maker order, which usually pays lower fees, not higher."
+      es: "Una orden de límite da control del precio pero ninguna certeza de ejecución: si el precio nunca llega a tu nivel, te quedas sin ejecutar mientras el movimiento ocurre sin ti. Una orden de límite puesta en el libro es una orden maker, que suele pagar comisiones más bajas, no más altas."
+  - id: taker-maker-fees
+    kind: true_false
+    prompt:
+      en: "On most exchanges, a taker (market) order is always cheaper in fees than a resting maker (limit) order."
+      es: "En la mayoría de exchanges, una orden taker (de mercado) siempre es más barata en comisiones que una orden maker (de límite) puesta en el libro."
+    answer: false
+    explanation:
+      en: "It is the other way around: most exchanges charge takers more than makers, and sometimes rebate makers. The gap is small per trade but adds up over hundreds. Still, a fee saved on a limit order that never fills is no saving at all."
+      es: "Es al revés: la mayoría de exchanges cobran más al taker que al maker, y a veces bonifican al maker. La diferencia es pequeña por operación, pero se acumula a lo largo de cientos. Aun así, una comisión ahorrada en una orden de límite que nunca se ejecuta no es ningún ahorro."
+  - id: order-role-match
+    kind: matching
+    prompt:
+      en: "Match each execution concept to its behaviour."
+      es: "Empareja cada concepto de ejecución con su comportamiento."
+    pairs:
+      - id: mkt
+        left: { en: "Market order", es: "Orden de mercado" }
+        right: { en: "Fills now at whatever the book offers; you give up price control", es: "Se ejecuta ya al precio que ofrezca el libro; renuncias al control del precio" }
+      - id: lmt
+        left: { en: "Limit order", es: "Orden de límite" }
+        right: { en: "Fills only at your price or better; may never fill", es: "Se ejecuta solo a tu precio o mejor; puede no ejecutarse nunca" }
+      - id: mkr
+        left: { en: "Maker", es: "Maker" }
+        right: { en: "Adds liquidity with a resting order", es: "Aporta liquidez con una orden puesta en el libro" }
+      - id: tkr
+        left: { en: "Taker", es: "Taker" }
+        right: { en: "Removes liquidity by filling against resting orders", es: "Retira liquidez ejecutándose contra las órdenes puestas" }
+    explanation:
+      en: "A market order takes immediacy and gives up price control; a limit order names your price but may never fill. Resting a limit order makes you a maker (you add liquidity); filling against the book makes you a taker (you remove it)."
+      es: "Una orden de mercado toma inmediatez y renuncia al control del precio; una orden de límite fija tu precio pero puede no ejecutarse nunca. Poner una orden de límite en el libro te hace maker (aportas liquidez); ejecutarte contra el libro te hace taker (la retiras)."
+  - id: limit-missed-move
+    prompt:
+      en: "You place a limit buy just below the market and wait. Price jumps up and runs without ever dipping to your level. What did the limit order cost you?"
+      es: "Colocas una compra de límite justo por debajo del mercado y esperas. El precio salta y se dispara sin bajar nunca a tu nivel. ¿Qué te costó la orden de límite?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The trade — you never filled, so you missed the move while your order sat unfilled."
+          es: "La operación: nunca te ejecutaste, así que te perdiste el movimiento mientras tu orden seguía sin ejecutar."
+      - id: b
+        text:
+          en: "Nothing — a limit order guarantees you fill once price gets close."
+          es: "Nada: una orden de límite garantiza que te ejecutas cuando el precio se acerca."
+      - id: c
+        text:
+          en: "Extra taker fees for the cancelled order."
+          es: "Comisiones taker adicionales por la orden cancelada."
+      - id: d
+        text:
+          en: "A forced liquidation of your account."
+          es: "Una liquidación forzosa de tu cuenta."
+    explanation:
+      en: "A limit order controls your price but carries no fill guarantee. If the market never trades at your level, you simply do not get in, and the move happens without you. That missed entry — not a fee or a liquidation — is the cost of insisting on price."
+      es: "Una orden de límite controla tu precio pero no da garantía de ejecución. Si el mercado nunca opera a tu nivel, sencillamente no entras, y el movimiento ocurre sin ti. Esa entrada perdida —no una comisión ni una liquidación— es el coste de insistir en el precio."
+  - id: market-price-guarantee
+    kind: true_false
+    prompt:
+      en: "A market order guarantees you fill at the price shown on your screen at the moment you click."
+      es: "Una orden de mercado garantiza que te ejecutas al precio que muestra tu pantalla en el momento en que haces clic."
+    answer: false
+    explanation:
+      en: "A market order guarantees a fill, not a price. It takes whatever the book offers, which can differ from the last printed price — especially in a thin book, where it walks through resting orders and fills at progressively worse prices."
+      es: "Una orden de mercado garantiza la ejecución, no el precio. Toma lo que ofrezca el libro, que puede diferir del último precio impreso, sobre todo en un libro fino, donde atraviesa las órdenes puestas y se ejecuta a precios cada vez peores."

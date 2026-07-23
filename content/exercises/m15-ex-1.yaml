@@ -1,0 +1,165 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: definition
+    prompt:
+      en: "What does Bitcoin dominance measure?"
+      es: "¿Qué mide la dominancia de Bitcoin?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Bitcoin's share of the total crypto market capitalisation."
+          es: "La cuota de Bitcoin sobre la capitalización total del mercado cripto."
+      - id: b
+        text:
+          en: "Bitcoin's price in US dollars."
+          es: "El precio de Bitcoin en dólares."
+      - id: c
+        text:
+          en: "The percentage of the 21-million supply that has been mined."
+          es: "El porcentaje del suministro de 21 millones que ya se ha minado."
+      - id: d
+        text:
+          en: "Bitcoin's daily trading volume compared with the altcoins."
+          es: "El volumen diario de Bitcoin comparado con el de las altcoins."
+    explanation:
+      en: "Dominance is a ratio — Bitcoin's market cap divided by the total. It is a share, not a price, so it can rise even while Bitcoin's own price falls."
+      es: "La dominancia es una proporción: la capitalización de Bitcoin dividida entre el total. Es una cuota, no un precio, así que puede subir aunque el propio precio de Bitcoin baje."
+  - id: crash-rising
+    prompt:
+      en: "During a broad market crash, Bitcoin dominance is rising. What does this most likely reflect?"
+      es: "Durante una caída generalizada del mercado, la dominancia de Bitcoin está subiendo. ¿Qué refleja esto con mayor probabilidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Capital fleeing the alts into the relative safety of BTC, which is falling less hard."
+          es: "Capital que huye de las alts hacia la seguridad relativa de BTC, que cae menos fuerte."
+      - id: b
+        text:
+          en: "That Bitcoin's price is definitely going up."
+          es: "Que el precio de Bitcoin está subiendo con seguridad."
+      - id: c
+        text:
+          en: "That an alt season is just beginning."
+          es: "Que una alt season está empezando."
+      - id: d
+        text:
+          en: "That more people are using Bitcoin to pay for things."
+          es: "Que más gente está usando Bitcoin para pagar cosas."
+    explanation:
+      en: "Dominance is a relative share. In a crash it can rise simply because the alts are bleeding faster than BTC — the same number that appears in a healthy BTC-led advance, but the opposite mood."
+      es: "La dominancia es una cuota relativa. En una caída puede subir simplemente porque las alts sangran más rápido que BTC: el mismo número que aparece en un avance sano liderado por BTC, pero con el ánimo opuesto."
+  - id: price-myth
+    kind: true_false
+    prompt:
+      en: "If Bitcoin dominance is rising, then Bitcoin's own price must be rising too."
+      es: "Si la dominancia de Bitcoin está subiendo, entonces el propio precio de Bitcoin también tiene que estar subiendo."
+    answer: false
+    explanation:
+      en: "Dominance is a share, not a price. In a broad crash it often rises precisely because everything is falling and the alts are falling faster than BTC — so dominance can climb while Bitcoin's price drops."
+      es: "La dominancia es una cuota, no un precio. En una caída generalizada suele subir precisamente porque todo cae y las alts caen más rápido que BTC, así que la dominancia puede subir mientras el precio de Bitcoin baja."
+  - id: falling-dominance
+    prompt:
+      en: "Bitcoin dominance has been steadily falling for weeks. What does this most likely indicate?"
+      es: "La dominancia de Bitcoin lleva semanas cayendo de forma sostenida. ¿Qué indica esto con mayor probabilidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Capital is spreading out into the alts — the classic backdrop for an alt season."
+          es: "El capital se está repartiendo hacia las alts: el telón de fondo clásico de una alt season."
+      - id: b
+        text:
+          en: "Bitcoin's dollar price is definitely falling."
+          es: "El precio de Bitcoin en dólares está cayendo con seguridad."
+      - id: c
+        text:
+          en: "There are fewer coins in the market than there were before."
+          es: "Hay menos monedas en el mercado de las que había antes."
+      - id: d
+        text:
+          en: "A risk-off flight into the safety of BTC is under way."
+          es: "Está en marcha una huida risk-off hacia la seguridad de BTC."
+    explanation:
+      en: "Falling dominance means Bitcoin's share is shrinking as capital spreads into alts — the usual backdrop for an alt season. It says nothing certain about BTC's dollar price on its own, and a flight to BTC would push dominance up, not down."
+      es: "Una dominancia a la baja significa que la cuota de Bitcoin se encoge mientras el capital se reparte hacia las alts: el telón de fondo habitual de una alt season. Por sí sola no dice nada seguro sobre el precio de BTC en dólares, y una huida hacia BTC empujaría la dominancia al alza, no a la baja."
+  - id: rising-in-rising-market
+    prompt:
+      en: "Bitcoin dominance is rising while the total crypto market is also rising. How is this best read?"
+      es: "La dominancia de Bitcoin sube mientras el mercado cripto total también sube. ¿Cómo se lee mejor esto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A Bitcoin-led advance — money is entering the market, and BTC is leading it."
+          es: "Un avance liderado por Bitcoin: entra dinero en el mercado y BTC lo lidera."
+      - id: b
+        text:
+          en: "A flight to safety while the alts bleed harder."
+          es: "Una huida hacia la seguridad mientras las alts sangran más fuerte."
+      - id: c
+        text:
+          en: "An alt season, since dominance is moving at all."
+          es: "Una alt season, ya que la dominancia se está moviendo."
+      - id: d
+        text:
+          en: "Nothing — dominance and the total market are unrelated."
+          es: "Nada: la dominancia y el mercado total no guardan relación."
+    explanation:
+      en: "Same dominance number, opposite moods depending on the total market. Rising dominance in a rising market is a Bitcoin-led advance; rising dominance in a falling market is a flight to BTC while alts fall harder."
+      es: "El mismo número de dominancia, ánimos opuestos según el mercado total. Una dominancia al alza en un mercado que sube es un avance liderado por Bitcoin; al alza en un mercado que baja es una huida hacia BTC mientras las alts caen más fuerte."
+  - id: can-rise-scenarios
+    kind: multi_select
+    prompt:
+      en: "Select ALL the situations in which Bitcoin dominance can rise."
+      es: "Selecciona TODAS las situaciones en las que la dominancia de Bitcoin puede subir."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A risk-off flight where traders sell alts for the relative safety of BTC."
+          es: "Una huida risk-off en la que los traders venden alts por la seguridad relativa de BTC."
+      - id: b
+        correct: true
+        text:
+          en: "Early in a bull run, when fresh money enters through Bitcoin first."
+          es: "Al comienzo de un mercado alcista, cuando el dinero nuevo entra primero por Bitcoin."
+      - id: c
+        correct: true
+        text:
+          en: "A broad crash in which the alts fall harder than Bitcoin."
+          es: "Una caída generalizada en la que las alts caen más fuerte que Bitcoin."
+      - id: d
+        text:
+          en: "An alt season in which capital rushes out of BTC and into small-cap tokens."
+          es: "Una alt season en la que el capital sale de BTC y corre hacia los tokens de pequeña capitalización."
+    explanation:
+      en: "Dominance rises whenever BTC gains share — in a risk-off flight, when fresh money enters through BTC, or in a crash where alts fall faster. An alt season is the opposite: capital leaves BTC for alts, so dominance falls."
+      es: "La dominancia sube siempre que BTC gana cuota: en una huida risk-off, cuando el dinero nuevo entra por BTC o en una caída donde las alts caen más rápido. Una alt season es lo contrario: el capital sale de BTC hacia las alts, así que la dominancia baja."
+  - id: dominance-calc
+    prompt:
+      en: "The whole crypto market is worth 2.5 trillion and Bitcoin's market cap is 1 trillion. What is Bitcoin dominance?"
+      es: "Todo el mercado cripto vale 2,5 billones y la capitalización de Bitcoin es de 1 billón. ¿Cuál es la dominancia de Bitcoin?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "40%."
+          es: "40%."
+      - id: b
+        text:
+          en: "60%."
+          es: "60%."
+      - id: c
+        text:
+          en: "25%."
+          es: "25%."
+      - id: d
+        text:
+          en: "2.5%."
+          es: "2,5%."
+    explanation:
+      en: "Dominance is BTC's cap divided by the total: 1 / 2.5 = 40%. The remaining 60% is the share held by every other coin combined."
+      es: "La dominancia es la capitalización de BTC dividida entre el total: 1 / 2,5 = 40%. El 60% restante es la cuota que suman todas las demás monedas."

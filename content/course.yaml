@@ -1,0 +1,555 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TradeSchool course manifest — canonical structure, order (list position) and advisory
+# prerequisites (`assumes`). Localized labels live here; lesson prose lives in content/<lang>/lessons/.
+# Phase 1 authored m01/m06/m12; Phase 2 authored the remaining 20 modules (this file wires them).
+blocks:
+- id: block-a
+  title:
+    en: Foundations
+    es: Fundamentos
+  modules:
+  - id: m01
+    title:
+      en: What crypto is
+      es: Qué es cripto
+    summary:
+      en: Blockchain at user level; Bitcoin vs altcoins vs stablecoins; what confers value and what doesn't.
+      es: Blockchain a nivel de usuario; Bitcoin vs altcoins vs stablecoins; qué da valor y qué no.
+    assumes: []
+    lessons:
+    - id: m01-l1
+      title:
+        en: What crypto actually is
+        es: Qué es realmente cripto
+      exercises:
+      - id: m01-ex-1
+        type: quiz
+      - id: m01-ex-2
+        type: quiz
+  - id: m02
+    title:
+      en: Exchanges and custody
+      es: Exchanges y custodia
+    summary:
+      en: 'CEX vs DEX, spot, basic orders, the order book, custody and ''not your keys''. Security: 2FA, read-only API keys.'
+      es: 'CEX vs DEX, spot, órdenes básicas, el libro de órdenes, custodia y ''not your keys''. Seguridad: 2FA, API keys de solo lectura.'
+    assumes:
+    - m01
+    lessons:
+    - id: m02-l1
+      title:
+        en: What an exchange is and who holds your coins
+        es: Qué es un exchange y quién guarda tus monedas
+      exercises:
+      - id: m02-ex-1
+        type: quiz
+      - id: m02-ex-2
+        type: quiz
+      - id: m02-ex-3
+        type: quiz
+      - id: m02-ex-4
+        type: quiz
+  - id: m03
+    title:
+      en: Reading the market
+      es: Leer el mercado
+    summary:
+      en: OHLC candles, timeframes, volume, trend vs range, support and resistance without mysticism.
+      es: Velas OHLC, temporalidades, volumen, tendencia vs rango, soportes y resistencias sin misticismo.
+    assumes:
+    - m01
+    - m02
+    lessons:
+    - id: m03-l1
+      title:
+        en: Reading a price chart
+        es: Leer un gráfico de precio
+      exercises:
+      - id: m03-ex-1
+        type: quiz
+      - id: m03-ex-2
+        type: quiz
+      - id: m03-ex-3
+        type: quiz
+      - id: m03-ex-4
+        type: quiz
+- id: block-b
+  title:
+    en: The instrument
+    es: El instrumento
+  modules:
+  - id: m04
+    title:
+      en: Perpetual futures
+      es: Futuros perpetuos
+    summary:
+      en: A contract, not possession; long/short; mark vs last price; funding and who pays whom.
+      es: Un contrato, no posesión; long/short; precio mark vs last; funding y quién paga a quién.
+    assumes:
+    - m03
+    lessons:
+    - id: m04-l1
+      title:
+        en: Perpetual futures
+        es: Futuros perpetuos
+      exercises:
+      - id: m04-ex-1
+        type: calculation
+      - id: m04-ex-2
+        type: calculation
+      - id: m04-ex-3
+        type: quiz
+      - id: m04-ex-4
+        type: quiz
+  - id: m05
+    title:
+      en: Leverage and margin
+      es: Apalancamiento y margen
+    summary:
+      en: Initial/maintenance margin, cross vs isolated, what leverage truly amplifies.
+      es: Margen inicial/de mantenimiento, cross vs isolated, qué amplifica de verdad el apalancamiento.
+    assumes:
+    - m04
+    lessons:
+    - id: m05-l1
+      title:
+        en: Leverage and margin
+        es: Apalancamiento y margen
+      exercises:
+      - id: m05-ex-1
+        type: calculation
+      - id: m05-ex-2
+        type: calculation
+      - id: m05-ex-3
+        type: quiz
+      - id: m05-ex-4
+        type: quiz
+  - id: m06
+    title:
+      en: Liquidation
+      es: Liquidación
+    summary:
+      en: Liquidation-price calculation, why isolated saves your account, cascades.
+      es: Cálculo del precio de liquidación, por qué isolated salva tu cuenta, cascadas.
+    assumes:
+    - m05
+    lessons:
+    - id: m06-l1
+      title:
+        en: How liquidation is calculated
+        es: Cómo se calcula la liquidación
+      exercises:
+      - id: m06-ex-1
+        type: calculation
+      - id: m06-ex-2
+        type: calculation
+  - id: m07
+    title:
+      en: Real PnL
+      es: PnL real
+    summary:
+      en: Realized/unrealized, maker/taker fees, accumulated funding, the true net of a trade.
+      es: Realizado/no realizado, comisiones maker/taker, funding acumulado, el neto real de una operación.
+    assumes:
+    - m05
+    - m06
+    lessons:
+    - id: m07-l1
+      title:
+        en: The PnL you actually keep
+        es: El PnL que de verdad te quedas
+      exercises:
+      - id: m07-ex-1
+        type: calculation
+      - id: m07-ex-2
+        type: calculation
+      - id: m07-ex-3
+        type: quiz
+      - id: m07-ex-4
+        type: quiz
+- id: block-c
+  title:
+    en: Technical analysis
+    es: Análisis técnico
+  modules:
+  - id: m08
+    title:
+      en: Price structure
+      es: Estructura de precio
+    summary:
+      en: Support/resistance drawn properly, breakouts and fakeouts, pullbacks, HH/HL–LH/LL, change of character.
+      es: Soportes/resistencias bien trazados, rupturas y fakeouts, pullbacks, HH/HL–LH/LL, cambio de carácter.
+    assumes:
+    - m03
+    lessons:
+    - id: m08-l1
+      title:
+        en: Price structure
+        es: Estructura de precio
+      exercises:
+      - id: m08-ex-1
+        type: pattern_chart
+      - id: m08-ex-2
+        type: pattern_chart
+      - id: m08-ex-3
+        type: quiz
+      - id: m08-ex-4
+        type: quiz
+  - id: m09
+    title:
+      en: 'Wyckoff: accumulation and distribution'
+      es: 'Wyckoff: acumulación y distribución'
+    summary:
+      en: The accumulation→markup→distribution→markdown cycle, phases A–E, spring and upthrust.
+      es: El ciclo acumulación→markup→distribución→markdown, fases A–E, spring y upthrust.
+    assumes:
+    - m08
+    lessons:
+    - id: m09-l1
+      title:
+        en: 'Wyckoff: accumulation and distribution'
+        es: 'Wyckoff: acumulación y distribución'
+      exercises:
+      - id: m09-ex-1
+        type: pattern_chart
+      - id: m09-ex-2
+        type: pattern_chart
+      - id: m09-ex-3
+        type: quiz
+      - id: m09-ex-4
+        type: quiz
+  - id: m10
+    title:
+      en: Moving averages and trend
+      es: Medias móviles y tendencia
+    summary:
+      en: SMA/EMA, crosses, MA as dynamic support, why they lag by construction.
+      es: SMA/EMA, cruces, la MA como soporte dinámico, por qué van con retraso por construcción.
+    assumes:
+    - m03
+    lessons:
+    - id: m10-l1
+      title:
+        en: Moving averages and trend
+        es: Medias móviles y tendencia
+      exercises:
+      - id: m10-ex-1
+        type: pattern_chart
+      - id: m10-ex-2
+        type: pattern_chart
+      - id: m10-ex-3
+        type: quiz
+      - id: m10-ex-4
+        type: quiz
+  - id: m11
+    title:
+      en: 'Oscillators: RSI and MACD'
+      es: 'Osciladores: RSI y MACD'
+    summary:
+      en: What they actually compute, the overbought/oversold lie in strong trends, histogram and crosses.
+      es: Qué calculan de verdad, la mentira de sobrecompra/sobreventa en tendencias fuertes, histograma y cruces.
+    assumes:
+    - m10
+    lessons:
+    - id: m11-l1
+      title:
+        en: 'Oscillators: RSI and MACD'
+        es: 'Osciladores: RSI y MACD'
+      exercises:
+      - id: m11-ex-1
+        type: pattern_chart
+      - id: m11-ex-2
+        type: pattern_chart
+      - id: m11-ex-3
+        type: quiz
+      - id: m11-ex-4
+        type: quiz
+  - id: m12
+    title:
+      en: Divergences
+      es: Divergencias
+    summary:
+      en: Regular and hidden, on RSI/MACD, why they're reliable and still fail; confirmation with structure.
+      es: Regulares y ocultas, en RSI/MACD, por qué son fiables y aun así fallan; confirmación con estructura.
+    assumes:
+    - m08
+    - m11
+    lessons:
+    - id: m12-l1
+      title:
+        en: Reading divergences
+        es: Leer divergencias
+      exercises:
+      - id: m12-ex-1
+        type: synthetic_chart
+      - id: m12-ex-2
+        type: synthetic_chart
+  - id: m13
+    title:
+      en: Fibonacci
+      es: Fibonacci
+    summary:
+      en: Retracements and extensions, how to draw them, the honest why, confluence with structure.
+      es: Retrocesos y extensiones, cómo trazarlos, el porqué honesto, confluencia con la estructura.
+    assumes:
+    - m08
+    lessons:
+    - id: m13-l1
+      title:
+        en: Fibonacci retracements
+        es: Retrocesos de Fibonacci
+      exercises:
+      - id: m13-ex-1
+        type: pattern_chart
+      - id: m13-ex-2
+        type: pattern_chart
+      - id: m13-ex-3
+        type: quiz
+      - id: m13-ex-4
+        type: quiz
+  - id: m14
+    title:
+      en: Volume and confirmation
+      es: Volumen y confirmación
+    summary:
+      en: Volume on breakouts, absorption, price/volume divergence. Structure + indicator + volume = confluence.
+      es: Volumen en rupturas, absorción, divergencia precio/volumen. Estructura + indicador + volumen = confluencia.
+    assumes:
+    - m08
+    - m11
+    lessons:
+    - id: m14-l1
+      title:
+        en: Volume and confirmation
+        es: Volumen y confirmación
+      exercises:
+      - id: m14-ex-1
+        type: pattern_chart
+      - id: m14-ex-2
+        type: pattern_chart
+      - id: m14-ex-3
+        type: quiz
+      - id: m14-ex-4
+        type: quiz
+- id: block-d
+  title:
+    en: Market context
+    es: Contexto de mercado
+  modules:
+  - id: m15
+    title:
+      en: Macro and capital flow
+      es: Macro y flujo de capital
+    summary:
+      en: BTC dominance, ETH/BTC as thermometer, BTC→ETH→alts rotation, correlation with traditional macro.
+      es: Dominancia de BTC, ETH/BTC como termómetro, rotación BTC→ETH→alts, correlación con la macro tradicional.
+    assumes:
+    - m03
+    lessons:
+    - id: m15-l1
+      title:
+        en: Macro and capital flow
+        es: Macro y flujo de capital
+      exercises:
+      - id: m15-ex-1
+        type: quiz
+      - id: m15-ex-2
+        type: quiz
+      - id: m15-ex-3
+        type: quiz
+      - id: m15-ex-4
+        type: quiz
+  - id: m16
+    title:
+      en: Mass sentiment
+      es: Sentimiento de masas
+    summary:
+      en: Fear & Greed index, extreme sentiment as a contrarian zone (not timing), euphoria and capitulation.
+      es: Índice de miedo y codicia, el sentimiento extremo como zona contraria (no timing), euforia y capitulación.
+    assumes:
+    - m03
+    lessons:
+    - id: m16-l1
+      title:
+        en: Mass sentiment
+        es: Sentimiento de masas
+      exercises:
+      - id: m16-ex-1
+        type: quiz
+      - id: m16-ex-2
+        type: quiz
+      - id: m16-ex-3
+        type: quiz
+      - id: m16-ex-4
+        type: quiz
+  - id: m17
+    title:
+      en: Derivatives data and liquidity
+      es: Datos de derivados y liquidez
+    summary:
+      en: Open interest read with price, funding as positioning, liquidation zones as magnets, squeezes.
+      es: Open interest leído con el precio, funding como posicionamiento, zonas de liquidación como imanes, squeezes.
+    assumes:
+    - m05
+    - m12
+    lessons:
+    - id: m17-l1
+      title:
+        en: Derivatives data and liquidity
+        es: Datos de derivados y liquidez
+      exercises:
+      - id: m17-ex-1
+        type: pattern_chart
+      - id: m17-ex-2
+        type: pattern_chart
+      - id: m17-ex-3
+        type: quiz
+      - id: m17-ex-4
+        type: quiz
+  - id: m18
+    title:
+      en: Tokenomics
+      es: Tokenomics
+    summary:
+      en: Emission and inflation, low float vs FDV, unlock calendars, how a large unlock invalidates the technicals.
+      es: Emisión e inflación, low float vs FDV, calendarios de desbloqueo, cómo un gran unlock invalida el técnico.
+    assumes:
+    - m04
+    lessons:
+    - id: m18-l1
+      title:
+        en: Reading tokenomics
+        es: Leer la tokenómica
+      exercises:
+      - id: m18-ex-1
+        type: calculation
+      - id: m18-ex-2
+        type: calculation
+      - id: m18-ex-3
+        type: quiz
+      - id: m18-ex-4
+        type: quiz
+- id: block-e
+  title:
+    en: The craft
+    es: El oficio
+  modules:
+  - id: m19
+    title:
+      en: Risk management
+      es: Gestión del riesgo
+    summary:
+      en: Risk per trade, sizing from the stop, R-multiples, drawdown asymmetry, portfolio risk and correlation.
+      es: Riesgo por operación, sizing desde el stop, múltiplos R, asimetría del drawdown, riesgo de cartera y correlación.
+    assumes:
+    - m06
+    - m07
+    lessons:
+    - id: m19-l1
+      title:
+        en: Managing risk
+        es: Gestionar el riesgo
+      exercises:
+      - id: m19-ex-1
+        type: calculation
+      - id: m19-ex-2
+        type: calculation
+      - id: m19-ex-3
+        type: quiz
+      - id: m19-ex-4
+        type: quiz
+  - id: m20
+    title:
+      en: 'Trading styles: scalping, day trading, swing'
+      es: 'Estilos de trading: scalping, day trading, swing'
+    summary:
+      en: 'What changes across timeframes: funding weight, fees eating the edge, 24/7 market, time and mental demands.'
+      es: 'Qué cambia entre temporalidades: peso del funding, comisiones que se comen el edge, mercado 24/7, exigencia mental.'
+    assumes:
+    - m06
+    lessons:
+    - id: m20-l1
+      title:
+        en: 'Trading styles: scalping, day trading, swing'
+        es: 'Estilos de trading: scalping, day trading, swing'
+      exercises:
+      - id: m20-ex-1
+        type: quiz
+      - id: m20-ex-2
+        type: quiz
+      - id: m20-ex-3
+        type: quiz
+      - id: m20-ex-4
+        type: quiz
+      - id: m20-ex-5
+        type: calculation
+  - id: m21
+    title:
+      en: Execution
+      es: Ejecución
+    summary:
+      en: Stop-market vs stop-limit, TP/SL, reduce-only, slippage, why a stop-limit may not fill.
+      es: Stop-market vs stop-limit, TP/SL, reduce-only, slippage, por qué un stop-limit puede no ejecutarse.
+    assumes:
+    - m08
+    lessons:
+    - id: m21-l1
+      title:
+        en: Getting the order you meant
+        es: Conseguir la orden que querías
+      exercises:
+      - id: m21-ex-1
+        type: quiz
+      - id: m21-ex-2
+        type: quiz
+      - id: m21-ex-3
+        type: quiz
+      - id: m21-ex-4
+        type: quiz
+  - id: m22
+    title:
+      en: Expectancy and statistics
+      es: Esperanza matemática y estadística
+    summary:
+      en: Win rate vs payoff, expectancy, losing streaks as normal and computable, variance and sample size.
+      es: Win rate vs payoff, esperanza, rachas de pérdidas como algo normal y calculable, varianza y tamaño muestral.
+    assumes:
+    - m19
+    lessons:
+    - id: m22-l1
+      title:
+        en: Whether the system actually makes money
+        es: Si el sistema gana dinero de verdad
+      exercises:
+      - id: m22-ex-1
+        type: calculation
+      - id: m22-ex-2
+        type: calculation
+      - id: m22-ex-3
+        type: quiz
+      - id: m22-ex-4
+        type: quiz
+  - id: m23
+    title:
+      en: Psychology and classic mistakes
+      es: Psicología y errores clásicos
+    summary:
+      en: Revenge trading, moving the stop, over-leveraging after a win, FOMO; mistakes mapped per style.
+      es: Revenge trading, mover el stop, sobreapalancarse tras ganar, FOMO; errores mapeados por estilo.
+    assumes:
+    - m19
+    - m20
+    lessons:
+    - id: m23-l1
+      title:
+        en: When the mistake isn't the chart
+        es: Cuando el error no está en el gráfico
+      exercises:
+      - id: m23-ex-1
+        type: quiz
+      - id: m23-ex-2
+        type: quiz
+      - id: m23-ex-3
+        type: quiz
+      - id: m23-ex-4
+        type: quiz

@@ -1,0 +1,141 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: what-is-capitulation
+    prompt:
+      en: "What is 'capitulation'?"
+      es: "¿Qué es la \"capitulación\"?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The point where scared holders give up and sell at a loss just to stop the pain, so selling pressure becomes largely spent."
+          es: "El punto en que los tenedores asustados se rinden y venden con pérdidas solo para dejar de sufrir, con lo que la presión vendedora queda casi agotada."
+      - id: b
+        text:
+          en: "The exchange force-closing leveraged positions when their margin runs out."
+          es: "El exchange cerrando forzosamente posiciones apalancadas cuando su margen se agota."
+      - id: c
+        text:
+          en: "A scheduled halving of Bitcoin's block reward."
+          es: "Un halving programado de la recompensa por bloque de Bitcoin."
+      - id: d
+        text:
+          en: "The moment the crowd turns euphoric and buys the top."
+          es: "El momento en que la masa se vuelve eufórica y compra el techo."
+    explanation:
+      en: "Capitulation is the emotional surrender at the low, not a mechanical force-close. Option b describes liquidation — a different thing: the exchange closing a leveraged position when margin is exhausted."
+      es: "La capitulación es la rendición emocional en el mínimo, no un cierre forzoso mecánico. La opción b describe la liquidación, algo distinto: el exchange cerrando una posición apalancada cuando el margen se agota."
+  - id: fear-location
+    prompt:
+      en: "Where on the price chart does the deepest extreme fear tend to appear?"
+      es: "¿En qué parte del gráfico de precio tiende a aparecer el miedo extremo más profundo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Near market lows, because the people who were going to panic-sell have largely already done so."
+          es: "Cerca de los mínimos del mercado, porque quienes iban a vender presa del pánico ya lo han hecho en su mayoría."
+      - id: b
+        text:
+          en: "Near market tops, right before a big rally begins."
+          es: "Cerca de los techos del mercado, justo antes de que empiece un gran rally."
+      - id: c
+        text:
+          en: "Randomly, with no relation to where price is."
+          es: "Al azar, sin relación con dónde está el precio."
+      - id: d
+        text:
+          en: "Only during scheduled news events."
+          es: "Solo durante eventos de noticias programados."
+    explanation:
+      en: "Deep fear clusters near bottoms: once capitulation has run and the panic sellers are out, selling pressure is largely spent and price is often near a low. That makes extreme fear a zone of interest — not a dated buy signal."
+      es: "El miedo profundo se concentra cerca de los suelos: una vez consumada la capitulación y fuera los vendedores presa del pánico, la presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo. Eso convierte el miedo extremo en una zona de interés, no en una señal de compra con fecha."
+  - id: capitulation-vs-liquidation
+    kind: true_false
+    prompt:
+      en: "\"Capitulation\" and \"liquidation\" are two names for the same event."
+      es: "\"Capitulación\" y \"liquidación\" son dos nombres para el mismo suceso."
+    answer: false
+    explanation:
+      en: "They are different. Capitulation is holders emotionally giving up and selling at a loss to stop the pain. Liquidation is the exchange force-closing a leveraged position when its margin runs out. Panic-driven capitulation can trigger liquidations, but the two are not the same thing."
+      es: "Son distintos. La capitulación es que los tenedores se rinden emocionalmente y venden con pérdidas para dejar de sufrir. La liquidación es el exchange cerrando forzosamente una posición apalancada cuando se agota su margen. La capitulación por pánico puede desencadenar liquidaciones, pero no son lo mismo."
+  - id: capitulation-effect
+    prompt:
+      en: "Once capitulation has run its course, what happens to selling pressure?"
+      es: "Una vez consumada la capitulación, ¿qué le ocurre a la presión vendedora?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is largely spent — the people who were going to panic-sell have already done so."
+          es: "Queda casi agotada: quienes iban a vender presa del pánico ya lo han hecho."
+      - id: b
+        text:
+          en: "It accelerates, because capitulation guarantees more forced selling for weeks."
+          es: "Se acelera, porque la capitulación garantiza más ventas forzadas durante semanas."
+      - id: c
+        text:
+          en: "The exchange takes over and keeps selling on holders' behalf."
+          es: "El exchange toma el relevo y sigue vendiendo en nombre de los tenedores."
+      - id: d
+        text:
+          en: "Nothing changes; capitulation has no effect on the sellers who remain."
+          es: "No cambia nada; la capitulación no afecta a los vendedores que quedan."
+    explanation:
+      en: "That is the point of capitulation as a signal: when the sellers who were going to give up have given up, the supply of forced selling dries up, and price is often near a low. That is why it marks a zone of interest — not a precise buy moment."
+      es: "Ese es el sentido de la capitulación como señal: cuando los vendedores que iban a rendirse ya se han rendido, la oferta de venta forzada se seca y el precio suele estar cerca de un mínimo. Por eso marca una zona de interés, no un momento preciso de compra."
+  - id: fear-sequence
+    kind: ordering
+    prompt:
+      en: "Put the stages of a fear-driven sell-off in order, first to last."
+      es: "Ordena las fases de una caída impulsada por el miedo, de la primera a la última."
+    items:
+      - id: drop
+        position: 1
+        text:
+          en: "Price falls and the mood turns fearful."
+          es: "El precio cae y el ánimo se vuelve temeroso."
+      - id: deepen
+        position: 2
+        text:
+          en: "Fear deepens toward extreme as the drop continues."
+          es: "El miedo se agrava hacia el extremo a medida que sigue la caída."
+      - id: capitulate
+        position: 3
+        text:
+          en: "Holders capitulate — selling at a loss to stop the pain."
+          es: "Los tenedores capitulan: venden con pérdidas para dejar de sufrir."
+      - id: spent
+        position: 4
+        text:
+          en: "Selling pressure is largely spent and price is often near a low."
+          es: "La presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo."
+    explanation:
+      en: "Fear builds, peaks in capitulation, and then selling exhausts itself near a low. The sequence explains why the deepest fear clusters near bottoms — but it still tells you nothing about the exact day price turns."
+      es: "El miedo se acumula, culmina en la capitulación y después la venta se agota cerca de un mínimo. La secuencia explica por qué el miedo más profundo se concentra cerca de los suelos, pero sigue sin decirte el día exacto en que gira el precio."
+  - id: fear-buy-too-early
+    prompt:
+      en: "A trader buys the moment the index first prints extreme fear, yet price keeps bleeding for weeks. What was the mistake?"
+      es: "Un trader compra en cuanto el índice marca por primera vez miedo extremo, pero el precio sigue sangrando durante semanas. ¿Cuál fue el error?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Treating extreme fear as a timed bottom — it is a zone, and fear can stay extreme through long bear markets, so entries need their own confirmation."
+          es: "Tratar el miedo extremo como un suelo con fecha: es una zona, y el miedo puede seguir extremo durante largos mercados bajistas, así que las entradas necesitan su propia confirmación."
+      - id: b
+        text:
+          en: "The index was broken; extreme fear never appears in a downtrend."
+          es: "El índice estaba roto; el miedo extremo nunca aparece en una tendencia bajista."
+      - id: c
+        text:
+          en: "They should have shorted instead — fear always means lower prices from here."
+          es: "Deberían haber cortado; el miedo siempre significa precios más bajos desde ahí."
+      - id: d
+        text:
+          en: "Sentiment matters only in stocks, so it should have been ignored."
+          es: "El sentimiento solo importa en las acciones, así que debería haberse ignorado."
+    explanation:
+      en: "Extreme fear marks a contrarian zone of interest, not a moment. It can persist while price keeps falling, so buying the first extreme print without your own confirmation gets you run over — exactly the trap the lesson warns about."
+      es: "El miedo extremo marca una zona contraria de interés, no un momento. Puede persistir mientras el precio sigue cayendo, así que comprar en la primera lectura extrema sin tu propia confirmación te arrolla: justo la trampa contra la que advierte la lección."

@@ -1,0 +1,133 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: contract-not-coin
+    prompt:
+      en: "When you go long a perpetual future on BTC, what do you actually hold?"
+      es: "Cuando te pones largo en un futuro perpetuo de BTC, ¿qué tienes en realidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A contract whose value tracks BTC's price — you do not own any BTC."
+          es: "Un contrato cuyo valor sigue al precio de BTC: no posees ningún BTC."
+      - id: b
+        text:
+          en: "Actual BTC, held in custody for you by the exchange until you close."
+          es: "BTC de verdad, que el exchange te custodia hasta que cierras."
+      - id: c
+        text:
+          en: "A dated contract that expires and settles for BTC next quarter."
+          es: "Un contrato con fecha que vence y liquida en BTC el próximo trimestre."
+      - id: d
+        text:
+          en: "A loan of BTC that you must repay to the exchange."
+          es: "Un préstamo de BTC que debes devolver al exchange."
+    explanation:
+      en: "A perp is a contract that tracks a price; you never own or borrow the underlying coin. And 'perpetual' means there is no expiry date — that is the whole point of the design."
+      es: "Un perp es un contrato que sigue un precio; nunca posees ni pides prestada la moneda subyacente. Y 'perpetuo' significa que no hay fecha de vencimiento: ese es todo el sentido del diseño."
+  - id: mark-vs-last
+    prompt:
+      en: "A perp's last traded price wicks down for a few seconds on one exchange, far below every other venue. Your long is nowhere near its liquidation level on the mark price. What happens?"
+      es: "El último precio de un perp da una mecha hacia abajo durante unos segundos en un exchange, muy por debajo del resto de plataformas. Tu largo está lejísimos de su nivel de liquidación según el precio de marca. ¿Qué pasa?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Nothing is forced — liquidations track the mark price (a smoothed fair value), not one venue's last trade."
+          es: "No se fuerza nada: las liquidaciones siguen el precio de marca (un valor justo suavizado), no la última operación de una plataforma."
+      - id: b
+        text:
+          en: "You are liquidated at once, because the last price touched your level."
+          es: "Te liquidan de inmediato, porque el último precio tocó tu nivel."
+      - id: c
+        text:
+          en: "Your long is closed automatically at a profit."
+          es: "Tu largo se cierra automáticamente con beneficio."
+      - id: d
+        text:
+          en: "Funding is paid to you early to make up for the wick."
+          es: "Se te paga el funding por adelantado para compensar la mecha."
+    explanation:
+      en: "Liquidations use the mark price precisely so a single thin or manipulated wick cannot force-close healthy positions. The last price is jumpy; the mark price is the fair reference your liquidation level is measured against."
+      es: "Las liquidaciones usan el precio de marca justamente para que una sola mecha fina o manipulada no cierre a la fuerza posiciones sanas. El último precio es nervioso; el precio de marca es la referencia justa contra la que se mide tu nivel de liquidación."
+  - id: price-term-meanings
+    kind: matching
+    prompt:
+      en: "Match each perpetual-futures term to what it means."
+      es: "Empareja cada término de futuros perpetuos con lo que significa."
+    pairs:
+      - id: last
+        left:
+          en: "Last price"
+          es: "Último precio"
+        right:
+          en: "The price of the most recent trade on one exchange — jumpy and easy to spike."
+          es: "El precio de la operación más reciente en un exchange: nervioso y fácil de disparar."
+      - id: mark
+        left:
+          en: "Mark price"
+          es: "Precio de marca"
+        right:
+          en: "A smoothed fair value from the wider spot index; what your liquidation level is measured against."
+          es: "Un valor justo suavizado del índice spot más amplio; contra lo que se mide tu nivel de liquidación."
+      - id: funding
+        left:
+          en: "Funding rate"
+          es: "Tasa de funding"
+        right:
+          en: "A periodic payment moved directly between longs and shorts to tether the perp to spot."
+          es: "Un pago periódico que se mueve directamente entre largos y cortos para amarrar el perp al spot."
+      - id: notional
+        left:
+          en: "Notional"
+          es: "Nocional"
+        right:
+          en: "The full contract value of your position — how its size is measured, not the coins you own."
+          es: "El valor de contrato total de tu posición: cómo se mide su tamaño, no las monedas que posees."
+    explanation:
+      en: "Last price is one venue's latest trade; mark price is the smoothed fair value your PnL and liquidation are measured against; the funding rate is a trader-to-trader payment that keeps the perp near spot; notional is the size of the position, not any coin you hold."
+      es: "El último precio es la última operación de una plataforma; el precio de marca es el valor justo suavizado contra el que se miden tu PnL y tu liquidación; la tasa de funding es un pago de trader a trader que mantiene el perp cerca del spot; el nocional es el tamaño de la posición, no una moneda que poseas."
+  - id: ownership-myth
+    kind: true_false
+    prompt:
+      en: "Going long a perpetual future on BTC gives you ownership of actual BTC that the exchange holds for you."
+      es: "Ponerte largo en un futuro perpetuo de BTC te da la propiedad de BTC real que el exchange guarda por ti."
+    answer: false
+    explanation:
+      en: "False. A perp is a contract whose value tracks the price; you never own or hold the underlying coin. The exchange only settles the difference in the contract's value, usually in a stablecoin."
+      es: "Falso. Un perp es un contrato cuyo valor sigue al precio; nunca posees ni tienes la moneda subyacente. El exchange solo salda la diferencia en el valor del contrato, normalmente en una stablecoin."
+  - id: no-expiry-myth
+    kind: true_false
+    prompt:
+      en: "A perpetual future settles on a fixed date each quarter — it just runs longer than an ordinary dated future."
+      es: "Un futuro perpetuo vence en una fecha fija cada trimestre; solo dura más que un futuro con fecha normal."
+    answer: false
+    explanation:
+      en: "False. 'Perpetual' means there is no expiry date at all — that is the whole design. A dated future settles on a set day; a perp just keeps running, which is exactly why funding exists to tether it to spot."
+      es: "Falso. 'Perpetuo' significa que no hay ninguna fecha de vencimiento: ese es todo el diseño. Un futuro con fecha vence un día fijado; un perp simplemente sigue corriendo, y por eso existe el funding para amarrarlo al spot."
+  - id: short-without-borrowing
+    prompt:
+      en: "To open a short on a BTC perpetual, what do you have to do with real BTC first?"
+      es: "Para abrir un corto en un perpetuo de BTC, ¿qué tienes que hacer primero con BTC real?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Nothing — the contract is symmetric, so a short is opened natively, without borrowing or selling any coin."
+          es: "Nada: el contrato es simétrico, así que un corto se abre de forma nativa, sin pedir prestada ni vender ninguna moneda."
+      - id: b
+        text:
+          en: "Borrow BTC from the exchange and sell it, then buy it back later."
+          es: "Pedir BTC prestado al exchange y venderlo, para recomprarlo más tarde."
+      - id: c
+        text:
+          en: "Own the BTC already, so you can deliver it if the short is assigned."
+          es: "Poseer ya el BTC, para poder entregarlo si te asignan el corto."
+      - id: d
+        text:
+          en: "Convert your margin into BTC, which the exchange then sells for you."
+          es: "Convertir tu margen en BTC, que luego el exchange vende por ti."
+    explanation:
+      en: "On a perp a short is just as native as a long — you open a position in a contract, you do not borrow or sell any real coin. That is different from shorting on a spot market, where you really would borrow the asset."
+      es: "En un perp un corto es tan nativo como un largo: abres una posición en un contrato, no pides prestada ni vendes ninguna moneda real. Es distinto de ponerte corto en el mercado spot, donde sí pedirías prestado el activo."

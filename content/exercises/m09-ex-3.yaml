@@ -1,0 +1,153 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: cycle-order
+    prompt:
+      en: "Which sequence correctly describes the Wyckoff cycle?"
+      es: "¿Qué secuencia describe correctamente el ciclo de Wyckoff?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Accumulation, then markup, then distribution, then markdown."
+          es: "Acumulación, luego markup, luego distribución, luego markdown."
+      - id: b
+        text:
+          en: "Accumulation, then markdown, then distribution, then markup."
+          es: "Acumulación, luego markdown, luego distribución, luego markup."
+      - id: c
+        text:
+          en: "Distribution, then markup, then accumulation, then markdown."
+          es: "Distribución, luego markup, luego acumulación, luego markdown."
+      - id: d
+        text:
+          en: "Markup, then markdown, then accumulation, then distribution."
+          es: "Markup, luego markdown, luego acumulación, luego distribución."
+    explanation:
+      en: "Large players build longs during accumulation, which resolves upward into the markup. After the markup they unload during distribution, which resolves downward into the markdown. So accumulation is followed by markup and distribution by markdown — not the other way round."
+      es: "Los grandes participantes construyen largos durante la acumulación, que se resuelve al alza en el markup. Tras el markup sueltan durante la distribución, que se resuelve a la baja en el markdown. Por eso la acumulación va seguida del markup y la distribución del markdown, no al revés."
+  - id: range-meaning
+    prompt:
+      en: "In Wyckoff's reading, what is actually happening during a sideways trading range?"
+      es: "En la lectura de Wyckoff, ¿qué ocurre realmente durante un rango lateral?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Large players are quietly building or unloading positions, needing many sessions to fill a big order without moving price against themselves."
+          es: "Los grandes participantes construyen o sueltan posiciones en silencio, necesitando muchas sesiones para llenar una orden grande sin mover el precio en su contra."
+      - id: b
+        text:
+          en: "Nothing meaningful — the market is just idle, waiting for the next piece of news."
+          es: "Nada relevante: el mercado está parado, esperando la próxima noticia."
+      - id: c
+        text:
+          en: "Institutions have left the market entirely and only retail traders remain."
+          es: "Las instituciones han abandonado por completo el mercado y solo queda el retail."
+      - id: d
+        text:
+          en: "It is always accumulation, because sideways price means buyers are absorbing supply."
+          es: "Siempre es acumulación, porque un precio lateral significa que los compradores absorben la oferta."
+    explanation:
+      en: "The whole point of Wyckoff is that a quiet range is where the big, invisible work happens: a large order has to be worked over many sessions of two-way churn. A range can be accumulation OR distribution — the prior trend and the false break tell you which; sideways price alone does not mean buyers are winning."
+      es: "Todo el sentido de Wyckoff es que un rango tranquilo es donde ocurre el trabajo grande e invisible: una orden grande hay que trabajarla en muchas sesiones de ir y venir. Un rango puede ser acumulación O distribución; la tendencia previa y la ruptura falsa te dicen cuál, y un precio lateral por sí solo no significa que ganen los compradores."
+  - id: cycle-sequence
+    kind: ordering
+    prompt:
+      en: "Put the four stages of the Wyckoff cycle in order, first to last."
+      es: "Ordena las cuatro etapas del ciclo de Wyckoff, de la primera a la última."
+    items:
+      - id: acc
+        position: 1
+        text: { en: "Accumulation (a range after a downtrend)", es: "Acumulación (un rango tras una tendencia bajista)" }
+      - id: mup
+        position: 2
+        text: { en: "Markup (price trends up, leaving the range)", es: "Markup (el precio sube en tendencia y abandona el rango)" }
+      - id: dis
+        position: 3
+        text: { en: "Distribution (a range after the markup)", es: "Distribución (un rango tras el markup)" }
+      - id: mdn
+        position: 4
+        text: { en: "Markdown (price trends down, leaving the range)", es: "Markdown (el precio baja en tendencia y abandona el rango)" }
+    explanation:
+      en: "The cycle alternates range, trend, range, trend: accumulation builds longs, the markup carries them up, distribution unloads them, and the markdown carries price back down. A range is always followed by the trend it was preparing — accumulation into markup, distribution into markdown."
+      es: "El ciclo alterna rango, tendencia, rango, tendencia: la acumulación construye largos, el markup los lleva arriba, la distribución los suelta y el markdown lleva el precio de vuelta abajo. Un rango va siempre seguido de la tendencia que preparaba: acumulación hacia markup, distribución hacia markdown."
+  - id: phases-order
+    kind: ordering
+    prompt:
+      en: "Wyckoff labels the life of a trading range with phases A to E. Put them in the order they occur."
+      es: "Wyckoff etiqueta la vida de un rango con fases de la A a la E. Ordénalas según ocurren."
+    items:
+      - id: pa
+        position: 1
+        text: { en: "Phase A — the prior trend stops and the range's first boundaries form", es: "Fase A — la tendencia previa se detiene y se forman los primeros límites del rango" }
+      - id: pb
+        position: 2
+        text: { en: "Phase B — the long, choppy middle where the cause is built", es: "Fase B — el medio largo y errático donde se construye la causa" }
+      - id: pc
+        position: 3
+        text: { en: "Phase C — the test, where the spring or upthrust appears", es: "Fase C — la prueba, donde aparece el spring o el upthrust" }
+      - id: pd
+        position: 4
+        text: { en: "Phase D — the range starts to resolve toward one boundary", es: "Fase D — el rango empieza a resolverse hacia un límite" }
+      - id: pe
+        position: 5
+        text: { en: "Phase E — price leaves the range; the markup or markdown begins", es: "Fase E — el precio abandona el rango; comienza el markup o el markdown" }
+    explanation:
+      en: "You never have to name these live, but the order tells the story: the trend stops (A), the cause is built through long churn (B), the range is tested with a spring or upthrust (C), it starts to resolve (D), and finally price leaves the range (E). The spring or upthrust sits in Phase C, before the range actually breaks."
+      es: "Nunca hace falta nombrarlas en directo, pero el orden cuenta la historia: la tendencia se detiene (A), se construye la causa con un ir y venir largo (B), el rango se pone a prueba con un spring o un upthrust (C), empieza a resolverse (D) y por fin el precio abandona el rango (E). El spring o el upthrust está en la fase C, antes de que el rango se rompa de verdad."
+  - id: range-nothing-myth
+    kind: true_false
+    prompt:
+      en: "A quiet, sideways range means nothing important is happening; the only action worth watching is in the trends."
+      es: "Un rango tranquilo y lateral significa que no pasa nada importante; lo único que merece la pena mirar son las tendencias."
+    answer: false
+    explanation:
+      en: "This is backwards. Wyckoff's whole claim is that the range is where the big, invisible work happens — a large player filling an order over many sessions. The trends (markup, markdown) are just the visible result of buying or selling that already finished inside the range."
+      es: "Es justo al revés. Todo el argumento de Wyckoff es que el rango es donde ocurre el trabajo grande e invisible: un gran participante llenando una orden a lo largo de muchas sesiones. Las tendencias (markup, markdown) son solo el resultado visible de una compra o venta que ya terminó dentro del rango."
+  - id: stage-actions
+    kind: matching
+    prompt:
+      en: "Match each stage of the Wyckoff cycle to what is happening in it."
+      es: "Empareja cada etapa del ciclo de Wyckoff con lo que ocurre en ella."
+    pairs:
+      - id: acc
+        left: { en: "Accumulation", es: "Acumulación" }
+        right: { en: "A range after a downtrend; large players quietly build long positions", es: "Un rango tras una tendencia bajista; los grandes participantes construyen largos en silencio" }
+      - id: mup
+        left: { en: "Markup", es: "Markup" }
+        right: { en: "A trend up out of the range; the buying is done and price rises", es: "Una tendencia al alza fuera del rango; la compra ha terminado y el precio sube" }
+      - id: dis
+        left: { en: "Distribution", es: "Distribución" }
+        right: { en: "A range after an uptrend; large players quietly unload into eager buyers", es: "Un rango tras una tendencia alcista; los grandes participantes sueltan en silencio a compradores entusiastas" }
+      - id: mdn
+        left: { en: "Markdown", es: "Markdown" }
+        right: { en: "A trend down out of the range; the selling is done and price falls", es: "Una tendencia a la baja fuera del rango; la venta ha terminado y el precio cae" }
+    explanation:
+      en: "Accumulation and distribution are the ranges (building and unloading); markup and markdown are the trends that follow. Note the symmetry: accumulation follows a downtrend and leads to a markup, while distribution follows an uptrend and leads to a markdown."
+      es: "La acumulación y la distribución son los rangos (construir y soltar); el markup y el markdown son las tendencias que siguen. Fíjate en la simetría: la acumulación sigue a una tendencia bajista y lleva a un markup, mientras que la distribución sigue a una alcista y lleva a un markdown."
+  - id: accumulation-context
+    prompt:
+      en: "Accumulation is a range that comes after a ___ and resolves into a ___."
+      es: "La acumulación es un rango que llega después de un(a) ___ y se resuelve en un ___."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "after a downtrend; resolves into a markup"
+          es: "después de una tendencia bajista; se resuelve en un markup"
+      - id: b
+        text:
+          en: "after an uptrend; resolves into a markdown"
+          es: "después de una tendencia alcista; se resuelve en un markdown"
+      - id: c
+        text:
+          en: "after an uptrend; resolves into a markup"
+          es: "después de una tendencia alcista; se resuelve en un markup"
+      - id: d
+        text:
+          en: "after a downtrend; resolves into a markdown"
+          es: "después de una tendencia bajista; se resuelve en un markdown"
+    explanation:
+      en: "Accumulation is where large players buy from sellers who have given up — so it follows a downtrend and, once the buying is done, resolves upward into a markup. Option b describes distribution (its mirror image); the others mix the two up, which is the most common Wyckoff mistake."
+      es: "La acumulación es donde los grandes participantes compran a los vendedores que se han rendido, así que sigue a una tendencia bajista y, terminada la compra, se resuelve al alza en un markup. La opción b describe la distribución (su imagen espejo); las demás mezclan ambas, que es el error más común en Wyckoff."

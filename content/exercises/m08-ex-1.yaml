@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: fakeout
+n: 130
+indicator: rsi
+targets: [genuine_breakout, false_break, no_break]
+choices: [genuine_breakout, false_break, no_break]
+prompt:
+  en: "A horizontal level (support or resistance) is drawn and tested near the right edge. Judge the tested level: did price **close beyond it and hold** (genuine breakout), **poke beyond then close back inside** (false break), or **approach but never trade beyond it** (no break)?"
+  es: "Se traza un nivel horizontal (soporte o resistencia) y se testea cerca del borde derecho. Juzga el nivel testeado: ¿el precio **cerró más allá y aguantó** (ruptura genuina), **asomó más allá y luego cerró de vuelta dentro** (falsa ruptura) o **se acercó pero nunca operó más allá** (sin ruptura)?"
+explanation:
+  en: "Read where price closes relative to the level, not where a wick reaches. A genuine breakout closes a full body beyond the level and holds there; a false break pokes beyond (often a long wick) but closes back inside; no break means price was rejected before ever closing beyond. Wait for the close, not the poke."
+  es: "Fíjate en dónde cierra el precio respecto al nivel, no en hasta dónde llega una mecha. Una ruptura genuina cierra un cuerpo entero más allá del nivel y aguanta ahí; una falsa ruptura asoma más allá (a menudo con una mecha larga) pero cierra de vuelta dentro; sin ruptura significa que el precio fue rechazado antes de cerrar más allá. Espera al cierre, no al asomo."

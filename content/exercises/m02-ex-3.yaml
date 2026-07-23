@@ -1,0 +1,152 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: not-your-keys
+    prompt:
+      en: "What does \"not your keys, not your coins\" mean in practice?"
+      es: "¿Qué significa \"not your keys, not your coins\" en la práctica?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Coins held on an exchange are an IOU from that company; only coins in a wallet whose keys you hold are truly yours."
+          es: "Las monedas en un exchange son un pagaré de esa empresa; solo son de verdad tuyas las monedas en una cartera cuyas claves controlas."
+      - id: b
+        text:
+          en: "You should never write your keys down, or someone will steal your coins."
+          es: "Nunca deberías apuntar tus claves, o alguien te robará las monedas."
+      - id: c
+        text:
+          en: "Every exchange is a scam and will eventually steal your coins."
+          es: "Todo exchange es una estafa y acabará robándote las monedas."
+      - id: d
+        text:
+          en: "You need a different private key for every coin you own."
+          es: "Necesitas una clave privada distinta para cada moneda que tengas."
+    explanation:
+      en: "The phrase is about custody: coins on an exchange are a claim on the company, while coins in a wallet you control are yours. It is not a claim that every exchange is a scam."
+      es: "La frase va de custodia: las monedas en un exchange son un derecho de cobro sobre la empresa, mientras que las de una cartera que controlas son tuyas. No afirma que todo exchange sea una estafa."
+  - id: custody-risk
+    prompt:
+      en: "Which is a genuine risk of keeping your long-term savings on a custodial exchange?"
+      es: "¿Cuál es un riesgo real de guardar tus ahorros a largo plazo en un exchange custodial?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The exchange could freeze withdrawals, be hacked, or become insolvent, leaving you with a claim instead of your coins."
+          es: "El exchange podría congelar los retiros, sufrir un hackeo o quebrar, dejándote con un derecho de cobro en vez de tus monedas."
+      - id: b
+        text:
+          en: "The coins slowly lose value because the exchange charges storage fees on idle balances."
+          es: "Las monedas pierden valor poco a poco porque el exchange cobra comisiones de almacenamiento por los saldos inactivos."
+      - id: c
+        text:
+          en: "The blockchain deletes any coins that have not moved for a year."
+          es: "La blockchain borra las monedas que no se mueven durante un año."
+      - id: d
+        text:
+          en: "Self-custody is illegal, so you are forced to keep everything on the exchange."
+          es: "La autocustodia es ilegal, así que estás obligado a tenerlo todo en el exchange."
+    explanation:
+      en: "The real exposure is counterparty risk: freezes, hacks, or insolvency turn your balance into a claim on the company. Blockchains do not expire coins, and self-custody is not illegal."
+      es: "La exposición real es el riesgo de contraparte: congelaciones, hackeos o quiebras convierten tu saldo en un derecho de cobro sobre la empresa. Las blockchains no caducan las monedas y la autocustodia no es ilegal."
+  - id: custody-tradeoff-match
+    kind: matching
+    prompt:
+      en: "Match each situation to its consequence under the custody model that applies."
+      es: "Empareja cada situación con su consecuencia según el modelo de custodia que le corresponde."
+    pairs:
+      - id: forgot-pw
+        left: { en: "You forget your CEX password", es: "Olvidas la contraseña de tu CEX" }
+        right:
+          en: "The company can restore your access"
+          es: "La empresa puede restaurar tu acceso"
+      - id: lost-keys
+        left: { en: "You lose your self-custody wallet's keys", es: "Pierdes las claves de tu cartera de autocustodia" }
+        right:
+          en: "No one can recover the coins for you"
+          es: "Nadie puede recuperar las monedas por ti"
+      - id: exch-fails
+        left: { en: "Your exchange freezes withdrawals or goes insolvent", es: "Tu exchange congela los retiros o quiebra" }
+        right:
+          en: "Your balance becomes a claim on the company"
+          es: "Tu saldo se convierte en un derecho de cobro sobre la empresa"
+      - id: own-wallet
+        left: { en: "Coins in a wallet you control", es: "Monedas en una cartera que controlas" }
+        right:
+          en: "No company can freeze or lose them"
+          es: "Ninguna empresa puede congelarlas ni perderlas"
+    explanation:
+      en: "Custodial custody is recoverable but depends on the company; self-custody removes that dependence but puts recovery — and mistakes — entirely on you."
+      es: "La custodia custodial es recuperable pero depende de la empresa; la autocustodia elimina esa dependencia pero deja la recuperación —y los errores— enteramente en tus manos."
+  - id: exchange-coins-tf
+    kind: true_false
+    prompt:
+      en: "Coins sitting in your exchange account are legally the same thing as coins in a wallet whose keys you hold."
+      es: "Las monedas que están en tu cuenta del exchange son legalmente lo mismo que las monedas en una cartera cuyas claves controlas."
+    answer: false
+    explanation:
+      en: "Coins on an exchange are a claim on the company — an IOU. Only coins in a wallet you control are truly yours. That difference is the whole point of 'not your keys, not your coins'."
+      es: "Las monedas en un exchange son un derecho de cobro sobre la empresa: un pagaré. Solo las monedas en una cartera que controlas son de verdad tuyas. Esa diferencia es todo el sentido de 'not your keys, not your coins'."
+  - id: self-custody-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE about self-custody."
+      es: "Selecciona TODAS las afirmaciones que son CIERTAS sobre la autocustodia."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "No company can freeze or seize your coins."
+          es: "Ninguna empresa puede congelar ni confiscar tus monedas."
+      - id: b
+        correct: true
+        text:
+          en: "If you lose the keys, the coins are gone — no one can restore them."
+          es: "Si pierdes las claves, las monedas se pierden: nadie puede restaurarlas."
+      - id: c
+        text:
+          en: "A support desk can reset your access if you forget your keys."
+          es: "Una atención al cliente puede restablecer tu acceso si olvidas las claves."
+      - id: d
+        text:
+          en: "A regulator insures your coins against loss or theft."
+          es: "Un regulador asegura tus monedas contra pérdida o robo."
+    explanation:
+      en: "Self-custody means no one can freeze your coins — and no one can bail you out either. The responsibility for keys and signed transactions is entirely yours."
+      es: "La autocustodia significa que nadie puede congelar tus monedas, y que tampoco nadie puede rescatarte. La responsabilidad de las claves y de las transacciones firmadas es enteramente tuya."
+  - id: savings-vs-trading
+    prompt:
+      en: "Based on the custody trade-off, what is the sensible default for most beginners?"
+      es: "Según el compromiso de custodia, ¿cuál es el criterio sensato por defecto para la mayoría de principiantes?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Keep trading funds on the exchange, but don't store long-term savings there."
+          es: "Mantén los fondos para operar en el exchange, pero no guardes ahí tus ahorros a largo plazo."
+      - id: b
+        text:
+          en: "Keep everything on the exchange; it's insured like a bank."
+          es: "Guarda todo en el exchange; está asegurado como un banco."
+      - id: c
+        text:
+          en: "Never use an exchange at all — always trade peer-to-peer."
+          es: "No uses nunca un exchange; opera siempre de persona a persona."
+      - id: d
+        text:
+          en: "Move every coin to self-custody the instant a trade fills."
+          es: "Mueve cada moneda a autocustodia en el instante en que se ejecute una operación."
+    explanation:
+      en: "Keeping funds on an exchange to trade is a reasonable trade-off; parking your savings there quietly makes the company your bank. Exchanges are generally not insured like bank deposits."
+      es: "Mantener fondos en un exchange para operar es un compromiso razonable; aparcar ahí tus ahorros convierte, sin darte cuenta, a la empresa en tu banco. Los exchanges no suelen estar asegurados como los depósitos bancarios."
+  - id: keys-lost-tf
+    kind: true_false
+    prompt:
+      en: "If you lose the private keys to your self-custody wallet, the exchange's support desk can restore your access."
+      es: "Si pierdes las claves privadas de tu cartera de autocustodia, la atención al cliente del exchange puede restaurar tu acceso."
+    answer: false
+    explanation:
+      en: "A self-custody wallet has no company behind it. There is no password reset and no support desk — losing the keys means losing the coins. That is the price of removing counterparty risk."
+      es: "Una cartera de autocustodia no tiene ninguna empresa detrás. No hay recuperación de contraseña ni atención al cliente: perder las claves significa perder las monedas. Ese es el precio de eliminar el riesgo de contraparte."

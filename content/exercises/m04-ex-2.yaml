@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: funding_payment
+prompt:
+  en: "A **{side}** perp position carries **{notional} USDT** of notional through the funding timestamp. The 8-hour funding rate prints at **{rate}**. How much funding do you pay this interval, in USDT? (Negative means you receive it instead.) Round to 2 decimals."
+  es: "Una posición perp **{side}** arrastra **{notional} USDT** de nocional al llegar la marca de funding. La tasa de funding a 8 horas marca **{rate}**. ¿Cuánto funding pagas en este intervalo, en USDT? (Negativo significa que lo recibes en su lugar.) Redondea a 2 decimales."
+params:
+  notional: { kind: int_range, min: 25000, max: 100000, step: 500 }
+  rate: { kind: choice, values: ["0.0001", "0.0005", "0.001", "-0.0004"] }
+  side: { kind: choice, values: ["long", "short"] }
+tolerance: { abs: "0.5" }
+round: 2
+unit: USDT
+explanation:
+  en: "Multiply the notional by the rate, then apply the sign of your side (+1 long, −1 short). With a negative funding rate the crowded side flips: shorts pay and longs receive. The bigger the notional, the more each interval costs — which is why funding matters on positions held for days."
+  es: "Multiplica el nocional por la tasa y aplica el signo de tu lado (+1 largo, −1 corto). Con una tasa de funding negativa el lado saturado cambia: los cortos pagan y los largos reciben. Cuanto mayor el nocional, más cuesta cada intervalo, y por eso el funding importa en posiciones mantenidas durante días."

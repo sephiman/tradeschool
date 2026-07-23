@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: net_pnl
+prompt:
+  en: "You go **{side}** on an altcoin: **{quantity}** contracts, entry price **{entry}**, and you close at **{exit}**. The taker fee is **{fee_rate}**, charged on both fills. What is your net PnL, in USDT? Round to 2 decimals."
+  es: "Vas **{side}** en una altcoin: **{quantity}** contratos, precio de entrada **{entry}**, y cierras en **{exit}**. La comisión taker es **{fee_rate}**, cobrada en ambas ejecuciones. ¿Cuál es tu PnL neto, en USDT? Redondea a 2 decimales."
+params:
+  entry: { kind: int_range, min: 1000, max: 4000, step: 50 }
+  exit: { kind: int_range, min: 1000, max: 4000, step: 50 }
+  quantity: { kind: choice, values: ["0.25", "0.5", "1"] }
+  side: { kind: choice, values: ["short"] }
+  fee_rate: { kind: choice, values: ["0.0002", "0.0004", "0.00055"] }
+tolerance: { abs: "1" }
+round: 2
+unit: USDT
+explanation:
+  en: "A short profits when price falls, so gross = quantity × (entry − exit). Then subtract the taker fee on both fills: fee_rate × quantity × (entry + exit). Note the fee is charged the same whether you won or lost — it is on notional, not on your result."
+  es: "Un short gana cuando el precio cae, así que el bruto = cantidad × (entrada − salida). Luego resta la comisión taker en ambas ejecuciones: fee_rate × cantidad × (entrada + salida). Fíjate en que la comisión se cobra igual tanto si ganaste como si perdiste: es sobre el notional, no sobre tu resultado."

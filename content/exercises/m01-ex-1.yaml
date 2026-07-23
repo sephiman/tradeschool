@@ -1,0 +1,142 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: stablecoin
+    prompt:
+      en: "Which statement best describes a stablecoin?"
+      es: "¿Qué afirmación describe mejor una stablecoin?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A token that aims to hold a fixed value (usually 1 USD), backed by reserves."
+          es: "Un token que busca mantener un valor fijo (normalmente 1 USD), respaldado por reservas."
+      - id: b
+        text:
+          en: "A coin whose price is guaranteed by a government."
+          es: "Una moneda cuyo precio garantiza un gobierno."
+      - id: c
+        text:
+          en: "Any altcoin with low volatility this week."
+          es: "Cualquier altcoin con poca volatilidad esta semana."
+      - id: d
+        text:
+          en: "A share in the exchange that issues it."
+          es: "Una acción del exchange que la emite."
+    explanation:
+      en: "A stablecoin targets a fixed value via reserves; its stability depends entirely on the issuer actually holding what it claims."
+      es: "Una stablecoin apunta a un valor fijo mediante reservas; su estabilidad depende por completo de que el emisor tenga de verdad lo que dice."
+  - id: btc-supply
+    prompt:
+      en: "What is Bitcoin's maximum supply?"
+      es: "¿Cuál es el suministro máximo de Bitcoin?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Capped at 21 million, on a fixed schedule."
+          es: "Limitado a 21 millones, con una emisión fija."
+      - id: b
+        text: { en: "Unlimited — miners create more as needed.", es: "Ilimitado: los mineros crean más según haga falta." }
+      - id: c
+        text: { en: "100 million, set at launch.", es: "100 millones, fijado en el lanzamiento." }
+      - id: d
+        text: { en: "Decided each year by a central bank.", es: "Lo decide cada año un banco central." }
+    explanation:
+      en: "Bitcoin's supply is capped at 21 million on a predictable schedule — the basis of its scarcity claim."
+      es: "El suministro de Bitcoin está limitado a 21 millones con una emisión predecible: la base de su afirmación de escasez."
+  - id: value
+    prompt:
+      en: "Which of these does NOT confer durable value to a token?"
+      es: "¿Cuál de estos NO aporta valor duradero a un token?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A large 'market cap' that is really a tiny float times a fantasy price."
+          es: "Un 'market cap' enorme que en realidad es un float minúsculo por un precio de fantasía."
+      - id: b
+        text: { en: "Genuine demand for a real use.", es: "Demanda genuina por un uso real." }
+      - id: c
+        text: { en: "Credible scarcity.", es: "Escasez creíble." }
+      - id: d
+        text: { en: "Strong network effects.", es: "Fuertes efectos de red." }
+    explanation:
+      en: "Real value comes from use, scarcity and network effects. A headline market cap on a tiny float is narrative, not durable value."
+      es: "El valor real viene del uso, la escasez y los efectos de red. Un market cap de titular sobre un float minúsculo es narrativa, no valor duradero."
+  - id: asset-classes-match
+    kind: matching
+    prompt:
+      en: "Match each type of crypto asset to its defining property."
+      es: "Empareja cada tipo de activo cripto con su propiedad definitoria."
+    pairs:
+      - id: btc
+        left: { en: "Bitcoin (BTC)", es: "Bitcoin (BTC)" }
+        right:
+          en: "The oldest, most decentralised chain; scarce, with a fixed supply capped at 21 million."
+          es: "La cadena más antigua y descentralizada; escasa, con una emisión fija limitada a 21 millones."
+      - id: alt
+        left: { en: "Altcoin", es: "Altcoin" }
+        right:
+          en: "Everything that isn't Bitcoin — quality ranges from serious platforms to worthless tokens."
+          es: "Todo lo que no es Bitcoin: la calidad va desde plataformas serias hasta tokens sin valor."
+      - id: stable
+        left: { en: "Stablecoin", es: "Stablecoin" }
+        right:
+          en: "Aims to hold a fixed value (usually 1 USD), backed by the issuer's reserves."
+          es: "Busca mantener un valor fijo (normalmente 1 USD), respaldado por las reservas del emisor."
+    explanation:
+      en: "Bitcoin is the scarce reserve asset; 'altcoin' just means 'not Bitcoin' and says nothing about quality; a stablecoin targets a fixed value via reserves."
+      es: "Bitcoin es el activo de reserva escaso; 'altcoin' solo significa 'no Bitcoin' y no dice nada sobre la calidad; una stablecoin apunta a un valor fijo mediante reservas."
+  - id: durable-value
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that give a token durable value."
+      es: "Selecciona TODO lo siguiente que aporta valor duradero a un token."
+    options:
+      - id: a
+        correct: true
+        text: { en: "Genuine demand for a real use.", es: "Demanda genuina por un uso real." }
+      - id: b
+        correct: true
+        text: { en: "Credible scarcity.", es: "Escasez creíble." }
+      - id: c
+        correct: true
+        text: { en: "Strong network effects.", es: "Fuertes efectos de red." }
+      - id: d
+        text: { en: "An influencer's endorsement.", es: "El respaldo de un influencer." }
+      - id: e
+        text: { en: "The price went up last week.", es: "Que el precio subiera la semana pasada." }
+      - id: f
+        text: { en: "A slick website and heavy marketing.", es: "Una web bonita y mucho marketing." }
+    explanation:
+      en: "Durable value comes from real demand, credible scarcity and network effects. Endorsements, a recent pump and marketing are narrative — real in the short term, worthless as long-term collateral."
+      es: "El valor duradero viene de la demanda real, la escasez creíble y los efectos de red. Los respaldos, una subida reciente y el marketing son narrativa: reales a corto plazo e inútiles como colateral a largo."
+  - id: stablecoin-gov-myth
+    kind: true_false
+    prompt:
+      en: "A stablecoin's price is guaranteed by a government."
+      es: "El precio de una stablecoin lo garantiza un gobierno."
+    answer: false
+    explanation:
+      en: "A stablecoin targets a fixed value through reserves held by its issuer, not any government guarantee. If the issuer doesn't hold what it claims, the peg can break."
+      es: "Una stablecoin apunta a un valor fijo mediante reservas de su emisor, no por una garantía de ningún gobierno. Si el emisor no tiene lo que dice, la paridad puede romperse."
+  - id: altcoin-quality
+    prompt:
+      en: "What does calling a coin 'an altcoin' tell you about its quality?"
+      es: "¿Qué te dice sobre su calidad llamar 'altcoin' a una moneda?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Nothing by itself — altcoins range from serious platforms to tokens made only to be sold to you."
+          es: "Nada por sí solo: las altcoins van desde plataformas serias hasta tokens creados solo para vendértelos."
+      - id: b
+        text: { en: "It is lower quality than Bitcoin by definition.", es: "Es de menor calidad que Bitcoin por definición." }
+      - id: c
+        text: { en: "It is a scam by definition.", es: "Es una estafa por definición." }
+      - id: d
+        text: { en: "It is a safe long-term hold.", es: "Es una inversión segura a largo plazo." }
+    explanation:
+      en: "'Altcoin' just means 'not Bitcoin'. It tells you nothing about quality — you still have to look at each one on its own."
+      es: "'Altcoin' solo significa 'no Bitcoin'. No te dice nada sobre la calidad: sigues teniendo que mirar cada una por separado."

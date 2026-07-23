@@ -1,0 +1,125 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: drawdown-asymmetry
+    prompt:
+      en: "Your account falls 50% in a bad month. What return, on the balance that is left, do you need to get back to where you started?"
+      es: "Tu cuenta cae un 50% en un mal mes. ¿Qué rentabilidad, sobre el saldo que queda, necesitas para volver al punto de partida?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "+100% — you have to double what is left."
+          es: "+100%: tienes que duplicar lo que queda."
+      - id: b
+        text:
+          en: "+50% — the same percentage you lost."
+          es: "+50%: el mismo porcentaje que perdiste."
+      - id: c
+        text:
+          en: "+25% — half of the percentage you lost."
+          es: "+25%: la mitad del porcentaje que perdiste."
+      - id: d
+        text:
+          en: "+150% — the loss plus a margin for fees."
+          es: "+150%: la pérdida más un margen para comisiones."
+    explanation:
+      en: "Gains and losses are not symmetric, because the gain is figured on a smaller base. Going 100 → 50 is −50%, but climbing 50 → 100 is +100%. The deeper the drawdown, the more brutally this curve turns against you — the reason to cap risk per trade."
+      es: "Las ganancias y las pérdidas no son simétricas, porque la ganancia se calcula sobre una base más pequeña. Ir de 100 → 50 es −50%, pero subir de 50 → 100 es +100%. Cuanto más profundo es el drawdown, más brutalmente se vuelve esta curva en tu contra: la razón para limitar el riesgo por operación."
+  - id: correlation-stacks
+    prompt:
+      en: "You open five separate longs, each risking 1% of your account, on five altcoins that usually rise and fall together. In a market-wide sell-off, what is your real risk?"
+      es: "Abres cinco largos separados, cada uno arriesgando el 1% de tu cuenta, en cinco altcoins que suelen subir y bajar juntas. En una caída generalizada del mercado, ¿cuál es tu riesgo real?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "About 5% — correlated positions move as one, so their risks stack."
+          es: "Alrededor del 5%: las posiciones correlacionadas se mueven como una, así que sus riesgos se suman."
+      - id: b
+        text:
+          en: "Still 1% — each position is capped at 1% on its own, so the total is too."
+          es: "Sigue siendo el 1%: cada posición está limitada al 1% por su cuenta, así que el total también."
+      - id: c
+        text:
+          en: "Lower than 1% — holding five different coins diversifies the risk away."
+          es: "Menos del 1%: tener cinco monedas distintas diversifica el riesgo."
+      - id: d
+        text:
+          en: "0% — five positions hedge each other out."
+          es: "0%: cinco posiciones se cubren entre sí."
+    explanation:
+      en: "Diversification only helps when holdings are genuinely uncorrelated. Five coins that fall together are effectively one 5% bet in five costumes; their risks add rather than cancel. In a hard crypto sell-off almost everything correlates toward 1."
+      es: "La diversificación solo ayuda cuando lo que tienes está genuinamente descorrelacionado. Cinco monedas que caen juntas son en la práctica una sola apuesta del 5% con cinco trajes; sus riesgos se suman en vez de anularse. En una caída dura de cripto casi todo se correlaciona hacia 1."
+  - id: drawdown-myth
+    kind: true_false
+    prompt:
+      en: "True or false: a 50% drawdown only needs a 50% gain to get back to where you started."
+      es: "Verdadero o falso: un drawdown del 50% solo necesita una ganancia del 50% para volver al punto de partida."
+    answer: false
+    explanation:
+      en: "False, and this is the belief that ruins over-leveraged accounts. Going 100 → 50 is −50%, but climbing 50 → 100 is +100% — you have to double what is left, because the gain is figured on the smaller surviving base. A 50% gain on 50 only reaches 75."
+      es: "Falso, y esta es la creencia que arruina las cuentas sobreapalancadas. Ir de 100 → 50 es −50%, pero subir de 50 → 100 es +100%: tienes que duplicar lo que queda, porque la ganancia se calcula sobre la base menor que sobrevive. Una ganancia del 50% sobre 50 solo llega a 75."
+  - id: recovery-matching
+    kind: matching
+    prompt:
+      en: "Match each drawdown to the gain, on what is left, needed to get back to even."
+      es: "Empareja cada drawdown con la ganancia, sobre lo que queda, necesaria para volver a estar en tablas."
+    pairs:
+      - { id: d10, left: { en: "Down 10%", es: "Caída del 10%" }, right: { en: "needs +11.1%", es: "necesita +11,1%" } }
+      - { id: d20, left: { en: "Down 20%", es: "Caída del 20%" }, right: { en: "needs +25%", es: "necesita +25%" } }
+      - { id: d50, left: { en: "Down 50%", es: "Caída del 50%" }, right: { en: "needs +100%", es: "necesita +100%" } }
+      - { id: d80, left: { en: "Down 80%", es: "Caída del 80%" }, right: { en: "needs +400%", es: "necesita +400%" } }
+    explanation:
+      en: "Each recovery is larger than the loss it undoes, and the gap widens fast because the gain is figured on the shrunken base that is left. −10% needs +11.1%, but −80% needs +400%. This accelerating asymmetry is the whole reason to cap risk before the hole gets deep."
+      es: "Cada recuperación es mayor que la pérdida que deshace, y la brecha se ensancha rápido porque la ganancia se calcula sobre la base reducida que queda. −10% necesita +11,1%, pero −80% necesita +400%. Esta asimetría que se acelera es toda la razón para limitar el riesgo antes de que el pozo se haga profundo."
+  - id: diversification-truth
+    prompt:
+      en: "When does holding several different coins actually reduce your risk?"
+      es: "¿Cuándo reduce de verdad tu riesgo tener varias monedas distintas?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Only when the coins are genuinely uncorrelated — when they do not tend to fall together."
+          es: "Solo cuando las monedas están genuinamente descorrelacionadas, cuando no tienden a caer juntas."
+      - id: b
+        text:
+          en: "Always — more different coins is always more diversification."
+          es: "Siempre: más monedas distintas es siempre más diversificación."
+      - id: c
+        text:
+          en: "Whenever each position is capped at 1%, since the caps guarantee the total is safe."
+          es: "Siempre que cada posición esté limitada al 1%, ya que los límites garantizan que el total es seguro."
+      - id: d
+        text:
+          en: "Whenever you hold at least five names, the usual rule of thumb."
+          es: "Siempre que tengas al menos cinco valores, la regla general habitual."
+    explanation:
+      en: "Diversification only helps when the holdings are genuinely uncorrelated. In a hard crypto sell-off almost everything correlates toward 1, so a book that looked diversified in calm weather behaves like one leveraged long exactly when it matters. Counting names or capping each line does not fix correlation."
+      es: "La diversificación solo ayuda cuando lo que tienes está genuinamente descorrelacionado. En una caída dura de cripto casi todo se correlaciona hacia 1, así que una cartera que parecía diversificada con el mercado tranquilo se comporta como un único largo apalancado justo cuando importa. Contar valores o limitar cada línea no arregla la correlación."
+  - id: cluster-cap
+    prompt:
+      en: "You are long BTC, ETH and three large-cap alts that historically move together. How should you think about your real portfolio risk?"
+      es: "Estás largo en BTC, ETH y tres altcoins de gran capitalización que históricamente se mueven juntas. ¿Cómo deberías pensar tu riesgo de cartera real?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "As one correlated cluster — cap the combined risk of positions that move together, not just each line on its own."
+          es: "Como un único grupo correlacionado: limita el riesgo combinado de las posiciones que se mueven juntas, no solo el de cada línea por separado."
+      - id: b
+        text:
+          en: "As five independent bets, since each has its own ticker and its own stop."
+          es: "Como cinco apuestas independientes, ya que cada una tiene su propio ticker y su propio stop."
+      - id: c
+        text:
+          en: "As lower risk than a single position, because spreading across five names dilutes it."
+          es: "Como menor riesgo que una sola posición, porque repartir en cinco valores lo diluye."
+      - id: d
+        text:
+          en: "As irrelevant — portfolio risk only matters for spot investors, not futures traders."
+          es: "Como irrelevante: el riesgo de cartera solo importa a los inversores de contado, no a los traders de futuros."
+    explanation:
+      en: "Your real portfolio risk is your total exposure to a single move, not the number of tickets you hold. Positions that move together are effectively one bet in several costumes, so you cap the cluster's combined risk. Treating them as independent is how several 'small' positions add up to one large, undiversified bet."
+      es: "Tu riesgo de cartera real es tu exposición total a un mismo movimiento, no el número de tickets que tengas. Las posiciones que se mueven juntas son en la práctica una sola apuesta con varios trajes, así que limitas el riesgo combinado del grupo. Tratarlas como independientes es como varias posiciones 'pequeñas' se suman en una sola grande y sin diversificar."

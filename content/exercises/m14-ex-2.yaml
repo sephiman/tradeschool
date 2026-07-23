@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: volume_confirmation
+n: 130
+indicator: none
+targets: [confirmed_breakout, unconfirmed_breakout]
+choices: [confirmed_breakout, unconfirmed_breakout]
+prompt:
+  en: "A breakout has printed on this chart. Compare the volume on the breakout candle with the volume of the range that came before it. Is the move backed by participation (confirmed) or happening on thin volume (unconfirmed)?"
+  es: "En este gráfico se ha producido una ruptura. Compara el volumen de la vela de ruptura con el del rango que vino antes. ¿Está el movimiento respaldado por participación (confirmada) u ocurre con volumen fino (no confirmada)?"
+explanation:
+  en: "Judge the breakout candle's volume against the calm range before it. A big jump above the recent average is participation — a confirmed break, more likely to follow through. Volume at or below that average is a break nobody joined — unconfirmed, and prone to fail. The candles look the same; the volume is the only tell."
+  es: "Juzga el volumen de la vela de ruptura frente al rango tranquilo anterior. Un salto grande por encima de la media reciente es participación: una ruptura confirmada, con más probabilidad de tener continuidad. Un volumen igual o por debajo de esa media es una ruptura a la que nadie se sumó: no confirmada y propensa a fallar. Las velas se ven igual; el volumen es la única pista."

@@ -1,0 +1,129 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: holding-period-swing
+    prompt:
+      en: "Which trading style is defined by holding positions for days to weeks?"
+      es: "¿Qué estilo de trading se define por mantener las posiciones de días a semanas?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Swing trading."
+          es: "Swing trading."
+      - id: b
+        text:
+          en: "Scalping."
+          es: "Scalping."
+      - id: c
+        text:
+          en: "Day trading, because 'day' means holding for several days."
+          es: "Day trading, porque 'day' significa mantener durante varios días."
+      - id: d
+        text:
+          en: "Whichever style happens to use the most leverage."
+          es: "El estilo que use más apalancamiento en cada momento."
+    explanation:
+      en: "Swing trading holds for days to weeks. Day trading closes within the same day (the name refers to a single session, not several days), and scalping lasts only seconds to minutes."
+      es: "El swing trading mantiene de días a semanas. El day trading cierra dentro del mismo día (el nombre alude a una única sesión, no a varios días), y el scalping dura solo de segundos a minutos."
+  - id: holding-period-scalp
+    prompt:
+      en: "About how long does a scalper typically hold a single position?"
+      es: "¿Cuánto suele mantener un scalper una sola posición?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Seconds to a few minutes."
+          es: "De segundos a unos pocos minutos."
+      - id: b
+        text:
+          en: "Several days, closing on the weekend."
+          es: "Varios días, cerrando el fin de semana."
+      - id: c
+        text:
+          en: "Until the next funding payment, then out."
+          es: "Hasta el siguiente pago de funding, y entonces fuera."
+      - id: d
+        text:
+          en: "From the market open to the market close each day."
+          es: "Desde la apertura hasta el cierre del mercado cada día."
+    explanation:
+      en: "Scalping means very short holds — seconds to a few minutes — and often dozens or hundreds of trades a day. Holding for a day is day trading; holding for days is swing trading."
+      es: "El scalping son tenencias muy cortas —de segundos a pocos minutos— y a menudo decenas o cientos de operaciones al día. Mantener un día es day trading; mantener varios días es swing trading."
+  - id: day-trade-definition
+    prompt:
+      en: "What is the defining feature of day trading?"
+      es: "¿Cuál es el rasgo que define al day trading?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Positions are opened and closed within the same day; nothing is carried overnight on purpose."
+          es: "Las posiciones se abren y se cierran dentro del mismo día; nada se arrastra a la noche a propósito."
+      - id: b
+        text:
+          en: "Positions are held for several days, since 'day' trading means trading across days."
+          es: "Las posiciones se mantienen varios días, ya que el 'day' trading significa operar a lo largo de varios días."
+      - id: c
+        text:
+          en: "It only ever uses the daily chart, one candle at a time."
+          es: "Solo usa el gráfico diario, una vela cada vez."
+      - id: d
+        text:
+          en: "It always uses more leverage than swing trading."
+          es: "Siempre usa más apalancamiento que el swing trading."
+    explanation:
+      en: "A day trader closes out before the day is over and does not hold overnight on purpose — the 'day' is a single session, not several days. Typical work is a handful of trades read off the 5-minute to 1-hour charts, and leverage is a separate choice, not part of the definition."
+      es: "Un day trader cierra antes de que acabe el día y no mantiene de un día para otro a propósito: el 'day' es una única sesión, no varios días. Lo típico es un puñado de operaciones leídas en gráficos de 5 minutos a 1 hora, y el apalancamiento es una elección aparte, no parte de la definición."
+  - id: styles-holding-match
+    kind: matching
+    prompt:
+      en: "Match each trading style to its typical holding period and behaviour."
+      es: "Empareja cada estilo de trading con su periodo de tenencia y comportamiento típicos."
+    pairs:
+      - id: scalp
+        left: { en: "Scalping", es: "Scalping" }
+        right:
+          en: "Seconds to a few minutes; dozens or hundreds of trades a day."
+          es: "De segundos a unos pocos minutos; decenas o cientos de operaciones al día."
+      - id: day
+        left: { en: "Day trading", es: "Day trading" }
+        right:
+          en: "Minutes to hours; flat by the end of the session, no overnight position."
+          es: "De minutos a horas; plano al final de la sesión, sin posición nocturna."
+      - id: swing
+        left: { en: "Swing trading", es: "Swing trading" }
+        right:
+          en: "Days to weeks; only a handful of trades, decided on higher timeframes."
+          es: "De días a semanas; solo un puñado de operaciones, decididas en temporalidades altas."
+    explanation:
+      en: "The styles form a spectrum by holding period: scalping is seconds to minutes, day trading is minutes to hours (closed within the session), and swing trading runs for days to weeks. Holding period — not the coin or the indicator — is how you tell them apart."
+      es: "Los estilos forman un espectro por periodo de tenencia: el scalping es de segundos a minutos, el day trading de minutos a horas (cerrado dentro de la sesión) y el swing trading corre de días a semanas. El periodo de tenencia —no la moneda ni el indicador— es como se distinguen."
+  - id: styles-speed-order
+    kind: ordering
+    prompt:
+      en: "Order the three trading styles from the shortest typical holding period to the longest."
+      es: "Ordena los tres estilos de trading del periodo de tenencia típico más corto al más largo."
+    items:
+      - id: scalp
+        position: 1
+        text: { en: "Scalping (seconds to minutes)", es: "Scalping (de segundos a minutos)" }
+      - id: day
+        position: 2
+        text: { en: "Day trading (minutes to hours)", es: "Day trading (de minutos a horas)" }
+      - id: swing
+        position: 3
+        text: { en: "Swing trading (days to weeks)", es: "Swing trading (de días a semanas)" }
+    explanation:
+      en: "Fastest to slowest: scalping (seconds to minutes), then day trading (minutes to hours, closed within the day), then swing trading (days to weeks). That single axis — how long you hold — is what separates the styles."
+      es: "Del más rápido al más lento: scalping (de segundos a minutos), luego day trading (de minutos a horas, cerrado dentro del día) y luego swing trading (de días a semanas). Ese único eje —cuánto tiempo mantienes— es lo que separa los estilos."
+  - id: what-separates-styles
+    kind: true_false
+    prompt:
+      en: "True or false: what mainly separates scalping, day trading and swing trading is which coin and which indicator they use."
+      es: "Verdadero o falso: lo que separa principalmente al scalping, al day trading y al swing trading es qué moneda y qué indicador usan."
+    answer: false
+    explanation:
+      en: "False. Three traders can run the same account on the same coin with the same indicator and still be in different styles. What separates them is how long they hold and how often they trade — not the coin or the indicator."
+      es: "Falso. Tres traders pueden llevar la misma cuenta, en la misma moneda y con el mismo indicador, y aun así estar en estilos distintos. Lo que los separa es cuánto tiempo mantienen y con qué frecuencia operan, no la moneda ni el indicador."

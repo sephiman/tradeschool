@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: derivatives
+n: 130
+indicator: oi
+targets: [rising_oi, falling_oi, flat_oi]
+choices: [rising_oi, falling_oi, flat_oi]
+prompt:
+  en: "Price rises across this whole chart. Read the open-interest line in the lower pane against that rally: is the move backed by new positions, driven by shorts covering, or just thin participation?"
+  es: "El precio sube a lo largo de todo el gráfico. Lee la línea de open interest del panel inferior frente a esa subida: ¿el movimiento está respaldado por posiciones nuevas, impulsado por cortos que se cierran o es simplemente participación escasa?"
+explanation:
+  en: "Price rises the same way in every case, so the candles can't tell you anything — the tell is open interest. Rising OI under a rising price means new money is entering (the move is backed). Falling OI during a rally means old shorts are covering, not fresh buying — no conviction. Flat OI means thin participation, a low-conviction drift."
+  es: "El precio sube igual en todos los casos, así que las velas no te dicen nada: la clave es el open interest. Un OI que sube bajo un precio que sube significa que entra dinero nuevo (el movimiento está respaldado). Un OI que cae durante una subida significa que se están cerrando cortos, no que haya compra nueva: sin convicción. Un OI plano significa participación escasa, una deriva sin convicción."

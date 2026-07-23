@@ -1,0 +1,96 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+"""Shared, gate-vetted anti-leak primitives for pattern injectors.
+
+These are an independent copy of the machinery proven on the Phase-1 divergence injector (the frozen
+`charts/injectors.py` is left untouched, per the freeze). Every Phase-2 injector composes from these
+so it inherits the same guarantees: indicator warm-up is generated then hidden, control-point shapes
+are smoothed without a boundary artifact, and the visible window ends in drift-free ambient noise so
+the resolution is never on screen and the last candles cannot betray the label.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+from numpy.typing import NDArray
+
+Floats = NDArray[np.float64]
+
+# Warm-up candles generated BEFORE the visible window so RSI/MACD are converged at the left edge.
+# Dropped from what the learner sees (real charts never show indicator warm-up).
+WARMUP = 30
+
+# The visible window ends with this many candles of drift-free, mean-reverting ambient noise at a
+# FIXED volatility — identical distribution for every label, so neither the size nor the direction of
+# the final candles can leak the answer, and no synthetic-looking spike appears (Phase-1 round 6).
+TAIL = 8
+TAIL_SIGMA = 0.009  # ~0.9%/candle — realistic continuation volatility, no spikes
+TAIL_REVERT = 0.4  # mean-revert toward the last real level so the tail consolidates, never trends off
+
+
+def smooth(values: Floats, window: int = 3) -> Floats:
+    """Moving-average smoothing with EDGE padding. `mode="same"` zero-pads the boundaries, which
+    drags the last shape value toward 0; since a shape's sign encodes the pattern, that produced a
+    large final candle in the resolution direction (a leak). Edge padding keeps the ends put."""
+    pad = window // 2
+    padded = np.pad(values, pad, mode="edge")
+    kernel = np.ones(window) / window
+    return np.convolve(padded, kernel, mode="valid")
+
+
+def shape_from_points(points: list[tuple[float, float]], n: int) -> Floats:
+    """Interpolate (fraction-of-window, log-offset) control points onto an n-length log-offset curve,
+    then smooth. The curve is added to a log base price to build a close path with a designed shape."""
+    xs = [p[0] * (n - 1) for p in points]
+    ys = [p[1] for p in points]
+    x = np.arange(n, dtype=float)
+    return smooth(np.interp(x, xs, ys))
+
+
+def detrended_noise(rng: np.random.Generator, n: int, sigma: float) -> Floats:
+    """A driftless Brownian-bridge-ish noise path: a random walk with its own net linear drift
+    removed, so variance stays everywhere (candles never go dead-flat) but the noise adds no trend."""
+    walk = np.cumsum(rng.normal(0.0, sigma, n))
+    x = np.arange(n, dtype=float)
+    return walk - np.polyval(np.polyfit(x, walk, 1), x)
+
+
+def bounded_noise(rng: np.random.Generator, n: int, amp: float, base_sigma: float = 0.006) -> Floats:
+    """Correlated candle texture (a detrended walk) rescaled so its PEAK absolute excursion equals
+    `amp`. A raw walk's mid-path excursions (~sigma*sqrt(n)) can rival a pattern's designed separations and
+    accidentally cross a level; bounding the peak keeps the texture without ever faking the pattern."""
+    noise = detrended_noise(rng, n, base_sigma)
+    peak = float(np.max(np.abs(noise)))
+    return noise * (amp / peak) if peak > 0 else noise
+
+
+def with_warmup(rng: np.random.Generator, close_visible: Floats) -> Floats:
+    """Prepend WARMUP gentle candles that connect into the visible series purely to converge the
+    oscillators. Dropped from what the learner sees."""
+    walk = np.cumsum(rng.normal(0.0, 0.008, WARMUP + 1))
+    walk = walk - walk[-1]  # end the warm-up at ~close_visible[0]
+    warm = close_visible[0] * np.exp(walk[:WARMUP])
+    return np.concatenate([warm, close_visible])
+
+
+def apply_ambient_tail(rng: np.random.Generator, close: Floats, tail: int = TAIL) -> None:
+    """Overwrite the last `tail` candles (in place) with drift-free, mean-reverting noise at the fixed
+    ambient volatility, for EVERY label. No resolution or confirmation move is shown; the final
+    candles carry no directional signal that could betray the label."""
+    n = len(close)
+    core = n - tail
+    if core < 20:
+        return
+    anchor = float(np.log(close[core - 1]))  # consolidate around the last real level
+    for k in range(core, n):
+        prev = float(np.log(close[k - 1]))
+        drift = TAIL_REVERT * (anchor - prev)  # symmetric pull-back — no directional bias
+        close[k] = float(np.exp(prev + drift + rng.normal(0.0, TAIL_SIGMA)))
+
+
+def resolve_swing(close: Floats, idx: int, kind: str, w: int = 3) -> int:
+    """The real local extreme nearest a designed swing index (the noise can shift it by a candle)."""
+    lo = max(0, idx - w)
+    hi = min(len(close), idx + w + 1)
+    segment = close[lo:hi]
+    offset = int(np.argmax(segment) if kind == "high" else np.argmin(segment))
+    return lo + offset

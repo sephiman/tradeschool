@@ -1,0 +1,133 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: isolated-loss
+    prompt:
+      en: "You open a single position using **isolated** margin and it gets liquidated. What do you lose?"
+      es: "Abres una única posición usando margen **aislado** (isolated) y se liquida. ¿Qué pierdes?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Exactly the margin you allocated to that position — the rest of your account is untouched."
+          es: "Exactamente el margen que asignaste a esa posición; el resto de tu cuenta queda intacto."
+      - id: b
+        text:
+          en: "Your entire account balance, since all your funds back every position."
+          es: "El saldo completo de tu cuenta, ya que todos tus fondos respaldan cada posición."
+      - id: c
+        text:
+          en: "Nothing — positions on isolated margin cannot be liquidated."
+          es: "Nada: las posiciones con margen aislado no pueden liquidarse."
+      - id: d
+        text:
+          en: "Only the exchange's trading fees; the margin is always returned."
+          es: "Solo las comisiones de trading del exchange; el margen siempre se devuelve."
+    explanation:
+      en: "Isolated margin ring-fences one position: a liquidation costs you exactly the allocated margin and nothing more. Option b describes cross margin, where the whole balance is at stake. Isolated positions absolutely can be liquidated — that's the point of the cap."
+      es: "El margen aislado acota una posición: una liquidación te cuesta exactamente el margen asignado y nada más. La opción b describe el margen cruzado, donde está en juego todo el saldo. Las posiciones aisladas sí pueden liquidarse; ese es el sentido del límite."
+  - id: leverage-amplifies
+    prompt:
+      en: "Which statement about using higher leverage is true?"
+      es: "¿Qué afirmación sobre usar más apalancamiento es cierta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It scales both gains and losses and moves your liquidation closer, without improving the trade's expected return."
+          es: "Escala tanto las ganancias como las pérdidas y acerca tu liquidación, sin mejorar el rendimiento esperado de la operación."
+      - id: b
+        text:
+          en: "Higher leverage increases your expected profit."
+          es: "Más apalancamiento aumenta tu beneficio esperado."
+      - id: c
+        text:
+          en: "Higher leverage reduces your risk of being liquidated."
+          es: "Más apalancamiento reduce tu riesgo de ser liquidado."
+      - id: d
+        text:
+          en: "Higher leverage lowers the exchange's trading fees."
+          es: "Más apalancamiento reduce las comisiones de trading del exchange."
+    explanation:
+      en: "Leverage does not change whether the price moves your way, so it does not raise expected return. It scales gains and losses symmetrically and thins your margin cushion, putting liquidation closer — a smaller adverse move now closes you out."
+      es: "El apalancamiento no cambia si el precio se mueve a tu favor, así que no aumenta el rendimiento esperado. Escala ganancias y pérdidas de forma simétrica y adelgaza tu colchón de margen, acercando la liquidación: ahora un movimiento adverso más pequeño te cierra."
+  - id: cross-margin-def
+    prompt:
+      en: "What does trading a position on **cross** margin mean for your account?"
+      es: "¿Qué significa operar una posición con margen **cruzado** (cross) para tu cuenta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Your whole account balance backs the position, so one bad trade can drag your entire balance toward liquidation."
+          es: "El saldo de toda tu cuenta respalda la posición, así que una sola mala operación puede arrastrar todo tu saldo hacia la liquidación."
+      - id: b
+        text:
+          en: "Only the margin you allocate to that one position is ever at risk."
+          es: "Solo el margen que asignas a esa única posición está en riesgo."
+      - id: c
+        text:
+          en: "The exchange splits your balance evenly across all open positions."
+          es: "El exchange reparte tu saldo a partes iguales entre todas las posiciones abiertas."
+      - id: d
+        text:
+          en: "Cross margin removes the risk of liquidation entirely."
+          es: "El margen cruzado elimina por completo el riesgo de liquidación."
+    explanation:
+      en: "Cross margin uses your entire account balance as collateral: a winner can subsidise a loser, but a single bad move can pull the whole balance toward liquidation. Ring-fencing one position's margin is isolated, not cross."
+      es: "El margen cruzado usa el saldo de toda tu cuenta como colateral: una posición ganadora puede subvencionar a una perdedora, pero un solo mal movimiento puede arrastrar todo el saldo hacia la liquidación. Acotar el margen de una posición es el aislado, no el cruzado."
+  - id: isolated-not-immune
+    kind: true_false
+    prompt:
+      en: "A position opened with isolated margin can never be liquidated."
+      es: "Una posición abierta con margen aislado nunca puede liquidarse."
+    answer: false
+    explanation:
+      en: "Isolated positions absolutely can be liquidated — that's the whole point of the cap. What isolated does is bound the loss: a liquidation costs you exactly the margin you allocated, and the rest of your account is untouched."
+      es: "Las posiciones aisladas sí pueden liquidarse; ese es justo el sentido del límite. Lo que hace el aislado es acotar la pérdida: una liquidación te cuesta exactamente el margen que asignaste, y el resto de tu cuenta queda intacto."
+  - id: leverage-expected-profit
+    kind: true_false
+    prompt:
+      en: "Using higher leverage increases the expected profit of a trade."
+      es: "Usar más apalancamiento aumenta el beneficio esperado de una operación."
+    answer: false
+    explanation:
+      en: "Leverage doesn't change whether — or how far — the price moves your way, so it doesn't raise expected return. It scales gains and losses symmetrically and pushes your liquidation closer; after fees and the risk of being liquidated by ordinary noise, high leverage usually makes expected outcomes worse."
+      es: "El apalancamiento no cambia si —ni cuánto— se mueve el precio a tu favor, así que no aumenta el rendimiento esperado. Escala ganancias y pérdidas de forma simétrica y acerca tu liquidación; tras las comisiones y el riesgo de que te liquide el ruido normal, un apalancamiento alto suele empeorar los resultados esperados."
+  - id: margin-mode-match
+    kind: matching
+    prompt:
+      en: "Match each choice to what it does to your risk."
+      es: "Empareja cada elección con lo que le hace a tu riesgo."
+    pairs:
+      - id: isolated
+        left:
+          en: "Isolated margin"
+          es: "Margen aislado (isolated)"
+        right:
+          en: "Caps the loss from one position to the margin you allocated to it."
+          es: "Limita la pérdida de una posición al margen que le asignaste."
+      - id: cross
+        left:
+          en: "Cross margin"
+          es: "Margen cruzado (cross)"
+        right:
+          en: "Puts your entire account balance on the line for the position."
+          es: "Pone en juego el saldo de toda tu cuenta por la posición."
+      - id: higher-lev
+        left:
+          en: "Higher leverage"
+          es: "Más apalancamiento"
+        right:
+          en: "A thinner margin cushion, so your liquidation sits closer."
+          es: "Un colchón de margen más fino, así que tu liquidación queda más cerca."
+      - id: lower-lev
+        left:
+          en: "Lower leverage"
+          es: "Menos apalancamiento"
+        right:
+          en: "A bigger cushion and more room before a forced close."
+          es: "Un colchón mayor y más margen antes de un cierre forzoso."
+    explanation:
+      en: "Isolated bounds a single position's loss; cross stakes the whole balance. Leverage doesn't change those modes — it sets how thick your cushion is: more leverage, thinner cushion, closer liquidation."
+      es: "El aislado acota la pérdida de una sola posición; el cruzado pone en juego todo el saldo. El apalancamiento no cambia esos modos: fija el grosor de tu colchón: más apalancamiento, colchón más fino, liquidación más cerca."

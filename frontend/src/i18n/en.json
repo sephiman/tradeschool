@@ -1,0 +1,116 @@
+{
+  "app": {
+    "name": "TradeSchool",
+    "tagline": "Learn crypto futures from zero, with server-graded exercises."
+  },
+  "common": {
+    "loading": "Loading…",
+    "saved": "Saved",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "nav": {
+    "course": "Course",
+    "progress": "Progress"
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "registerTitle": "Create your account",
+    "email": "Email",
+    "password": "Password",
+    "loginAction": "Sign in",
+    "registerAction": "Create account",
+    "logout": "Sign out",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "passwordHint": "At least {{count}} characters.",
+    "passwordTooShort": "Password must be at least {{count}} characters."
+  },
+  "course": {
+    "intro": "The whole course is open from day one. The suggested next step follows the canonical order — prerequisites are advice, never a barrier.",
+    "suggestedNext": "Suggested next",
+    "completed": "Completed",
+    "comingSoon": "Coming soon",
+    "prereqNotice": "Builds on {{modules}} — optional context.",
+    "prereqNoticeLong": "Builds on (optional):",
+    "lessonProgress": "{{done}}/{{total}} lessons",
+    "exerciseProgress": "{{done}}/{{total}} exercises passed",
+    "markComplete": "Mark lesson complete",
+    "markedComplete": "Lesson marked complete",
+    "markCompleteConfirm": "You haven't tried all the exercises in this lesson yet. Mark it complete anyway?",
+    "next": "Next: {{step}}"
+  },
+  "exercise": {
+    "comingSoon": "Interactive exercise — arrives in the next increment.",
+    "start": "Start exercise",
+    "submit": "Submit",
+    "tryAgain": "Try again",
+    "correct": "Correct",
+    "incorrect": "Not quite",
+    "correctAnswer": "Correct answer",
+    "solution": "Solution",
+    "yourAnswer": "Your answer",
+    "roundHint": "round to {{count}} decimals",
+    "true": "True",
+    "false": "False",
+    "selectAllThatApply": "Select all that apply.",
+    "reorderHint": "Use the arrows to put these in the right order.",
+    "matchHint": "Tap an item on the left, then tap its match on the right.",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "clearPair": "Clear",
+    "history": "Your attempts ({{count}})",
+    "firstAttempt": "first attempt"
+  },
+  "exerciseType": {
+    "quiz": "Quiz",
+    "calculation": "Calculation",
+    "synthetic_chart": "Chart",
+    "fixture_chart": "Chart"
+  },
+  "divergence": {
+    "none": "No divergence",
+    "bullish_regular": "Bullish regular",
+    "bearish_regular": "Bearish regular",
+    "bullish_hidden": "Bullish hidden",
+    "bearish_hidden": "Bearish hidden"
+  },
+  "stats": {
+    "intro": "Honest information, not a reward: what you've read, what you've answered, and where you struggle. First-attempt accuracy is the number that's hard to fool.",
+    "empty": "Nothing yet. Read a lesson or do an exercise and your progress shows up here.",
+    "coverage": "{{published}} of {{total}} modules published — figures below are over published content only.",
+    "reading": "Reading",
+    "mastery": "Exercises",
+    "courseCompletion": "Course completion",
+    "lessonsRead": "Lessons read",
+    "exercisesPassed": "Exercises passed",
+    "answered": "Answered",
+    "accuracy": "Accuracy",
+    "firstAttempt": "First-attempt",
+    "avgAttempts": "Avg attempts to solve",
+    "costliest": "Your costliest sections",
+    "byModule": "By module",
+    "incorrectCount": "{{count}} wrong",
+    "globalTitle": "Where everyone struggles",
+    "globalHint": "Anonymous, aggregated first-attempt accuracy across all learners — hardest modules first.",
+    "nUsers": "{{count}} learners"
+  },
+  "errors": {
+    "UNKNOWN": "Something went wrong.",
+    "SERVICE_UNAVAILABLE": "The service is temporarily unavailable.",
+    "VALIDATION_ERROR": "Please check the highlighted fields.",
+    "RATE_LIMITED": "Too many attempts. Please wait and try again.",
+    "NOT_FOUND": "Not found.",
+    "UNAUTHORIZED": "Please sign in to continue.",
+    "USER_ALREADY_EXISTS": "An account with this email already exists.",
+    "INVALID_PASSWORD": "That password is not allowed.",
+    "LOGIN_BAD_CREDENTIALS": "Invalid email or password."
+  }
+}

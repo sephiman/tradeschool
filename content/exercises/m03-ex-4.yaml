@@ -1,0 +1,138 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: why-zone
+    prompt:
+      en: "Why is support best treated as a zone rather than an exact line?"
+      es: "¿Por qué conviene tratar el soporte como una zona en lugar de una línea exacta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The orders and decisions that create it are spread across a band of prices, so price reacts near the level, not precisely on it."
+          es: "Las órdenes y decisiones que lo crean están repartidas por una banda de precios, así que el precio reacciona cerca del nivel, no exactamente sobre él."
+      - id: b
+        text:
+          en: "A zone guarantees that price will reverse there, whereas a line does not."
+          es: "Una zona garantiza que el precio girará allí, mientras que una línea no."
+      - id: c
+        text:
+          en: "The true exact line is a secret only professional traders can see."
+          es: "La verdadera línea exacta es un secreto que solo ven los traders profesionales."
+      - id: d
+        text:
+          en: "Support lines automatically move up by a fixed amount each day."
+          es: "Las líneas de soporte suben automáticamente una cantidad fija cada día."
+    explanation:
+      en: "Support is a zone because the buying behind it is spread across a band of prices. It is not a guarantee of a reversal, not a hidden secret, and it does not drift on a schedule — it holds only while people keep acting on it."
+      es: "El soporte es una zona porque la compra que hay detrás está repartida por una banda de precios. No es una garantía de giro, ni un secreto oculto, ni se desplaza según un horario: aguanta solo mientras la gente siga actuando sobre él."
+  - id: exact-line-fails
+    prompt:
+      en: "Price dips a fraction below your drawn support line and immediately snaps back up. How do exact-line thinking and zone thinking read this differently?"
+      es: "El precio cae una fracción por debajo de tu línea de soporte y rebota de inmediato. ¿Cómo lo leen de forma distinta el pensamiento de línea exacta y el de zona?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Exact-line thinking calls it a broken support (a false signal); zone thinking reads it as a normal test of the area's edge."
+          es: "El pensamiento de línea exacta lo llama soporte roto (una señal falsa); el de zona lo lee como un test normal del borde de la zona."
+      - id: b
+        text:
+          en: "Both approaches treat it as a confirmed breakdown and exit."
+          es: "Ambos enfoques lo tratan como una ruptura confirmada y salen."
+      - id: c
+        text:
+          en: "It proves the support was never real in the first place."
+          es: "Demuestra que el soporte nunca fue real desde el principio."
+      - id: d
+        text:
+          en: "The wick below the line guarantees a further fall is coming."
+          es: "La mecha por debajo de la línea garantiza que viene una caída mayor."
+    explanation:
+      en: "A small poke past the line and back is exactly what a zone predicts — price testing the edge of the band. Exact-line thinking turns that normal wick into a false 'broken level' alarm, which is why it misfires so often."
+      es: "Un pequeño asomo más allá de la línea y una vuelta es justo lo que predice una zona: el precio testeando el borde de la banda. El pensamiento de línea exacta convierte esa mecha normal en una falsa alarma de 'nivel roto', y por eso falla tan a menudo."
+  - id: sr-exact-line
+    kind: true_false
+    prompt:
+      en: "Support and resistance are exact price lines that price reverses on precisely."
+      es: "Los soportes y las resistencias son líneas de precio exactas sobre las que el precio gira con precisión."
+    answer: false
+    explanation:
+      en: "They are zones — bands of prices — because the orders behind them are spread across a range, not stacked on one exact number. Expecting a pixel-perfect reversal produces constant false alarms."
+      es: "Son zonas —bandas de precios— porque las órdenes que hay detrás están repartidas por un rango, no apiladas en un número exacto. Esperar un giro milimétrico genera falsas alarmas constantes."
+  - id: sr-definitions
+    kind: matching
+    prompt:
+      en: "Match each term to its meaning."
+      es: "Empareja cada término con su significado."
+    pairs:
+      - id: support
+        left: { en: "Support", es: "Soporte" }
+        right:
+          en: "An area where buying has previously been strong enough to stop a fall."
+          es: "Una zona donde antes la compra ha sido lo bastante fuerte para frenar una caída."
+      - id: resistance
+        left: { en: "Resistance", es: "Resistencia" }
+        right:
+          en: "An area where selling has previously been strong enough to stop a rise."
+          es: "Una zona donde antes la venta ha sido lo bastante fuerte para frenar una subida."
+      - id: tested
+        left: { en: "A well-tested zone", es: "Una zona muy testeada" }
+        right:
+          en: "A level price has reacted at repeatedly, so more traders watch it."
+          es: "Un nivel donde el precio ha reaccionado repetidamente, así que más traders lo vigilan."
+    explanation:
+      en: "Support stops falls (buying), resistance stops rises (selling), and a zone earns credibility by being tested repeatedly — more reactions mean more watchers."
+      es: "El soporte frena caídas (compra), la resistencia frena subidas (venta), y una zona gana credibilidad al ser testeada repetidamente: más reacciones significan más gente que la vigila."
+  - id: zone-credibility
+    prompt:
+      en: "What makes a support or resistance zone more credible?"
+      es: "¿Qué hace más creíble a una zona de soporte o resistencia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Price has reacted there several times, so more traders are watching it."
+          es: "El precio ha reaccionado allí varias veces, así que más traders la vigilan."
+      - id: b
+        text:
+          en: "It has been drawn to the exact tick."
+          es: "Se ha trazado en el tick exacto."
+      - id: c
+        text:
+          en: "It is brand new and has never been touched."
+          es: "Es nueva y nunca se ha tocado."
+      - id: d
+        text:
+          en: "It appears only on a 1-minute chart."
+          es: "Solo aparece en un gráfico de 1 minuto."
+    explanation:
+      en: "A zone gains credibility from being tested: the more times price reacts there, the more traders watch it, which is partly why it keeps working — until enough of them give up and it breaks."
+      es: "Una zona gana credibilidad al ser testeada: cuantas más veces reacciona allí el precio, más traders la vigilan, que es en parte por lo que sigue funcionando, hasta que suficientes se rinden y se rompe."
+  - id: sr-truths
+    kind: multi_select
+    prompt:
+      en: "Select ALL true statements about support and resistance."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre soportes y resistencias."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "They are zones (bands of price), not exact lines."
+          es: "Son zonas (bandas de precio), no líneas exactas."
+      - id: b
+        correct: true
+        text:
+          en: "A zone holds only while people keep acting on it, and breaks when they stop."
+          es: "Una zona aguanta solo mientras la gente sigue actuando sobre ella, y se rompe cuando deja de hacerlo."
+      - id: c
+        text:
+          en: "A zone guarantees that price will reverse there."
+          es: "Una zona garantiza que el precio girará allí."
+      - id: d
+        text:
+          en: "The true exact line is a secret only professionals can see."
+          es: "La verdadera línea exacta es un secreto que solo ven los profesionales."
+    explanation:
+      en: "Support and resistance are zones that work because people remember and act on them; nothing about them is guaranteed or secret."
+      es: "Los soportes y las resistencias son zonas que funcionan porque la gente las recuerda y actúa sobre ellas; no hay nada garantizado ni secreto en ellas."

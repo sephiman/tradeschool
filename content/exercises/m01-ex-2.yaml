@@ -1,0 +1,110 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: not-your-keys
+    prompt:
+      en: "\"Not your keys, not your coins\" means…"
+      es: "\"Not your keys, not your coins\" significa…"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Coins held on an exchange are an IOU from it; you don't control them directly."
+          es: "Las monedas en un exchange son un pagaré suyo; no las controlas directamente."
+      - id: b
+        text: { en: "You must memorize your keys or lose access.", es: "Debes memorizar tus claves o pierdes el acceso." }
+      - id: c
+        text: { en: "Only miners truly own coins.", es: "Solo los mineros poseen de verdad las monedas." }
+      - id: d
+        text: { en: "Keys are optional on modern exchanges.", es: "Las claves son opcionales en los exchanges modernos." }
+    explanation:
+      en: "If your coins sit on an exchange you hold a claim against it, not the coins — which matters the day withdrawals freeze."
+      es: "Si tus monedas están en un exchange tienes un derecho frente a él, no las monedas: eso importa el día que se congelan los retiros."
+  - id: finality
+    prompt:
+      en: "A confirmed transaction, buried under enough later blocks, is…"
+      es: "Una transacción confirmada, enterrada bajo suficientes bloques posteriores, es…"
+    options:
+      - id: a
+        correct: true
+        text: { en: "Effectively irreversible — there is no chargeback.", es: "Prácticamente irreversible: no hay contracargo." }
+      - id: b
+        text: { en: "Reversible within 24 hours by support.", es: "Reversible en 24 horas por soporte." }
+      - id: c
+        text: { en: "Reversible by the sender at any time.", es: "Reversible por el emisor en cualquier momento." }
+      - id: d
+        text: { en: "Automatically refunded if the price moves.", es: "Reembolsada automáticamente si el precio se mueve." }
+    explanation:
+      en: "Settlement is final: once buried under enough blocks, reversing a transaction is, in practice, impossible."
+      es: "Las transacciones son irreversibles: una vez enterrada bajo suficientes bloques, revertir una transacción es, en la práctica, imposible."
+  - id: no-operator
+    prompt:
+      en: "Which best describes who runs a blockchain like Bitcoin?"
+      es: "¿Qué describe mejor quién opera una blockchain como Bitcoin?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Thousands of independent nodes that keep the same history and reject rule-breaking."
+          es: "Miles de nodos independientes que guardan la misma historia y rechazan lo que rompe las reglas."
+      - id: b
+        text: { en: "A single company whose database is the ledger.", es: "Una única empresa cuya base de datos es el libro contable." }
+      - id: c
+        text: { en: "A committee of exchanges.", es: "Un comité de exchanges." }
+      - id: d
+        text: { en: "A central bank consortium.", es: "Un consorcio de bancos centrales." }
+    explanation:
+      en: "There is no central operator: many nodes hold the same history and reject anything that breaks the rules."
+      es: "No hay operador central: muchos nodos guardan la misma historia y rechazan cualquier cosa que rompa las reglas."
+  - id: reversal-myth
+    kind: true_false
+    prompt:
+      en: "If you send Bitcoin to the wrong address and the transaction confirms, exchange support can reverse it for you."
+      es: "Si envías Bitcoin a la dirección equivocada y la transacción se confirma, el soporte del exchange puede revertirla por ti."
+    answer: false
+    explanation:
+      en: "Settlement is final. Once a transaction is confirmed and buried under later blocks, there is no chargeback and no support desk that can undo it."
+      es: "Las transacciones son irreversibles. Una vez confirmada y enterrada bajo bloques posteriores, no hay contracargo ni un soporte que pueda deshacerla."
+  - id: keys-consequence-match
+    kind: matching
+    prompt:
+      en: "Match each user-level property of a blockchain to its practical consequence."
+      es: "Empareja cada propiedad a nivel de usuario de una blockchain con su consecuencia práctica."
+    pairs:
+      - id: op
+        left: { en: "No central operator", es: "Sin operador central" }
+        right:
+          en: "No single company's database 'is' Bitcoin; thousands of nodes must agree."
+          es: "La base de datos de ninguna empresa 'es' Bitcoin; miles de nodos deben ponerse de acuerdo."
+      - id: fin
+        left: { en: "Settlement is final", es: "Las transacciones son irreversibles" }
+        right:
+          en: "There is no chargeback and no support desk once a transfer confirms."
+          es: "No hay contracargo ni atención al cliente una vez que una transferencia se confirma."
+      - id: key
+        left: { en: "You hold keys, not accounts", es: "Tienes claves, no cuentas" }
+        right:
+          en: "Whoever controls the private key controls the coins."
+          es: "Quien controla la clave privada controla las monedas."
+    explanation:
+      en: "These three ideas are the whole user-level picture: no operator to appeal to, final settlement, and ownership that lives in the key itself."
+      es: "Estas tres ideas son toda la imagen a nivel de usuario: no hay operador al que reclamar, las transacciones son finales, y la propiedad reside en la propia clave."
+  - id: self-custody
+    prompt:
+      en: "You hold the private key to some of your coins yourself. What does that mean in practice?"
+      es: "Guardas tú mismo la clave privada de algunas de tus monedas. ¿Qué significa eso en la práctica?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Full control and full responsibility — if you lose the key, no one can restore access."
+          es: "Control total y responsabilidad total: si pierdes la clave, nadie puede restaurar el acceso."
+      - id: b
+        text: { en: "Support can reset your key like a forgotten password.", es: "El soporte puede restablecer tu clave como una contraseña olvidada." }
+      - id: c
+        text: { en: "The exchange keeps a backup of your key.", es: "El exchange guarda una copia de seguridad de tu clave." }
+      - id: d
+        text: { en: "Your coins are insured by the network.", es: "La red asegura tus monedas." }
+    explanation:
+      en: "Whoever controls the key controls the coins. That is the point of self-custody and also the danger: lose the key and there is no reset."
+      es: "Quien controla la clave controla las monedas. Ese es el sentido de la autocustodia y también el peligro: si pierdes la clave, no hay forma de restablecerla."

@@ -1,0 +1,138 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: what-one-candle-is
+    prompt:
+      en: "On a 4-hour chart, what does a single candle represent?"
+      es: "En un gráfico de 4 horas, ¿qué representa una sola vela?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Four hours of trading — its open, high, low and close measured over that 4-hour window."
+          es: "Cuatro horas de operativa: su apertura, máximo, mínimo y cierre medidos sobre esa ventana de 4 horas."
+      - id: b
+        text:
+          en: "The price exactly four hours ago."
+          es: "El precio exactamente hace cuatro horas."
+      - id: c
+        text:
+          en: "Four individual trades."
+          es: "Cuatro operaciones individuales."
+      - id: d
+        text:
+          en: "A forecast of where price will be in four hours."
+          es: "Una previsión de dónde estará el precio dentro de cuatro horas."
+    explanation:
+      en: "A candle summarises one slice of time equal to its timeframe. On a 4-hour chart that slice is four hours; its four values are all measured within that window, and it forecasts nothing."
+      es: "Una vela resume una porción de tiempo igual a su temporalidad. En un gráfico de 4 horas esa porción son cuatro horas; sus cuatro valores se miden dentro de esa ventana y no predice nada."
+  - id: timeframe-weight
+    prompt:
+      en: "Why treat a signal on a 1-minute candle more cautiously than the same signal on a daily candle?"
+      es: "¿Por qué tratar con más cautela una señal en una vela de 1 minuto que la misma señal en una vela diaria?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A daily candle is formed by far more participants and volume, so its levels carry more weight; 1-minute bars are mostly noise."
+          es: "Una vela diaria la forman muchos más participantes y volumen, así que sus niveles tienen más peso; las velas de 1 minuto son sobre todo ruido."
+      - id: b
+        text:
+          en: "Lower timeframes show more candles, so they always give more reliable information."
+          es: "Las temporalidades bajas muestran más velas, así que siempre dan información más fiable."
+      - id: c
+        text:
+          en: "One-minute candles are calculated with a different formula than daily ones."
+          es: "Las velas de 1 minuto se calculan con una fórmula distinta a las diarias."
+      - id: d
+        text:
+          en: "Daily candles cannot have wicks, so they are cleaner."
+          es: "Las velas diarias no pueden tener mechas, por eso son más limpias."
+    explanation:
+      en: "Higher timeframes concentrate more participation into each bar, so their levels matter more. The intuition that a lower timeframe gives 'more information' usually just means more noise — the candle formula is identical at every timeframe."
+      es: "Las temporalidades altas concentran más participación en cada vela, por eso sus niveles importan más. La intuición de que una temporalidad baja da 'más información' suele significar solo más ruido: la fórmula de la vela es idéntica en todas las temporalidades."
+  - id: tf-window-order
+    kind: ordering
+    prompt:
+      en: "Order these candles by how much trading each one packs into a single bar, from least to most."
+      es: "Ordena estas velas según cuánta operativa concentra cada una en una sola barra, de menos a más."
+    items:
+      - id: m1
+        position: 1
+        text: { en: "A 1-minute candle", es: "Una vela de 1 minuto" }
+      - id: m5
+        position: 2
+        text: { en: "A 5-minute candle", es: "Una vela de 5 minutos" }
+      - id: h1
+        position: 3
+        text: { en: "A 1-hour candle", es: "Una vela de 1 hora" }
+      - id: h4
+        position: 4
+        text: { en: "A 4-hour candle", es: "Una vela de 4 horas" }
+      - id: d1
+        position: 5
+        text: { en: "A daily candle", es: "Una vela diaria" }
+    explanation:
+      en: "The longer the window, the more participants and volume go into a single bar. That is exactly why higher-timeframe levels carry more weight than lower ones."
+      es: "Cuanto más larga es la ventana, más participantes y volumen entran en una sola vela. Por eso precisamente los niveles de temporalidad alta tienen más peso que los de temporalidad baja."
+  - id: tf-noise-myth
+    kind: true_false
+    prompt:
+      en: "A lower timeframe always gives more reliable information because it shows more candles."
+      es: "Una temporalidad baja siempre da información más fiable porque muestra más velas."
+    answer: false
+    explanation:
+      en: "More candles is mostly more noise, not more reliability. Higher timeframes concentrate more participation into each bar, so their levels matter more."
+      es: "Más velas es sobre todo más ruido, no más fiabilidad. Las temporalidades altas concentran más participación en cada vela, así que sus niveles importan más."
+  - id: same-day-zoom
+    prompt:
+      en: "A trading day shows up as one modest red candle on the daily chart. On the 5-minute chart of that same day, what will you see?"
+      es: "Una jornada aparece como una modesta vela roja en el gráfico diario. En el gráfico de 5 minutos de esa misma jornada, ¿qué verás?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Hundreds of candles — rallies, dips, panic and recovery — the same data at a finer zoom."
+          es: "Cientos de velas —subidas, caídas, pánico y recuperación—, los mismos datos con un zoom más fino."
+      - id: b
+        text:
+          en: "One red candle, identical to the daily one."
+          es: "Una vela roja, idéntica a la diaria."
+      - id: c
+        text:
+          en: "A confirmed downtrend, since the daily candle was red."
+          es: "Una tendencia bajista confirmada, ya que la vela diaria era roja."
+      - id: d
+        text:
+          en: "The 'true' version of the day that the daily chart was hiding."
+          es: "La versión 'verdadera' de la jornada que el gráfico diario ocultaba."
+    explanation:
+      en: "Timeframes are zoom levels of the same data; neither is 'the truth'. One daily candle is hundreds of 5-minute candles, and a single red daily candle is not by itself a downtrend."
+      es: "Las temporalidades son niveles de zoom sobre los mismos datos; ninguno es 'la verdad'. Una vela diaria son cientos de velas de 5 minutos, y una sola vela diaria roja no es por sí sola una tendencia bajista."
+  - id: tf-multi
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about timeframes that are true."
+      es: "Selecciona TODAS las afirmaciones sobre temporalidades que sean ciertas."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The same market can look calm or violent depending on the timeframe you choose."
+          es: "El mismo mercado puede parecer tranquilo o violento según la temporalidad que elijas."
+      - id: b
+        correct: true
+        text:
+          en: "Higher-timeframe levels carry more weight because more participation formed them."
+          es: "Los niveles de temporalidad alta tienen más peso porque los formó más participación."
+      - id: c
+        text:
+          en: "The OHLC values are computed with a different formula on lower timeframes."
+          es: "Los valores OHLC se calculan con una fórmula distinta en las temporalidades bajas."
+      - id: d
+        text:
+          en: "A lower timeframe is objectively more informative because it has more bars."
+          es: "Una temporalidad baja es objetivamente más informativa porque tiene más velas."
+    explanation:
+      en: "The formula is identical at every timeframe; only the window changes. Higher timeframes carry more weight, and a lower timeframe mostly adds noise, not information."
+      es: "La fórmula es idéntica en todas las temporalidades; solo cambia la ventana. Las altas tienen más peso, y una baja añade sobre todo ruido, no información."

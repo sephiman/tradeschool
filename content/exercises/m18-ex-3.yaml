@@ -1,0 +1,153 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: low-float-signal
+    prompt:
+      en: "A newly listed token has a market cap of $50M but an FDV of $2B, with only about 3% of its supply circulating. What does this most likely tell you?"
+      es: "Un token recién listado tiene un market cap de 50 millones de USD pero una FDV de 2.000 millones, con solo cerca del 3% de su oferta en circulación. ¿Qué te dice esto con más probabilidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Roughly 97% of the supply is still locked and will be released over time, so the low market cap hides large future dilution that price must keep absorbing."
+          es: "Cerca del 97% de la oferta sigue bloqueada y se irá liberando con el tiempo, así que el market cap bajo esconde una gran dilución futura que el precio tendrá que seguir absorbiendo."
+      - id: b
+        text:
+          en: "It is cheap — the market cap is small, so there is plenty of room for the price to grow."
+          es: "Está barato: el market cap es pequeño, así que hay mucho margen para que el precio crezca."
+      - id: c
+        text:
+          en: "The FDV is irrelevant, because tokens that are not circulating yet do not exist."
+          es: "La FDV es irrelevante, porque los tokens que aún no circulan no existen."
+      - id: d
+        text:
+          en: "A high FDV guarantees the price will rise over time to justify it."
+          es: "Una FDV alta garantiza que el precio subirá con el tiempo para justificarla."
+    explanation:
+      en: "A market cap far below the FDV means only a small float is circulating and most of the supply is still scheduled to unlock. That is future selling pressure, not a bargain: a small market cap says nothing about value on its own."
+      es: "Un market cap muy por debajo de la FDV significa que solo circula un float pequeño y que la mayor parte de la oferta aún está programada para desbloquearse. Eso es presión vendedora futura, no una ganga: un market cap pequeño no dice nada sobre el valor por sí solo."
+  - id: which-dilutes-more
+    prompt:
+      en: "Two tokens both trade at $2. Token A has 90% of its supply circulating; Token B has 10% circulating. All else equal, which faces more future dilution pressure?"
+      es: "Dos tokens cotizan ambos a 2 USD. El token A tiene el 90% de su oferta en circulación; el token B, el 10%. En igualdad de condiciones, ¿cuál afronta más presión de dilución futura?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Token B — about 90% of its supply is still to be unlocked and sold into the market over time."
+          es: "El token B: cerca del 90% de su oferta aún está por desbloquearse y venderse en el mercado con el tiempo."
+      - id: b
+        text:
+          en: "Token A, because a larger circulating supply means more selling ahead."
+          es: "El token A, porque un suministro circulante mayor implica más ventas por delante."
+      - id: c
+        text:
+          en: "Neither — dilution depends only on the price, not on how much supply is still locked."
+          es: "Ninguno: la dilución depende solo del precio, no de cuánta oferta siga bloqueada."
+      - id: d
+        text:
+          en: "Token B, but only if its market cap is already larger than Token A's."
+          es: "El token B, pero solo si su market cap ya es mayor que el del token A."
+    explanation:
+      en: "Future dilution comes from supply still waiting to unlock. Token B has only 10% circulating, so ~90% is yet to arrive — a much heavier overhang than Token A, whose supply is almost fully out already. Same price, very different tokenomics."
+      es: "La dilución futura viene de la oferta que aún espera para desbloquearse. El token B solo tiene el 10% en circulación, así que le queda por llegar el ~90%: un lastre mucho mayor que el del token A, cuya oferta ya está casi toda fuera. Mismo precio, tokenómica muy distinta."
+  - id: terms-to-meanings
+    kind: matching
+    prompt:
+      en: "Match each tokenomics term to what it actually measures."
+      es: "Empareja cada término de tokenómica con lo que mide en realidad."
+    pairs:
+      - id: circ
+        left: { en: "Circulating supply", es: "Suministro circulante" }
+        right:
+          en: "The tokens tradable right now, free to be bought and sold."
+          es: "Los tokens negociables ahora mismo, libres para comprarse y venderse."
+      - id: total
+        left: { en: "Total supply", es: "Suministro total" }
+        right:
+          en: "Everything minted so far, including locked and vesting tokens not yet on the market."
+          es: "Todo lo emitido hasta la fecha, incluidos los tokens bloqueados y en vesting que aún no están en el mercado."
+      - id: max
+        left: { en: "Max supply", es: "Suministro máximo" }
+        right:
+          en: "The ceiling — the most tokens that will ever exist once all emissions have happened."
+          es: "El techo: la mayor cantidad de tokens que existirá jamás una vez ocurridas todas las emisiones."
+      - id: mcap
+        left: { en: "Market cap", es: "Market cap" }
+        right:
+          en: "Price × circulating supply — what the tradable float is worth today."
+          es: "Precio × suministro circulante: lo que vale hoy el float negociable."
+      - id: fdv
+        left: { en: "FDV", es: "FDV" }
+        right:
+          en: "Price × max supply — what the whole thing would be worth if every token traded at today's price."
+          es: "Precio × suministro máximo: lo que valdría el conjunto si cada token cotizara al precio de hoy."
+    explanation:
+      en: "The three supply numbers differ by how much is tradable: circulating (now), total (minted so far), max (the final ceiling). Market cap uses circulating supply; FDV uses max supply. The gap between the last two is the future supply still waiting to unlock."
+      es: "Las tres cifras de oferta se distinguen por cuánto es negociable: circulante (ahora), total (lo emitido hasta la fecha) y máximo (el techo final). El market cap usa el suministro circulante; la FDV, el suministro máximo. La distancia entre las dos últimas es la oferta futura que aún espera para desbloquearse."
+  - id: mcap-fdv-same
+    kind: true_false
+    prompt:
+      en: "A token's market cap and its fully-diluted valuation (FDV) are just two names for the same number."
+      es: "El market cap de un token y su valoración totalmente diluida (FDV) son solo dos nombres para el mismo número."
+    answer: false
+    explanation:
+      en: "They are different. Market cap = price × circulating supply (the tradable float today); FDV = price × max supply (every token that will ever exist, at today's price). The gap between them is exactly the future supply still waiting to unlock."
+      es: "Son distintos. El market cap = precio × suministro circulante (el float negociable hoy); la FDV = precio × suministro máximo (cada token que existirá, al precio de hoy). La distancia entre ambos es justo la oferta futura que aún espera para desbloquearse."
+  - id: low-float-red-flags
+    kind: multi_select
+    prompt:
+      en: "You are looking at a newly listed, low-float token. Select ALL of the following that are genuine warning signs about its tokenomics."
+      es: "Estás mirando un token recién listado con float bajo. Selecciona TODO lo siguiente que sea una señal de alarma real sobre su tokenómica."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The FDV is many times larger than the market cap."
+          es: "La FDV es muchas veces mayor que el market cap."
+      - id: b
+        correct: true
+        text:
+          en: "Only a few percent of the supply is circulating; the rest is still locked."
+          es: "Solo circula un pequeño porcentaje de la oferta; el resto sigue bloqueado."
+      - id: c
+        correct: true
+        text:
+          en: "The unlock calendar schedules large releases over the coming months."
+          es: "El calendario de desbloqueo programa liberaciones grandes en los próximos meses."
+      - id: d
+        text:
+          en: "The market cap is small, which on its own means the token is cheap."
+          es: "El market cap es pequeño, lo que por sí solo significa que el token está barato."
+      - id: e
+        text:
+          en: "Its max supply is capped and every token is already circulating."
+          es: "Su suministro máximo tiene tope y todos los tokens ya circulan."
+    explanation:
+      en: "A huge FDV-to-market-cap gap, a tiny float, and big scheduled unlocks all point to heavy future dilution. A small market cap by itself is not a bargain, and a fully-circulating capped supply is reassuring — the opposite of a red flag."
+      es: "Una diferencia enorme entre FDV y market cap, un float minúsculo y desbloqueos grandes programados apuntan todos a una fuerte dilución futura. Un market cap pequeño por sí solo no es una ganga, y una oferta con tope ya del todo en circulación es tranquilizadora: lo contrario de una señal de alarma."
+  - id: fdv-ratio
+    prompt:
+      en: "A token's FDV is $2B and its market cap is $200M. Reading the ratio between them, what does it tell you?"
+      es: "La FDV de un token es de 2.000 millones de USD y su market cap es de 200 millones. Al leer el cociente entre ambos, ¿qué te dice?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "FDV is about 10× the market cap, so only around 10% of the supply is circulating — the other ~90% is still scheduled to unlock, a large future dilution overhang."
+          es: "La FDV es unas 10 veces el market cap, así que solo circula alrededor del 10% de la oferta; el ~90% restante aún está programado para desbloquearse, un gran lastre de dilución futura."
+      - id: b
+        text:
+          en: "About 90% of the supply is already circulating, so the token is nearly fully diluted."
+          es: "Cerca del 90% de la oferta ya circula, así que el token está casi totalmente diluido."
+      - id: c
+        text:
+          en: "The ratio reveals nothing about supply — it only reflects the current price."
+          es: "El cociente no revela nada sobre la oferta: solo refleja el precio actual."
+      - id: d
+        text:
+          en: "Only 10% is circulating, which makes it a bargain because the market cap is small."
+          es: "Solo circula el 10%, lo que lo convierte en una ganga porque el market cap es pequeño."
+    explanation:
+      en: "Divide FDV by market cap: 2B / 200M = 10, so roughly a tenth of the supply is circulating and about nine-tenths is still waiting in the schedule. That is future dilution to absorb, not a reason to call the token cheap."
+      es: "Divide la FDV entre el market cap: 2.000M / 200M = 10, así que circula alrededor de una décima parte de la oferta y unas nueve décimas siguen esperando en el calendario. Eso es dilución futura que absorber, no un motivo para llamar barato al token."

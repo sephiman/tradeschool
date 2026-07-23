@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: liquidation_price
+prompt:
+  en: "A trader goes **{leverage}× {side}** on an altcoin from an entry of **{entry}** (isolated). Maintenance margin is **{mmr}**. At what price is the position liquidated? Round to 2 decimals."
+  es: "Un trader entra **{leverage}× {side}** en una altcoin desde una entrada de **{entry}** (aislado). El margen de mantenimiento es **{mmr}**. ¿A qué precio se liquida la posición? Redondea a 2 decimales."
+params:
+  entry: { kind: int_range, min: 100, max: 5000, step: 10 }
+  leverage: { kind: choice, values: ["5", "10", "20", "50"] }
+  mmr: { kind: choice, values: ["0.005", "0.01"] }
+  side: { kind: choice, values: ["long", "short"] }
+tolerance: { rel: "0.001" }
+round: 2
+unit: price
+explanation:
+  en: "Same isolated formula, lower-priced asset. The higher the leverage, the thinner the margin cushion (≈ 1/leverage), so the liquidation price sits closer to entry and a smaller move is enough to trigger it."
+  es: "La misma fórmula aislada con un activo de menor precio. Cuanto mayor es el apalancamiento, más fino es el colchón de margen (≈ 1/apalancamiento), así que el precio de liquidación queda más cerca de la entrada y basta un movimiento más pequeño para dispararlo."

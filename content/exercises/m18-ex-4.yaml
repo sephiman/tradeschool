@@ -1,0 +1,123 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: unlock-vs-breakout
+    prompt:
+      en: "You spot a clean bullish breakout on a token, but a large unlock releasing 20% of the supply is scheduled for tomorrow. How should the unlock affect your read?"
+      es: "Detectas una ruptura alcista limpia en un token, pero mañana está programado un desbloqueo grande que libera el 20% de la oferta. ¿Cómo debería afectar el desbloqueo a tu lectura?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Treat the setup with caution — a large unlock can put fresh supply onto the market and invalidate the breakout regardless of what the pattern shows."
+          es: "Trata el setup con cautela: un desbloqueo grande puede volcar oferta nueva al mercado e invalidar la ruptura al margen de lo que muestre el patrón."
+      - id: b
+        text:
+          en: "Ignore it — unlocks are always priced in ahead of time, so only the chart matters."
+          es: "Ignóralo: los desbloqueos siempre se descuentan con antelación, así que solo importa el gráfico."
+      - id: c
+        text:
+          en: "It does not matter, because market cap and FDV are the same thing anyway."
+          es: "Da igual, porque el market cap y la FDV son lo mismo de todos modos."
+      - id: d
+        text:
+          en: "The unlock makes the breakout safer, since more tokens means more buyers arriving."
+          es: "El desbloqueo hace la ruptura más segura, ya que más tokens significa que llegan más compradores."
+    explanation:
+      en: "A scheduled unlock is a fundamental force the chart cannot show. A big tranche of new supply hitting the market can cap or reverse an otherwise clean breakout. Market cap and FDV are not the same number — that confusion is exactly what hides the incoming supply."
+      es: "Un desbloqueo programado es una fuerza fundamental que el gráfico no puede mostrar. Un tramo grande de oferta nueva llegando al mercado puede frenar o girar una ruptura por lo demás limpia. El market cap y la FDV no son el mismo número: esa confusión es justo lo que oculta la oferta que llega."
+  - id: why-in-ta
+    prompt:
+      en: "Why does a token's unlock calendar belong inside your technical analysis rather than beside it?"
+      es: "¿Por qué el calendario de desbloqueo de un token forma parte de tu análisis técnico en lugar de ir aparte?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because a scheduled release of locked tokens adds sell-side supply that can override an otherwise clean chart pattern."
+          es: "Porque una liberación programada de tokens bloqueados añade oferta vendedora que puede anular un patrón de gráfico por lo demás limpio."
+      - id: b
+        text:
+          en: "It does not — tokenomics and technical analysis are entirely separate and should never be mixed."
+          es: "No forma parte: la tokenómica y el análisis técnico están del todo separados y nunca deberían mezclarse."
+      - id: c
+        text:
+          en: "Because an unlock raises the token's maximum supply, so the chart's levels move up with it."
+          es: "Porque un desbloqueo eleva el suministro máximo del token, así que los niveles del gráfico suben con él."
+      - id: d
+        text:
+          en: "Because once an unlock happens, market cap and FDV become the same number."
+          es: "Porque, una vez ocurre un desbloqueo, el market cap y la FDV pasan a ser el mismo número."
+    explanation:
+      en: "An unlock moves tokens from locked to circulating — it does not change the max supply, and market cap and FDV remain distinct. What it does add is real sell-side supply, a fundamental force that can invalidate a technically clean setup. That is why it belongs in the analysis, not beside it."
+      es: "Un desbloqueo mueve tokens de bloqueados a circulantes: no cambia el suministro máximo, y el market cap y la FDV siguen siendo distintos. Lo que sí añade es oferta vendedora real, una fuerza fundamental que puede invalidar un setup técnicamente limpio. Por eso forma parte del análisis y no va aparte."
+  - id: unlock-raises-maxsupply
+    kind: true_false
+    prompt:
+      en: "A scheduled token unlock raises the token's maximum supply."
+      es: "Un desbloqueo programado de tokens eleva el suministro máximo del token."
+    answer: false
+    explanation:
+      en: "An unlock only moves tokens from locked to circulating — the max supply (and the FDV built on it) already counted those tokens. What changes is the tradable supply hitting the market, which is why an unlock can add real sell-side pressure."
+      es: "Un desbloqueo solo mueve tokens de bloqueados a circulantes: el suministro máximo (y la FDV que se apoya en él) ya contaban esos tokens. Lo que cambia es la oferta negociable que llega al mercado, y por eso un desbloqueo puede añadir presión vendedora real."
+  - id: unlock-priced-in
+    kind: true_false
+    prompt:
+      en: "Scheduled unlocks are always priced in ahead of time, so only the chart matters."
+      es: "Los desbloqueos programados siempre se descuentan con antelación, así que solo importa el gráfico."
+    answer: false
+    explanation:
+      en: "There is no guarantee an unlock is priced in. A large release can put more supply on the market in a day than normal trading absorbs, capping or reversing an otherwise clean setup — a fundamental force the chart cannot show."
+      es: "No hay garantía de que un desbloqueo esté descontado. Una liberación grande puede volcar al mercado más oferta en un día de la que absorbe el trading normal, frenando o girando un setup por lo demás limpio: una fuerza fundamental que el gráfico no puede mostrar."
+  - id: unlock-effects
+    kind: multi_select
+    prompt:
+      en: "A large token unlock (a 'cliff') is about to land. Select ALL the statements about it that are true."
+      es: "Está a punto de llegar un desbloqueo grande (un 'cliff'). Selecciona TODAS las afirmaciones ciertas sobre él."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It moves tokens from locked to circulating, so more supply becomes tradable."
+          es: "Mueve tokens de bloqueados a circulantes, así que pasa a ser negociable más oferta."
+      - id: b
+        correct: true
+        text:
+          en: "It can put more supply on the market than normal trading absorbs, capping or reversing a clean move."
+          es: "Puede volcar al mercado más oferta de la que absorbe el trading normal, frenando o girando un movimiento limpio."
+      - id: c
+        text:
+          en: "It guarantees the price will crash on the unlock date."
+          es: "Garantiza que el precio se desplomará en la fecha del desbloqueo."
+      - id: d
+        text:
+          en: "It makes a bullish setup safer, because more tokens means more buyers arriving."
+          es: "Hace más seguro un setup alcista, porque más tokens significa que llegan más compradores."
+    explanation:
+      en: "An unlock shifts locked tokens into the tradable float and can add heavy sell-side supply — enough to override a clean chart. But nothing is guaranteed: most unlocks pass quietly, and more tokens is more potential supply, not more buyers."
+      es: "Un desbloqueo pasa tokens bloqueados al float negociable y puede añadir mucha oferta vendedora, la suficiente para anular un gráfico limpio. Pero nada está garantizado: la mayoría de los desbloqueos pasan sin ruido, y más tokens es más oferta potencial, no más compradores."
+  - id: emission-inflation
+    prompt:
+      en: "A token's emission schedule inflates its circulating supply by about 30% a year. All else equal, what does price have to do just to hold the same total market value?"
+      es: "El calendario de emisión de un token infla su suministro circulante alrededor de un 30% al año. En igualdad de condiciones, ¿qué tiene que hacer el precio solo para mantener el mismo valor total de mercado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Rise about 30% — just to offset the new supply. It is a headwind you only see by reading the schedule, not the chart."
+          es: "Subir alrededor de un 30%, solo para compensar la oferta nueva. Es un viento en contra que solo ves leyendo el calendario, no el gráfico."
+      - id: b
+        text:
+          en: "Nothing — inflation only affects max supply, not the market value."
+          es: "Nada: la inflación solo afecta al suministro máximo, no al valor de mercado."
+      - id: c
+        text:
+          en: "Fall about 30%, because more supply always drags the price down by the same amount."
+          es: "Bajar alrededor de un 30%, porque más oferta siempre arrastra el precio a la baja en la misma proporción."
+      - id: d
+        text:
+          en: "Rise about 30%, and this already shows up as a clear downtrend on the candles."
+          es: "Subir alrededor de un 30%, y esto ya se ve como una clara tendencia bajista en las velas."
+    explanation:
+      en: "Market value is price × circulating supply. If supply grows 30%, price must climb ~30% just to keep the same total value — an inflation headwind that is invisible on a candlestick. It is not automatically a price drop, and it does not show up on the chart by itself."
+      es: "El valor de mercado es precio × suministro circulante. Si la oferta crece un 30%, el precio debe subir ~30% solo para mantener el mismo valor total: un viento en contra de la inflación que es invisible en una vela. No es automáticamente una caída del precio, y no aparece por sí solo en el gráfico."

@@ -1,0 +1,160 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: what-expectancy-means
+    prompt:
+      en: "What does a trading system's expectancy actually tell you?"
+      es: "¿Qué te dice en realidad la esperanza (expectancy) de un sistema de trading?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The average result of a single trade repeated over many — positive means it makes money over time, negative means it loses."
+          es: "El resultado medio de una sola operación repetida muchas veces: positiva significa que gana dinero con el tiempo, negativa que pierde."
+      - id: b
+        text:
+          en: "How often the system wins — a higher expectancy just means a higher win rate."
+          es: "Con qué frecuencia gana el sistema: una esperanza más alta solo significa un win rate más alto."
+      - id: c
+        text:
+          en: "The most you can lose on any single trade."
+          es: "Lo máximo que puedes perder en una sola operación."
+      - id: d
+        text:
+          en: "The probability that your next trade will be a winner."
+          es: "La probabilidad de que tu próxima operación sea ganadora."
+    explanation:
+      en: "Expectancy = win% × average win − loss% × average loss. It blends how often you win with how much you win and lose into one per-trade average. It is not the win rate (that is only one of its inputs), not a maximum loss, and not the odds of the next trade."
+      es: "Esperanza = win% × ganancia media − loss% × pérdida media. Combina con qué frecuencia ganas con cuánto ganas y pierdes en una media por operación. No es el win rate (que es solo una de sus entradas), ni una pérdida máxima, ni las probabilidades de la próxima operación."
+  - id: low-winrate-better
+    prompt:
+      en: "System A wins 35% of trades, average win 300, average loss 100. System B wins 80% of trades, average win 40, average loss 300. Which is the better system to trade?"
+      es: "El sistema A gana el 35% de las operaciones, ganancia media 300, pérdida media 100. El sistema B gana el 80%, ganancia media 40, pérdida media 300. ¿Cuál es el mejor sistema para operar?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "System A — despite its low win rate its expectancy is positive (+40 per trade), while System B loses money (−28 per trade) despite winning 80% of the time."
+          es: "El sistema A: pese a su win rate bajo, su esperanza es positiva (+40 por operación), mientras que el sistema B pierde dinero (−28 por operación) aunque gane el 80% de las veces."
+      - id: b
+        text:
+          en: "System B — an 80% win rate clearly makes it the more profitable system."
+          es: "El sistema B: un win rate del 80% lo convierte claramente en el sistema más rentable."
+      - id: c
+        text:
+          en: "System B — winning more often always means lower risk."
+          es: "El sistema B: ganar más a menudo siempre significa menos riesgo."
+      - id: d
+        text:
+          en: "Impossible to say without knowing the leverage each one uses."
+          es: "Imposible saberlo sin conocer el apalancamiento que usa cada uno."
+    explanation:
+      en: "A's expectancy = 0.35 × 300 − 0.65 × 100 = +40; B's = 0.80 × 40 − 0.20 × 300 = −28. The high win rate did not save B, because its losers are far bigger than its winners. Win rate and payoff only mean something together — and leverage is irrelevant to which system has an edge."
+      es: "La esperanza de A = 0,35 × 300 − 0,65 × 100 = +40; la de B = 0,80 × 40 − 0,20 × 300 = −28. El win rate alto no salvó a B, porque sus perdedoras son mucho mayores que sus ganadoras. El win rate y el payoff solo significan algo juntos, y el apalancamiento no influye en qué sistema tiene edge."
+  - id: winrate-payoff-match
+    kind: matching
+    prompt:
+      en: "Match each term to what it means."
+      es: "Empareja cada término con lo que significa."
+    pairs:
+      - id: winrate
+        left:
+          en: "Win rate"
+          es: "Win rate"
+        right:
+          en: "The fraction of trades that end in profit."
+          es: "La fracción de operaciones que acaban en ganancia."
+      - id: payoff
+        left:
+          en: "Payoff (reward-to-risk)"
+          es: "Payoff (beneficio-riesgo)"
+        right:
+          en: "How big the average win is compared with the average loss."
+          es: "Cuánto mide la ganancia media frente a la pérdida media."
+      - id: expectancy
+        left:
+          en: "Expectancy"
+          es: "Esperanza (expectancy)"
+        right:
+          en: "The average result of a single trade, blending win rate and payoff."
+          es: "El resultado medio de una sola operación, que combina win rate y payoff."
+      - id: variance
+        left:
+          en: "Variance"
+          es: "Varianza"
+        right:
+          en: "The spread of results around the true average, which shrinks as trades pile up."
+          es: "La dispersión de los resultados en torno a la media real, que se reduce a medida que se acumulan operaciones."
+    explanation:
+      en: "Win rate is how often you win; payoff is how much you win versus lose; expectancy folds both into the per-trade average that actually decides profitability; and variance is the noise around that average, which only a large sample averages out."
+      es: "El win rate es con qué frecuencia ganas; el payoff es cuánto ganas frente a lo que pierdes; la esperanza reúne ambos en la media por operación que de verdad decide la rentabilidad; y la varianza es el ruido alrededor de esa media, que solo una muestra grande promedia hasta suavizar."
+  - id: high-winrate-profit-myth
+    kind: true_false
+    prompt:
+      en: "A high win rate always means a profitable system."
+      es: "Un win rate alto siempre significa un sistema rentable."
+    answer: false
+    explanation:
+      en: "False. Win rate is only half the picture. A system that wins 90% of the time still loses money if the rare losses are far bigger than the frequent wins. Only expectancy — win rate and payoff together — tells you whether the account grows."
+      es: "Falso. El win rate es solo la mitad de la foto. Un sistema que gana el 90% de las veces aun así pierde dinero si las pérdidas raras son mucho mayores que las ganancias frecuentes. Solo la esperanza —el win rate y el payoff juntos— te dice si la cuenta crece."
+  - id: edge-inputs-multi
+    kind: multi_select
+    prompt:
+      en: "Select ALL the figures you need to work out a system's expectancy."
+      es: "Selecciona TODAS las cifras que necesitas para calcular la esperanza de un sistema."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The win rate — how often it wins."
+          es: "El win rate: con qué frecuencia gana."
+      - id: b
+        correct: true
+        text:
+          en: "The average size of its winning trades."
+          es: "El tamaño medio de sus operaciones ganadoras."
+      - id: c
+        correct: true
+        text:
+          en: "The average size of its losing trades."
+          es: "El tamaño medio de sus operaciones perdedoras."
+      - id: d
+        text:
+          en: "The leverage you trade it with."
+          es: "El apalancamiento con el que la operas."
+      - id: e
+        text:
+          en: "Your total account balance."
+          es: "El saldo total de tu cuenta."
+      - id: f
+        text:
+          en: "The largest loss you have ever taken."
+          es: "La mayor pérdida que hayas sufrido nunca."
+    explanation:
+      en: "Expectancy = win% × average win − loss% × average loss, and loss% is just 1 − win%. So you need exactly three things: the win rate, the average win and the average loss. Leverage, account size and your worst-ever loss don't enter the formula — expectancy is a per-trade average, not a function of how big you bet."
+      es: "Esperanza = win% × ganancia media − loss% × pérdida media, y loss% es simplemente 1 − win%. Así que necesitas exactamente tres cosas: el win rate, la ganancia media y la pérdida media. El apalancamiento, el tamaño de la cuenta y tu peor pérdida no entran en la fórmula: la esperanza es una media por operación, no una función de cuánto apuestas."
+  - id: breakeven-winrate-payoff
+    prompt:
+      en: "Your winners average twice the size of your losers (a payoff of 2). What win rate do you need just to break even?"
+      es: "Tus ganadoras promedian el doble del tamaño de tus perdedoras (un payoff de 2). ¿Qué win rate necesitas solo para quedar en tablas?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "About 33% — win more often than that and the system turns a profit."
+          es: "Alrededor del 33%: gana más a menudo que eso y el sistema da beneficio."
+      - id: b
+        text:
+          en: "50% — you always have to win more than half your trades."
+          es: "El 50%: siempre tienes que ganar más de la mitad de tus operaciones."
+      - id: c
+        text:
+          en: "About 67% — bigger winners mean you must win more often, not less."
+          es: "Alrededor del 67%: como las ganadoras son mayores, tienes que ganar más a menudo, no menos."
+      - id: d
+        text:
+          en: "It can never break even below a 50% win rate."
+          es: "Nunca puede quedar en tablas por debajo de un win rate del 50%."
+    explanation:
+      en: "Break-even win rate = 1 / (1 + payoff) = 1 / (1 + 2) = 1/3 ≈ 33%. With winners twice the size of losers you only need to win about a third of the time to break even, and anything above that is profit. The instinct that you must win most of your trades ignores the payoff entirely."
+      es: "Win rate de equilibrio = 1 / (1 + payoff) = 1 / (1 + 2) = 1/3 ≈ 33%. Con ganadoras del doble de tamaño que las perdedoras, solo necesitas ganar alrededor de un tercio de las veces para quedar en tablas, y cualquier cosa por encima es beneficio. El instinto de que debes ganar la mayoría de tus operaciones ignora por completo el payoff."

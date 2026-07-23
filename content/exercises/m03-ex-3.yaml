@@ -1,0 +1,138 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: uptrend-definition
+    prompt:
+      en: "Which pattern defines an uptrend?"
+      es: "¿Qué patrón define una tendencia alcista?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A sequence of higher highs and higher lows."
+          es: "Una secuencia de máximos más altos y mínimos más altos."
+      - id: b
+        text:
+          en: "A sequence of higher highs and lower lows."
+          es: "Una secuencia de máximos más altos y mínimos más bajos."
+      - id: c
+        text:
+          en: "Price bouncing between a fixed ceiling and floor."
+          es: "El precio rebotando entre un techo y un suelo fijos."
+      - id: d
+        text:
+          en: "A single large green candle."
+          es: "Una sola vela verde grande."
+    explanation:
+      en: "An uptrend makes net upward progress: each peak above the last and each dip bottoming above the previous one. Higher highs with lower lows is an expanding, directionless structure, and one big candle is not a trend."
+      es: "Una tendencia alcista avanza de forma neta hacia arriba: cada pico por encima del anterior y cada caída con un fondo por encima del previo. Máximos más altos con mínimos más bajos es una estructura que se expande sin dirección, y una sola vela grande no es una tendencia."
+  - id: range-recognition
+    prompt:
+      en: "Price has spent two weeks bouncing between roughly 100 and 110 with no net progress. What is it doing, and what follows?"
+      es: "El precio lleva dos semanas rebotando entre aproximadamente 100 y 110 sin avance neto. ¿Qué está haciendo y qué se deduce?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is ranging; trend-following tactics tend to fail here because there is no directional progress."
+          es: "Está en rango; las tácticas de seguimiento de tendencia tienden a fallar aquí porque no hay avance direccional."
+      - id: b
+        text:
+          en: "It is in an uptrend, because it keeps bouncing up from 100."
+          es: "Está en tendencia alcista, porque sigue rebotando al alza desde 100."
+      - id: c
+        text:
+          en: "It is in a downtrend, because it keeps falling back from 110."
+          es: "Está en tendencia bajista, porque sigue cayendo desde 110."
+      - id: d
+        text:
+          en: "Nothing — price is always trending, so a range cannot last two weeks."
+          es: "Nada: el precio siempre está en tendencia, así que un rango no puede durar dos semanas."
+    explanation:
+      en: "Similar highs and similar lows with no net progress is a range. Reading each bounce off 100 as an 'uptrend' is the classic mistake — the bounces cancel out, and markets range most of the time."
+      es: "Máximos parecidos y mínimos parecidos sin avance neto es un rango. Leer cada rebote en 100 como una 'tendencia alcista' es el error clásico: los rebotes se cancelan, y los mercados están en rango la mayor parte del tiempo."
+  - id: structure-match
+    kind: matching
+    prompt:
+      en: "Match each price structure to its definition."
+      es: "Empareja cada estructura de precio con su definición."
+    pairs:
+      - id: up
+        left: { en: "Uptrend", es: "Tendencia alcista" }
+        right:
+          en: "Higher highs and higher lows."
+          es: "Máximos más altos y mínimos más altos."
+      - id: down
+        left: { en: "Downtrend", es: "Tendencia bajista" }
+        right:
+          en: "Lower highs and lower lows."
+          es: "Máximos más bajos y mínimos más bajos."
+      - id: range
+        left: { en: "Range", es: "Rango" }
+        right:
+          en: "Similar highs and similar lows, with no net progress."
+          es: "Máximos parecidos y mínimos parecidos, sin avance neto."
+    explanation:
+      en: "An uptrend steps up (higher highs, higher lows), a downtrend steps down (lower highs, lower lows), and a range goes sideways between similar highs and lows."
+      es: "Una tendencia alcista escala (máximos y mínimos más altos), una bajista desciende (máximos y mínimos más bajos), y un rango se mueve de lado entre máximos y mínimos parecidos."
+  - id: downtrend-def
+    prompt:
+      en: "Which pattern defines a downtrend?"
+      es: "¿Qué patrón define una tendencia bajista?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A sequence of lower highs and lower lows."
+          es: "Una secuencia de máximos más bajos y mínimos más bajos."
+      - id: b
+        text:
+          en: "A sequence of lower highs and higher lows."
+          es: "Una secuencia de máximos más bajos y mínimos más altos."
+      - id: c
+        text:
+          en: "A single large red candle."
+          es: "Una sola vela roja grande."
+      - id: d
+        text:
+          en: "Price bouncing between a fixed ceiling and floor."
+          es: "El precio rebotando entre un techo y un suelo fijos."
+    explanation:
+      en: "A downtrend makes net downward progress: each peak below the last and each bounce topping out below the previous one. Lower highs with higher lows is a contracting, directionless structure, and one big candle is not a trend."
+      es: "Una tendencia bajista avanza de forma neta hacia abajo: cada pico por debajo del anterior y cada rebote con un techo por debajo del previo. Máximos más bajos con mínimos más altos es una estructura que se contrae sin dirección, y una sola vela grande no es una tendencia."
+  - id: trend-rarity-myth
+    kind: true_false
+    prompt:
+      en: "Most of the time, markets are trending rather than ranging."
+      es: "La mayor parte del tiempo, los mercados están en tendencia en lugar de en rango."
+    answer: false
+    explanation:
+      en: "Markets range most of the time; trends are the exception, which is exactly why identifying a real trend is worth the effort."
+      es: "Los mercados están en rango la mayor parte del tiempo; las tendencias son la excepción, y por eso precisamente vale la pena identificar una tendencia real."
+  - id: trend-range-multi
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about trends and ranges that are true."
+      es: "Selecciona TODAS las afirmaciones sobre tendencias y rangos que sean ciertas."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Tactics that work in a trend can get shredded in a range, and vice versa."
+          es: "Las tácticas que funcionan en tendencia pueden destrozarse en un rango, y al revés."
+      - id: b
+        correct: true
+        text:
+          en: "An uptrend requires both higher highs and higher lows."
+          es: "Una tendencia alcista requiere tanto máximos más altos como mínimos más altos."
+      - id: c
+        text:
+          en: "One big green candle is enough to establish an uptrend."
+          es: "Una sola vela verde grande basta para establecer una tendencia alcista."
+      - id: d
+        text:
+          en: "A range cannot last two weeks because price is always trending."
+          es: "Un rango no puede durar dos semanas porque el precio siempre está en tendencia."
+    explanation:
+      en: "An uptrend needs higher highs and higher lows together, and matching your tactics to the regime matters. A single candle is not a trend, and ranges routinely last a long time."
+      es: "Una tendencia alcista necesita máximos más altos y mínimos más altos a la vez, y ajustar las tácticas al régimen importa. Una sola vela no es una tendencia, y los rangos duran mucho tiempo con frecuencia."

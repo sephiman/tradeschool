@@ -1,0 +1,136 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: fee-toll-scalping
+    prompt:
+      en: "Why does a high-frequency scalping style tend to face the biggest drag from fees?"
+      es: "¿Por qué un estilo de scalping de alta frecuencia tiende a sufrir el mayor lastre por comisiones?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Fees are charged on entry and on exit, so hundreds of trades a day multiply the toll."
+          es: "Las comisiones se cobran al entrar y al salir, así que cientos de operaciones al día multiplican el peaje."
+      - id: b
+        text:
+          en: "Scalpers use higher leverage, and more leverage raises the fee rate."
+          es: "Los scalpers usan más apalancamiento, y más apalancamiento sube la tasa de comisión."
+      - id: c
+        text:
+          en: "Fees are a fixed monthly charge and scalpers are billed for more months."
+          es: "Las comisiones son un cargo mensual fijo y a los scalpers se les factura más meses."
+      - id: d
+        text:
+          en: "Scalpers hold overnight, so the exchange charges a fee for each night."
+          es: "Los scalpers mantienen de un día para otro, así que el exchange cobra una comisión por cada noche."
+    explanation:
+      en: "A fee is paid every time you open and close, so cost scales with the number of trades — not with leverage or with time. Doing hundreds of round-trips a day stacks that toll up fast."
+      es: "Se paga una comisión cada vez que abres y cierras, así que el coste escala con el número de operaciones, no con el apalancamiento ni con el tiempo. Hacer cientos de idas y vueltas al día acumula ese peaje muy rápido."
+  - id: funding-time-swing
+    prompt:
+      en: "A swing trader holding a perpetual futures position for several days is most exposed to which cost that a scalper largely avoids?"
+      es: "Un swing trader que mantiene una posición en futuros perpetuos varios días está más expuesto a qué coste que un scalper esquiva en buena medida?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Funding, which is exchanged every few hours and adds up across a multi-day hold."
+          es: "El funding, que se intercambia cada pocas horas y se acumula a lo largo de una tenencia de varios días."
+      - id: b
+        text:
+          en: "Trading fees, because holding longer is billed a fee for every hour open."
+          es: "Las comisiones de trading, porque mantener más tiempo cobra una comisión por cada hora abierta."
+      - id: c
+        text:
+          en: "The spread, which grows wider the longer a position stays open."
+          es: "El spread, que se ensancha cuanto más tiempo permanece abierta una posición."
+      - id: d
+        text:
+          en: "A daily account-maintenance charge levied by the exchange."
+          es: "Un cargo diario de mantenimiento de cuenta que impone el exchange."
+    explanation:
+      en: "Funding scales with time held: crossing many 8-hour payments over days is a real cost (or credit) for a swing trader. Fees, by contrast, are per-trade, so they hit the scalper hardest, not the holder."
+      es: "El funding escala con el tiempo mantenido: cruzar muchos pagos de 8 horas durante días es un coste (o ingreso) real para un swing trader. Las comisiones, en cambio, son por operación, así que golpean más al scalper, no a quien mantiene."
+  - id: cost-scaling-match
+    kind: matching
+    prompt:
+      en: "Match each cost to what makes it grow."
+      es: "Empareja cada coste con lo que lo hace crecer."
+    pairs:
+      - id: fees
+        left: { en: "Trading fees", es: "Comisiones de trading" }
+        right:
+          en: "Scale with the number of trades you make."
+          es: "Escalan con el número de operaciones que haces."
+      - id: funding
+        left: { en: "Funding", es: "Funding" }
+        right:
+          en: "Scales with how long you hold the position."
+          es: "Escala con cuánto tiempo mantienes la posición."
+      - id: spread
+        left: { en: "The spread", es: "El spread" }
+        right:
+          en: "A per-fill cost you cross going in and again coming out."
+          es: "Un coste por ejecución que cruzas al entrar y otra vez al salir."
+    explanation:
+      en: "Fees and the spread are paid on every fill, so they scale with the number of trades — the scalper's burden. Funding is exchanged periodically, so it scales with time held — the swing trader's burden. Knowing which cost tracks which axis is the whole point."
+      es: "Las comisiones y el spread se pagan en cada ejecución, así que escalan con el número de operaciones: la carga del scalper. El funding se intercambia periódicamente, así que escala con el tiempo mantenido: la carga del swing trader. Saber qué coste sigue a qué eje es lo que importa."
+  - id: more-trades-more-profit
+    kind: true_false
+    prompt:
+      en: "True or false: scalping earns more than a slower style simply because it makes more trades."
+      es: "Verdadero o falso: el scalping gana más que un estilo más lento simplemente porque hace más operaciones."
+    answer: false
+    explanation:
+      en: "False. This is the most expensive beginner belief in the module. Trading more often does not add edge — it just makes you pay the fee-and-spread toll more times. Frequency is a cost, not a strategy."
+      es: "Falso. Es la creencia de principiante más cara del módulo. Operar más a menudo no añade edge: solo hace que pagues el peaje de comisiones y spread más veces. La frecuencia es un coste, no una estrategia."
+  - id: scalper-avoids-funding
+    prompt:
+      en: "On perpetual futures, why does funding barely affect a scalper?"
+      es: "En los futuros perpetuos, ¿por qué el funding apenas afecta a un scalper?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A scalper is rarely still in a position when the periodic funding clock ticks."
+          es: "Un scalper rara vez sigue en posición cuando salta el reloj periódico del funding."
+      - id: b
+        text:
+          en: "Exchanges exempt scalpers from funding because they trade so often."
+          es: "Los exchanges eximen del funding a los scalpers porque operan muchísimo."
+      - id: c
+        text:
+          en: "Funding is only charged on positions held over a weekend."
+          es: "El funding solo se cobra en posiciones mantenidas durante un fin de semana."
+      - id: d
+        text:
+          en: "High trade frequency automatically cancels out any funding owed."
+          es: "La alta frecuencia de operaciones cancela automáticamente cualquier funding debido."
+    explanation:
+      en: "Funding is exchanged every few hours (commonly 8h). Because a scalper's positions last seconds to minutes, they are usually flat when the clock ticks, so funding barely touches them — nothing to do with an exemption or the weekend."
+      es: "El funding se intercambia cada pocas horas (habitualmente cada 8h). Como las posiciones de un scalper duran de segundos a minutos, suele estar plano cuando salta el reloj, así que el funding apenas le afecta; nada que ver con una exención ni con el fin de semana."
+  - id: higher-win-rate-breakeven
+    prompt:
+      en: "Why does a high-frequency style need a genuinely higher win rate just to break even?"
+      es: "¿Por qué un estilo de alta frecuencia necesita un win rate genuinamente más alto solo para no perder?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Its edge must first cover the stacked fees and spreads paid on every one of its many round-trips."
+          es: "Su edge tiene que cubrir primero la pila de comisiones y spreads que paga en cada una de sus muchas idas y vueltas."
+      - id: b
+        text:
+          en: "Because trading more often automatically means using more leverage and more risk."
+          es: "Porque operar más a menudo implica automáticamente más apalancamiento y más riesgo."
+      - id: c
+        text:
+          en: "Because funding is charged more often the more trades you place."
+          es: "Porque el funding se cobra más a menudo cuantas más operaciones colocas."
+      - id: d
+        text:
+          en: "It doesn't — win rate has nothing to do with how often you trade."
+          es: "No lo necesita: el win rate no tiene nada que ver con la frecuencia con que operas."
+    explanation:
+      en: "Before a scalper makes a cent, their edge has to beat the entire stack of fees and spreads from all those round-trips. That is why high-frequency styles need a higher win rate just to break even — it is a cost problem, not a leverage or funding one."
+      es: "Antes de ganar un céntimo, el edge de un scalper tiene que superar toda la pila de comisiones y spreads de esas idas y vueltas. Por eso los estilos de alta frecuencia necesitan un win rate más alto solo para no perder: es un problema de costes, no de apalancamiento ni de funding."

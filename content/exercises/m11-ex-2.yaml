@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: oscillator_reading
+n: 130
+indicator: rsi
+targets: [overbought, oversold, neutral]
+choices: [overbought, oversold, neutral]
+prompt:
+  en: "Look at where the RSI sits right now, at the right edge of the chart. Classify the current reading: overbought, oversold, or neutral."
+  es: "Fíjate en dónde está el RSI ahora mismo, en el borde derecho del gráfico. Clasifica la lectura actual: sobrecompra, sobreventa o neutral."
+explanation:
+  en: "Find the RSI value on the last bar: above 70 is overbought (a gain-heavy recent window), below 30 is oversold (a loss-heavy one), around 50 is neutral. The reading only tells you how one-sided the recent move has been — overbought is not a buy-to-sell signal, and oversold is not a licence to buy the falling knife."
+  es: "Localiza el valor del RSI en la última vela: por encima de 70 es sobrecompra (una ventana reciente dominada por ganancias), por debajo de 30 es sobreventa (dominada por pérdidas), alrededor de 50 es neutral. La lectura solo te dice cómo de unilateral ha sido el movimiento reciente: la sobrecompra no es una señal de venta, ni la sobreventa un permiso para atrapar el cuchillo que cae."

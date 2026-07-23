@@ -1,0 +1,152 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: cex-custody
+    prompt:
+      en: "On a centralised exchange (CEX), who controls the private keys to the coins shown in your account balance?"
+      es: "En un exchange centralizado (CEX), ¿quién controla las claves privadas de las monedas que muestra tu saldo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The exchange — your balance is a claim on the company, not the coins themselves."
+          es: "El exchange: tu saldo es un derecho de cobro sobre la empresa, no las monedas."
+      - id: b
+        text:
+          en: "You do — a CEX gives every user their own private keys at signup."
+          es: "Tú: un CEX da a cada usuario sus propias claves privadas al registrarse."
+      - id: c
+        text:
+          en: "Nobody — the coins are locked in a smart contract until you trade them."
+          es: "Nadie: las monedas quedan bloqueadas en un contrato inteligente hasta que operas."
+      - id: d
+        text:
+          en: "A government regulator that supervises the exchange."
+          es: "Un regulador gubernamental que supervisa el exchange."
+    explanation:
+      en: "On a CEX the company holds the keys and your balance is an IOU. That is exactly why deposits are convenient but carry counterparty risk."
+      es: "En un CEX la empresa guarda las claves y tu saldo es un pagaré. Por eso depositar es cómodo pero conlleva riesgo de contraparte."
+  - id: dex-nature
+    prompt:
+      en: "What is the defining feature of a decentralised exchange (DEX)?"
+      es: "¿Cuál es el rasgo que define a un exchange descentralizado (DEX)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "You trade directly from your own wallet; no company takes custody of your funds."
+          es: "Operas directamente desde tu propia cartera; ninguna empresa custodia tus fondos."
+      - id: b
+        text:
+          en: "It is an exchange with no fees, because there is no company to pay."
+          es: "Es un exchange sin comisiones, porque no hay una empresa a la que pagar."
+      - id: c
+        text:
+          en: "It is a normal CEX that has passed a decentralisation audit."
+          es: "Es un CEX normal que ha pasado una auditoría de descentralización."
+      - id: d
+        text:
+          en: "It is a chat group where traders swap coins by private agreement."
+          es: "Es un grupo de chat donde los traders intercambian monedas por acuerdo privado."
+    explanation:
+      en: "A DEX runs on smart contracts and lets you trade from your own wallet — self-custody by design. It still has fees (network and pool fees) and its own risks."
+      es: "Un DEX funciona con contratos inteligentes y te deja operar desde tu propia cartera: autocustodia por diseño. Sigue teniendo comisiones (de red y de pool) y sus propios riesgos."
+  - id: model-custody-match
+    kind: matching
+    prompt:
+      en: "Match each term to what it means for who controls your coins."
+      es: "Empareja cada término con lo que significa para quién controla tus monedas."
+    pairs:
+      - id: cex
+        left: { en: "Centralised exchange (CEX)", es: "Exchange centralizado (CEX)" }
+        right:
+          en: "Custodial: the company holds the private keys"
+          es: "Custodial: la empresa guarda las claves privadas"
+      - id: dex
+        left: { en: "Decentralised exchange (DEX)", es: "Exchange descentralizado (DEX)" }
+        right:
+          en: "Self-custody: you trade from your own wallet"
+          es: "Autocustodia: operas desde tu propia cartera"
+      - id: balance
+        left: { en: "Your on-exchange balance", es: "Tu saldo en el exchange" }
+        right:
+          en: "A promise to pay from the company (an IOU)"
+          es: "Una promesa de pago de la empresa (un pagaré)"
+      - id: wallet
+        left: { en: "Coins in a wallet you control", es: "Monedas en una cartera que controlas" }
+        right:
+          en: "The actual coins, held by no one but you"
+          es: "Las monedas en sí, que no guarda nadie más que tú"
+    explanation:
+      en: "A CEX is custodial and your balance is an IOU; a DEX leaves you in self-custody. The distinction is about who holds the keys, not about which is 'safer' in the abstract."
+      es: "Un CEX es custodial y tu saldo es un pagaré; un DEX te deja en autocustodia. La distinción va de quién guarda las claves, no de cuál es 'más seguro' en abstracto."
+  - id: cex-keys-myth
+    kind: true_false
+    prompt:
+      en: "A centralised exchange gives every user their own private keys when they sign up."
+      es: "Un exchange centralizado da a cada usuario sus propias claves privadas al registrarse."
+    answer: false
+    explanation:
+      en: "On a CEX the company keeps the keys; you get a login and a balance, not keys. Only self-custody (or a DEX from your own wallet) puts the keys in your hands."
+      es: "En un CEX la empresa guarda las claves; tú obtienes un login y un saldo, no claves. Solo la autocustodia (o un DEX desde tu propia cartera) pone las claves en tus manos."
+  - id: dex-fees-myth
+    kind: true_false
+    prompt:
+      en: "Trading on a DEX is free because there is no company to charge fees."
+      es: "Operar en un DEX es gratis porque no hay ninguna empresa que cobre comisiones."
+    answer: false
+    explanation:
+      en: "A DEX still costs money: network (gas) fees and pool fees apply, and you carry risks like buggy contracts and final, self-signed mistakes. 'No company' is not the same as 'no cost'."
+      es: "Un DEX sigue costando dinero: hay comisiones de red (gas) y de pool, y asumes riesgos como contratos con fallos y errores definitivos que firmas tú. 'Sin empresa' no es lo mismo que 'sin coste'."
+  - id: deposit-effect
+    prompt:
+      en: "You deposit 500 USDC onto a centralised exchange. In custody terms, what just happened?"
+      es: "Depositas 500 USDC en un exchange centralizado. En términos de custodia, ¿qué acaba de pasar?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The exchange now holds the coins; your balance is a claim on the company."
+          es: "Ahora el exchange guarda las monedas; tu saldo es un derecho de cobro sobre la empresa."
+      - id: b
+        text:
+          en: "The coins moved into a personal wallet that only you can access."
+          es: "Las monedas pasaron a una cartera personal a la que solo tú puedes acceder."
+      - id: c
+        text:
+          en: "Nothing changed — the coins stay under your control until you place a trade."
+          es: "No cambió nada: las monedas siguen bajo tu control hasta que coloques una operación."
+      - id: d
+        text:
+          en: "The coins were converted into shares of the exchange."
+          es: "Las monedas se convirtieron en acciones del exchange."
+    explanation:
+      en: "Depositing hands custody to the exchange: it holds the keys and your balance becomes an IOU. That is the trade-off you accept for the convenience of trading there."
+      es: "Depositar entrega la custodia al exchange: guarda las claves y tu saldo se convierte en un pagaré. Ese es el compromiso que aceptas a cambio de la comodidad de operar allí."
+  - id: dex-features
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE of a decentralised exchange (DEX)."
+      es: "Selecciona TODAS las afirmaciones que son CIERTAS sobre un exchange descentralizado (DEX)."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "You trade directly from your own wallet."
+          es: "Operas directamente desde tu propia cartera."
+      - id: b
+        correct: true
+        text:
+          en: "No company takes custody of your funds."
+          es: "Ninguna empresa custodia tus fondos."
+      - id: c
+        text:
+          en: "There is a support desk that can reset your password."
+          es: "Hay atención al cliente que puede restablecer tu contraseña."
+      - id: d
+        text:
+          en: "Trades cost nothing because there is no company."
+          es: "Las operaciones no cuestan nada porque no hay empresa."
+    explanation:
+      en: "A DEX runs on smart contracts: you keep custody and trade from your wallet. There is no support desk, and trades still incur network and pool fees."
+      es: "Un DEX funciona con contratos inteligentes: mantienes la custodia y operas desde tu cartera. No hay atención al cliente y las operaciones siguen teniendo comisiones de red y de pool."

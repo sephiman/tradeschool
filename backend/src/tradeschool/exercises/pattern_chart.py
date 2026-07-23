@@ -1,0 +1,161 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+"""Generic pattern-chart generator (Phase 2). Same contract as the frozen synthetic-chart generator
+(seed-deterministic, solution never in the pre-answer payload), but the planted feature comes from a
+pluggable injector selected by name, and the answer space is a generic set of string labels. The
+frozen divergence generator is untouched; this is a pure addition (§ freeze rule)."""
+
+from __future__ import annotations
+
+from collections.abc import Mapping
+from dataclasses import asdict, dataclass
+from typing import ClassVar, Literal, Self
+
+import numpy as np
+from pydantic import BaseModel, ConfigDict, model_validator
+
+from tradeschool.content.schema import LocalizedText
+from tradeschool.exercises.base import (
+    ExerciseGenerator,
+    GeneratedInstance,
+    GradeResult,
+    InvalidAnswerError,
+)
+from tradeschool.exercises.charts.engine import build_series
+from tradeschool.exercises.charts.indicators import macd, rsi
+from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
+from tradeschool.exercises.charts.types import Series
+from tradeschool.exercises.types import ExerciseType
+
+
+class PatternChartConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    type: Literal["pattern_chart"]
+    prompt: LocalizedText
+    injector: str
+    n: int = 160
+    indicator: Literal["rsi", "macd", "none", "oi"] | None = None
+    targets: list[str]
+    choices: list[str]
+    explanation: LocalizedText | None = None
+
+    @model_validator(mode="after")
+    def _check(self) -> Self:
+        if not has_injector(self.injector):
+            raise ValueError(f"unknown pattern injector {self.injector!r}")
+        labels = set(get_injector(self.injector).labels)
+        bad_targets = [t for t in self.targets if t not in labels]
+        if not self.targets:
+            raise ValueError("pattern_chart needs at least one target")
+        if bad_targets:
+            raise ValueError(f"targets not in injector {self.injector!r} labels: {bad_targets}")
+        missing = [t for t in self.targets if t not in self.choices]
+        if missing:
+            raise ValueError(f"choices must include every target; missing {missing}")
+        bad_choices = [c for c in self.choices if c not in labels]
+        if bad_choices:
+            raise ValueError(f"choices not in injector {self.injector!r} labels: {bad_choices}")
+        return self
+
+
+@dataclass
+class FullPatternChart:
+    """Full generated chart INCLUDING the warm-up prefix (for the dev export's reproducible RSI)."""
+
+    label: str
+    warmup: int
+    indicator: str
+    series: Series  # full (warmup + visible)
+    rsi: list[float]
+    macd_line: list[float]
+    macd_signal: list[float]
+    macd_hist: list[float]
+    overlays: dict[str, list[float]]  # full-length lines over the close series
+    levels: list[dict[str, object]]
+    annotations: list[dict[str, object]]  # visible coords
+    oi: list[float]  # full-length open-interest series (empty unless the injector supplies it)
+
+
+def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
+    rng = np.random.default_rng(seed)
+    injector = get_injector(config.injector)
+    target = config.targets[int(rng.integers(0, len(config.targets)))]
+    result = injector.build(rng, config.n, target)
+    close_full = result.close_full
+    series = build_series(rng, close_full)
+    if result.volume_full is not None:
+        series.volume = [round(float(v), 2) for v in result.volume_full.tolist()]
+    line, signal, hist = macd(close_full)
+    w = result.warmup
+    indicator = config.indicator or injector.indicator
+    return FullPatternChart(
+        label=result.label,
+        warmup=w,
+        indicator=indicator,
+        series=series,
+        rsi=[round(float(x), 2) for x in rsi(close_full)],
+        macd_line=[round(float(x), 4) for x in line],
+        macd_signal=[round(float(x), 4) for x in signal],
+        macd_hist=[round(float(x), 4) for x in hist],
+        overlays={k: [round(float(x), 2) for x in v] for k, v in result.overlays.items()},
+        oi=([round(float(x), 2) for x in result.oi_full.tolist()] if result.oi_full is not None else []),
+        levels=[{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels],
+        annotations=[
+            {"index": a.index - w, "kind": a.kind, "label": a.label}
+            for a in result.annotations
+            if a.index - w >= 0
+        ],
+    )
+
+
+def _instantiate(
+    config: PatternChartConfig, seed: int
+) -> tuple[str, list[dict[str, object]], dict[str, object]]:
+    f = _full(config, seed)
+    w = f.warmup
+    s = f.series
+    series = Series(
+        time=s.time[w:], open=s.open[w:], high=s.high[w:], low=s.low[w:],
+        close=s.close[w:], volume=s.volume[w:],
+    )
+    payload: dict[str, object] = {
+        "series": asdict(series),
+        "rsi": f.rsi[w:],
+        "macd": {"line": f.macd_line[w:], "signal": f.macd_signal[w:], "hist": f.macd_hist[w:]},
+        "indicator": f.indicator,
+        "choices": list(config.choices),
+        "overlays": {k: v[w:] for k, v in f.overlays.items()},
+        "levels": f.levels,
+    }
+    if f.oi:
+        payload["oi"] = f.oi[w:]
+    return f.label, f.annotations, payload
+
+
+class PatternChartGenerator(ExerciseGenerator):
+    type: ClassVar[ExerciseType] = ExerciseType.PATTERN_CHART
+
+    def parse_config(self, raw: Mapping[str, object]) -> PatternChartConfig:
+        return PatternChartConfig.model_validate(dict(raw))
+
+    def full_data(self, config: PatternChartConfig, seed: int) -> FullPatternChart:
+        """Full generated chart incl. warm-up rows — for the dev data export (reproducible RSI)."""
+        return _full(config, seed)
+
+    def generate(self, config: BaseModel, seed: int, locale: str) -> GeneratedInstance:
+        assert isinstance(config, PatternChartConfig)
+        _, _, payload = _instantiate(config, seed)
+        return GeneratedInstance(prompt=config.prompt.get(locale), payload=payload)
+
+    def grade(
+        self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str
+    ) -> GradeResult:
+        assert isinstance(config, PatternChartConfig)
+        chosen = answer.get("label")
+        if not isinstance(chosen, str):
+            raise InvalidAnswerError("expected a 'label' choice")
+        label, annotations, _ = _instantiate(config, seed)
+        return GradeResult(
+            correct=chosen == label,
+            correct_answer={"label": label, "annotations": annotations},
+            explanation=config.explanation.get(locale) if config.explanation else None,
+        )

@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: fibonacci
+n: 130
+indicator: none
+# Harder drill (2nd exercise): always the two adjacent deep levels (0.5 vs 0.618), the subtlest
+# call — the pullback extreme sits close to both. All three choices are still shown.
+targets: [retrace_500, retrace_618]
+choices: [retrace_382, retrace_500, retrace_618]
+prompt:
+  en: "Measure the pullback against the Fibonacci grid. How deep did it go before price turned back with the trend — pick the level the swing point landed on."
+  es: "Mide el retroceso contra la rejilla de Fibonacci. ¿Cuánto profundizó antes de que el precio volviera a girar con la tendencia? Elige el nivel sobre el que aterrizó el punto de giro."
+explanation:
+  en: "The deeper the pullback, the higher the level it touches: a stop at 0.382 barely dents the trend; reaching 0.618 gives back most of the move. Most trend pullbacks bottom out in the 0.5–0.618 zone, so a deep pullback that holds there is normal, not a failure."
+  es: "Cuanto más profundo el retroceso, más alto el nivel que toca: pararse en 0,382 apenas mella la tendencia; llegar al 0,618 devuelve la mayor parte del movimiento. La mayoría de los retrocesos de tendencia hacen suelo en la zona 0,5–0,618, así que un retroceso profundo que aguanta ahí es normal, no un fallo."

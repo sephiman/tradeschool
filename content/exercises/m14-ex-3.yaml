@@ -1,0 +1,164 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: what-confirms
+    prompt:
+      en: "Price breaks above a resistance level. Which of these best makes that breakout more trustworthy?"
+      es: "El precio rompe por encima de una resistencia. ¿Cuál de estas cosas hace la ruptura más fiable?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A clear surge in volume on the breakout candle — many participants acting on the move."
+          es: "Un claro repunte de volumen en la vela de ruptura: muchos participantes actuando sobre el movimiento."
+      - id: b
+        text:
+          en: "A very tall breakout candle — the bigger the price move, the more reliable the break."
+          es: "Una vela de ruptura muy alta: cuanto mayor sea el movimiento del precio, más fiable la ruptura."
+      - id: c
+        text:
+          en: "RSI reading above 70 as price clears the level."
+          es: "Un RSI por encima de 70 cuando el precio supera el nivel."
+      - id: d
+        text:
+          en: "The candle closing a large percentage beyond the level."
+          es: "Que la vela cierre un gran porcentaje más allá del nivel."
+    explanation:
+      en: "What confirms a breakout is participation, and volume is how you measure it. A tall candle or a big percentage move can print on almost no volume — that is exactly what a fakeout looks like. A high RSI is momentum, not proof that a crowd is behind the break."
+      es: "Lo que confirma una ruptura es la participación, y el volumen es como se mide. Una vela alta o un gran porcentaje pueden aparecer casi sin volumen: eso es justo lo que parece un fakeout. Un RSI alto es momentum, no prueba de que haya una multitud detrás de la ruptura."
+  - id: thin-break
+    prompt:
+      en: "Price breaks resistance, but the breakout candle's volume is well below its recent average. What does this most likely mean?"
+      es: "El precio rompe una resistencia, pero el volumen de la vela de ruptura está muy por debajo de su media reciente. ¿Qué significa esto con mayor probabilidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Few participants are behind the move, so it is prone to fail — a likely false break."
+          es: "Hay pocos participantes detrás del movimiento, así que es propenso a fallar: una probable ruptura falsa."
+      - id: b
+        text:
+          en: "The breakout is confirmed anyway, because price closed above the level."
+          es: "La ruptura queda confirmada igualmente, porque el precio cerró por encima del nivel."
+      - id: c
+        text:
+          en: "Low volume means the move is stealthy, which makes it even stronger."
+          es: "El volumen bajo significa que el movimiento es sigiloso, lo que lo hace aún más fuerte."
+      - id: d
+        text:
+          en: "Volume no longer matters once price has closed beyond the level."
+          es: "El volumen ya no importa una vez que el precio ha cerrado más allá del nivel."
+    explanation:
+      en: "A close beyond the level is only the price half of the picture. With volume below average, almost nobody joined the break — the classic fakeout setup. 'Stealth' strength on thin volume is wishful thinking; a real breakout tends to bring a crowd, not hide from one."
+      es: "Un cierre más allá del nivel es solo la mitad del cuadro, la del precio. Con el volumen por debajo de la media, casi nadie se sumó a la ruptura: el clásico montaje de un fakeout. La fuerza 'sigilosa' con volumen fino es ilusión; una ruptura real suele traer multitud, no esconderse de ella."
+  - id: low-vol-myth
+    kind: true_false
+    prompt:
+      en: "A breakout on low volume is more reliable than one on high volume, because a quiet, stealthy move is less likely to be a trap."
+      es: "Una ruptura con volumen bajo es más fiable que una con volumen alto, porque un movimiento silencioso y sigiloso tiene menos probabilidades de ser una trampa."
+    answer: false
+    explanation:
+      en: "This is backwards. A breakout on low volume means almost nobody joined the move, and that is exactly the setup a fakeout is made of. 'Stealth strength' is wishful thinking — a real break tends to bring a crowd, not hide from one. High volume on the break is the reassuring sign, not the low."
+      es: "Esto está al revés. Una ruptura con volumen bajo significa que casi nadie se sumó al movimiento, y ese es justo el material del que se hace un fakeout. La 'fuerza sigilosa' es ilusión: una ruptura real suele traer multitud, no esconderse de ella. El volumen alto en la ruptura es la señal tranquilizadora, no el bajo."
+  - id: backed-signs
+    kind: multi_select
+    prompt:
+      en: "Price breaks above resistance. Select ALL the signs that the breakout has real participation behind it, rather than being a fakeout."
+      es: "El precio rompe por encima de una resistencia. Selecciona TODAS las señales de que la ruptura tiene participación real detrás, en lugar de ser un fakeout."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The breakout candle's volume spikes clearly above its recent average."
+          es: "El volumen de la vela de ruptura repunta claramente por encima de su media reciente."
+      - id: b
+        correct: true
+        text:
+          en: "Volume stays strong on the follow-through candles, not just the one that broke the level."
+          es: "El volumen se mantiene fuerte en las velas de continuación, no solo en la que rompió el nivel."
+      - id: c
+        text:
+          en: "The breakout candle is unusually tall — a big single-candle price move."
+          es: "La vela de ruptura es inusualmente alta: un gran movimiento de precio en una sola vela."
+      - id: d
+        text:
+          en: "RSI pushes above 70 as price clears the level."
+          es: "El RSI supera 70 cuando el precio rebasa el nivel."
+    explanation:
+      en: "Participation is measured in volume: a surge on the breakout candle, and volume that stays elevated as price follows through, both say a crowd is behind the move. A tall candle or a big percentage move is price geometry, which can print on almost no volume — that is what a fakeout looks like. A high RSI is momentum, not proof of participation."
+      es: "La participación se mide en volumen: un repunte en la vela de ruptura, y un volumen que sigue elevado mientras el precio tiene continuidad, dicen ambos que hay una multitud detrás del movimiento. Una vela alta o un gran porcentaje son geometría de precio, que puede aparecer casi sin volumen: eso es lo que parece un fakeout. Un RSI alto es momentum, no prueba de participación."
+  - id: surge-not-guarantee
+    prompt:
+      en: "A breakout prints on a clear volume surge. Which statement is the most accurate?"
+      es: "Una ruptura aparece con un claro repunte de volumen. ¿Cuál es la afirmación más exacta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is far more likely to hold and follow through, but the surge still does not guarantee the move continues."
+          es: "Es mucho más probable que aguante y tenga continuidad, pero el repunte aún no garantiza que el movimiento continúe."
+      - id: b
+        text:
+          en: "The surge guarantees the breakout will continue — you can enter with full confidence."
+          es: "El repunte garantiza que la ruptura continuará: puedes entrar con total confianza."
+      - id: c
+        text:
+          en: "The volume surge is irrelevant; only the candle closing beyond the level matters."
+          es: "El repunte de volumen es irrelevante; solo importa que la vela cierre más allá del nivel."
+      - id: d
+        text:
+          en: "A volume surge means the move is exhausted and about to reverse."
+          es: "Un repunte de volumen significa que el movimiento está agotado y a punto de girar."
+    explanation:
+      en: "Strong volume stacks the odds: it means a crowd acted, so the break is far more likely to hold. But 'more likely' is not 'certain' — volume raises the probability, it does not remove the risk, and treating a surge as a guarantee is how full-confidence entries get punished."
+      es: "El volumen fuerte inclina las probabilidades: significa que actuó una multitud, así que la ruptura es mucho más probable que aguante. Pero 'más probable' no es 'seguro': el volumen sube la probabilidad, no elimina el riesgo, y tratar un repunte como una garantía es la forma en que las entradas con total confianza acaban castigadas."
+  - id: why-check-volume
+    prompt:
+      en: "Why can't you judge whether a breakout is real from the price move alone, so that you must look at the volume?"
+      es: "¿Por qué no puedes juzgar si una ruptura es real solo por el movimiento del precio, de modo que tienes que mirar el volumen?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The price break looks identical whether one trader or ten thousand pushed it through; volume is what tells the two apart."
+          es: "La ruptura de precio se ve idéntica lo empujara un trader o diez mil; el volumen es lo que distingue ambos casos."
+      - id: b
+        text:
+          en: "Because volume always moves one candle ahead of price."
+          es: "Porque el volumen siempre se mueve una vela por delante del precio."
+      - id: c
+        text:
+          en: "Because price charts are frequently faked while volume data never is."
+          es: "Porque los gráficos de precio se falsean a menudo y los datos de volumen nunca."
+      - id: d
+        text:
+          en: "You can — a clean close beyond the level is proof enough on its own, without checking volume."
+          es: "Sí puedes: un cierre limpio más allá del nivel es prueba suficiente por sí solo, sin comprobar el volumen."
+    explanation:
+      en: "The whole point of volume on a breakout is that the price geometry is the same for a real break and a fakeout. The only place the difference shows is underneath, in how many participants came with the move. So you look down at the volume bar, not just at the break."
+      es: "Todo el sentido del volumen en una ruptura es que la geometría del precio es la misma para una ruptura real y para un fakeout. El único sitio donde se ve la diferencia es debajo, en cuántos participantes vinieron con el movimiento. Por eso miras hacia abajo, a la barra de volumen, no solo a la ruptura."
+  - id: support-breakdown
+    prompt:
+      en: "Price breaks below a support level on volume well above its recent average. Compared with the same break on thin volume, this breakdown is..."
+      es: "El precio rompe por debajo de un soporte con un volumen muy por encima de su media reciente. Comparada con la misma ruptura con volumen fino, esta ruptura bajista es..."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "More likely to be real and follow through, because many participants are acting on the break."
+          es: "Más probable que sea real y tenga continuidad, porque muchos participantes están actuando sobre la ruptura."
+      - id: b
+        text:
+          en: "Less reliable — heavy volume on a down-break usually signals an imminent bounce."
+          es: "Menos fiable: un volumen alto en una ruptura bajista suele señalar un rebote inminente."
+      - id: c
+        text:
+          en: "Identical in reliability, because volume only matters for upside breakouts, not breakdowns."
+          es: "Idéntica en fiabilidad, porque el volumen solo importa en las rupturas al alza, no en las bajistas."
+      - id: d
+        text:
+          en: "Guaranteed to keep falling, since the volume confirms the direction."
+          es: "Con caída garantizada, ya que el volumen confirma la dirección."
+    explanation:
+      en: "The logic is symmetric: a break of support on strong volume means a crowd is behind the move down, just as it does above resistance, so it is far more likely to be real. Volume matters for breakdowns exactly as much as for breakouts — and 'guaranteed' still overstates it; strong volume raises the odds, it does not remove the risk."
+      es: "La lógica es simétrica: una ruptura de soporte con volumen fuerte significa que hay una multitud detrás de la caída, igual que ocurre por encima de una resistencia, así que es mucho más probable que sea real. El volumen importa en las rupturas bajistas exactamente igual que en las alcistas, y 'garantizada' sigue siendo una exageración: el volumen fuerte sube las probabilidades, no elimina el riesgo."

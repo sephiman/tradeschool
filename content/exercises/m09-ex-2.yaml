@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: wyckoff
+n: 130
+indicator: none
+# Harder drill (2nd exercise): always a real accumulation or distribution (never the easy 'none'),
+# so the learner must read the prior trend plus spring-vs-upthrust to decide which. All three
+# choices are still shown.
+targets: [accumulation, distribution]
+choices: [accumulation, distribution, none]
+prompt:
+  en: "Another range to classify. Work in order: which way was price trending *before* the range? Then find the support/resistance and look for a spring (false break below support that recovers) or an upthrust (false break above resistance that fails). Pick accumulation, distribution, or none."
+  es: "Otro rango que clasificar. Ve en orden: ¿en qué dirección venía el precio *antes* del rango? Luego localiza el soporte/resistencia y busca un spring (ruptura falsa por debajo del soporte que se recupera) o un upthrust (ruptura falsa por encima de la resistencia que fracasa). Elige acumulación, distribución o none."
+explanation:
+  en: "The spring shakes out sellers' stops so large players can finish buying — it sits in accumulation, after a downtrend, and precedes markup. The upthrust traps breakout buyers so large players can finish selling — it sits in distribution, after an uptrend, and precedes markdown. When there is neither a clear prior trend nor a false break, do not force a story: it is none."
+  es: "El spring saca los stops de los vendedores para que los grandes participantes terminen de comprar: vive en la acumulación, tras una tendencia bajista, y precede al markup. El upthrust atrapa a los compradores de ruptura para que los grandes participantes terminen de vender: vive en la distribución, tras una tendencia alcista, y precede al markdown. Cuando no hay ni tendencia previa clara ni ruptura falsa, no fuerces una historia: es none."

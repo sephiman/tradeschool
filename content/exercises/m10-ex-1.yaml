@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: ma_context
+n: 130
+indicator: none
+targets: [uptrend, downtrend, range]
+choices: [uptrend, downtrend, range]
+prompt:
+  en: "Read the two moving averages (the EMA20 and the EMA50): their order, their slope, and where price sits relative to them. Is this an uptrend, a downtrend, or a range?"
+  es: "Lee las dos medias móviles (la EMA20 y la EMA50): su orden, su pendiente y dónde se sitúa el precio respecto a ellas. ¿Es una tendencia alcista, una bajista o un rango?"
+explanation:
+  en: "In an uptrend the fast EMA20 sits above the slow EMA50, both slope up, and price holds above them; a downtrend is the mirror image — both falling, with the fast below the slow and price under both. A range has the two EMAs flat and intertwined while price chops across them, which is exactly where the averages start giving false signals."
+  es: "En una tendencia alcista la EMA20 rápida va por encima de la EMA50 lenta, ambas suben y el precio aguanta por encima; una bajista es la imagen invertida: ambas cayendo, con la rápida por debajo de la lenta y el precio bajo las dos. Un rango tiene las dos EMA planas y entrelazadas mientras el precio las cruza a un lado y otro, que es justo donde las medias empiezan a dar señales falsas."

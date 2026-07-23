@@ -1,0 +1,141 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: sequence
+    prompt:
+      en: "What is the classic order of capital rotation in a crypto cycle?"
+      es: "¿Cuál es el orden clásico de la rotación de capital en un ciclo cripto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "BTC → ETH → large-cap alts → small-cap alts."
+          es: "BTC → ETH → alts de gran capitalización → alts de pequeña capitalización."
+      - id: b
+        text:
+          en: "Small-cap alts → large-cap alts → ETH → BTC."
+          es: "Alts de pequeña capitalización → alts de gran capitalización → ETH → BTC."
+      - id: c
+        text:
+          en: "Stablecoins → small-cap alts → BTC → ETH."
+          es: "Stablecoins → alts de pequeña capitalización → BTC → ETH."
+      - id: d
+        text:
+          en: "Everything rises together at the same time, in no particular order."
+          es: "Todo sube a la vez, sin ningún orden concreto."
+    explanation:
+      en: "New money tends to arrive through Bitcoin, then rotate into Ether, then the large alts, and finally the small speculative ones — a tendency, never a timetable."
+      es: "El dinero nuevo suele entrar por Bitcoin, luego rota hacia Ether, después a las alts grandes y por último a las pequeñas especulativas: una tendencia, nunca un calendario."
+  - id: last-stage
+    prompt:
+      en: "In the classic rotation, which assets tend to receive money last, in the most euphoric and riskiest phase?"
+      es: "En la rotación clásica, ¿qué activos tienden a recibir dinero los últimos, en la fase más eufórica y arriesgada?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Small-cap, speculative altcoins."
+          es: "Altcoins pequeñas y especulativas."
+      - id: b
+        text:
+          en: "Bitcoin, as the safe reserve asset."
+          es: "Bitcoin, como activo de reserva seguro."
+      - id: c
+        text:
+          en: "Ether, the first alt in the sequence."
+          es: "Ether, la primera alt de la secuencia."
+      - id: d
+        text:
+          en: "Stablecoins, where everyone parks cash."
+          es: "Stablecoins, donde todo el mundo aparca el efectivo."
+    explanation:
+      en: "The smallest, most speculative tokens tend to move last, exactly when the crowd feels most certain and risk is highest. When fear returns they bleed first and worst."
+      es: "Los tokens más pequeños y especulativos suelen moverse los últimos, justo cuando la multitud se siente más segura y el riesgo es más alto. Cuando vuelve el miedo, sangran primero y peor."
+  - id: rotation-order
+    kind: ordering
+    prompt:
+      en: "Arrange the classic capital rotation of a crypto cycle in order, from where new money tends to arrive first to where it arrives last."
+      es: "Ordena la rotación clásica de capital de un ciclo cripto, desde donde suele llegar primero el dinero nuevo hasta donde llega el último."
+    items:
+      - id: btc
+        position: 1
+        text:
+          en: "Bitcoin"
+          es: "Bitcoin"
+      - id: eth
+        position: 2
+        text:
+          en: "Ether (ETH)"
+          es: "Ether (ETH)"
+      - id: large
+        position: 3
+        text:
+          en: "Large-cap alts"
+          es: "Alts de gran capitalización"
+      - id: small
+        position: 4
+        text:
+          en: "Small-cap, speculative alts"
+          es: "Alts pequeñas y especulativas"
+    explanation:
+      en: "New money tends to arrive through Bitcoin, rotate into Ether as confidence grows, then into the large established alts, and finally into the small speculative ones in the euphoric phase — a tendency, never a timetable."
+      es: "El dinero nuevo suele entrar por Bitcoin, rota hacia Ether a medida que crece la confianza, luego hacia las alts grandes y establecidas y por último hacia las pequeñas especulativas en la fase eufórica: una tendencia, nunca un calendario."
+  - id: first-stage
+    prompt:
+      en: "According to the rotation, where does fresh money entering the market tend to go first?"
+      es: "Según la rotación, ¿hacia dónde tiende a ir primero el dinero nuevo que entra en el mercado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Into Bitcoin — and dominance rises."
+          es: "Hacia Bitcoin, y la dominancia sube."
+      - id: b
+        text:
+          en: "Into small-cap alts, where the biggest gains are."
+          es: "Hacia las alts pequeñas, donde están las mayores ganancias."
+      - id: c
+        text:
+          en: "Into Ether, the first stop for all new capital."
+          es: "Hacia Ether, la primera parada de todo el capital nuevo."
+      - id: d
+        text:
+          en: "Spread evenly across every coin at the same time."
+          es: "Repartido por igual entre todas las monedas a la vez."
+    explanation:
+      en: "New money tends to arrive through Bitcoin first, pushing dominance up; only as confidence grows does it rotate outward into ETH, then the large alts, then the small ones."
+      es: "El dinero nuevo suele entrar primero por Bitcoin, empujando la dominancia al alza; solo a medida que crece la confianza rota hacia fuera, hacia ETH, luego las alts grandes y luego las pequeñas."
+  - id: reverse-rotation
+    prompt:
+      en: "When fear returns and the rotation runs in reverse, which tokens tend to bleed first and worst?"
+      es: "Cuando vuelve el miedo y la rotación funciona a la inversa, ¿qué tokens tienden a sangrar primero y peor?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The smallest, least liquid tokens."
+          es: "Los tokens más pequeños y menos líquidos."
+      - id: b
+        text:
+          en: "Bitcoin, because it is the biggest position to exit."
+          es: "Bitcoin, porque es la posición más grande de la que salir."
+      - id: c
+        text:
+          en: "Every coin falls by exactly the same percentage."
+          es: "Todas las monedas caen exactamente el mismo porcentaje."
+      - id: d
+        text:
+          en: "Stablecoins, which lose their peg first."
+          es: "Las stablecoins, que pierden su paridad primero."
+    explanation:
+      en: "In reverse, money climbs back up the curve toward Bitcoin, and the smallest, least liquid tokens — the last to be bought — are the first and hardest hit."
+      es: "A la inversa, el dinero sube de nuevo por la curva hacia Bitcoin, y los tokens más pequeños y menos líquidos —los últimos en comprarse— son los primeros y más golpeados."
+  - id: tendency-not-timetable
+    kind: true_false
+    prompt:
+      en: "The rotation is a reliable timetable: once one stage happens, the next always follows on schedule."
+      es: "La rotación es un calendario fiable: una vez que ocurre una etapa, la siguiente llega siempre en su plazo."
+    answer: false
+    explanation:
+      en: "The rotation is a tendency, not a timetable. It does not complete every cycle, the stages overlap, and many predicted alt seasons never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding them for years."
+      es: "La rotación es una tendencia, no un calendario. No se completa en cada ciclo, las etapas se solapan y muchas alt seasons anunciadas nunca llegaron. A los traders que compraron alts pequeñas porque 'la rotación dice que van a continuación' les ha tocado sostenerlas durante años."

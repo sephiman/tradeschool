@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: oscillator_reading
+n: 130
+indicator: rsi
+targets: [overbought, oversold, neutral]
+choices: [overbought, oversold, neutral]
+prompt:
+  en: "Read the RSI shown beneath the price. What is its current reading — overbought, oversold, or neutral?"
+  es: "Lee el RSI que aparece bajo el precio. ¿Cuál es su lectura actual: sobrecompra, sobreventa o neutral?"
+explanation:
+  en: "RSI above 70 after a sustained rally is overbought; below 30 after a sustained decline is oversold; drifting in the 40–60 middle is neutral. Classifying the reading is the drill here — but remember an overbought reading is not itself a sell, because in a strong trend RSI can stay above 70 for a long time."
+  es: "Un RSI por encima de 70 tras un rally sostenido es sobrecompra; por debajo de 30 tras un descenso sostenido es sobreventa; deambulando en la franja media (40–60) es neutral. Clasificar la lectura es el ejercicio, pero recuerda que una lectura de sobrecompra no es por sí sola una venta, porque en una tendencia fuerte el RSI puede mantenerse por encima de 70 mucho tiempo."

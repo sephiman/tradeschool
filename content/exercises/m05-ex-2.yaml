@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: initial_margin
+prompt:
+  en: "A trader shorts **{quantity}** units of an altcoin priced at **{entry}** USDT, using **{leverage}×** leverage. What is the initial margin (in USDT) required to open this position? Round to 2 decimals."
+  es: "Un trader abre un short de **{quantity}** unidades de una altcoin cotizada a **{entry}** USDT, usando **{leverage}×** de apalancamiento. ¿Cuál es el margen inicial (en USDT) necesario para abrir esta posición? Redondea a 2 decimales."
+params:
+  entry: { kind: int_range, min: 800, max: 6000, step: 20 }
+  quantity: { kind: choice, values: ["0.1", "0.25", "0.5", "1", "2"] }
+  leverage: { kind: choice, values: ["3", "5", "10", "20", "25"] }
+tolerance: { rel: "0.005" }
+round: 2
+unit: USDT
+explanation:
+  en: "Initial margin = (entry × quantity) / leverage. The side (long or short) does not change it — the deposit to open depends only on notional and leverage. Divide the notional (entry × quantity) by the leverage."
+  es: "Margen inicial = (entrada × cantidad) / apalancamiento. El lado (long o short) no lo cambia: el depósito para abrir depende solo del nocional y del apalancamiento. Divide el nocional (entrada × cantidad) entre el apalancamiento."

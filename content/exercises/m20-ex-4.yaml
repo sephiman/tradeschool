@@ -1,0 +1,149 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: constraint-full-time-job
+    prompt:
+      en: "You work a full-time job during the hours the market is most active. Which style realistically fits your constraints?"
+      es: "Trabajas a tiempo completo durante las horas en que el mercado está más activo. ¿Qué estilo encaja de forma realista con tus limitaciones?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Swing trading — it can be managed in minutes a day, around a job."
+          es: "Swing trading: se puede gestionar en unos minutos al día, alrededor de un empleo."
+      - id: b
+        text:
+          en: "Scalping — more trades per day means more profit, so it is worth dropping other things for."
+          es: "Scalping: más operaciones al día significa más beneficio, así que merece la pena dejar otras cosas por ello."
+      - id: c
+        text:
+          en: "Day trading — you can watch the 5-minute chart from your desk between tasks."
+          es: "Day trading: puedes vigilar el gráfico de 5 minutos desde tu escritorio entre tareas."
+      - id: d
+        text:
+          en: "It makes no difference; every style needs the same amount of screen time."
+          es: "Da igual; todos los estilos necesitan la misma cantidad de tiempo de pantalla."
+    explanation:
+      en: "Scalping and day trading need attention during market hours a full-time job does not leave free, and more trades is a cost, not extra profit. Swing trading, decided on higher timeframes and checked briefly, fits around a job."
+      es: "El scalping y el day trading necesitan atención en horas de mercado que un empleo a tiempo completo no deja libres, y más operaciones es un coste, no beneficio extra. El swing trading, decidido en temporalidades altas y revisado brevemente, encaja alrededor de un empleo."
+  - id: best-style-statement
+    prompt:
+      en: "Which statement about choosing a trading style is correct?"
+      es: "¿Qué afirmación sobre elegir un estilo de trading es correcta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "No style is inherently more profitable; the best one fits your schedule, sleep and temperament."
+          es: "Ningún estilo es inherentemente más rentable; el mejor es el que encaja con tu horario, tu sueño y tu temperamento."
+      - id: b
+        text:
+          en: "Scalping earns more because it makes the most trades."
+          es: "El scalping gana más porque hace más operaciones."
+      - id: c
+        text:
+          en: "Swing trading is objectively the most profitable because it collects funding."
+          es: "El swing trading es objetivamente el más rentable porque cobra funding."
+      - id: d
+        text:
+          en: "The style using the highest leverage is always the best choice."
+          es: "El estilo que usa más apalancamiento es siempre la mejor elección."
+    explanation:
+      en: "Frequency is a cost, not an edge, so scalping does not earn more just by trading more; funding is often paid, not received; and leverage raises risk, not quality. The right style is the one your life can actually sustain."
+      es: "La frecuencia es un coste, no un edge, así que el scalping no gana más solo por operar más; el funding a menudo se paga, no se cobra; y el apalancamiento sube el riesgo, no la calidad. El estilo correcto es el que tu vida puede sostener de verdad."
+  - id: what-to-weigh
+    kind: multi_select
+    prompt:
+      en: "Select ALL the factors the lesson says should drive your choice of trading style."
+      es: "Selecciona TODOS los factores que la lección dice que deben guiar tu elección de estilo de trading."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Your schedule and how much time you can actually give the screen."
+          es: "Tu horario y cuánto tiempo puedes dedicar de verdad a la pantalla."
+      - id: b
+        correct: true
+        text:
+          en: "Whether holding open risk overnight would wreck your sleep."
+          es: "Si mantener riesgo abierto de un día para otro te destrozaría el sueño."
+      - id: c
+        correct: true
+        text:
+          en: "Your temperament — patience versus being impulsive or easily bored."
+          es: "Tu temperamento: paciencia frente a ser impulsivo o aburrirte con facilidad."
+      - id: d
+        text:
+          en: "Which style lets you use the highest leverage."
+          es: "Qué estilo te permite usar el mayor apalancamiento."
+      - id: e
+        text:
+          en: "Which style places the most trades per day."
+          es: "Qué estilo coloca más operaciones al día."
+    explanation:
+      en: "Pick the style your real constraints can sustain: your schedule, your sleep and your temperament. Highest leverage and most trades are not virtues — leverage adds risk and frequency adds cost, so neither should decide your style."
+      es: "Elige el estilo que tus limitaciones reales puedan sostener: tu horario, tu sueño y tu temperamento. El mayor apalancamiento y el mayor número de operaciones no son virtudes: el apalancamiento añade riesgo y la frecuencia añade coste, así que ninguno debería decidir tu estilo."
+  - id: overnight-sleep-daytrade
+    prompt:
+      en: "Holding open risk overnight keeps you awake at night. Which style is most likely to suit you?"
+      es: "Mantener riesgo abierto de un día para otro te quita el sueño. ¿Qué estilo es más probable que te convenga?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Day trading — you are flat by the end of your session, with no position held overnight."
+          es: "Day trading: quedas plano al final de tu sesión, sin posición mantenida de un día para otro."
+      - id: b
+        text:
+          en: "Swing trading — you collect funding while you sleep, which offsets the risk."
+          es: "Swing trading: cobras funding mientras duermes, lo que compensa el riesgo."
+      - id: c
+        text:
+          en: "Scalping — it needs so little sleep that overnight risk stops mattering."
+          es: "Scalping: necesita tan poco sueño que el riesgo nocturno deja de importar."
+      - id: d
+        text:
+          en: "Any style; overnight risk is exactly the same for all of them."
+          es: "Cualquiera; el riesgo nocturno es exactamente el mismo para todos."
+    explanation:
+      en: "A day trader closes out before the session ends, so there is no overnight position to lose sleep over. Swing trading is the opposite — the position stays live while you sleep — and funding is often paid, not a reward for holding."
+      es: "Un day trader cierra antes de que acabe la sesión, así que no hay posición nocturna por la que perder el sueño. El swing trading es lo contrario —la posición sigue viva mientras duermes— y el funding a menudo se paga, no es una recompensa por mantener."
+  - id: impulsive-high-frequency
+    kind: true_false
+    prompt:
+      en: "True or false: if you are impulsive or easily bored, a high-frequency style is the safest choice because it keeps you busy."
+      es: "Verdadero o falso: si eres impulsivo o te aburres con facilidad, un estilo de alta frecuencia es la elección más segura porque te mantiene ocupado."
+    answer: false
+    explanation:
+      en: "False. For an impulsive or easily bored trader, high frequency is the worst fit: it will bleed you through fees and forced trades faster than any single bad call. Being 'kept busy' is exactly the trap."
+      es: "Falso. Para un trader impulsivo o que se aburre con facilidad, la alta frecuencia es lo que peor encaja: te desangrará por comisiones y operaciones forzadas más rápido que cualquier mala decisión suelta. 'Mantenerte ocupado' es justo la trampa."
+  - id: constraint-style-match
+    kind: matching
+    prompt:
+      en: "Match each personal constraint to the style the lesson says fits it best."
+      es: "Empareja cada limitación personal con el estilo que la lección dice que encaja mejor."
+    pairs:
+      - id: job
+        left:
+          en: "You work a full-time job during market hours."
+          es: "Trabajas a tiempo completo en horario de mercado."
+        right:
+          en: "Swing trading — managed in minutes a day, around the job."
+          es: "Swing trading: se gestiona en minutos al día, alrededor del empleo."
+      - id: sleep
+        left:
+          en: "Holding open risk overnight ruins your sleep."
+          es: "Mantener riesgo abierto de un día para otro te arruina el sueño."
+        right:
+          en: "Day trading — flat by the end of the session."
+          es: "Day trading: plano al final de la sesión."
+      - id: focus
+        left:
+          en: "You can give a whole session intense, unbroken focus and fast execution."
+          es: "Puedes dedicar a toda una sesión un foco intenso e ininterrumpido y una ejecución rápida."
+        right:
+          en: "Scalping — continuous attention and clean, fast execution."
+          es: "Scalping: atención continua y ejecución limpia y rápida."
+    explanation:
+      en: "Match the style to the life you actually have: swing trading fits around a job, day trading spares you overnight risk, and scalping suits someone who can sustain intense focus for a session. Fit, not excitement, is what keeps you inside your own rules."
+      es: "Ajusta el estilo a la vida que de verdad tienes: el swing encaja alrededor de un empleo, el day trading te ahorra el riesgo nocturno y el scalping conviene a quien puede sostener un foco intenso durante una sesión. El encaje, no la emoción, es lo que te mantiene dentro de tus propias reglas."

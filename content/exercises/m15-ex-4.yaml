@@ -1,0 +1,149 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: risk-on
+    prompt:
+      en: "Over the last several years, how has Bitcoin mostly behaved relative to traditional markets?"
+      es: "En los últimos años, ¿cómo se ha comportado Bitcoin sobre todo en relación con los mercados tradicionales?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Largely as a risk-on asset — rising when investors embrace risk, falling when they flee to safety."
+          es: "En gran medida como un activo risk-on: sube cuando los inversores asumen riesgo y baja cuando huyen hacia la seguridad."
+      - id: b
+        text:
+          en: "As a safe haven uncorrelated with stocks, rising when markets fall."
+          es: "Como un refugio seguro sin correlación con las acciones, que sube cuando los mercados caen."
+      - id: c
+        text:
+          en: "As a mechanical mirror image of the S&P 500, always moving in the exact opposite direction."
+          es: "Como un espejo mecánico del S&P 500, moviéndose siempre en la dirección exactamente opuesta."
+      - id: d
+        text:
+          en: "Completely detached from macro — interest rates and the dollar do not touch it."
+          es: "Completamente ajeno a la macro: los tipos de interés y el dólar no le afectan."
+    explanation:
+      en: "Bitcoin has traded largely as a risk-on asset, moving in loose sympathy with tech stocks. It is a tendency and context, not a mechanical rule or a proven safe haven."
+      es: "Bitcoin ha cotizado en gran medida como un activo risk-on, en sintonía laxa con las acciones tecnológicas. Es una tendencia y un contexto, no una regla mecánica ni un refugio demostrado."
+  - id: dxy
+    prompt:
+      en: "A strong, rising US dollar index (DXY) has broadly tended to coincide with what for crypto?"
+      es: "Un índice del dólar (DXY) fuerte y al alza ha tendido en general a coincidir con ¿qué para cripto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Weakness in crypto and other risk assets — an inverse tendency."
+          es: "Debilidad en cripto y en el resto de activos de riesgo: una tendencia inversa."
+      - id: b
+        text:
+          en: "Strength in crypto — the two reliably rise together."
+          es: "Fortaleza en cripto: los dos suben de forma fiable a la vez."
+      - id: c
+        text:
+          en: "No relationship at all — crypto ignores the dollar entirely."
+          es: "Ninguna relación: cripto ignora por completo al dólar."
+      - id: d
+        text:
+          en: "A guaranteed crypto crash on the very same day the dollar rises."
+          es: "Un desplome garantizado de cripto el mismo día en que sube el dólar."
+    explanation:
+      en: "A strong dollar has broadly coincided with weakness in risk assets, crypto included. It is an inverse tendency and context, not a mechanical seesaw or a same-day trigger."
+      es: "Un dólar fuerte ha coincidido en general con debilidad en los activos de riesgo, cripto incluida. Es una tendencia inversa y de contexto, no un balancín mecánico ni un gatillo del mismo día."
+  - id: safe-haven-myth
+    kind: true_false
+    prompt:
+      en: "Over recent years, Bitcoin has behaved as an uncorrelated safe haven, reliably rising when stock markets fall."
+      es: "En los últimos años, Bitcoin se ha comportado como un refugio seguro sin correlación, subiendo de forma fiable cuando caen los mercados de acciones."
+    answer: false
+    explanation:
+      en: "The opposite is closer to the truth. Bitcoin has traded largely as a risk-on asset, moving in loose sympathy with tech stocks rather than against them — it has tended to fall, not rise, when investors flee risk."
+      es: "Lo cierto es más bien lo contrario. Bitcoin ha cotizado en gran medida como un activo risk-on, en sintonía laxa con las acciones tecnológicas en vez de en su contra: ha tendido a caer, no a subir, cuando los inversores huyen del riesgo."
+  - id: interest-rates
+    prompt:
+      en: "Central banks raise interest rates sharply. All else equal, what does the lesson say this tends to do to crypto?"
+      es: "Los bancos centrales suben los tipos de interés con fuerza. En igualdad de condiciones, ¿qué dice la lección que esto tiende a hacerle a cripto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Money tends to leave — safe cash and bonds now pay more, so speculative assets look relatively less attractive."
+          es: "El dinero tiende a salir: el efectivo seguro y los bonos ahora pagan más, así que los activos especulativos parecen relativamente menos atractivos."
+      - id: b
+        text:
+          en: "Money tends to flow in, because higher rates make crypto pay more interest."
+          es: "El dinero tiende a entrar, porque tipos más altos hacen que cripto pague más interés."
+      - id: c
+        text:
+          en: "Nothing — crypto is immune to interest-rate policy."
+          es: "Nada: cripto es inmune a la política de tipos de interés."
+      - id: d
+        text:
+          en: "Crypto's issuance schedule speeds up to compensate."
+          es: "El calendario de emisión de cripto se acelera para compensar."
+    explanation:
+      en: "Higher rates make safe cash and bonds pay more, so speculative assets — crypto very much included — become relatively less attractive and money tends to leave. Crypto is among the most sensitive assets to this cost of money."
+      es: "Tipos más altos hacen que el efectivo seguro y los bonos paguen más, así que los activos especulativos —cripto muy incluida— se vuelven relativamente menos atractivos y el dinero tiende a salir. Cripto está entre los activos más sensibles a este coste del dinero."
+  - id: risk-off-flows
+    prompt:
+      en: "In a risk-off episode, where does capital typically flow?"
+      es: "En un episodio risk-off, ¿hacia dónde fluye normalmente el capital?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Toward assets that protect capital — cash, short-term government bonds, sometimes the dollar."
+          es: "Hacia activos que protegen el capital: efectivo, bonos de Estado a corto plazo, a veces el dólar."
+      - id: b
+        text:
+          en: "Toward crypto and tech stocks, the classic safe havens."
+          es: "Hacia cripto y las acciones tecnológicas, los refugios seguros clásicos."
+      - id: c
+        text:
+          en: "Toward small-cap altcoins, which hold up best under stress."
+          es: "Hacia las altcoins pequeñas, que aguantan mejor bajo estrés."
+      - id: d
+        text:
+          en: "Nowhere — capital simply disappears from every market."
+          es: "A ningún sitio: el capital simplemente desaparece de todos los mercados."
+    explanation:
+      en: "Risk-off means money flows toward assets that protect capital if things go badly — cash and short-term government bonds. Crypto sits firmly at the risk-on end, so it tends to be sold, not bought, in these moments."
+      es: "Risk-off significa que el dinero fluye hacia activos que protegen el capital si las cosas van mal: efectivo y bonos de Estado a corto plazo. Cripto está firmemente en el extremo risk-on, así que en esos momentos tiende a venderse, no a comprarse."
+  - id: macro-match
+    kind: matching
+    prompt:
+      en: "Match each macro condition to the mood it has broadly tended to coincide with for crypto."
+      es: "Empareja cada condición macro con el ánimo con el que ha tendido a coincidir en general para cripto."
+    pairs:
+      - id: rates-up
+        left:
+          en: "Central banks raising interest rates"
+          es: "Bancos centrales subiendo los tipos de interés"
+        right:
+          en: "Money leaving speculative assets like crypto"
+          es: "Dinero que sale de activos especulativos como cripto"
+      - id: dxy-up
+        left:
+          en: "A strong, rising dollar (DXY)"
+          es: "Un dólar fuerte y al alza (DXY)"
+        right:
+          en: "Broad weakness in crypto and other risk assets"
+          es: "Debilidad generalizada en cripto y otros activos de riesgo"
+      - id: risk-on
+        left:
+          en: "A risk-on mood"
+          es: "Un ánimo risk-on"
+        right:
+          en: "Money flowing toward stocks and crypto"
+          es: "Dinero que fluye hacia las acciones y cripto"
+      - id: risk-off
+        left:
+          en: "A risk-off mood"
+          es: "Un ánimo risk-off"
+        right:
+          en: "Money flowing to cash and short-term government bonds"
+          es: "Dinero que fluye hacia el efectivo y los bonos de Estado a corto plazo"
+    explanation:
+      en: "Rising rates and a strong dollar have broadly coincided with weakness in crypto; a risk-on mood sends money toward stocks and crypto, a risk-off mood toward cash and bonds. All are tendencies and context, never mechanical laws."
+      es: "Los tipos al alza y un dólar fuerte han coincidido en general con debilidad en cripto; un ánimo risk-on lleva el dinero hacia las acciones y cripto, un ánimo risk-off hacia el efectivo y los bonos. Todo son tendencias y contexto, nunca leyes mecánicas."

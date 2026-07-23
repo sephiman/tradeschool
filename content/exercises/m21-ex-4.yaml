@@ -1,0 +1,142 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: slippage-def
+    prompt:
+      en: "You send a market order on a thin altcoin and fill several ticks worse than the last printed price. What just happened?"
+      es: "Envías una orden de mercado en una altcoin poco líquida y te ejecutas varios ticks peor que el último precio impreso. ¿Qué acaba de pasar?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Slippage — your order walked through a thin book, filling deeper at worse prices because little size was resting near the top."
+          es: "Slippage: tu orden atravesó un libro fino, ejecutándose más abajo a peores precios porque había poco volumen puesto cerca de arriba."
+      - id: b
+        text:
+          en: "You were liquidated by the exchange."
+          es: "El exchange te liquidó."
+      - id: c
+        text:
+          en: "The exchange charged a hidden penalty fee."
+          es: "El exchange te cobró una penalización oculta."
+      - id: d
+        text:
+          en: "Your limit price was set too high."
+          es: "Tu precio de límite estaba fijado demasiado alto."
+    explanation:
+      en: "That gap between expected and actual fill is slippage, caused by a market order eating through a thin book. It is not a liquidation (a forced close by the exchange), not a hidden fee, and a market order has no limit price to mis-set."
+      es: "Esa diferencia entre la ejecución esperada y la real es el slippage, causado por una orden de mercado que se come un libro fino. No es una liquidación (un cierre forzoso del exchange), no es una comisión oculta, y una orden de mercado no tiene precio de límite que fijar mal."
+  - id: liquidity-effect
+    prompt:
+      en: "How does thin liquidity affect a market order compared with a deep, liquid book?"
+      es: "¿Cómo afecta la liquidez fina a una orden de mercado frente a un libro profundo y líquido?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Thin liquidity widens slippage — with little size resting near price, even a modest order moves the price several ticks."
+          es: "La liquidez fina ensancha el slippage: con poco volumen puesto cerca del precio, hasta una orden modesta lo mueve varios ticks."
+      - id: b
+        text:
+          en: "Thin liquidity means the exchange will liquidate the position sooner."
+          es: "La liquidez fina significa que el exchange liquidará la posición antes."
+      - id: c
+        text:
+          en: "Liquidity has no effect; the fill price is always the last printed price."
+          es: "La liquidez no influye; el precio de ejecución es siempre el último precio impreso."
+      - id: d
+        text:
+          en: "A thin book always fills you at a better price than a deep one."
+          es: "Un libro fino siempre te ejecuta a mejor precio que uno profundo."
+    explanation:
+      en: "Liquidity is how much size can trade without moving price. A deep book absorbs your order with barely a wobble; a thin book has little resting size, so the order walks the price and slippage widens. Liquidity is not liquidation — thin books do not, by themselves, liquidate you."
+      es: "La liquidez es cuánto volumen puede operarse sin mover el precio. Un libro profundo absorbe tu orden con apenas un temblor; un libro fino tiene poco volumen puesto, así que la orden hace caminar el precio y el slippage se ensancha. La liquidez no es liquidación: un libro fino no te liquida por sí solo."
+  - id: liquidity-not-liquidation
+    kind: true_false
+    prompt:
+      en: "Thin liquidity, by itself, will liquidate your position."
+      es: "La liquidez fina, por sí sola, liquidará tu posición."
+    answer: false
+    explanation:
+      en: "Liquidity and liquidation are different things. Thin liquidity widens your slippage — a market order walks the price — but it does not force-close your position. Liquidation is the exchange closing a leveraged position when margin runs out, a separate event."
+      es: "La liquidez y la liquidación son cosas distintas. La liquidez fina ensancha tu slippage —una orden de mercado hace caminar el precio— pero no cierra a la fuerza tu posición. La liquidación es el exchange cerrando una posición apalancada cuando se agota el margen, un suceso aparte."
+  - id: slippage-defence
+    prompt:
+      en: "You have to trade a thin, illiquid altcoin. What is the sensible way to limit slippage?"
+      es: "Tienes que operar una altcoin fina y poco líquida. ¿Cuál es la forma sensata de limitar el slippage?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Prefer limit orders to name your price, and size down so you are not forced to eat the whole book."
+          es: "Prefiere órdenes de límite para fijar tu precio, y reduce el tamaño para no verte obligado a comerte el libro entero."
+      - id: b
+        text:
+          en: "Send one large market order so it fills before the price can move."
+          es: "Envía una orden de mercado grande para que se ejecute antes de que el precio pueda moverse."
+      - id: c
+        text:
+          en: "Assume the market order will fill near the last printed price."
+          es: "Da por hecho que la orden de mercado se ejecutará cerca del último precio impreso."
+      - id: d
+        text:
+          en: "Add leverage so a smaller balance covers the same size."
+          es: "Añade apalancamiento para que un saldo menor cubra el mismo tamaño."
+    explanation:
+      en: "On a thin book a market order walks the price, so name your price with limit orders and keep size small enough that you are not forced deep into the book. Never assume a market order fills near the last print when there is little resting behind it, and leverage does nothing to reduce slippage."
+      es: "En un libro fino, una orden de mercado hace caminar el precio, así que fija tu precio con órdenes de límite y mantén un tamaño lo bastante pequeño para no verte obligado a adentrarte en el libro. Nunca asumas que una orden de mercado se ejecuta cerca del último precio impreso cuando hay poco volumen puesto detrás, y el apalancamiento no hace nada por reducir el slippage."
+  - id: execution-terms-match
+    kind: matching
+    prompt:
+      en: "Match each execution term to its meaning."
+      es: "Empareja cada término de ejecución con su significado."
+    pairs:
+      - id: slp
+        left: { en: "Slippage", es: "Slippage" }
+        right: { en: "The gap between the price you expected and the price you got", es: "La diferencia entre el precio que esperabas y el que conseguiste" }
+      - id: liqd
+        left: { en: "Liquidity", es: "Liquidez" }
+        right: { en: "How much size can trade without moving the price", es: "Cuánto volumen puede operarse sin mover el precio" }
+      - id: thin
+        left: { en: "Thin book", es: "Libro fino" }
+        right: { en: "Little resting size near price, so orders walk it several ticks", es: "Poco volumen puesto cerca del precio, así que las órdenes lo hacen caminar varios ticks" }
+      - id: liqn
+        left: { en: "Liquidation", es: "Liquidación" }
+        right: { en: "A forced close of a leveraged position by the exchange", es: "Un cierre forzoso de una posición apalancada por el exchange" }
+    explanation:
+      en: "Keep the terms straight: slippage is the fill gap, liquidity is how much can trade without moving price, a thin book is one with little resting size. Liquidation is unrelated to the other three — it is the exchange forcibly closing a position when margin runs out."
+      es: "Ten claros los términos: el slippage es la diferencia de ejecución, la liquidez es cuánto puede operarse sin mover el precio, un libro fino es el que tiene poco volumen puesto. La liquidación no tiene relación con los otros tres: es el exchange cerrando a la fuerza una posición cuando se agota el margen."
+  - id: deep-vs-thin
+    prompt:
+      en: "Compared with a thin book, how does a deep, liquid book handle the same market order?"
+      es: "Frente a un libro fino, ¿cómo maneja un libro profundo y líquido la misma orden de mercado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It absorbs the order with barely a wobble, so your average fill stays close to the current price."
+          es: "Absorbe la orden con apenas un temblor, así que tu ejecución promedio se mantiene cerca del precio actual."
+      - id: b
+        text:
+          en: "It always fills you at a worse price than a thin book would."
+          es: "Siempre te ejecuta a peor precio que uno fino."
+      - id: c
+        text:
+          en: "It fills you at exactly the last printed price, guaranteed."
+          es: "Te ejecuta exactamente al último precio impreso, garantizado."
+      - id: d
+        text:
+          en: "It has no effect; fill price depends only on order size."
+          es: "No influye; el precio de ejecución depende solo del tamaño de la orden."
+    explanation:
+      en: "A deep book has plenty of size resting near price, so it soaks up your order with little movement and your average fill stays close to where the market is. A thin book, with little resting size, lets even a modest order walk the price and slip."
+      es: "Un libro profundo tiene mucho volumen puesto cerca del precio, así que absorbe tu orden con poco movimiento y tu ejecución promedio se mantiene cerca de donde está el mercado. Un libro fino, con poco volumen puesto, deja que hasta una orden modesta haga caminar el precio y resbale."
+  - id: market-fills-near-last
+    kind: true_false
+    prompt:
+      en: "A market order always fills near the last printed price, even when the book behind it is nearly empty."
+      es: "Una orden de mercado siempre se ejecuta cerca del último precio impreso, incluso cuando el libro que hay detrás está casi vacío."
+    answer: false
+    explanation:
+      en: "The last printed price is just the last trade; it says nothing about how much size is resting now. On a nearly empty book a market order eats through what little is there and fills at progressively worse prices, sometimes far from the last print."
+      es: "El último precio impreso es solo la última operación; no dice nada de cuánto volumen hay puesto ahora. En un libro casi vacío, una orden de mercado se come lo poco que haya y se ejecuta a precios cada vez peores, a veces lejos del último precio impreso."

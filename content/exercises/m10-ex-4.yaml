@@ -1,0 +1,127 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: golden-cross-meaning
+    prompt:
+      en: "A golden cross has just printed — the fast MA crossed above the slow MA. What does it actually tell you?"
+      es: "Acaba de imprimirse un cruce dorado: la MM rápida cruzó por encima de la lenta. ¿Qué te dice en realidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The shorter-term trend has turned up and the cross confirms it late — a lagging confirmation, not a precise entry price."
+          es: "La tendencia de corto plazo ha girado al alza y el cruce lo confirma tarde: una confirmación rezagada, no un precio de entrada preciso."
+      - id: b
+        text:
+          en: "Right now is the exact, optimal moment to buy."
+          es: "Ahora mismo es el momento exacto y óptimo para comprar."
+      - id: c
+        text:
+          en: "Price is guaranteed to rise from here."
+          es: "El precio tiene garantizado subir a partir de aquí."
+      - id: d
+        text:
+          en: "The fast MA has crossed below the slow MA."
+          es: "La MM rápida ha cruzado por debajo de la lenta."
+    explanation:
+      en: "A golden cross is the fast MA rising above the slow one, and because both are averages of past prices it confirms a move that is already underway — it does not pin the optimal entry or guarantee anything. (The fast crossing below is a death cross.)"
+      es: "Un cruce dorado es la MM rápida subiendo por encima de la lenta y, como ambas son promedios de precios pasados, confirma un movimiento que ya está en marcha: no marca la entrada óptima ni garantiza nada. (La rápida cruzando por debajo es un cruce de la muerte.)"
+  - id: ma-support-and-ranges
+    prompt:
+      en: "When do moving averages and their crosses tend to help, and how should you treat an MA as support?"
+      es: "¿Cuándo suelen ayudar las medias móviles y sus cruces, y cómo deberías tratar una MM como soporte?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "They help in a trending market; in a range they whipsaw, and an MA is a zone to watch, not a line that must hold."
+          es: "Ayudan en un mercado con tendencia; en un rango dan latigazos, y una MM es una zona a vigilar, no una línea que tenga que aguantar."
+      - id: b
+        text:
+          en: "They work best in a sideways range, smoothing the chop into clean signals."
+          es: "Funcionan mejor en un rango lateral, suavizando el vaivén en señales limpias."
+      - id: c
+        text:
+          en: "A moving average is a precise support line that price will always bounce off."
+          es: "Una media móvil es una línea de soporte precisa de la que el precio siempre rebotará."
+      - id: d
+        text:
+          en: "They work equally well in every market condition."
+          es: "Funcionan igual de bien en cualquier condición de mercado."
+    explanation:
+      en: "Averages only earn their keep when there is a trend to smooth; a flat range makes them whipsaw, with every cross a false signal. Even in a trend an MA is a dynamic zone that price often respects but can slice straight through — never a guaranteed bounce."
+      es: "Las medias solo se ganan el sueldo cuando hay una tendencia que suavizar; un rango plano las hace dar latigazos, con cada cruce una señal falsa. Incluso en tendencia, una MM es una zona dinámica que el precio suele respetar pero que puede atravesar de lado a lado: nunca un rebote garantizado."
+  - id: cross-term-match
+    kind: matching
+    prompt:
+      en: "Match each moving-average term to its meaning."
+      es: "Empareja cada término de medias móviles con su significado."
+    pairs:
+      - { id: sma, left: { en: "SMA", es: "SMA" }, right: { en: "Equal-weighted average of the last N closes", es: "Promedio de los últimos N cierres con igual peso" } }
+      - { id: ema, left: { en: "EMA", es: "EMA" }, right: { en: "Recent-weighted average that turns sooner", es: "Promedio ponderado hacia lo reciente que gira antes" } }
+      - { id: golden, left: { en: "Golden cross", es: "Cruce dorado" }, right: { en: "Fast MA crosses above the slow MA — read as bullish", es: "La MM rápida cruza por encima de la lenta: se lee como alcista" } }
+      - { id: death, left: { en: "Death cross", es: "Cruce de la muerte" }, right: { en: "Fast MA crosses below the slow MA — read as bearish", es: "La MM rápida cruza por debajo de la lenta: se lee como bajista" } }
+    explanation:
+      en: "SMA and EMA differ only in how they weight closes. A golden cross is the fast line rising above the slow one (bullish read); a death cross is the fast line dropping below it (bearish read). Both crosses are lagging confirmations, since both lines are averages of past prices."
+      es: "La SMA y la EMA solo se diferencian en cómo ponderan los cierres. Un cruce dorado es la línea rápida subiendo por encima de la lenta (lectura alcista); un cruce de la muerte es la rápida cayendo por debajo (lectura bajista). Ambos cruces son confirmaciones rezagadas, ya que ambas líneas son promedios de precios pasados."
+  - id: mas-best-in-range-myth
+    kind: true_false
+    prompt:
+      en: "Moving averages and their crosses work best in a flat, sideways range."
+      es: "Las medias móviles y sus cruces funcionan mejor en un rango lateral y plano."
+    answer: false
+    explanation:
+      en: "It is the opposite: with no trend, a flat MA gets sliced back and forth and the fast and slow lines cross repeatedly, so every cross is a false signal — whipsaw. Moving averages only earn their keep when there is a trend to smooth."
+      es: "Es lo contrario: sin tendencia, una MM plana queda cortada a un lado y otro y las líneas rápida y lenta se cruzan una y otra vez, así que cada cruce es una señal falsa: el whipsaw. Las medias móviles solo se ganan el sueldo cuando hay una tendencia que suavizar."
+  - id: death-cross-meaning
+    prompt:
+      en: "A death cross has just printed — the fast MA crossed below the slow MA. What does it actually tell you?"
+      es: "Acaba de imprimirse un cruce de la muerte: la MM rápida cruzó por debajo de la lenta. ¿Qué te dice en realidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The shorter-term trend has turned down, confirmed late — a lagging bearish signal, not a guarantee that price keeps falling."
+          es: "La tendencia de corto plazo ha girado a la baja, confirmada tarde: una señal bajista rezagada, no una garantía de que el precio siga cayendo."
+      - id: b
+        text:
+          en: "Price is guaranteed to fall from here."
+          es: "El precio tiene garantizado caer a partir de aquí."
+      - id: c
+        text:
+          en: "This instant is the exact top — the optimal moment to sell."
+          es: "Este instante es el techo exacto: el momento óptimo para vender."
+      - id: d
+        text:
+          en: "The fast MA has crossed above the slow MA."
+          es: "La MM rápida ha cruzado por encima de la lenta."
+    explanation:
+      en: "A death cross is the fast MA dropping below the slow one, confirming a downturn that is already underway — like the golden cross it lags and guarantees nothing. (The fast crossing above is a golden cross.)"
+      es: "Un cruce de la muerte es la MM rápida cayendo por debajo de la lenta, que confirma un giro bajista ya en marcha: como el cruce dorado, va con retardo y no garantiza nada. (La rápida cruzando por encima es un cruce dorado.)"
+  - id: whipsaw-truths
+    kind: multi_select
+    prompt:
+      en: "Select ALL the true statements about whipsaw and when moving averages struggle."
+      es: "Selecciona TODAS las afirmaciones verdaderas sobre el whipsaw y cuándo sufren las medias móviles."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "In a flat range, the fast and slow MAs cross back and forth, producing false signals."
+          es: "En un rango plano, las MM rápida y lenta se cruzan a un lado y otro, produciendo señales falsas."
+      - id: b
+        correct: true
+        text:
+          en: "Moving averages are most useful when there is a clear trend to smooth."
+          es: "Las medias móviles son más útiles cuando hay una tendencia clara que suavizar."
+      - id: c
+        text:
+          en: "A shorter, faster MA avoids whipsaw in a range."
+          es: "Una MM más corta y rápida evita el whipsaw en un rango."
+      - id: d
+        text:
+          en: "Whipsaw happens because the exchange feed is delayed."
+          es: "El whipsaw ocurre porque el feed del exchange va con retraso."
+    explanation:
+      en: "Whipsaw is a range problem, not a data problem: with no trend the lines keep crossing and every cross misfires. A faster MA makes this worse, not better. Moving averages pay off only when a real trend is there to smooth."
+      es: "El whipsaw es un problema de rango, no de datos: sin tendencia las líneas se cruzan sin parar y cada cruce falla. Una MM más rápida lo empeora, no lo mejora. Las medias móviles rinden solo cuando hay una tendencia de verdad que suavizar."

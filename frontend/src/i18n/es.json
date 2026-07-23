@@ -1,0 +1,116 @@
+{
+  "app": {
+    "name": "TradeSchool",
+    "tagline": "Aprende futuros de cripto desde cero, con ejercicios corregidos en el servidor."
+  },
+  "common": {
+    "loading": "Cargando…",
+    "saved": "Guardado",
+    "cancel": "Cancelar",
+    "retry": "Reintentar",
+    "language": "Idioma",
+    "theme": "Tema"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "nav": {
+    "course": "Curso",
+    "progress": "Progreso"
+  },
+  "auth": {
+    "loginTitle": "Inicia sesión",
+    "registerTitle": "Crea tu cuenta",
+    "email": "Correo",
+    "password": "Contraseña",
+    "loginAction": "Iniciar sesión",
+    "registerAction": "Crear cuenta",
+    "logout": "Cerrar sesión",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "passwordHint": "Al menos {{count}} caracteres.",
+    "passwordTooShort": "La contraseña debe tener al menos {{count}} caracteres."
+  },
+  "course": {
+    "intro": "Todo el curso está abierto desde el primer día. El siguiente paso sugerido sigue el orden canónico; los prerrequisitos son un consejo, nunca una barrera.",
+    "suggestedNext": "Sugerido",
+    "completed": "Completado",
+    "comingSoon": "Próximamente",
+    "prereqNotice": "Se apoya en {{modules}} — contexto opcional.",
+    "prereqNoticeLong": "Se apoya en (opcional):",
+    "lessonProgress": "{{done}}/{{total}} lecciones",
+    "exerciseProgress": "{{done}}/{{total}} ejercicios superados",
+    "markComplete": "Marcar lección como completada",
+    "markedComplete": "Lección marcada como completada",
+    "markCompleteConfirm": "Aún no has probado todos los ejercicios de esta lección. ¿Marcarla como completada igualmente?",
+    "next": "Siguiente: {{step}}"
+  },
+  "exercise": {
+    "comingSoon": "Ejercicio interactivo — llega en el siguiente incremento.",
+    "start": "Empezar ejercicio",
+    "submit": "Enviar",
+    "tryAgain": "Intentar de nuevo",
+    "correct": "Correcto",
+    "incorrect": "No exactamente",
+    "correctAnswer": "Respuesta correcta",
+    "solution": "Solución",
+    "yourAnswer": "Tu respuesta",
+    "roundHint": "redondea a {{count}} decimales",
+    "true": "Verdadero",
+    "false": "Falso",
+    "selectAllThatApply": "Selecciona todas las que correspondan.",
+    "reorderHint": "Usa las flechas para colocarlas en el orden correcto.",
+    "matchHint": "Toca un elemento de la izquierda y luego su pareja de la derecha.",
+    "moveUp": "Subir",
+    "moveDown": "Bajar",
+    "clearPair": "Quitar",
+    "history": "Tus intentos ({{count}})",
+    "firstAttempt": "primer intento"
+  },
+  "exerciseType": {
+    "quiz": "Test",
+    "calculation": "Cálculo",
+    "synthetic_chart": "Gráfico",
+    "fixture_chart": "Gráfico"
+  },
+  "divergence": {
+    "none": "Sin divergencia",
+    "bullish_regular": "Alcista regular",
+    "bearish_regular": "Bajista regular",
+    "bullish_hidden": "Alcista oculta",
+    "bearish_hidden": "Bajista oculta"
+  },
+  "stats": {
+    "intro": "Información honesta, no una recompensa: qué has leído, qué has respondido y dónde fallas. El acierto al primer intento es el número difícil de inflar.",
+    "empty": "Aún no hay nada. Lee una lección o haz un ejercicio y tu progreso aparecerá aquí.",
+    "coverage": "{{published}} de {{total}} módulos publicados — las cifras de abajo son solo sobre el contenido publicado.",
+    "reading": "Lectura",
+    "mastery": "Ejercicios",
+    "courseCompletion": "Curso completado",
+    "lessonsRead": "Lecciones leídas",
+    "exercisesPassed": "Ejercicios superados",
+    "answered": "Respondidos",
+    "accuracy": "Acierto",
+    "firstAttempt": "Primer intento",
+    "avgAttempts": "Intentos medios para acertar",
+    "costliest": "Tus secciones más costosas",
+    "byModule": "Por módulo",
+    "incorrectCount": "{{count}} fallados",
+    "globalTitle": "Dónde falla todo el mundo",
+    "globalHint": "Acierto al primer intento anónimo y agregado de todos los estudiantes; primero los módulos más difíciles.",
+    "nUsers": "{{count}} estudiantes"
+  },
+  "errors": {
+    "UNKNOWN": "Algo salió mal.",
+    "SERVICE_UNAVAILABLE": "El servicio no está disponible temporalmente.",
+    "VALIDATION_ERROR": "Revisa los campos marcados.",
+    "RATE_LIMITED": "Demasiados intentos. Espera e inténtalo de nuevo.",
+    "NOT_FOUND": "No encontrado.",
+    "UNAUTHORIZED": "Inicia sesión para continuar.",
+    "USER_ALREADY_EXISTS": "Ya existe una cuenta con este correo.",
+    "INVALID_PASSWORD": "Esa contraseña no está permitida.",
+    "LOGIN_BAD_CREDENTIALS": "Correo o contraseña incorrectos."
+  }
+}

@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: style_net_result
+prompt:
+  en: "The same setup, three styles. A **{notional} USDT** position captures a gross move worth **{gross_pct}** of the position. The taker fee is **{fee_rate}** per fill (paid on both the entry and the exit of every round-trip). A **scalper** rides it in **{round_trips}** round-trips; a **day trader** does 1 round-trip and pays no funding; a **swing trader** does 1 round-trip but holds across **{funding_intervals}** funding intervals at **{funding_rate}** each. You are trading it as a **{style}**. What is the net result, in USDT?"
+  es: "El mismo escenario, tres estilos. Una posición de **{notional} USDT** captura un movimiento bruto equivalente al **{gross_pct}** de la posición. La comisión taker es **{fee_rate}** por ejecución (se paga tanto en la entrada como en la salida de cada ida y vuelta). Un **scalper** lo recorre en **{round_trips}** idas y vueltas; un **day trader** hace 1 ida y vuelta y no paga funding; un **swing trader** hace 1 ida y vuelta pero mantiene la posición durante **{funding_intervals}** intervalos de funding al **{funding_rate}** cada uno. Operas como **{style}**. ¿Cuál es el resultado neto, en USDT?"
+params:
+  notional: { kind: int_range, min: 5000, max: 40000, step: 1000 }
+  gross_pct: { kind: choice, values: ["0.02", "0.03", "0.05"] }
+  style: { kind: choice, values: ["scalper", "day", "swing"] }
+  fee_rate: { kind: choice, values: ["0.0004", "0.00055"] }
+  round_trips: { kind: choice, values: ["8", "15", "25"] }
+  funding_rate: { kind: choice, values: ["0.0001", "0.0003"] }
+  funding_intervals: { kind: choice, values: ["3", "6", "9"] }
+round: 2
+unit: USDT
+explanation:
+  en: "Same gross move, different costs. Fees scale with the NUMBER of trades, so they punish the scalper's many round-trips. Funding scales with TIME HELD, so it taxes the swing trader's overnight hold. The day trader — in and out once, no funding — keeps the most of this particular move. Note this is only the cost side: over many trades the scalper is betting on an edge big enough to clear that fee drag."
+  es: "Mismo movimiento bruto, costes distintos. Las comisiones escalan con el NÚMERO de operaciones, así que castigan las muchas idas y vueltas del scalper. El funding escala con el TIEMPO EN POSICIÓN, así que grava el mantenimiento del swing trader. El day trader —entra y sale una vez, sin funding— es quien más conserva de este movimiento concreto. Ojo: esto es solo el lado de los costes; a lo largo de muchas operaciones, el scalper apuesta a tener una ventaja lo bastante grande como para superar ese lastre de comisiones."

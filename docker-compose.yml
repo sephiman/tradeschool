@@ -1,0 +1,75 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+services:
+  backend:
+    build:
+      # Repo root context so the image can bake in ./content alongside the backend.
+      context: .
+      dockerfile: backend/Dockerfile
+    image: tradeschool-backend:latest
+    container_name: tradeschool-backend
+    env_file: .env
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      SESSION_COOKIE_NAME: ${SESSION_COOKIE_NAME:-tradeschool_session}
+      SESSION_MAX_AGE: ${SESSION_MAX_AGE:-2592000}
+      LOGIN_RATE_LIMIT: ${LOGIN_RATE_LIMIT:-10/minute}
+      REGISTER_RATE_LIMIT: ${REGISTER_RATE_LIMIT:-5/minute}
+      DEFAULT_LOCALE: ${DEFAULT_LOCALE:-en}
+      DEV_MODE: ${DEV_MODE:-false}
+      RUN_MIGRATIONS_ON_STARTUP: ${RUN_MIGRATIONS_ON_STARTUP:-true}
+      SYNC_CONTENT_ON_STARTUP: ${SYNC_CONTENT_ON_STARTUP:-true}
+    networks:
+      - shared
+    expose:
+      - "8000"
+    stop_grace_period: 30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8000/api/health | grep -q '\"status\":\"ok\"'"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+    image: tradeschool-frontend:latest
+    container_name: tradeschool-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - shared
+    # Frontend published on the loopback only (never 0.0.0.0); external nginx + Cloudflare in front.
+    ports:
+      - "${FRONTEND_BIND_ADDR:-127.0.0.1}:${FRONTEND_PORT:-8092}:80"
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/healthz | grep -q ok"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+# Externally-managed Postgres lives on this shared network; the backend resolves it by DNS
+# alias = DB_HOST. Name defaults to "data" but can be overridden via .env.
+networks:
+  shared:
+    external: true
+    name: ${SHARED_NETWORK_NAME:-data}

@@ -1,0 +1,161 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: stop-limit-nofill
+    prompt:
+      en: "You hold a losing long with a stop-limit protecting it: trigger 100, limit 99.9. Price crashes straight through to 97. What happens?"
+      es: "Tienes un largo en pérdidas protegido por un stop-limit: disparador 100, límite 99,9. El precio se desploma de golpe hasta 97. ¿Qué ocurre?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It may not fill — the limit at 99.9 is skipped, leaving you still in the position and losing more."
+          es: "Puede no ejecutarse: se salta el límite en 99,9 y te deja aún dentro de la posición, perdiendo más."
+      - id: b
+        text:
+          en: "It fills at 99.9 regardless, because the trigger was hit."
+          es: "Se ejecuta en 99,9 igualmente, porque se alcanzó el disparador."
+      - id: c
+        text:
+          en: "It fills at 97, the best available price at that moment."
+          es: "Se ejecuta en 97, el mejor precio disponible en ese momento."
+      - id: d
+        text:
+          en: "The exchange converts it to a market order to guarantee the exit."
+          es: "El exchange lo convierte en orden de mercado para garantizar la salida."
+    explanation:
+      en: "A stop-limit only fills at its limit or better. In a fast gap, price prints below 99.9 without trading there, so the resting limit is never touched and you stay in the losing position. That is the fill risk of a protective stop-limit."
+      es: "Un stop-limit solo se ejecuta a su límite o mejor. En un hueco rápido, el precio se imprime por debajo de 99,9 sin operar ahí, así que el límite puesto nunca se toca y sigues en la posición perdedora. Ese es el riesgo de ejecución de un stop-limit de protección."
+  - id: which-stop
+    prompt:
+      en: "For a protective stop whose only job is to cap a loss, which order type is the safer default?"
+      es: "Para un stop de protección cuyo único trabajo es limitar una pérdida, ¿qué tipo de orden es la opción segura por defecto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Stop-market — it fires a market order, so it fills and gets you out even at a slightly worse price."
+          es: "Stop-market: lanza una orden de mercado, así que se ejecuta y te saca aunque sea a un precio algo peor."
+      - id: b
+        text:
+          en: "Stop-limit — it always fills and protects your exact price."
+          es: "Stop-limit: siempre se ejecuta y protege tu precio exacto."
+      - id: c
+        text:
+          en: "Either one; in a fast move they behave identically."
+          es: "Cualquiera de los dos; en un movimiento rápido se comportan igual."
+      - id: d
+        text:
+          en: "A plain limit order with no trigger."
+          es: "Una orden de límite simple sin disparador."
+    explanation:
+      en: "For an exit whose purpose is to cap the loss, prefer stop-market: filling at a slightly worse price is acceptable, but being skipped by a stop-limit and trapped in a runaway loss is the disaster. Save stop-limit for entries where not filling is fine."
+      es: "Para una salida cuyo propósito es limitar la pérdida, prefiere stop-market: ejecutarte a un precio algo peor es aceptable, pero que un stop-limit te salte y te deje atrapado en una pérdida descontrolada es el desastre. Reserva el stop-limit para entradas donde no ejecutarse sea aceptable."
+  - id: stop-limit-always-fills
+    kind: true_false
+    prompt:
+      en: "A stop-limit order always fills once its trigger price is touched."
+      es: "Una orden stop-limit siempre se ejecuta en cuanto se toca su precio disparador."
+    answer: false
+    explanation:
+      en: "The trigger only activates the order; it then places a limit that fills at that price or better. In a fast gap the market can print straight past the limit without trading there, leaving the order unfilled — the classic protective-stop trap."
+      es: "El disparador solo activa la orden; entonces coloca un límite que se ejecuta a ese precio o mejor. En un hueco rápido, el mercado puede imprimirse más allá del límite sin operar ahí, dejando la orden sin ejecutar: la clásica trampa del stop de protección."
+  - id: stop-market-fires
+    prompt:
+      en: "Your stop-market order triggers during a sharp move. What does it do the instant it activates?"
+      es: "Tu orden stop-market se dispara durante un movimiento brusco. ¿Qué hace en el instante en que se activa?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Fires a market order that fills immediately at whatever the book offers."
+          es: "Lanza una orden de mercado que se ejecuta de inmediato al precio que ofrezca el libro."
+      - id: b
+        text:
+          en: "Fills at exactly the trigger price, no matter how fast the market is moving."
+          es: "Se ejecuta exactamente al precio disparador, sin importar lo rápido que se mueva el mercado."
+      - id: c
+        text:
+          en: "Places a resting limit order and waits for price to come back."
+          es: "Coloca una orden de límite puesta y espera a que el precio vuelva."
+      - id: d
+        text:
+          en: "Cancels itself if price has already moved past the trigger."
+          es: "Se cancela sola si el precio ya ha superado el disparador."
+    explanation:
+      en: "A stop-market fires a market order the moment its trigger is touched, so it fills right away — but at whatever price the book offers, which in a fast move can be worse than the trigger. That guaranteed fill is exactly why it is the safer default for a protective stop."
+      es: "Un stop-market lanza una orden de mercado en cuanto se toca su disparador, así que se ejecuta enseguida, pero al precio que ofrezca el libro, que en un movimiento rápido puede ser peor que el disparador. Esa ejecución garantizada es justo por lo que es la opción segura por defecto para un stop de protección."
+  - id: order-type-behaviour
+    kind: matching
+    prompt:
+      en: "Match each order type to its behaviour."
+      es: "Empareja cada tipo de orden con su comportamiento."
+    pairs:
+      - id: mkt
+        left: { en: "Market", es: "Market" }
+        right: { en: "Fills now, taking any price the book offers", es: "Se ejecuta ya, tomando el precio que ofrezca el libro" }
+      - id: lmt
+        left: { en: "Limit", es: "Limit" }
+        right: { en: "Fills at your price or better, or not at all", es: "Se ejecuta a tu precio o mejor, o no se ejecuta" }
+      - id: sm
+        left: { en: "Stop-market", es: "Stop-market" }
+        right: { en: "Dormant until triggered, then fills at market", es: "Dormida hasta dispararse; entonces se ejecuta a mercado" }
+      - id: sl
+        left: { en: "Stop-limit", es: "Stop-limit" }
+        right: { en: "Dormant until triggered, then rests a limit that a gap can skip", es: "Dormida hasta dispararse; entonces deja un límite que un hueco puede saltarse" }
+      - id: ro
+        left: { en: "Reduce-only", es: "Reduce-only" }
+        right: { en: "Can only shrink an open position, never open or grow one", es: "Solo puede reducir una posición abierta, nunca abrir ni agrandar una" }
+    explanation:
+      en: "Market takes any price for immediacy; limit protects price but may not fill. A stop stays dormant until its trigger: stop-market then fills at market (a reliable exit), stop-limit rests a limit that a fast gap can skip. Reduce-only is a tag that caps an order at your position size so it can only close, never flip or enlarge."
+      es: "El de mercado toma cualquier precio por inmediatez; el de límite protege el precio pero puede no ejecutarse. Un stop permanece dormido hasta su disparador: el stop-market se ejecuta entonces a mercado (una salida fiable), el stop-limit deja un límite que un hueco rápido puede saltar. Reduce-only es una etiqueta que limita la orden al tamaño de tu posición para que solo pueda cerrar, nunca darte la vuelta ni agrandarla."
+  - id: trigger-meaning
+    prompt:
+      en: "In a stop order, what exactly is the trigger?"
+      es: "En una orden stop, ¿qué es exactamente el disparador (trigger)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The price level that wakes the dormant order and activates it."
+          es: "El nivel de precio que despierta la orden dormida y la activa."
+      - id: b
+        text:
+          en: "The price at which the order is guaranteed to fill."
+          es: "El precio al que la orden tiene garantizada su ejecución."
+      - id: c
+        text:
+          en: "The maximum loss the exchange allows before it liquidates you."
+          es: "La pérdida máxima que el exchange permite antes de liquidarte."
+      - id: d
+        text:
+          en: "The fee charged when the order is placed."
+          es: "La comisión que se cobra al colocar la orden."
+    explanation:
+      en: "The trigger is only the price that activates a dormant stop. What happens next depends on the type: a stop-market then fills at market, a stop-limit places a limit that may or may not fill. Touching the trigger never guarantees a fill by itself."
+      es: "El disparador es solo el precio que activa un stop dormido. Lo que pasa después depende del tipo: un stop-market se ejecuta entonces a mercado, un stop-limit coloca un límite que puede ejecutarse o no. Tocar el disparador nunca garantiza por sí solo la ejecución."
+  - id: stop-limit-when-ok
+    prompt:
+      en: "When is a stop-limit a reasonable choice rather than a stop-market?"
+      es: "¿Cuándo es un stop-limit una opción razonable en lugar de un stop-market?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "For entries or situations where not filling is an acceptable outcome and you care about the exact price."
+          es: "Para entradas o situaciones donde no ejecutarse es un resultado aceptable y te importa el precio exacto."
+      - id: b
+        text:
+          en: "For a protective stop whose only job is to cap a loss."
+          es: "Para un stop de protección cuyo único trabajo es limitar una pérdida."
+      - id: c
+        text:
+          en: "Whenever the market is moving fast and gapping."
+          es: "Siempre que el mercado se mueva rápido y con huecos."
+      - id: d
+        text:
+          en: "Never — a stop-limit has no legitimate use."
+          es: "Nunca: un stop-limit no tiene ningún uso legítimo."
+    explanation:
+      en: "Save the stop-limit for entries or cases where being skipped is acceptable and price control matters. For a protective stop that must get you out of a runaway loss, the stop-market's guaranteed fill is worth the slightly worse price."
+      es: "Reserva el stop-limit para entradas o casos donde saltarse la orden sea aceptable y el control del precio importe. Para un stop de protección que debe sacarte de una pérdida descontrolada, la ejecución garantizada del stop-market compensa el precio algo peor."

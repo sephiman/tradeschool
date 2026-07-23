@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: net_pnl
+prompt:
+  en: "You open a **{side}** position of **{quantity}** BTC at an entry price of **{entry}** and close it at **{exit}**. The taker fee is **{fee_rate}**, charged on both the opening and the closing fill. What is your net PnL, in USDT? Round to 2 decimals."
+  es: "Abres una posición **{side}** de **{quantity}** BTC a un precio de entrada de **{entry}** y la cierras en **{exit}**. La comisión taker es **{fee_rate}**, cobrada tanto en la ejecución de apertura como en la de cierre. ¿Cuál es tu PnL neto, en USDT? Redondea a 2 decimales."
+params:
+  entry: { kind: int_range, min: 25000, max: 45000, step: 500 }
+  exit: { kind: int_range, min: 25000, max: 45000, step: 500 }
+  quantity: { kind: choice, values: ["0.1", "0.25", "0.5"] }
+  side: { kind: choice, values: ["long"] }
+  fee_rate: { kind: choice, values: ["0.0002", "0.0004", "0.00055"] }
+tolerance: { abs: "1" }
+round: 2
+unit: USDT
+explanation:
+  en: "For a long, gross = quantity × (exit − entry). Then subtract the taker fee on BOTH fills: fee_rate × quantity × (entry + exit), because you pay it opening and closing. Net PnL is gross minus those fees — always below the gross move."
+  es: "En un long, el bruto = cantidad × (salida − entrada). Luego resta la comisión taker en AMBAS ejecuciones: fee_rate × cantidad × (entrada + salida), porque la pagas al abrir y al cerrar. El PnL neto es el bruto menos esas comisiones: siempre por debajo del movimiento bruto."

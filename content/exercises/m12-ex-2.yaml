@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: synthetic_chart
+indicator: rsi
+n: 120
+prompt:
+  en: "Classify the divergence between price and RSI at the last two swings — regular, hidden, or none."
+  es: "Clasifica la divergencia entre el precio y el RSI en los dos últimos swings: regular, oculta o ninguna."
+targets: [none, bullish_regular, bearish_regular, bullish_hidden, bearish_hidden]
+choices: [none, bullish_regular, bearish_regular, bullish_hidden, bearish_hidden]
+explanation:
+  en: "Hidden divergence signals continuation and shows up in pullbacks: a higher price low on a lower RSI low is bullish-hidden; a lower price high on a higher RSI high is bearish-hidden. Regular divergence compares the extremes and expects a turn; hidden appears on the retracement and expects the trend to resume."
+  es: "La divergencia oculta señala continuación y aparece en los pullbacks: un mínimo de precio más alto con un mínimo de RSI más bajo es oculta alcista; un máximo de precio más bajo con un máximo de RSI más alto es oculta bajista. La regular compara los extremos y espera un giro; la oculta aparece en el retroceso y espera que la tendencia se reanude."

@@ -1,0 +1,150 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: market-order
+    prompt:
+      en: "You place a market order to buy in a thin market with a wide spread. What are you actually guaranteed?"
+      es: "Colocas una orden de mercado para comprar en un mercado con poca profundidad y un spread amplio. ¿Qué tienes garantizado en realidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "That the order fills right away — but not at any particular price."
+          es: "Que la orden se ejecuta de inmediato, pero no a un precio concreto."
+      - id: b
+        text:
+          en: "That you buy at the last traded price shown on the screen."
+          es: "Que compras al último precio negociado que se muestra en la pantalla."
+      - id: c
+        text:
+          en: "That you get the best price of the day."
+          es: "Que consigues el mejor precio del día."
+      - id: d
+        text:
+          en: "That it fills only if the price moves in your favour first."
+          es: "Que solo se ejecuta si el precio se mueve antes a tu favor."
+    explanation:
+      en: "A market order guarantees execution, not price. In a thin book it walks up the asks and can fill well above the price you last saw — that gap is slippage."
+      es: "Una orden de mercado garantiza ejecución, no precio. En un libro con poca profundidad recorre los asks y puede ejecutarse muy por encima del precio que viste; esa diferencia es el slippage."
+  - id: order-book-spread
+    prompt:
+      en: "In an order book, what is the 'spread'?"
+      es: "En un libro de órdenes, ¿qué es el 'spread'?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The gap between the best bid and the best ask."
+          es: "La diferencia entre el mejor bid y el mejor ask."
+      - id: b
+        text:
+          en: "The total quantity of coins available to buy right now."
+          es: "La cantidad total de monedas disponibles para comprar ahora mismo."
+      - id: c
+        text:
+          en: "The difference between the day's high and low price."
+          es: "La diferencia entre el precio máximo y mínimo del día."
+      - id: d
+        text:
+          en: "The fee the exchange charges on each trade."
+          es: "La comisión que cobra el exchange en cada operación."
+    explanation:
+      en: "The spread is the distance between the highest bid and the lowest ask. Total resting size is depth, not spread — confusing the two is a common beginner slip."
+      es: "El spread es la distancia entre el bid más alto y el ask más bajo. La cantidad total que descansa en el libro es la profundidad, no el spread; confundirlos es un error común de principiante."
+  - id: book-terms-match
+    kind: matching
+    prompt:
+      en: "Match each order-book term to what it describes."
+      es: "Empareja cada término del libro de órdenes con lo que describe."
+    pairs:
+      - id: bid
+        left: { en: "Bid", es: "Bid" }
+        right:
+          en: "A buy order; the book stacks these highest-first"
+          es: "Una orden de compra; el libro las apila de mayor a menor"
+      - id: ask
+        left: { en: "Ask", es: "Ask" }
+        right:
+          en: "A sell order; the book stacks these lowest-first"
+          es: "Una orden de venta; el libro las apila de menor a mayor"
+      - id: spread
+        left: { en: "Spread", es: "Spread" }
+        right:
+          en: "The gap between the best bid and the best ask"
+          es: "La diferencia entre el mejor bid y el mejor ask"
+      - id: slippage
+        left: { en: "Slippage", es: "Slippage" }
+        right:
+          en: "The gap between the price you expected and the price you got"
+          es: "La diferencia entre el precio que esperabas y el que conseguiste"
+    explanation:
+      en: "Bids and asks are the two sides of the book; the spread is the gap between their best prices; slippage is how far your actual fill lands from what you expected."
+      es: "Los bids y los asks son los dos lados del libro; el spread es la diferencia entre sus mejores precios; el slippage es cuánto se aleja tu ejecución real de lo que esperabas."
+  - id: limit-fill-myth
+    kind: true_false
+    prompt:
+      en: "A limit order is guaranteed to fill as long as you leave it open long enough."
+      es: "Una orden limitada tiene garantizada su ejecución mientras la dejes abierta el tiempo suficiente."
+    answer: false
+    explanation:
+      en: "A limit order only fills at your price or better. If the market never reaches that price it can sit unfilled forever — you control the price, not whether it trades."
+      es: "Una orden limitada solo se ejecuta a tu precio o mejor. Si el mercado nunca alcanza ese precio, puede quedarse sin ejecutar para siempre: controlas el precio, no si llega a operar."
+  - id: order-choice
+    prompt:
+      en: "The book is thin and you care more about the price you pay than about filling this second. Which order fits?"
+      es: "El libro tiene poca profundidad y te importa más el precio que pagas que ejecutar en este segundo. ¿Qué orden encaja?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A limit order at the price you're willing to pay."
+          es: "Una orden limitada al precio que estás dispuesto a pagar."
+      - id: b
+        text:
+          en: "A market order, so it fills immediately at the best price."
+          es: "Una orden de mercado, para que se ejecute de inmediato al mejor precio."
+      - id: c
+        text:
+          en: "A market order, because limit orders cost more in fees."
+          es: "Una orden de mercado, porque las órdenes limitadas cuestan más en comisiones."
+      - id: d
+        text:
+          en: "Either one — in a thin book they behave the same."
+          es: "Cualquiera de las dos: en un libro con poca profundidad se comportan igual."
+    explanation:
+      en: "When price matters more than speed, a limit order lets you name your price and avoid slippage — at the cost of maybe not filling. A market order in a thin book is exactly where slippage bites."
+      es: "Cuando el precio importa más que la velocidad, una orden limitada te deja fijar tu precio y evitar el slippage, a costa de quizá no ejecutarse. Una orden de mercado en un libro con poca profundidad es justo donde muerde el slippage."
+  - id: slippage-def
+    prompt:
+      en: "What is 'slippage'?"
+      es: "¿Qué es el 'slippage' (deslizamiento)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The gap between the price you expected and the price your order actually filled at."
+          es: "La diferencia entre el precio que esperabas y el precio al que se ejecutó tu orden de verdad."
+      - id: b
+        text:
+          en: "The fee the exchange charges for using a market order."
+          es: "La comisión que cobra el exchange por usar una orden de mercado."
+      - id: c
+        text:
+          en: "The delay between clicking 'buy' and the screen updating."
+          es: "El retraso entre pulsar 'comprar' y que se actualice la pantalla."
+      - id: d
+        text:
+          en: "The difference between the day's high and low price."
+          es: "La diferencia entre el precio máximo y mínimo del día."
+    explanation:
+      en: "Slippage is the gap between expected and actual fill price. It grows when a market order walks a thin book, taking each worse level in turn."
+      es: "El slippage es la diferencia entre el precio esperado y el de ejecución real. Crece cuando una orden de mercado recorre un libro con poca profundidad, tomando cada nivel peor por turno."
+  - id: depth-thin-tf
+    kind: true_false
+    prompt:
+      en: "A large market order in a thin book tends to fill at progressively worse prices as it goes."
+      es: "Una orden de mercado grande en un libro con poca profundidad tiende a ejecutarse a precios cada vez peores a medida que avanza."
+    answer: true
+    explanation:
+      en: "A market order walks the book level by level. With little depth, each successive level is further from the first, so a big order fills worse and worse — that's slippage in action."
+      es: "Una orden de mercado recorre el libro nivel a nivel. Con poca profundidad, cada nivel sucesivo está más lejos del primero, así que una orden grande se ejecuta cada vez peor: es el slippage en acción."

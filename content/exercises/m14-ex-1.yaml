@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: volume_confirmation
+n: 130
+indicator: none
+targets: [confirmed_breakout, unconfirmed_breakout]
+choices: [confirmed_breakout, unconfirmed_breakout]
+prompt:
+  en: "Price has broken its level and held just beyond it. Ignore the break itself — it looks the same either way. Read the volume bars under the breakout candle: is this breakout confirmed by volume, or not?"
+  es: "El precio ha roto su nivel y ha aguantado justo al otro lado. Ignora la ruptura en sí: se ve igual en cualquier caso. Lee las barras de volumen bajo la vela de ruptura: ¿está esta ruptura confirmada por el volumen o no?"
+explanation:
+  en: "A confirmed breakout prints on a clear volume surge — the crowd showed up, so the move is more likely to hold. An unconfirmed one happens on weak, below-average volume: few participants, the setup a fakeout is made of. The price break is identical in both; only the volume bar tells you which."
+  es: "Una ruptura confirmada aparece con un claro repunte de volumen: la multitud se presentó, así que es más probable que el movimiento aguante. Una no confirmada ocurre con volumen débil, por debajo de la media: pocos participantes, el material del que se hace un fakeout. La ruptura de precio es idéntica en ambas; solo la barra de volumen te dice cuál es."

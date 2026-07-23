@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: fibonacci
+n: 130
+indicator: none
+targets: [retrace_382, retrace_500, retrace_618]
+choices: [retrace_382, retrace_500, retrace_618]
+prompt:
+  en: "The chart shows an impulse leg, a pullback, and the Fibonacci grid (0.382 / 0.5 / 0.618) drawn across the move. Which retracement level did the pullback reach before the trend resumed?"
+  es: "El gráfico muestra una pierna de impulso, un retroceso y la rejilla de Fibonacci (0,382 / 0,5 / 0,618) dibujada sobre el movimiento. ¿A qué nivel de retroceso llegó el pullback antes de que la tendencia se reanudara?"
+explanation:
+  en: "Read where the pullback extreme sits against the grid: 0.382 is a shallow give-back, 0.5 is halfway, 0.618 is the deep 'golden' pullback (price retraced 61.8% of the impulse). Note the level is a zone — price can wick a little past it — so judge which line the swing point actually settled on."
+  es: "Lee dónde queda el extremo del pullback respecto a la rejilla: 0,382 es una devolución superficial, 0,5 es la mitad y 0,618 es el retroceso profundo 'dorado' (el precio retrocedió el 61,8 % del impulso). Recuerda que el nivel es una zona —el precio puede mechar un poco más allá—, así que juzga en qué línea se asentó de verdad el punto de giro."

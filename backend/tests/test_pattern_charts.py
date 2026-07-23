@@ -1,0 +1,282 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+"""Phase-2 generic pattern-chart generator + its injectors.
+
+The blocking gate for EVERY injector (round-6 rule, now permanent):
+  * credibility — the last candles are drift-free ambient noise, so no synthetic-looking spike ends
+    the chart (checked for every injector);
+  * anti-leak  — for detection injectors (``hides_resolution``) the distribution of the final candles
+    must NOT be predictive of the label (no label pair separable on last-3 net/abs return).
+"""
+
+from __future__ import annotations
+
+import numpy as np
+import pytest
+
+from tradeschool.exercises.charts.patterns.common import TAIL
+from tradeschool.exercises.charts.patterns.registry import all_injectors, get_injector
+from tradeschool.exercises.pattern_chart import PatternChartGenerator, _instantiate
+
+_THRESH = 4.0  # Welch |t| ceiling — above this the groups are statistically separable (a leak)
+_PER = 90  # charts per label for the statistical tests
+
+
+def _config(injector: str, targets: list[str], choices: list[str]) -> object:
+    gen = PatternChartGenerator()
+    return gen.parse_config(
+        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": injector,
+         "n": 130, "targets": targets, "choices": choices}
+    )
+
+
+def _welch_t(a: np.ndarray, b: np.ndarray) -> float:
+    se = np.sqrt(a.var(ddof=1) / len(a) + b.var(ddof=1) / len(b))
+    return float((a.mean() - b.mean()) / se) if se > 0 else 0.0
+
+
+def _last3(close: np.ndarray) -> tuple[float, float]:
+    r = np.diff(np.log(close))[-3:]
+    return float(r.sum()), float(np.mean(np.abs(r)))
+
+
+def _collect(injector_name: str, label: str, per: int) -> tuple[np.ndarray, np.ndarray, float]:
+    """(net last-3 returns, abs last-3 returns, max |single-candle return| in the last 6) over seeds."""
+    labels = list(get_injector(injector_name).labels)
+    config = _config(injector_name, [label], labels)
+    nets, abss, tail_max = [], [], 0.0
+    for seed in range(per):
+        _label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        close = np.asarray(payload["series"]["close"], dtype=float)  # type: ignore[index]
+        net, ab = _last3(close)
+        nets.append(net)
+        abss.append(ab)
+        tail_max = max(tail_max, float(np.max(np.abs(np.diff(np.log(close))[-6:]))))
+    return np.array(nets), np.array(abss), tail_max
+
+
+@pytest.mark.parametrize("injector", [inj.name for inj in all_injectors()])
+def test_injector_last_candles_are_credible(injector: str) -> None:
+    """No injector may end on a synthetic spike: every candle in the ambient tail stays within a few
+    fixed sigmas of a normal continuation move (TAIL_SIGMA≈0.9%)."""
+    for label in get_injector(injector).labels:
+        _net, _abs, tail_max = _collect(injector, label, 40)
+        assert tail_max < 0.05, f"{injector}/{label}: tail candle {tail_max:.3f} looks synthetic"
+
+
+@pytest.mark.parametrize("injector", [inj.name for inj in all_injectors() if inj.hides_resolution])
+def test_detection_injector_last_candles_do_not_leak_label(injector: str) -> None:
+    """For detection injectors the final candles must not separate any pair of labels (round-6 rule):
+    the resolution is off screen and the tail is the same ambient distribution for every label."""
+    labels = list(get_injector(injector).labels)
+    nets = {lbl: _collect(injector, lbl, _PER)[0] for lbl in labels}
+    abss = {lbl: _collect(injector, lbl, _PER)[1] for lbl in labels}
+
+    for i, a in enumerate(labels):
+        # No systematic drift in any label's final candles.
+        se = nets[a].std(ddof=1) / np.sqrt(len(nets[a]))
+        assert abs(nets[a].mean()) < _THRESH * se, f"{injector}/{a}: final candles drift"
+        for b in labels[i + 1 :]:
+            assert abs(_welch_t(nets[a], nets[b])) < _THRESH, f"{injector}: {a} vs {b} net leaks"
+            assert abs(_welch_t(abss[a], abss[b])) < _THRESH, f"{injector}: {a} vs {b} size leaks"
+
+
+# --- fakeout (m08) correctness: the visible structure actually encodes the label -----------------
+
+
+def _fakeout_beyond(close: float, level: float, kind: str) -> bool:
+    return close > level if kind == "resistance" else close < level
+
+
+def test_fakeout_structure_matches_label() -> None:
+    """The visible geometry encodes the label robustly: where price SETTLED (median of the hold
+    plateau, ignoring the noisy ambient tail) relative to the level, and — for a false break — the
+    fact that it did poke beyond during the decision before failing."""
+    config = _config("fakeout", ["genuine_breakout", "false_break", "no_break"],
+                     ["genuine_breakout", "false_break", "no_break"])
+    seen = {"genuine_breakout": 0, "false_break": 0, "no_break": 0}
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        levels = payload["levels"]  # type: ignore[index]
+        assert levels, "fakeout must expose the tested level"
+        level = float(levels[0]["price"])
+        kind = str(levels[0]["kind"])
+        closes = [float(c) for c in payload["series"]["close"]]  # type: ignore[index]
+        n = len(closes)
+        core = closes[: n - TAIL]  # the designed structure; the ambient tail is deliberately noisy
+        settled = float(np.median(closes[int(0.88 * n) : n - TAIL]))  # hold plateau (pre-tail)
+        settled_beyond = _fakeout_beyond(settled, level, kind)
+        ever_beyond = any(_fakeout_beyond(c, level, kind) for c in core)
+        if label == "genuine_breakout":
+            assert settled_beyond, f"seed {seed}: genuine breakout should settle beyond the level"
+        elif label == "false_break":
+            assert ever_beyond and not settled_beyond, f"seed {seed}: false break should poke then fail"
+        else:  # no_break
+            assert not ever_beyond, f"seed {seed}: no_break should never trade beyond the level"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+# --- ma_context (m10) correctness: MA order + net drift match the labelled regime ----------------
+
+
+def test_ma_context_structure_matches_label() -> None:
+    config = _config("ma_context", ["uptrend", "downtrend", "range"], ["uptrend", "downtrend", "range"])
+    seen = {"uptrend": 0, "downtrend": 0, "range": 0}
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        closes = np.asarray(payload["series"]["close"], dtype=float)  # type: ignore[index]
+        overlays = payload["overlays"]  # type: ignore[index]
+        fast = np.asarray(overlays["ema20"], dtype=float)
+        slow = np.asarray(overlays["ema50"], dtype=float)
+        n = len(closes)
+        k = n - TAIL - 1  # last structural candle (before the ambient tail)
+        third = n // 3
+        # Net drift as the ratio of the last third's mean to the first third's mean — averages out
+        # the oscillation so a genuine range reads flat while a trend reads clearly directional.
+        drift = float(np.mean(closes[k - third : k]) / np.mean(closes[:third]) - 1.0)
+        if label == "uptrend":
+            assert drift > 0.08, f"seed {seed}: uptrend drift {drift:.2f} too weak"
+            assert fast[k] > slow[k], f"seed {seed}: uptrend fast MA should lead the slow MA"
+        elif label == "downtrend":
+            assert drift < -0.08, f"seed {seed}: downtrend drift {drift:.2f} too weak"
+            assert fast[k] < slow[k], f"seed {seed}: downtrend fast MA should trail the slow MA"
+        else:  # range
+            assert abs(drift) < 0.05, f"seed {seed}: range drift {drift:.2f} too large"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+# --- oscillator_reading (m11) correctness: the rendered RSI reads as labelled -------------------
+
+
+def test_oscillator_reading_matches_label() -> None:
+    config = _config("oscillator_reading", ["overbought", "oversold", "neutral"],
+                     ["overbought", "oversold", "neutral"])
+    seen = {"overbought": 0, "oversold": 0, "neutral": 0}
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        rsi_series = np.asarray(payload["rsi"], dtype=float)  # type: ignore[index]
+        # Never peg at the extremes — a real RSI(14) does not sit at 0/100 (round-3 rule).
+        assert rsi_series.max() < 97 and rsi_series.min() > 3, f"seed {seed}: RSI pegged"
+        # Read the RSI over the last structural stretch (before the gentle end), as a learner would.
+        reading = float(np.median(rsi_series[-12:]))
+        if label == "overbought":
+            assert reading > 68, f"seed {seed}: overbought RSI only {reading:.0f}"
+        elif label == "oversold":
+            assert reading < 32, f"seed {seed}: oversold RSI only {reading:.0f}"
+        else:
+            assert 35 < reading < 65, f"seed {seed}: neutral RSI {reading:.0f} not mid-range"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+# --- fibonacci (m13) correctness: the pullback extreme sits at the labelled fib level ------------
+
+
+def test_fibonacci_pullback_hits_labelled_level() -> None:
+    config = _config("fibonacci", ["retrace_382", "retrace_500", "retrace_618"],
+                     ["retrace_382", "retrace_500", "retrace_618"])
+    seen = {"retrace_382": 0, "retrace_500": 0, "retrace_618": 0}
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        closes = np.asarray(payload["series"]["close"], dtype=float)  # type: ignore[index]
+        levels = {lv["label"]: float(lv["price"]) for lv in payload["levels"]}  # type: ignore[index]
+        n = len(closes)
+        up = closes[int(0.5 * n)] > closes[0]  # up impulse -> pullback is a low; else a high
+        window = closes[int(0.60 * n) : int(0.88 * n)]  # the pullback region
+        extreme = float(np.min(window)) if up else float(np.max(window))
+        nearest = min(levels.items(), key=lambda kv: abs(extreme - kv[1]))
+        assert nearest[0] == label.split("_")[1], (
+            f"seed {seed}: pullback extreme nearest {nearest[0]}, labelled {label}"
+        )
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+# --- volume_confirmation (m14) correctness: the break-candle volume carries the label ------------
+
+
+def test_volume_confirmation_matches_label() -> None:
+    config = _config("volume_confirmation", ["confirmed_breakout", "unconfirmed_breakout"],
+                     ["confirmed_breakout", "unconfirmed_breakout"])
+    seen = {"confirmed_breakout": 0, "unconfirmed_breakout": 0}
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        vol = np.asarray(payload["series"]["volume"], dtype=float)  # type: ignore[index]
+        n = len(vol)
+        range_med = float(np.median(vol[: int(0.70 * n)]))  # typical volume before the break
+        break_vol = float(np.max(vol[int(0.77 * n) : int(0.87 * n)]))  # volume at the break
+        ratio = break_vol / range_med
+        if label == "confirmed_breakout":
+            assert ratio > 2.2, f"seed {seed}: confirmed break volume ratio only {ratio:.1f}"
+        else:
+            assert ratio < 1.6, f"seed {seed}: unconfirmed break volume ratio {ratio:.1f} too high"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+# --- wyckoff (m09) correctness: prior trend + spring/upthrust match the schematic ----------------
+
+
+def test_wyckoff_structure_matches_label() -> None:
+    config = _config("wyckoff", ["accumulation", "distribution", "none"],
+                     ["accumulation", "distribution", "none"])
+    seen = {"accumulation": 0, "distribution": 0, "none": 0}
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        closes = np.asarray(payload["series"]["close"], dtype=float)  # type: ignore[index]
+        lv = {x["label"]: float(x["price"]) for x in payload["levels"]}  # type: ignore[index]
+        support, resistance = lv["support"], lv["resistance"]
+        n = len(closes)
+        event = closes[int(0.68 * n) : int(0.82 * n)]  # spring / upthrust window
+        prior_early = float(np.mean(closes[: int(0.12 * n)]))
+        range_mid = float(np.mean(closes[int(0.40 * n) : int(0.62 * n)]))
+        broke_below = float(np.min(event)) < support * 0.995
+        broke_above = float(np.max(event)) > resistance * 1.005
+        never_out = closes.min() > support * 0.995 and closes.max() < resistance * 1.005
+        if label == "accumulation":
+            assert broke_below and not broke_above, f"seed {seed}: no clean spring below support"
+            assert prior_early > range_mid, f"seed {seed}: accumulation needs a prior downtrend"
+        elif label == "distribution":
+            assert broke_above and not broke_below, f"seed {seed}: no clean upthrust above resistance"
+            assert prior_early < range_mid, f"seed {seed}: distribution needs a prior uptrend"
+        else:  # none — stays inside the range, no false break
+            assert never_out, f"seed {seed}: 'none' should not break the range"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+# --- derivatives (m17) correctness: OI trend matches the label; price is identical across labels --
+
+
+def test_derivatives_oi_matches_label() -> None:
+    config = _config("derivatives", ["rising_oi", "falling_oi", "flat_oi"],
+                     ["rising_oi", "falling_oi", "flat_oi"])
+    seen = {"rising_oi": 0, "falling_oi": 0, "flat_oi": 0}
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        oi = np.asarray(payload["oi"], dtype=float)  # type: ignore[index]
+        net = float(np.mean(oi[-15:]) / np.mean(oi[:15]) - 1.0)
+        if label == "rising_oi":
+            assert net > 0.12, f"seed {seed}: rising_oi net {net:.2f} too weak"
+        elif label == "falling_oi":
+            assert net < -0.12, f"seed {seed}: falling_oi net {net:.2f} too weak"
+        else:
+            assert abs(net) < 0.08, f"seed {seed}: flat_oi net {net:.2f} too large"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+def test_derivatives_price_is_label_independent() -> None:
+    """Price must be built identically for every label (only OI carries the signal), so the same
+    seed yields the same candles regardless of which OI label was requested."""
+    gen = PatternChartGenerator()
+    seeds_price: dict[str, list[float]] = {}
+    for label in ("rising_oi", "falling_oi", "flat_oi"):
+        cfg = gen.parse_config(
+            {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": "derivatives",
+             "n": 130, "targets": [label], "choices": ["rising_oi", "falling_oi", "flat_oi"]}
+        )
+        _lbl, _ann, payload = _instantiate(cfg, 3)  # type: ignore[arg-type]
+        seeds_price[label] = payload["series"]["close"]  # type: ignore[index]
+    assert seeds_price["rising_oi"] == seeds_price["falling_oi"] == seeds_price["flat_oi"]

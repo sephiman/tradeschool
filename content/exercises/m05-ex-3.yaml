@@ -1,0 +1,149 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: initial-margin
+    prompt:
+      en: "What is the initial margin of a leveraged position?"
+      es: "¿Qué es el margen inicial de una posición apalancada?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The deposit you must post to open the position — its notional value divided by your leverage."
+          es: "El depósito que debes aportar para abrir la posición: su valor nocional dividido entre tu apalancamiento."
+      - id: b
+        text:
+          en: "The minimum equity you must keep to avoid being liquidated."
+          es: "El capital mínimo que debes conservar para evitar que te liquiden."
+      - id: c
+        text:
+          en: "A one-off fee the exchange charges for using leverage."
+          es: "Una comisión única que el exchange cobra por usar apalancamiento."
+      - id: d
+        text:
+          en: "Your entire account balance, which always backs every trade."
+          es: "El saldo completo de tu cuenta, que siempre respalda cada operación."
+    explanation:
+      en: "Initial margin is what you post up front to open the trade (notional / leverage). Option b describes the maintenance margin — the floor you must stay above to keep the position open, not the deposit to open it."
+      es: "El margen inicial es lo que aportas por adelantado para abrir la operación (nocional / apalancamiento). La opción b describe el margen de mantenimiento: el suelo por encima del que debes permanecer para mantener la posición abierta, no el depósito para abrirla."
+  - id: maintenance-hit
+    prompt:
+      en: "Your losses reduce your equity until it reaches the maintenance-margin level. What happens?"
+      es: "Tus pérdidas reducen tu capital hasta que alcanza el nivel del margen de mantenimiento. ¿Qué ocurre?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The exchange liquidates the position — it force-closes it because your collateral can no longer cover the loss."
+          es: "El exchange liquida la posición: la cierra a la fuerza porque tu colateral ya no puede cubrir la pérdida."
+      - id: b
+        text:
+          en: "Nothing — maintenance margin is just a suggestion until price hits your stop-loss."
+          es: "Nada: el margen de mantenimiento es solo una sugerencia hasta que el precio toca tu stop-loss."
+      - id: c
+        text:
+          en: "The exchange automatically lowers your leverage so the position survives."
+          es: "El exchange baja automáticamente tu apalancamiento para que la posición sobreviva."
+      - id: d
+        text:
+          en: "You get a free grace period to deposit more before anything is closed."
+          es: "Recibes un periodo de gracia gratuito para depositar más antes de que se cierre nada."
+    explanation:
+      en: "Reaching the maintenance-margin level triggers liquidation: the exchange force-closes the position. There is no automatic leverage cut and no guaranteed grace period — once you hit the floor, you're closed."
+      es: "Alcanzar el nivel del margen de mantenimiento dispara la liquidación: el exchange cierra la posición a la fuerza. No hay una reducción automática de apalancamiento ni un periodo de gracia garantizado; en cuanto tocas el suelo, te cierran."
+  - id: margin-terms-match
+    kind: matching
+    prompt:
+      en: "Match each margin term to what it actually means."
+      es: "Empareja cada término de margen con lo que significa realmente."
+    pairs:
+      - id: initial
+        left:
+          en: "Initial margin"
+          es: "Margen inicial"
+        right:
+          en: "The deposit you post to open a position (notional ÷ leverage)."
+          es: "El depósito que aportas para abrir una posición (nocional ÷ apalancamiento)."
+      - id: maintenance
+        left:
+          en: "Maintenance margin"
+          es: "Margen de mantenimiento"
+        right:
+          en: "The minimum equity you must keep to hold the position open."
+          es: "El capital mínimo que debes conservar para mantener la posición abierta."
+      - id: notional
+        left:
+          en: "Notional value"
+          es: "Valor nocional"
+        right:
+          en: "The full size of the position you control, not the amount you deposited."
+          es: "El tamaño total de la posición que controlas, no la cantidad que depositaste."
+      - id: liquidation
+        left:
+          en: "Liquidation"
+          es: "Liquidación"
+        right:
+          en: "The exchange force-closing the position when equity hits the maintenance level."
+          es: "El exchange cierra a la fuerza la posición cuando el capital alcanza el nivel de mantenimiento."
+    explanation:
+      en: "Initial margin gets you in; maintenance margin is the floor you must stay above; the notional is the whole position those margins back; and liquidation is the forced close when your equity falls to that floor."
+      es: "El margen inicial te deja entrar; el margen de mantenimiento es el suelo por encima del que debes permanecer; el nocional es toda la posición que esos márgenes respaldan; y la liquidación es el cierre forzoso cuando tu capital cae hasta ese suelo."
+  - id: initial-margin-size
+    prompt:
+      en: "You want to control 1,000 USDT of BTC at 20× leverage. How much initial margin must you post?"
+      es: "Quieres controlar 1.000 USDT de BTC con apalancamiento de 20×. ¿Cuánto margen inicial debes aportar?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "50 USDT — the notional (1,000) divided by your leverage (20)."
+          es: "50 USDT: el nocional (1.000) dividido entre tu apalancamiento (20)."
+      - id: b
+        text:
+          en: "1,000 USDT — you have to fund the whole position."
+          es: "1.000 USDT: tienes que financiar la posición completa."
+      - id: c
+        text:
+          en: "200 USDT — leverage multiplies the deposit you owe."
+          es: "200 USDT: el apalancamiento multiplica el depósito que debes."
+      - id: d
+        text:
+          en: "20 USDT — you post one unit of margin per turn of leverage."
+          es: "20 USDT: aportas una unidad de margen por cada vez de apalancamiento."
+    explanation:
+      en: "Initial margin = notional ÷ leverage = 1,000 ÷ 20 = 50 USDT. Higher leverage means a smaller deposit for the same position; it does not multiply what you owe."
+      es: "Margen inicial = nocional ÷ apalancamiento = 1.000 ÷ 20 = 50 USDT. Más apalancamiento significa un depósito menor para la misma posición; no multiplica lo que debes."
+  - id: maintenance-below-initial
+    kind: true_false
+    prompt:
+      en: "The maintenance margin is larger than the initial margin you posted to open the position."
+      es: "El margen de mantenimiento es mayor que el margen inicial que aportaste para abrir la posición."
+    answer: false
+    explanation:
+      en: "It's the other way round. Maintenance margin is a small fraction of the notional, well below the initial margin — it's the eviction line your equity must stay above, not the price of admission."
+      es: "Es al revés. El margen de mantenimiento es una fracción pequeña del nocional, muy por debajo del margen inicial: es la línea de desahucio por encima de la que debe permanecer tu capital, no el precio de entrada."
+  - id: gap-breathing-room
+    prompt:
+      en: "What does the gap between your initial margin and the maintenance-margin level represent?"
+      es: "¿Qué representa el hueco entre tu margen inicial y el nivel del margen de mantenimiento?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "How far your losses can grow before the position is liquidated — your breathing room."
+          es: "Cuánto pueden crecer tus pérdidas antes de que la posición se liquide: tu margen de maniobra."
+      - id: b
+        text:
+          en: "The fee the exchange keeps when you finally close the position."
+          es: "La comisión que el exchange se queda cuando finalmente cierras la posición."
+      - id: c
+        text:
+          en: "The extra profit that leverage adds to a winning trade."
+          es: "El beneficio extra que el apalancamiento suma a una operación ganadora."
+      - id: d
+        text:
+          en: "A cushion the exchange tops up for you if the price moves against you."
+          es: "Un colchón que el exchange te rellena si el precio se mueve en tu contra."
+    explanation:
+      en: "The gap is your breathing room: how far your equity can fall before it reaches the maintenance level and the position is force-closed. It is not a fee, not bonus profit, and the exchange never tops it up."
+      es: "El hueco es tu margen de maniobra: cuánto puede caer tu capital antes de alcanzar el nivel de mantenimiento y que la posición se cierre a la fuerza. No es una comisión, ni un beneficio extra, y el exchange nunca lo rellena."

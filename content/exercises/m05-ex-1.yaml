@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: initial_margin
+prompt:
+  en: "You open a long on BTC at an entry price of **{entry}** USDT, buying **{quantity}** BTC at **{leverage}×** leverage. How much initial margin (in USDT) must you post to open the position? Round to 2 decimals."
+  es: "Abres un long en BTC a un precio de entrada de **{entry}** USDT, comprando **{quantity}** BTC con **{leverage}×** de apalancamiento. ¿Cuánto margen inicial (en USDT) debes depositar para abrir la posición? Redondea a 2 decimales."
+params:
+  entry: { kind: int_range, min: 20000, max: 70000, step: 100 }
+  quantity: { kind: choice, values: ["0.1", "0.25", "0.5", "1", "2"] }
+  leverage: { kind: choice, values: ["3", "5", "10", "20", "25"] }
+tolerance: { rel: "0.005" }
+round: 2
+unit: USDT
+explanation:
+  en: "Initial margin = (entry × quantity) / leverage — the position's notional value divided by your leverage. It is what you post to open the trade; higher leverage means a smaller deposit for the same position, not a bigger gain."
+  es: "Margen inicial = (entrada × cantidad) / apalancamiento: el valor nocional de la posición dividido entre tu apalancamiento. Es lo que depositas para abrir la operación; más apalancamiento significa un depósito menor para la misma posición, no una ganancia mayor."

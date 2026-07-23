@@ -1,0 +1,113 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: risk-per-trade
+    prompt:
+      en: "You size every trade to risk 1% of a 10,000 USDT account. What does that 1% actually cap?"
+      es: "Dimensionas cada operación para arriesgar el 1% de una cuenta de 10.000 USDT. ¿Qué limita en realidad ese 1%?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The money you lose if the trade hits your stop — 100 USDT."
+          es: "El dinero que pierdes si la operación toca tu stop: 100 USDT."
+      - id: b
+        text:
+          en: "The size of the position, so you may only buy 100 USDT worth."
+          es: "El tamaño de la posición, así que solo puedes comprar 100 USDT en valor."
+      - id: c
+        text:
+          en: "Your total allowed losses for the whole month."
+          es: "El total de pérdidas que te permites en todo el mes."
+      - id: d
+        text:
+          en: "The fee the exchange charges you to open the trade."
+          es: "La comisión que el exchange te cobra por abrir la operación."
+    explanation:
+      en: "The 1% is your loss budget if the stop is hit (100 USDT here), not the position's notional. With a stop in place the position can be worth many times 100 USDT — the stop distance is what decides how many units that budget buys."
+      es: "El 1% es tu presupuesto de pérdida si salta el stop (aquí 100 USDT), no el nominal de la posición. Con un stop puesto, la posición puede valer muchas veces 100 USDT: la distancia del stop es lo que decide cuántas unidades compra ese presupuesto."
+  - id: r-multiples-net
+    prompt:
+      en: "You risk a fixed 1R on every trade. Over ten trades you take six losses at your stop and four wins of +2R each. What is your net result in R?"
+      es: "Arriesgas un 1R fijo en cada operación. En diez operaciones tienes seis pérdidas en tu stop y cuatro ganancias de +2R cada una. ¿Cuál es tu resultado neto en R?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "+2R — six −1R losses and four +2R wins."
+          es: "+2R: seis pérdidas de −1R y cuatro ganancias de +2R."
+      - id: b
+        text:
+          en: "−2R — you lost more trades than you won, so you are down."
+          es: "−2R: perdiste más operaciones de las que ganaste, así que estás en negativo."
+      - id: c
+        text:
+          en: "+8R — count only the four winners."
+          es: "+8R: cuenta solo las cuatro ganadoras."
+      - id: d
+        text:
+          en: "0R — the wins and the losses cancel out."
+          es: "0R: las ganancias y las pérdidas se anulan."
+    explanation:
+      en: "R-multiples fold win rate and payoff into one figure: 6 × (−1R) + 4 × (+2R) = −6R + 8R = +2R. A losing majority is still profitable when the winners are bigger than the losers — exactly what thinking in R lets you see."
+      es: "Los múltiplos R combinan win rate y payoff en una sola cifra: 6 × (−1R) + 4 × (+2R) = −6R + 8R = +2R. Una mayoría de operaciones perdedoras sigue siendo rentable cuando las ganadoras son mayores que las perdedoras: justo lo que pensar en R te deja ver."
+  - id: sizing-steps
+    kind: ordering
+    prompt:
+      en: "Put the position-sizing steps in the correct order, from first to last."
+      es: "Ordena los pasos de dimensionado de la posición, del primero al último."
+    items:
+      - { id: budget, position: 1, text: { en: "Set the risk budget in money: equity × risk % (10,000 × 1% = 100 USDT).", es: "Fija el presupuesto de riesgo en dinero: capital × % de riesgo (10.000 × 1% = 100 USDT)." } }
+      - { id: stop, position: 2, text: { en: "Place the stop where the idea is proven wrong and measure the entry-to-stop distance.", es: "Coloca el stop donde la idea queda invalidada y mide la distancia de la entrada al stop." } }
+      - { id: size, position: 3, text: { en: "Divide the risk budget by the stop distance to get the position size.", es: "Divide el presupuesto de riesgo entre la distancia del stop para obtener el tamaño de la posición." } }
+      - { id: open, position: 4, text: { en: "Open the position at exactly that size — even if it comes out disappointingly small.", es: "Abre la posición exactamente con ese tamaño, aunque salga decepcionantemente pequeño." } }
+    explanation:
+      en: "The stop defines the risk and the risk defines the size, never the reverse. You fix the money you are willing to lose, read the stop distance off the chart, and let the division hand you the size. Choosing a size first and discovering the risk afterwards is the beginner mistake this order prevents."
+      es: "El stop define el riesgo y el riesgo define el tamaño, nunca al revés. Fijas el dinero que estás dispuesto a perder, lees la distancia del stop en el gráfico y dejas que la división te entregue el tamaño. Elegir primero un tamaño y descubrir el riesgo después es el error de principiante que este orden evita."
+  - id: stop-sets-size
+    prompt:
+      en: "Two trades on the same account each risk 1%. Trade A's stop is 2% from entry; trade B's stop is 5% from entry. For the same 1% risk, which trade takes the larger position?"
+      es: "Dos operaciones en la misma cuenta arriesgan cada una el 1%. El stop de la operación A está a un 2% de la entrada; el de la B, a un 5%. Para el mismo 1% de riesgo, ¿qué operación toma la posición más grande?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Trade A — the tighter stop loses less per unit, so the same budget buys more units."
+          es: "La operación A: el stop más ajustado pierde menos por unidad, así que el mismo presupuesto compra más unidades."
+      - id: b
+        text:
+          en: "Trade B — the wider stop gives the trade more room, so it deserves more size."
+          es: "La operación B: el stop más ancho le da más margen a la operación, así que merece más tamaño."
+      - id: c
+        text:
+          en: "They take the same size — both risk 1%, so the position must be identical."
+          es: "Toman el mismo tamaño: ambas arriesgan el 1%, así que la posición debe ser idéntica."
+      - id: d
+        text:
+          en: "You cannot tell without knowing each trade's reward target."
+          es: "No se puede saber sin conocer el objetivo de recompensa de cada operación."
+    explanation:
+      en: "Position size = risk budget ÷ stop distance. The tighter stop (2%) loses less per unit, so a fixed budget buys more units and a larger position; the wider stop (5%) forces a smaller one. Same risk, different size — decided entirely by the stop distance, not the reward."
+      es: "Tamaño de posición = presupuesto de riesgo ÷ distancia del stop. El stop más ajustado (2%) pierde menos por unidad, así que un presupuesto fijo compra más unidades y una posición mayor; el más ancho (5%) fuerza una más pequeña. Mismo riesgo, distinto tamaño: lo decide por completo la distancia del stop, no la recompensa."
+  - id: r-multiple-meanings
+    kind: matching
+    prompt:
+      en: "Match each R-multiple term to what it means."
+      es: "Empareja cada término de múltiplos R con lo que significa."
+    pairs:
+      - { id: unit, left: { en: "R", es: "R" }, right: { en: "The money you put at risk on a single trade", es: "El dinero que pones en riesgo en una sola operación" } }
+      - { id: loss, left: { en: "−1R", es: "−1R" }, right: { en: "A loss at your stop", es: "Una pérdida en tu stop" } }
+      - { id: win, left: { en: "+3R", es: "+3R" }, right: { en: "A win of three times the amount you risked", es: "Una ganancia de tres veces lo que arriesgaste" } }
+      - { id: setup, left: { en: "A 3R setup", es: "Un setup de 3R" }, right: { en: "A trade whose target sits three stop-distances from entry", es: "Una operación cuyo objetivo está a tres distancias de stop de la entrada" } }
+    explanation:
+      en: "Once every trade risks the same amount, that amount — R — becomes the unit of measure. Results and targets are read as multiples of it, which lets you judge a system by its shape rather than by the dollar figure of any single trade."
+      es: "Cuando cada operación arriesga la misma cantidad, esa cantidad —R— se convierte en la unidad de medida. Los resultados y los objetivos se leen como múltiplos de ella, lo que te deja juzgar un sistema por su forma en vez de por la cifra en dólares de una sola operación."
+  - id: win-rate-myth
+    kind: true_false
+    prompt:
+      en: "True or false: a trading system that wins fewer than half of its trades cannot be profitable."
+      es: "Verdadero o falso: un sistema de trading que gana menos de la mitad de sus operaciones no puede ser rentable."
+    answer: false
+    explanation:
+      en: "False. Profit depends on payoff, not just win rate. A system that wins 40% of the time is still profitable if the winners average +2R and the losers −1R: 0.4 × 2R − 0.6 × 1R = +0.2R per trade. Win rate alone tells you almost nothing without the R-multiples."
+      es: "Falso. La rentabilidad depende del payoff, no solo del win rate. Un sistema que acierta el 40% de las veces sigue siendo rentable si los ganadores promedian +2R y los perdedores −1R: 0,4 × 2R − 0,6 × 1R = +0,2R por operación. El win rate por sí solo no te dice casi nada sin los múltiplos R."

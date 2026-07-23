@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: fakeout
+n: 130
+indicator: rsi
+# Harder drill (2nd exercise): always one of the two below-the-level cases, so the learner must spot
+# whether price actually poked beyond (false break) or never traded through (no break). All three
+# choices are still shown so the option set doesn't give it away.
+targets: [false_break, no_break]
+choices: [genuine_breakout, false_break, no_break]
+prompt:
+  en: "Look at the tested level and where price sits relative to it now. Was the level **broken and held** (genuine breakout), **broken then reclaimed from the wrong side** (false break), or **defended without ever being breached** (no break)?"
+  es: "Mira el nivel testeado y dónde está el precio respecto a él ahora. ¿El nivel fue **roto y aguantado** (ruptura genuina), **roto y luego recuperado desde el lado equivocado** (falsa ruptura) o **defendido sin llegar a romperse** (sin ruptura)?"
+explanation:
+  en: "The tell is structural and on screen: a body closing beyond the level and holding is a genuine breakout; a break that closes back inside the range is a fakeout that trapped whoever bought the first candle past the line; a level that rejected price before any close beyond it never broke. The candle body and the hold decide it — not the wick."
+  es: "La pista es estructural y está en pantalla: un cuerpo que cierra más allá del nivel y aguanta es una ruptura genuina; una ruptura que cierra de vuelta dentro del rango es un fakeout que atrapó a quien compró la primera vela pasada la línea; un nivel que rechazó el precio antes de cualquier cierre más allá nunca se rompió. Lo decide el cuerpo de la vela y el aguante, no la mecha."

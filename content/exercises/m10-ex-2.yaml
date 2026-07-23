@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: ma_context
+n: 130
+indicator: none
+targets: [uptrend, downtrend, range]
+choices: [uptrend, downtrend, range]
+prompt:
+  en: "Classify the regime from the moving averages alone. Which EMA is on top, which way are both sloping, and is price riding above them, below them, or crossing back and forth?"
+  es: "Clasifica el régimen solo con las medias móviles. ¿Qué EMA va arriba, hacia dónde se inclinan ambas y el precio va por encima, por debajo o cruzándolas a un lado y otro?"
+explanation:
+  en: "Slope, order and price position together give the regime: rising EMAs with the fast on top and price above them is an uptrend; falling EMAs with the fast below and price under them is a downtrend. When both EMAs are flat and tangled and price crosses them repeatedly, it is a range — those crosses are whipsaw, not signals."
+  es: "La pendiente, el orden y la posición del precio juntos dan el régimen: EMA subiendo con la rápida arriba y el precio por encima es tendencia alcista; EMA bajando con la rápida abajo y el precio por debajo es tendencia bajista. Cuando ambas EMA están planas y enredadas y el precio las cruza repetidamente, es un rango: esos cruces son whipsaw, no señales."

@@ -1,0 +1,171 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: cluster-magnet
+    prompt:
+      en: "A liquidation cluster sits just below the current price. In practice, what does that tend to mean?"
+      es: "Un clúster de liquidaciones está justo debajo del precio actual. En la práctica, ¿qué suele significar eso?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Price is often drawn toward the cluster, and the move can accelerate as the forced closes there trigger — a magnet and an accelerant, not a certainty."
+          es: "El precio suele verse atraído hacia el clúster, y el movimiento puede acelerarse cuando se disparan los cierres forzosos de ahí: un imán y un acelerador, no una certeza."
+      - id: b
+        text:
+          en: "Price will reliably avoid the cluster, because the exchange protects the positions parked there."
+          es: "El precio evitará el clúster de forma fiable, porque el exchange protege las posiciones aparcadas ahí."
+      - id: c
+        text:
+          en: "It just marks a zone of high trading volume and has no effect on where price goes."
+          es: "Solo marca una zona de alto volumen de operaciones y no tiene ningún efecto sobre a dónde va el precio."
+      - id: d
+        text:
+          en: "It means the market has run out of liquidity there and price will stop moving."
+          es: "Significa que el mercado se ha quedado sin liquidez ahí y el precio dejará de moverse."
+    explanation:
+      en: "Liquidation clusters act like magnets: reaching one triggers forced closes whose orders pull price the last stretch in and can accelerate the move through it. It is a probability and a source of volatility, not a guaranteed target — and it is a forced-close zone, not a comment on 'liquidity.'"
+      es: "Los clústeres de liquidación actúan como imanes: alcanzar uno dispara cierres forzosos cuyas órdenes arrastran el precio el último tramo y pueden acelerar el movimiento a través de él. Es una probabilidad y una fuente de volatilidad, no un objetivo garantizado, y es una zona de cierres forzosos, no un comentario sobre la 'liquidez'."
+  - id: short-squeeze
+    prompt:
+      en: "In a short squeeze, why does price accelerate upward?"
+      es: "En un short squeeze, ¿por qué se acelera el precio hacia arriba?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Shorts being force-closed have to buy to close, and that forced buying pushes price higher, liquidating still more shorts — a cascade up."
+          es: "Los cortos que se cierran por la fuerza tienen que comprar para cerrar, y esa compra forzada empuja el precio más arriba, liquidando aún más cortos: una cascada hacia arriba."
+      - id: b
+        text:
+          en: "The short sellers start selling even more aggressively, which somehow drives the price up."
+          es: "Los vendedores en corto empiezan a vender aún más agresivamente, lo que de algún modo empuja el precio hacia arriba."
+      - id: c
+        text:
+          en: "The exchange raises the price to punish traders who bet against the market."
+          es: "El exchange sube el precio para castigar a los traders que apuestan contra el mercado."
+      - id: d
+        text:
+          en: "New buyers calmly step in once the shorts have quietly finished closing."
+          es: "Compradores nuevos entran con calma una vez que los cortos han terminado de cerrarse tranquilamente."
+    explanation:
+      en: "A liquidation is a forced close. Closing a short means buying back, so a wave of short liquidations is a wave of forced buying — which lifts price, liquidates more shorts, and cascades upward. A long squeeze is the mirror image: forced selling cascading down."
+      es: "Una liquidación es un cierre forzoso. Cerrar un corto significa recomprar, así que una oleada de liquidaciones de cortos es una oleada de compra forzada, que sube el precio, liquida más cortos y forma una cascada hacia arriba. Un long squeeze es la imagen especular: venta forzada en cascada hacia abajo."
+  - id: liquidation-def
+    prompt:
+      en: "Which of these best describes a liquidation on a futures exchange?"
+      es: "¿Cuál de estas opciones describe mejor una liquidación en un exchange de futuros?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The exchange forcibly closing a leveraged position once its margin can no longer cover the loss."
+          es: "El cierre forzoso de una posición apalancada por parte del exchange cuando su margen ya no puede cubrir la pérdida."
+      - id: b
+        text:
+          en: "Any large wave of selling that pushes the price down sharply."
+          es: "Cualquier oleada grande de ventas que empuja el precio bruscamente hacia abajo."
+      - id: c
+        text:
+          en: "A trader choosing to sell their position to lock in a profit."
+          es: "Un trader que decide vender su posición para asegurar una ganancia."
+      - id: d
+        text:
+          en: "The market running out of buyers so that orders can no longer fill."
+          es: "El mercado que se queda sin compradores, de modo que las órdenes ya no se pueden ejecutar."
+    explanation:
+      en: "A liquidation is strictly a forced close: the exchange shuts a leveraged position when its margin can't cover the loss. It is not ordinary selling, not a voluntary profit-take, and not 'liquidity' — those are separate things that get muddled with the word."
+      es: "Una liquidación es estrictamente un cierre forzoso: el exchange cierra una posición apalancada cuando su margen no puede cubrir la pérdida. No es una venta corriente, ni una toma de ganancias voluntaria, ni la 'liquidez': son cosas distintas que se confunden con la palabra."
+  - id: repel-myth
+    kind: true_false
+    prompt:
+      en: "A liquidation cluster repels price, pushing it away from that level."
+      es: "Un clúster de liquidaciones repele el precio, empujándolo lejos de ese nivel."
+    answer: false
+    explanation:
+      en: "It's the opposite: a cluster acts like a magnet. Reaching it triggers forced closes whose orders pull price the last stretch in and can accelerate the move through it. Clusters attract price and add volatility — they don't repel it."
+      es: "Es al revés: un clúster actúa como un imán. Alcanzarlo dispara cierres forzosos cuyas órdenes arrastran el precio el último tramo hacia dentro y pueden acelerar el movimiento a través de él. Los clústeres atraen el precio y añaden volatilidad; no lo repelen."
+  - id: long-squeeze
+    prompt:
+      en: "In a long squeeze, why does price accelerate downward?"
+      es: "En un long squeeze, ¿por qué se acelera el precio hacia abajo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Longs being force-closed have to sell to close, and that forced selling pushes price lower, liquidating still more longs — a cascade down."
+          es: "Los largos que se cierran por la fuerza tienen que vender para cerrar, y esa venta forzada empuja el precio más abajo, liquidando aún más largos: una cascada hacia abajo."
+      - id: b
+        text:
+          en: "Longs start buying even more aggressively, which somehow drives the price down."
+          es: "Los largos empiezan a comprar aún más agresivamente, lo que de algún modo empuja el precio hacia abajo."
+      - id: c
+        text:
+          en: "The exchange lowers the price to punish over-leveraged buyers."
+          es: "El exchange baja el precio para castigar a los compradores sobreapalancados."
+      - id: d
+        text:
+          en: "Short sellers calmly step in to sell once the longs have quietly finished closing."
+          es: "Los vendedores en corto entran con calma a vender una vez que los largos han terminado de cerrarse tranquilamente."
+    explanation:
+      en: "A liquidation is a forced close. Closing a long means selling, so a wave of long liquidations is a wave of forced selling — which drops price, liquidates more longs, and cascades downward. It's the mirror image of a short squeeze."
+      es: "Una liquidación es un cierre forzoso. Cerrar un largo significa vender, así que una oleada de liquidaciones de largos es una oleada de venta forzada, que baja el precio, liquida más largos y forma una cascada hacia abajo. Es la imagen especular de un short squeeze."
+  - id: squeeze-steps
+    kind: ordering
+    prompt:
+      en: "Put the stages of a short squeeze in order, first to last."
+      es: "Ordena las fases de un short squeeze, de la primera a la última."
+    items:
+      - id: s1
+        position: 1
+        text:
+          en: "Price rises into a cluster of short positions."
+          es: "El precio sube hasta un clúster de posiciones cortas."
+      - id: s2
+        position: 2
+        text:
+          en: "Those shorts are force-closed — which means buying to close."
+          es: "Esos cortos se cierran por la fuerza, lo que significa comprar para cerrar."
+      - id: s3
+        position: 3
+        text:
+          en: "The forced buying pushes price higher."
+          es: "La compra forzada empuja el precio más arriba."
+      - id: s4
+        position: 4
+        text:
+          en: "The higher price liquidates even more shorts, and the move cascades up."
+          es: "El precio más alto liquida aún más cortos, y el movimiento forma una cascada hacia arriba."
+    explanation:
+      en: "A short squeeze feeds on itself: price reaches a short cluster, the forced closes are forced buys, that buying lifts price, which triggers more short liquidations — each step driving the next, cascading upward."
+      es: "Un short squeeze se alimenta a sí mismo: el precio alcanza un clúster de cortos, los cierres forzosos son compras forzadas, esa compra sube el precio, lo que dispara más liquidaciones de cortos; cada paso impulsa el siguiente, en cascada hacia arriba."
+  - id: terms-match
+    kind: matching
+    prompt:
+      en: "Match each term to what it describes."
+      es: "Empareja cada término con lo que describe."
+    pairs:
+      - id: ss
+        left:
+          en: "Short squeeze"
+          es: "Short squeeze"
+        right:
+          en: "Forced buying that cascades price upward"
+          es: "Compra forzada que forma una cascada del precio hacia arriba"
+      - id: ls
+        left:
+          en: "Long squeeze"
+          es: "Long squeeze"
+        right:
+          en: "Forced selling that cascades price downward"
+          es: "Venta forzada que forma una cascada del precio hacia abajo"
+      - id: cl
+        left:
+          en: "Liquidation cluster"
+          es: "Clúster de liquidaciones"
+        right:
+          en: "A price zone that acts like a magnet for volatile moves"
+          es: "Una zona de precio que actúa como un imán para los movimientos violentos"
+    explanation:
+      en: "A short squeeze is forced buying (shorts buying to close) cascading up; a long squeeze is forced selling (longs selling to close) cascading down; a liquidation cluster is the pool of would-be forced closes near one price that draws price toward it and turns volatile."
+      es: "Un short squeeze es compra forzada (cortos que compran para cerrar) en cascada hacia arriba; un long squeeze es venta forzada (largos que venden para cerrar) en cascada hacia abajo; un clúster de liquidaciones es la bolsa de cierres forzosos potenciales cerca de un mismo precio que atrae el precio hacia sí y lo vuelve volátil."

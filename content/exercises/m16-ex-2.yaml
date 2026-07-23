@@ -1,0 +1,141 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: greed-reading
+    prompt:
+      en: "The index is showing extreme greed. What does the contrarian reading suggest?"
+      es: "El índice marca codicia extrema. ¿Qué sugiere la lectura contraria?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The crowd is euphoric and heavily long, so get cautious — size down, tighten risk, stop chasing; few buyers may be left."
+          es: "La masa está eufórica y muy larga, así que ponte cauto: reduce tamaño, aprieta el riesgo y deja de perseguir; puede que queden pocos compradores."
+      - id: b
+        text:
+          en: "It confirms the uptrend is safe, so add leverage and buy more."
+          es: "Confirma que la tendencia alcista es segura, así que añade apalancamiento y compra más."
+      - id: c
+        text:
+          en: "Sell everything immediately — extreme greed is a precise top signal."
+          es: "Vende todo de inmediato: la codicia extrema es una señal precisa de techo."
+      - id: d
+        text:
+          en: "The index is broken and should be ignored entirely."
+          es: "El índice está roto y debe ignorarse por completo."
+    explanation:
+      en: "Extreme greed marks a crowded, one-sided zone that warrants caution, not excitement. It is not a precise 'sell now' trigger — extremes can persist — so you reduce risk on the crowded side, you don't blindly short or blindly add."
+      es: "La codicia extrema marca una zona saturada y unilateral que pide cautela, no euforia. No es un disparador preciso de \"vende ya\" —los extremos pueden persistir—, así que reduces riesgo en el lado saturado; no cortas a ciegas ni añades a ciegas."
+  - id: why-caution
+    prompt:
+      en: "Why does extreme greed warrant caution rather than excitement?"
+      es: "¿Por qué la codicia extrema pide cautela en lugar de entusiasmo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "If almost everyone who wanted to buy has already bought, there are few buyers left and many nervous late longs who will sell on a dip."
+          es: "Si casi todo el que quería comprar ya ha comprado, quedan pocos compradores y muchos largos tardíos y nerviosos que venderán a la primera caída."
+      - id: b
+        text:
+          en: "Because greed always flips to fear within twenty-four hours."
+          es: "Porque la codicia siempre se convierte en miedo en veinticuatro horas."
+      - id: c
+        text:
+          en: "Because exchanges raise their fees during greedy periods."
+          es: "Porque los exchanges suben sus comisiones en los periodos de codicia."
+      - id: d
+        text:
+          en: "Because euphoria guarantees an immediate crash."
+          es: "Porque la euforia garantiza un desplome inmediato."
+    explanation:
+      en: "The contrarian logic is about who is left to act: a fully-bought, euphoric crowd has little buying power in reserve and plenty of shaky longs. That makes the upside crowded — a reason for caution, not a guarantee of a timed crash."
+      es: "La lógica contraria trata de quién queda por actuar: una masa totalmente comprada y eufórica tiene poca capacidad de compra en reserva y muchos largos frágiles. Eso satura el lado alcista: un motivo de cautela, no la garantía de un desplome con fecha."
+  - id: terms-meaning
+    kind: matching
+    prompt:
+      en: "Match each sentiment term to what it means."
+      es: "Empareja cada término de sentimiento con su significado."
+    pairs:
+      - id: greed
+        left: { en: "Extreme greed", es: "Codicia extrema" }
+        right:
+          en: "The crowd is euphoric, leveraged and already long — a crowded zone that calls for caution."
+          es: "La masa está eufórica, apalancada y ya larga: una zona saturada que pide cautela."
+      - id: euphoria
+        left: { en: "Euphoria", es: "Euforia" }
+        right:
+          en: "Buying because price is rising and being unable to imagine it falling."
+          es: "Comprar porque el precio sube y ser incapaz de imaginar que baje."
+      - id: fear
+        left: { en: "Extreme fear", es: "Miedo extremo" }
+        right:
+          en: "The crowd is scared and close to giving up — a zone of interest near possible lows."
+          es: "La masa está asustada y cerca de rendirse: una zona de interés cerca de posibles mínimos."
+      - id: capitulation
+        left: { en: "Capitulation", es: "Capitulación" }
+        right:
+          en: "Holders surrender and sell at a loss just to stop the pain."
+          es: "Los tenedores se rinden y venden con pérdidas solo para dejar de sufrir."
+    explanation:
+      en: "Greed and fear describe the mood of the crowd; euphoria and capitulation are the emotional peaks at each end. None of them is a timing signal — they describe how one-sided the crowd is, not when it will turn."
+      es: "La codicia y el miedo describen el ánimo de la masa; la euforia y la capitulación son los picos emocionales de cada extremo. Ninguno es una señal de timing: describen cuán desequilibrada está la masa, no cuándo girará."
+  - id: euphoria-def
+    prompt:
+      en: "What does \"euphoria\" mean in this lesson?"
+      es: "¿Qué significa la \"euforia\" en esta lección?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The emotional state where people buy because price is rising and cannot imagine it falling."
+          es: "El estado emocional en el que la gente compra porque el precio sube y no es capaz de imaginar que baje."
+      - id: b
+        text:
+          en: "A calm, patient mood where traders wait for confirmation."
+          es: "Un ánimo tranquilo y paciente en el que los traders esperan confirmación."
+      - id: c
+        text:
+          en: "The exchange's celebration when trading volume hits a record."
+          es: "La celebración del exchange cuando el volumen alcanza un récord."
+      - id: d
+        text:
+          en: "A guaranteed signal that the top is exactly here."
+          es: "Una señal garantizada de que el techo está exactamente aquí."
+    explanation:
+      en: "Euphoria is the peak of greed: confidence so high that a fall feels impossible. That is precisely when late, nervous longs pile in — a reason for caution, not a dated top call."
+      es: "La euforia es el pico de la codicia: una confianza tan alta que una caída parece imposible. Es justo cuando se amontonan los largos tardíos y nerviosos: un motivo de cautela, no una llamada de techo con fecha."
+  - id: greed-not-sell-trigger
+    kind: true_false
+    prompt:
+      en: "When the index reaches extreme greed, the right move is to short immediately, because it marks the exact top."
+      es: "Cuando el índice llega a codicia extrema, lo correcto es cortar de inmediato, porque marca el techo exacto."
+    answer: false
+    explanation:
+      en: "Extreme greed is a crowded zone, not a timed top. It has lasted through entire bull runs; shorting the first extreme print is how contrarians get run over. Reduce risk on the crowded side and wait for your own confirmation."
+      es: "La codicia extrema es una zona saturada, no un techo con fecha. Ha durado rallies alcistas enteros; cortar en la primera lectura extrema es como acaban arrollados los contrarios. Reduce riesgo en el lado saturado y espera tu propia confirmación."
+  - id: crowded-long-scenario
+    prompt:
+      en: "The index is at 90 and everyone in your feed is leveraged long and posting green candles. What is the sober takeaway?"
+      es: "El índice está en 90 y todo tu feed está apalancado en largo y publicando velas verdes. ¿Cuál es la conclusión sensata?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The long side is crowded, so get more careful there — size down and stop chasing; it flags danger, not timing."
+          es: "El lado largo está saturado, así que sé más prudente ahí: reduce tamaño y deja de perseguir; señala peligro, no timing."
+      - id: b
+        text:
+          en: "Everyone agrees, so the trend is confirmed — add leverage and follow the crowd."
+          es: "Todos coinciden, así que la tendencia está confirmada: añade apalancamiento y sigue a la masa."
+      - id: c
+        text:
+          en: "Short with full size right now; agreement this strong is an exact top."
+          es: "Corta con tamaño completo ahora mismo; un acuerdo tan fuerte es un techo exacto."
+      - id: d
+        text:
+          en: "It means nothing — what other traders feel never affects price."
+          es: "No significa nada: lo que sienten otros traders nunca afecta al precio."
+    explanation:
+      en: "When almost everyone is already long, few buyers are left and many shaky longs will sell on a dip. That makes the upside crowded and risky — a reason to trim risk, not a green light to pile in, and not a dated top."
+      es: "Cuando casi todos ya están largos, quedan pocos compradores y muchos largos frágiles venderán a la primera caída. Eso satura y hace arriesgado el lado alcista: un motivo para recortar riesgo, no una luz verde para amontonarse ni un techo con fecha."

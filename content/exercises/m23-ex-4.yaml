@@ -1,0 +1,148 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: green-candles
+    prompt:
+      en: "A coin is running hard without you and every candle feels like money you're missing. You didn't plan this trade. What's the disciplined response?"
+      es: "Una moneda se dispara con fuerza sin ti y cada vela parece dinero que te estás perdiendo. No planificaste esta operación. ¿Cuál es la respuesta disciplinada?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Skip it — if you can't state your entry, stop and invalidation before clicking, it's a chase, not a trade."
+          es: "Déjala pasar: si no puedes decir tu entrada, tu stop y tu invalidación antes de hacer clic, es una persecución, no una operación."
+      - id: b
+        text:
+          en: "Get in now at market; with a move this strong, missing it is the real risk."
+          es: "Entra ya a mercado; con un movimiento así de fuerte, perdértelo es el verdadero riesgo."
+      - id: c
+        text:
+          en: "Enter with a very wide or no stop, since a strong trend won't come back to a tight one."
+          es: "Entra con un stop muy amplio o sin stop, ya que una tendencia fuerte no volverá a uno ajustado."
+      - id: d
+        text:
+          en: "Buy a small amount now and 'average up' as it keeps running."
+          es: "Compra una cantidad pequeña ahora y 'promedia al alza' según siga subiendo."
+    explanation:
+      en: "A FOMO entry has no plan by definition — the reason is 'price went up,' not that a setup appeared — and you arrive at the worst price, exactly where earlier buyers are ready to sell to you. Widening the stop (c) or averaging up into the move (d) just compounds it. There is always another setup."
+      es: "Una entrada por FOMO no tiene plan por definición —el motivo es 'el precio subió', no que apareciera un setup— y llegas al peor precio, justo donde los compradores anteriores están listos para vendértelo. Ensanchar el stop (c) o promediar al alza dentro del movimiento (d) solo lo agrava. Siempre hay otra oportunidad."
+  - id: fomo-rule
+    prompt:
+      en: "Which single rule most directly defuses FOMO entries?"
+      es: "¿Qué regla, por sí sola, desactiva de forma más directa las entradas por FOMO?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "No entry unless you can state its entry, stop and invalidation in advance."
+          es: "No hay entrada salvo que puedas decir de antemano su entrada, su stop y su invalidación."
+      - id: b
+        text:
+          en: "Always enter the moment price breaks to a new high, so you never miss a trend."
+          es: "Entrar siempre en el momento en que el precio rompe a un nuevo máximo, para no perderte nunca una tendencia."
+      - id: c
+        text:
+          en: "Increase your size on fast-moving coins to catch up on the profit you missed."
+          es: "Aumentar tu tamaño en las monedas que se mueven rápido para recuperar el beneficio que te perdiste."
+      - id: d
+        text:
+          en: "Trust that a big green candle confirms the move is safe to chase."
+          es: "Confiar en que una gran vela verde confirma que el movimiento es seguro de perseguir."
+    explanation:
+      en: "The cure for FOMO is a pre-commitment that a valid trade must be describable before you click. Options b, c and d are the chase disguised as strategy: entering on every breakout, sizing up to 'catch up,' and treating a green candle as confirmation are all ways of trading because price moved, not because a setup exists."
+      es: "La cura para el FOMO es un precompromiso: una operación válida tiene que poder describirse antes de hacer clic. Las opciones b, c y d son la persecución disfrazada de estrategia: entrar en cada ruptura, subir el tamaño para 'recuperar' y tratar una vela verde como confirmación son todas maneras de operar porque el precio se movió, no porque exista un setup."
+  - id: price-moving-myth
+    kind: true_false
+    prompt:
+      en: "When a coin is running hard, the fact that price is moving fast is by itself a good enough reason to enter."
+      es: "Cuando una moneda se dispara con fuerza, que el precio se mueva rápido es por sí solo motivo suficiente para entrar."
+    answer: false
+    explanation:
+      en: "A FOMO trade has no plan by definition: the reason is 'price went up', not that a setup appeared. You arrive at the worst price of the move, exactly where earlier buyers are getting ready to sell to you. There is always another setup."
+      es: "Una operación por FOMO no tiene plan por definición: el motivo es 'el precio subió', no que apareciera un setup. Llegas al peor precio del movimiento, justo donde los compradores anteriores se preparan para vendértelo. Siempre hay otra oportunidad."
+  - id: fomo-habits
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the habits that protect you from FOMO entries."
+      es: "Selecciona TODOS los hábitos que te protegen de las entradas por FOMO."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Requiring a stated entry, stop and invalidation before you click."
+          es: "Exigir una entrada, un stop y una invalidación dichos antes de hacer clic."
+      - id: b
+        correct: true
+        text:
+          en: "Accepting that there's always another setup and letting the runner go."
+          es: "Aceptar que siempre hay otra oportunidad y dejar marchar el movimiento."
+      - id: c
+        correct: true
+        text:
+          en: "Waiting for a setup you planned instead of reacting to a green candle."
+          es: "Esperar un setup que planificaste en lugar de reaccionar a una vela verde."
+      - id: d
+        text:
+          en: "Entering at market the moment you feel you're missing out."
+          es: "Entrar a mercado en el momento en que sientes que te lo estás perdiendo."
+      - id: e
+        text:
+          en: "Sizing up on fast-moving coins to catch up on missed profit."
+          es: "Subir el tamaño en monedas que se mueven rápido para recuperar el beneficio perdido."
+      - id: f
+        text:
+          en: "Treating a big green candle as confirmation it's safe to chase."
+          es: "Tratar una gran vela verde como confirmación de que es seguro perseguir."
+    explanation:
+      en: "The cure for FOMO is pre-commitment: a valid trade must be describable — entry, stop, invalidation — before you click, and you accept there's always another setup. Options d, e and f are the chase disguised as strategy, all of them trading because price moved rather than because a setup exists."
+      es: "La cura para el FOMO es el precompromiso: una operación válida tiene que poder describirse —entrada, stop, invalidación— antes de hacer clic, y aceptas que siempre hay otra oportunidad. Las opciones d, e y f son la persecución disfrazada de estrategia, todas operando porque el precio se movió y no porque exista un setup."
+  - id: worst-price
+    prompt:
+      en: "Why is chasing a coin that has already run hard usually a poor entry?"
+      es: "¿Por qué perseguir una moneda que ya se ha disparado suele ser una mala entrada?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "You arrive at the worst price of the move, exactly where earlier buyers are getting ready to sell to you."
+          es: "Llegas al peor precio del movimiento, justo donde los compradores anteriores se preparan para vendértelo."
+      - id: b
+        text:
+          en: "Late entries are fine, because a strong trend always keeps going."
+          es: "Las entradas tardías están bien, porque una tendencia fuerte siempre sigue."
+      - id: c
+        text:
+          en: "The only real downside is that fees are higher on fast-moving coins."
+          es: "El único inconveniente real es que las comisiones son más altas en monedas que se mueven rápido."
+      - id: d
+        text:
+          en: "It's safe as long as you use high leverage to make the late entry worthwhile."
+          es: "Es seguro mientras uses mucho apalancamiento para que la entrada tardía valga la pena."
+    explanation:
+      en: "Chasing means buying late, with no entry logic and no invalidation, right where the earlier buyers are ready to sell to you. Trends don't 'always continue' (b), the problem isn't fees (c), and leverage makes a bad entry worse, not safer (d)."
+      es: "Perseguir es comprar tarde, sin lógica de entrada ni invalidación, justo donde los compradores anteriores están listos para vendértelo. Las tendencias no 'siempre siguen' (b), el problema no son las comisiones (c) y el apalancamiento empeora una mala entrada, no la hace más segura (d)."
+  - id: trade-vs-chase
+    prompt:
+      en: "What is the defining difference between a trade and a chase?"
+      es: "¿Cuál es la diferencia que define una operación frente a una persecución?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A trade has a stated entry, stop and invalidation before you click; a chase is entered only because price moved."
+          es: "Una operación tiene entrada, stop e invalidación dichos antes de hacer clic; una persecución se entra solo porque el precio se movió."
+      - id: b
+        text:
+          en: "A trade uses leverage and a chase doesn't."
+          es: "Una operación usa apalancamiento y una persecución no."
+      - id: c
+        text:
+          en: "A trade is on Bitcoin and a chase is on altcoins."
+          es: "Una operación es en Bitcoin y una persecución es en altcoins."
+      - id: d
+        text:
+          en: "A trade ends in profit and a chase ends in a loss — you can only tell afterward."
+          es: "Una operación acaba en ganancia y una persecución en pérdida; solo lo sabes después."
+    explanation:
+      en: "The line isn't the instrument or the outcome — it's whether you could state the entry, stop and invalidation before clicking. If you can't, the reason for the trade is just that price went up, which is the definition of a chase, and you skip it."
+      es: "La línea no es el instrumento ni el resultado: es si podías decir la entrada, el stop y la invalidación antes de hacer clic. Si no puedes, el motivo de la operación es solo que el precio subió, que es la definición de una persecución, y la dejas pasar."
