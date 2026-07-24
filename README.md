@@ -74,6 +74,13 @@ Open <http://localhost:5173>, register an account, and review the full course:
   to real money. Each lesson is bilingual (ES + EN)
   with server-generated, server-graded exercises, end to end: lesson → attempt → answer → grading
   with the instantiated solution → progress & statistics.
+- **The conditions, not only the chart:** open interest read with price, funding as positioning, and
+  the **basis** (perp vs spot) as a leverage-mania thermometer whose violent dislocations mark
+  squeeze exhaustion; liquidity maps; the **session map inside the 24/7 clock** (where liquidity
+  actually is, the weekend range and the Monday sweep that takes it); and a head-on demonstration
+  that **leverage is not risk** — the same trade at 5× and 20× carries identical size and identical
+  monetary risk, differing only in collateral posted and in where liquidation sits relative to the
+  stop, which is the one criterion for choosing it.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
   matching); multiple-choice **calculations** whose distractors are instantiated common mistakes
   (`Decimal` end to end); and **chart-reading** exercises — divergences plus fakeouts, Wyckoff,

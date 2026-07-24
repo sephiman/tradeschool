@@ -134,3 +134,62 @@ variants:
     explanation:
       en: "A market with no close means opportunity is always 'on' — and so is the temptation. The freedom to trade at any hour is the same thing as the freedom to over-trade at any hour."
       es: "Un mercado sin cierre significa que la oportunidad siempre está 'encendida', y también la tentación. La libertad de operar a cualquier hora es lo mismo que la libertad de sobreoperar a cualquier hora."
+  - id: deepest-session
+    prompt:
+      en: "Crypto never closes, but its liquidity is not spread evenly. When is the book typically deepest?"
+      es: "El cripto nunca cierra, pero su liquidez no está repartida por igual. ¿Cuándo es más profundo el libro habitualmente?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "During the London/New York overlap, roughly 13:00–16:00 UTC, when both sets of desks are staffed."
+          es: "Durante el solapamiento Londres/Nueva York, más o menos de 13:00 a 16:00 UTC, cuando las mesas de ambos lados están con gente."
+      - id: b
+        text:
+          en: "Over the weekend, when retail traders finally have free time."
+          es: "El fin de semana, cuando los traders minoristas tienen por fin tiempo libre."
+      - id: c
+        text:
+          en: "It is identical at every hour — that is what 24/7 means."
+          es: "Es idéntico a cualquier hora: eso es lo que significa 24/7."
+      - id: d
+        text:
+          en: "In the small hours of the Asian session, when algorithms trade unopposed."
+          es: "En la madrugada de la sesión asiática, cuando los algoritmos operan sin oposición."
+    explanation:
+      en: "Liquidity is people and their machines, and both keep office hours. London (~07:00–16:00 UTC) and New York (~13:00–21:00 UTC) carry the size, and their overlap is the deepest book of the day. The Asian session runs thinner and weekends thinner still — 'always open' is not 'always the same'."
+      es: "La liquidez son personas y sus máquinas, y ambas tienen horario de oficina. Londres (~07:00–16:00 UTC) y Nueva York (~13:00–21:00 UTC) llevan el volumen, y su solapamiento es el libro más profundo del día. La sesión asiática va más fina y los fines de semana aún más: \"siempre abierto\" no es \"siempre igual\"."
+  - id: weekend-range-monday
+    prompt:
+      en: "BTC ranges quietly between 59,400 and 60,600 all weekend. On Monday morning price wicks to 59,100 and closes back inside the range. What most likely happened?"
+      es: "BTC se mueve tranquilo en un rango entre 59.400 y 60.600 todo el fin de semana. El lunes por la mañana el precio hace una mecha hasta 59.100 y cierra de vuelta dentro del rango. ¿Qué ocurrió con mayor probabilidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Real size returned to the book and swept the stops that had piled up just beyond the weekend range low."
+          es: "El volumen real volvió al libro y barrió los stops que se habían acumulado justo más allá del mínimo del rango del fin de semana."
+      - id: b
+        text:
+          en: "A genuine trend change — the range low broke, so the downtrend is confirmed."
+          es: "Un cambio de tendencia genuino: el mínimo del rango se rompió, así que la tendencia bajista queda confirmada."
+      - id: c
+        text:
+          en: "Nothing meaningful; Monday behaves like any other hour in a 24/7 market."
+          es: "Nada significativo; el lunes se comporta como cualquier otra hora en un mercado 24/7."
+      - id: d
+        text:
+          en: "The exchange re-opened after its weekend maintenance window."
+          es: "El exchange reabrió tras su ventana de mantenimiento de fin de semana."
+    explanation:
+      en: "A quiet weekend builds a low-volume range whose obvious high and low collect stops. The Monday institutional reopen is the predictable hour at which something large enough to take that liquidity arrives — m17-l2's liquidity pocket, scheduled by the clock. The poke-and-reclaim is the sweep signature, not a trend change."
+      es: "Un fin de semana tranquilo construye un rango de poco volumen cuyos máximo y mínimo obvios acumulan stops. La reapertura institucional del lunes es la hora previsible a la que llega algo lo bastante grande para tomar esa liquidez: la bolsa de liquidez de m17-l2, programada por el reloj. El perforar y recuperar es la firma del barrido, no un cambio de tendencia."
+  - id: weight-signal-by-session
+    kind: true_false
+    prompt:
+      en: "A breakout that prints at 04:00 UTC on a Sunday deserves the same weight as the identical breakout during the London/New York overlap."
+      es: "Una ruptura que se imprime a las 04:00 UTC de un domingo merece el mismo peso que la ruptura idéntica durante el solapamiento Londres/Nueva York."
+    answer: false
+    explanation:
+      en: "Same shape, different evidence. A level broken against a deep book means real buyers overcame real sellers; a level broken in a thin session may only mean nobody was there to defend it. m08-l2 makes this point about a single candle; it generalises to every signal — a thin-session break usually needs confirmation from an active session before you act on it."
+      es: "Misma forma, pruebas distintas. Un nivel roto contra un libro profundo significa que compradores reales superaron a vendedores reales; un nivel roto en una sesión fina puede significar solo que no había nadie para defenderlo. m08-l2 hace esta observación sobre una vela suelta; se generaliza a toda señal: una ruptura en sesión fina suele necesitar la confirmación de una sesión activa antes de que actúes."

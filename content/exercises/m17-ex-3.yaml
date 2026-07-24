@@ -140,6 +140,65 @@ variants:
     explanation:
       en: "Because a perp never settles at an expiry, the funding payment is the mechanism that keeps its price tethered to spot: when the perp drifts above spot, longs pay shorts; below spot, shorts pay longs. It's a tethering tool between traders — not a forecast, an exchange fee, or a dividend."
       es: "Como un perpetuo nunca liquida a vencimiento, el pago de funding es el mecanismo que mantiene su precio anclado al spot: cuando el perpetuo se aleja por encima del spot, los largos pagan a los cortos; por debajo del spot, los cortos pagan a los largos. Es una herramienta de anclaje entre traders: no un pronóstico, ni una comisión del exchange, ni un dividendo."
+  - id: basis-definition
+    prompt:
+      en: "Spot BTC is 60,000 and the BTC perpetual trades 60,300. What is that gap, and what does it usually come with?"
+      es: "El BTC spot está en 60.000 y el perpetuo de BTC cotiza a 60.300. ¿Qué es ese hueco y con qué suele venir acompañado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A basis of +300, a 0.5% premium — the perp is rich over spot, so expect strongly positive funding alongside it."
+          es: "Una base de +300, una prima del 0,5%: el perpetuo está caro sobre el spot, así que espera un funding fuertemente positivo junto a ello."
+      - id: b
+        text:
+          en: "A 0.5% discount, which means shorts are paying longs."
+          es: "Un descuento del 0,5%, lo que significa que los cortos pagan a los largos."
+      - id: c
+        text:
+          en: "An arbitrage that is impossible in crypto, since perp and spot are always the same price."
+          es: "Un arbitraje imposible en cripto, ya que el perpetuo y el spot siempre valen lo mismo."
+      - id: d
+        text:
+          en: "The exchange's trading fee on the perpetual, expressed in price terms."
+          es: "La comisión de trading del exchange en el perpetuo, expresada en precio."
+    explanation:
+      en: "The basis is perp minus spot: 60,300 − 60,000 = 300, or 0.5% of spot — a premium. Perp above spot is exactly what makes funding positive, so the two readings arrive together: the basis measures how much the crowd overpays for leverage, funding measures what that overpayment costs per interval."
+      es: "La base es el perpetuo menos el spot: 60.300 − 60.000 = 300, o el 0,5% del spot: una prima. Que el perpetuo esté por encima del spot es justo lo que hace positivo el funding, así que las dos lecturas llegan juntas: la base mide cuánto paga de más la masa por el apalancamiento y el funding mide lo que ese sobreprecio cuesta por intervalo."
+  - id: basis-premium-not-direction
+    kind: true_false
+    prompt:
+      en: "A perpetual trading at a sustained premium over spot is a bullish signal, because it shows the market expects higher prices."
+      es: "Un perpetuo que cotiza con una prima sostenida sobre el spot es una señal alcista, porque muestra que el mercado espera precios más altos."
+    answer: false
+    explanation:
+      en: "A sustained premium says the leveraged long side is crowded and paying up for the privilege — a positioning reading, exactly like funding, not a forecast. Crowded positioning is fragile positioning. The small, steady premium of a calm bull market is just the ordinary price of leverage; only the extreme carries information."
+      es: "Una prima sostenida dice que el lado largo apalancado está concurrido y pagando de más por el privilegio: una lectura de posicionamiento, igual que el funding, no un pronóstico. El posicionamiento concurrido es posicionamiento frágil. La prima pequeña y constante de un mercado alcista tranquilo es solo el precio corriente del apalancamiento; solo el extremo lleva información."
+  - id: basis-dislocation
+    prompt:
+      en: "During a fast upward move the perpetual suddenly trades 1.5% above spot while spot itself barely budges. What is the honest read?"
+      es: "Durante un movimiento rápido al alza, el perpetuo pasa de golpe a cotizar un 1,5% por encima del spot mientras el spot apenas se mueve. ¿Cuál es la lectura honesta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The buying is forced flow on the contract — squeeze mechanics — so read it as local exhaustion, not as a trend starting."
+          es: "La compra es flujo forzado sobre el contrato —mecánica de squeeze—, así que léelo como agotamiento local, no como el inicio de una tendencia."
+      - id: b
+        text:
+          en: "Organic demand for the asset has arrived; the dislocation confirms the breakout."
+          es: "Ha llegado demanda orgánica del activo; la dislocación confirma la ruptura."
+      - id: c
+        text:
+          en: "The spot market is broken and its price should be ignored."
+          es: "El mercado spot está roto y hay que ignorar su precio."
+      - id: d
+        text:
+          en: "Nothing — perp and spot routinely sit 1.5% apart on major coins."
+          es: "Nada: el perpetuo y el spot suelen estar a un 1,5% de distancia en las monedas grandes."
+    explanation:
+      en: "Forced closes land on the perpetual, not on spot: a liquidated short is force-bought on the contract, so the perp overshoots while the coin barely moves. Organic demand would show in spot and pull the perp behind it. Forced bids come from a finite pool of trapped positions, so a wild premium spike is a late-stage, exhaustion signature — and the basis usually collapses back toward zero as the cascade finishes."
+      es: "Los cierres forzados caen sobre el perpetuo, no sobre el spot: un corto liquidado es una compra forzada del contrato, así que el perpetuo se pasa mientras la moneda apenas se mueve. La demanda orgánica se vería en el spot y arrastraría al perpetuo detrás. La demanda forzada sale de una bolsa finita de posiciones atrapadas, así que un pico salvaje de prima es una firma tardía, de agotamiento, y la base suele derrumbarse hacia cero a medida que la cascada termina."
   - id: daily-vs-extreme
     kind: true_false
     prompt:

@@ -136,3 +136,62 @@ variants:
     explanation:
       en: "The formula does not change; the honest choice of fraction does. A normal eight-loss streak is roughly 8% of the account either way, but the fast trader meets it before dinner while the slow one meets it spread over a month. That is one honest reason faster styles sit at the low end (0.5% rather than 1%) and cap the day as well as the trade."
       es: "La fórmula no cambia; la elección honesta de la fracción sí. Una racha normal de ocho pérdidas es en torno al 8% de la cuenta en los dos casos, pero el trader rápido se la encuentra antes de cenar y el lento repartida en un mes. Esa es una razón honesta para que los estilos rápidos se queden en la parte baja (0,5% en vez de 1%) y limiten el día además de la operación."
+  - id: leverage-same-size
+    prompt:
+      en: "Same trade, same 1% risk, same entry and same stop distance, taken at 5× and then at 20×. What is different between the two versions?"
+      es: "La misma operación, el mismo riesgo del 1%, la misma entrada y la misma distancia de stop, tomada a 5× y luego a 20×. ¿Qué es distinto entre las dos versiones?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Only the collateral posted and how far liquidation sits from the stop — position size and money risked are identical."
+          es: "Solo el colateral depositado y a qué distancia queda la liquidación del stop: el tamaño de posición y el dinero arriesgado son idénticos."
+      - id: b
+        text:
+          en: "The 20× version holds four times the position and risks four times the money."
+          es: "La versión de 20× mantiene cuatro veces la posición y arriesga cuatro veces el dinero."
+      - id: c
+        text:
+          en: "The 20× version needs a wider stop, since higher leverage moves faster."
+          es: "La versión de 20× necesita un stop más ancho, ya que el apalancamiento alto se mueve más rápido."
+      - id: d
+        text:
+          en: "Nothing at all — the leverage setting has no effect on anything."
+          es: "Nada en absoluto: el ajuste de apalancamiento no afecta a nada."
+    explanation:
+      en: "Size = risk budget ÷ stop distance, and neither input mentions leverage: 100 ÷ 2,000 = 0.05 BTC at 5× and at 20×, losing exactly 100 USDT at the stop either way. What the setting changes is the margin posted (600 vs 150 USDT on a 3,000 notional) and the liquidation price — 48,300 at 5×, 57,300 at 20× — i.e. how much room is left behind your stop."
+      es: "Tamaño = presupuesto de riesgo ÷ distancia del stop, y ninguno de los dos datos menciona el apalancamiento: 100 ÷ 2.000 = 0,05 BTC a 5× y a 20×, perdiendo exactamente 100 USDT en el stop en ambos casos. Lo que cambia el ajuste es el margen depositado (600 frente a 150 USDT sobre un nocional de 3.000) y el precio de liquidación —48.300 a 5×, 57.300 a 20×—, es decir, cuánto espacio queda detrás de tu stop."
+  - id: liquidation-inside-stop
+    prompt:
+      en: "Long from 60,000 with your stop at 58,000. You crank the leverage until the liquidation price computes to 58,300. What have you done?"
+      es: "Largo desde 60.000 con tu stop en 58.000. Subes el apalancamiento hasta que el precio de liquidación sale en 58.300. ¿Qué has hecho?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Made liquidation the effective stop — the exchange now closes you 300 points before your own stop is reached."
+          es: "Has convertido la liquidación en el stop efectivo: el exchange te cierra ahora 300 puntos antes de que se llegue a tu propio stop."
+      - id: b
+        text:
+          en: "Nothing important — the stop at 58,000 still protects you first."
+          es: "Nada importante: el stop en 58.000 sigue protegiéndote primero."
+      - id: c
+        text:
+          en: "Reduced your risk, because the position is now closed sooner."
+          es: "Has reducido tu riesgo, porque la posición se cierra antes."
+      - id: d
+        text:
+          en: "Increased your position size, which is why liquidation moved."
+          es: "Has aumentado tu tamaño de posición, que es por lo que se movió la liquidación."
+    explanation:
+      en: "With liquidation at 58,300 and the stop at 58,000, price hits the exchange's forced close first: you lose the planned exit and the position cannot be re-opened at your intended price. That crossing point is the whole criterion for picking leverage — liquidation must never be your effective stop, and a violent wick can fill you further out than your stop price, so leave real room rather than 300 points."
+      es: "Con la liquidación en 58.300 y el stop en 58.000, el precio llega primero al cierre forzado del exchange: pierdes la salida planificada y la posición no se puede reabrir a tu precio previsto. Ese punto de cruce es todo el criterio para elegir apalancamiento: la liquidación nunca debe ser tu stop efectivo, y una mecha violenta puede ejecutarte más lejos que tu precio de stop, así que deja margen real y no 300 puntos."
+  - id: leverage-risk-myth
+    kind: true_false
+    prompt:
+      en: "Taking the same trade — same entry, same stop, same 1% risk — at 20× instead of 5× makes it four times riskier."
+      es: "Tomar la misma operación —misma entrada, mismo stop, mismo riesgo del 1%— a 20× en vez de a 5× la hace cuatro veces más arriesgada."
+    answer: false
+    explanation:
+      en: "The money at risk is set by the position size and the stop, and the size came from the stop, not the leverage: 100 USDT is lost at the stop in both versions. Leverage is a capital-efficiency setting (600 vs 150 USDT of margin). Its real danger is different in kind, not four times bigger: pushed far enough, the liquidation price creeps inside your stop distance and the exchange takes over your exit."
+      es: "El dinero en riesgo lo fijan el tamaño de la posición y el stop, y el tamaño salió del stop, no del apalancamiento: se pierden 100 USDT en el stop en las dos versiones. El apalancamiento es un ajuste de eficiencia del capital (600 frente a 150 USDT de margen). Su peligro real es de otra naturaleza, no cuatro veces mayor: llevado lo bastante lejos, el precio de liquidación se mete dentro de tu distancia de stop y el exchange se queda con tu salida."
