@@ -5,7 +5,7 @@ from typing import Any
 
 from httpx import AsyncClient
 
-CREDS = {"email": "student@example.com", "password": "correcthorse"}
+CREDS = {"username": "student", "password": "correcthorse"}
 
 
 async def _auth(client: AsyncClient) -> None:
@@ -62,6 +62,11 @@ async def test_course_tree_shape(content_client: AsyncClient) -> None:
     await _auth(content_client)
     course = (await content_client.get("/api/course")).json()
     assert [b["id"] for b in course["blocks"]] == ["block-a", "block-b", "block-c", "block-d", "block-e"]
+
+    # Root course identity for the header (localized; sourced from the manifest).
+    assert course["course"]["id"] == "crypto-futures"
+    assert course["course"]["title"] and course["course"]["description"]
+    assert "started" in course
 
     m01 = _module(course, "m01")
     assert m01["hasContent"] is True and m01["lessonsTotal"] == 1

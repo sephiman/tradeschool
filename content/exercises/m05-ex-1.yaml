@@ -2,8 +2,8 @@
 type: calculation
 formula: initial_margin
 prompt:
-  en: "You open a long on BTC at an entry price of **{entry}** USDT, buying **{quantity}** BTC at **{leverage}×** leverage. How much initial margin (in USDT) must you post to open the position? Round to 2 decimals."
-  es: "Abres un long en BTC a un precio de entrada de **{entry}** USDT, comprando **{quantity}** BTC con **{leverage}×** de apalancamiento. ¿Cuánto margen inicial (en USDT) debes depositar para abrir la posición? Redondea a 2 decimales."
+  en: "You open a long on BTC at an entry price of **{entry}** USDT, buying **{quantity}** BTC at **{leverage}×** leverage. How much initial margin (in USDT) must you post to open the position?"
+  es: "Abres un long en BTC a un precio de entrada de **{entry}** USDT, comprando **{quantity}** BTC con **{leverage}×** de apalancamiento. ¿Cuánto margen inicial (en USDT) debes depositar para abrir la posición?"
 params:
   entry: { kind: int_range, min: 20000, max: 70000, step: 100 }
   quantity: { kind: choice, values: ["0.1", "0.25", "0.5", "1", "2"] }

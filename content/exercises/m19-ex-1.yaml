@@ -2,8 +2,8 @@
 type: calculation
 formula: position_size_from_risk
 prompt:
-  en: "Your account equity is **{equity}** USDT and you risk **{risk_pct}** of it on this trade. Your stop sits **{stop_distance}** away from your entry (in price). How many units should you buy so that being stopped out loses exactly your risk budget? Round to 4 decimals."
-  es: "El capital de tu cuenta es de **{equity}** USDT y arriesgas **{risk_pct}** de él en esta operación. Tu stop está a **{stop_distance}** de tu entrada (en precio). ¿Cuántas unidades debes comprar para que, si te salta el stop, pierdas exactamente tu presupuesto de riesgo? Redondea a 4 decimales."
+  en: "Your account equity is **{equity}** USDT and you risk **{risk_pct}** of it on this trade. Your stop sits **{stop_distance}** away from your entry (in price). How many units should you buy so that being stopped out loses exactly your risk budget?"
+  es: "El capital de tu cuenta es de **{equity}** USDT y arriesgas **{risk_pct}** de él en esta operación. Tu stop está a **{stop_distance}** de tu entrada (en precio). ¿Cuántas unidades debes comprar para que, si te salta el stop, pierdas exactamente tu presupuesto de riesgo?"
 params:
   equity: { kind: int_range, min: 2000, max: 20000, step: 500 }
   risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }

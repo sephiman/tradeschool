@@ -23,7 +23,10 @@
   "auth": {
     "loginTitle": "Inicia sesión",
     "registerTitle": "Crea tu cuenta",
-    "email": "Correo",
+    "username": "Usuario",
+    "usernameHint": "3–32 caracteres: minúsculas, números, - y _.",
+    "usernameInvalid": "El usuario debe tener 3–32 caracteres: minúsculas, números, guion y guion bajo.",
+    "signedInAs": "Sesión iniciada como",
     "password": "Contraseña",
     "loginAction": "Iniciar sesión",
     "registerAction": "Crear cuenta",
@@ -34,7 +37,7 @@
     "passwordTooShort": "La contraseña debe tener al menos {{count}} caracteres."
   },
   "course": {
-    "intro": "Todo el curso está abierto desde el primer día. El siguiente paso sugerido sigue el orden canónico; los prerrequisitos son un consejo, nunca una barrera.",
+    "prereqFootnote": "Los prerrequisitos son un consejo, nunca una barrera: todo el curso está abierto desde el primer día, en cualquier orden.",
     "suggestedNext": "Sugerido",
     "completed": "Completado",
     "comingSoon": "Próximamente",
@@ -45,7 +48,8 @@
     "markComplete": "Marcar lección como completada",
     "markedComplete": "Lección marcada como completada",
     "markCompleteConfirm": "Aún no has probado todos los ejercicios de esta lección. ¿Marcarla como completada igualmente?",
-    "next": "Siguiente: {{step}}"
+    "next": "Siguiente: {{step}}",
+    "continue": "Continuar: {{step}}"
   },
   "exercise": {
     "comingSoon": "Ejercicio interactivo — llega en el siguiente incremento.",
@@ -110,9 +114,9 @@
     "RATE_LIMITED": "Demasiados intentos. Espera e inténtalo de nuevo.",
     "NOT_FOUND": "No encontrado.",
     "UNAUTHORIZED": "Inicia sesión para continuar.",
-    "USER_ALREADY_EXISTS": "Ya existe una cuenta con este correo.",
+    "USER_ALREADY_EXISTS": "Ese usuario ya está en uso.",
     "INVALID_PASSWORD": "Esa contraseña no está permitida.",
-    "LOGIN_BAD_CREDENTIALS": "Correo o contraseña incorrectos."
+    "LOGIN_BAD_CREDENTIALS": "Usuario o contraseña incorrectos."
   },
   "chartLabel": {
     "genuine_breakout": "Ruptura genuina",

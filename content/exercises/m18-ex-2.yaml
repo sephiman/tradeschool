@@ -2,8 +2,8 @@
 type: calculation
 formula: fdv
 prompt:
-  en: "A token trades at **{price} USD** and its maximum supply is **{max_supply} million tokens** (every token that will ever exist). What is its fully-diluted valuation (FDV)? Give the answer in million USD, rounded to 2 decimals."
-  es: "Un token cotiza a **{price} USD** y su suministro máximo es de **{max_supply} millones de tokens** (todos los que existirán jamás). ¿Cuál es su valoración totalmente diluida (FDV)? Da la respuesta en millones de USD, redondeada a 2 decimales."
+  en: "A token trades at **{price} USD** and its maximum supply is **{max_supply} million tokens** (every token that will ever exist). What is its fully-diluted valuation (FDV)? Give the answer in million USD."
+  es: "Un token cotiza a **{price} USD** y su suministro máximo es de **{max_supply} millones de tokens** (todos los que existirán jamás). ¿Cuál es su valoración totalmente diluida (FDV)? Da la respuesta en millones de USD."
 params:
   price: { kind: choice, values: ["0.5", "1.2", "3.5", "12", "85"] }
   max_supply: { kind: int_range, min: 500, max: 8000, step: 50 }

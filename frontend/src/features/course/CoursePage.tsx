@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { getCourse, type CourseModule } from "@/api/course";
+import { flattenLessons, resumeTarget, stepLabel } from "@/features/course/courseNav";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 
@@ -86,6 +87,29 @@ export function CoursePage() {
     return null;
   }, [course]);
 
+  // Continue = the first not-yet-completed lesson in canonical order (same resolution as the
+  // lesson-end "Next" link). Shown only once the learner has begun; fresh accounts see the
+  // "Suggested next" badge instead.
+  const resume = useMemo(() => (course ? resumeTarget(flattenLessons(course)) : null), [course]);
+
+  // Compact overall progress for the header (across published content only — modules without a
+  // lesson contribute 0 to both totals).
+  const totals = useMemo(() => {
+    let lessonsDone = 0;
+    let lessonsTotal = 0;
+    let exDone = 0;
+    let exTotal = 0;
+    for (const block of course?.blocks ?? []) {
+      for (const m of block.modules) {
+        lessonsTotal += m.lessonsTotal;
+        lessonsDone += m.lessonsCompleted;
+        exTotal += m.exercisesTotal;
+        exDone += m.exercisesPassed;
+      }
+    }
+    return { lessonsDone, lessonsTotal, exDone, exTotal };
+  }, [course]);
+
   if (isLoading || !course) {
     return (
       <div className="flex justify-center py-16 text-gray-500">
@@ -97,9 +121,24 @@ export function CoursePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">{t("nav.course")}</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t("course.intro")}</p>
+        <h1 className="text-2xl font-bold">{course.course.title}</h1>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{course.course.description}</p>
+        {course.started && (
+          <p className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+            {t("course.lessonProgress", { done: totals.lessonsDone, total: totals.lessonsTotal })}
+            {" · "}
+            {t("course.exerciseProgress", { done: totals.exDone, total: totals.exTotal })}
+          </p>
+        )}
       </div>
+      {course.started && resume && (
+        <Link to={`/lessons/${resume.lessonId}`} className="block">
+          <Card className="flex items-center justify-between gap-3 border-primary bg-primary/5 p-4 transition-colors hover:bg-primary/10 dark:bg-primary/10 dark:hover:bg-primary/20">
+            <span className="font-medium text-primary">{t("course.continue", { step: stepLabel(resume) })}</span>
+            <span aria-hidden className="text-primary">→</span>
+          </Card>
+        </Link>
+      )}
       {course.blocks.map((block) => (
         <section key={block.id}>
           <h2 className="mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
@@ -112,6 +151,9 @@ export function CoursePage() {
           </div>
         </section>
       ))}
+      <p className="border-t border-border pt-4 text-xs text-gray-400 dark:border-gray-800 dark:text-gray-500">
+        {t("course.prereqFootnote")}
+      </p>
     </div>
   );
 }

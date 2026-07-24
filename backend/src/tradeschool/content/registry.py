@@ -116,6 +116,15 @@ class CourseRegistry:
         _, module = self._modules[module_id]
         return [ex.id for lesson in module.lessons for ex in lesson.exercises]
 
+    def course_meta(self, locale: str) -> dict[str, str]:
+        """Root course identity for the course-page header (localized)."""
+        course = self.manifest.course
+        return {
+            "id": course.id,
+            "title": course.title.get(locale),
+            "description": course.description.get(locale),
+        }
+
     def course_tree(
         self,
         locale: str,

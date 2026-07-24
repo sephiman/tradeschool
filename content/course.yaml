@@ -1,5 +1,14 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-# TradeSchool course manifest — blocks → modules → lessons → exercises (stable ids, order = list position).
+# TradeSchool course manifest — course → blocks → modules → lessons → exercises (stable ids, order = list position).
+# IDs are globally unique; a future course must namespace its ids (see content/README.md).
+course:
+  id: crypto-futures
+  title:
+    en: Crypto Futures, from Zero
+    es: Futuros de cripto, desde cero
+  description:
+    en: "From absolute zero to trading crypto perpetual futures with real risk management — read the market, size positions, and survive leverage."
+    es: "Desde cero absoluto hasta operar futuros perpetuos de cripto con gestión de riesgo real: leer el mercado, dimensionar posiciones y sobrevivir al apalancamiento."
 blocks:
 - id: block-a
   title:

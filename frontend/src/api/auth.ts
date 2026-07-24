@@ -4,7 +4,7 @@ export type Locale = "en" | "es";
 
 export interface Me {
   id: string;
-  email: string;
+  username: string;
   locale: Locale;
 }
 
@@ -13,13 +13,13 @@ export async function getMe(): Promise<Me> {
   return data;
 }
 
-export async function login(email: string, password: string): Promise<Me> {
-  const { data } = await apiClient.post<Me>("/auth/login", { email, password });
+export async function login(username: string, password: string): Promise<Me> {
+  const { data } = await apiClient.post<Me>("/auth/login", { username, password });
   return data;
 }
 
-export async function register(email: string, password: string, locale: Locale): Promise<Me> {
-  const { data } = await apiClient.post<Me>("/auth/register", { email, password, locale });
+export async function register(username: string, password: string, locale: Locale): Promise<Me> {
+  const { data } = await apiClient.post<Me>("/auth/register", { username, password, locale });
   return data;
 }
 

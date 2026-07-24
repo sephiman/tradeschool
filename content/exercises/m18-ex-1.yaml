@@ -2,8 +2,8 @@
 type: calculation
 formula: market_cap
 prompt:
-  en: "A token trades at **{price} USD** and its circulating supply is **{circulating} million tokens**. What is its market capitalisation? Give the answer in million USD, rounded to 2 decimals."
-  es: "Un token cotiza a **{price} USD** y su suministro circulante es de **{circulating} millones de tokens**. ¿Cuál es su capitalización de mercado? Da la respuesta en millones de USD, redondeada a 2 decimales."
+  en: "A token trades at **{price} USD** and its circulating supply is **{circulating} million tokens**. What is its market capitalisation? Give the answer in million USD."
+  es: "Un token cotiza a **{price} USD** y su suministro circulante es de **{circulating} millones de tokens**. ¿Cuál es su capitalización de mercado? Da la respuesta en millones de USD."
 params:
   price: { kind: choice, values: ["0.5", "1.2", "3.5", "12", "85"] }
   circulating: { kind: int_range, min: 50, max: 1500, step: 10 }

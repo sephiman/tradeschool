@@ -50,6 +50,14 @@ async def _completed_lesson_ids(session: AsyncSession, user_id: uuid.UUID) -> se
     return set(rows.all())
 
 
+async def _has_any_attempt(session: AsyncSession, user_id: uuid.UUID) -> bool:
+    """Whether the user has ever started an exercise — the 'has begun the course' signal."""
+    row = await session.scalar(
+        select(Attempt.exercise_id).where(Attempt.user_id == user_id).limit(1)
+    )
+    return row is not None
+
+
 async def _passed_exercise_ids(session: AsyncSession, user_id: uuid.UUID) -> set[str]:
     """Exercises the user has answered correctly at least once — the mastery signal (≠ reading)."""
     rows = await session.scalars(
@@ -79,7 +87,14 @@ async def get_course(
     locale = _resolve_locale(lang, user)
     completed = await _completed_lesson_ids(session, user.id)
     passed = await _passed_exercise_ids(session, user.id)
-    return {"locale": locale, "blocks": registry.course_tree(locale, completed, passed)}
+    # `started` drives the course page's Continue CTA (hidden for a fresh account).
+    started = bool(completed) or await _has_any_attempt(session, user.id)
+    return {
+        "locale": locale,
+        "started": started,
+        "course": registry.course_meta(locale),
+        "blocks": registry.course_tree(locale, completed, passed),
+    }
 
 
 @router.get("/course/export")

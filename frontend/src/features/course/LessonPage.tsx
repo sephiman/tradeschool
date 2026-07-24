@@ -7,6 +7,7 @@ import { listAttempts } from "@/api/exercises";
 import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
 import { LessonFigure } from "@/features/course/LessonFigure";
+import { currentAndNext, flattenLessons, stepLabel } from "@/features/course/courseNav";
 import { LessonMarkdown } from "@/lib/markdown";
 
 export function LessonPage() {
@@ -22,22 +23,10 @@ export function LessonPage() {
   const { data: course } = useQuery({ queryKey: ["course", lang], queryFn: getCourse });
 
   // Canonical order across module boundaries, so the lesson knows where "back" and "next" lead.
-  const nav = useMemo(() => {
-    if (!course) return null;
-    const flat = course.blocks.flatMap((b) =>
-      b.modules.flatMap((m) =>
-        m.lessons.map((l) => ({
-          lessonId: l.id,
-          lessonTitle: l.title,
-          moduleId: m.id,
-          moduleTitle: m.title,
-          lessonsTotal: m.lessonsTotal,
-        })),
-      ),
-    );
-    const i = flat.findIndex((x) => x.lessonId === lessonId);
-    return { current: i >= 0 ? flat[i] : null, next: i >= 0 ? (flat[i + 1] ?? null) : null };
-  }, [course, lessonId]);
+  const nav = useMemo(
+    () => (course ? currentAndNext(flattenLessons(course), lessonId) : null),
+    [course, lessonId],
+  );
 
   const complete = useMutation({
     mutationFn: () => completeLesson(lessonId),
@@ -82,13 +71,7 @@ export function LessonPage() {
   const nextStep = !nav
     ? null
     : nav.next
-      ? {
-          to: `/lessons/${nav.next.lessonId}`,
-          label:
-            nav.next.moduleId !== lesson.moduleId
-              ? `${nav.next.moduleId.toUpperCase()} · ${nav.next.moduleTitle}`
-              : nav.next.lessonTitle,
-        }
+      ? { to: `/lessons/${nav.next.lessonId}`, label: stepLabel(nav.next, lesson.moduleId) }
       : { to: "/stats", label: t("nav.progress") };
 
   return (

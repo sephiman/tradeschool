@@ -57,8 +57,19 @@ class ManifestBlock(BaseModel):
     modules: list[ManifestModule] = Field(default_factory=list)
 
 
+class ManifestCourse(BaseModel):
+    """The root course entity. Its blocks live at the manifest's top level (a single course today;
+    the structure is ready for more). Also the data source for the course-page header."""
+
+    model_config = ConfigDict(extra="forbid")
+    id: str
+    title: LocalizedText
+    description: LocalizedText
+
+
 class Manifest(BaseModel):
     model_config = ConfigDict(extra="forbid")
+    course: ManifestCourse
     blocks: list[ManifestBlock]
 
     # --- Derived views ---
@@ -81,7 +92,10 @@ class Manifest(BaseModel):
     @model_validator(mode="after")
     def _validate_structure(self) -> Self:
         seen: set[str] = set()
+        # IDs are globally unique across every level, course id included — a future course must
+        # namespace its ids (e.g. spot-m01); see content/README.md.
         for level in (
+            [self.course.id],
             [b.id for b in self.blocks],
             [m.id for _, m in self.iter_modules()],
             [lesson.id for _, lesson in self.iter_lessons()],

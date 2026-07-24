@@ -2,8 +2,8 @@
 type: calculation
 formula: expectancy
 prompt:
-  en: "Over many trades your **win rate is {win_rate}** (the fraction of trades that end in profit). Your average winning trade makes **{avg_win} USDT** and your average losing trade loses **{avg_loss} USDT**. What is the expectancy per trade? Round to 2 decimals."
-  es: "A lo largo de muchas operaciones tu **win rate es {win_rate}** (la fracción de operaciones que acaban en ganancia). Tu operación ganadora media gana **{avg_win} USDT** y tu operación perdedora media pierde **{avg_loss} USDT**. ¿Cuál es la esperanza (expectancy) por operación? Redondea a 2 decimales."
+  en: "Over many trades your **win rate is {win_rate}** (the fraction of trades that end in profit). Your average winning trade makes **{avg_win} USDT** and your average losing trade loses **{avg_loss} USDT**. What is the expectancy per trade?"
+  es: "A lo largo de muchas operaciones tu **win rate es {win_rate}** (la fracción de operaciones que acaban en ganancia). Tu operación ganadora media gana **{avg_win} USDT** y tu operación perdedora media pierde **{avg_loss} USDT**. ¿Cuál es la esperanza (expectancy) por operación?"
 params:
   win_rate: { kind: choice, values: ["0.45", "0.5", "0.55"] }
   avg_win: { kind: int_range, min: 120, max: 320, step: 10 }

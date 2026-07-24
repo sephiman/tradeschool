@@ -37,9 +37,10 @@ def quiz_answer(variant: QuizVariant, seed: int, correct: bool) -> dict[str, obj
     return {"pairs": cmap}
 
 
-async def _login(client: AsyncClient, email: str) -> None:
-    await client.post("/api/auth/register", json={"email": email, "password": "correcthorse", "locale": "en"})
-    await client.post("/api/auth/login", json={"email": email, "password": "correcthorse"})
+async def _login(client: AsyncClient, username: str) -> None:
+    creds = {"username": username, "password": "correcthorse"}
+    await client.post("/api/auth/register", json={**creds, "locale": "en"})
+    await client.post("/api/auth/login", json=creds)
 
 
 async def _seed_of(attempt_id: str) -> int:
@@ -63,7 +64,7 @@ async def _answer_quiz(client: AsyncClient, settings: Settings, exercise_id: str
 async def test_me_stats_reading_and_mastery_are_separate(
     content_client: AsyncClient, settings: Settings
 ) -> None:
-    await _login(content_client, "a@example.com")
+    await _login(content_client, "usera")
     # m01-ex-1: first wrong, then correct. m01-ex-2: correct first try.
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=False)
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=True)
@@ -96,11 +97,11 @@ async def test_me_stats_reading_and_mastery_are_separate(
 async def test_global_stats_are_anonymous_and_worst_first(
     content_client: AsyncClient, settings: Settings
 ) -> None:
-    await _login(content_client, "u1@example.com")
+    await _login(content_client, "userone")
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=False)  # user1 first attempt wrong
     await content_client.post("/api/auth/logout")
 
-    await _login(content_client, "u2@example.com")
+    await _login(content_client, "usertwo")
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=True)  # user2 first attempt right
 
     glob = (await content_client.get("/api/stats/global")).json()
@@ -112,7 +113,7 @@ async def test_global_stats_are_anonymous_and_worst_first(
 
 
 async def test_me_stats_empty_for_new_user(content_client: AsyncClient) -> None:
-    await _login(content_client, "fresh@example.com")
+    await _login(content_client, "freshuser")
     stats = (await content_client.get("/api/stats/me")).json()
     assert stats["exercise"]["answered"] == 0
     assert stats["exercise"]["accuracy"] is None

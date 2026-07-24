@@ -2,13 +2,12 @@ import { type ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/auth/AuthContext";
-import { Button } from "@/components/ui/primitives";
-import { LanguageSwitcher, ThemeSwitcher } from "@/components/layout/Switchers";
+import { AccountMenu } from "@/components/layout/AccountMenu";
 import { cn } from "@/lib/cn";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div className="flex min-h-full flex-col">
@@ -40,20 +39,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </nav>
             )}
           </div>
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            <ThemeSwitcher />
-            {user && (
-              <>
-                <span className="hidden max-w-[12rem] truncate text-sm text-gray-500 sm:inline dark:text-gray-400">
-                  {user.email}
-                </span>
-                <Button variant="ghost" onClick={() => void logout()}>
-                  {t("auth.logout")}
-                </Button>
-              </>
-            )}
-          </div>
+          <div className="flex items-center gap-3">{user && <AccountMenu user={user} />}</div>
         </div>
       </header>
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">{children}</main>

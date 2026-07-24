@@ -10,8 +10,8 @@ before you answer: statistics are trustworthy by construction.
 
 - **License:** AGPL-3.0-only
 - **Backend:** Python 3.14 · FastAPI · SQLAlchemy 2 (async) · Alembic · Pydantic v2 · fastapi-users
-  (cookie + database strategy, Argon2, no JWT) · slowapi · NumPy · `decimal.Decimal` for every financial
-  formula · pytest + testcontainers (real Postgres)
+  (username identity, cookie + database strategy, Argon2, no JWT) · slowapi · NumPy · `decimal.Decimal`
+  for every financial formula · pytest + testcontainers (real Postgres)
 - **Frontend:** React 19 · TypeScript (strict) · Vite · react-router · TanStack Query · axios · Tailwind ·
   react-i18next · lightweight-charts · react-markdown (+ remark-gfm, remark-directive)
 - **Infrastructure:** Docker Compose, external Postgres 17 on a shared Docker network, multi-stage builds,
@@ -22,7 +22,8 @@ before you answer: statistics are trustworthy by construction.
 ```
 backend/    FastAPI service (see backend/README.md)
 frontend/   React SPA served by nginx, /api proxied to the backend
-content/    course.yaml manifest + parallel es/ and en/ content trees (stable IDs)
+content/    course.yaml manifest (course → blocks → modules → lessons → exercises) + es/ and en/
+            content trees + figures; see content/README.md for the stable-ID / namespacing convention
 docker-compose.yml  .env.example  LICENSE
 ```
 
@@ -97,6 +98,18 @@ GET /api/course/export?download=true   # served as a file attachment (tradeschoo
 ```
 
 Auth (session cookie) is required, like the rest of the content API.
+
+## Accounts
+
+Accounts are **username + password** — no email is collected (self-hosted, no SMTP, no notifications).
+Usernames are 3–32 characters (lowercase letters, numbers, `-`, `_`) and case-insensitive.
+
+Because there is no email, password reset is an **admin action** on the server rather than self-service:
+
+```bash
+cd backend
+uv run tradeschool reset-password <username>   # prompts twice for the new password (Argon2-hashed)
+```
 
 ## Deployment
 

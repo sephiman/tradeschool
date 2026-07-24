@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from httpx import AsyncClient
 
-CREDS = {"email": "dev@example.com", "password": "correcthorse"}
+CREDS = {"username": "devuser", "password": "correcthorse"}
 
 
 async def _auth(client: AsyncClient) -> None:

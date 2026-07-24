@@ -2,8 +2,8 @@
 type: calculation
 formula: expectancy
 prompt:
-  en: "A trend-following system wins only **{win_rate}** of the time (the fraction of trades in profit), but it lets winners run and cuts losers short: the average win is **{avg_win} USDT** while the average loss is just **{avg_loss} USDT**. What is the expectancy per trade? Round to 2 decimals."
-  es: "Un sistema seguidor de tendencia solo acierta el **{win_rate}** de las veces (la fracción de operaciones en ganancia), pero deja correr las ganadoras y corta pronto las perdedoras: la ganancia media es **{avg_win} USDT** mientras que la pérdida media es de solo **{avg_loss} USDT**. ¿Cuál es la esperanza (expectancy) por operación? Redondea a 2 decimales."
+  en: "A trend-following system wins only **{win_rate}** of the time (the fraction of trades in profit), but it lets winners run and cuts losers short: the average win is **{avg_win} USDT** while the average loss is just **{avg_loss} USDT**. What is the expectancy per trade?"
+  es: "Un sistema seguidor de tendencia solo acierta el **{win_rate}** de las veces (la fracción de operaciones en ganancia), pero deja correr las ganadoras y corta pronto las perdedoras: la ganancia media es **{avg_win} USDT** mientras que la pérdida media es de solo **{avg_loss} USDT**. ¿Cuál es la esperanza (expectancy) por operación?"
 params:
   win_rate: { kind: choice, values: ["0.3", "0.35", "0.4"] }
   avg_win: { kind: int_range, min: 400, max: 700, step: 20 }

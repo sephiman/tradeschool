@@ -2,8 +2,8 @@
 type: calculation
 formula: position_size_from_risk
 prompt:
-  en: "You keep a strict rule: never risk more than **{risk_pct}** of your **{equity}** USDT account on a single trade. On this setup the distance from your entry to your stop is **{stop_distance}** in price. What position size (in units) keeps you inside the rule? Round to 4 decimals."
-  es: "Tienes una regla estricta: no arriesgar nunca más de **{risk_pct}** de tu cuenta de **{equity}** USDT en una sola operación. En este setup la distancia de tu entrada a tu stop es de **{stop_distance}** en precio. ¿Qué tamaño de posición (en unidades) te mantiene dentro de la regla? Redondea a 4 decimales."
+  en: "You keep a strict rule: never risk more than **{risk_pct}** of your **{equity}** USDT account on a single trade. On this setup the distance from your entry to your stop is **{stop_distance}** in price. What position size (in units) keeps you inside the rule?"
+  es: "Tienes una regla estricta: no arriesgar nunca más de **{risk_pct}** de tu cuenta de **{equity}** USDT en una sola operación. En este setup la distancia de tu entrada a tu stop es de **{stop_distance}** en precio. ¿Qué tamaño de posición (en unidades) te mantiene dentro de la regla?"
 params:
   equity: { kind: int_range, min: 10000, max: 100000, step: 1000 }
   risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }

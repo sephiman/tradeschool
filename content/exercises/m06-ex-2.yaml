@@ -2,8 +2,8 @@
 type: calculation
 formula: liquidation_price
 prompt:
-  en: "A trader goes **{leverage}× {side}** on an altcoin from an entry of **{entry}** (isolated). Maintenance margin is **{mmr}**. At what price is the position liquidated? Round to 2 decimals."
-  es: "Un trader entra **{leverage}× {side}** en una altcoin desde una entrada de **{entry}** (aislado). El margen de mantenimiento es **{mmr}**. ¿A qué precio se liquida la posición? Redondea a 2 decimales."
+  en: "A trader goes **{leverage}× {side}** on an altcoin from an entry of **{entry}** (isolated). Maintenance margin is **{mmr}**. At what price is the position liquidated?"
+  es: "Un trader entra **{leverage}× {side}** en una altcoin desde una entrada de **{entry}** (aislado). El margen de mantenimiento es **{mmr}**. ¿A qué precio se liquida la posición?"
 params:
   entry: { kind: int_range, min: 100, max: 5000, step: 10 }
   leverage: { kind: choice, values: ["5", "10", "20", "50"] }

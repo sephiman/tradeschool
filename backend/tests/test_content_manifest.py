@@ -12,6 +12,7 @@ from tradeschool.content.schema import (
     LocalizedText,
     Manifest,
     ManifestBlock,
+    ManifestCourse,
     ManifestModule,
 )
 
@@ -20,8 +21,15 @@ def _t(s: str) -> LocalizedText:
     return LocalizedText(en=s, es=s)
 
 
+def _course() -> ManifestCourse:
+    return ManifestCourse(id="c1", title=_t("Course"), description=_t("desc"))
+
+
 def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     registry = load_registry(get_settings().content_dir)
+    # The single course today owns all existing content under a stable id.
+    assert registry.manifest.course.id == "crypto-futures"
+    assert registry.manifest.course.title.en and registry.manifest.course.description.es
     # 23 modules across 5 blocks.
     assert len(registry.manifest.blocks) == 5
     assert len(registry.manifest.iter_modules()) == 23
@@ -40,6 +48,7 @@ def test_all_phase1_exercises_are_playable() -> None:
 def test_duplicate_ids_rejected() -> None:
     with pytest.raises(ValidationError, match="duplicate stable id"):
         Manifest(
+            course=_course(),
             blocks=[
                 ManifestBlock(
                     id="b1",
@@ -49,18 +58,19 @@ def test_duplicate_ids_rejected() -> None:
                         ManifestModule(id="dup", title=_t("y"), summary=_t("y")),
                     ],
                 )
-            ]
+            ],
         )
 
 
 def test_unknown_assumes_rejected() -> None:
     with pytest.raises(ValidationError, match="unknown module"):
         Manifest(
+            course=_course(),
             blocks=[
                 ManifestBlock(
                     id="b1",
                     title=_t("b"),
                     modules=[ManifestModule(id="m", title=_t("m"), summary=_t("m"), assumes=["ghost"])],
                 )
-            ]
+            ],
         )

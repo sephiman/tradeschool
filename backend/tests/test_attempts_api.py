@@ -13,7 +13,7 @@ from tradeschool.exercises.base import rng_for
 from tradeschool.exercises.calculation import CalculationConfig, _mc_options
 from tradeschool.exercises.quiz import QuizConfig, QuizKind, QuizVariant, _shuffled
 
-CREDS = {"email": "solver@example.com", "password": "correcthorse"}
+CREDS = {"username": "solver", "password": "correcthorse"}
 
 
 def quiz_answer(variant: QuizVariant, seed: int, correct: bool) -> dict[str, object]:

@@ -43,19 +43,25 @@ async def get_access_token_db(
     yield SQLAlchemyAccessTokenDatabase(session, AccessToken)
 
 
+# fastapi-users' generics are bound to its email-typed UserProtocol; our User keys on username
+# instead (see auth/manager.py), so these library-boundary instantiations need a type-var waiver.
+# Nothing here ever reads an email — the session backend is entirely user-id keyed.
+SessionStrategy = DatabaseStrategy[User, uuid.UUID, AccessToken]  # type: ignore[type-var]
+
+
 def get_database_strategy(
     access_token_db: Annotated[AccessTokenDatabase[AccessToken], Depends(get_access_token_db)],
-) -> DatabaseStrategy[User, uuid.UUID, AccessToken]:
+) -> SessionStrategy:
     return DatabaseStrategy(access_token_db, lifetime_seconds=_settings.session_max_age)
 
 
-auth_backend = AuthenticationBackend(
+auth_backend = AuthenticationBackend(  # type: ignore[type-var]
     name="db",
     transport=cookie_transport,
     get_strategy=get_database_strategy,
 )
 
-fastapi_users = FastAPIUsers[User, uuid.UUID](get_user_manager, [auth_backend])
+fastapi_users = FastAPIUsers[User, uuid.UUID](get_user_manager, [auth_backend])  # type: ignore[type-var]
 
 current_active_user = fastapi_users.current_user(active=True)
 

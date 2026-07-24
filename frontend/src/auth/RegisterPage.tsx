@@ -8,13 +8,14 @@ import { AuthCard } from "@/auth/AuthCard";
 import { Button, Input, Label } from "@/components/ui/primitives";
 
 const MIN_PASSWORD = 8;
+const USERNAME_RE = /^[a-z0-9_-]{3,32}$/;
 
 export function RegisterPage() {
   const { t, i18n } = useTranslation();
   const { user, register } = useAuth();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -24,6 +25,11 @@ export function RegisterPage() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
+    const uname = username.trim().toLowerCase();
+    if (!USERNAME_RE.test(uname)) {
+      setError(t("auth.usernameInvalid"));
+      return;
+    }
     if (password.length < MIN_PASSWORD) {
       setError(t("auth.passwordTooShort", { count: MIN_PASSWORD }));
       return;
@@ -31,7 +37,7 @@ export function RegisterPage() {
     setBusy(true);
     try {
       const locale = (i18n.resolvedLanguage === "es" ? "es" : "en") as Locale;
-      await register(email, password, locale);
+      await register(uname, password, locale);
       navigate("/", { replace: true });
     } catch (err) {
       setError(apiErrorMessage(err, t));
@@ -44,8 +50,9 @@ export function RegisterPage() {
     <AuthCard title={t("auth.registerTitle")}>
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <Label htmlFor="email">{t("auth.email")}</Label>
-          <Input id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Label htmlFor="username">{t("auth.username")}</Label>
+          <Input id="username" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required minLength={3} maxLength={32} value={username} onChange={(e) => setUsername(e.target.value)} />
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("auth.usernameHint")}</p>
         </div>
         <div>
           <Label htmlFor="password">{t("auth.password")}</Label>

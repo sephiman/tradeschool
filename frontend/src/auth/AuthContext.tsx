@@ -6,8 +6,8 @@ import type { Locale, Me } from "@/api/auth";
 interface AuthContextValue {
   user: Me | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, locale: Locale) => Promise<void>;
+  login: (username: string, password: string) => Promise<void>;
+  register: (username: string, password: string, locale: Locale) => Promise<void>;
   logout: () => Promise<void>;
   setLocale: (locale: Locale) => Promise<void>;
 }
@@ -43,8 +43,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(
-    async (email: string, password: string) => {
-      const me = await authApi.login(email, password);
+    async (username: string, password: string) => {
+      const me = await authApi.login(username, password);
       setUser(me);
       applyUserLocale(me);
     },
@@ -52,9 +52,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const register = useCallback(
-    async (email: string, password: string, locale: Locale) => {
-      await authApi.register(email, password, locale);
-      const me = await authApi.login(email, password);
+    async (username: string, password: string, locale: Locale) => {
+      await authApi.register(username, password, locale);
+      const me = await authApi.login(username, password);
       setUser(me);
       applyUserLocale(me);
     },

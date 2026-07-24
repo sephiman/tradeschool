@@ -27,15 +27,27 @@ class SkeletonModel(Base):
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
 
 
+class Course(SkeletonModel):
+    """The root course a block/module tree belongs to. Single course today (crypto-futures);
+    the table exists so more can be added without a structural change. Localized title/description
+    live in the registry (from the manifest), like every other label."""
+
+    __tablename__ = "courses"
+
+    order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+
+
 class Block(SkeletonModel):
     __tablename__ = "blocks"
 
+    course_id: Mapped[str] = mapped_column(ForeignKey("courses.id"), nullable=False, index=True)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
 
 
 class Module(SkeletonModel):
     __tablename__ = "modules"
 
+    course_id: Mapped[str] = mapped_column(ForeignKey("courses.id"), nullable=False, index=True)
     block_id: Mapped[str] = mapped_column(ForeignKey("blocks.id"), nullable=False, index=True)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
     # Advisory prerequisites (module ids). Informative, never a gate (§4.3).

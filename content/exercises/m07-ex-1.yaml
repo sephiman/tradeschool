@@ -2,8 +2,8 @@
 type: calculation
 formula: net_pnl
 prompt:
-  en: "You open a **{side}** position of **{quantity}** BTC at an entry price of **{entry}** and close it at **{exit}**. The taker fee is **{fee_rate}**, charged on both the opening and the closing fill. What is your net PnL, in USDT? Round to 2 decimals."
-  es: "Abres una posición **{side}** de **{quantity}** BTC a un precio de entrada de **{entry}** y la cierras en **{exit}**. La comisión taker es **{fee_rate}**, cobrada tanto en la ejecución de apertura como en la de cierre. ¿Cuál es tu PnL neto, en USDT? Redondea a 2 decimales."
+  en: "You open a **{side}** position of **{quantity}** BTC at an entry price of **{entry}** and close it at **{exit}**. The taker fee is **{fee_rate}**, charged on both the opening and the closing fill. What is your net PnL, in USDT?"
+  es: "Abres una posición **{side}** de **{quantity}** BTC a un precio de entrada de **{entry}** y la cierras en **{exit}**. La comisión taker es **{fee_rate}**, cobrada tanto en la ejecución de apertura como en la de cierre. ¿Cuál es tu PnL neto, en USDT?"
 params:
   entry: { kind: int_range, min: 25000, max: 45000, step: 500 }
   exit: { kind: int_range, min: 25000, max: 45000, step: 500 }

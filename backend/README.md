@@ -30,6 +30,7 @@ uv run pytest                 # integration tests against real Postgres (testcon
 uv run ruff check .           # lint
 uv run mypy src               # types
 uv run tradeschool sync       # reconcile the course manifest into the DB
+uv run tradeschool reset-password <username>   # admin password reset (prompts for the new one)
 uv run uvicorn tradeschool.main:app --reload   # dev server (needs a reachable Postgres)
 ```
 

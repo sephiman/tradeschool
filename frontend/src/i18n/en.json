@@ -23,7 +23,10 @@
   "auth": {
     "loginTitle": "Sign in",
     "registerTitle": "Create your account",
-    "email": "Email",
+    "username": "Username",
+    "usernameHint": "3–32 characters: lowercase letters, numbers, - and _.",
+    "usernameInvalid": "Username must be 3–32 characters: lowercase letters, numbers, hyphen and underscore.",
+    "signedInAs": "Signed in as",
     "password": "Password",
     "loginAction": "Sign in",
     "registerAction": "Create account",
@@ -34,7 +37,7 @@
     "passwordTooShort": "Password must be at least {{count}} characters."
   },
   "course": {
-    "intro": "The whole course is open from day one. The suggested next step follows the canonical order — prerequisites are advice, never a barrier.",
+    "prereqFootnote": "Prerequisites are advice, never a barrier — the whole course is open from day one, in any order.",
     "suggestedNext": "Suggested next",
     "completed": "Completed",
     "comingSoon": "Coming soon",
@@ -45,7 +48,8 @@
     "markComplete": "Mark lesson complete",
     "markedComplete": "Lesson marked complete",
     "markCompleteConfirm": "You haven't tried all the exercises in this lesson yet. Mark it complete anyway?",
-    "next": "Next: {{step}}"
+    "next": "Next: {{step}}",
+    "continue": "Continue: {{step}}"
   },
   "exercise": {
     "comingSoon": "Interactive exercise — arrives in the next increment.",
@@ -110,9 +114,9 @@
     "RATE_LIMITED": "Too many attempts. Please wait and try again.",
     "NOT_FOUND": "Not found.",
     "UNAUTHORIZED": "Please sign in to continue.",
-    "USER_ALREADY_EXISTS": "An account with this email already exists.",
+    "USER_ALREADY_EXISTS": "That username is already taken.",
     "INVALID_PASSWORD": "That password is not allowed.",
-    "LOGIN_BAD_CREDENTIALS": "Invalid email or password."
+    "LOGIN_BAD_CREDENTIALS": "Invalid username or password."
   },
   "chartLabel": {
     "genuine_breakout": "Genuine breakout",

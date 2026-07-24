@@ -42,8 +42,18 @@ export interface CourseBlock {
   modules: CourseModule[];
 }
 
+export interface CourseMeta {
+  id: string;
+  title: string;
+  description: string;
+}
+
 export interface Course {
   locale: string;
+  /** Whether the learner has begun (any lesson completed or any exercise attempted). */
+  started: boolean;
+  /** Root course identity (localized) — drives the course-page header. */
+  course: CourseMeta;
   blocks: CourseBlock[];
 }
 

@@ -10,6 +10,7 @@ from tradeschool.content.schema import (
     LocalizedText,
     Manifest,
     ManifestBlock,
+    ManifestCourse,
     ManifestExercise,
     ManifestLesson,
     ManifestModule,
@@ -28,7 +29,10 @@ def _lesson(lesson_id: str, with_exercise: bool = False) -> ManifestLesson:
 
 
 def _manifest(modules: list[ManifestModule]) -> Manifest:
-    return Manifest(blocks=[ManifestBlock(id="b1", title=_t("Block 1"), modules=modules)])
+    return Manifest(
+        course=ManifestCourse(id="c1", title=_t("Course 1"), description=_t("A test course.")),
+        blocks=[ManifestBlock(id="b1", title=_t("Block 1"), modules=modules)],
+    )
 
 
 async def test_reconcile_inserts_skeleton(session: AsyncSession) -> None:
@@ -39,9 +43,11 @@ async def test_reconcile_inserts_skeleton(session: AsyncSession) -> None:
         ]
     )
     summary = await reconcile(manifest, session)
-    assert summary.inserted == 1 + 2 + 1 + 1  # block + 2 modules + 1 lesson + 1 exercise
+    assert summary.inserted == 1 + 1 + 2 + 1 + 1  # course + block + 2 modules + 1 lesson + 1 exercise
 
-    assert (await session.get(Block, "b1")).active is True
+    block = await session.get(Block, "b1")
+    assert block.active is True and block.course_id == "c1"
+    assert (await session.get(Module, "mA")).course_id == "c1"
     m_a = await session.get(Module, "mA")
     m_b = await session.get(Module, "mB")
     assert m_a.order_index == 1 and m_b.order_index == 2
@@ -62,7 +68,7 @@ async def test_reconcile_reorder_add_remove_preserves_progress(session: AsyncSes
 
     # A learner completes lB.
     user = User(
-        email="x@example.com",
+        username="xlearner",
         hashed_password="x",
         is_active=True,
         is_superuser=False,

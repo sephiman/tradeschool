@@ -2,8 +2,8 @@
 type: calculation
 formula: initial_margin
 prompt:
-  en: "A trader shorts **{quantity}** units of an altcoin priced at **{entry}** USDT, using **{leverage}×** leverage. What is the initial margin (in USDT) required to open this position? Round to 2 decimals."
-  es: "Un trader abre un short de **{quantity}** unidades de una altcoin cotizada a **{entry}** USDT, usando **{leverage}×** de apalancamiento. ¿Cuál es el margen inicial (en USDT) necesario para abrir esta posición? Redondea a 2 decimales."
+  en: "A trader shorts **{quantity}** units of an altcoin priced at **{entry}** USDT, using **{leverage}×** leverage. What is the initial margin (in USDT) required to open this position?"
+  es: "Un trader abre un short de **{quantity}** unidades de una altcoin cotizada a **{entry}** USDT, usando **{leverage}×** de apalancamiento. ¿Cuál es el margen inicial (en USDT) necesario para abrir esta posición?"
 params:
   entry: { kind: int_range, min: 800, max: 6000, step: 20 }
   quantity: { kind: choice, values: ["0.1", "0.25", "0.5", "1", "2"] }

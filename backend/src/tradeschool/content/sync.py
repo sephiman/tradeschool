@@ -15,7 +15,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.config import Settings
-from tradeschool.content.models import Block, Exercise, Lesson, Module, SkeletonModel
+from tradeschool.content.models import Block, Course, Exercise, Lesson, Module, SkeletonModel
 from tradeschool.content.registry import CourseRegistry, load_registry
 from tradeschool.content.schema import Manifest
 
@@ -63,15 +63,19 @@ async def reconcile(manifest: Manifest, session: AsyncSession) -> SyncSummary:
                 current.active = False
                 summary.deactivated += 1
 
+    courses: dict[str, dict[str, object]] = {}
     blocks: dict[str, dict[str, object]] = {}
     modules: dict[str, dict[str, object]] = {}
     lessons: dict[str, dict[str, object]] = {}
     exercises: dict[str, dict[str, object]] = {}
 
+    course_id = manifest.course.id
+    courses[course_id] = {"order_index": 1}
     for b_index, block in enumerate(manifest.blocks, start=1):
-        blocks[block.id] = {"order_index": b_index}
+        blocks[block.id] = {"course_id": course_id, "order_index": b_index}
         for m_index, module in enumerate(block.modules, start=1):
             modules[module.id] = {
+                "course_id": course_id,
                 "block_id": block.id,
                 "order_index": m_index,
                 "assumes": list(module.assumes),
@@ -87,6 +91,8 @@ async def reconcile(manifest: Manifest, session: AsyncSession) -> SyncSummary:
                     }
 
     # Parents before children so foreign keys resolve on insert.
+    await upsert(Course, courses)
+    await session.flush()
     await upsert(Block, blocks)
     await upsert(Module, modules)
     await session.flush()

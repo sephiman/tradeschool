@@ -10,7 +10,7 @@ from httpx import AsyncClient
 from tradeschool.exercises.figures import build_figure, load_figures
 
 CONTENT = Path(__file__).resolve().parents[2] / "content"
-CREDS = {"email": "figviewer@example.com", "password": "correcthorse"}
+CREDS = {"username": "figviewer", "password": "correcthorse"}
 
 
 async def _auth(client: AsyncClient) -> None:
