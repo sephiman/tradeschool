@@ -28,6 +28,9 @@ function transform(node: DirectiveNode): void {
     } else if (node.name === "exercise") {
       data.hName = "div";
       data.hProperties = { "data-exercise-id": attrs.id ?? "" };
+    } else if (node.name === "figure") {
+      data.hName = "div";
+      data.hProperties = { "data-figure-id": attrs.id ?? "" };
     } else {
       data.hName = "div";
       data.hProperties = {};
@@ -56,7 +59,10 @@ function Callout({ tone, children }: { tone: string; children: ReactNode }) {
   );
 }
 
-function buildComponents(renderExercise: (exerciseId: string) => ReactNode): Components {
+function buildComponents(
+  renderExercise: (exerciseId: string) => ReactNode,
+  renderFigure: (figureId: string) => ReactNode,
+): Components {
   return {
     h1: ({ children }) => <h1 className="mt-2 mb-4 text-2xl font-bold">{children}</h1>,
     h2: ({ children }) => <h2 className="mt-6 mb-3 text-xl font-semibold">{children}</h2>,
@@ -80,6 +86,8 @@ function buildComponents(renderExercise: (exerciseId: string) => ReactNode): Com
       const attrs = props as Record<string, unknown> & { children?: ReactNode };
       const exerciseId = attrs["data-exercise-id"];
       if (typeof exerciseId === "string") return <>{renderExercise(exerciseId)}</>;
+      const figureId = attrs["data-figure-id"];
+      if (typeof figureId === "string") return <>{renderFigure(figureId)}</>;
       const noteType = attrs["data-note-type"];
       if (typeof noteType === "string") return <Callout tone={noteType}>{attrs.children}</Callout>;
       return <div>{attrs.children}</div>;
@@ -90,12 +98,17 @@ function buildComponents(renderExercise: (exerciseId: string) => ReactNode): Com
 export function LessonMarkdown({
   markdown,
   renderExercise,
+  renderFigure,
 }: {
   markdown: string;
   renderExercise: (exerciseId: string) => ReactNode;
+  renderFigure: (figureId: string) => ReactNode;
 }) {
   return (
-    <Markdown remarkPlugins={[remarkGfm, remarkDirective, remarkDirectiveToHast]} components={buildComponents(renderExercise)}>
+    <Markdown
+      remarkPlugins={[remarkGfm, remarkDirective, remarkDirectiveToHast]}
+      components={buildComponents(renderExercise, renderFigure)}
+    >
       {markdown}
     </Markdown>
   );
@@ -104,7 +117,7 @@ export function LessonMarkdown({
 /** Inline prose (e.g. an exercise prompt) with the same styling but no directives. */
 export function Prose({ markdown }: { markdown: string }) {
   return (
-    <Markdown remarkPlugins={[remarkGfm]} components={buildComponents(() => null)}>
+    <Markdown remarkPlugins={[remarkGfm]} components={buildComponents(() => null, () => null)}>
       {markdown}
     </Markdown>
   );

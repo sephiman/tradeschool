@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m12-bearish-hidden
+kind: chart
+caption:
+  en: 'Bearish hidden divergence in a downtrend pullback: price makes a lower high
+    while RSI makes a higher high — the bounce looks strong on the oscillator, but
+    the downtrend resumes.'
+  es: 'Divergencia oculta bajista en un rebote bajista: el precio marca un máximo
+    más bajo mientras el RSI marca un máximo más alto —el rebote parece fuerte en
+    el oscilador— y la tendencia bajista se reanuda.'
+panels:
+- generator: synthetic_chart
+  target: bearish_hidden
+  seed: 4
+  n: 120
+  indicator: rsi
+  resolution:
+    direction: down
+    strength: 0.13

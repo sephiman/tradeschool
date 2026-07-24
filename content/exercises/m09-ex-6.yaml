@@ -1,0 +1,138 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: phase-events-order
+    kind: ordering
+    prompt:
+      en: "Walk one accumulation range from start to finish. Put these plain-language events in the order they happen (phases A to E)."
+      es: "Recorre un rango de acumulación de principio a fin. Ordena estos eventos, en lenguaje llano, según ocurren (fases A a E)."
+    items:
+      - id: stop
+        position: 1
+        text: { en: "The prior downtrend stops: a final flush, a sharp bounce, and a retest draw the range's support and resistance", es: "La tendencia bajista previa se detiene: una purga final, un rebote brusco y un retroceso dibujan el soporte y la resistencia del rango" }
+      - id: churn
+        position: 2
+        text: { en: "A long, boring churn between support and resistance builds the cause", es: "Un ir y venir largo y aburrido entre soporte y resistencia construye la causa" }
+      - id: spring
+        position: 3
+        text: { en: "A spring: price stabs below support, then snaps back inside, and a quieter test holds", es: "Un spring: el precio pincha por debajo del soporte, vuelve rápido hacia dentro y una prueba más tranquila aguanta" }
+      - id: edge
+        position: 4
+        text: { en: "Price makes higher lows and presses toward the top of the range", es: "El precio hace mínimos crecientes y presiona hacia la parte alta del rango" }
+      - id: markup
+        position: 5
+        text: { en: "Price breaks above resistance and holds: the markup leaves the range", es: "El precio rompe por encima de la resistencia y aguanta: el markup abandona el rango" }
+    explanation:
+      en: "This is phases A–E told as events. The trend stops and the box forms (A), the cause is built through long churn (B), the spring tests the floor near the end (C), demand starts winning as price walks toward the ceiling (D), and finally the markup leaves the range (E). Note the spring is a phase-C test near the end — not the beginning — and the markup only comes after the range is done."
+      es: "Son las fases A–E contadas como eventos. La tendencia se detiene y se forma la caja (A), se construye la causa con un ir y venir largo (B), el spring pone a prueba el suelo cerca del final (C), la demanda empieza a ganar mientras el precio camina hacia el techo (D) y por fin el markup abandona el rango (E). Fíjate en que el spring es una prueba de la fase C cerca del final, no del principio, y el markup solo llega cuando el rango ha terminado."
+  - id: event-meaning-match
+    kind: matching
+    prompt:
+      en: "Match each range event to its correct reading."
+      es: "Empareja cada evento del rango con su lectura correcta."
+    pairs:
+      - id: spring
+        left: { en: "Spring", es: "Spring" }
+        right: { en: "False break below support that recovers; sits in accumulation and hints at a markup", es: "Ruptura falsa por debajo del soporte que se recupera; vive en la acumulación e insinúa un markup" }
+      - id: upthrust
+        left: { en: "Upthrust", es: "Upthrust" }
+        right: { en: "False break above resistance that fails back inside; a sign of distribution, warning of a markdown", es: "Ruptura falsa por encima de la resistencia que fracasa y vuelve hacia dentro; señal de distribución, que avisa de un markdown" }
+      - id: utad
+        left: { en: "UTAD (upthrust after distribution)", es: "UTAD (upthrust after distribution)" }
+        right: { en: "The decisive phase-C upthrust that marks the top, distinct from smaller inconclusive pokes earlier in phase B", es: "El upthrust decisivo de la fase C que marca el techo, distinto de los asomos menores y no concluyentes de la fase B" }
+    explanation:
+      en: "The spring and the upthrust are mirror images across support and resistance: one fakes a break below the floor (accumulation, bullish), the other fakes a break above the ceiling (distribution, bearish). The UTAD is not a separate event but the *decisive* phase-C upthrust that marks a distribution top — it gets its own name to distinguish it from the smaller, inconclusive upthrusts that can appear earlier in phase B."
+      es: "El spring y el upthrust son imágenes espejo a través del soporte y la resistencia: uno finge una ruptura por debajo del suelo (acumulación, alcista) y el otro finge una ruptura por encima del techo (distribución, bajista). El UTAD no es un evento aparte, sino el upthrust *decisivo* de la fase C que marca un techo de distribución; recibe nombre propio para distinguirlo de los upthrusts menores y no concluyentes que pueden aparecer antes, en la fase B."
+  - id: phase-of-test
+    prompt:
+      en: "In which phase of the range does the spring (or upthrust) appear?"
+      es: "¿En qué fase del rango aparece el spring (o el upthrust)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Phase C — the test, near the end of the range, before it resolves"
+          es: "Fase C — la prueba, cerca del final del rango, antes de que se resuelva"
+      - id: b
+        text:
+          en: "Phase A — it is what stops the prior trend and starts the range"
+          es: "Fase A — es lo que detiene la tendencia previa e inicia el rango"
+      - id: c
+        text:
+          en: "Phase E — it is the break that leaves the range"
+          es: "Fase E — es la ruptura que abandona el rango"
+      - id: d
+        text:
+          en: "Phase B — it is the whole long churn in the middle"
+          es: "Fase B — es todo el ir y venir largo del medio"
+    explanation:
+      en: "The spring and upthrust are phase-C tests: they come near the end of the range, after the long phase-B churn has built the cause, and before phase D and the final break. A common mistake is to place them at the start (phase A stops the prior trend) or to confuse the phase-E break out of the range with the phase-C false break that fails back inside."
+      es: "El spring y el upthrust son pruebas de la fase C: llegan cerca del final del rango, después de que el ir y venir largo de la fase B haya construido la causa, y antes de la fase D y la ruptura final. Un error común es colocarlos al principio (la fase A detiene la tendencia previa) o confundir la ruptura de la fase E que abandona el rango con la ruptura falsa de la fase C que vuelve hacia dentro."
+  - id: utad-definition
+    prompt:
+      en: "What is a UTAD?"
+      es: "¿Qué es un UTAD?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "An upthrust after distribution — the decisive phase-C false break above resistance that marks a distribution top and precedes a markdown"
+          es: "Un upthrust after distribution: la ruptura falsa decisiva de la fase C por encima de la resistencia que marca un techo de distribución y precede a un markdown"
+      - id: b
+        text:
+          en: "A false break below support that recovers, sitting in accumulation before a markup"
+          es: "Una ruptura falsa por debajo del soporte que se recupera, dentro de la acumulación antes de un markup"
+      - id: c
+        text:
+          en: "A confirmed breakout above resistance that proves a fresh markup has begun"
+          es: "Una ruptura confirmada por encima de la resistencia que prueba que ha comenzado un nuevo markup"
+      - id: d
+        text:
+          en: "The long, choppy middle of a distribution range where the cause is built"
+          es: "El medio largo y errático de un rango de distribución donde se construye la causa"
+    explanation:
+      en: "UTAD stands for 'upthrust after distribution': the decisive phase-C upthrust that tops a distribution range. Option b describes a spring (accumulation's mirror event); option c is exactly the misconception a UTAD exploits — it only looks like a breakout while large players sell into the trapped buyers; option d is phase B, not the phase-C test."
+      es: "UTAD significa «upthrust after distribution»: el upthrust decisivo de la fase C que corona un rango de distribución. La opción b describe un spring (el evento espejo de la acumulación); la opción c es justo el error que un UTAD explota —solo parece una ruptura mientras los grandes participantes venden a los compradores atrapados—; la opción d es la fase B, no la prueba de la fase C."
+  - id: distribution-mirror-tf
+    kind: true_false
+    prompt:
+      en: "Distribution is accumulation upside down: an upthrust after an uptrend warns of a markdown, just as a spring after a downtrend hints at a markup."
+      es: "La distribución es la acumulación del revés: un upthrust tras una tendencia alcista avisa de un markdown, igual que un spring tras una tendencia bajista insinúa un markup."
+    answer: true
+    explanation:
+      en: "True. The two schematics are mirror images phase for phase. Accumulation forms after a downtrend, is tested by a spring below support, and resolves upward into a markup. Distribution forms after an uptrend, is tested by an upthrust above resistance, and resolves downward into a markdown. Same trap, opposite direction."
+      es: "Verdadero. Los dos esquemas son imágenes espejo fase por fase. La acumulación se forma tras una tendencia bajista, se pone a prueba con un spring por debajo del soporte y se resuelve al alza en un markup. La distribución se forma tras una tendencia alcista, se pone a prueba con un upthrust por encima de la resistencia y se resuelve a la baja en un markdown. La misma trampa en dirección contraria."
+  - id: spring-certainty-tf
+    kind: true_false
+    prompt:
+      en: "The moment price stabs below range support, you can be certain it is a spring and that a markup is coming."
+      es: "En el momento en que el precio pincha por debajo del soporte del rango, puedes estar seguro de que es un spring y de que viene un markup."
+    answer: false
+    explanation:
+      en: "False, and this is where the schematic burns people. A stab below support that keeps falling was never a spring — it was just a real breakdown. You only earn the label 'spring' once price recovers and holds back inside. Live, the two look identical; the certainty is hindsight bias. Treat an unconfirmed break as a question, not an answer."
+      es: "Falso, y aquí es donde el esquema hace daño. Un pinchazo por debajo del soporte que sigue cayendo nunca fue un spring: fue solo una ruptura bajista real. Solo te ganas la etiqueta de «spring» cuando el precio se recupera y aguanta hacia dentro. En directo, los dos casos son idénticos; esa certeza es sesgo de retrospectiva. Trata una ruptura sin confirmar como una pregunta, no como una respuesta."
+  - id: phase-b-role
+    prompt:
+      en: "During phase B — the long, boring churn between support and resistance — what is actually happening?"
+      es: "Durante la fase B —el ir y venir largo y aburrido entre soporte y resistencia—, ¿qué ocurre en realidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Large players quietly build (or unload) their position over many sessions, transferring supply a little at a time — building the cause for the move to come"
+          es: "Los grandes participantes construyen (o sueltan) su posición en silencio a lo largo de muchas sesiones, traspasando la oferta poco a poco: construyen la causa del movimiento que vendrá"
+      - id: b
+        text:
+          en: "Nothing meaningful — the market is idle and only wakes up when it finally breaks out"
+          es: "Nada relevante: el mercado está parado y solo se despierta cuando por fin rompe"
+      - id: c
+        text:
+          en: "The spring has already fired, so the range is essentially finished"
+          es: "El spring ya se ha disparado, así que el rango está esencialmente terminado"
+      - id: d
+        text:
+          en: "Price is trending: phase B is the markup or markdown itself"
+          es: "El precio está en tendencia: la fase B es el markup o el markdown en sí"
+    explanation:
+      en: "Phase B is the heart of the accumulation or distribution: a big order worked patiently over many sessions of two-way churn, so it fills without spiking price. The longer the churn, the bigger the cause it builds. Option b is the beginner's read that the range is 'nothing'; the spring comes later, in phase C (not b's or c's timing); and the trend is phase E, not B."
+      es: "La fase B es el corazón de la acumulación o la distribución: una orden grande trabajada con paciencia a lo largo de muchas sesiones de ir y venir, para que se llene sin disparar el precio. Cuanto más largo el ir y venir, mayor la causa que construye. La opción b es la lectura de principiante de que el rango «no es nada»; el spring llega después, en la fase C (no en el momento de c); y la tendencia es la fase E, no la B."

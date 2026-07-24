@@ -67,8 +67,12 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
 }
 
 export function CoursePage() {
-  const { t } = useTranslation();
-  const { data: course, isLoading } = useQuery({ queryKey: ["course"], queryFn: getCourse });
+  const { t, i18n } = useTranslation();
+  // Locale in the key so switching language refetches (and caches) per-locale rather than showing stale content.
+  const { data: course, isLoading } = useQuery({
+    queryKey: ["course", i18n.resolvedLanguage],
+    queryFn: getCourse,
+  });
 
   // Suggested next = the first module in canonical order that isn't fully completed, whether or not
   // its content is published yet. It always points somewhere until the whole course is done.

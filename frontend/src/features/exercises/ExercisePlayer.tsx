@@ -11,7 +11,11 @@ import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { Prose } from "@/lib/markdown";
 
-const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart"]);
+const CHART_TYPES: ReadonlySet<ExerciseType> = new Set([
+  "synthetic_chart",
+  "fixture_chart",
+  "pattern_chart",
+]);
 
 export function ExercisePlayer({ exerciseId, type }: { exerciseId: string; type: ExerciseType }) {
   const { t } = useTranslation();
@@ -55,6 +59,7 @@ export function ExercisePlayer({ exerciseId, type }: { exerciseId: string; type:
           <Prose markdown={instance.prompt} />
           {CHART_TYPES.has(instance.type) ? (
             <ChartExercise
+              type={instance.type}
               payload={instance.payload}
               result={result}
               pending={answer.isPending}

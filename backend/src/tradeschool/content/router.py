@@ -23,6 +23,7 @@ from tradeschool.content.registry import CourseRegistry
 from tradeschool.content.schema import LOCALES
 from tradeschool.db import get_async_session
 from tradeschool.errors import AppError
+from tradeschool.exercises.figures import build_figure
 
 router = APIRouter(tags=["content"])
 
@@ -99,6 +100,29 @@ async def export_course(
         else {}
     )
     return JSONResponse(content=data, headers=headers)
+
+
+@router.get("/figures/{figure_id}")
+async def get_figure(
+    figure_id: str,
+    request: Request,
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    lang: LangQuery = None,
+) -> dict[str, object]:
+    """A lesson figure's rendered chart data + localized caption. Deterministic (frozen seed), so the
+    built result is cached in-process per (figure, locale) — no per-request generation after the first."""
+    locale = _resolve_locale(lang, user)
+    spec = registry.figures.get(figure_id)
+    if spec is None:
+        raise AppError("FIGURE_NOT_FOUND", f"No figure {figure_id!r}.", status_code=404)
+    if not hasattr(request.app.state, "figure_cache"):
+        request.app.state.figure_cache = {}
+    cache: dict[tuple[str, str], dict[str, object]] = request.app.state.figure_cache
+    key = (figure_id, locale)
+    if key not in cache:
+        cache[key] = build_figure(spec, locale)
+    return cache[key]
 
 
 @router.get("/lessons/{lesson_id}")

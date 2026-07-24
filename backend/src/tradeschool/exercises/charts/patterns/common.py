@@ -87,6 +87,27 @@ def apply_ambient_tail(rng: np.random.Generator, close: Floats, tail: int = TAIL
         close[k] = float(np.exp(prev + drift + rng.normal(0.0, TAIL_SIGMA)))
 
 
+def append_resolution(
+    rng: np.random.Generator, close: Floats, direction: float, strength: float = 0.18, length: int = 24
+) -> Floats:
+    """Append `length` candles continuing the story — the pattern's RESOLUTION — for lesson FIGURES
+    only (never exercises, which stop before it). `direction` is +1 up / -1 down / 0 sideways; a
+    directional leg moves ~`strength` in log-price with believable texture, a sideways leg consolidates
+    around the last level. Purely additive: it extends an already-built close path and never feeds back
+    into an injector's `build()`."""
+    start = float(np.log(close[-1]))
+    if direction == 0:
+        leg = np.empty(length)
+        prev = start
+        for k in range(length):
+            prev = prev + TAIL_REVERT * (start - prev) + float(rng.normal(0.0, 0.008))
+            leg[k] = float(np.exp(prev))
+        return np.concatenate([close, leg])
+    ramp = direction * strength * np.linspace(0.0, 1.0, length)
+    leg = np.exp(start + ramp + bounded_noise(rng, length, amp=0.012))
+    return np.concatenate([close, leg])
+
+
 def resolve_swing(close: Floats, idx: int, kind: str, w: int = 3) -> int:
     """The real local extreme nearest a designed swing index (the noise can shift it by a candle)."""
     lo = max(0, idx - w)

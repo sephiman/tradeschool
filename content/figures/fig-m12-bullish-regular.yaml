@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m12-bullish-regular
+kind: chart
+caption:
+  en: 'Bullish regular divergence: price makes a lower low while RSI makes a higher
+    low — selling pressure fading — and the reversal up that follows (hidden in an
+    exercise).'
+  es: 'Divergencia regular alcista: el precio marca un mínimo más bajo mientras el
+    RSI marca un mínimo más alto —la presión vendedora se apaga— y el giro al alza
+    que viene después (oculto en un ejercicio).'
+panels:
+- generator: synthetic_chart
+  target: bullish_regular
+  seed: 5
+  n: 120
+  indicator: rsi
+  resolution:
+    direction: up
+    strength: 0.16

@@ -1,0 +1,172 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: uptrend-def
+    prompt:
+      en: "What defines an uptrend?"
+      es: "¿Qué define una tendencia alcista?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A sequence of higher highs and higher lows."
+          es: "Una secuencia de máximos más altos y mínimos más altos."
+      - id: b
+        text:
+          en: "Today's candle is green."
+          es: "La vela de hoy es verde."
+      - id: c
+        text:
+          en: "Price is above a moving average right now."
+          es: "El precio está ahora por encima de una media móvil."
+      - id: d
+        text:
+          en: "Price went up a lot in the last hour."
+          es: "El precio subió mucho en la última hora."
+    explanation:
+      en: "A trend is a structure, not a single move: an uptrend is higher highs AND higher lows. A green candle, a moving average, or one fast hour say nothing about that sequence."
+      es: "Una tendencia es una estructura, no un solo movimiento: una tendencia alcista son máximos más altos Y mínimos más altos. Una vela verde, una media móvil o una hora rápida no dicen nada sobre esa secuencia."
+  - id: broken-structure
+    prompt:
+      en: "Price rallies to 100, pulls back to 92, pushes to 108, then falls to 89. What has happened to the uptrend?"
+      es: "El precio sube a 100, retrocede a 92, empuja hasta 108 y luego cae a 89. ¿Qué le ha pasado a la tendencia alcista?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Its structure is broken — the 89 low undercuts the previous higher low of 92."
+          es: "Su estructura se ha roto: el mínimo de 89 perfora el mínimo más alto anterior de 92."
+      - id: b
+        text:
+          en: "It is still perfectly intact, because 108 was a new high."
+          es: "Sigue perfectamente intacta, porque 108 fue un nuevo máximo."
+      - id: c
+        text:
+          en: "It became a downtrend the moment price first dipped to 92."
+          es: "Se convirtió en tendencia bajista en cuanto el precio cayó por primera vez a 92."
+      - id: d
+        text:
+          en: "Nothing matters until price closes below zero."
+          es: "Nada importa hasta que el precio cierre por debajo de cero."
+    explanation:
+      en: "An uptrend needs higher lows. The 89 low sits below the prior 92 low, so the higher-low sequence is broken. The earlier dip to 92 was itself a higher low and did no damage."
+      es: "Una tendencia alcista necesita mínimos más altos. El mínimo de 89 queda por debajo del mínimo previo de 92, así que la secuencia de mínimos crecientes se rompe. La caída anterior a 92 era en sí un mínimo más alto y no hizo daño."
+  - id: one-hh-myth
+    kind: true_false
+    prompt:
+      en: "A single higher high after a downtrend confirms that a new uptrend has begun."
+      es: "Un único máximo más alto tras una tendencia bajista confirma que ha comenzado una nueva tendencia alcista."
+    answer: false
+    explanation:
+      en: "One higher high is not a trend. An uptrend needs a sequence — higher highs AND higher lows. A single push up can easily be one bounce inside a continuing downtrend or a range."
+      es: "Un solo máximo más alto no es una tendencia. Una tendencia alcista necesita una secuencia: máximos más altos Y mínimos más altos. Un solo empujón al alza puede ser fácilmente un rebote dentro de una tendencia bajista que continúa o de un rango."
+  - id: regime-match
+    kind: matching
+    prompt:
+      en: "Match each market regime to the structure that defines it."
+      es: "Empareja cada régimen de mercado con la estructura que lo define."
+    pairs:
+      - id: up
+        left: { en: "Uptrend", es: "Tendencia alcista" }
+        right:
+          en: "Higher highs and higher lows."
+          es: "Máximos más altos y mínimos más altos."
+      - id: down
+        left: { en: "Downtrend", es: "Tendencia bajista" }
+        right:
+          en: "Lower highs and lower lows."
+          es: "Máximos más bajos y mínimos más bajos."
+      - id: range
+        left: { en: "Range", es: "Rango" }
+        right:
+          en: "Roughly equal highs and lows, with no net progress."
+          es: "Máximos y mínimos parecidos, sin avance neto."
+    explanation:
+      en: "Trends step in one direction — up = higher highs and higher lows, down = lower highs and lower lows. A range makes roughly equal highs and lows and goes nowhere net."
+      es: "Las tendencias escalan en una dirección: alcista = máximos y mínimos más altos, bajista = máximos y mínimos más bajos. Un rango hace máximos y mínimos parecidos y no avanza en neto."
+  - id: range-traits
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that describe a range."
+      es: "Selecciona TODO lo siguiente que describe un rango."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Highs land at roughly similar levels."
+          es: "Los máximos caen a niveles parecidos."
+      - id: b
+        correct: true
+        text:
+          en: "Lows land at roughly similar levels."
+          es: "Los mínimos caen a niveles parecidos."
+      - id: c
+        correct: true
+        text:
+          en: "There is no net progress in either direction."
+          es: "No hay avance neto en ninguna dirección."
+      - id: d
+        text:
+          en: "Each peak is clearly above the previous peak."
+          es: "Cada pico está claramente por encima del anterior."
+      - id: e
+        text:
+          en: "Price makes strong, sustained progress in one direction."
+          es: "El precio avanza de forma fuerte y sostenida en una dirección."
+    explanation:
+      en: "A range has roughly equal highs, roughly equal lows and no net progress. Rising peaks or sustained one-way progress describe a trend, not a range."
+      es: "Un rango tiene máximos parecidos, mínimos parecidos y ningún avance neto. Picos crecientes o un avance sostenido en un sentido describen una tendencia, no un rango."
+  - id: why-regime
+    prompt:
+      en: "Why is 'trending or ranging?' the first question to ask a chart?"
+      es: "¿Por qué '¿tendencia o rango?' es la primera pregunta que hacerle a un gráfico?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because tactics that work in a trend get shredded in a range, and vice versa."
+          es: "Porque las tácticas que funcionan en una tendencia se destrozan en un rango, y al revés."
+      - id: b
+        text:
+          en: "Because a ranging market can never trend afterwards."
+          es: "Porque un mercado en rango nunca puede pasar a tendencia después."
+      - id: c
+        text:
+          en: "Because trends are far more common than ranges."
+          es: "Porque las tendencias son mucho más frecuentes que los rangos."
+      - id: d
+        text:
+          en: "Because the regime tells you the exact price target."
+          es: "Porque el régimen te dice el objetivo de precio exacto."
+    explanation:
+      en: "The regime decides which tactics make sense: ride pullbacks in a trend, fade the edges in a range. Get it wrong and you buy range tops or fight strong trends. Ranges are actually the more common state, and no regime gives you a price target."
+      es: "El régimen decide qué tácticas tienen sentido: montar los retrocesos en tendencia, operar contra los extremos en rango. Equivócate y comprarás techos de rango o pelearás contra tendencias fuertes. En realidad los rangos son el estado más común, y ningún régimen te da un objetivo de precio."
+  - id: classify-order
+    kind: ordering
+    prompt:
+      en: "Order the steps for deciding whether a chart is trending or ranging, first to last."
+      es: "Ordena los pasos para decidir si un gráfico está en tendencia o en rango, del primero al último."
+    items:
+      - id: tf
+        position: 1
+        text:
+          en: "Choose the timeframe you are actually trading."
+          es: "Elige la temporalidad en la que operas de verdad."
+      - id: mark
+        position: 2
+        text:
+          en: "Mark the recent swing highs and swing lows."
+          es: "Marca los máximos y mínimos de giro recientes."
+      - id: compare
+        position: 3
+        text:
+          en: "Check whether those highs and lows step up, step down, or stay roughly flat."
+          es: "Comprueba si esos máximos y mínimos suben, bajan o quedan más o menos planos."
+      - id: conclude
+        position: 4
+        text:
+          en: "Conclude uptrend, downtrend, or range."
+          es: "Concluye tendencia alcista, tendencia bajista o rango."
+    explanation:
+      en: "Structure is timeframe-specific, so fix the timeframe first, then read the swing points on it, compare how they line up, and only then name the regime."
+      es: "La estructura depende de la temporalidad, así que fija primero la temporalidad, luego lee los puntos de giro en ella, compara cómo se alinean y solo entonces nombra el régimen."

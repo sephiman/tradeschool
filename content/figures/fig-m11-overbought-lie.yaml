@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m11-overbought-lie
+kind: chart
+caption:
+  en: 'The overbought lie: in a strong uptrend RSI pins above 70 and stays there while
+    price keeps climbing. Overbought is not a sell signal — it is what a healthy trend
+    looks like on the oscillator.'
+  es: 'La mentira de la sobrecompra: en una tendencia alcista fuerte el RSI se clava
+    por encima de 70 y se queda ahí mientras el precio sigue subiendo. Sobrecompra
+    no es señal de venta: es como se ve una tendencia sana en el oscilador.'
+panels:
+- generator: pattern_chart
+  injector: oscillator_reading
+  target: overbought
+  seed: 1
+  n: 150
+  indicator: rsi

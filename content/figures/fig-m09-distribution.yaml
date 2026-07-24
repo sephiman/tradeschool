@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m09-distribution
+kind: chart
+caption:
+  en: 'Wyckoff distribution: a prior uptrend stalls into a range (phases A–E), an
+    upthrust (UTAD) traps breakout buyers above resistance at phase C, and the markdown
+    leaves the range downward.'
+  es: 'Distribución de Wyckoff: una tendencia alcista previa se estanca en un rango
+    (fases A–E), un upthrust (UTAD) atrapa a los compradores de ruptura por encima
+    de la resistencia en la fase C, y el markdown abandona el rango a la baja.'
+panels:
+- generator: pattern_chart
+  injector: wyckoff
+  target: distribution
+  seed: 2
+  n: 150
+  indicator: none

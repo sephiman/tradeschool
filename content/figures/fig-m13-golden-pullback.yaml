@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m13-golden-pullback
+kind: chart
+caption:
+  en: 'A Fibonacci grid drawn over the impulse: the pullback lands on the 0.618 ''golden''
+    level before the trend resumes. The level is a zone to watch, not a guarantee
+    — price reacts there because many traders watch it.'
+  es: 'Una cuadrícula de Fibonacci sobre el impulso: el retroceso aterriza en el nivel
+    0,618 «dorado» antes de que la tendencia se reanude. El nivel es una zona que
+    vigilar, no una garantía: el precio reacciona ahí porque muchos operadores lo
+    miran.'
+panels:
+- generator: pattern_chart
+  injector: fibonacci
+  target: retrace_618
+  seed: 1
+  n: 150
+  indicator: none
+  resolution:
+    direction: up
+    strength: 0.14

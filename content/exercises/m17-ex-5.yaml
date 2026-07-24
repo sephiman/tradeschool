@@ -1,0 +1,160 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: low-stops
+    prompt:
+      en: "Just below a recent swing low that has held twice, what kind of resting orders tend to pile up?"
+      es: "Justo debajo de un mínimo reciente que ha aguantado dos veces, ¿qué tipo de órdenes en reposo tienden a apilarse?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Long stop-losses plus the liquidation prices of leveraged longs — a shelf of resting sell orders."
+          es: "Stop-loss de largos más los precios de liquidación de los largos apalancados: una repisa de órdenes de venta en reposo."
+      - id: b
+        text:
+          en: "Short stop-losses waiting to buy, because shorts defend the low."
+          es: "Stop-loss de cortos esperando a comprar, porque los cortos defienden el mínimo."
+      - id: c
+        text:
+          en: "Only limit buy orders, since that is where buyers want to enter."
+          es: "Solo órdenes limitadas de compra, ya que ahí es donde los compradores quieren entrar."
+      - id: d
+        text:
+          en: "Nothing predictable — orders are scattered evenly across all prices."
+          es: "Nada predecible: las órdenes están repartidas por igual en todos los precios."
+    explanation:
+      en: "A long's protective sell (its stop-loss) goes just under the low, and leveraged longs' liquidation prices sit below entry in the same zone. Both are sell orders. Shorts' stops sit above a high, not below a low, and orders are anything but evenly scattered — they bunch at obvious levels."
+      es: "La venta protectora de un largo (su stop-loss) va justo debajo del mínimo, y los precios de liquidación de los largos apalancados quedan por debajo de la entrada, en la misma zona. Ambos son órdenes de venta. Los stops de los cortos están encima de un máximo, no debajo de un mínimo, y las órdenes no están repartidas por igual: se agrupan en los niveles obvios."
+  - id: high-stops
+    prompt:
+      en: "Just above a recent swing high, what kind of resting orders tend to pile up?"
+      es: "Justo encima de un máximo reciente, ¿qué tipo de órdenes en reposo tienden a apilarse?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Short stop-losses plus the liquidation prices of leveraged shorts — a shelf of resting buy orders."
+          es: "Stop-loss de cortos más los precios de liquidación de los cortos apalancados: una repisa de órdenes de compra en reposo."
+      - id: b
+        text:
+          en: "Long stop-losses waiting to sell, because that is where longs give up."
+          es: "Stop-loss de largos esperando a vender, porque ahí es donde se rinden los largos."
+      - id: c
+        text:
+          en: "Only limit sell orders from profit-takers."
+          es: "Solo órdenes limitadas de venta de quienes toman ganancias."
+      - id: d
+        text:
+          en: "Orders spread evenly; a high is no more special than any other price."
+          es: "Órdenes repartidas por igual; un máximo no es más especial que cualquier otro precio."
+    explanation:
+      en: "A short's protective buy (its stop-loss) goes just above the high, and leveraged shorts' liquidation prices sit above entry in the same band. Both are buy orders. Longs' stops sit below a low, and traders crowd their orders at obvious levels — highs and lows are exactly the special ones."
+      es: "La compra protectora de un corto (su stop-loss) va justo encima del máximo, y los precios de liquidación de los cortos apalancados quedan por encima de la entrada, en la misma banda. Ambos son órdenes de compra. Los stops de los largos están debajo de un mínimo, y los traders amontonan sus órdenes en los niveles obvios: los máximos y mínimos son justo los especiales."
+  - id: why-sweep
+    prompt:
+      en: "A large player wants to accumulate a big long position. Why might price be pushed down through the shelf of stops just below an obvious low before rallying?"
+      es: "Un jugador grande quiere acumular una posición larga grande. ¿Por qué podría empujarse el precio hacia abajo a través de la repisa de stops justo debajo de un mínimo obvio antes de subir?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The stop-losses and liquidations triggered there are forced sells — the liquidity the large player fills a big buy into, cheaply."
+          es: "Los stop-loss y las liquidaciones que se disparan ahí son ventas forzadas: la liquidez con la que el jugador grande ejecuta una compra grande, y barata."
+      - id: b
+        text:
+          en: "To punish retail longs for their poor positioning."
+          es: "Para castigar a los largos minoristas por su mal posicionamiento."
+      - id: c
+        text:
+          en: "Because breaking a low always confirms a new downtrend."
+          es: "Porque romper un mínimo siempre confirma una nueva tendencia bajista."
+      - id: d
+        text:
+          en: "The exchange moves price to that level to collect extra fees."
+          es: "El exchange mueve el precio a ese nivel para cobrar comisiones extra."
+    explanation:
+      en: "Filling a large buy needs sellers on the other side. The shelf of stops below the low is a pool of sell orders waiting to trigger, so nudging price into it produces cheap forced selling to buy against — then, with sellers exhausted, price snaps back. It is not punishment, not a confirmed trend, and not about fees."
+      es: "Ejecutar una compra grande necesita vendedores enfrente. La repisa de stops debajo del mínimo es una bolsa de órdenes de venta esperando a dispararse, así que empujar el precio hacia ella produce venta forzada barata contra la que comprar; luego, con los vendedores agotados, el precio rebota. No es un castigo, ni una tendencia confirmada, ni una cuestión de comisiones."
+  - id: terms-liquidity
+    kind: matching
+    prompt:
+      en: "Match each term to what it means."
+      es: "Empareja cada término con lo que significa."
+    pairs:
+      - id: liq
+        left:
+          en: "Liquidity"
+          es: "Liquidez"
+        right:
+          en: "Resting orders waiting to be filled"
+          es: "Órdenes en reposo esperando a ejecutarse"
+      - id: liqn
+        left:
+          en: "Liquidation"
+          es: "Liquidación"
+        right:
+          en: "The exchange forcibly closing a leveraged position"
+          es: "El cierre forzoso de una posición apalancada por el exchange"
+      - id: swp
+        left:
+          en: "Sweep"
+          es: "Barrido"
+        right:
+          en: "Poking through a level to trigger and take the pool of stops"
+          es: "Perforar un nivel para disparar y tomar la bolsa de stops"
+      - id: cls
+        left:
+          en: "Cluster"
+          es: "Clúster"
+        right:
+          en: "A shelf of orders stacked near one price"
+          es: "Una repisa de órdenes apiladas cerca de un mismo precio"
+    explanation:
+      en: "Liquidity and liquidation are not the same word: liquidity is resting orders to trade against, while a liquidation is strictly a forced close. A sweep is price poking through a level to take that resting pool; a cluster is the pool itself, stacked near one price."
+      es: "Liquidez y liquidación no son la misma palabra: la liquidez son órdenes en reposo contra las que operar, mientras que una liquidación es estrictamente un cierre forzoso. Un barrido es el precio perforando un nivel para tomar esa bolsa en reposo; un clúster es la propia bolsa, apilada cerca de un mismo precio."
+  - id: random-myth
+    kind: true_false
+    prompt:
+      en: "Stop and liquidation clusters tend to form at random price levels, so they cannot be anticipated."
+      es: "Los clústeres de stops y liquidaciones tienden a formarse en niveles de precio aleatorios, así que no se pueden anticipar."
+    answer: false
+    explanation:
+      en: "The opposite: clusters form at the levels everyone can see — obvious swing highs and lows, round numbers, levels that held before. Because traders reason alike and place stops just beyond those points, the pools are predictable, not random."
+      es: "Al revés: los clústeres se forman en los niveles que todos ven: máximos y mínimos obvios, números redondos, niveles que aguantaron antes. Como los traders razonan igual y ponen los stops justo pasados esos puntos, las bolsas son predecibles, no aleatorias."
+  - id: sweep-vs-break
+    kind: true_false
+    prompt:
+      en: "Price pokes a few ticks below an obvious swing low and then reclaims it within one or two candles. This behaviour fits a liquidity sweep better than a genuine breakdown."
+      es: "El precio perfora unos ticks por debajo de un mínimo obvio y luego lo recupera en una o dos velas. Este comportamiento encaja mejor con un barrido de liquidez que con una ruptura genuina."
+    answer: true
+    explanation:
+      en: "A genuine break holds beyond the level; a sweep pokes through to trigger the pool of stops and then snaps back, reclaiming the level within a candle or two. The quick reclaim is exactly the tell that the low was swept, not broken."
+      es: "Una ruptura genuina aguanta más allá del nivel; un barrido lo perfora para disparar la bolsa de stops y luego rebota, recuperando el nivel en una o dos velas. La recuperación rápida es justo la pista de que el mínimo fue barrido, no roto."
+  - id: below-low-multi
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that add to the shelf of resting SELL orders sitting just below a recent swing low."
+      es: "Selecciona TODO lo siguiente que se suma a la repisa de órdenes de VENTA en reposo situada justo debajo de un mínimo reciente."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Stop-loss orders placed by longs."
+          es: "Órdenes stop-loss colocadas por los largos."
+      - id: b
+        correct: true
+        text:
+          en: "The liquidation prices of leveraged longs."
+          es: "Los precios de liquidación de los largos apalancados."
+      - id: c
+        text:
+          en: "Stop-loss orders placed by shorts."
+          es: "Órdenes stop-loss colocadas por los cortos."
+      - id: d
+        text:
+          en: "A wave of new market buy orders."
+          es: "Una oleada de nuevas órdenes de compra a mercado."
+    explanation:
+      en: "Below a low, both longs' stop-losses and leveraged longs' liquidation prices are sell orders — they add to the shelf. Shorts' stops sit above a high and are buys, and market buy orders are the opposite side entirely, not resting sell pressure below the low."
+      es: "Debajo de un mínimo, tanto los stop-loss de los largos como los precios de liquidación de los largos apalancados son órdenes de venta: se suman a la repisa. Los stops de los cortos están encima de un máximo y son compras, y las órdenes de compra a mercado son justo el otro lado, no presión de venta en reposo debajo del mínimo."

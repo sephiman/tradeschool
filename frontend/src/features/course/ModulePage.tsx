@@ -5,10 +5,10 @@ import { getModule } from "@/api/course";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 
 export function ModulePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { moduleId = "" } = useParams();
   const { data: module, isLoading } = useQuery({
-    queryKey: ["module", moduleId],
+    queryKey: ["module", moduleId, i18n.resolvedLanguage],
     queryFn: () => getModule(moduleId),
   });
 

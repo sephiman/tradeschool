@@ -73,7 +73,8 @@
     "quiz": "Test",
     "calculation": "Cálculo",
     "synthetic_chart": "Gráfico",
-    "fixture_chart": "Gráfico"
+    "fixture_chart": "Gráfico",
+    "pattern_chart": "Gráfico"
   },
   "divergence": {
     "none": "Sin divergencia",
@@ -112,5 +113,35 @@
     "USER_ALREADY_EXISTS": "Ya existe una cuenta con este correo.",
     "INVALID_PASSWORD": "Esa contraseña no está permitida.",
     "LOGIN_BAD_CREDENTIALS": "Correo o contraseña incorrectos."
+  },
+  "chartLabel": {
+    "genuine_breakout": "Ruptura genuina",
+    "false_break": "Ruptura falsa",
+    "no_break": "Sin ruptura",
+    "accumulation": "Acumulación",
+    "distribution": "Distribución",
+    "none": "Ninguno",
+    "uptrend": "Tendencia alcista",
+    "downtrend": "Tendencia bajista",
+    "range": "Rango",
+    "overbought": "Sobrecompra",
+    "oversold": "Sobreventa",
+    "neutral": "Neutral",
+    "retrace_382": "Retroceso 38,2 %",
+    "retrace_500": "Retroceso 50 %",
+    "retrace_618": "Retroceso 61,8 %",
+    "confirmed_breakout": "Confirmada (volumen)",
+    "unconfirmed_breakout": "Sin confirmar (volumen débil)",
+    "rising_oi": "OI creciente",
+    "falling_oi": "OI decreciente",
+    "flat_oi": "OI plano"
+  },
+  "candle": {
+    "open": "Apertura",
+    "high": "Máximo",
+    "low": "Mínimo",
+    "close": "Cierre",
+    "body": "Cuerpo",
+    "wick": "Mecha"
   }
 }

@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m17-oi-quadrants
+kind: chart
+caption:
+  en: 'Open interest read against a rising price. Left: OI rising with price — new
+    money backing the move, it continues. Right: OI falling while price rises — a
+    short-covering rally with no fresh conviction, it stalls and rolls over.'
+  es: 'Interés abierto leído frente a un precio que sube. Izquierda: OI subiendo con
+    el precio —dinero nuevo respaldando el movimiento, continúa—. Derecha: OI cayendo
+    mientras el precio sube —un rally de cierre de cortos sin convicción nueva, se
+    estanca y se gira—.'
+panels:
+- generator: pattern_chart
+  injector: derivatives
+  target: rising_oi
+  seed: 1
+  n: 150
+  indicator: oi
+  resolution:
+    direction: up
+    strength: 0.14
+- generator: pattern_chart
+  injector: derivatives
+  target: falling_oi
+  seed: 2
+  n: 150
+  indicator: oi
+  resolution:
+    direction: down
+    strength: 0.14

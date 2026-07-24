@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m09-accumulation
+kind: chart
+caption:
+  en: 'Wyckoff accumulation: a prior downtrend stalls into a range (phases A–E), a
+    spring shakes out sellers below support at phase C, and the markup leaves the
+    range upward.'
+  es: 'Acumulación de Wyckoff: una tendencia bajista previa se estanca en un rango
+    (fases A–E), un spring sacude a los vendedores por debajo del soporte en la fase
+    C, y el markup abandona el rango al alza.'
+panels:
+- generator: pattern_chart
+  injector: wyckoff
+  target: accumulation
+  seed: 1
+  n: 150
+  indicator: none

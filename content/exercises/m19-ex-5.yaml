@@ -1,0 +1,148 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: three-longs-total
+    prompt:
+      en: "Your account is 10,000 USDT. You open three long positions on three highly correlated alts, each sized to risk exactly 1% (100 USDT) at its own stop. A market-wide sell-off hits all three stops at once. How much do you lose in that single move?"
+      es: "Tu cuenta es de 10.000 USDT. Abres tres posiciones largas en tres altcoins muy correlacionadas, cada una dimensionada para arriesgar exactamente el 1% (100 USDT) en su propio stop. Una caída generalizada del mercado toca los tres stops a la vez. ¿Cuánto pierdes en ese único movimiento?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "300 USDT — about 3% of the account, all in one move."
+          es: "300 USDT: alrededor del 3% de la cuenta, todo en un movimiento."
+      - id: b
+        text:
+          en: "100 USDT — the caps hold each position to 1%, so the total is 1%."
+          es: "100 USDT: los límites mantienen cada posición en el 1%, así que el total es el 1%."
+      - id: c
+        text:
+          en: "Less than 100 USDT — three coins diversify the risk down."
+          es: "Menos de 100 USDT: tres monedas diversifican el riesgo a la baja."
+      - id: d
+        text:
+          en: "0 USDT — three positions hedge one another out."
+          es: "0 USDT: tres posiciones se cubren entre sí."
+    explanation:
+      en: "Correlated positions move as one, so their risks add: 100 + 100 + 100 = 300 USDT = 3% of the account, arriving together in a single move. The three '1% bets' were really one ~3% bet in three costumes. Per-trade caps do not cap the correlated total."
+      es: "Las posiciones correlacionadas se mueven como una, así que sus riesgos se suman: 100 + 100 + 100 = 300 USDT = 3% de la cuenta, y llegan juntas en un solo movimiento. Las tres «apuestas del 1%» eran en realidad una sola apuesta de ~3% con tres trajes. Los límites por operación no limitan el total correlacionado."
+  - id: exposure-true-statements
+    kind: multi_select
+    prompt:
+      en: "You hold three 1%-risk longs on highly correlated alts. Select ALL of the statements that are true."
+      es: "Tienes tres largos con un 1% de riesgo en altcoins muy correlacionadas. Selecciona TODAS las afirmaciones que son verdaderas."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "In a sell-off they behave like a single bet of roughly 3%."
+          es: "En una caída se comportan como una única apuesta de aproximadamente el 3%."
+      - id: b
+        correct: true
+        text:
+          en: "Your real risk is your total exposure to one move, not the number of tickets."
+          es: "Tu riesgo real es tu exposición total a un movimiento, no el número de tickets."
+      - id: c
+        correct: true
+        text:
+          en: "A single correlated drop can hit all three stops at the same time."
+          es: "Una sola caída correlacionada puede tocar los tres stops al mismo tiempo."
+      - id: d
+        text:
+          en: "Each remains an independent 1% risk because each has its own stop."
+          es: "Cada uno sigue siendo un riesgo del 1% independiente porque cada uno tiene su propio stop."
+      - id: e
+        text:
+          en: "Holding three different names diversifies the risk away."
+          es: "Tener tres nombres distintos diversifica el riesgo."
+      - id: f
+        text:
+          en: "Capping each trade at 1% guarantees the whole book risks at most 1%."
+          es: "Limitar cada operación al 1% garantiza que toda la cartera arriesga como mucho el 1%."
+    explanation:
+      en: "Correlated positions stack: three 1% longs that fall together are one ~3% bet, and their stops can all trigger in the same move. Real risk is total exposure to a single move, not the ticket count. Independence, diversification and per-trade caps are exactly the illusions that hide the stacked bet."
+      es: "Las posiciones correlacionadas se apilan: tres largos del 1% que caen juntos son una apuesta de ~3%, y sus stops pueden dispararse todos en el mismo movimiento. El riesgo real es la exposición total a un solo movimiento, no la cuenta de tickets. La independencia, la diversificación y los límites por operación son justo las ilusiones que esconden la apuesta apilada."
+  - id: notional-exposure
+    prompt:
+      en: "Each of three longs is sized to risk 100 USDT with its stop 10% below entry. What is the total long exposure (notional) across the three positions?"
+      es: "Cada uno de tres largos se dimensiona para arriesgar 100 USDT con su stop un 10% por debajo de la entrada. ¿Cuál es la exposición larga total (nocional) en las tres posiciones?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "3,000 USDT — 1,000 USDT per position (100 ÷ 0.10), times three."
+          es: "3.000 USDT: 1.000 USDT por posición (100 ÷ 0,10), por tres."
+      - id: b
+        text:
+          en: "300 USDT — the total money you can lose."
+          es: "300 USDT: el dinero total que puedes perder."
+      - id: c
+        text:
+          en: "100 USDT — the risk budget of a single position."
+          es: "100 USDT: el presupuesto de riesgo de una sola posición."
+      - id: d
+        text:
+          en: "30,000 USDT — ten times the account for leverage."
+          es: "30.000 USDT: diez veces la cuenta por el apalancamiento."
+    explanation:
+      en: "A 100 USDT risk over a 10% stop means notional = 100 ÷ 0.10 = 1,000 USDT per position. Three of them is 3,000 USDT of directional exposure — 30% of a 10,000 account pointed the same way. The money at risk (300 USDT) and the exposure (3,000 USDT) are different numbers; both matter."
+      es: "Un riesgo de 100 USDT sobre un stop del 10% significa nocional = 100 ÷ 0,10 = 1.000 USDT por posición. Tres de ellas son 3.000 USDT de exposición direccional: el 30% de una cuenta de 10.000 apuntando en la misma dirección. El dinero en riesgo (300 USDT) y la exposición (3.000 USDT) son cifras distintas; ambas importan."
+  - id: aggregate-question
+    prompt:
+      en: "Which single question best reveals your aggregate directional exposure?"
+      es: "¿Qué única pregunta revela mejor tu exposición direccional agregada?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "If the market dropped 10% right now, how much would I lose across all my positions?"
+          es: "Si el mercado cayera un 10% ahora mismo, ¿cuánto perdería en todas mis posiciones?"
+      - id: b
+        text:
+          en: "How many different coins am I currently holding?"
+          es: "¿Cuántas monedas distintas tengo ahora mismo?"
+      - id: c
+        text:
+          en: "Is every individual trade capped at 1% risk?"
+          es: "¿Está cada operación individual limitada al 1% de riesgo?"
+      - id: d
+        text:
+          en: "Which of my coins has the cleanest-looking chart?"
+          es: "¿Cuál de mis monedas tiene el gráfico más limpio?"
+    explanation:
+      en: "Portfolio risk is total exposure to a single move, so the revealing question adds up the loss from one market-wide drop. Counting coins or checking per-trade caps hides correlation rather than measuring it; a clean chart says nothing about your aggregate exposure."
+      es: "El riesgo de cartera es la exposición total a un solo movimiento, así que la pregunta reveladora suma la pérdida de una única caída generalizada. Contar monedas o revisar los límites por operación esconde la correlación en vez de medirla; un gráfico limpio no dice nada de tu exposición agregada."
+  - id: four-longs-total
+    prompt:
+      en: "Your account is 20,000 USDT. You hold four long positions on highly correlated alts, each risking 1% (200 USDT) at its stop. A correlated sell-off hits all four stops together. What do you lose in that move?"
+      es: "Tu cuenta es de 20.000 USDT. Tienes cuatro posiciones largas en altcoins muy correlacionadas, cada una arriesgando el 1% (200 USDT) en su stop. Una caída correlacionada toca los cuatro stops juntos. ¿Cuánto pierdes en ese movimiento?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "800 USDT — 4% of the account, since the four correlated risks add up."
+          es: "800 USDT: el 4% de la cuenta, ya que los cuatro riesgos correlacionados se suman."
+      - id: b
+        text:
+          en: "200 USDT — still just 1%, because each stop is separate."
+          es: "200 USDT: sigue siendo solo el 1%, porque cada stop es independiente."
+      - id: c
+        text:
+          en: "400 USDT — the average of the four positions."
+          es: "400 USDT: la media de las cuatro posiciones."
+      - id: d
+        text:
+          en: "2,000 USDT — the full margin used across the book."
+          es: "2.000 USDT: todo el margen usado en la cartera."
+    explanation:
+      en: "Four correlated 1% longs that fall together are one 4% bet: 4 × 200 = 800 USDT = 4% of 20,000, arriving in a single move. Splitting a bet across more tickets never lowers the correlated total; it just makes it harder to see."
+      es: "Cuatro largos correlacionados del 1% que caen juntos son una apuesta del 4%: 4 × 200 = 800 USDT = 4% de 20.000, y llega en un solo movimiento. Repartir una apuesta en más tickets nunca reduce el total correlacionado; solo lo hace más difícil de ver."
+  - id: long-short-relative
+    kind: true_false
+    prompt:
+      en: "A long and a short on two highly correlated coins add up to more directional exposure than either position held alone."
+      es: "Un largo y un corto en dos monedas muy correlacionadas suman más exposición direccional que cualquiera de las posiciones por separado."
+    answer: false
+    explanation:
+      en: "False. Because the coins move together, the long and the short largely cancel — that is a relative bet with far less directional exposure, not more. Stacking only happens when the positions point the same way (two longs, or two shorts) on correlated instruments."
+      es: "Falso. Como las monedas se mueven juntas, el largo y el corto se cancelan en gran parte: eso es una apuesta relativa con mucha menos exposición direccional, no más. El apilamiento solo ocurre cuando las posiciones apuntan en la misma dirección (dos largos, o dos cortos) en instrumentos correlacionados."

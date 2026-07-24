@@ -1,0 +1,200 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+"""Lesson figures: curated, frozen-seed didactic charts built from the SAME generators/injectors as
+exercises — but showing the RESOLUTION (the divergence's reversal, the range's markup) that exercises
+cut off. A figure spec (content/figures/<id>.yaml) is content: a fixed seed hand-picked for looks and
+frozen forever, so every student and both languages see an identical chart.
+
+The build is strictly additive: it calls the injector's unchanged `build()` and *appends* a resolution
+leg to the resulting close path (see `append_resolution`). It never feeds back into exercise mode —
+the golden regression test locks that.
+"""
+
+from __future__ import annotations
+
+import re
+from pathlib import Path
+from typing import Literal, Self
+
+import numpy as np
+import yaml
+from pydantic import BaseModel, ConfigDict, model_validator
+
+from tradeschool.content.schema import LocalizedText
+from tradeschool.exercises.charts.engine import build_series
+from tradeschool.exercises.charts.indicators import ema, macd, rsi
+from tradeschool.exercises.charts.injectors import RsiDivergenceInjector
+from tradeschool.exercises.charts.patterns.common import append_resolution
+from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
+from tradeschool.exercises.charts.types import DivergenceType
+
+_DIVERGENCE = RsiDivergenceInjector()
+_DIR_SIGN = {"up": 1.0, "down": -1.0, "flat": 0.0}
+# Default resolution direction for a divergence figure (regular = reversal, hidden = continuation).
+_DIVERGENCE_DIR = {
+    "bullish_regular": 1.0, "bullish_hidden": 1.0,
+    "bearish_regular": -1.0, "bearish_hidden": -1.0, "none": 0.0,
+}
+# Default resolution direction for pattern figures whose direction is unambiguous from the label.
+# Side/impulse-dependent injectors (fakeout, fibonacci, volume_confirmation, derivatives) are NOT
+# listed — those figures must state `resolution` explicitly, since the direction depends on the seed.
+_PATTERN_DIR: dict[str, dict[str, float]] = {
+    "wyckoff": {"accumulation": 1.0, "distribution": -1.0, "none": 0.0},
+    "ma_context": {"uptrend": 1.0, "downtrend": -1.0, "range": 0.0},
+    "oscillator_reading": {"overbought": 1.0, "oversold": -1.0, "neutral": 0.0},
+}
+_RESOLUTION_CANDLES = 24
+
+
+class FigureResolution(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    direction: Literal["up", "down", "flat"]
+    strength: float = 0.18
+
+
+class FigurePanel(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    generator: Literal["pattern_chart", "synthetic_chart"]
+    injector: str | None = None  # pattern_chart only
+    target: str  # the specific label / divergence this figure plants
+    seed: int  # frozen, hand-picked
+    n: int = 160
+    indicator: Literal["rsi", "macd", "none", "oi"] | None = None
+    show_resolution: bool = True
+    resolution: FigureResolution | None = None  # explicit direction; else a per-generator default
+
+    @model_validator(mode="after")
+    def _check(self) -> Self:
+        if self.generator == "pattern_chart":
+            if not self.injector or not has_injector(self.injector):
+                raise ValueError(f"figure panel: unknown injector {self.injector!r}")
+            if self.target not in get_injector(self.injector).labels:
+                raise ValueError(f"figure panel: target {self.target!r} not a {self.injector} label")
+        else:
+            try:
+                DivergenceType(self.target)
+            except ValueError as exc:
+                raise ValueError(f"figure panel: bad divergence {self.target!r}") from exc
+        return self
+
+
+class FigureSpec(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    id: str
+    kind: Literal["chart", "svg"] = "chart"
+    svg: str | None = None  # kind=svg: a component name the frontend renders (e.g. candle anatomy)
+    caption: LocalizedText
+    panels: list[FigurePanel] = []
+
+    @model_validator(mode="after")
+    def _check(self) -> Self:
+        if self.kind == "chart" and not self.panels:
+            raise ValueError(f"figure {self.id!r}: a chart figure needs at least one panel")
+        if self.kind == "svg" and not self.svg:
+            raise ValueError(f"figure {self.id!r}: an svg figure needs an 'svg' name")
+        return self
+
+
+def _round(values: object, ndigits: int) -> list[float]:
+    arr = np.asarray(values, dtype=float)
+    return [round(float(x), ndigits) for x in arr.tolist()]
+
+
+def _panel_payload(panel: FigurePanel) -> dict[str, object]:
+    rng = np.random.default_rng(panel.seed)
+    overlays_raw: dict[str, list[float]] = {}
+    levels: list[dict[str, object]] = []
+    annotations: list[dict[str, object]] = []
+    oi_full: np.ndarray | None = None
+    volume_full: np.ndarray | None = None
+
+    if panel.generator == "synthetic_chart":
+        target = DivergenceType(panel.target)
+        indicator: str = panel.indicator or "rsi"
+        close_full, warmup, s1, s2 = _DIVERGENCE.build(rng, panel.n, target, indicator)
+        swing_kind = "high" if target.value.startswith("bearish") else "low"
+        for idx, name in ((s1, "1"), (s2, "2")):
+            if idx is not None and idx - warmup >= 0:
+                annotations.append({"index": idx - warmup, "kind": swing_kind, "label": name})
+        default_dir = _DIVERGENCE_DIR.get(target.value, 0.0)
+    else:
+        injector = get_injector(panel.injector or "")
+        result = injector.build(rng, panel.n, panel.target)
+        close_full, warmup = result.close_full, result.warmup
+        indicator = panel.indicator or injector.indicator
+        overlays_raw = {k: list(v) for k, v in result.overlays.items()}
+        levels = [{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels]
+        # Figure-only richer annotations (e.g. Wyckoff phase labels A-E) come from an optional
+        # `figure_annotations` method — never from build(), so exercise output is untouched.
+        fig_ann = getattr(injector, "figure_annotations", None)
+        raw_ann = fig_ann(panel.target, panel.n) if callable(fig_ann) else result.annotations
+        annotations = [
+            {"index": a.index - warmup, "kind": a.kind, "label": a.label}
+            for a in raw_ann
+            if a.index - warmup >= 0
+        ]
+        oi_full, volume_full = result.oi_full, result.volume_full
+        default_dir = _PATTERN_DIR.get(panel.injector or "", {}).get(panel.target, 0.0)
+
+    if panel.show_resolution:
+        direction = _DIR_SIGN[panel.resolution.direction] if panel.resolution else default_dir
+        strength = panel.resolution.strength if panel.resolution else 0.18
+        before = len(close_full)
+        close_full = append_resolution(rng, close_full, direction, strength, _RESOLUTION_CANDLES)
+        added = len(close_full) - before
+        if oi_full is not None:
+            oi_dir = float(np.sign(oi_full[-1] - oi_full[0]))
+            oi_full = append_resolution(rng, oi_full, oi_dir, 0.12, added)
+        if volume_full is not None:
+            base = float(np.median(volume_full))
+            extra = base * (0.7 + 0.5 * np.abs(rng.normal(0.0, 1.0, added)))
+            volume_full = np.concatenate([volume_full, extra])
+
+    series = build_series(rng, close_full)
+    if volume_full is not None:
+        series.volume = _round(volume_full, 2)
+    line, signal, hist = macd(close_full)
+    w = warmup
+    overlays: dict[str, list[float]] = {}
+    for name in overlays_raw:  # recompute EMA overlays over the extended close (keys like "ema20")
+        m = re.search(r"(\d+)$", name)
+        overlays[name] = _round(ema(close_full, int(m.group(1))), 2) if m else overlays_raw[name]
+
+    payload: dict[str, object] = {
+        "series": {
+            "time": series.time[w:], "open": series.open[w:], "high": series.high[w:],
+            "low": series.low[w:], "close": series.close[w:], "volume": series.volume[w:],
+        },
+        "rsi": _round(rsi(close_full), 2)[w:],
+        "macd": {"line": _round(line, 4)[w:], "signal": _round(signal, 4)[w:], "hist": _round(hist, 4)[w:]},
+        "indicator": indicator,
+        "overlays": {k: v[w:] for k, v in overlays.items()},
+        "levels": levels,
+        "annotations": annotations,
+    }
+    if oi_full is not None:
+        payload["oi"] = _round(oi_full, 2)[w:]
+    return payload
+
+
+def build_figure(spec: FigureSpec, locale: str) -> dict[str, object]:
+    data: dict[str, object] = {"id": spec.id, "kind": spec.kind, "caption": spec.caption.get(locale)}
+    if spec.kind == "svg":
+        data["svg"] = spec.svg
+    else:
+        data["panels"] = [_panel_payload(p) for p in spec.panels]
+    return data
+
+
+def load_figures(content_dir: Path) -> dict[str, FigureSpec]:
+    figures: dict[str, FigureSpec] = {}
+    figures_dir = content_dir / "figures"
+    if not figures_dir.exists():
+        return figures
+    for path in sorted(figures_dir.glob("*.yaml")):
+        with path.open(encoding="utf-8") as fh:
+            raw = yaml.safe_load(fh)
+        spec = FigureSpec.model_validate(raw)
+        if spec.id != path.stem:
+            raise ValueError(f"figure id {spec.id!r} must match filename {path.stem!r}")
+        figures[spec.id] = spec
+    return figures

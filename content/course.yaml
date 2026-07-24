@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-# TradeSchool course manifest — canonical structure, order (list position) and advisory
-# prerequisites (`assumes`). Localized labels live here; lesson prose lives in content/<lang>/lessons/.
-# Phase 1 authored m01/m06/m12; Phase 2 authored the remaining 20 modules (this file wires them).
+# TradeSchool course manifest — blocks → modules → lessons → exercises (stable ids, order = list position).
 blocks:
 - id: block-a
   title:
@@ -72,6 +70,15 @@ blocks:
       - id: m03-ex-3
         type: quiz
       - id: m03-ex-4
+        type: quiz
+    - id: m03-l2
+      title:
+        en: Trend, range, and levels
+        es: Tendencia, rango y niveles
+      exercises:
+      - id: m03-ex-5
+        type: quiz
+      - id: m03-ex-6
         type: quiz
 - id: block-b
   title:
@@ -217,6 +224,15 @@ blocks:
       - id: m09-ex-3
         type: quiz
       - id: m09-ex-4
+        type: quiz
+    - id: m09-l2
+      title:
+        en: Accumulation and distribution, phase by phase
+        es: Acumulación y distribución, fase por fase
+      exercises:
+      - id: m09-ex-5
+        type: pattern_chart
+      - id: m09-ex-6
         type: quiz
   - id: m10
     title:
@@ -406,6 +422,15 @@ blocks:
         type: quiz
       - id: m17-ex-4
         type: quiz
+    - id: m17-l2
+      title:
+        en: Liquidity maps and squeezes
+        es: Mapas de liquidez y squeezes
+      exercises:
+      - id: m17-ex-5
+        type: quiz
+      - id: m17-ex-6
+        type: quiz
   - id: m18
     title:
       en: Tokenomics
@@ -457,6 +482,15 @@ blocks:
       - id: m19-ex-3
         type: quiz
       - id: m19-ex-4
+        type: quiz
+    - id: m19-l2
+      title:
+        en: Portfolio risk
+        es: Riesgo de cartera
+      exercises:
+      - id: m19-ex-5
+        type: quiz
+      - id: m19-ex-6
         type: quiz
   - id: m20
     title:

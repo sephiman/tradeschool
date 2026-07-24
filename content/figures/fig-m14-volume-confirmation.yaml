@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m14-volume-confirmation
+kind: chart
+caption:
+  en: 'Same breakout, read by volume. Left: a volume surge on the break (participation)
+    — it follows through. Right: the same break on weak volume (no participation)
+    — it fails. The volume bars are the tell.'
+  es: 'La misma ruptura, leída por volumen. Izquierda: un pico de volumen en la ruptura
+    (participación) —continúa—. Derecha: la misma ruptura con volumen débil (sin participación)
+    —fracasa—. Las barras de volumen son la pista.'
+panels:
+- generator: pattern_chart
+  injector: volume_confirmation
+  target: confirmed_breakout
+  seed: 1
+  n: 150
+  indicator: none
+  resolution:
+    direction: up
+    strength: 0.16
+- generator: pattern_chart
+  injector: volume_confirmation
+  target: unconfirmed_breakout
+  seed: 2
+  n: 150
+  indicator: none
+  resolution:
+    direction: up
+    strength: 0.16

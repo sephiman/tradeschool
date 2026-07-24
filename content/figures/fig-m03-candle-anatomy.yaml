@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m03-candle-anatomy
+kind: svg
+caption:
+  en: 'Anatomy of a candle: the body spans open→close (green when close>open), the
+    wicks reach the high and low. One candle = one time period.'
+  es: 'Anatomía de una vela: el cuerpo va de apertura→cierre (verde cuando cierre>apertura),
+    las mechas alcanzan el máximo y el mínimo. Una vela = un periodo de tiempo.'
+svg: candle-anatomy

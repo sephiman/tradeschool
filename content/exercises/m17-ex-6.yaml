@@ -1,0 +1,171 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: phases-order
+    kind: ordering
+    prompt:
+      en: "Put the four phases of a squeeze in order, first to last."
+      es: "Ordena las cuatro fases de un squeeze, de la primera a la última."
+    items:
+      - id: build
+        position: 1
+        text:
+          en: "Build — one leveraged side crowds in, funding goes one-sided, OI climbs."
+          es: "Acumulación: un lado apalancado se amontona, el funding se vuelve unilateral, el OI sube."
+      - id: trig
+        position: 2
+        text:
+          en: "Trigger — price reaches the cluster and the first liquidations fire."
+          es: "Disparo: el precio alcanza el clúster y se disparan las primeras liquidaciones."
+      - id: casc
+        position: 3
+        text:
+          en: "Cascade — each forced close pushes price into the next cluster of forced closes."
+          es: "Cascada: cada cierre forzoso empuja el precio hasta el siguiente clúster de cierres forzosos."
+      - id: exh
+        position: 4
+        text:
+          en: "Exhaustion — the crowded side empties and the move stalls or snaps back."
+          es: "Agotamiento: el lado concurrido se vacía y el movimiento se estanca o rebota."
+    explanation:
+      en: "A squeeze loads before it fires: a crowded, leveraged side builds (1), price reaching the cluster triggers the first liquidations (2), those forced closes cascade into more (3), and once the crowded side is emptied the mechanical move exhausts (4)."
+      es: "Un squeeze se carga antes de dispararse: un lado concurrido y apalancado se acumula (1), el precio al alcanzar el clúster dispara las primeras liquidaciones (2), esos cierres forzosos forman una cascada de más (3) y, una vez vaciado el lado concurrido, el movimiento mecánico se agota (4)."
+  - id: long-cascade-order
+    kind: ordering
+    prompt:
+      en: "Put the stages of a long squeeze in order, first to last."
+      es: "Ordena las fases de un long squeeze, de la primera a la última."
+    items:
+      - id: l1
+        position: 1
+        text:
+          en: "Price falls into a cluster of crowded, leveraged longs."
+          es: "El precio cae hasta un clúster de largos concurridos y apalancados."
+      - id: l2
+        position: 2
+        text:
+          en: "Those longs are force-closed — which means selling to close."
+          es: "Esos largos se cierran por la fuerza, lo que significa vender para cerrar."
+      - id: l3
+        position: 3
+        text:
+          en: "The forced selling pushes price lower."
+          es: "La venta forzada empuja el precio más abajo."
+      - id: l4
+        position: 4
+        text:
+          en: "The lower price liquidates even more longs, and the move cascades down."
+          es: "El precio más bajo liquida aún más largos, y el movimiento forma una cascada hacia abajo."
+    explanation:
+      en: "A long squeeze is the mirror of a short squeeze: price reaches a long cluster, the forced closes are forced sells, that selling drops price, which liquidates more longs — each step driving the next, cascading downward."
+      es: "Un long squeeze es el espejo de un short squeeze: el precio alcanza un clúster de largos, los cierres forzosos son ventas forzadas, esa venta baja el precio, lo que liquida más largos; cada paso impulsa el siguiente, en cascada hacia abajo."
+  - id: durable-trend-myth
+    kind: true_false
+    prompt:
+      en: "A squeeze is a durable new trend: once it starts, you can safely hold in its direction for weeks."
+      es: "Un squeeze es una nueva tendencia duradera: una vez que empieza, puedes mantener con seguridad en su dirección durante semanas."
+    answer: false
+    explanation:
+      en: "A squeeze is a mechanical cascade of forced closes drawn from a finite, crowded side. When that side is emptied there is no forced flow left, so the move exhausts and usually snaps back — it is the opposite of a durable trend."
+      es: "Un squeeze es una cascada mecánica de cierres forzosos que sale de un lado concurrido y finito. Cuando ese lado se vacía no queda flujo forzado, así que el movimiento se agota y normalmente rebota: es lo contrario de una tendencia duradera."
+  - id: phase-match
+    kind: matching
+    prompt:
+      en: "Match each phase of a squeeze to what happens in it."
+      es: "Empareja cada fase de un squeeze con lo que ocurre en ella."
+    pairs:
+      - id: bld
+        left:
+          en: "Build"
+          es: "Acumulación"
+        right:
+          en: "The crowded, leveraged side loads up (one-sided funding, rising OI)"
+          es: "El lado concurrido y apalancado se carga (funding unilateral, OI que sube)"
+      - id: trg
+        left:
+          en: "Trigger"
+          es: "Disparo"
+        right:
+          en: "Price reaches the cluster and the first liquidations fire"
+          es: "El precio alcanza el clúster y se disparan las primeras liquidaciones"
+      - id: csc
+        left:
+          en: "Cascade"
+          es: "Cascada"
+        right:
+          en: "Forced closes push price into the next cluster of forced closes"
+          es: "Los cierres forzosos empujan el precio hasta el siguiente clúster de cierres forzosos"
+      - id: exs
+        left:
+          en: "Exhaustion"
+          es: "Agotamiento"
+        right:
+          en: "The crowded side is emptied and the move stalls or snaps back"
+          es: "El lado concurrido se vacía y el movimiento se estanca o rebota"
+    explanation:
+      en: "The four phases are distinct: fuel is loaded (build), the first forced closes fire (trigger), they feed on each other (cascade), and the finite crowded side runs out (exhaustion). Knowing which phase you are in is the whole point — the danger and the edge are in different phases."
+      es: "Las cuatro fases son distintas: se carga el combustible (acumulación), se disparan los primeros cierres forzosos (disparo), se alimentan entre sí (cascada) y el lado concurrido y finito se acaba (agotamiento). Saber en qué fase estás es lo importante: el peligro y el filo están en fases diferentes."
+  - id: chasing-trap
+    prompt:
+      en: "ETH just ran 15% straight up in an hour on a short squeeze and sits at the highs. A beginner buys, expecting the trend to continue. What is the flaw?"
+      es: "ETH acaba de subir un 15% de golpe en una hora por un short squeeze y está en máximos. Un principiante compra esperando que la tendencia continúe. ¿Cuál es el fallo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The move was forced buying from a finite pool of shorts that is now nearly empty; buying here is buying just as the mechanical bid disappears."
+          es: "El movimiento era compra forzada de una bolsa finita de cortos que ahora está casi vacía; comprar aquí es comprar justo cuando la demanda mecánica desaparece."
+      - id: b
+        text:
+          en: "There is no flaw — a 15% move in an hour confirms a strong uptrend worth joining."
+          es: "No hay fallo: un movimiento del 15% en una hora confirma una tendencia alcista fuerte a la que vale la pena sumarse."
+      - id: c
+        text:
+          en: "The only risk is that trading fees are higher during volatile periods."
+          es: "El único riesgo es que las comisiones de trading son más altas en periodos volátiles."
+      - id: d
+        text:
+          en: "Squeezes always continue the next day, so the entry is just slightly early."
+          es: "Los squeezes siempre continúan al día siguiente, así que la entrada es solo un poco temprana."
+    explanation:
+      en: "Chasing a spent squeeze is the classic trap. The violent leg was mechanical — forced buying from a crowded short side that is now emptied. Buying the top means providing the liquidity that early longs take profit into, right as the forced bid runs out. The move that looked strongest was ending."
+      es: "Perseguir un squeeze gastado es la trampa clásica. El tramo violento era mecánico: compra forzada de un lado corto concurrido que ahora está vacío. Comprar el techo significa aportar la liquidez con la que los primeros largos toman ganancias, justo cuando la demanda forzada se acaba. El movimiento que parecía más fuerte estaba terminando."
+  - id: forced-direction
+    kind: matching
+    prompt:
+      en: "Match each event to the forced order flow it creates."
+      es: "Empareja cada evento con el flujo de órdenes forzadas que crea."
+    pairs:
+      - id: sfc
+        left:
+          en: "A short being force-closed"
+          es: "Un corto que se cierra por la fuerza"
+        right:
+          en: "Buys to close, pushing price up"
+          es: "Compra para cerrar, empujando el precio hacia arriba"
+      - id: lfc
+        left:
+          en: "A long being force-closed"
+          es: "Un largo que se cierra por la fuerza"
+        right:
+          en: "Sells to close, pushing price down"
+          es: "Vende para cerrar, empujando el precio hacia abajo"
+      - id: emt
+        left:
+          en: "The crowded side fully emptied"
+          es: "El lado concurrido totalmente vaciado"
+        right:
+          en: "Forced flow stops; price tends to stall or snap back"
+          es: "El flujo forzado se detiene; el precio tiende a estancarse o rebotar"
+    explanation:
+      en: "A liquidation forces an order in the painful direction: closing a short is a forced buy (lifts price), closing a long is a forced sell (drops price). When the crowded side is gone, that forced flow disappears — which is exactly why the cascade exhausts and often reverses."
+      es: "Una liquidación fuerza una orden en la dirección dolorosa: cerrar un corto es una compra forzada (sube el precio), cerrar un largo es una venta forzada (baja el precio). Cuando el lado concurrido desaparece, ese flujo forzado se acaba: por eso justamente la cascada se agota y a menudo se da la vuelta."
+  - id: fuel-tf
+    kind: true_false
+    prompt:
+      en: "A short squeeze keeps running only while there are crowded shorts left to force-close; once that side is emptied it tends to stall or reverse."
+      es: "Un short squeeze sigue corriendo solo mientras quedan cortos concurridos que cerrar por la fuerza; una vez vaciado ese lado, tiende a estancarse o darse la vuelta."
+    answer: true
+    explanation:
+      en: "The forced buying that drives a short squeeze comes from short positions being liquidated — a finite pool. When it is exhausted there is nothing forced left to lift price, so the mechanical move stalls and frequently snaps back."
+      es: "La compra forzada que impulsa un short squeeze viene de posiciones cortas que se liquidan: una bolsa finita. Cuando se agota no queda nada forzado que suba el precio, así que el movimiento mecánico se estanca y con frecuencia rebota."

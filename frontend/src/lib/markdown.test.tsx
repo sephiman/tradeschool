@@ -11,11 +11,17 @@ Be careful here.
 :::
 
 ::exercise{id=m01-ex-1}
+
+::figure{id=fig-demo}
 `;
 
 describe("LessonMarkdown", () => {
   const html = renderToStaticMarkup(
-    <LessonMarkdown markdown={md} renderExercise={(id) => <span>EXERCISE:{id}</span>} />,
+    <LessonMarkdown
+      markdown={md}
+      renderExercise={(id) => <span>EXERCISE:{id}</span>}
+      renderFigure={(id) => <span>FIGURE:{id}</span>}
+    />,
   );
 
   it("renders prose and bold", () => {
@@ -31,5 +37,9 @@ describe("LessonMarkdown", () => {
 
   it("renders ::exercise via the injected renderer", () => {
     expect(html).toContain("EXERCISE:m01-ex-1");
+  });
+
+  it("renders ::figure via the injected renderer", () => {
+    expect(html).toContain("FIGURE:fig-demo");
   });
 });

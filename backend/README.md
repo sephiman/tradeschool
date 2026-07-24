@@ -14,7 +14,7 @@ src/tradeschool/
   db.py         async SQLAlchemy engine/session
   auth/         fastapi-users (cookie + database strategy, Argon2), rate limiting
   content/      manifest + content registry loader, validation, reconciliation, CLI sync
-  exercises/    ExerciseGenerator ABC + registry + generators + Decimal formulas + chart engine
+  exercises/    ExerciseGenerator ABC + registry + generators + Decimal formulas + chart engine + lesson figures
   attempts/     seeded attempts, server-side grading, abandoned rule
   progress/     lesson completion
   stats/        per-user + anonymous global statistics

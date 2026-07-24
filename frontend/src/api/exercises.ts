@@ -99,7 +99,8 @@ export type Answer =
   | { value: boolean } // true_false
   | { order: string[] } // ordering
   | { pairs: Record<string, string> } // matching
-  | { divergence: string }; // chart
+  | { divergence: string } // divergence chart
+  | { label: string }; // pattern chart
 
 export async function createAttempt(exerciseId: string): Promise<AttemptInstance> {
   const { data } = await apiClient.post<AttemptInstance>(`/exercises/${exerciseId}/attempts`);

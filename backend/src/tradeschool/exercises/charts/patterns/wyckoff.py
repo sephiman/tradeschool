@@ -47,6 +47,22 @@ class WyckoffInjector(PatternInjector):
     hides_resolution: ClassVar[bool] = True
     indicator: ClassVar[str] = "none"
 
+    # Phase fractions (of the visible window) matching the shape built below. Used ONLY by lesson
+    # figures to label phases A-E; never touches build()/exercise output (the golden test guards it).
+    _PHASES: ClassVar[tuple[tuple[str, float], ...]] = (
+        ("A", 0.14), ("B", 0.45), ("C", _EVENT_F), ("D", 0.86), ("E", 0.97),
+    )
+
+    def figure_annotations(self, target: str, n: int) -> list[Annotation]:
+        """Figure-only phase labels A-E for the accumulation/distribution schematic (empty for 'none')."""
+        if target == "none":
+            return []
+        kind = "low" if target == "accumulation" else "high"
+        return [
+            Annotation(index=WARMUP + int(frac * n), kind="marker" if letter != "C" else kind, label=letter)
+            for letter, frac in self._PHASES
+        ]
+
     def build(self, rng: np.random.Generator, n: int, target: str) -> PatternResult:
         base = float(rng.choice(_BASE_PRICES)) * float(rng.uniform(0.9, 1.1))
 

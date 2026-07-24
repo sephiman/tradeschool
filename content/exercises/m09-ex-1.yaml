@@ -6,8 +6,8 @@ indicator: none
 targets: [accumulation, distribution, none]
 choices: [accumulation, distribution, none]
 prompt:
-  en: "Read the schematic. Note the **prior trend** into the range, the range's support and resistance, and any **false break** of a boundary that snaps back inside. Is this accumulation, distribution, or just a range (none)?"
-  es: "Lee el esquema. Fíjate en la **tendencia previa** al rango, en el soporte y la resistencia del rango y en cualquier **ruptura falsa** de un límite que vuelva rápido hacia dentro. ¿Es acumulación, distribución o solo un rango (none)?"
+  en: "Read the schematic. Note the **prior trend** into the range, the range's support and resistance, and any **false break** of a boundary that snaps back inside. Is this accumulation, distribution, or neither (just a range)?"
+  es: "Lee el esquema. Fíjate en la **tendencia previa** al rango, en el soporte y la resistencia del rango y en cualquier **ruptura falsa** de un límite que vuelva rápido hacia dentro. ¿Es acumulación, distribución o ninguno (solo un rango)?"
 explanation:
   en: "Accumulation follows a downtrend and shows a spring — a false break below support that recovers. Distribution follows an uptrend and shows an upthrust — a false break above resistance that fails back inside. A range with no clear prior trend and no false break is just a range (none). Read the trend and the break together; the markup or markdown that would confirm it is off screen."
   es: "La acumulación sigue a una tendencia bajista y muestra un spring: una ruptura falsa por debajo del soporte que se recupera. La distribución sigue a una tendencia alcista y muestra un upthrust: una ruptura falsa por encima de la resistencia que fracasa y vuelve hacia dentro. Un rango sin tendencia previa clara ni ruptura falsa es solo un rango (none). Lee la tendencia y la ruptura juntas; el markup o markdown que lo confirmaría queda fuera de pantalla."

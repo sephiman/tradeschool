@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m03-trend-vs-range
+kind: chart
+caption:
+  en: 'Trend vs range on the same scale. Left: a trend — a staircase of higher highs
+    and higher lows. Right: a range — price oscillating between a floor and a ceiling
+    with no net progress. Most of the time price ranges.'
+  es: 'Tendencia vs rango en la misma escala. Izquierda: una tendencia —una escalera
+    de máximos y mínimos crecientes—. Derecha: un rango —el precio oscilando entre
+    un suelo y un techo sin avance neto—. La mayor parte del tiempo el precio está
+    en rango.'
+panels:
+- generator: pattern_chart
+  injector: ma_context
+  target: uptrend
+  seed: 4
+  n: 150
+  indicator: none
+- generator: pattern_chart
+  injector: ma_context
+  target: range
+  seed: 5
+  n: 150
+  indicator: none

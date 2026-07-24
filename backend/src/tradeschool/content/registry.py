@@ -22,6 +22,7 @@ from tradeschool.content.schema import (
     ManifestModule,
     parse_manifest,
 )
+from tradeschool.exercises.figures import FigureSpec, load_figures
 from tradeschool.exercises.registry import get_generator, has_generator
 from tradeschool.exercises.types import ExerciseType
 
@@ -56,6 +57,8 @@ class CourseRegistry:
     markdown: dict[str, dict[str, str]]
     # exercise_id -> (type, parsed generator config). Absent = declared but not yet playable.
     exercise_configs: dict[str, tuple[ExerciseType, BaseModel]] = field(default_factory=dict)
+    # figure_id -> spec (lesson figures embedded via ::figure{id=...}).
+    figures: dict[str, FigureSpec] = field(default_factory=dict)
     _modules: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
     _lessons: dict[str, LessonLocation] = field(default_factory=dict)
     _exercises: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
@@ -288,4 +291,7 @@ def load_registry(content_dir: Path) -> CourseRegistry:
             markdown[locale][lesson.id] = body
 
     exercise_configs = _load_exercise_configs(content_dir, manifest)
-    return CourseRegistry(manifest=manifest, markdown=markdown, exercise_configs=exercise_configs)
+    figures = load_figures(content_dir)
+    return CourseRegistry(
+        manifest=manifest, markdown=markdown, exercise_configs=exercise_configs, figures=figures
+    )

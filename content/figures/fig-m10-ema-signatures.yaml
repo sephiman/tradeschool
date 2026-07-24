@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m10-ema-signatures
+kind: chart
+caption:
+  en: 'The three EMA signatures. Uptrend: fast above slow, both rising, price above.
+    Downtrend: the mirror. Range: the EMAs flat and intertwined while price chops
+    across them — where they whipsaw.'
+  es: 'Las tres firmas de las EMA. Alcista: la rápida sobre la lenta, ambas subiendo,
+    precio por encima. Bajista: la imagen espejo. Rango: las EMA planas y entrelazadas
+    mientras el precio las cruza —donde dan sierra—.'
+panels:
+- generator: pattern_chart
+  injector: ma_context
+  target: uptrend
+  seed: 1
+  n: 150
+  indicator: none
+- generator: pattern_chart
+  injector: ma_context
+  target: downtrend
+  seed: 2
+  n: 150
+  indicator: none
+- generator: pattern_chart
+  injector: ma_context
+  target: range
+  seed: 3
+  n: 150
+  indicator: none

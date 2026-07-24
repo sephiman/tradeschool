@@ -6,18 +6,20 @@ import { completeLesson, getCourse, getLesson, type ExerciseType } from "@/api/c
 import { listAttempts } from "@/api/exercises";
 import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
+import { LessonFigure } from "@/features/course/LessonFigure";
 import { LessonMarkdown } from "@/lib/markdown";
 
 export function LessonPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { lessonId = "" } = useParams();
   const queryClient = useQueryClient();
+  const lang = i18n.resolvedLanguage;
 
   const { data: lesson, isLoading } = useQuery({
-    queryKey: ["lesson", lessonId],
+    queryKey: ["lesson", lessonId, lang],
     queryFn: () => getLesson(lessonId),
   });
-  const { data: course } = useQuery({ queryKey: ["course"], queryFn: getCourse });
+  const { data: course } = useQuery({ queryKey: ["course", lang], queryFn: getCourse });
 
   // Canonical order across module boundaries, so the lesson knows where "back" and "next" lead.
   const nav = useMemo(() => {
@@ -101,6 +103,7 @@ export function LessonPage() {
             const type = typeById.get(id);
             return type ? <ExercisePlayer exerciseId={id} type={type} /> : null;
           }}
+          renderFigure={(id) => <LessonFigure id={id} />}
         />
       </div>
       <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-6 dark:border-gray-800">

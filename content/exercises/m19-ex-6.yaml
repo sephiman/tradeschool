@@ -1,0 +1,149 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: five-coins-myth
+    kind: true_false
+    prompt:
+      en: "Holding five different coins means your portfolio is diversified."
+      es: "Tener cinco monedas distintas significa que tu cartera está diversificada."
+    answer: false
+    explanation:
+      en: "False. Diversification depends on correlation, not on the number of names. Five alts that fall together in a sell-off are one correlated bet in five costumes — the count of tickers is not the count of independent bets."
+      es: "Falso. La diversificación depende de la correlación, no del número de nombres. Cinco alts que caen juntas en una caída son una apuesta correlacionada con cinco trajes: la cuenta de tickers no es la cuenta de apuestas independientes."
+  - id: correlation-scale-match
+    kind: matching
+    prompt:
+      en: "Match each correlation value to what it means for two positions."
+      es: "Empareja cada valor de correlación con lo que significa para dos posiciones."
+    pairs:
+      - id: plus1
+        left: { en: "+1", es: "+1" }
+        right:
+          en: "Move in lockstep — effectively one position held twice."
+          es: "Se mueven al unísono: en la práctica, una posición mantenida dos veces."
+      - id: zero
+        left: { en: "0", es: "0" }
+        right:
+          en: "Independent — one tells you nothing about the other."
+          es: "Independientes: una no te dice nada de la otra."
+      - id: minus1
+        left: { en: "−1", es: "−1" }
+        right:
+          en: "Move exactly opposite — a perfect hedge."
+          es: "Se mueven exactamente al revés: una cobertura perfecta."
+      - id: plus09
+        left: { en: "+0.9 (typical crypto alts)", es: "+0,9 (alts de cripto típicas)" }
+        right:
+          en: "Almost the same bet — barely diversified at all."
+          es: "Casi la misma apuesta: apenas diversificada."
+    explanation:
+      en: "Correlation runs from +1 (lockstep, one bet twice) through 0 (independent) to −1 (a perfect hedge). Most crypto alts sit near +0.9 to BTC, so a basket of them is barely diversified — and in a drawdown that figure climbs even closer to +1."
+      es: "La correlación va de +1 (al unísono, una apuesta dos veces) pasando por 0 (independientes) hasta −1 (cobertura perfecta). La mayoría de las alts de cripto rondan +0,9 frente a BTC, así que una cesta de ellas apenas está diversificada, y en un drawdown esa cifra sube aún más cerca de +1."
+  - id: diversification-when
+    prompt:
+      en: "You want extra positions to actually lower your portfolio risk. When does that happen?"
+      es: "Quieres que las posiciones adicionales reduzcan de verdad el riesgo de tu cartera. ¿Cuándo ocurre eso?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Only when the holdings are genuinely uncorrelated — they do not tend to fall together."
+          es: "Solo cuando lo que tienes está genuinamente descorrelacionado: no tiende a caer junto."
+      - id: b
+        text:
+          en: "Always — every extra coin is one more layer of diversification."
+          es: "Siempre: cada moneda de más es una capa más de diversificación."
+      - id: c
+        text:
+          en: "Whenever you reach at least five names, the usual rule of thumb."
+          es: "En cuanto llegas a al menos cinco nombres, la regla general habitual."
+      - id: d
+        text:
+          en: "Whenever each position is capped at 1%, since the caps make the total safe."
+          es: "Siempre que cada posición esté limitada al 1%, ya que los límites hacen seguro el total."
+    explanation:
+      en: "Diversification lowers risk only when the pieces are genuinely uncorrelated. Adding correlated names, reaching a magic count, or capping each line does nothing about correlation — the risks still stack in a shared move."
+      es: "La diversificación reduce el riesgo solo cuando las piezas están genuinamente descorrelacionadas. Añadir nombres correlacionados, llegar a un número mágico o limitar cada línea no hace nada contra la correlación: los riesgos se siguen sumando en un movimiento compartido."
+  - id: drawdown-correlation
+    kind: true_false
+    prompt:
+      en: "In a hard crypto sell-off, correlations between alts tend to fall toward zero, so a basket becomes safer just when it drops."
+      es: "En una caída dura de cripto, las correlaciones entre alts tienden a bajar hacia cero, así que una cesta se vuelve más segura justo cuando cae."
+    answer: false
+    explanation:
+      en: "False, and dangerously so. In a drawdown correlations snap toward +1, not zero: everyone de-risks at once and the per-coin narratives stop mattering. The diversification you measured in calm weather evaporates exactly when you need it."
+      es: "Falso, y de forma peligrosa. En un drawdown las correlaciones saltan hacia +1, no hacia cero: todos reducen riesgo a la vez y las narrativas de cada moneda dejan de importar. La diversificación que mediste con el mercado tranquilo se evapora justo cuando la necesitas."
+  - id: alt-beta
+    prompt:
+      en: "Most alts have a beta above 1 to BTC. On a day BTC falls 10%, what typically happens to those alts?"
+      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC. En un día en que BTC cae un 10%, ¿qué suele pasar con esas alts?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "They fall harder — often 15% to 25% — so 10% stops can be blown straight through."
+          es: "Caen más fuerte —a menudo entre un 15% y un 25%—, así que los stops del 10% se los pueden saltar de largo."
+      - id: b
+        text:
+          en: "They fall less than BTC, because BTC leads the way down."
+          es: "Caen menos que BTC, porque BTC lidera la bajada."
+      - id: c
+        text:
+          en: "They are unaffected — alts trade only on their own narratives."
+          es: "No se ven afectadas: las alts cotizan solo por sus propias narrativas."
+      - id: d
+        text:
+          en: "They rise, as money rotates out of BTC and into alts."
+          es: "Suben, ya que el dinero rota de BTC hacia las alts."
+    explanation:
+      en: "A beta above 1 means bigger moves than BTC in both directions. When BTC drops 10%, higher-beta alts commonly drop 15–25%, so a 10% stop on a thin alt book fills lower after slippage — losing more than its planned budget."
+      es: "Una beta superior a 1 significa movimientos mayores que BTC en ambas direcciones. Cuando BTC cae un 10%, las alts de beta más alta caen a menudo entre un 15% y un 25%, así que un stop del 10% en un libro de alts fino se ejecuta más abajo tras el deslizamiento, perdiendo más que su presupuesto previsto."
+  - id: book-profile-match
+    kind: matching
+    prompt:
+      en: "Match each two-position book to its real risk profile (assume BTC and the alt are highly correlated)."
+      es: "Empareja cada cartera de dos posiciones con su perfil de riesgo real (supón que BTC y la alt están muy correlacionadas)."
+    pairs:
+      - id: two-longs
+        left: { en: "Long BTC + long a correlated alt", es: "Largo en BTC + largo en una alt correlacionada" }
+        right:
+          en: "Stacked — nearly one directional bet, risks add up."
+          es: "Apilada: casi una sola apuesta direccional, los riesgos se suman."
+      - id: long-short
+        left: { en: "Long BTC + short a correlated alt", es: "Largo en BTC + corto en una alt correlacionada" }
+        right:
+          en: "Hedged — a relative bet with low directional risk."
+          es: "Cubierta: una apuesta relativa con bajo riesgo direccional."
+      - id: uncorrelated
+        left: { en: "Long BTC + long an asset uncorrelated to crypto", es: "Largo en BTC + largo en un activo descorrelacionado de cripto" }
+        right:
+          en: "Genuinely diversified — the two risks are partly independent."
+          es: "Genuinamente diversificada: los dos riesgos son en parte independientes."
+    explanation:
+      en: "Direction plus correlation sets the profile. Two longs on correlated names stack into one bet; a long against a short on correlated names largely cancels into a relative bet; only a genuinely uncorrelated pairing spreads the risk. Counting positions tells you none of this."
+      es: "La dirección más la correlación fijan el perfil. Dos largos en nombres correlacionados se apilan en una apuesta; un largo contra un corto en nombres correlacionados se cancela en gran parte en una apuesta relativa; solo un emparejamiento genuinamente descorrelacionado reparte el riesgo. Contar posiciones no te dice nada de esto."
+  - id: calm-vs-crash
+    prompt:
+      en: "Why can a basket of alts look nicely diversified in calm markets yet behave like a single position in a crash?"
+      es: "¿Por qué una cesta de alts puede parecer bien diversificada en mercados tranquilos y comportarse como una sola posición en un desplome?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "In calm markets each trades on its own narrative; in a sell-off everyone de-risks at once and correlations snap toward +1."
+          es: "En mercados tranquilos cada una cotiza por su narrativa; en una caída todos reducen riesgo a la vez y las correlaciones saltan hacia +1."
+      - id: b
+        text:
+          en: "Because exchanges raise fees during crashes, which links the coins together."
+          es: "Porque los exchanges suben las comisiones en los desplomes, lo que enlaza las monedas entre sí."
+      - id: c
+        text:
+          en: "Because correlation is a fixed property, so the basket was never diversified at any time."
+          es: "Porque la correlación es una propiedad fija, así que la cesta nunca estuvo diversificada en ningún momento."
+      - id: d
+        text:
+          en: "Because calm markets have no correlation at all between any coins."
+          es: "Porque los mercados tranquilos no tienen ninguna correlación entre monedas."
+    explanation:
+      en: "Correlation is not constant. In calm markets alts drift on separate stories and look independent; in a drawdown people sell everything at once, the stories stop mattering, and correlations climb toward +1 — so the basket behaves like one leveraged long exactly when it hurts."
+      es: "La correlación no es constante. En mercados tranquilos las alts se mueven por historias separadas y parecen independientes; en un drawdown la gente vende todo a la vez, las historias dejan de importar y las correlaciones suben hacia +1, así que la cesta se comporta como un único largo apalancado justo cuando duele."

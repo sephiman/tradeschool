@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { ExerciseType } from "@/api/course";
 import type { Answer, AttemptPayload, GradeResponse } from "@/api/exercises";
 import { CandleChart } from "@/components/charts/CandleChart";
-import { divergenceMarkers } from "@/components/charts/markers";
+import { divergenceMarkers, patternMarkers } from "@/components/charts/markers";
 import { Button } from "@/components/ui/primitives";
-import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { cn } from "@/lib/cn";
+import { AttemptResult } from "@/features/exercises/AttemptResult";
 
+/** Interactive chart exercise. Divergence charts (`synthetic_chart`/`fixture_chart`) answer with a
+ * `divergence`; the generic `pattern_chart` answers with a `label`. Choice buttons and the revealed
+ * answer are localized (never raw injector ids), and overlays / price levels / OI all render. */
 export function ChartExercise({
+  type,
   payload,
   result,
   pending,
   onSubmit,
 }: {
+  type: ExerciseType;
   payload: AttemptPayload;
   result: GradeResponse | null;
   pending: boolean;
@@ -22,9 +28,20 @@ export function ChartExercise({
   const [selected, setSelected] = useState<string | null>(null);
   const choices = payload.choices ?? [];
 
-  const divergence =
-    result && typeof (result.correctAnswer as { divergence?: string })?.divergence === "string"
-      ? (result.correctAnswer as { divergence: string }).divergence
+  const isDivergence = type === "synthetic_chart" || type === "fixture_chart";
+  const answerKey = isDivergence ? "divergence" : "label";
+  const labelNs = isDivergence ? "divergence" : "chartLabel";
+  const label = (choice: string): string => t(`${labelNs}.${choice}`);
+
+  const markers = !result
+    ? []
+    : isDivergence
+      ? divergenceMarkers(result.correctAnswer)
+      : patternMarkers(result.correctAnswer);
+
+  const revealed =
+    result && typeof (result.correctAnswer as { divergence?: string; label?: string })?.[answerKey] === "string"
+      ? (result.correctAnswer as Record<string, string>)[answerKey]
       : null;
 
   return (
@@ -34,8 +51,11 @@ export function ChartExercise({
           series={payload.series}
           rsi={payload.rsi}
           macd={payload.macd}
+          oi={payload.oi}
+          overlays={payload.overlays}
+          levels={payload.levels}
           indicator={payload.indicator ?? "rsi"}
-          markers={result ? divergenceMarkers(result.correctAnswer) : []}
+          markers={markers}
         />
       )}
 
@@ -54,18 +74,21 @@ export function ChartExercise({
                     : "border-border hover:border-primary/60 dark:border-gray-700",
                 )}
               >
-                {t(`divergence.${choice}`)}
+                {label(choice)}
               </button>
             ))}
           </div>
-          <Button disabled={!selected || pending} onClick={() => selected && onSubmit({ divergence: selected })}>
+          <Button
+            disabled={!selected || pending}
+            onClick={() => selected && onSubmit(isDivergence ? { divergence: selected } : { label: selected })}
+          >
             {t("exercise.submit")}
           </Button>
         </>
       ) : (
         <AttemptResult
           correct={result.correct}
-          correctAnswer={divergence ? { text: t(`divergence.${divergence}`) } : null}
+          correctAnswer={revealed ? { text: label(revealed) } : null}
           solutionSteps={result.solutionSteps}
           explanation={result.explanation}
         />

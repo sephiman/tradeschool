@@ -1,4 +1,5 @@
 import axios, { type AxiosError } from "axios";
+import i18n from "@/i18n";
 
 // Cookie auth uses fastapi-users cookie transport with SameSite=Lax, which blocks cross-site
 // state-changing requests at the browser — so no XSRF double-submit token is needed. We only
@@ -7,6 +8,16 @@ export const apiClient = axios.create({
   baseURL: "/api",
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
+});
+
+// Serve every request in the active UI language: the backend's content endpoints resolve locale from
+// `?lang`. Without this the content followed the user's registration locale and ignored the switcher.
+// Explicit per-call `lang` params still win. (React-query keys also include the locale, so a switch
+// refetches rather than showing stale cache.)
+apiClient.interceptors.request.use((config) => {
+  const lang = i18n.resolvedLanguage?.startsWith("es") ? "es" : "en";
+  config.params = { lang, ...(config.params ?? {}) };
+  return config;
 });
 
 export interface ApiError {

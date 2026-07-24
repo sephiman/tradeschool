@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m08-breakout-vs-fakeout
+kind: chart
+caption:
+  en: 'Left: a genuine breakout — price closes beyond the level and follows through.
+    Right: a fakeout — price pokes beyond, closes back inside, and reverses. Same
+    level; the close and the follow-through tell them apart.'
+  es: 'Izquierda: una ruptura genuina —el precio cierra más allá del nivel y continúa—.
+    Derecha: un fakeout —el precio asoma, cierra de nuevo dentro y se gira—. Mismo
+    nivel; el cierre y la continuación los distinguen.'
+panels:
+- generator: pattern_chart
+  injector: fakeout
+  target: genuine_breakout
+  seed: 1
+  n: 150
+  indicator: none
+  resolution:
+    direction: up
+    strength: 0.16
+- generator: pattern_chart
+  injector: fakeout
+  target: false_break
+  seed: 2
+  n: 150
+  indicator: none
+  resolution:
+    direction: up
+    strength: 0.16

@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m12-bullish-hidden
+kind: chart
+caption:
+  en: 'Bullish hidden divergence in an uptrend pullback: price makes a higher low
+    while RSI makes a lower low — the dip looks weak on the oscillator, but the trend
+    resumes upward.'
+  es: 'Divergencia oculta alcista en un retroceso alcista: el precio marca un mínimo
+    más alto mientras el RSI marca un mínimo más bajo —la caída parece débil en el
+    oscilador— y la tendencia se reanuda al alza.'
+panels:
+- generator: synthetic_chart
+  target: bullish_hidden
+  seed: 2
+  n: 120
+  indicator: rsi
+  resolution:
+    direction: up
+    strength: 0.13

@@ -35,7 +35,9 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
     modules = [m for b in data["blocks"] for m in b["modules"]]
     assert len(modules) == 23
     lessons = [lesson for m in modules for lesson in m["lessons"]]
-    assert len(lessons) == 23  # every module has one authored lesson in v1
+    # 23 modules, four of which (m03, m09, m17, m19) carry a second lesson -> 27 in total.
+    assert len(lessons) == 27
+    assert [m["id"] for m in modules if len(m["lessons"]) == 2] == ["m03", "m09", "m17", "m19"]
 
     for m in modules:
         assert m["summary"]  # module theory blurb present

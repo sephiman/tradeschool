@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m12-bearish-regular
+kind: chart
+caption:
+  en: "Bearish regular divergence: price makes a higher high while RSI makes a lower high — the rally is running on fading momentum. Here the resolution (the reversal down) is shown; in an exercise it would be cut off the right edge."
+  es: "Divergencia regular bajista: el precio marca un máximo más alto mientras el RSI marca un máximo más bajo: la subida avanza con un momentum que se apaga. Aquí se muestra la resolución (el giro a la baja); en un ejercicio quedaría recortada fuera del borde derecho."
+panels:
+  - generator: synthetic_chart
+    target: bearish_regular
+    seed: 3
+    n: 120
+    indicator: rsi
+    show_resolution: true
+    resolution: { direction: down, strength: 0.16 }

@@ -3,19 +3,24 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { getAttempt, listAttempts, type AttemptReview } from "@/api/exercises";
 import { CandleChart } from "@/components/charts/CandleChart";
-import { divergenceMarkers } from "@/components/charts/markers";
+import { divergenceMarkers, patternMarkers } from "@/components/charts/markers";
 import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { formatDateTime } from "@/lib/dates";
 import { Prose } from "@/lib/markdown";
 import { cn } from "@/lib/cn";
 
-const CHART_TYPES = new Set(["synthetic_chart", "fixture_chart"]);
+const DIVERGENCE_TYPES = new Set(["synthetic_chart", "fixture_chart"]);
+const CHART_TYPES = new Set([...DIVERGENCE_TYPES, "pattern_chart"]);
 
-/** Chart answers are {divergence,…} objects — render the translated label, not the object. */
+/** Chart answers are objects — render the translated label, not the raw object or injector id. */
 function reviewCorrectAnswer(review: AttemptReview, t: (k: string) => string): unknown {
-  if (CHART_TYPES.has(review.type)) {
+  if (DIVERGENCE_TYPES.has(review.type)) {
     const div = (review.correctAnswer as { divergence?: string })?.divergence;
     return div ? { text: t(`divergence.${div}`) } : null;
+  }
+  if (review.type === "pattern_chart") {
+    const lbl = (review.correctAnswer as { label?: string })?.label;
+    return lbl ? { text: t(`chartLabel.${lbl}`) } : null;
   }
   return review.correctAnswer;
 }
@@ -72,8 +77,15 @@ export function AttemptHistory({ exerciseId }: { exerciseId: string }) {
                 series={review.payload.series}
                 rsi={review.payload.rsi}
                 macd={review.payload.macd}
+                oi={review.payload.oi}
+                overlays={review.payload.overlays}
+                levels={review.payload.levels}
                 indicator={review.payload.indicator ?? "rsi"}
-                markers={divergenceMarkers(review.correctAnswer)}
+                markers={
+                  DIVERGENCE_TYPES.has(review.type)
+                    ? divergenceMarkers(review.correctAnswer)
+                    : patternMarkers(review.correctAnswer)
+                }
                 height={320}
               />
             </div>

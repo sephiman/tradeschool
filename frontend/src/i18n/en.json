@@ -73,7 +73,8 @@
     "quiz": "Quiz",
     "calculation": "Calculation",
     "synthetic_chart": "Chart",
-    "fixture_chart": "Chart"
+    "fixture_chart": "Chart",
+    "pattern_chart": "Chart"
   },
   "divergence": {
     "none": "No divergence",
@@ -112,5 +113,35 @@
     "USER_ALREADY_EXISTS": "An account with this email already exists.",
     "INVALID_PASSWORD": "That password is not allowed.",
     "LOGIN_BAD_CREDENTIALS": "Invalid email or password."
+  },
+  "chartLabel": {
+    "genuine_breakout": "Genuine breakout",
+    "false_break": "False break",
+    "no_break": "No break",
+    "accumulation": "Accumulation",
+    "distribution": "Distribution",
+    "none": "Neither",
+    "uptrend": "Uptrend",
+    "downtrend": "Downtrend",
+    "range": "Range",
+    "overbought": "Overbought",
+    "oversold": "Oversold",
+    "neutral": "Neutral",
+    "retrace_382": "38.2% retracement",
+    "retrace_500": "50% retracement",
+    "retrace_618": "61.8% retracement",
+    "confirmed_breakout": "Confirmed (volume)",
+    "unconfirmed_breakout": "Unconfirmed (weak volume)",
+    "rising_oi": "Rising OI",
+    "falling_oi": "Falling OI",
+    "flat_oi": "Flat OI"
+  },
+  "candle": {
+    "open": "Open",
+    "high": "High",
+    "low": "Low",
+    "close": "Close",
+    "body": "Body",
+    "wick": "Wick"
   }
 }

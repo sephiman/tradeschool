@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: wyckoff
+n: 130
+indicator: none
+targets: [accumulation, distribution, none]
+choices: [accumulation, distribution, none]
+prompt:
+  en: "Walk this range phase by phase. First read the **prior trend** into it (phase A: a down- or up-trend that stalls). Then find the churn between support and resistance (phase B), and look for the phase-C test: a **spring** (false break below support that snaps back) or an **upthrust** (false break above resistance that fails). Combine trend and test: is this accumulation, distribution, or neither (just a range)?"
+  es: "Recorre este rango fase por fase. Primero lee la **tendencia previa** (fase A: una tendencia bajista o alcista que se estanca). Luego localiza el ir y venir entre soporte y resistencia (fase B) y busca la prueba de la fase C: un **spring** (ruptura falsa por debajo del soporte que rebota) o un **upthrust** (ruptura falsa por encima de la resistencia que fracasa). Combina tendencia y prueba: ¿es acumulación, distribución o ninguno (solo un rango)?"
+explanation:
+  en: "Accumulation follows a downtrend and shows a phase-C spring — a false break below support that recovers, before the markup. Distribution follows an uptrend and shows a phase-C upthrust (a UTAD) — a false break above resistance that fails, before the markdown. The two are mirror images. When there is neither a clear prior trend nor a false break, do not force a story onto it: it is none. The markup or markdown that would confirm the label is off screen — you decide from the trend and the test alone."
+  es: "La acumulación sigue a una tendencia bajista y muestra un spring de la fase C: una ruptura falsa por debajo del soporte que se recupera, antes del markup. La distribución sigue a una tendencia alcista y muestra un upthrust de la fase C (un UTAD): una ruptura falsa por encima de la resistencia que fracasa, antes del markdown. Son imágenes espejo. Cuando no hay ni tendencia previa clara ni ruptura falsa, no le fuerces una historia: es none. El markup o markdown que confirmaría la etiqueta queda fuera de pantalla; decides solo con la tendencia y la prueba."
