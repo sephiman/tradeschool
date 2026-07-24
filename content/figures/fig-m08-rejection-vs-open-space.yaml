@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m08-rejection-vs-open-space
+kind: chart
+caption:
+  en: 'Left: a rejection wick at a level that already mattered — sellers pushed price
+    down, were absorbed, and lost; that is information. Right: the identical wick in
+    open space, leaning on nothing — the same shape, but noise. Location is 90% of the signal.'
+  es: 'Izquierda: una mecha de rechazo en un nivel que ya importaba —los vendedores
+    empujaron el precio abajo, fueron absorbidos y perdieron—; eso es información.
+    Derecha: la misma mecha en espacio abierto, sin apoyarse en nada —la misma forma,
+    pero ruido—. La ubicación es el 90 % de la señal.'
+panels:
+- generator: pattern_chart
+  injector: candle_reaction
+  target: rejection_at_level
+  seed: 3
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: open_space
+  seed: 7
+  n: 45
+  indicator: none
+  show_resolution: true

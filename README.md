@@ -67,14 +67,19 @@ cd frontend && npm install && npm run dev
 
 Open <http://localhost:5173>, register an account, and review the full course:
 
-- **23 modules across 5 blocks, 27 lessons** (four modules — m03, m09, m17, m19 — carry a second
-  lesson), each lesson bilingual (ES + EN) with 4–6 server-generated, server-graded exercises, end to
-  end: lesson → attempt → answer → grading with the instantiated solution → progress & statistics.
+- **24 modules across 5 blocks, 30 lessons** (six modules carry a second lesson), ending in a
+  capstone (m24) that assembles everything into a **complete trading plan** — one worked trade end to
+  end (top-down protocol, sizing from the stop, live management, and the **daily stop** that closes a
+  losing day), then the journal, the risk tiers that only a journal can earn, validation and the step
+  to real money. Each lesson is bilingual (ES + EN)
+  with server-generated, server-graded exercises, end to end: lesson → attempt → answer → grading
+  with the instantiated solution → progress & statistics.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
   matching); multiple-choice **calculations** whose distractors are instantiated common mistakes
   (`Decimal` end to end); and **chart-reading** exercises — divergences plus fakeouts, Wyckoff,
-  moving averages, oscillator readings, Fibonacci, volume, and open interest. Every detection chart
-  is guarded by a statistical anti-leak test (the last candles cannot predict the answer).
+  moving averages, oscillator readings, Fibonacci, volume, open interest, and **candle reactions**
+  (rejection/overrun/indecision, where location is 90% of the signal). Every detection chart is
+  guarded by a statistical anti-leak test (the last candles cannot predict the answer).
 - **Lesson figures:** lessons embed didactic charts via a `::figure{id}` directive — server-generated
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by

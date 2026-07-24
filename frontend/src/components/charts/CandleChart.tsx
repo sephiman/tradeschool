@@ -92,6 +92,7 @@ export function CandleChart({
   overlays,
   levels,
   height = 420,
+  rightOffset = 4,
 }: {
   series: ChartSeries;
   rsi?: number[];
@@ -102,11 +103,19 @@ export function CandleChart({
   overlays?: Record<string, number[]>;
   levels?: PriceLevel[];
   height?: number;
+  // Empty bars of margin on the right so a marker planted near the last candle isn't clipped by the
+  // boundary. Figures (patterns at the very edge) pass more; exercise charts keep the small default.
+  rightOffset?: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const locale = i18n.resolvedLanguage === "es" ? "es-ES" : "en-GB";
+  // Annotation text is student-facing: marker labels and level titles come from the i18n catalog
+  // (localized display names), never the raw backend enum. Unknown keys (swing "1"/"2", Wyckoff
+  // phases "A"–"E") fall through to the raw string, which is already display-ready.
+  const markerText = (raw: string): string => (raw ? t(`chartMarker.${raw}`, { defaultValue: raw }) : "");
+  const levelText = (lvl: PriceLevel): string => t(`level.${lvl.kind}`, { defaultValue: lvl.label });
 
   useEffect(() => {
     const el = containerRef.current;
@@ -131,7 +140,9 @@ export function CandleChart({
         timeVisible: false,
         secondsVisible: false,
         fixLeftEdge: true,
-        fixRightEdge: true,
+        // Right edge is NOT fixed so the right-margin (rightOffset) below is honored — otherwise a
+        // marker on the last candle gets clipped by the boundary.
+        fixRightEdge: false,
         // Daily bars; month-boundary ticks show the localized month name (unambiguous — never
         // mistakable for MM/DD), day ticks show DD/MM. No truncated edge labels.
         tickMarkFormatter: formatTick,
@@ -185,7 +196,7 @@ export function CandleChart({
           lineWidth: 1,
           lineStyle: 2,
           axisLabelVisible: true,
-          title: lvl.label,
+          title: levelText(lvl),
         });
       }
     }
@@ -238,13 +249,14 @@ export function CandleChart({
 
     if (markers.length > 0) {
       const sm: SeriesMarker<UTCTimestamp>[] = markers.map((m): SeriesMarker<UTCTimestamp> => {
+        const text = markerText(m.label);
         if (m.kind === "high") {
-          return { time: t(m.index), position: "aboveBar", color: c.marker, shape: "arrowDown", text: m.label };
+          return { time: t(m.index), position: "aboveBar", color: c.marker, shape: "arrowDown", text };
         }
         if (m.kind === "low") {
-          return { time: t(m.index), position: "belowBar", color: c.marker, shape: "arrowUp", text: m.label };
+          return { time: t(m.index), position: "belowBar", color: c.marker, shape: "arrowUp", text };
         }
-        return { time: t(m.index), position: "inBar", color: c.marker, shape: "circle", text: m.label };
+        return { time: t(m.index), position: "inBar", color: c.marker, shape: "circle", text };
       });
       createSeriesMarkers(candles, sm);
     }
@@ -259,10 +271,11 @@ export function CandleChart({
       panes[0].setStretchFactor(6);
       panes[1].setStretchFactor(1.4);
     }
-    chart.timeScale().fitContent();
+    // Show every candle plus `rightOffset` empty bars of margin on the right (room for edge markers).
+    chart.timeScale().setVisibleLogicalRange({ from: -0.5, to: series.close.length - 0.5 + rightOffset });
 
     return () => chart.remove();
-  }, [series, rsi, macd, oi, indicator, markers, overlays, levels, resolvedTheme, locale]);
+  }, [series, rsi, macd, oi, indicator, markers, overlays, levels, resolvedTheme, locale, rightOffset, t]);
 
   return <div ref={containerRef} style={{ height }} className="w-full" />;
 }

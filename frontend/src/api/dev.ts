@@ -37,3 +37,9 @@ export async function getDevInstances(exerciseId: string, count: number): Promis
   });
   return data;
 }
+
+/** Every lesson-figure id (dev-only), for reviewing the whole figure set in one place. */
+export async function getDevFigures(): Promise<string[]> {
+  const { data } = await apiClient.get<string[]>("/dev/figures");
+  return data;
+}

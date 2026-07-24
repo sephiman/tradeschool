@@ -5,6 +5,7 @@ Phase-2 injector is a new entry here plus its module — never a change to the f
 from __future__ import annotations
 
 from tradeschool.exercises.charts.patterns.base import PatternInjector
+from tradeschool.exercises.charts.patterns.candle_reaction import CandleReactionInjector
 from tradeschool.exercises.charts.patterns.derivatives import DerivativesInjector
 from tradeschool.exercises.charts.patterns.fakeout import FakeoutInjector
 from tradeschool.exercises.charts.patterns.fibonacci import FibonacciInjector
@@ -23,6 +24,7 @@ _INJECTORS: dict[str, PatternInjector] = {
         VolumeConfirmationInjector(),
         WyckoffInjector(),
         DerivativesInjector(),
+        CandleReactionInjector(),
     )
 }
 

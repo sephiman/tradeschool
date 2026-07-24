@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Answer, AttemptPayload, Deferred, OptionView } from "@/api/exercises";
 import { Button } from "@/components/ui/primitives";
+import { assignPair, isComplete, unassignPair, usedRights, type Pairs } from "@/features/exercises/matching";
+import { moveItem } from "@/features/exercises/ordering";
 import { cn } from "@/lib/cn";
 
 // In practice mode `onSubmit` is provided (select → submit → grade). In exam mode `deferred` is
@@ -160,10 +162,7 @@ function Ordering({ items, pending, onSubmit, deferred }: { items: OptionView[] 
       : items;
   const [order, setOrder] = useState<OptionView[]>(initial.length === items.length ? initial : items);
   const move = (index: number, dir: -1 | 1) => {
-    const j = index + dir;
-    if (j < 0 || j >= order.length) return;
-    const next = [...order];
-    [next[index], next[j]] = [next[j], next[index]];
+    const next = moveItem(order, index, dir);
     setOrder(next);
     deferred?.onChange({ order: next.map((o) => o.id) });
   };
@@ -172,12 +171,12 @@ function Ordering({ items, pending, onSubmit, deferred }: { items: OptionView[] 
       <p className="text-xs text-gray-500 dark:text-gray-400">{t("exercise.reorderHint")}</p>
       <ol className="space-y-2">
         {order.map((item, index) => (
-          <li key={item.id} className={cn(rowBase, optionOff, "justify-between")}>
-            <span className="flex items-center gap-2">
+          <li key={item.id} className={cn(rowBase, optionOff, "items-start justify-between")}>
+            <span className="flex min-w-0 flex-1 items-start gap-2">
               <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-600 dark:bg-gray-800 dark:text-gray-300">
                 {index + 1}
               </span>
-              <span>{item.text}</span>
+              <span className="min-w-0 break-words">{item.text}</span>
             </span>
             <span className="flex shrink-0 gap-1">
               <button
@@ -218,92 +217,113 @@ function Matching({
   deferred,
 }: { lefts: OptionView[]; rights: OptionView[] } & ControlProps) {
   const { t } = useTranslation();
-  const [pairs, setPairs] = useState<Record<string, string>>(
+  const [pairs, setPairs] = useState<Pairs>(
     deferred?.value && "pairs" in deferred.value ? deferred.value.pairs : {},
   );
   const [activeLeft, setActiveLeft] = useState<string | null>(null);
 
   const rightText = (id: string) => rights.find((r) => r.id === id)?.text ?? "";
-  const usedRights = new Set(Object.values(pairs));
-  const allPaired = lefts.length > 0 && lefts.every((l) => pairs[l.id]);
-  const commit = (next: Record<string, string>) => {
+  const used = usedRights(pairs);
+  const allPaired = isComplete(pairs, lefts.map((l) => l.id));
+  const commit = (next: Pairs) => {
     setPairs(next);
     deferred?.onChange({ pairs: next });
   };
 
+  // Tap a left to start (or cancel) choosing its match. Tapping an already-paired
+  // left re-activates it so the next right reassigns.
+  const toggleLeft = (leftId: string) => setActiveLeft((cur) => (cur === leftId ? null : leftId));
+  // Tap a right while a left is active: assign it. `assignPair` keeps the map
+  // injective, so picking a right that's already used moves it here.
   const pickRight = (rightId: string) => {
     if (activeLeft === null) return;
-    commit({ ...pairs, [activeLeft]: rightId });
+    commit(assignPair(pairs, activeLeft, rightId));
     setActiveLeft(null);
   };
-  const clearPair = (leftId: string) => {
-    const next = { ...pairs };
-    delete next[leftId];
-    commit(next);
-  };
+  const clearPair = (leftId: string) => commit(unassignPair(pairs, leftId));
 
+  // Single vertical column, phone-first: the items to match, each carrying its
+  // assignment as a fully-wrapped pill below its label, then the options bank.
   return (
-    <div className="mt-3 space-y-3">
+    <div className="mt-3 space-y-4">
       <p className="text-xs text-gray-500 dark:text-gray-400">{t("exercise.matchHint")}</p>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-2">
-          {lefts.map((l) => {
-            const paired = pairs[l.id];
-            const active = activeLeft === l.id;
-            return (
-              <div key={l.id}>
-                <button
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => setActiveLeft(active ? null : l.id)}
-                  className={cn(rowBase, "justify-between text-left", active ? optionOn : optionOff)}
-                >
-                  <span>{l.text}</span>
-                  {paired && (
-                    <span className="ml-2 shrink-0 rounded bg-indigo-100 px-1.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-200">
-                      {rightText(paired)}
-                    </span>
-                  )}
-                </button>
-                {paired && (
+
+      <div className="space-y-2">
+        <p className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+          {t("exercise.matchItems")}
+        </p>
+        {lefts.map((l) => {
+          const paired = pairs[l.id];
+          const active = activeLeft === l.id;
+          return (
+            <div
+              key={l.id}
+              className={cn(
+                "rounded-md border p-3 transition-colors",
+                active
+                  ? cn(optionOn, "ring-2 ring-primary ring-offset-1 dark:ring-offset-gray-900")
+                  : optionOff,
+              )}
+            >
+              <button
+                type="button"
+                aria-pressed={active}
+                onClick={() => toggleLeft(l.id)}
+                className="flex w-full items-start justify-between gap-2 text-left text-sm"
+              >
+                <span className="min-w-0 break-words">{l.text}</span>
+                {active && (
+                  <span className="shrink-0 text-xs font-medium text-primary">{t("exercise.matchChoosing")}</span>
+                )}
+              </button>
+              {paired && (
+                <div className="mt-2 flex items-start gap-2 rounded-md bg-indigo-100 px-2.5 py-1.5 dark:bg-indigo-900/50">
+                  <span className="min-w-0 break-words text-sm text-indigo-900 dark:text-indigo-100">
+                    {rightText(paired)}
+                  </span>
                   <button
                     type="button"
                     onClick={() => clearPair(l.id)}
-                    className="mt-1 text-xs text-gray-400 hover:text-red-600"
+                    className="ml-auto shrink-0 rounded text-xs font-medium text-indigo-700 hover:text-red-600 dark:text-indigo-200 dark:hover:text-red-400"
                   >
-                    {t("exercise.clearPair")}
+                    ✕ {t("exercise.clearPair")}
                   </button>
-                )}
-              </div>
-            );
-          })}
-        </div>
-        <div className="space-y-2">
-          {rights.map((r) => {
-            const used = usedRights.has(r.id);
-            return (
-              <button
-                key={r.id}
-                type="button"
-                disabled={activeLeft === null}
-                onClick={() => pickRight(r.id)}
-                className={cn(
-                  rowBase,
-                  "justify-between text-left disabled:cursor-not-allowed disabled:opacity-60",
-                  used ? "border-primary/40 bg-indigo-50/60 dark:bg-indigo-950/30" : optionOff,
-                )}
-              >
-                <span>{r.text}</span>
-                {used && (
-                  <span className="ml-2 text-emerald-600 dark:text-emerald-400" aria-hidden>
-                    ✓
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
+
+      <div className="space-y-2">
+        <p className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+          {t("exercise.matchOptions")}
+          {activeLeft === null && (
+            <span className="ml-1 font-normal normal-case">— {t("exercise.matchPickFirst")}</span>
+          )}
+        </p>
+        {rights.map((r) => {
+          const isUsed = used.has(r.id);
+          return (
+            <button
+              key={r.id}
+              type="button"
+              disabled={activeLeft === null}
+              onClick={() => pickRight(r.id)}
+              className={cn(
+                "flex w-full items-start gap-2 rounded-md border p-3 text-left text-sm transition-colors disabled:cursor-not-allowed",
+                isUsed
+                  ? "border-border bg-gray-50 text-gray-400 dark:border-gray-700 dark:bg-gray-800/40 dark:text-gray-500"
+                  : "border-border hover:border-primary/60 dark:border-gray-700",
+                activeLeft === null && !isUsed && "opacity-60",
+              )}
+            >
+              <span className="min-w-0 break-words">{r.text}</span>
+            </button>
+          );
+        })}
+      </div>
+
       <SubmitButton disabled={!allPaired || !!pending} onSubmit={onSubmit && (() => onSubmit({ pairs }))} />
     </div>
   );

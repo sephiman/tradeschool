@@ -1,0 +1,124 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: location-90
+    prompt:
+      en: "In this lesson, what does \"location is 90% of the signal\" mean?"
+      es: "En esta lección, ¿qué significa \"la ubicación es el 90 % de la señal\"?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The level the reaction lands on carries most of the information; the candle shape is the smaller part."
+          es: "El nivel sobre el que cae la reacción lleva la mayor parte de la información; la forma de la vela es la parte menor."
+      - id: b
+        text:
+          en: "90% of candle patterns are reliable if drawn correctly."
+          es: "El 90 % de los patrones de vela son fiables si se dibujan bien."
+      - id: c
+        text:
+          en: "You should only trade in the last 10% of the chart."
+          es: "Solo deberías operar en el último 10 % del gráfico."
+    explanation:
+      en: "A reaction earns its meaning from where it happens. The same wick at a demonstrated level is information; in open space it is noise. The level does the work — as with the fib in m13, the shape doesn't create the level."
+      es: "Una reacción gana su significado por dónde ocurre. La misma mecha en un nivel demostrado es información; en espacio abierto es ruido. El nivel hace el trabajo: como con el fib en m13, la forma no crea el nivel."
+  - id: hammer-no-level
+    prompt:
+      en: "You spot a picture-perfect hammer, but there is no level — no support, no fib, no prior structure — anywhere near it. Best read?"
+      es: "Detectas un martillo de manual, pero no hay ningún nivel —ni soporte, ni fib, ni estructura previa— cerca de él. ¿Mejor lectura?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Noise with a wick — wait for a reaction at a level that matters."
+          es: "Ruido con una mecha: espera una reacción en un nivel que importe."
+      - id: b
+        text:
+          en: "A strong buy — a clean hammer is a buy signal by itself."
+          es: "Una compra fuerte: un martillo limpio es una señal de compra por sí solo."
+      - id: c
+        text:
+          en: "A sell — an isolated hammer means exhaustion."
+          es: "Una venta: un martillo aislado significa agotamiento."
+    explanation:
+      en: "A rejection in open space rejected nothing that matters. With no level under it, the wick is just a wick. Discipline is waiting for the same form to land where the chart already respects a price."
+      es: "Un rechazo en espacio abierto no rechazó nada que importe. Sin un nivel debajo, la mecha es solo una mecha. La disciplina es esperar a que la misma forma caiga donde el gráfico ya respeta un precio."
+  - id: doji-either-way
+    prompt:
+      en: "The exact same doji prints once at a major resistance and once mid-range. How do the two reads compare?"
+      es: "El mismo doji aparece una vez en una resistencia importante y otra a media altura del rango. ¿Cómo se comparan las dos lecturas?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A doji is indecision either way — it is not a signal on its own, level or no level."
+          es: "Un doji es indecisión en ambos casos: no es una señal por sí solo, con nivel o sin él."
+      - id: b
+        text:
+          en: "At resistance it is a guaranteed reversal; mid-range it is nothing."
+          es: "En resistencia es un giro garantizado; a media altura no es nada."
+      - id: c
+        text:
+          en: "Mid-range it is a continuation signal; at resistance it is noise."
+          es: "A media altura es una señal de continuación; en resistencia es ruido."
+    explanation:
+      en: "Location amplifies rejection and overrun, but a doji records that nobody won — there is no battle to weight by location. At a level it can flag that a move is stalling and tell you to watch, but it is never the trigger by itself."
+      es: "La ubicación amplifica el rechazo y el overrun, pero un doji registra que nadie ganó: no hay batalla que ponderar por ubicación. En un nivel puede avisar de que un movimiento se estanca y decirte que vigiles, pero nunca es el disparador por sí solo."
+  - id: small-range-myth
+    kind: true_false
+    prompt:
+      en: "A small-range candle right after a strong move is a reliable signal that the move will continue."
+      es: "Una vela de rango pequeño justo después de un movimiento fuerte es una señal fiable de que el movimiento continuará."
+    answer: false
+    explanation:
+      en: "A small-range candle is compression — the market pausing. It records no winner and predicts no direction; treating it as a continuation signal is reading intent into a bar that has none."
+      es: "Una vela de rango pequeño es compresión: el mercado en pausa. No registra ningún ganador ni predice dirección; tratarla como señal de continuación es leer intención en una barra que no la tiene."
+  - id: non-information
+    kind: multi_select
+    prompt:
+      en: "Select ALL formations that carry NO signal on their own (non-information)."
+      es: "Selecciona TODAS las formaciones que NO llevan señal por sí solas (no-información)."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A doji (open and close almost equal)."
+          es: "Un doji (apertura y cierre casi iguales)."
+      - id: b
+        correct: true
+        text:
+          en: "A small-range candle after movement."
+          es: "Una vela de rango pequeño tras el movimiento."
+      - id: c
+        correct: true
+        text:
+          en: "A long-wick pin bar mid-range, at no level."
+          es: "Un pin bar de mecha larga a media altura, en ningún nivel."
+      - id: d
+        text:
+          en: "An engulfing candle that overruns a resistance the chart has respected twice."
+          es: "Una vela envolvente que arrolla una resistencia que el gráfico ha respetado dos veces."
+    explanation:
+      en: "Doji and small-range are indecision and compression — no winner. A pin bar in open space is a rejection of nothing that matters. Only the overrun at a demonstrated level carries information."
+      es: "El doji y el rango pequeño son indecisión y compresión: sin ganador. Un pin bar en espacio abierto es un rechazo de nada que importe. Solo el overrun en un nivel demostrado lleva información."
+  - id: same-form-diff-place
+    prompt:
+      en: "Two charts show the identical bullish engulfing candle. On chart A it engulfs the prior range right at a support that has held three times; on chart B it happens in the middle of a drift. What differs?"
+      es: "Dos gráficos muestran la misma vela envolvente alcista. En el A engulle el rango anterior justo en un soporte que ha aguantado tres veces; en el B ocurre en mitad de una deriva. ¿Qué cambia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The mechanic is identical; only A carries information, because only A overran a level that mattered."
+          es: "La mecánica es idéntica; solo el A lleva información, porque solo el A arrolló un nivel que importaba."
+      - id: b
+        text:
+          en: "B is stronger, because open space lets price move freely."
+          es: "El B es más fuerte, porque el espacio abierto deja moverse al precio con libertad."
+      - id: c
+        text:
+          en: "They are identical in meaning — same candle, same signal."
+          es: "Son idénticos en significado: la misma vela, la misma señal."
+    explanation:
+      en: "Same form, same overrun — but B overran nothing anyone was defending. The engulfing at a demonstrated support is a battle won at a price that matters; in open space it is a body with no context."
+      es: "La misma forma, el mismo overrun, pero el B no arrolló nada que nadie defendiera. La envolvente en un soporte demostrado es una batalla ganada en un precio que importa; en espacio abierto es un cuerpo sin contexto."

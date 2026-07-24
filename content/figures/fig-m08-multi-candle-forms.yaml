@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m08-multi-candle-forms
+kind: chart
+caption:
+  en: 'The same two mechanics wearing more names. Morning / evening star: a rejection
+    told across three candles instead of one. Harami: a small candle swallowed by the
+    prior range — compression after an impulse. Tweezers: two candles rejected at the
+    same level — a double rejection.'
+  es: 'Las mismas dos mecánicas con más nombres. Estrella de la mañana / del atardecer:
+    un rechazo contado en tres velas en vez de una. Harami: una vela pequeña engullida
+    por el rango anterior —compresión tras un impulso—. Pinzas: dos velas rechazadas
+    en el mismo nivel —un doble rechazo—.'
+panels:
+- generator: pattern_chart
+  injector: candle_reaction
+  target: morning_star
+  seed: 8
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: evening_star
+  seed: 9
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: harami
+  seed: 10
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: tweezers_bottom
+  seed: 11
+  n: 45
+  indicator: none
+  show_resolution: true

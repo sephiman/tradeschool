@@ -56,6 +56,16 @@ class GalleryResponse(BaseModel):
     items: list[GalleryItem]
 
 
+@router.get("/figures", response_model=list[str])
+async def dev_figures(
+    _user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+) -> list[str]:
+    """Every lesson-figure id, for the dev gallery to render the whole set at once (both locales via
+    the app language toggle, both themes via the theme toggle). Dev-only."""
+    return sorted(registry.figures)
+
+
 @router.get("/instances", response_model=GalleryResponse)
 async def dev_instances(
     exercise_id: Annotated[str, Query()],

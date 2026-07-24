@@ -23,6 +23,10 @@ from tradeschool.exercises.synthetic_chart import _instantiate as divergence_ins
 # Baseline captured from the exercise generators BEFORE the figure/resolution work. Do not edit these
 # to make the test pass — a mismatch means exercise output changed, which is the bug this guards.
 GOLDEN = {
+    "candle_reaction:0": "a74351382cbb1366",
+    "candle_reaction:1": "1e21b914a6efad6f",
+    "candle_reaction:2": "c14016c371d84c77",
+    "candle_reaction:3": "72635ec0fc51c6ab",
     "derivatives:0": "4d0c4f23a1bce031",
     "derivatives:1": "51683f017c3352bb",
     "derivatives:2": "8a7b44998f5c4e9a",

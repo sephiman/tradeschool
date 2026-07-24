@@ -82,8 +82,8 @@ async def test_me_stats_reading_and_mastery_are_separate(
 
     # Reading (completion) dimension — computed over published content only. Phase 2 authored all
     # 23 modules, so every module now has content.
-    assert stats["coverage"]["publishedModules"] == 23
-    assert stats["coverage"]["totalModules"] == 23
+    assert stats["coverage"]["publishedModules"] == 24
+    assert stats["coverage"]["totalModules"] == 24
     assert stats["reading"]["lessonsCompleted"] == 1
 
     m01 = next(m for m in stats["modules"] if m["id"] == "m01")
@@ -119,6 +119,6 @@ async def test_me_stats_empty_for_new_user(content_client: AsyncClient) -> None:
     assert stats["exercise"]["accuracy"] is None
     assert stats["reading"]["lessonsCompleted"] == 0
     assert stats["reading"]["courseCompletion"] == 0.0  # 0 of 23 published lessons
-    assert stats["coverage"]["publishedModules"] == 23
-    assert stats["coverage"]["totalModules"] == 23
+    assert stats["coverage"]["publishedModules"] == 24
+    assert stats["coverage"]["totalModules"] == 24
     assert stats["costliestSections"] == []

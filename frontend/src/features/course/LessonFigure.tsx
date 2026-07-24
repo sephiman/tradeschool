@@ -53,6 +53,7 @@ export function LessonFigure({ id }: { id: string }) {
               indicator={p.indicator}
               markers={toMarkers(p.annotations)}
               height={300}
+              rightOffset={10}
             />
           ))}
         </div>

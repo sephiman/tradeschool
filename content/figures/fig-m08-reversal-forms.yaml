@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m08-reversal-forms
+kind: chart
+caption:
+  en: 'The two mechanics at a level. Hammer: sellers pushed to the low, were absorbed,
+    and lost — a rejection at support. Shooting star: the same rejection inverted at
+    resistance. Bullish / bearish engulfing: one side steamrolled the prior candle''s
+    whole range — an overrun.'
+  es: 'Las dos mecánicas en un nivel. Martillo: los vendedores empujaron al mínimo,
+    fueron absorbidos y perdieron —un rechazo en soporte—. Estrella fugaz: el mismo
+    rechazo invertido en resistencia. Envolvente alcista / bajista: un lado arrolló
+    todo el rango de la vela anterior —un overrun—.'
+panels:
+- generator: pattern_chart
+  injector: candle_reaction
+  target: hammer
+  seed: 2
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: shooting_star
+  seed: 4
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: bullish_engulfing
+  seed: 5
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: bearish_engulfing
+  seed: 6
+  n: 45
+  indicator: none
+  show_resolution: true

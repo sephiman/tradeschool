@@ -7,8 +7,8 @@ course:
     en: Crypto Futures, from Zero
     es: Futuros de cripto, desde cero
   description:
-    en: "From absolute zero to trading crypto perpetual futures with real risk management — read the market, size positions, and survive leverage."
-    es: "Desde cero absoluto hasta operar futuros perpetuos de cripto con gestión de riesgo real: leer el mercado, dimensionar posiciones y sobrevivir al apalancamiento."
+    en: From absolute zero to a complete trading plan for crypto perpetual futures — read the market, size positions, manage risk, and run a disciplined process.
+    es: 'Desde cero absoluto hasta un plan de trading completo para futuros perpetuos de cripto: leer el mercado, dimensionar posiciones, gestionar el riesgo y seguir un proceso disciplinado.'
 blocks:
 - id: block-a
   title:
@@ -210,6 +210,17 @@ blocks:
       - id: m08-ex-3
         type: quiz
       - id: m08-ex-4
+        type: quiz
+    - id: m08-l2
+      title:
+        en: 'The reaction: reading candles at a level'
+        es: 'La reacción: leer velas en un nivel'
+      exercises:
+      - id: m08-ex-5
+        type: pattern_chart
+      - id: m08-ex-6
+        type: quiz
+      - id: m08-ex-7
         type: quiz
   - id: m09
     title:
@@ -595,4 +606,38 @@ blocks:
       - id: m23-ex-3
         type: quiz
       - id: m23-ex-4
+        type: quiz
+  - id: m24
+    title:
+      en: The trading plan
+      es: El plan de trading
+    summary:
+      en: 'Assemble structure, confluence, sizing, execution and expectancy into one repeatable process: a complete trade from context to record, the daily stop that ends a losing day, plus the journal, validation and the step to real money.'
+      es: 'Reúne estructura, confluencia, dimensionamiento, ejecución y esperanza en un proceso repetible: una operación completa del contexto al registro, el freno diario que termina un día perdedor, más el diario, la validación y el paso al dinero real.'
+    assumes:
+    - m08
+    - m19
+    - m21
+    - m22
+    - m23
+    lessons:
+    - id: m24-l1
+      title:
+        en: Anatomy of one complete trade
+        es: Anatomía de una operación completa
+      exercises:
+      - id: m24-ex-1
+        type: quiz
+      - id: m24-ex-2
+        type: calculation
+      - id: m24-ex-3
+        type: quiz
+    - id: m24-l2
+      title:
+        en: The journal, validation, and real money
+        es: El diario, la validación y el dinero real
+      exercises:
+      - id: m24-ex-4
+        type: quiz
+      - id: m24-ex-5
         type: quiz

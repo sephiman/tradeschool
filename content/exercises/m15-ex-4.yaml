@@ -147,3 +147,62 @@ variants:
     explanation:
       en: "Rising rates and a strong dollar have broadly coincided with weakness in crypto; a risk-on mood sends money toward stocks and crypto, a risk-off mood toward cash and bonds. All are tendencies and context, never mechanical laws."
       es: "Los tipos al alza y un dólar fuerte han coincidido en general con debilidad en cripto; un ánimo risk-on lleva el dinero hacia las acciones y cripto, un ánimo risk-off hacia el efectivo y los bonos. Todo son tendencias y contexto, nunca leyes mecánicas."
+  - id: event-volatility
+    prompt:
+      en: "A scheduled macro release (an FOMC rate decision, a CPI print) is coming in an hour. In trading terms, what does that date on the calendar mark?"
+      es: "Falta una hora para una publicación macro programada (una decisión de tipos del FOMC, un dato de IPC). En términos de trading, ¿qué marca esa fecha en el calendario?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A known volatility regime — a scheduled jump in uncertainty, into which spreads widen and books thin as market makers step back."
+          es: "Un régimen de volatilidad conocido: un salto programado de incertidumbre, ante el cual los spreads se ensanchan y los libros se afinan porque los creadores de mercado se retiran."
+      - id: b
+        text:
+          en: "A reliable direction — these events resolve up often enough to trade the announcement itself."
+          es: "Una dirección fiable: estos eventos se resuelven al alza lo bastante a menudo como para operar el propio anuncio."
+      - id: c
+        text:
+          en: "Nothing for crypto — macro releases only move stocks and bonds, not a 24/7 market."
+          es: "Nada para cripto: las publicaciones macro solo mueven acciones y bonos, no un mercado 24/7."
+      - id: d
+        text:
+          en: "A guaranteed calm — liquidity always deepens ahead of a known event."
+          es: "Una calma garantizada: la liquidez siempre se profundiza antes de un evento conocido."
+    explanation:
+      en: "A scheduled event is a volatility regime you can see coming. Right before it, market makers pull quotes rather than get run over by the reaction, so spreads widen and books thin — the worst possible liquidity for a fill, in exactly the window everyone is watching."
+      es: "Un evento programado es un régimen de volatilidad que ves venir. Justo antes, los creadores de mercado retiran cotizaciones para que la reacción no los arrolle, así que los spreads se ensanchan y los libros se afinan: la peor liquidez posible para una ejecución, justo en la ventana que todos vigilan."
+  - id: event-rule
+    prompt:
+      en: "You cannot predict tomorrow's CPI number. What is the disciplined way to treat the print?"
+      es: "No puedes predecir el dato de IPC de mañana. ¿Cuál es la forma disciplinada de tratar la publicación?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Be flat or small into an event you can't price — the reaction, not your analysis, will set the next move."
+          es: "Estar plano o pequeño ante un evento que no puedes valorar: la reacción, no tu análisis, fijará el siguiente movimiento."
+      - id: b
+        text:
+          en: "Size up — the extra volatility is a bigger opportunity, so it deserves a bigger position."
+          es: "Aumentar el tamaño: la volatilidad extra es una oportunidad mayor, así que merece una posición mayor."
+      - id: c
+        text:
+          en: "Place a tight stop just beyond the current price and hold full size through the release."
+          es: "Colocar un stop ajustado justo pasado el precio actual y mantener el tamaño completo durante la publicación."
+      - id: d
+        text:
+          en: "Ignore the calendar entirely; a good setup is a good setup regardless of the date."
+          es: "Ignorar el calendario por completo; un buen setup es un buen setup sin importar la fecha."
+    explanation:
+      en: "If you can't price the outcome, don't let it price you: go flat or shrink size. A tight stop is worse than useless when the spread gaps through it on the print — you get the loss without the protection. The edge is in setups you can read, not in coin-flips with the whole market watching."
+      es: "Si no puedes valorar el resultado, no dejes que él te valore a ti: ponte plano o reduce el tamaño. Un stop ajustado es peor que inútil cuando el spread lo atraviesa de golpe en el dato: te llevas la pérdida sin la protección. La ventaja está en setups que puedes leer, no en caras-o-cruces con todo el mercado mirando."
+  - id: liq-shelf-print
+    kind: true_false
+    prompt:
+      en: "Holding a leveraged position whose liquidation price sits just past a visible cluster of stops is a fine thing to carry into an FOMC announcement."
+      es: "Mantener una posición apalancada cuyo precio de liquidación queda justo pasado un cúmulo visible de stops es algo perfectamente asumible para llevar a un anuncio del FOMC."
+    answer: false
+    explanation:
+      en: "That is the worst place to be into a scheduled shock. A liquidation shelf just past a stop cluster is exactly what a violent, thin-book reaction reaches for — the print supplies the volatility, the shelf supplies the fuel. Flatten or cut leverage so a single spike can't force you out at the worst price."
+      es: "Ese es el peor sitio posible ante un shock programado. Una repisa de liquidación justo pasado un cúmulo de stops es precisamente lo que busca una reacción violenta y de libro fino: el dato aporta la volatilidad y la repisa el combustible. Aplana o reduce el apalancamiento para que un solo pico no pueda expulsarte al peor precio."

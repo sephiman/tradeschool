@@ -94,7 +94,11 @@
     "false": "False",
     "selectAllThatApply": "Select all that apply.",
     "reorderHint": "Use the arrows to put these in the right order.",
-    "matchHint": "Tap an item on the left, then tap its match on the right.",
+    "matchHint": "Tap an item, then tap its match below.",
+    "matchItems": "Items",
+    "matchOptions": "Options",
+    "matchPickFirst": "tap an item first",
+    "matchChoosing": "Choosing its match…",
     "moveUp": "Move up",
     "moveDown": "Move down",
     "clearPair": "Clear",
@@ -166,7 +170,29 @@
     "unconfirmed_breakout": "Unconfirmed (weak volume)",
     "rising_oi": "Rising OI",
     "falling_oi": "Falling OI",
-    "flat_oi": "Flat OI"
+    "flat_oi": "Flat OI",
+    "rejection_at_level": "Rejection at a level → informative",
+    "overrun_at_level": "Overrun at a level → informative",
+    "open_space": "Same form in open space → noise",
+    "indecision": "Indecision → no signal"
+  },
+  "chartMarker": {
+    "hammer": "Hammer",
+    "shooting_star": "Shooting star",
+    "bullish_engulfing": "Bullish engulfing",
+    "bearish_engulfing": "Bearish engulfing",
+    "morning_star": "Morning star",
+    "evening_star": "Evening star",
+    "harami": "Harami",
+    "tweezers_bottom": "Tweezers bottom",
+    "tweezers_top": "Tweezers top",
+    "doji": "Doji",
+    "small_range": "Small range",
+    "test": "Test"
+  },
+  "level": {
+    "support": "Support",
+    "resistance": "Resistance"
   },
   "candle": {
     "open": "Open",

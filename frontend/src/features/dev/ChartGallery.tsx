@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
+  getDevFigures,
   getDevInstances,
   type DivergenceGroundTruth,
   type GalleryItem,
@@ -10,6 +11,7 @@ import {
 import { CandleChart } from "@/components/charts/CandleChart";
 import { divergenceMarkers, patternMarkers } from "@/components/charts/markers";
 import { Badge, Button, Card, Input, Select, Spinner } from "@/components/ui/primitives";
+import { LessonFigure } from "@/features/course/LessonFigure";
 
 const EXERCISES = ["m12-ex-1", "m12-ex-2"];
 
@@ -41,6 +43,13 @@ export function ChartGallery() {
     queryFn: () => getDevInstances(exerciseId, count),
     retry: false,
     meta: { silentError: true }, // handled inline below, not via a toast
+  });
+
+  const { data: figureIds } = useQuery({
+    queryKey: ["dev-figures"],
+    queryFn: getDevFigures,
+    retry: false,
+    meta: { silentError: true },
   });
 
   const loadDraft = () => {
@@ -153,6 +162,24 @@ export function ChartGallery() {
             );
           })}
         </div>
+      )}
+
+      {figureIds && figureIds.length > 0 && (
+        <section className="mt-10 border-t border-border pt-6 dark:border-gray-800">
+          <h2 className="text-lg font-bold">Lesson figures ({figureIds.length})</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            The whole figure set. Toggle the app language (EN/ES) and theme (light/dark) to review
+            annotation labels, level titles, and edge placement across both.
+          </p>
+          <div className="mt-3 grid gap-x-6 lg:grid-cols-2">
+            {figureIds.map((fid) => (
+              <div key={fid}>
+                <p className="mt-4 font-mono text-xs text-gray-400">{fid}</p>
+                <LessonFigure id={fid} />
+              </div>
+            ))}
+          </div>
+        </section>
       )}
     </div>
   );

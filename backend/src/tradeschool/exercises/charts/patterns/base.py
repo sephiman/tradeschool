@@ -17,6 +17,8 @@ from typing import ClassVar
 import numpy as np
 from numpy.typing import NDArray
 
+from tradeschool.exercises.charts.types import Series
+
 Floats = NDArray[np.float64]
 
 
@@ -55,6 +57,17 @@ class PatternResult:
     #: optional secondary series shown in the oscillator pane (e.g. open interest for m17). Full
     #: length; the generator trims the warm-up like the candles. Used when ``indicator == "oi"``.
     oi_full: Floats | None = None
+    #: optional full-length OHLC override. When an injector needs to shape individual candles that
+    #: ``build_series`` derives stochastically — a rejection wick, a tweezers low, a clean engulfing
+    #: body (m08 candle reactions) — it builds the Series itself and returns it here; the generator
+    #: uses it verbatim instead of calling ``build_series``. Its ``close`` must match ``close_full``
+    #: so indicators stay consistent. Left None by every other injector (build_series path unchanged).
+    candles_full: Series | None = None
+    #: figure-only hint for the resolution continuation's direction (+1 up / -1 down / 0 sideways).
+    #: A candle reaction's payload is what follows it (a bounce off support, a drop off resistance,
+    #: nothing after a doji); the injector knows the planted form, so it names the direction here for
+    #: ``build_figure``. Never read in exercise mode; not part of the graded payload (golden unaffected).
+    resolution_hint: float | None = None
 
 
 class PatternInjector(ABC):

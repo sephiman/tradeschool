@@ -94,7 +94,11 @@
     "false": "Falso",
     "selectAllThatApply": "Selecciona todas las que correspondan.",
     "reorderHint": "Usa las flechas para colocarlas en el orden correcto.",
-    "matchHint": "Toca un elemento de la izquierda y luego su pareja de la derecha.",
+    "matchHint": "Toca un elemento y luego su pareja debajo.",
+    "matchItems": "Elementos",
+    "matchOptions": "Opciones",
+    "matchPickFirst": "toca antes un elemento",
+    "matchChoosing": "Eligiendo su pareja…",
     "moveUp": "Subir",
     "moveDown": "Bajar",
     "clearPair": "Quitar",
@@ -166,7 +170,29 @@
     "unconfirmed_breakout": "Sin confirmar (volumen débil)",
     "rising_oi": "OI creciente",
     "falling_oi": "OI decreciente",
-    "flat_oi": "OI plano"
+    "flat_oi": "OI plano",
+    "rejection_at_level": "Rechazo en un nivel → informativo",
+    "overrun_at_level": "Arrollamiento en un nivel → informativo",
+    "open_space": "La misma forma en espacio abierto → ruido",
+    "indecision": "Indecisión → sin señal"
+  },
+  "chartMarker": {
+    "hammer": "Martillo",
+    "shooting_star": "Estrella fugaz",
+    "bullish_engulfing": "Envolvente alcista",
+    "bearish_engulfing": "Envolvente bajista",
+    "morning_star": "Estrella del amanecer",
+    "evening_star": "Estrella del atardecer",
+    "harami": "Harami",
+    "tweezers_bottom": "Pinzas inferiores",
+    "tweezers_top": "Pinzas superiores",
+    "doji": "Doji",
+    "small_range": "Rango pequeño",
+    "test": "Prueba"
+  },
+  "level": {
+    "support": "Soporte",
+    "resistance": "Resistencia"
   },
   "candle": {
     "open": "Apertura",

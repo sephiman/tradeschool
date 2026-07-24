@@ -21,7 +21,19 @@ const CHART_LABELS = [
   "uptrend", "downtrend", "range", "overbought", "oversold", "neutral",
   "retrace_382", "retrace_500", "retrace_618", "confirmed_breakout", "unconfirmed_breakout",
   "rising_oi", "falling_oi", "flat_oi",
+  "rejection_at_level", "overrun_at_level", "open_space", "indecision",
 ];
+
+// Figure/chart ANNOTATION labels are also student-facing and must be localized, never rendered as the
+// raw backend enum (the `bearish_e…` / `support` leak). Marker labels live under `chartMarker.*`
+// (candle-reaction forms + the fakeout "test" marker); level titles under `level.*`. Keep in sync
+// with the injectors' Annotation/Level labels. Pass-through keys (swing "1"/"2", Wyckoff phases
+// "A"–"E", Fibonacci ratios) are display-ready and intentionally absent.
+const CHART_MARKERS = [
+  "hammer", "shooting_star", "bullish_engulfing", "bearish_engulfing", "morning_star", "evening_star",
+  "harami", "tweezers_bottom", "tweezers_top", "doji", "small_range", "test",
+];
+const LEVEL_KINDS = ["support", "resistance"];
 
 const catalogs = { en, es } as Record<string, Record<string, Record<string, string>>>;
 
@@ -42,6 +54,15 @@ describe("UI translations", () => {
     }
     for (const label of CHART_LABELS) {
       expect(catalogs[lang].chartLabel?.[label], `chartLabel.${label} missing in ${lang}`).toBeTruthy();
+    }
+  });
+
+  it.each(Object.keys(catalogs))("%s localizes every figure/chart annotation label", (lang) => {
+    for (const key of CHART_MARKERS) {
+      expect(catalogs[lang].chartMarker?.[key], `chartMarker.${key} missing in ${lang}`).toBeTruthy();
+    }
+    for (const kind of LEVEL_KINDS) {
+      expect(catalogs[lang].level?.[kind], `level.${kind} missing in ${lang}`).toBeTruthy();
     }
   });
 });

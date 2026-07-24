@@ -1,0 +1,139 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: names-to-mechanics
+    kind: matching
+    prompt:
+      en: "Match each named candle pattern to the mechanic it actually records. There aren't 60 patterns — there are two mechanics wearing many names."
+      es: "Empareja cada patrón de vela con nombre con la mecánica que en realidad registra. No hay 60 patrones: hay dos mecánicas con muchos nombres."
+    pairs:
+      - id: hammer
+        left: { en: "Hammer / pin bar", es: "Martillo / pin bar" }
+        right:
+          en: "Rejection — a long lower wick at a low"
+          es: "Rechazo: una mecha inferior larga en un mínimo"
+      - id: star
+        left: { en: "Shooting star", es: "Estrella fugaz" }
+        right:
+          en: "Rejection inverted — a long upper wick at a high"
+          es: "Rechazo invertido: una mecha superior larga en un máximo"
+      - id: engulfing
+        left: { en: "Engulfing candle", es: "Vela envolvente" }
+        right:
+          en: "Overrun — one body swallows the prior candle's range"
+          es: "Overrun: un cuerpo se traga el rango de la vela anterior"
+      - id: doji
+        left: { en: "Doji", es: "Doji" }
+        right:
+          en: "Indecision — nobody won; no signal"
+          es: "Indecisión: nadie ganó; sin señal"
+    explanation:
+      en: "Hammer and shooting star are the same rejection, one at lows and one inverted at highs. An engulfing candle is an overrun. A doji is neither — it is indecision. Learn the two mechanics and the names stop mattering."
+      es: "El martillo y la estrella fugaz son el mismo rechazo, uno en mínimos y otro invertido en máximos. Una vela envolvente es un overrun. Un doji no es ninguno: es indecisión. Aprende las dos mecánicas y los nombres dejan de importar."
+  - id: many-names
+    kind: matching
+    prompt:
+      en: "The same two mechanics wear more names. Match each to what it records."
+      es: "Las mismas dos mecánicas llevan más nombres. Empareja cada uno con lo que registra."
+    pairs:
+      - id: star3
+        left: { en: "Morning / evening star", es: "Estrella de la mañana / del atardecer" }
+        right:
+          en: "A rejection told across three candles instead of one"
+          es: "Un rechazo contado en tres velas en vez de una"
+      - id: harami
+        left: { en: "Harami", es: "Harami" }
+        right:
+          en: "Compression right after an impulse"
+          es: "Compresión justo después de un impulso"
+      - id: tweezers
+        left: { en: "Tweezers", es: "Pinzas" }
+        right:
+          en: "A double rejection at the same level"
+          es: "Un doble rechazo en el mismo nivel"
+      - id: smallrange
+        left: { en: "Small-range candle", es: "Vela de rango pequeño" }
+        right:
+          en: "Compression — the market pausing, no winner"
+          es: "Compresión: el mercado en pausa, sin ganador"
+    explanation:
+      en: "A three-candle star is just a rejection drawn slowly; harami and a small-range candle are both compression. None is a new mechanic — they are the same two ideas retold."
+      es: "Una estrella de tres velas es solo un rechazo dibujado despacio; el harami y una vela de rango pequeño son ambos compresión. Ninguno es una mecánica nueva: son las dos mismas ideas recontadas."
+  - id: pin-at-level
+    prompt:
+      en: "An identical long-wick pin bar prints in two places: (A) exactly at the 0.618 retracement, over an old support that has already held twice; (B) mid-range, at no level at all. Which is the tradeable signal?"
+      es: "Un mismo pin bar de mecha larga aparece en dos sitios: (A) justo en el retroceso 0,618, sobre un soporte antiguo que ya ha aguantado dos veces; (B) a media altura del rango, en ningún nivel. ¿Cuál es la señal operable?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A — the rejection lands on a level that already mattered, so it carries information."
+          es: "A: el rechazo cae sobre un nivel que ya importaba, así que lleva información."
+      - id: b
+        text:
+          en: "B — a clean pin bar is a signal wherever it appears."
+          es: "B: un pin bar limpio es una señal aparezca donde aparezca."
+      - id: c
+        text:
+          en: "Both equally — the candle shape is identical, so the meaning is identical."
+          es: "Ambos por igual: la forma de la vela es idéntica, así que el significado es idéntico."
+    explanation:
+      en: "Same wick, completely different value — because the level, not the candle, does the work. A rejection at a demonstrated level is information; the identical wick in open space is noise. Location is 90% of the signal."
+      es: "La misma mecha, un valor completamente distinto, porque quien hace el trabajo es el nivel, no la vela. Un rechazo en un nivel demostrado es información; la misma mecha en espacio abierto es ruido. La ubicación es el 90 % de la señal."
+  - id: what-decides
+    prompt:
+      en: "You spot a textbook bullish engulfing candle. What most decides whether it means anything?"
+      es: "Detectas una vela envolvente alcista de manual. ¿Qué decide sobre todo si significa algo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Where it happened — at a level the chart respects, or in open space."
+          es: "Dónde ocurrió: en un nivel que el gráfico respeta, o en espacio abierto."
+      - id: b
+        text:
+          en: "How large and green the candle is."
+          es: "Cuán grande y verde es la vela."
+      - id: c
+        text:
+          en: "Whether it matches the exact textbook proportions."
+          es: "Si cumple las proporciones exactas del manual."
+    explanation:
+      en: "The overrun is real either way, but it only means something where it overruns a level that mattered. Size and tidy proportions are cosmetics; location is the signal."
+      es: "El overrun es real en ambos casos, pero solo significa algo donde arrolla un nivel que importaba. El tamaño y las proporciones limpias son cosmética; la señal es la ubicación."
+  - id: sixty-patterns-myth
+    kind: true_false
+    prompt:
+      en: "There are dozens of named candlestick patterns, and each is a distinct signal you must memorise separately."
+      es: "Hay decenas de patrones de vela con nombre, y cada uno es una señal distinta que debes memorizar por separado."
+    answer: false
+    explanation:
+      en: "The names are a lingua franca worth parsing, but they collapse to two mechanics — rejection and overrun — plus non-information. Memorise the mechanics, not the zoo."
+      es: "Los nombres son una lengua franca que conviene entender, pero se reducen a dos mecánicas —rechazo y overrun— más la no-información. Memoriza las mecánicas, no el zoo."
+  - id: reactions-truths
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE about candle reactions."
+      es: "Selecciona TODAS las afirmaciones CIERTAS sobre las reacciones de las velas."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A long wick records price being pushed to a price, absorbed, and returned."
+          es: "Una mecha larga registra que el precio fue empujado a un precio, absorbido y devuelto."
+      - id: b
+        correct: true
+        text:
+          en: "An engulfing candle invalidates the prior candle's whole range."
+          es: "Una vela envolvente invalida todo el rango de la vela anterior."
+      - id: c
+        text:
+          en: "A doji on its own is a reliable reversal signal."
+          es: "Un doji por sí solo es una señal de giro fiable."
+      - id: d
+        text:
+          en: "A given form means the same thing wherever on the chart it appears."
+          es: "Una forma dada significa lo mismo aparezca donde aparezca en el gráfico."
+    explanation:
+      en: "Wicks record rejection and engulfings record overrun — both true. A doji alone is indecision, not a reversal, and the same form changes meaning entirely with its location."
+      es: "Las mechas registran rechazo y las envolventes registran overrun: ambas ciertas. Un doji solo es indecisión, no un giro, y la misma forma cambia de significado por completo según su ubicación."

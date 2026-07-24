@@ -111,3 +111,28 @@ variants:
     explanation:
       en: "False. Profit depends on payoff, not just win rate. A system that wins 40% of the time is still profitable if the winners average +2R and the losers −1R: 0.4 × 2R − 0.6 × 1R = +0.2R per trade. Win rate alone tells you almost nothing without the R-multiples."
       es: "Falso. La rentabilidad depende del payoff, no solo del win rate. Un sistema que acierta el 40% de las veces sigue siendo rentable si los ganadores promedian +2R y los perdedores −1R: 0,4 × 2R − 0,6 × 1R = +0,2R por operación. El win rate por sí solo no te dice casi nada sin los múltiplos R."
+  - id: frequency-dimension
+    prompt:
+      en: "Two traders both risk 1% per trade. One takes 3 trades a week, the other 15 a day. What does the frequency change?"
+      es: "Dos traders arriesgan ambos el 1% por operación. Uno hace 3 operaciones a la semana, el otro 15 al día. ¿Qué cambia la frecuencia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "How fast a normal losing streak arrives: the fast trader can take eight losers in one afternoon, so the same 1% is a much larger exposure per unit of time."
+          es: "La velocidad a la que llega una racha perdedora normal: el trader rápido puede encajar ocho perdedoras en una tarde, así que el mismo 1% es una exposición mucho mayor por unidad de tiempo."
+      - id: b
+        text:
+          en: "Nothing — 1% per trade is 1% per trade, so both traders carry identical risk."
+          es: "Nada: un 1% por operación es un 1% por operación, así que ambos cargan el mismo riesgo."
+      - id: c
+        text:
+          en: "The sizing formula, which needs a frequency term for high-frequency styles."
+          es: "La fórmula de dimensionamiento, que necesita un término de frecuencia en los estilos de alta frecuencia."
+      - id: d
+        text:
+          en: "The maximum loss per trade, which grows automatically with the number of trades."
+          es: "La pérdida máxima por operación, que crece automáticamente con el número de operaciones."
+    explanation:
+      en: "The formula does not change; the honest choice of fraction does. A normal eight-loss streak is roughly 8% of the account either way, but the fast trader meets it before dinner while the slow one meets it spread over a month. That is one honest reason faster styles sit at the low end (0.5% rather than 1%) and cap the day as well as the trade."
+      es: "La fórmula no cambia; la elección honesta de la fracción sí. Una racha normal de ocho pérdidas es en torno al 8% de la cuenta en los dos casos, pero el trader rápido se la encuentra antes de cenar y el lento repartida en un mes. Esa es una razón honesta para que los estilos rápidos se queden en la parte baja (0,5% en vez de 1%) y limiten el día además de la operación."

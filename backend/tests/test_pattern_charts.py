@@ -280,3 +280,48 @@ def test_derivatives_price_is_label_independent() -> None:
         _lbl, _ann, payload = _instantiate(cfg, 3)  # type: ignore[arg-type]
         seeds_price[label] = payload["series"]["close"]  # type: ignore[index]
     assert seeds_price["rising_oi"] == seeds_price["falling_oi"] == seeds_price["flat_oi"]
+
+
+# --- candle_reaction (m08-l2) correctness: form + location match the label -----------------------
+
+
+def _reaction_extremes(payload: dict) -> tuple[float, float, float]:
+    """Over the last 3 visible candles: max |body|/close, max wick/close, and whether a level exists."""
+    s = payload["series"]
+    n = len(s["close"])
+    max_body = max_wick = 0.0
+    for j in range(n - 3, n):
+        o, high, low, c = s["open"][j], s["high"][j], s["low"][j], s["close"][j]
+        body = abs(c - o)
+        max_body = max(max_body, body / c)
+        max_wick = max(max_wick, (high - low - body) / c)
+    return max_body, max_wick, float(len(payload["levels"]))
+
+
+_REACTION_LABELS = ("rejection_at_level", "overrun_at_level", "open_space", "indecision")
+
+
+def test_candle_reaction_form_and_location_match_label() -> None:
+    seen: dict[str, int] = dict.fromkeys(_REACTION_LABELS, 0)
+    for label in seen:
+        cfg = _config("candle_reaction", [label], list(seen))
+        levels = wicks = bodies = 0
+        for seed in range(24):
+            _lbl, _ann, payload = _instantiate(cfg, seed)  # type: ignore[arg-type]
+            body, wick, has_level = _reaction_extremes(payload)  # type: ignore[arg-type]
+            levels += 1 if has_level else 0
+            wicks += 1 if wick > 0.02 else 0
+            bodies += 1 if body > 0.02 else 0
+            seen[label] += 1
+        if label in ("rejection_at_level", "overrun_at_level"):
+            assert levels == 24, f"{label}: a level must be drawn ({levels}/24)"
+        else:
+            assert levels == 0, f"{label}: no level in open space / indecision ({levels}/24)"
+        if label == "rejection_at_level":
+            assert wicks == 24, "rejection must show a long wick"
+            assert bodies == 0, "rejection is a small body, not an overrun"
+        if label == "overrun_at_level":
+            assert bodies == 24, "overrun must show an engulfing body"
+        if label == "indecision":
+            assert bodies == 0, "indecision is a tiny body (doji / small range)"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"

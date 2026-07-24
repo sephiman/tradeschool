@@ -81,8 +81,10 @@ def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
     target = config.targets[int(rng.integers(0, len(config.targets)))]
     result = injector.build(rng, config.n, target)
     close_full = result.close_full
-    series = build_series(rng, close_full)
-    if result.volume_full is not None:
+    # An injector may ship its own OHLC (to shape wicks/bodies build_series would randomize); else
+    # derive candles from the close path as usual.
+    series = result.candles_full if result.candles_full is not None else build_series(rng, close_full)
+    if result.candles_full is None and result.volume_full is not None:
         series.volume = [round(float(v), 2) for v in result.volume_full.tolist()]
     line, signal, hist = macd(close_full)
     w = result.warmup

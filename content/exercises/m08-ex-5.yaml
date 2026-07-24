@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: candle_reaction
+n: 70
+indicator: none
+targets: [rejection_at_level, overrun_at_level, open_space, indecision]
+choices: [rejection_at_level, overrun_at_level, open_space, indecision]
+prompt:
+  en: "Read the formation at the right edge — and weigh WHERE it happened. If a horizontal level is drawn, the reaction is sitting on a price that already mattered. Is this a **rejection at a level** (a long wick absorbed and reversed at support/resistance — informative), an **overrun at a level** (an engulfing body steamrolled the prior range there — informative), the **same kind of form in open space** (leaning on no level — noise), or **indecision** (a doji or tiny-range candle — no signal)?"
+  es: "Lee la formación del borde derecho —y sopesa DÓNDE ocurrió—. Si hay un nivel horizontal trazado, la reacción está sobre un precio que ya importaba. ¿Es un **rechazo en un nivel** (una mecha larga absorbida que gira en soporte/resistencia —informativo—), un **overrun en un nivel** (un cuerpo envolvente arrolló ahí el rango anterior —informativo—), la **misma forma en espacio abierto** (sin apoyarse en ningún nivel —ruido—) o **indecisión** (un doji o una vela de rango diminuto —sin señal—)?"
+explanation:
+  en: "The form is only half the read; the location is the other — and the bigger — half. A rejection wick or an engulfing body is information when it lands on a level the chart already respected, because it shows order flow losing a battle at a price that matters. The identical form in open space, leaning on nothing, is noise with a wick. And a doji or a small-range candle is no signal at all — nobody won. Name the mechanic, then ask the only question that decides its weight: where did it happen?"
+  es: "La forma es solo la mitad de la lectura; la ubicación es la otra mitad, y la mayor. Una mecha de rechazo o un cuerpo envolvente son información cuando caen sobre un nivel que el gráfico ya respetaba, porque muestran un flujo de órdenes perdiendo una batalla en un precio que importa. La misma forma en espacio abierto, sin apoyarse en nada, es ruido con una mecha. Y un doji o una vela de rango pequeño no son señal alguna: nadie ganó. Nombra la mecánica y luego hazte la única pregunta que decide su peso: ¿dónde ocurrió?"

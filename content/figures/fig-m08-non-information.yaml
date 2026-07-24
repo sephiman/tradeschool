@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m08-non-information
+kind: chart
+caption:
+  en: 'What does NOT mean anything. Doji: open and close almost equal — nobody won,
+    indecision, not a signal. Small-range candle: a tiny bar after movement — compression,
+    the market waiting. Reading these as reversals is reading noise.'
+  es: 'Lo que NO significa nada. Doji: apertura y cierre casi iguales —nadie ganó,
+    indecisión, no una señal—. Vela de rango pequeño: una barra diminuta tras el
+    movimiento —compresión, el mercado esperando—. Leerlas como giros es leer ruido.'
+panels:
+- generator: pattern_chart
+  injector: candle_reaction
+  target: doji
+  seed: 12
+  n: 45
+  indicator: none
+  show_resolution: true
+- generator: pattern_chart
+  injector: candle_reaction
+  target: small_range
+  seed: 13
+  n: 45
+  indicator: none
+  show_resolution: true

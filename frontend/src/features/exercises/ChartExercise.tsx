@@ -70,6 +70,7 @@ export function ChartExercise({
           levels={payload.levels}
           indicator={payload.indicator ?? "rsi"}
           markers={markers}
+          rightOffset={8}
         />
       )}
 

@@ -25,7 +25,7 @@ from tradeschool.exercises.charts.indicators import ema, macd, rsi
 from tradeschool.exercises.charts.injectors import RsiDivergenceInjector
 from tradeschool.exercises.charts.patterns.common import append_resolution
 from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
-from tradeschool.exercises.charts.types import DivergenceType
+from tradeschool.exercises.charts.types import DivergenceType, Series
 
 _DIVERGENCE = RsiDivergenceInjector()
 _DIR_SIGN = {"up": 1.0, "down": -1.0, "flat": 0.0}
@@ -106,6 +106,8 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     annotations: list[dict[str, object]] = []
     oi_full: np.ndarray | None = None
     volume_full: np.ndarray | None = None
+    candles_override: Series | None = None
+    resolution_hint: float | None = None
 
     if panel.generator == "synthetic_chart":
         target = DivergenceType(panel.target)
@@ -133,11 +135,24 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
             if a.index - warmup >= 0
         ]
         oi_full, volume_full = result.oi_full, result.volume_full
+        candles_override = result.candles_full
+        resolution_hint = result.resolution_hint
         default_dir = _PATTERN_DIR.get(panel.injector or "", {}).get(panel.target, 0.0)
 
+    reaction_len = len(close_full)  # the pre-resolution region (an injector's planted candles)
     if panel.show_resolution:
-        direction = _DIR_SIGN[panel.resolution.direction] if panel.resolution else default_dir
-        strength = panel.resolution.strength if panel.resolution else 0.18
+        # An explicit spec direction wins; else the injector's own hint (it knows the planted form);
+        # else the per-injector default. A gentler leg for candle reactions than the generic 0.18.
+        if panel.resolution:
+            direction = _DIR_SIGN[panel.resolution.direction]
+        elif resolution_hint is not None:
+            direction = resolution_hint
+        else:
+            direction = default_dir
+        if panel.resolution:
+            strength = panel.resolution.strength
+        else:
+            strength = 0.12 if candles_override is not None else 0.18  # gentler leg for candle reactions
         before = len(close_full)
         close_full = append_resolution(rng, close_full, direction, strength, _RESOLUTION_CANDLES)
         added = len(close_full) - before
@@ -149,9 +164,22 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
             extra = base * (0.7 + 0.5 * np.abs(rng.normal(0.0, 1.0, added)))
             volume_full = np.concatenate([volume_full, extra])
 
-    series = build_series(rng, close_full)
-    if volume_full is not None:
-        series.volume = _round(volume_full, 2)
+    if candles_override is None:
+        series = build_series(rng, close_full)
+        if volume_full is not None:
+            series.volume = _round(volume_full, 2)
+    elif not panel.show_resolution:
+        series = candles_override  # honor the injector's own OHLC (planted wicks), no continuation
+    else:
+        # Continuation for a candle-reaction figure: derive candles over the extended close, then
+        # splice the injector's planted reaction candles (their wicks) back over the reaction region.
+        series = build_series(rng, close_full)
+        for i in range(reaction_len):
+            series.open[i] = candles_override.open[i]
+            series.high[i] = candles_override.high[i]
+            series.low[i] = candles_override.low[i]
+            series.close[i] = candles_override.close[i]
+            series.volume[i] = candles_override.volume[i]
     line, signal, hist = macd(close_full)
     w = warmup
     overlays: dict[str, list[float]] = {}

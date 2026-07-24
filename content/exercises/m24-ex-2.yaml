@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: position_size_from_risk
+prompt:
+  en: "Putting the whole trade together: your account equity is **{equity}** USDT and your plan risks **{risk_pct}** on this trade. You enter long on the reaction at a level, and your stop — placed where the setup is invalidated — sits **{stop_distance}** below your entry (in price). How many units do you buy so that being stopped out loses exactly your risk budget?"
+  es: "Montando la operación entera: el capital de tu cuenta es de **{equity}** USDT y tu plan arriesga el **{risk_pct}** en esta operación. Entras largo en la reacción sobre un nivel y tu stop —colocado donde el setup queda invalidado— está **{stop_distance}** por debajo de tu entrada (en precio). ¿Cuántas unidades compras para que, si te salta el stop, pierdas exactamente tu presupuesto de riesgo?"
+params:
+  equity: { kind: int_range, min: 2000, max: 20000, step: 500 }
+  risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }
+  stop_distance: { kind: choice, values: ["50", "100", "250", "500"] }
+tolerance: { rel: "0.01" }
+round: 4
+unit: units
+explanation:
+  en: "The size falls out of the plan, it is not chosen. Risk budget in money is equity × risk %; divide it by the stop distance — the loss per unit if you are stopped — and the quotient is the size. Hold exactly that many units and hitting the stop costs exactly your budget, regardless of price or leverage. Stop first, size second: reverse the order and you are guessing."
+  es: "El tamaño sale del plan, no se elige. El presupuesto de riesgo en dinero es capital × % de riesgo; divídelo por la distancia del stop —la pérdida por unidad si te saltan— y el cociente es el tamaño. Mantén exactamente esas unidades y tocar el stop cuesta exactamente tu presupuesto, sin importar el precio ni el apalancamiento. Primero el stop, después el tamaño: invierte el orden y estás adivinando."
