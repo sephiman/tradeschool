@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { Answer, AttemptPayload, OptionView } from "@/api/exercises";
+import type { Answer, AttemptPayload, Deferred, OptionView } from "@/api/exercises";
 import { Button } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 
-type SubmitProps = { pending: boolean; onSubmit: (answer: Answer) => void };
+// In practice mode `onSubmit` is provided (select → submit → grade). In exam mode `deferred` is
+// provided instead (capture-only: report every change, no submit button, no feedback).
+type ControlProps = {
+  pending?: boolean;
+  onSubmit?: (answer: Answer) => void;
+  deferred?: Deferred;
+};
 
 // Shared option styling — one visual language across every quiz sub-kind.
 const optionOff = "border-border hover:border-primary/60 dark:border-gray-700";
@@ -13,33 +19,48 @@ const optionBase =
   "flex w-full cursor-pointer items-start gap-2 rounded-md border p-3 text-left text-sm transition-colors";
 const rowBase = "flex w-full items-center gap-2 rounded-md border p-3 text-sm";
 
+function SubmitButton({ disabled, onSubmit }: { disabled: boolean; onSubmit?: () => void }) {
+  const { t } = useTranslation();
+  if (!onSubmit) return null; // exam mode: the runner owns submission
+  return (
+    <Button disabled={disabled} onClick={onSubmit}>
+      {t("exercise.submit")}
+    </Button>
+  );
+}
+
 /** Dispatch on the quiz sub-kind. Each control lives in its own component so
  *  its local state (and hooks) mount/unmount cleanly with the sub-kind. */
 export function QuizExercise({
   payload,
   pending,
   onSubmit,
-}: { payload: AttemptPayload } & SubmitProps) {
+  deferred,
+}: { payload: AttemptPayload } & ControlProps) {
+  const p: ControlProps = { pending, onSubmit, deferred };
   switch (payload.kind) {
     case "true_false":
-      return <TrueFalse pending={pending} onSubmit={onSubmit} />;
+      return <TrueFalse {...p} />;
     case "multi_select":
-      return <MultiSelect options={payload.options ?? []} pending={pending} onSubmit={onSubmit} />;
+      return <MultiSelect options={payload.options ?? []} {...p} />;
     case "ordering":
-      return <Ordering items={payload.items ?? []} pending={pending} onSubmit={onSubmit} />;
+      return <Ordering items={payload.items ?? []} {...p} />;
     case "matching":
-      return <Matching lefts={payload.lefts ?? []} rights={payload.rights ?? []} pending={pending} onSubmit={onSubmit} />;
+      return <Matching lefts={payload.lefts ?? []} rights={payload.rights ?? []} {...p} />;
     case "single_choice":
     default:
-      return <SingleChoice options={payload.options ?? []} pending={pending} onSubmit={onSubmit} />;
+      return <SingleChoice options={payload.options ?? []} {...p} />;
   }
 }
 
-/** Pick exactly one — unchanged behaviour from before sub-kinds existed. */
-function SingleChoice({ options, pending, onSubmit }: { options: OptionView[] } & SubmitProps) {
-  const { t } = useTranslation();
-  const [selected, setSelected] = useState<string | null>(null);
-
+function SingleChoice({ options, pending, onSubmit, deferred }: { options: OptionView[] } & ControlProps) {
+  const [selected, setSelected] = useState<string | null>(
+    deferred?.value && "optionId" in deferred.value ? deferred.value.optionId : null,
+  );
+  const choose = (id: string) => {
+    setSelected(id);
+    deferred?.onChange({ optionId: id });
+  };
   return (
     <div className="mt-3 space-y-3">
       <div className="space-y-2">
@@ -50,24 +71,29 @@ function SingleChoice({ options, pending, onSubmit }: { options: OptionView[] } 
               name="quiz-option"
               className="mt-0.5"
               checked={selected === opt.id}
-              onChange={() => setSelected(opt.id)}
+              onChange={() => choose(opt.id)}
             />
             <span>{opt.text}</span>
           </label>
         ))}
       </div>
-      <Button disabled={!selected || pending} onClick={() => selected && onSubmit({ optionId: selected })}>
-        {t("exercise.submit")}
-      </Button>
+      <SubmitButton
+        disabled={!selected || !!pending}
+        onSubmit={onSubmit && (() => selected && onSubmit({ optionId: selected }))}
+      />
     </div>
   );
 }
 
-/** True / False — two tappable buttons, then submit. */
-function TrueFalse({ pending, onSubmit }: SubmitProps) {
+function TrueFalse({ pending, onSubmit, deferred }: ControlProps) {
   const { t } = useTranslation();
-  const [value, setValue] = useState<boolean | null>(null);
-
+  const [value, setValue] = useState<boolean | null>(
+    deferred?.value && "value" in deferred.value ? deferred.value.value : null,
+  );
+  const choose = (v: boolean) => {
+    setValue(v);
+    deferred?.onChange({ value: v });
+  };
   return (
     <div className="mt-3 space-y-3">
       <div className="flex gap-2">
@@ -76,7 +102,7 @@ function TrueFalse({ pending, onSubmit }: SubmitProps) {
             key={String(v)}
             type="button"
             aria-pressed={value === v}
-            onClick={() => setValue(v)}
+            onClick={() => choose(v)}
             className={cn(
               "flex-1 rounded-md border px-4 py-3 text-sm font-medium transition-colors",
               value === v ? optionOn : optionOff,
@@ -86,20 +112,24 @@ function TrueFalse({ pending, onSubmit }: SubmitProps) {
           </button>
         ))}
       </div>
-      <Button disabled={value === null || pending} onClick={() => value !== null && onSubmit({ value })}>
-        {t("exercise.submit")}
-      </Button>
+      <SubmitButton
+        disabled={value === null || !!pending}
+        onSubmit={onSubmit && (() => value !== null && onSubmit({ value }))}
+      />
     </div>
   );
 }
 
-/** Pick all that apply — checkbox toggles, then submit. */
-function MultiSelect({ options, pending, onSubmit }: { options: OptionView[] } & SubmitProps) {
+function MultiSelect({ options, pending, onSubmit, deferred }: { options: OptionView[] } & ControlProps) {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState<string[]>([]);
-  const toggle = (id: string) =>
-    setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
-
+  const [selected, setSelected] = useState<string[]>(
+    deferred?.value && "optionIds" in deferred.value ? deferred.value.optionIds : [],
+  );
+  const toggle = (id: string) => {
+    const next = selected.includes(id) ? selected.filter((x) => x !== id) : [...selected, id];
+    setSelected(next);
+    deferred?.onChange({ optionIds: next });
+  };
   return (
     <div className="mt-3 space-y-3">
       <p className="text-xs text-gray-500 dark:text-gray-400">{t("exercise.selectAllThatApply")}</p>
@@ -114,26 +144,29 @@ function MultiSelect({ options, pending, onSubmit }: { options: OptionView[] } &
           );
         })}
       </div>
-      <Button disabled={selected.length === 0 || pending} onClick={() => onSubmit({ optionIds: selected })}>
-        {t("exercise.submit")}
-      </Button>
+      <SubmitButton
+        disabled={selected.length === 0 || !!pending}
+        onSubmit={onSubmit && (() => onSubmit({ optionIds: selected }))}
+      />
     </div>
   );
 }
 
-/** Arrange into a sequence — tap up/down arrows (no native drag). */
-function Ordering({ items, pending, onSubmit }: { items: OptionView[] } & SubmitProps) {
+function Ordering({ items, pending, onSubmit, deferred }: { items: OptionView[] } & ControlProps) {
   const { t } = useTranslation();
-  const [order, setOrder] = useState<OptionView[]>(items);
-  const move = (index: number, dir: -1 | 1) =>
-    setOrder((prev) => {
-      const j = index + dir;
-      if (j < 0 || j >= prev.length) return prev;
-      const next = [...prev];
-      [next[index], next[j]] = [next[j], next[index]];
-      return next;
-    });
-
+  const initial =
+    deferred?.value && "order" in deferred.value
+      ? deferred.value.order.map((id) => items.find((i) => i.id === id)).filter((x): x is OptionView => !!x)
+      : items;
+  const [order, setOrder] = useState<OptionView[]>(initial.length === items.length ? initial : items);
+  const move = (index: number, dir: -1 | 1) => {
+    const j = index + dir;
+    if (j < 0 || j >= order.length) return;
+    const next = [...order];
+    [next[index], next[j]] = [next[j], next[index]];
+    setOrder(next);
+    deferred?.onChange({ order: next.map((o) => o.id) });
+  };
   return (
     <div className="mt-3 space-y-3">
       <p className="text-xs text-gray-500 dark:text-gray-400">{t("exercise.reorderHint")}</p>
@@ -169,39 +202,45 @@ function Ordering({ items, pending, onSubmit }: { items: OptionView[] } & Submit
           </li>
         ))}
       </ol>
-      <Button disabled={order.length === 0 || pending} onClick={() => onSubmit({ order: order.map((o) => o.id) })}>
-        {t("exercise.submit")}
-      </Button>
+      <SubmitButton
+        disabled={order.length === 0 || !!pending}
+        onSubmit={onSubmit && (() => onSubmit({ order: order.map((o) => o.id) }))}
+      />
     </div>
   );
 }
 
-/** Pair each left with a right — tap a left, then tap its match (tap-only). */
 function Matching({
   lefts,
   rights,
   pending,
   onSubmit,
-}: { lefts: OptionView[]; rights: OptionView[] } & SubmitProps) {
+  deferred,
+}: { lefts: OptionView[]; rights: OptionView[] } & ControlProps) {
   const { t } = useTranslation();
-  const [pairs, setPairs] = useState<Record<string, string>>({});
+  const [pairs, setPairs] = useState<Record<string, string>>(
+    deferred?.value && "pairs" in deferred.value ? deferred.value.pairs : {},
+  );
   const [activeLeft, setActiveLeft] = useState<string | null>(null);
 
   const rightText = (id: string) => rights.find((r) => r.id === id)?.text ?? "";
   const usedRights = new Set(Object.values(pairs));
   const allPaired = lefts.length > 0 && lefts.every((l) => pairs[l.id]);
+  const commit = (next: Record<string, string>) => {
+    setPairs(next);
+    deferred?.onChange({ pairs: next });
+  };
 
   const pickRight = (rightId: string) => {
     if (activeLeft === null) return;
-    setPairs((prev) => ({ ...prev, [activeLeft]: rightId }));
+    commit({ ...pairs, [activeLeft]: rightId });
     setActiveLeft(null);
   };
-  const clearPair = (leftId: string) =>
-    setPairs((prev) => {
-      const next = { ...prev };
-      delete next[leftId];
-      return next;
-    });
+  const clearPair = (leftId: string) => {
+    const next = { ...pairs };
+    delete next[leftId];
+    commit(next);
+  };
 
   return (
     <div className="mt-3 space-y-3">
@@ -265,9 +304,7 @@ function Matching({
           })}
         </div>
       </div>
-      <Button disabled={!allPaired || pending} onClick={() => onSubmit({ pairs })}>
-        {t("exercise.submit")}
-      </Button>
+      <SubmitButton disabled={!allPaired || !!pending} onSubmit={onSubmit && (() => onSubmit({ pairs }))} />
     </div>
   );
 }

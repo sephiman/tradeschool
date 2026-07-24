@@ -18,7 +18,7 @@ src/tradeschool/
   attempts/     seeded attempts, server-side grading, abandoned rule
   progress/     lesson completion
   stats/        per-user + anonymous global statistics
-  exams/        exam_sessions models (no UI in v1)
+  exams/        sampled global/per-block exams over the exercise bank (deferred grading, own lane)
   dev/          dev-only bulk chart generation for the credibility gallery
 ```
 

@@ -102,6 +102,10 @@ export type Answer =
   | { divergence: string } // divergence chart
   | { label: string }; // pattern chart
 
+/** Deferred-grading mode (exams): the control is answer-capture only — it reports every change and
+ * shows no submit button or feedback. Absent for practice, which submits + grades inline. */
+export type Deferred = { value: Answer | null; onChange: (answer: Answer) => void };
+
 export async function createAttempt(exerciseId: string): Promise<AttemptInstance> {
   const { data } = await apiClient.post<AttemptInstance>(`/exercises/${exerciseId}/attempts`);
   return data;

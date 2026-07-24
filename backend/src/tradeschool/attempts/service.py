@@ -56,13 +56,16 @@ async def open_attempt(
     seed = secrets.randbelow(_SEED_SPACE)
     instance = generator.generate(config, seed, locale)  # type: ignore[arg-type]
 
-    # Abandoned rule (§3.4): opening a new attempt abandons any prior unanswered one for this exercise.
+    # Abandoned rule (§3.4): opening a new practice attempt abandons any prior unanswered practice one
+    # for this exercise. Scoped to practice (exam_session_id IS NULL) so it never disturbs an in-flight
+    # exam question for the same exercise (and exam sampling never abandons a practice attempt).
     await session.execute(
         update(Attempt)
         .where(
             Attempt.user_id == user_id,
             Attempt.exercise_id == exercise_id,
             Attempt.state == AttemptState.OPEN,
+            Attempt.exam_session_id.is_(None),
         )
         .values(state=AttemptState.ABANDONED)
     )
@@ -146,9 +149,14 @@ async def review_attempt(
 async def user_attempts(
     session: AsyncSession, user_id: uuid.UUID, exercise_id: str
 ) -> list[Attempt]:
+    # Practice history only — exam attempts live in their own lane (never shown on the exercise player).
     rows = await session.scalars(
         select(Attempt)
-        .where(Attempt.user_id == user_id, Attempt.exercise_id == exercise_id)
+        .where(
+            Attempt.user_id == user_id,
+            Attempt.exercise_id == exercise_id,
+            Attempt.exam_session_id.is_(None),
+        )
         .order_by(Attempt.created_at.desc())
     )
     return list(rows.all())

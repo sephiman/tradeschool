@@ -51,21 +51,24 @@ async def _completed_lesson_ids(session: AsyncSession, user_id: uuid.UUID) -> se
 
 
 async def _has_any_attempt(session: AsyncSession, user_id: uuid.UUID) -> bool:
-    """Whether the user has ever started an exercise — the 'has begun the course' signal."""
+    """Whether the user has begun the course — a *practice* attempt (exams are a separate lane)."""
     row = await session.scalar(
-        select(Attempt.exercise_id).where(Attempt.user_id == user_id).limit(1)
+        select(Attempt.exercise_id)
+        .where(Attempt.user_id == user_id, Attempt.exam_session_id.is_(None))
+        .limit(1)
     )
     return row is not None
 
 
 async def _passed_exercise_ids(session: AsyncSession, user_id: uuid.UUID) -> set[str]:
-    """Exercises the user has answered correctly at least once — the mastery signal (≠ reading)."""
+    """Exercises passed in *practice* (the mastery signal ≠ reading). Exam passes never count here."""
     rows = await session.scalars(
         select(Attempt.exercise_id)
         .where(
             Attempt.user_id == user_id,
             Attempt.state == AttemptState.ANSWERED,
             Attempt.is_correct.is_(True),
+            Attempt.exam_session_id.is_(None),
         )
         .distinct()
     )

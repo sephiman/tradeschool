@@ -77,27 +77,33 @@ export function AttemptResult({
   correctAnswer,
   solutionSteps,
   explanation,
+  hideVerdict = false,
 }: {
   correct: boolean;
   correctAnswer: unknown;
   solutionSteps: string[];
   explanation: string | null;
+  // When the verdict is shown elsewhere (exam review's per-question badge, which distinguishes
+  // "unanswered" from "wrong"), skip the banner here to avoid a second, conflicting verdict.
+  hideVerdict?: boolean;
 }) {
   const { t } = useTranslation();
   const answer = renderCorrectAnswer(correctAnswer, t);
 
   return (
     <div className="mt-4 space-y-3">
-      <div
-        className={cn(
-          "rounded-md px-3 py-2 text-sm font-medium",
-          correct
-            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-200"
-            : "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-200",
-        )}
-      >
-        {correct ? t("exercise.correct") : t("exercise.incorrect")}
-      </div>
+      {!hideVerdict && (
+        <div
+          className={cn(
+            "rounded-md px-3 py-2 text-sm font-medium",
+            correct
+              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-200"
+              : "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-200",
+          )}
+        >
+          {correct ? t("exercise.correct") : t("exercise.incorrect")}
+        </div>
+      )}
 
       {answer != null && (
         <div className="text-sm text-gray-700 dark:text-gray-300">

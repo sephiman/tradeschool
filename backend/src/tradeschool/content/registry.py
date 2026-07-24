@@ -116,6 +116,10 @@ class CourseRegistry:
         _, module = self._modules[module_id]
         return [ex.id for lesson in module.lessons for ex in lesson.exercises]
 
+    def playable_module_exercises(self, module_id: str) -> list[str]:
+        """Exercise ids in this module with a loaded, playable generator config — the exam-samplable set."""
+        return [eid for eid in self.module_exercise_ids(module_id) if eid in self.exercise_configs]
+
     def course_meta(self, locale: str) -> dict[str, str]:
         """Root course identity for the course-page header (localized)."""
         course = self.manifest.course

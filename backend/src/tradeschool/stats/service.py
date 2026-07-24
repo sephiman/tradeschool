@@ -39,7 +39,11 @@ class _ExerciseRoll:
 
 
 async def _answered(session: AsyncSession, user_id: uuid.UUID | None) -> list[Attempt]:
-    stmt = select(Attempt).where(Attempt.state == AttemptState.ANSWERED)
+    # Practice only: exam attempts (exam_session_id set) never touch practice statistics — first-attempt
+    # accuracy, costliest sections and the global "where everyone struggles" all exclude them (§isolation).
+    stmt = select(Attempt).where(
+        Attempt.state == AttemptState.ANSWERED, Attempt.exam_session_id.is_(None)
+    )
     if user_id is not None:
         stmt = stmt.where(Attempt.user_id == user_id)
     stmt = stmt.order_by(Attempt.created_at.asc(), Attempt.id.asc())

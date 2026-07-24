@@ -20,6 +20,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 {(
                   [
                     ["/course", t("nav.course")],
+                    ["/exams", t("nav.exam")],
                     ["/stats", t("nav.progress")],
                   ] as const
                 ).map(([to, label]) => (

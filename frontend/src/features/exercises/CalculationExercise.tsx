@@ -1,22 +1,31 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { Answer, OptionView } from "@/api/exercises";
+import type { Answer, Deferred, OptionView } from "@/api/exercises";
 import { Button } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 
+// Practice passes onSubmit (select → submit → grade); exams pass `deferred` (capture-only, no button).
 export function CalculationExercise({
   options,
   unit,
   pending,
   onSubmit,
+  deferred,
 }: {
   options: OptionView[];
   unit?: string | null;
-  pending: boolean;
-  onSubmit: (answer: Answer) => void;
+  pending?: boolean;
+  onSubmit?: (answer: Answer) => void;
+  deferred?: Deferred;
 }) {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(
+    deferred?.value && "optionId" in deferred.value ? deferred.value.optionId : null,
+  );
+  const choose = (id: string) => {
+    setSelected(id);
+    deferred?.onChange({ optionId: id });
+  };
 
   return (
     <div className="mt-3 space-y-3">
@@ -26,7 +35,7 @@ export function CalculationExercise({
             key={opt.id}
             type="button"
             aria-pressed={selected === opt.id}
-            onClick={() => setSelected(opt.id)}
+            onClick={() => choose(opt.id)}
             className={cn(
               "rounded-md border px-4 py-3 text-left text-sm font-medium tabular-nums transition-colors",
               selected === opt.id
@@ -39,9 +48,11 @@ export function CalculationExercise({
           </button>
         ))}
       </div>
-      <Button disabled={!selected || pending} onClick={() => selected && onSubmit({ optionId: selected })}>
-        {t("exercise.submit")}
-      </Button>
+      {onSubmit && (
+        <Button disabled={!selected || !!pending} onClick={() => selected && onSubmit({ optionId: selected })}>
+          {t("exercise.submit")}
+        </Button>
+      )}
     </div>
   );
 }

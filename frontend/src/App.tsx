@@ -8,6 +8,9 @@ import { CoursePage } from "@/features/course/CoursePage";
 import { ModulePage } from "@/features/course/ModulePage";
 import { LessonPage } from "@/features/course/LessonPage";
 import { StatsPage } from "@/features/stats/StatsPage";
+import { ExamPage } from "@/features/exams/ExamPage";
+import { ExamRunner } from "@/features/exams/ExamRunner";
+import { ExamReview } from "@/features/exams/ExamReview";
 import { ChartGallery } from "@/features/dev/ChartGallery";
 
 export default function App() {
@@ -27,6 +30,9 @@ export default function App() {
                   <Route path="/modules/:moduleId" element={<ModulePage />} />
                   <Route path="/lessons/:lessonId" element={<LessonPage />} />
                   <Route path="/stats" element={<StatsPage />} />
+                  <Route path="/exams" element={<ExamPage />} />
+                  <Route path="/exams/:examId" element={<ExamRunner />} />
+                  <Route path="/exams/:examId/review" element={<ExamReview />} />
                   {/* Unadvertised review route; its data comes from the DEV_MODE-gated /api/dev endpoint. */}
                   <Route path="/dev/charts" element={<ChartGallery />} />
                   <Route path="*" element={<Navigate to="/course" replace />} />

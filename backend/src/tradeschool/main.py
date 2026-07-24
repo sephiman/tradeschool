@@ -20,6 +20,7 @@ from tradeschool.config import Settings, get_settings
 from tradeschool.content.router import router as content_router
 from tradeschool.db import dispose_engine, init_engine
 from tradeschool.errors import register_exception_handlers
+from tradeschool.exams.router import router as exams_router
 from tradeschool.ratelimit import limiter
 from tradeschool.stats.router import router as stats_router
 
@@ -81,6 +82,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api.include_router(content_router)
     api.include_router(attempts_router)
     api.include_router(stats_router)
+    api.include_router(exams_router)
     if settings.dev_mode:
         from tradeschool.dev.router import router as dev_router
 

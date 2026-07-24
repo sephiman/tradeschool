@@ -79,6 +79,13 @@ Open <http://localhost:5173>, register an account, and review the full course:
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by
   `GET /api/figures/{id}` (auth + locale-aware, cached).
+- **Exams** (`/exams`): a sampled, graded run over the exercise bank — one question per module,
+  **global** (every module) or **per-block**, each instantiated with a fresh seed. One attempt per
+  question, free navigation, **no feedback until submission**; everything (your answer, the correct
+  answer, the worked solution) is revealed together at the end, with an overall + per-block/per-module
+  breakdown (no pass/fail). Sessions are resumable and their seeds persist, so old reviews reproduce
+  exactly. **Exam attempts are a separate lane** — they never touch practice statistics or course
+  mastery. Sampling, seeds and grading are server-side; no solution reaches the client mid-session.
 - Toggle **ES ↔ EN** (progress is unchanged) and **light/dark**; check mobile widths.
 - The **chart-credibility gallery** at <http://localhost:5173/dev/charts> renders grids of the
   generated charts with their ground-truth labels — the exact renderer students see. The exercise-id
