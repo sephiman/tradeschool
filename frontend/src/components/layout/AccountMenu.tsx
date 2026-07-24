@@ -1,15 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
 import { LanguageControl, ThemeControl } from "@/components/layout/controls";
+import { NAV_ITEMS } from "@/components/layout/nav";
+import { cn } from "@/lib/cn";
 
 function initials(username: string): string {
   return username.slice(0, 2).toUpperCase();
 }
 
 /** Account controls collapsed behind an avatar button (SharedLedger pattern): signed-in-as,
- * segmented language + theme, and sign out. Used at every width so the header never overflows. */
+ * segmented language + theme, and sign out. Below `sm` the primary nav folds in here as a top
+ * section too (one single menu), so the header never has to fit the links. */
 export function AccountMenu({ user }: { user: Me }) {
   const { t } = useTranslation();
   const { logout } = useAuth();
@@ -48,34 +52,58 @@ export function AccountMenu({ user }: { user: Me }) {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] space-y-3 rounded-lg border border-border bg-white p-3 shadow-lg dark:border-gray-800 dark:bg-gray-900"
+          className="absolute right-0 z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-white p-3 shadow-lg dark:border-gray-800 dark:bg-gray-900"
         >
-          <div className="px-1">
-            <p className="text-xs text-gray-500 dark:text-gray-400">{t("auth.signedInAs")}</p>
-            <p className="truncate font-semibold">{user.username}</p>
-          </div>
+          {/* Primary nav, only when it was collapsed out of the header (< sm). Active page keeps its
+              highlight here. Same single menu on mobile — nav, divider, then account controls. */}
+          <nav className="mb-3 flex flex-col border-b border-border pb-3 sm:hidden dark:border-gray-800">
+            {NAV_ITEMS.map(({ to, labelKey }) => (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={() => setOpen(false)}
+                className={({ isActive }) =>
+                  cn(
+                    "rounded-md px-2 py-1.5 text-sm transition-colors",
+                    isActive
+                      ? "bg-primary/10 font-medium text-primary"
+                      : "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800",
+                  )
+                }
+              >
+                {t(labelKey)}
+              </NavLink>
+            ))}
+          </nav>
 
-          <div className="border-t border-border pt-3 dark:border-gray-800">
-            <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.language")}</p>
-            <LanguageControl block />
-          </div>
+          <div className="space-y-3">
+            <div className="px-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400">{t("auth.signedInAs")}</p>
+              <p className="truncate font-semibold">{user.username}</p>
+            </div>
 
-          <div>
-            <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.theme")}</p>
-            <ThemeControl block />
-          </div>
+            <div className="border-t border-border pt-3 dark:border-gray-800">
+              <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.language")}</p>
+              <LanguageControl block />
+            </div>
 
-          <button
-            type="button"
-            role="menuitem"
-            onClick={() => {
-              setOpen(false);
-              void logout();
-            }}
-            className="w-full rounded-md border border-border px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
-          >
-            {t("auth.logout")}
-          </button>
+            <div>
+              <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.theme")}</p>
+              <ThemeControl block />
+            </div>
+
+            <button
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false);
+                void logout();
+              }}
+              className="w-full rounded-md border border-border px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
+            >
+              {t("auth.logout")}
+            </button>
+          </div>
         </div>
       )}
     </div>
