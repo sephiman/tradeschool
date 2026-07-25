@@ -31,12 +31,12 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
 
     data = (await content_client.get("/api/course/export?lang=en")).json()
     assert data["locale"] == "en"
-    assert len(data["blocks"]) == 5
+    assert len(data["blocks"]) == 6
     modules = [m for b in data["blocks"] for m in b["modules"]]
-    assert len(modules) == 24
+    assert len(modules) == 29
     lessons = [lesson for m in modules for lesson in m["lessons"]]
-    # 24 modules, six of which carry a second lesson -> 30 in total.
-    assert len(lessons) == 30
+    # 29 modules, six of which carry a second lesson -> 35 in total.
+    assert len(lessons) == 35
     assert [m["id"] for m in modules if len(m["lessons"]) == 2] == ["m03", "m08", "m09", "m17", "m19", "m24"]
 
     for m in modules:
@@ -61,7 +61,9 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
 async def test_course_tree_shape(content_client: AsyncClient) -> None:
     await _auth(content_client)
     course = (await content_client.get("/api/course")).json()
-    assert [b["id"] for b in course["blocks"]] == ["block-a", "block-b", "block-c", "block-d", "block-e"]
+    assert [b["id"] for b in course["blocks"]] == [
+        "block-a", "block-b", "block-c", "block-d", "block-e", "block-f",
+    ]
 
     # Root course identity for the header (localized; sourced from the manifest).
     assert course["course"]["id"] == "crypto-futures"

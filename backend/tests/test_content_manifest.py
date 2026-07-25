@@ -30,9 +30,9 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     # The single course today owns all existing content under a stable id.
     assert registry.manifest.course.id == "crypto-futures"
     assert registry.manifest.course.title.en and registry.manifest.course.description.es
-    # 24 modules across 5 blocks.
-    assert len(registry.manifest.blocks) == 5
-    assert len(registry.manifest.iter_modules()) == 24
+    # 29 modules across 6 blocks.
+    assert len(registry.manifest.blocks) == 6
+    assert len(registry.manifest.iter_modules()) == 29
     # Every authored lesson exists in both languages (load_registry enforces it).
     for locale in ("en", "es"):
         assert "m06-l1" in registry.markdown[locale]

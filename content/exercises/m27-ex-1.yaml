@@ -1,0 +1,160 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Conceptual only — m27 ships no chart exercise by design (a depth ladder is an instantaneous,
+# price-indexed snapshot, not a time series this engine can generate credibly).
+type: quiz
+variants:
+  - id: resting-vs-executed
+    prompt:
+      en: "What is the difference between what the order book shows you and what the volume bars show you?"
+      es: "¿Cuál es la diferencia entre lo que te muestra el libro de órdenes y lo que te muestran las barras de volumen?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The book shows orders resting unexecuted right now — intention in the present; volume is the record of trades that already executed."
+          es: "El libro muestra órdenes en reposo sin ejecutar ahora mismo —intención en el presente—; el volumen es el registro de operaciones que ya se ejecutaron."
+      - id: b
+        text:
+          en: "They show the same thing at different resolutions — the book is just volume broken down by price."
+          es: "Muestran lo mismo con resoluciones distintas: el libro es solo volumen desglosado por precio."
+      - id: c
+        text:
+          en: "The book shows executed trades and volume shows pending ones."
+          es: "El libro muestra operaciones ejecutadas y el volumen las pendientes."
+      - id: d
+        text:
+          en: "The book is a longer history of the same data, going further back than the volume bars."
+          es: "El libro es un historial más largo de los mismos datos, que llega más atrás que las barras de volumen."
+    explanation:
+      en: "They are opposite kinds of data. Volume and CVD are time series — one value per period, extending back into history. A book is an instantaneous snapshot arranged by price, with no history in it at all, and a moment later it is different. The two connect directly, though: a taker's market order eats into the resting book level by level, so volume is the record of that consumption and the book is the fuel it consumed."
+      es: "Son tipos de datos opuestos. El volumen y el CVD son series temporales: un valor por periodo, extendiéndose hacia atrás en la historia. Un libro es una instantánea inmediata ordenada por precio, sin nada de historia dentro, y un momento después es distinta. Aun así, los dos conectan directamente: la orden a mercado de un taker se come el libro en reposo nivel a nivel, así que el volumen es el registro de ese consumo y el libro es el combustible que consumió."
+  - id: wall-not-commitment
+    kind: true_false
+    prompt:
+      en: "A 400 BTC buy wall resting at 60,000 is a reliable floor: price cannot fall below it until those 400 BTC have been bought."
+      es: "Un muro de compra de 400 BTC en reposo en 60.000 es un suelo fiable: el precio no puede caer por debajo hasta que se hayan comprado esos 400 BTC."
+    answer: false
+    explanation:
+      en: "False, and this is the most common order-book mistake. A resting order is not a commitment — it can be cancelled in a millisecond, and walls tend to get pulled precisely when they were about to be tested. Worse, some walls were never meant to fill at all: spoofing is placing large orders purely so others see and react, then withdrawing them. A wall means 'someone is currently showing size here', never 'someone will definitely buy here'."
+      es: "Falso, y este es el error más común del libro de órdenes. Una orden en reposo no es un compromiso: se puede cancelar en un milisegundo, y los muros suelen retirarse justo cuando iban a ser testeados. Peor aún: algunos muros nunca pretendían llenarse; el spoofing consiste en colocar órdenes grandes únicamente para que otros las vean y reaccionen, y retirarlas después. Un muro significa 'alguien está mostrando ahora tamaño aquí', nunca 'alguien va a comprar aquí con seguridad'."
+  - id: spoofing
+    prompt:
+      en: "A large sell order keeps appearing just above price, then vanishing before price reaches it, over and over. What is the most likely explanation?"
+      es: "Una orden de venta grande aparece justo por encima del precio y se desvanece antes de que el precio la alcance, una y otra vez. ¿Cuál es la explicación más probable?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Spoofing — the order exists to be seen and reacted to, not to be filled, and it is pulled before it can be."
+          es: "Spoofing: la orden existe para que se la vea y se reaccione a ella, no para llenarse, y se retira antes de que pueda hacerlo."
+      - id: b
+        text:
+          en: "An iceberg order refilling itself, which is the normal behaviour of large genuine size."
+          es: "Una orden iceberg rellenándose, que es el comportamiento normal del tamaño grande genuino."
+      - id: c
+        text:
+          en: "A data feed error; resting orders cannot be cancelled once placed."
+          es: "Un error de la fuente de datos; las órdenes en reposo no se pueden cancelar una vez colocadas."
+      - id: d
+        text:
+          en: "Confirmation that a large seller genuinely intends to defend that price."
+          es: "Confirmación de que un vendedor grande pretende de verdad defender ese precio."
+    explanation:
+      en: "Repeatedly appearing and vanishing before it can be touched is the signature of spoofing — illegal in regulated markets, endemic in less-supervised crypto venues. Note the contrast with an iceberg, which is nearly the opposite behaviour: an iceberg shows a *small* quantity and quietly refills each time it is eaten, deliberately hiding genuine size rather than advertising fake size."
+      es: "Aparecer y desvanecerse repetidamente antes de que se la pueda tocar es la firma del spoofing: ilegal en mercados regulados y endémico en los sitios cripto menos supervisados. Fíjate en el contraste con un iceberg, que es casi el comportamiento opuesto: un iceberg muestra una cantidad *pequeña* y se rellena en silencio cada vez que se la comen, escondiendo deliberadamente tamaño genuino en vez de anunciar tamaño falso."
+  - id: depth-and-slippage
+    prompt:
+      en: "You send the same large market order into a deep book and into a thin one. What differs?"
+      es: "Envías la misma orden grande a mercado a un libro profundo y a uno fino. ¿Qué cambia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The fill price: in the deep book it eats a level or two and fills near the price you saw; in the thin one it tears through many levels and fills far worse."
+          es: "El precio de ejecución: en el libro profundo se come uno o dos niveles y se llena cerca del precio que viste; en el fino atraviesa muchos niveles y se llena mucho peor."
+      - id: b
+        text:
+          en: "Nothing — a market order always fills at the price displayed when you sent it."
+          es: "Nada: una orden a mercado siempre se llena al precio que se mostraba cuando la enviaste."
+      - id: c
+        text:
+          en: "Only the fee, since thin books charge a higher taker rate to compensate makers."
+          es: "Solo la comisión, ya que los libros finos cobran una tasa taker más alta para compensar a los makers."
+      - id: d
+        text:
+          en: "The order is rejected outright in a thin book rather than filling at a worse price."
+          es: "En un libro fino la orden se rechaza directamente en vez de llenarse a un precio peor."
+    explanation:
+      en: "This is slippage (m21) with its mechanism visible. A market order consumes resting orders level by level until it is filled, so how much is resting nearby decides your average fill. Same order, same number on screen, very different outcome — which is why liquidity, not just price, determines what a trade actually costs you."
+      es: "Esto es el slippage (m21) con su mecanismo a la vista. Una orden a mercado consume órdenes en reposo nivel a nivel hasta quedar llena, así que cuánto hay en reposo cerca decide tu precio medio de ejecución. La misma orden, el mismo número en pantalla, un resultado muy distinto; y por eso la liquidez, y no solo el precio, determina lo que de verdad te cuesta una operación."
+  - id: iceberg-hidden-size
+    prompt:
+      en: "Price sits pinned at one level while a modest-looking bid there keeps getting eaten and reappearing at the same size. What is likely happening?"
+      es: "El precio está clavado en un nivel mientras una orden de compra de aspecto modesto ahí se la comen y reaparece con el mismo tamaño una y otra vez. ¿Qué está pasando probablemente?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "An iceberg order is absorbing: real size is hidden behind a small displayed quantity that refills each time it is consumed."
+          es: "Una orden iceberg está absorbiendo: hay tamaño real escondido detrás de una cantidad pequeña mostrada que se rellena cada vez que se consume."
+      - id: b
+        text:
+          en: "A spoofer is at work, since the order keeps disappearing from the book."
+          es: "Hay un spoofer trabajando, ya que la orden no deja de desaparecer del libro."
+      - id: c
+        text:
+          en: "The exchange is recycling one order's display, which is a rendering artefact and means nothing."
+          es: "El exchange está reciclando la visualización de una orden, que es un artefacto de renderizado y no significa nada."
+      - id: d
+        text:
+          en: "Nothing meaningful — resting orders always refill automatically once filled."
+          es: "Nada relevante: las órdenes en reposo siempre se rellenan automáticamente al llenarse."
+    explanation:
+      en: "This is m14's and m26's absorption seen in the book itself. An iceberg deliberately displays only a fraction of its true size and replenishes as it gets hit, which is exactly why the book's visible imbalance can be so misleading: the largest participants often do not show what they are doing. Getting eaten and refilling is the opposite signature to spoofing, where the order vanishes before it can be touched."
+      es: "Esta es la absorción de m14 y m26 vista en el propio libro. Un iceberg muestra deliberadamente solo una fracción de su tamaño real y se repone a medida que lo golpean, y por eso justamente el desequilibrio visible del libro puede engañar tanto: los participantes más grandes a menudo no muestran lo que están haciendo. Ser comido y rellenarse es la firma opuesta al spoofing, donde la orden se desvanece antes de que se la pueda tocar."
+  - id: book-vocabulary
+    kind: matching
+    prompt:
+      en: "Match each order-book term to what it means."
+      es: "Empareja cada término del libro de órdenes con lo que significa."
+    pairs:
+      - id: bid
+        left:
+          en: "Bid"
+          es: "Bid"
+        right:
+          en: "A resting offer to buy, below the current price"
+          es: "Una oferta de compra en reposo, por debajo del precio actual"
+      - id: ask
+        left:
+          en: "Ask"
+          es: "Ask"
+        right:
+          en: "A resting offer to sell, above the current price"
+          es: "Una oferta de venta en reposo, por encima del precio actual"
+      - id: spread
+        left:
+          en: "Spread"
+          es: "Spread"
+        right:
+          en: "The gap between the highest bid and the lowest ask"
+          es: "El hueco entre el bid más alto y el ask más bajo"
+      - id: depth
+        left:
+          en: "Depth"
+          es: "Profundidad"
+        right:
+          en: "How much quantity is resting near the current price"
+          es: "Cuánta cantidad hay en reposo cerca del precio actual"
+    explanation:
+      en: "The current price is really just wherever the last trade happened between the best bid and the best ask. Depth is what decides slippage, and the spread is what a market maker earns for providing that depth — which is why both change together when makers step back, as they do before a scheduled release."
+      es: "El precio actual no es más que donde ocurrió la última operación entre el mejor bid y el mejor ask. La profundidad es lo que decide el slippage, y el spread es lo que gana un creador de mercado por aportar esa profundidad; por eso los dos cambian juntos cuando los makers se echan atrás, como hacen antes de una publicación programada."
+  - id: imbalance-not-direction
+    kind: true_false
+    prompt:
+      en: "A strong bid-side imbalance in the book is a reliable signal that price is about to rise."
+      es: "Un desequilibrio fuerte al lado bid en el libro es una señal fiable de que el precio va a subir."
+    answer: false
+    explanation:
+      en: "False. Imbalance is a crowding measure, read the way m17 taught you to read funding — not a direction. It says price is currently *easier to move* one way than the other, which is a statement about resistance to movement. And it is the flimsiest reading in this block: the orders can be cancelled, the biggest players deliberately hide their size behind icebergs, and the imbalance you see may be a consequence of the move that already happened rather than a cause of the next one."
+      es: "Falso. El desequilibrio es una medida de saturación, que se lee como m17 te enseñó a leer el funding, no de dirección. Dice que ahora mismo el precio es *más fácil de mover* hacia un lado que hacia el otro, que es una afirmación sobre la resistencia al movimiento. Y es la lectura más flojita de este bloque: las órdenes se pueden cancelar, los participantes más grandes esconden deliberadamente su tamaño detrás de icebergs, y el desequilibrio que ves puede ser una consecuencia del movimiento que ya ocurrió en lugar de una causa del siguiente."

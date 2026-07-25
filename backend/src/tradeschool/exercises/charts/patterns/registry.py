@@ -6,10 +6,12 @@ from __future__ import annotations
 
 from tradeschool.exercises.charts.patterns.base import PatternInjector
 from tradeschool.exercises.charts.patterns.candle_reaction import CandleReactionInjector
+from tradeschool.exercises.charts.patterns.cvd_divergence import CvdDivergenceInjector
 from tradeschool.exercises.charts.patterns.derivatives import DerivativesInjector
 from tradeschool.exercises.charts.patterns.fakeout import FakeoutInjector
 from tradeschool.exercises.charts.patterns.fibonacci import FibonacciInjector
 from tradeschool.exercises.charts.patterns.ma_context import MaContextInjector
+from tradeschool.exercises.charts.patterns.macd_cross import MacdCrossInjector
 from tradeschool.exercises.charts.patterns.oscillator_reading import OscillatorReadingInjector
 from tradeschool.exercises.charts.patterns.volume_confirmation import VolumeConfirmationInjector
 from tradeschool.exercises.charts.patterns.wyckoff import WyckoffInjector
@@ -20,11 +22,13 @@ _INJECTORS: dict[str, PatternInjector] = {
         FakeoutInjector(),
         MaContextInjector(),
         OscillatorReadingInjector(),
+        MacdCrossInjector(),
         FibonacciInjector(),
         VolumeConfirmationInjector(),
         WyckoffInjector(),
         DerivativesInjector(),
         CandleReactionInjector(),
+        CvdDivergenceInjector(),
     )
 }
 

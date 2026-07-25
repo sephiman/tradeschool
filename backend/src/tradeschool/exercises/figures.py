@@ -23,7 +23,10 @@ from tradeschool.content.schema import LocalizedText
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import ema, macd, rsi
 from tradeschool.exercises.charts.injectors import RsiDivergenceInjector
-from tradeschool.exercises.charts.patterns.common import append_resolution
+from tradeschool.exercises.charts.patterns.common import (
+    append_linear_continuation,
+    append_resolution,
+)
 from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
 from tradeschool.exercises.charts.types import DivergenceType, Series
 
@@ -35,12 +38,17 @@ _DIVERGENCE_DIR = {
     "bearish_regular": -1.0, "bearish_hidden": -1.0, "none": 0.0,
 }
 # Default resolution direction for pattern figures whose direction is unambiguous from the label.
-# Side/impulse-dependent injectors (fakeout, fibonacci, volume_confirmation, derivatives) are NOT
-# listed — those figures must state `resolution` explicitly, since the direction depends on the seed.
+# Side/impulse-dependent injectors (fakeout, fibonacci, volume_confirmation, derivatives, macd_cross)
+# are NOT listed — those figures must state `resolution` explicitly, since the direction depends on
+# the seed.
 _PATTERN_DIR: dict[str, dict[str, float]] = {
     "wyckoff": {"accumulation": 1.0, "distribution": -1.0, "none": 0.0},
     "ma_context": {"uptrend": 1.0, "downtrend": -1.0, "range": 0.0},
     "oscillator_reading": {"overbought": 1.0, "oversold": -1.0, "neutral": 0.0},
+    # A CVD divergence resolves against the extreme it refused (absorbed selling -> markup, and the
+    # mirror). `cvd_confirms` is deliberately absent: the confirmed break continues in whichever
+    # direction that seed built, so such a figure must state `resolution` explicitly.
+    "cvd_divergence": {"cvd_bullish_divergence": 1.0, "cvd_bearish_divergence": -1.0},
 }
 _RESOLUTION_CANDLES = 24
 
@@ -58,7 +66,7 @@ class FigurePanel(BaseModel):
     target: str  # the specific label / divergence this figure plants
     seed: int  # frozen, hand-picked
     n: int = 160
-    indicator: Literal["rsi", "macd", "none", "oi"] | None = None
+    indicator: Literal["rsi", "macd", "none", "oi", "cvd"] | None = None
     show_resolution: bool = True
     resolution: FigureResolution | None = None  # explicit direction; else a per-generator default
 
@@ -105,6 +113,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     levels: list[dict[str, object]] = []
     annotations: list[dict[str, object]] = []
     oi_full: np.ndarray | None = None
+    cvd_full: np.ndarray | None = None
     volume_full: np.ndarray | None = None
     candles_override: Series | None = None
     resolution_hint: float | None = None
@@ -135,6 +144,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
             if a.index - warmup >= 0
         ]
         oi_full, volume_full = result.oi_full, result.volume_full
+        cvd_full = result.cvd_full
         candles_override = result.candles_full
         resolution_hint = result.resolution_hint
         default_dir = _PATTERN_DIR.get(panel.injector or "", {}).get(panel.target, 0.0)
@@ -159,6 +169,12 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         if oi_full is not None:
             oi_dir = float(np.sign(oi_full[-1] - oi_full[0]))
             oi_full = append_resolution(rng, oi_full, oi_dir, 0.12, added)
+        if cvd_full is not None:
+            # Linear space — a CVD legitimately sits at or below zero, so the log-space leg the price
+            # and OI panes use would be meaningless here. It continues in the RESOLUTION's direction
+            # (the absorbed side taking control is the whole point of the figure) rather than in
+            # whichever direction it happened to be travelling.
+            cvd_full = append_linear_continuation(rng, cvd_full, direction, 0.35, added)
         if volume_full is not None:
             base = float(np.median(volume_full))
             extra = base * (0.7 + 0.5 * np.abs(rng.normal(0.0, 1.0, added)))
@@ -201,6 +217,8 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     }
     if oi_full is not None:
         payload["oi"] = _round(oi_full, 2)[w:]
+    if cvd_full is not None:
+        payload["cvd"] = _round(cvd_full, 2)[w:]
     return payload
 
 

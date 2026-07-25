@@ -13,7 +13,7 @@ import { divergenceMarkers, patternMarkers } from "@/components/charts/markers";
 import { Badge, Button, Card, Input, Select, Spinner } from "@/components/ui/primitives";
 import { LessonFigure } from "@/features/course/LessonFigure";
 
-const EXERCISES = ["m12-ex-1", "m12-ex-2"];
+const EXERCISES = ["m12-ex-1", "m12-ex-2", "m26-ex-1"];
 
 /** Divergence ground truth carries a `divergence` string; pattern_chart carries a `label`. */
 function isDivergence(gt: GroundTruth): gt is DivergenceGroundTruth {

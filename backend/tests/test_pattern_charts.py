@@ -170,6 +170,61 @@ def test_oscillator_reading_matches_label() -> None:
     assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
 
 
+# --- macd_cross (m11) correctness: the rendered MACD shows the labelled crossover picture --------
+
+
+def _side_changes(values: np.ndarray) -> list[int]:
+    """Indices where a series changes side. An exact 0.0 (a payload value rounded to 4dp) is treated
+    as still belonging to the previous side, so one zero can never count as two crossings."""
+    idx: list[int] = []
+    prev = 0.0
+    for i, v in enumerate(values):
+        side = float(np.sign(v))
+        if side == 0.0:
+            continue
+        if prev != 0.0 and side != prev:
+            idx.append(i)
+        prev = side
+    return idx
+
+
+def test_macd_cross_matches_label() -> None:
+    """The three labels are separated by the single quantity the learner reads off the pane: how often
+    the MACD LINE crosses zero. Never — the only cross is against the signal line, a wobble inside an
+    intact trend. Once, late — the fast EMA crossed the slow one: a regime change. Repeatedly — a
+    range where every cross whipsaws."""
+    labels = ["signal_cross", "zero_cross", "whipsaw"]
+    config = _config("macd_cross", labels, labels)
+    seen = dict.fromkeys(labels, 0)
+    for seed in range(60):
+        label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        macd_payload = payload["macd"]  # type: ignore[index]
+        line = np.asarray(macd_payload["line"], dtype=float)
+        hist = np.asarray(macd_payload["hist"], dtype=float)
+        closes = np.asarray(payload["series"]["close"], dtype=float)  # type: ignore[index]
+        n = len(line)
+        crossings = _side_changes(line)
+        third = n // 3
+        # Net drift as a ratio of thirds (as in ma_context): averages the oscillation out, so a range
+        # reads flat while a trend reads clearly directional.
+        drift = float(np.mean(closes[-third:]) / np.mean(closes[:third]) - 1.0)
+        if label == "signal_cross":
+            assert not crossings, f"seed {seed}: the MACD line must stay one side of zero, {crossings}"
+            assert any(i > 0.65 * n for i in _side_changes(hist)), f"seed {seed}: no recent signal cross"
+            assert abs(drift) > 0.08, f"seed {seed}: needs an intact trend, drift only {drift:.2f}"
+            # The cross must still be readable at the right edge, not faded back out by the last bars.
+            assert np.sign(hist[-1]) == np.sign(drift), f"seed {seed}: histogram ends against the trend"
+        elif label == "zero_cross":
+            assert len(crossings) == 1, f"seed {seed}: expected exactly one zero cross, got {crossings}"
+            assert crossings[0] > 0.6 * n, f"seed {seed}: zero cross too early ({crossings[0]}/{n})"
+            assert np.sign(line[-1]) != np.sign(line[0]), f"seed {seed}: MACD ends the side it began"
+        else:  # whipsaw
+            assert len(crossings) >= 4, f"seed {seed}: whipsaw needs repeated zero crosses, {crossings}"
+            assert abs(drift) < 0.05, f"seed {seed}: whipsaw must be a range, drift {drift:.2f}"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
 # --- fibonacci (m13) correctness: the pullback extreme sits at the labelled fib level ------------
 
 
@@ -280,6 +335,79 @@ def test_derivatives_price_is_label_independent() -> None:
         _lbl, _ann, payload = _instantiate(cfg, 3)  # type: ignore[arg-type]
         seeds_price[label] = payload["series"]["close"]  # type: ignore[index]
     assert seeds_price["rising_oi"] == seeds_price["falling_oi"] == seeds_price["flat_oi"]
+
+
+# --- cvd_divergence (m26) correctness: the CVD pane reads as labelled at the two swings ----------
+
+_CVD_LABELS = ("cvd_bullish_divergence", "cvd_bearish_divergence", "cvd_confirms")
+_PRICE_EPS = 0.002  # a new extreme must clear this fraction of price to count as read-able
+_CVD_EPS = 0.05  # ...and the CVD step this fraction of the visible CVD range
+
+
+def _swing_pair(annotations: list[dict]) -> tuple[int, int, str]:
+    """The two ground-truth swing indices (visible coords) and their kind, as grading reveals them."""
+    swings = sorted((a for a in annotations if a["label"] in ("1", "2")), key=lambda a: a["label"])
+    assert len(swings) == 2, f"expected two swing annotations, got {annotations}"
+    return int(swings[0]["index"]), int(swings[1]["index"]), str(swings[0]["kind"])
+
+
+def test_cvd_divergence_matches_label() -> None:
+    """The rendered pane must encode the label at the two swings the solution points at: price makes a
+    new extreme, and CVD either refuses to follow it (a divergence) or makes its own new extreme with
+    it (confirmation). This is the read the lesson teaches, checked on the payload the learner sees."""
+    config = _config("cvd_divergence", list(_CVD_LABELS), list(_CVD_LABELS))
+    seen = dict.fromkeys(_CVD_LABELS, 0)
+    for seed in range(60):
+        label, ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+        seen[label] += 1
+        s1, s2, kind = _swing_pair(ann)
+        close = np.asarray(payload["series"]["close"], dtype=float)  # type: ignore[index]
+        cvd = np.asarray(payload["cvd"], dtype=float)  # type: ignore[index]
+        assert len(cvd) == len(close), f"seed {seed}: CVD must align 1:1 with the candles"
+        sign = -1.0 if kind == "low" else 1.0  # the direction price is making its new extreme in
+        price_step = sign * float(close[s2] - close[s1])
+        cvd_step = sign * float(cvd[s2] - cvd[s1])
+        span = float(np.max(cvd) - np.min(cvd))
+        assert price_step > _PRICE_EPS * float(close[s1]), (
+            f"seed {seed}/{label}: no clear new price extreme at swing 2 ({price_step:.2f})"
+        )
+        if label == "cvd_confirms":
+            assert cvd_step > _CVD_EPS * span, (
+                f"seed {seed}: cvd_confirms needs CVD making its new extreme WITH price"
+            )
+        else:
+            assert cvd_step < -_CVD_EPS * span, (
+                f"seed {seed}/{label}: CVD must refuse price's new extreme (step {cvd_step:.0f})"
+            )
+        # ...and the divergence label must be the one matching the side price is extending to.
+        if label == "cvd_bullish_divergence":
+            assert kind == "low", f"seed {seed}: bullish absorption must sit at a low"
+        elif label == "cvd_bearish_divergence":
+            assert kind == "high", f"seed {seed}: bearish absorption must sit at a high"
+    assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+def test_cvd_flow_never_exceeds_its_volume_bar() -> None:
+    """Credibility of generated order flow: a bar's signed flow cannot exceed the volume that bar
+    traded. Each CVD step is `volume x imbalance ratio` by construction — this asserts the rendered,
+    rounded payload still honours it, so the pane (and the dev CSV export) can never show impossible
+    flow. Also checks the line is genuinely CUMULATIVE — it accumulates rather than jittering."""
+    for label in _CVD_LABELS:
+        config = _config("cvd_divergence", [label], list(_CVD_LABELS))
+        for seed in range(20):
+            _lbl, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
+            cvd = np.asarray(payload["cvd"], dtype=float)  # type: ignore[index]
+            volume = np.asarray(payload["series"]["volume"], dtype=float)  # type: ignore[index]
+            steps = np.abs(np.diff(cvd))
+            worst = float(np.max(steps / volume[1:]))
+            assert worst <= 0.79, f"{label}/{seed}: a bar moved CVD by {worst:.2f}x its own volume"
+            # An accumulating line spans many times its largest single step; pure bar-to-bar jitter
+            # would sit near 1-2. Vetting over 3600 charts (300 seeds x n in 110..150) put the floor
+            # at 4.06, so 2.5 flags a broken construction without tracking the noise.
+            span = float(np.max(cvd) - np.min(cvd))
+            assert span > 2.5 * float(np.max(steps)), (
+                f"{label}/{seed}: CVD jitters instead of accumulating (span {span:.0f})"
+            )
 
 
 # --- candle_reaction (m08-l2) correctness: form + location match the label -----------------------

@@ -27,6 +27,13 @@ GOLDEN = {
     "candle_reaction:1": "1e21b914a6efad6f",
     "candle_reaction:2": "c14016c371d84c77",
     "candle_reaction:3": "72635ec0fc51c6ab",
+    # Captured when the m26 CVD-divergence injector was ADDED. Its `cvd_full` pane series reaches the
+    # payload through the same CONDITIONAL key the `oi` pane uses, so every hash above stayed
+    # byte-identical in the same commit — which is what proves the new pane series is purely additive.
+    "cvd_divergence:0": "e1ee9199b6ab71a0",
+    "cvd_divergence:1": "ff862cacbac02fa9",
+    "cvd_divergence:2": "5b7614ea100b3f25",
+    "cvd_divergence:3": "5adcc75d04bce641",
     "derivatives:0": "4d0c4f23a1bce031",
     "derivatives:1": "51683f017c3352bb",
     "derivatives:2": "8a7b44998f5c4e9a",
@@ -47,6 +54,13 @@ GOLDEN = {
     "ma_context:1": "575ba24b926a11f8",
     "ma_context:2": "f7668a9bf88ec8cc",
     "ma_context:3": "39f9cd9e8cc26deb",
+    # Captured when the m11 MACD-crossover injector was ADDED (a new key is the one legitimate reason
+    # this dict grows; the same commit left every hash above untouched, which is what proves the
+    # `with_warmup(drift=…, sigma=…)` it needed stayed byte-identical for the existing injectors).
+    "macd_cross:0": "db720b2714f34720",
+    "macd_cross:1": "dc7eccc53e9e3cb3",
+    "macd_cross:2": "ad2f17dfd385c052",
+    "macd_cross:3": "86e85bc722b63d0d",
     "oscillator_reading:0": "70342a8826e945b2",
     "oscillator_reading:1": "d3cf962a221bf0f6",
     "oscillator_reading:2": "433e75a44bca1d72",

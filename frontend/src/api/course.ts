@@ -106,9 +106,10 @@ export interface FigurePanel {
   rsi?: number[];
   macd?: { line: number[]; signal: number[]; hist: number[] };
   oi?: number[];
+  cvd?: number[];
   overlays?: Record<string, number[]>;
   levels?: { price: number; label: string; kind: string }[];
-  indicator: "rsi" | "macd" | "oi" | "none";
+  indicator: "rsi" | "macd" | "oi" | "cvd" | "none";
   annotations: { index: number; kind: string; label: string }[];
 }
 

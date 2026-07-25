@@ -50,7 +50,8 @@ export interface AttemptPayload {
   rsi?: number[];
   macd?: { line: number[]; signal: number[]; hist: number[] };
   oi?: number[];
-  indicator?: "rsi" | "macd" | "oi" | "none";
+  cvd?: number[];
+  indicator?: "rsi" | "macd" | "oi" | "cvd" | "none";
   choices?: string[];
   // pattern_chart: price-pane overlays (name -> values aligned 1:1 with the series) and levels.
   overlays?: Record<string, number[]>;

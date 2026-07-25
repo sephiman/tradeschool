@@ -80,10 +80,10 @@ async def test_me_stats_reading_and_mastery_are_separate(
     assert stats["exercise"]["firstAttemptAccuracy"] == 0.5  # ex-2 first-correct, ex-1 first-wrong
     assert stats["exercise"]["avgAttemptsToSuccess"] == 1.5
 
-    # Reading (completion) dimension — computed over published content only. Phase 2 authored all
-    # 23 modules, so every module now has content.
-    assert stats["coverage"]["publishedModules"] == 24
-    assert stats["coverage"]["totalModules"] == 24
+    # Reading (completion) dimension — computed over published content only. Every module in the
+    # manifest is authored, so published == total.
+    assert stats["coverage"]["publishedModules"] == 29
+    assert stats["coverage"]["totalModules"] == 29
     assert stats["reading"]["lessonsCompleted"] == 1
 
     m01 = next(m for m in stats["modules"] if m["id"] == "m01")
@@ -118,7 +118,7 @@ async def test_me_stats_empty_for_new_user(content_client: AsyncClient) -> None:
     assert stats["exercise"]["answered"] == 0
     assert stats["exercise"]["accuracy"] is None
     assert stats["reading"]["lessonsCompleted"] == 0
-    assert stats["reading"]["courseCompletion"] == 0.0  # 0 of 23 published lessons
-    assert stats["coverage"]["publishedModules"] == 24
-    assert stats["coverage"]["totalModules"] == 24
+    assert stats["reading"]["courseCompletion"] == 0.0  # nothing read yet
+    assert stats["coverage"]["publishedModules"] == 29
+    assert stats["coverage"]["totalModules"] == 29
     assert stats["costliestSections"] == []

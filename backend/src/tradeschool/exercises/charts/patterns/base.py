@@ -57,6 +57,12 @@ class PatternResult:
     #: optional secondary series shown in the oscillator pane (e.g. open interest for m17). Full
     #: length; the generator trims the warm-up like the candles. Used when ``indicator == "oi"``.
     oi_full: Floats | None = None
+    #: optional cumulative-volume-delta series for the oscillator pane (m26). Full length, trimmed
+    #: like the candles, and — unlike every other pane series — LINEAR: a CVD is a running sum of
+    #: signed flow anchored at 0 when the visible window opens, so it legitimately sits at or below
+    #: zero. Anything continuing it must work in linear space (see ``append_linear_continuation``).
+    #: Used when ``indicator == "cvd"``.
+    cvd_full: Floats | None = None
     #: optional full-length OHLC override. When an injector needs to shape individual candles that
     #: ``build_series`` derives stochastically — a rejection wick, a tweezers low, a clean engulfing
     #: body (m08 candle reactions) — it builds the Series itself and returns it here; the generator

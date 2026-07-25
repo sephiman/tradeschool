@@ -67,13 +67,23 @@ cd frontend && npm install && npm run dev
 
 Open <http://localhost:5173>, register an account, and review the full course:
 
-- **24 modules across 5 blocks, 30 lessons** (six modules carry a second lesson), ending in a
+- **29 modules across 6 blocks, 35 lessons** (six modules carry a second lesson), through a
   capstone (m24) that assembles everything into a **complete trading plan** — one worked trade end to
   end (top-down protocol, sizing from the stop, live management, and the **daily stop** that closes a
   losing day), then the journal, the risk tiers that only a journal can earn, validation and the step
-  to real money. Each lesson is bilingual (ES + EN)
+  to real money — and on into **order flow** (block F). Each lesson is bilingual (ES + EN)
   with server-generated, server-graded exercises, end to end: lesson → attempt → answer → grading
   with the instantiated solution → progress & statistics.
+- **Order flow and microstructure** (block F, m25–m29): what a candle hides — maker/taker, the
+  aggressor, and delta as the number OHLCV throws away; **CVD** (cumulative volume delta) with
+  **CVD divergence as absorption made visible** rather than inferred, which is the confirmation m09's
+  Wyckoff spring was missing; the **order book** (depth, walls, spoofing vs icebergs, and the
+  mechanism behind m15's book thinning before a scheduled release); **premium between venues**
+  (regional demand vs transfer friction, and why arbitrage caps a premium rather than erasing it); and
+  **footprint charts and volume profile**. Where a credible generated exercise isn't possible — a
+  depth ladder and a footprint are an instant snapshot and a distribution-inside-a-bar, not the time
+  series this engine builds — the lesson **says so and names the real tools** instead of faking a
+  chart, the same honest-frontier stance as m08's candle-pattern dictionary.
 - **The conditions, not only the chart:** open interest read with price, funding as positioning, and
   the **basis** (perp vs spot) as a leverage-mania thermometer whose violent dislocations mark
   squeeze exhaustion; liquidity maps; the **session map inside the 24/7 clock** (where liquidity
@@ -84,9 +94,14 @@ Open <http://localhost:5173>, register an account, and review the full course:
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
   matching); multiple-choice **calculations** whose distractors are instantiated common mistakes
   (`Decimal` end to end); and **chart-reading** exercises — divergences plus fakeouts, Wyckoff,
-  moving averages, oscillator readings, Fibonacci, volume, open interest, and **candle reactions**
+  moving averages, oscillator readings, **MACD crossovers** (signal-line vs zero-line vs whipsaw in a
+  range), Fibonacci, volume, open interest, **CVD divergence** (price makes a new extreme; does the
+  aggression underneath refuse to follow it, or make its own with it?), and **candle reactions**
   (rejection/overrun/indecision, where location is 90% of the signal). Every detection chart is
-  guarded by a statistical anti-leak test (the last candles cannot predict the answer).
+  guarded by a statistical anti-leak
+  test (the last candles cannot predict the answer); every classification chart is guarded by the
+  credibility test (the final candles are ambient noise, never a synthetic spike) plus a
+  structure-matches-label test asserting the on-screen geometry really encodes the answer.
 - **Lesson figures:** lessons embed didactic charts via a `::figure{id}` directive — server-generated
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by
@@ -102,8 +117,10 @@ Open <http://localhost:5173>, register an account, and review the full course:
 - The **chart-credibility gallery** at <http://localhost:5173/dev/charts> renders grids of the
   generated charts with their ground-truth labels — the exact renderer students see. The exercise-id
   box accepts any chart exercise, e.g. `m12-ex-1` (divergences), `m08-ex-1` (fakeouts),
-  `m09-ex-1` (Wyckoff), `m10-ex-1` (moving averages), `m11-ex-1` (RSI), `m13-ex-1` (Fibonacci),
-  `m14-ex-1` (volume), `m17-ex-1` (open interest); CSV export per seed on each card.
+  `m09-ex-1` (Wyckoff), `m10-ex-1` (moving averages), `m11-ex-1` (RSI), `m11-ex-5` (MACD crossovers),
+  `m13-ex-1` (Fibonacci), `m14-ex-1` (volume), `m17-ex-1` (open interest), `m26-ex-1` (CVD
+  divergence); CSV export per seed on each
+  card.
 
 ## Exporting the course theory
 

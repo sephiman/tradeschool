@@ -106,6 +106,68 @@ variants:
     explanation:
       en: "The same number means different things by context. Extremes in a trend describe one-sided momentum that can persist; an extreme against a level in a range is where the reading earns its keep; near 50 there is simply no momentum edge."
       es: "El mismo número significa cosas distintas según el contexto. Los extremos en una tendencia describen un momentum unilateral que puede persistir; un extremo contra un nivel en un rango es donde la lectura se gana su sitio; cerca de 50 sencillamente no hay ventaja de momentum."
+  - id: cross-in-range
+    prompt:
+      en: "A coin has been chopping sideways in a well-defined range for weeks. The MACD line has crossed above its signal line — the fourth such cross in that range. What is this cross worth?"
+      es: "Una moneda lleva semanas moviéndose de lado en un rango bien definido. La línea MACD ha cruzado por encima de su línea de señal: el cuarto cruce de ese tipo en el rango. ¿Cuánto vale este cruce?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Very little — in a range the MACD line saws across zero, so crosses fire repeatedly and none of them leads anywhere. This is whipsaw."
+          es: "Muy poco: en un rango la línea MACD sierra el cero, así que los cruces saltan una y otra vez y ninguno lleva a ninguna parte. Esto es sierra (whipsaw)."
+      - id: b
+        text:
+          en: "It is a strong buy — a bullish cross is a bullish cross regardless of the market it happens in."
+          es: "Es una compra fuerte: un cruce alcista es un cruce alcista sea cual sea el mercado en el que ocurra."
+      - id: c
+        text:
+          en: "It guarantees the range is about to break upward, because four crosses in a row build pressure."
+          es: "Garantiza que el rango va a romper al alza, porque cuatro cruces seguidos acumulan presión."
+      - id: d
+        text:
+          en: "Nothing can be said, because the MACD does not work on ranging markets at all."
+          es: "No se puede decir nada, porque el MACD no funciona en absoluto en mercados en rango."
+    explanation:
+      en: "The MACD is two moving averages, so it inherits m10's whipsaw problem exactly: hand it a sideways market and its lines cross back and forth, each cross looking identical to a good one. The same bullish cross inside an established uptrend would be continuation evidence — the context, not the cross, decides. And repeated crosses do not 'build pressure'; they are what a range looks like on the indicator."
+      es: "El MACD son dos medias móviles, así que hereda exactamente el problema de la sierra de m10: dale un mercado lateral y sus líneas se cruzan de un lado a otro, cada cruce igual que uno bueno. El mismo cruce alcista dentro de una tendencia alcista establecida sería evidencia de continuación: decide el contexto, no el cruce. Y los cruces repetidos no 'acumulan presión': son el aspecto que tiene un rango en el indicador."
+  - id: cross-context
+    kind: matching
+    prompt:
+      en: "Match each MACD event, in its context, to what it actually tells you."
+      es: "Empareja cada evento del MACD, en su contexto, con lo que realmente te dice."
+    pairs:
+      - id: signal-in-trend
+        left:
+          en: "A bullish signal-line cross inside an established uptrend, the MACD line never reaching zero"
+          es: "Un cruce alcista de la línea de señal dentro de una tendencia alcista establecida, sin que la línea MACD llegue a cero"
+        right:
+          en: "Continuation evidence — the pullback is over and an intact trend is resuming."
+          es: "Evidencia de continuación: el retroceso ha terminado y una tendencia intacta se reanuda."
+      - id: signal-in-range
+        left:
+          en: "The identical bullish signal-line cross inside a sideways range"
+          es: "El mismo cruce alcista de la línea de señal dentro de un rango lateral"
+        right:
+          en: "Whipsaw — one of many crosses that lead nowhere; the same shape, worth nothing."
+          es: "Sierra: uno de tantos cruces que no llevan a ninguna parte; la misma forma, sin valor."
+      - id: zero-cross
+        left:
+          en: "The MACD line crossing zero after a long run on one side"
+          es: "La línea MACD cruzando el cero tras un recorrido largo en un lado"
+        right:
+          en: "A regime change — the 12- and 26-EMA swapped order, confirmed late as any MA cross is."
+          es: "Un cambio de régimen: la EMA de 12 y la de 26 intercambiaron su orden, confirmado con retraso como cualquier cruce de medias."
+      - id: shrinking-hist
+        left:
+          en: "Price grinding to new highs while the histogram prints smaller and smaller bars"
+          es: "El precio raspando nuevos máximos mientras el histograma imprime barras cada vez más pequeñas"
+        right:
+          en: "Decelerating momentum and a cross approaching — a clue to watch for, not a sell order."
+          es: "Momentum que se desacelera y un cruce que se acerca: una pista que vigilar, no una orden de venta."
+    explanation:
+      en: "The same crossover means different things by context, exactly as the same RSI reading does. A cross with a trend behind it times something real; the identical cross in a range is noise with a shape; a zero cross is the heavier, later regime event; and a shrinking histogram is the early warning that any of them is coming."
+      es: "El mismo cruce significa cosas distintas según el contexto, igual que la misma lectura del RSI. Un cruce con una tendencia detrás pone la hora a algo real; el mismo cruce en un rango es ruido con forma; un cruce de cero es el evento de régimen, más tardío y de más peso; y un histograma que se encoge es el aviso temprano de que cualquiera de ellos se acerca."
   - id: sound-use
     kind: multi_select
     prompt:

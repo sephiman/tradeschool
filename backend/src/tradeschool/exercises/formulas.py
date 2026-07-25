@@ -231,6 +231,55 @@ def _expectancy_explain(p: FormulaParams, result: Decimal) -> list[str]:
     ]
 
 
+# --- Net delta (m25): the net aggressive flow of a period ----------------------------------------
+# Taker buy volume minus taker sell volume. Positive = buyers were the aggressors on balance.
+# Note this is NOT total volume: the two sides are subtracted, not added.
+
+
+def _net_delta_compute(p: FormulaParams) -> Decimal:
+    return _dec(p["taker_buy"]) - _dec(p["taker_sell"])
+
+
+def _net_delta_explain(p: FormulaParams, result: Decimal) -> list[str]:
+    buy, sell = _dec(p["taker_buy"]), _dec(p["taker_sell"])
+    if result > 0:
+        who = "net aggressive BUYING"
+    elif result < 0:
+        who = "net aggressive SELLING"
+    else:
+        who = "balanced flow"
+    return [
+        "delta = taker buy volume − taker sell volume",
+        f"      = {_fmt(buy)} − {_fmt(sell)}",
+        f"      = {_fmt(result)}   ({who})",
+        f"Total volume for the period was {_fmt(buy + sell)} — that is a different figure, and it is "
+        f"the one that tells you nothing about direction.",
+    ]
+
+
+# --- Premium between venues (m28): the same coin priced differently on two exchanges --------------
+# Expressed as a PERCENTAGE of the reference venue's price, which is what makes premiums comparable
+# across coins and dates. The absolute gap is the intermediate step (see `explain`).
+
+
+def _venue_premium_compute(p: FormulaParams) -> Decimal:
+    ref, other = _dec(p["price_a"]), _dec(p["price_b"])
+    return (other - ref) / ref * Decimal(100)
+
+
+def _venue_premium_explain(p: FormulaParams, result: Decimal) -> list[str]:
+    ref, other = _dec(p["price_a"]), _dec(p["price_b"])
+    gap = other - ref
+    return [
+        "premium % = (other venue − reference venue) / reference venue × 100",
+        f"          = ({_fmt(other)} − {_fmt(ref)}) / {_fmt(ref)} × 100",
+        f"          = {_fmt(gap)} / {_fmt(ref)} × 100        [the absolute gap is {_fmt(gap)}]",
+        f"          = {_fmt(result.quantize(Decimal('0.001')))} %",
+        "The percentage is the figure worth quoting: an absolute gap means nothing until you know "
+        "what price it is a gap ON.",
+    ]
+
+
 # --- Distractors: each is a value reached by a specific, named mistake (multiple-choice, §D.8b) ---
 
 
@@ -362,6 +411,25 @@ def _style_net_explain(p: FormulaParams, result: Decimal) -> list[str]:
     ]
 
 
+def _net_delta_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
+    buy, sell = _dec(p["taker_buy"]), _dec(p["taker_sell"])
+    return [
+        ("add the two sides instead of subtracting them (that is total volume, not net flow)", buy + sell),
+        ("read the delta the wrong way round (sell minus buy)", -result),
+        ("take only the aggressive buying and ignore the selling against it", buy),
+    ]
+
+
+def _venue_premium_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
+    ref, other = _dec(p["price_a"]), _dec(p["price_b"])
+    gap = other - ref
+    return [
+        ("divide by the other venue's price instead of the reference venue's", gap / other * Decimal(100)),
+        ("read the premium the wrong way round", -result),
+        ("forget to convert the fraction into a percentage", gap / ref),
+    ]
+
+
 def _style_net_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
     notional, gp, fr, style = _dec(p["notional"]), _dec(p["gross_pct"]), _dec(p["fee_rate"]), str(p["style"])
     fundr, fi, rt = _dec(p["funding_rate"]), _dec(p["funding_intervals"]), _dec(p["round_trips"])
@@ -431,6 +499,20 @@ FORMULAS: dict[str, Formula] = {
         compute=_expectancy_compute,
         explain=_expectancy_explain,
         distractors=_expectancy_distractors,
+    ),
+    "net_delta": Formula(
+        id="net_delta",
+        arg_names=("taker_buy", "taker_sell"),
+        compute=_net_delta_compute,
+        explain=_net_delta_explain,
+        distractors=_net_delta_distractors,
+    ),
+    "venue_premium_pct": Formula(
+        id="venue_premium_pct",
+        arg_names=("price_a", "price_b"),
+        compute=_venue_premium_compute,
+        explain=_venue_premium_explain,
+        distractors=_venue_premium_distractors,
     ),
     "style_net_result": Formula(
         id="style_net_result",

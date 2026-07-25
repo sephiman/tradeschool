@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: macd_cross
+n: 130
+indicator: macd
+targets: [signal_cross, zero_cross, whipsaw]
+choices: [signal_cross, zero_cross, whipsaw]
+prompt:
+  en: "Read the MACD beneath the price, and track the MACD line against the zero line. Which crossover picture does this chart show?"
+  es: "Lee el MACD que aparece bajo el precio y sigue la línea MACD respecto a la línea de cero. ¿Qué imagen de cruce muestra este gráfico?"
+explanation:
+  en: "One question separates all three: how often does the MACD line cross ZERO? Never — the only cross is against the signal line (the histogram flips), so the fast and slow EMAs never swapped order and the trend stayed intact: a momentum wobble, and a cross in the trend's direction is continuation evidence. Once, late, after a sustained run on one side — the fast EMA has crossed the slow one outright, a change of regime, the higher-order event. Repeatedly, while price goes nowhere — a range, where every cross whipsaws and none is worth trading. Same cross shape in all three; only the context decides what it is worth."
+  es: "Una sola pregunta separa las tres: ¿cuántas veces cruza la línea MACD el CERO? Nunca: el único cruce es contra la línea de señal (el histograma cambia de signo), así que las EMAs rápida y lenta nunca intercambiaron su orden y la tendencia siguió intacta: un bache de momentum, y un cruce en la dirección de la tendencia es evidencia de continuación. Una vez, tarde, tras un recorrido sostenido en un lado: la EMA rápida ha cruzado a la lenta sin más, un cambio de régimen, el evento de mayor orden. Repetidamente, mientras el precio no va a ninguna parte: un rango, donde cada cruce es una sierra y ninguno merece operarse. La misma forma de cruce en los tres casos; solo el contexto decide lo que vale."

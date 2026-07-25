@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Same injector as m26-ex-1 at a longer window, framed as the m09 spring/breakdown decision: is the
+# new low selling being absorbed, or selling that is simply working?
+type: pattern_chart
+injector: cvd_divergence
+n: 150
+indicator: cvd
+targets: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
+choices: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
+prompt:
+  en: "You are deciding whether the second extreme here is being **absorbed** — the way m09's spring is absorbed selling — or whether the flow simply backs it. Read the CVD at the two swings and classify what you see."
+  es: "Estás decidiendo si el segundo extremo de aquí está siendo **absorbido** —como el spring de m09 es venta absorbida— o si el flujo simplemente lo respalda. Lee el CVD en los dos swings y clasifica lo que ves."
+explanation:
+  en: "This is m09's problem with a measurement attached. A stab to a new low looks identical whether it is a spring or a genuine breakdown — that was the honest difficulty the Wyckoff lesson left you with. The flow separates them: if the CVD refuses to make a new low with price, the selling into that low was absorbed (bullish divergence); if the CVD makes its new low alongside price, nothing absorbed anything and the move is simply working. Same wick, opposite flow. And this is confluence, not certainty: it is one more independent lens agreeing, which still needs a level and a stop."
+  es: "Este es el problema de m09 con una medición puesta. Una estocada a un mínimo nuevo se ve idéntica sea un spring o una ruptura bajista genuina: esa era la dificultad honesta que te dejaba la lección de Wyckoff. El flujo los separa: si el CVD se niega a hacer un mínimo nuevo con el precio, la venta contra ese mínimo fue absorbida (divergencia alcista); si el CVD hace su mínimo nuevo junto al precio, nada absorbió nada y el movimiento simplemente está funcionando. La misma mecha, el flujo opuesto. Y esto es confluencia, no certeza: es una lente independiente más que coincide, y sigue necesitando un nivel y un stop."

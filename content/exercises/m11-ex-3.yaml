@@ -142,6 +142,69 @@ variants:
     explanation:
       en: "RSI is a bounded (0–100), 14-bar-by-default measure of how lopsided recent up- and down-moves have been. It says nothing about 'fair value' — that fourth idea is the classic misconception."
       es: "El RSI es una medida acotada (0 a 100), de 14 velas por defecto, de cómo de desequilibradas han sido las subidas y bajadas recientes. No dice nada sobre el 'valor justo': esa cuarta idea es la confusión clásica."
+  - id: macd-zero-line-means
+    prompt:
+      en: "The MACD line crosses from below zero to above it. What has just happened, mechanically?"
+      es: "La línea MACD cruza de estar por debajo de cero a estar por encima. ¿Qué ha ocurrido, mecánicamente?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The fast (12) EMA has crossed above the slow (26) EMA — the two averages have swapped order."
+          es: "La EMA rápida (12) ha cruzado por encima de la lenta (26): las dos medias han intercambiado su orden."
+      - id: b
+        text:
+          en: "The MACD line has crossed above its signal line."
+          es: "La línea MACD ha cruzado por encima de su línea de señal."
+      - id: c
+        text:
+          en: "The RSI has crossed above 50."
+          es: "El RSI ha cruzado por encima de 50."
+      - id: d
+        text:
+          en: "Price has crossed above its all-time high."
+          es: "El precio ha cruzado por encima de su máximo histórico."
+    explanation:
+      en: "The MACD line IS the fast EMA minus the slow EMA, so the line at zero means the two are equal and a cross of zero means they changed order. That is m10's golden cross on the 12/26 pair — a change of trend regime, and a different, higher-order event from a cross of the signal line (which only means the MACD line turned relative to its own average)."
+      es: "La línea MACD ES la EMA rápida menos la lenta, así que la línea en cero significa que ambas son iguales y que cruce el cero significa que cambiaron de orden. Ese es el cruce dorado de m10 sobre el par 12/26: un cambio de régimen de tendencia, y un evento distinto y de orden superior al cruce de la línea de señal (que solo significa que la línea MACD giró respecto a su propia media)."
+  - id: hist-zero-is-cross
+    kind: true_false
+    prompt:
+      en: "The MACD histogram reaching zero and the MACD line crossing its signal line are the same event."
+      es: "Que el histograma del MACD llegue a cero y que la línea MACD cruce su línea de señal son el mismo evento."
+    answer: true
+    explanation:
+      en: "The histogram IS the MACD line minus the signal line, so it is zero exactly when the two lines are equal — the instant of the cross. That is why a shrinking histogram is an early warning: it is the gap closing, and the flip is arithmetic once it reaches zero."
+      es: "El histograma ES la línea MACD menos la línea de señal, así que vale cero exactamente cuando las dos líneas son iguales: el instante del cruce. Por eso un histograma que se encoge es un aviso temprano: es la distancia cerrándose, y el cambio de signo es aritmética en cuanto llega a cero."
+  - id: macd-cross-order
+    kind: ordering
+    prompt:
+      en: "A downtrend turns for real. Put these MACD events in the order they must happen, first to last."
+      es: "Una tendencia bajista gira de verdad. Ordena estos eventos del MACD según el orden en que deben ocurrir, del primero al último."
+    items:
+      - id: line-turns
+        position: 1
+        text:
+          en: "The MACD line stops falling and turns up, still well below zero."
+          es: "La línea MACD deja de caer y gira al alza, todavía muy por debajo de cero."
+      - id: hist-shrinks
+        position: 2
+        text:
+          en: "The negative histogram starts shrinking as the MACD line closes on its signal."
+          es: "El histograma negativo empieza a encogerse mientras la línea MACD se acerca a su señal."
+      - id: signal-cross
+        position: 3
+        text:
+          en: "The histogram flips positive: the MACD line crosses above its signal line."
+          es: "El histograma pasa a positivo: la línea MACD cruza por encima de su línea de señal."
+      - id: zero-cross
+        position: 4
+        text:
+          en: "The MACD line reaches and crosses zero: the 12-EMA crosses above the 26-EMA."
+          es: "La línea MACD llega y cruza el cero: la EMA de 12 cruza por encima de la de 26."
+    explanation:
+      en: "The MACD line has to turn before it can close the gap to its own lagging average, so the histogram shrinks before it flips, and the flip (the signal cross) comes before the MACD line has climbed all the way to zero. That ordering is why the signal cross is the earlier, noisier clue and the zero cross the later, heavier confirmation."
+      es: "La línea MACD tiene que girar antes de poder cerrar la distancia con su propia media rezagada, así que el histograma se encoge antes de cambiar de signo, y ese cambio (el cruce de señal) llega antes de que la línea MACD haya escalado hasta el cero. Ese orden es la razón por la que el cruce de señal es la pista temprana y ruidosa, y el cruce de cero la confirmación tardía y de más peso."
   - id: macd-build
     kind: ordering
     prompt:

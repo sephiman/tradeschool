@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: net_delta
+prompt:
+  en: "Over one hour a perpetual trades **{taker_buy} contracts** on the taker-buy side (someone lifted the offer) and **{taker_sell} contracts** on the taker-sell side. What was the net delta for that hour?"
+  es: "Durante una hora un perpetuo negocia **{taker_buy} contratos** por el lado de compra taker (alguien barrió la oferta) y **{taker_sell} contratos** por el lado de venta taker. ¿Cuál fue el delta neto de esa hora?"
+params:
+  taker_buy: { kind: int_range, min: 1100, max: 1500, step: 50 }
+  taker_sell: { kind: int_range, min: 400, max: 700, step: 50 }
+tolerance: { abs: "1" }
+round: 2
+unit: contracts
+explanation:
+  en: "Delta subtracts the two taker sides; total volume adds them. Both figures describe the same hour and they answer different questions: the volume bar would show you roughly 1,800 contracts of participation, while the delta tells you the impatience in that hour leaned to the buy side. Note what the delta still does not tell you — whether price actually rose. Aggressive buying met by a large resting seller is absorption, and it can leave price flat or lower on a strongly positive delta."
+  es: "El delta resta los dos lados taker; el volumen total los suma. Las dos cifras describen la misma hora y responden preguntas distintas: la barra de volumen te mostraría unos 1.800 contratos de participación, mientras el delta te dice que la impaciencia de esa hora se inclinaba al lado comprador. Fíjate en lo que el delta sigue sin decirte: si el precio subió de verdad. Una compra agresiva que se encuentra con un gran vendedor en reposo es absorción, y puede dejar el precio plano o más abajo con un delta claramente positivo."

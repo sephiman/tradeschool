@@ -48,6 +48,7 @@ export function LessonFigure({ id }: { id: string }) {
               rsi={p.rsi}
               macd={p.macd}
               oi={p.oi}
+              cvd={p.cvd}
               overlays={p.overlays}
               levels={p.levels}
               indicator={p.indicator}

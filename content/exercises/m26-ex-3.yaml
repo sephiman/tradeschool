@@ -1,0 +1,176 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: cvd-definition
+    prompt:
+      en: "What exactly is plotted when a chart shows a CVD line?"
+      es: "¿Qué se dibuja exactamente cuando un gráfico muestra una línea de CVD?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A running sum of each period's delta (taker buys minus taker sells) from some starting point."
+          es: "Una suma corriente del delta de cada periodo (compras taker menos ventas taker) desde algún punto de partida."
+      - id: b
+        text:
+          en: "A running sum of total volume, so the line only ever climbs."
+          es: "Una suma corriente del volumen total, así que la línea solo puede subir."
+      - id: c
+        text:
+          en: "A moving average of volume, smoothed the way RSI smooths price."
+          es: "Una media móvil del volumen, suavizada como el RSI suaviza el precio."
+      - id: d
+        text:
+          en: "The difference between the perpetual's price and spot, accumulated over the session."
+          es: "La diferencia entre el precio del perpetuo y el spot, acumulada a lo largo de la sesión."
+    explanation:
+      en: "CVD accumulates delta, not volume — which is why it can fall as well as rise. A running total of volume could only ever climb and would tell you nothing about direction of pressure. Because delta subtracts the two taker sides, the accumulated line trends, consolidates and makes swings much like a price series, which is what makes structural reading work on it."
+      es: "El CVD acumula el delta, no el volumen, y por eso puede bajar además de subir. Un total corriente de volumen solo podría subir y no te diría nada sobre la dirección de la presión. Como el delta resta los dos lados taker, la línea acumulada tiene tendencia, se consolida y hace swings muy parecidos a una serie de precio, y eso es lo que hace que funcione la lectura estructural sobre ella."
+  - id: cvd-level-is-arbitrary
+    kind: true_false
+    prompt:
+      en: "Today's CVD reads +48,000 and last month's read +12,000, so there is roughly four times more buying pressure now than then."
+      es: "El CVD de hoy marca +48.000 y el del mes pasado marcaba +12.000, así que ahora hay unas cuatro veces más presión compradora que entonces."
+    answer: false
+    explanation:
+      en: "False. A CVD's level depends entirely on when you started counting, so it is arbitrary — that is why a CVD pane rarely has a meaningful zero of its own. What you read is its shape: is it climbing, falling, flat, and where did it turn? Comparing where it is now against where it was at the last swing is the whole technique; comparing absolute levels across different starting points is meaningless."
+      es: "Falso. El nivel de un CVD depende por completo de cuándo empezaste a contar, así que es arbitrario; por eso un panel de CVD raramente tiene un cero propio con significado. Lo que se lee es su forma: ¿sube, baja, está plano, y dónde giró? Comparar dónde está ahora con dónde estaba en el último swing es toda la técnica; comparar niveles absolutos entre puntos de partida distintos no significa nada."
+  - id: flat-price-rising-cvd
+    prompt:
+      en: "Price has been flat for two hours while the CVD climbs steadily. What is the most useful reading?"
+      es: "El precio lleva dos horas plano mientras el CVD sube de forma sostenida. ¿Cuál es la lectura más útil?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Aggressive buyers are pressing and something is taking the other side of all of it — absorption, now visible rather than inferred."
+          es: "Los compradores agresivos están presionando y algo está tomando el otro lado de todo eso: absorción, ahora visible en vez de deducida."
+      - id: b
+        text:
+          en: "A rally is guaranteed once the accumulated buying pressure is released."
+          es: "Una subida está garantizada en cuanto se libere la presión compradora acumulada."
+      - id: c
+        text:
+          en: "The CVD data is faulty — a climbing CVD with flat price is arithmetically impossible."
+          es: "Los datos del CVD son erróneos: un CVD que sube con el precio plano es aritméticamente imposible."
+      - id: d
+        text:
+          en: "Nothing at all; CVD is only meaningful when it moves in the same direction as price."
+          es: "Nada en absoluto; el CVD solo tiene sentido cuando se mueve en la misma dirección que el precio."
+    explanation:
+      en: "This is the upgrade CVD gives you over m14. There, absorption was an inference from a tall volume bar with no range — you could not see it, because volume counts both sides identically. Here you can: buyers really are pressing, and price not moving means a large resting seller is comfortably taking all of it. That often precedes a move in the absorber's direction, which is the opposite of the naive read — and it is a clue, not a receipt."
+      es: "Esta es la mejora que te da el CVD frente a m14. Allí la absorción era una inferencia a partir de una barra de volumen alta sin rango: no podías verla, porque el volumen cuenta los dos lados igual. Aquí sí: los compradores están presionando de verdad, y que el precio no se mueva significa que un gran vendedor en reposo se lo está quedando todo cómodamente. Eso suele preceder a un movimiento en la dirección de quien absorbe, que es lo contrario de la lectura ingenua; y es una pista, no un recibo."
+  - id: three-cases
+    kind: matching
+    prompt:
+      en: "Match each price-and-CVD combination to its reading."
+      es: "Empareja cada combinación de precio y CVD con su lectura."
+    pairs:
+      - id: bull
+        left:
+          en: "Price makes a lower low, CVD makes a higher low"
+          es: "El precio hace un mínimo más bajo, el CVD hace un mínimo más alto"
+        right:
+          en: "Bullish divergence — the selling into that low is being absorbed"
+          es: "Divergencia alcista: la venta contra ese mínimo está siendo absorbida"
+      - id: bear
+        left:
+          en: "Price makes a higher high, CVD makes a lower high"
+          es: "El precio hace un máximo más alto, el CVD hace un máximo más bajo"
+        right:
+          en: "Bearish divergence — the new peak was bought with less aggression"
+          es: "Divergencia bajista: el nuevo techo se compró con menos agresión"
+      - id: confirm
+        left:
+          en: "Price makes a lower low, CVD makes a lower low with it"
+          es: "El precio hace un mínimo más bajo, el CVD hace un mínimo más bajo con él"
+        right:
+          en: "No divergence — a flow-backed move, nothing absorbed it"
+          es: "Sin divergencia: un movimiento respaldado por el flujo, nada lo absorbió"
+    explanation:
+      en: "A divergence is a disagreement, so you have to know what agreement looks like or you will find divergences everywhere. The third case is the most common of the three: sellers pressed, nobody meaningful stood in the way, and price went where the pressure sent it. Labelling that a divergence because you were hoping for one is the classic error."
+      es: "Una divergencia es un desacuerdo, así que tienes que saber qué aspecto tiene el acuerdo o encontrarás divergencias por todas partes. El tercer caso es el más común de los tres: los vendedores presionaron, nadie relevante se puso en medio y el precio fue donde lo mandó la presión. Etiquetar eso como divergencia porque esperabas una es el error clásico."
+  - id: cvd-vs-volume
+    prompt:
+      en: "m14 already taught you to read volume against its average. What can CVD tell you that a volume bar structurally cannot?"
+      es: "m14 ya te enseñó a leer el volumen contra su media. ¿Qué te puede decir el CVD que una barra de volumen, por su estructura, no puede?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Which side was paying for immediacy, and for how long — volume counts both sides of every trade equally, so it can only measure participation."
+          es: "Qué lado estaba pagando por la inmediatez, y durante cuánto tiempo: el volumen cuenta por igual los dos lados de cada operación, así que solo puede medir participación."
+      - id: b
+        text:
+          en: "How large the next move will be, since accumulated pressure has to be released eventually."
+          es: "Lo grande que será el siguiente movimiento, ya que la presión acumulada tiene que liberarse en algún momento."
+      - id: c
+        text:
+          en: "Nothing extra — CVD is just volume with a longer lookback period."
+          es: "Nada extra: el CVD es solo volumen con un periodo de referencia más largo."
+      - id: d
+        text:
+          en: "Where the resting limit orders are sitting in the order book."
+          es: "Dónde están las órdenes limitadas en reposo en el libro de órdenes."
+    explanation:
+      en: "Volume is a total and CVD is an accumulated difference, and that is the whole distinction. A tall volume bar means many people traded; it cannot say who was pressing, because every trade has a buyer and a seller. Note that resting orders are a different subject again — that is the order book (m27), which is intention rather than executed flow."
+      es: "El volumen es un total y el CVD una diferencia acumulada, y esa es toda la distinción. Una barra de volumen alta significa que operó mucha gente; no puede decir quién presionaba, porque toda operación tiene comprador y vendedor. Ojo: las órdenes en reposo son otro asunto distinto, ese es el libro de órdenes (m27), que es intención y no flujo ejecutado."
+  - id: build-a-cvd
+    kind: ordering
+    prompt:
+      en: "Put the steps in order for building a CVD line from a venue's raw trade feed."
+      es: "Ordena los pasos para construir una línea de CVD a partir del flujo de operaciones bruto de un sitio."
+    items:
+      - id: label
+        position: 1
+        text:
+          en: "For each trade, record which side was the taker (the aggressor)"
+          es: "Para cada operación, registra qué lado era el taker (el agresor)"
+      - id: bucket
+        position: 2
+        text:
+          en: "Within each period, total the taker-buy volume and the taker-sell volume separately"
+          es: "Dentro de cada periodo, suma por separado el volumen de compra taker y el de venta taker"
+      - id: delta
+        position: 3
+        text:
+          en: "Subtract to get that period's delta"
+          es: "Resta para obtener el delta de ese periodo"
+      - id: accumulate
+        position: 4
+        text:
+          en: "Keep a running sum of the deltas from your chosen starting point"
+          es: "Mantén una suma corriente de los deltas desde el punto de partida que elijas"
+      - id: plot
+        position: 5
+        text:
+          en: "Plot that running sum as a line and read it against price"
+          es: "Dibuja esa suma corriente como una línea y léela contra el precio"
+    explanation:
+      en: "The taker labelling in step 1 is what makes the whole thing possible, and it is also the step whose quality varies by venue: major exchanges label it directly, elsewhere it is estimated. Step 5 matters as much as the rest — a CVD pane read on its own is nearly useless, because the information is in the disagreement between the two lines."
+      es: "El etiquetado del taker del paso 1 es lo que hace posible todo lo demás, y es también el paso cuya calidad varía según el sitio: los exchanges grandes lo etiquetan directamente, en otros se estima. El paso 5 importa tanto como el resto: un panel de CVD leído por sí solo es casi inútil, porque la información está en el desacuerdo entre las dos líneas."
+  - id: spring-confirmation
+    prompt:
+      en: "m09 said you can only call a stab below support a 'spring' after price recovers — live, it looks identical to a genuine breakdown. How does CVD help with exactly that problem?"
+      es: "m09 decía que solo puedes llamar 'spring' a una estocada bajo el soporte después de que el precio se recupere: en vivo se ve idéntica a una ruptura bajista genuina. ¿Cómo ayuda el CVD justo con ese problema?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "On a spring the CVD refuses to make a new low with price (the selling was absorbed); on a real breakdown it makes its new low alongside price."
+          es: "En un spring el CVD se niega a hacer un mínimo nuevo con el precio (la venta fue absorbida); en una ruptura real hace su mínimo nuevo junto al precio."
+      - id: b
+        text:
+          en: "It removes the ambiguity entirely, so the spring can be identified with certainty as it happens."
+          es: "Elimina la ambigüedad por completo, así que el spring se puede identificar con certeza mientras ocurre."
+      - id: c
+        text:
+          en: "It doesn't — CVD only works in trends, never inside the trading range where a spring occurs."
+          es: "No ayuda: el CVD solo funciona en tendencias, nunca dentro del rango de negociación donde ocurre un spring."
+      - id: d
+        text:
+          en: "It tells you the exact price the spring will reverse from, which is what m09 was missing."
+          es: "Te dice el precio exacto desde el que girará el spring, que es lo que le faltaba a m09."
+    explanation:
+      en: "The wick looks the same in both cases; the flow does not. A spring is selling being absorbed, so the CVD should show the absorption — price takes out the low while the CVD declines to follow. A genuine breakdown has the CVD making its new low with price, because nothing absorbed anything. This is confluence in m14's sense — one more independent lens agreeing — and emphatically not certainty: it still needs the test to hold, a level, and a stop."
+      es: "La mecha se ve igual en los dos casos; el flujo no. Un spring es venta siendo absorbida, así que el CVD debería mostrar la absorción: el precio se lleva el mínimo mientras el CVD se niega a seguirlo. Una ruptura bajista genuina tiene el CVD haciendo su mínimo nuevo con el precio, porque nada absorbió nada. Esto es confluencia en el sentido de m14 —una lente independiente más que coincide— y desde luego no es certeza: sigue necesitando que el test aguante, un nivel y un stop."

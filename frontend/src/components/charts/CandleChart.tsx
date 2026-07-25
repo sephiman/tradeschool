@@ -69,6 +69,7 @@ const palette = (dark: boolean) => ({
   indicator: "#6366f1",
   signal: "#f59e0b",
   oi: "#0891b2",
+  cvd: "#0d9488",
   marker: dark ? "#e5e7eb" : "#111827",
   // Distinct thin-line colors for price-pane overlays (e.g. moving averages), cycled by order.
   overlays: dark ? ["#60a5fa", "#c084fc", "#22d3ee", "#facc15"] : ["#2563eb", "#9333ea", "#0891b2", "#ca8a04"],
@@ -87,6 +88,7 @@ export function CandleChart({
   rsi,
   macd,
   oi,
+  cvd,
   indicator,
   markers = [],
   overlays,
@@ -98,7 +100,8 @@ export function CandleChart({
   rsi?: number[];
   macd?: MacdData;
   oi?: number[];
-  indicator: "rsi" | "macd" | "oi" | "none";
+  cvd?: number[];
+  indicator: "rsi" | "macd" | "oi" | "cvd" | "none";
   markers?: SwingMarker[];
   overlays?: Record<string, number[]>;
   levels?: PriceLevel[];
@@ -214,12 +217,15 @@ export function CandleChart({
       chart.addSeries(HistogramSeries, { priceLineVisible: false, lastValueVisible: false }, 2).setData(
         macd.hist.map((v, i) => ({ time: t(i), value: v, color: v >= 0 ? c.upVol : c.downVol })),
       );
-      chart.addSeries(LineSeries, { color: c.indicator, lineWidth: 2, priceLineVisible: false }, 2).setData(
-        macd.line.map((v, i) => ({ time: t(i), value: v })),
-      );
+      const macdLine = chart.addSeries(LineSeries, { color: c.indicator, lineWidth: 2, priceLineVisible: false }, 2);
+      macdLine.setData(macd.line.map((v, i) => ({ time: t(i), value: v })));
       chart.addSeries(LineSeries, { color: c.signal, lineWidth: 1, priceLineVisible: false }, 2).setData(
         macd.signal.map((v, i) => ({ time: t(i), value: v })),
       );
+      // Zero is the line the pane is read against: above it the fast EMA leads the slow one, below it
+      // trails. A cross OF it is a regime change, not the momentum wobble a signal-line cross is (m11),
+      // so it needs to be visible — a guide line, like the RSI's 30/70, with no axis label.
+      macdLine.createPriceLine({ price: 0, color: c.border, lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: "" });
     } else if (indicator === "rsi" && rsi) {
       const line = chart.addSeries(
         LineSeries,
@@ -245,6 +251,17 @@ export function CandleChart({
         2,
       );
       line.setData(oi.map((v, i) => ({ time: t(i), value: v })));
+    } else if (indicator === "cvd" && cvd) {
+      // Cumulative volume delta: an auto-scaled line like OI, but read against ZERO — the series is
+      // net taker flow accumulated since the window opened, so which side of zero it sits on (and
+      // where it turns) is the reading. Hence the guide line OI does not need.
+      const line = chart.addSeries(
+        LineSeries,
+        { color: c.cvd, lineWidth: 2, priceLineVisible: false, lastValueVisible: false, title: "CVD" },
+        2,
+      );
+      line.setData(cvd.map((v, i) => ({ time: t(i), value: v })));
+      line.createPriceLine({ price: 0, color: c.border, lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: "" });
     }
 
     if (markers.length > 0) {
@@ -275,7 +292,7 @@ export function CandleChart({
     chart.timeScale().setVisibleLogicalRange({ from: -0.5, to: series.close.length - 0.5 + rightOffset });
 
     return () => chart.remove();
-  }, [series, rsi, macd, oi, indicator, markers, overlays, levels, resolvedTheme, locale, rightOffset, t]);
+  }, [series, rsi, macd, oi, cvd, indicator, markers, overlays, levels, resolvedTheme, locale, rightOffset, t]);
 
   return <div ref={containerRef} style={{ height }} className="w-full" />;
 }

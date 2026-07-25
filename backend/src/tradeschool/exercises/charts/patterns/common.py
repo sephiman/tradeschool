@@ -63,11 +63,23 @@ def bounded_noise(rng: np.random.Generator, n: int, amp: float, base_sigma: floa
     return noise * (amp / peak) if peak > 0 else noise
 
 
-def with_warmup(rng: np.random.Generator, close_visible: Floats) -> Floats:
+def with_warmup(
+    rng: np.random.Generator, close_visible: Floats, drift: float = 0.0, sigma: float = 0.008
+) -> Floats:
     """Prepend WARMUP gentle candles that connect into the visible series purely to converge the
-    oscillators. Dropped from what the learner sees."""
-    walk = np.cumsum(rng.normal(0.0, 0.008, WARMUP + 1))
+    oscillators. Dropped from what the learner sees.
+
+    `drift` ramps the warm-up in log-price so it *arrives* already trending (it starts `drift` below
+    the visible open and ends at it), and `sigma` sets its candle noise. Both default to the original
+    flat, driftless walk, so every existing injector is byte-identical. They exist for the one case
+    where the visible reading needs the indicator to ALREADY have a settled sign at the left edge:
+    m11's MACD crossovers, where a flat warm-up leaves the MACD line wandering across zero there and
+    would show a stray crossing the label never claimed.
+    """
+    walk = np.cumsum(rng.normal(0.0, sigma, WARMUP + 1))
     walk = walk - walk[-1]  # end the warm-up at ~close_visible[0]
+    if drift:
+        walk = walk + drift * (np.linspace(0.0, 1.0, WARMUP + 1) - 1.0)
     warm = close_visible[0] * np.exp(walk[:WARMUP])
     return np.concatenate([warm, close_visible])
 
@@ -106,6 +118,27 @@ def append_resolution(
     ramp = direction * strength * np.linspace(0.0, 1.0, length)
     leg = np.exp(start + ramp + bounded_noise(rng, length, amp=0.012))
     return np.concatenate([close, leg])
+
+
+def append_linear_continuation(
+    rng: np.random.Generator, values: Floats, direction: float, strength: float, length: int
+) -> Floats:
+    """`append_resolution` for a series that lives in LINEAR space and may sit at or below zero.
+
+    The price/OI version builds its leg as ``exp(log(last) + ramp)``, which is meaningless for a
+    cumulative volume delta: a CVD is a running sum of signed flow anchored at 0, so it is routinely
+    negative and ``log`` of it is not a number. Here the leg is a straight ramp of `strength` x the
+    series' own visible amplitude, plus proportional texture. Figure-only, like `append_resolution`.
+    """
+    last = float(values[-1])
+    span = float(np.max(values) - np.min(values))
+    scale = span if span > 0 else max(abs(last), 1.0)
+    if direction == 0:
+        leg = last + rng.normal(0.0, 0.02 * scale, length)
+        return np.concatenate([values, leg])
+    ramp = direction * strength * scale * np.linspace(0.0, 1.0, length)
+    leg = last + ramp + rng.normal(0.0, 0.02 * scale, length)
+    return np.concatenate([values, leg])
 
 
 def resolve_swing(close: Floats, idx: int, kind: str, w: int = 3) -> int:

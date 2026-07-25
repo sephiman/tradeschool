@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: cvd_divergence
+n: 130
+indicator: cvd
+targets: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
+choices: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
+prompt:
+  en: "Price makes a second extreme of the same kind late in this window. Compare the **CVD** in the lower pane at those two swings: does the aggression refuse to follow price into its new extreme, or does it make its own new extreme with it?"
+  es: "El precio hace un segundo extremo del mismo tipo cerca del final de esta ventana. Compara el **CVD** del panel inferior en esos dos swings: ¿se niega la agresión a seguir al precio hasta su extremo nuevo, o hace su propio extremo nuevo con él?"
+explanation:
+  en: "Read the two swings, not the line's overall slope. Price makes a lower low while CVD makes a higher low = bullish divergence: sellers reached further and gave up ground in flow to do it, so their supply is being absorbed. Price makes a higher high while CVD makes a lower high = bearish divergence: the new peak was bought with less aggression than the last one. If CVD makes its new extreme alongside price there is no divergence at all — that is a flow-backed move, the most common of the three, and calling it a divergence because you wanted one is the mistake this exercise trains out."
+  es: "Lee los dos swings, no la pendiente general de la línea. El precio hace un mínimo más bajo mientras el CVD hace un mínimo más alto = divergencia alcista: los vendedores llegaron más lejos y cedieron terreno en flujo para conseguirlo, así que su oferta está siendo absorbida. El precio hace un máximo más alto mientras el CVD hace un máximo más bajo = divergencia bajista: el nuevo techo se compró con menos agresión que el anterior. Si el CVD hace su extremo nuevo junto al precio no hay divergencia ninguna: es un movimiento respaldado por el flujo, el más común de los tres, y llamarlo divergencia porque querías una es el error que este ejercicio te quita."

@@ -33,7 +33,7 @@ class PatternChartConfig(BaseModel):
     prompt: LocalizedText
     injector: str
     n: int = 160
-    indicator: Literal["rsi", "macd", "none", "oi"] | None = None
+    indicator: Literal["rsi", "macd", "none", "oi", "cvd"] | None = None
     targets: list[str]
     choices: list[str]
     explanation: LocalizedText | None = None
@@ -73,6 +73,7 @@ class FullPatternChart:
     levels: list[dict[str, object]]
     annotations: list[dict[str, object]]  # visible coords
     oi: list[float]  # full-length open-interest series (empty unless the injector supplies it)
+    cvd: list[float]  # full-length cumulative-volume-delta series (empty unless supplied)
 
 
 def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
@@ -100,6 +101,7 @@ def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
         macd_hist=[round(float(x), 4) for x in hist],
         overlays={k: [round(float(x), 2) for x in v] for k, v in result.overlays.items()},
         oi=([round(float(x), 2) for x in result.oi_full.tolist()] if result.oi_full is not None else []),
+        cvd=([round(float(x), 2) for x in result.cvd_full.tolist()] if result.cvd_full is not None else []),
         levels=[{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels],
         annotations=[
             {"index": a.index - w, "kind": a.kind, "label": a.label}
@@ -130,6 +132,8 @@ def _instantiate(
     }
     if f.oi:
         payload["oi"] = f.oi[w:]
+    if f.cvd:
+        payload["cvd"] = f.cvd[w:]
     return f.label, f.annotations, payload
 
 

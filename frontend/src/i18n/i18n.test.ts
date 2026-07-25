@@ -19,8 +19,10 @@ const DIVERGENCE_LABELS = ["none", "bullish_regular", "bearish_regular", "bullis
 const CHART_LABELS = [
   "genuine_breakout", "false_break", "no_break", "accumulation", "distribution", "none",
   "uptrend", "downtrend", "range", "overbought", "oversold", "neutral",
+  "signal_cross", "zero_cross", "whipsaw",
   "retrace_382", "retrace_500", "retrace_618", "confirmed_breakout", "unconfirmed_breakout",
   "rising_oi", "falling_oi", "flat_oi",
+  "cvd_bullish_divergence", "cvd_bearish_divergence", "cvd_confirms",
   "rejection_at_level", "overrun_at_level", "open_space", "indecision",
 ];
 

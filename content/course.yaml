@@ -282,8 +282,10 @@ blocks:
       en: 'Oscillators: RSI and MACD'
       es: 'Osciladores: RSI y MACD'
     summary:
-      en: What they actually compute, the overbought/oversold lie in strong trends, histogram and crosses.
-      es: Qué calculan de verdad, la mentira de sobrecompra/sobreventa en tendencias fuertes, histograma y cruces.
+      en: What they actually compute, the overbought/oversold lie in strong trends, the histogram, and
+        signal-line vs zero-line crosses read in context.
+      es: Qué calculan de verdad, la mentira de sobrecompra/sobreventa en tendencias fuertes, el histograma
+        y los cruces de la línea de señal frente a los de la línea de cero, leídos en su contexto.
     assumes:
     - m10
     lessons:
@@ -295,6 +297,8 @@ blocks:
       - id: m11-ex-1
         type: pattern_chart
       - id: m11-ex-2
+        type: pattern_chart
+      - id: m11-ex-5
         type: pattern_chart
       - id: m11-ex-3
         type: quiz
@@ -640,4 +644,108 @@ blocks:
       - id: m24-ex-4
         type: quiz
       - id: m24-ex-5
+        type: quiz
+- id: block-f
+  title:
+    en: Order flow and microstructure
+    es: Flujo de órdenes y microestructura
+  modules:
+  - id: m25
+    title:
+      en: What order flow adds
+      es: Qué añade el flujo de órdenes
+    summary:
+      en: 'A candle is an aggregate that hides who was pressing: maker vs taker, the aggressor, and delta as the number OHLCV throws away. Plus the block''s own map — what it teaches with generated charts and what it honestly cannot.'
+      es: 'Una vela es un agregado que esconde quién presionaba: maker vs taker, el agresor y el delta como el número que el OHLCV descarta. Además el mapa del bloque: qué enseña con gráficos generados y qué, honestamente, no puede.'
+    assumes:
+    - m03
+    lessons:
+    - id: m25-l1
+      title:
+        en: What order flow adds
+        es: Qué añade el flujo de órdenes
+      exercises:
+      - id: m25-ex-1
+        type: quiz
+      - id: m25-ex-2
+        type: calculation
+  - id: m26
+    title:
+      en: 'CVD: construction and divergence'
+      es: 'CVD: construcción y divergencia'
+    summary:
+      en: Cumulative volume delta — how it is built, what it adds over raw volume, and CVD divergence as absorption made visible instead of inferred, which is the confirmation m09's spring was missing.
+      es: 'Delta de volumen acumulado: cómo se construye, qué añade frente al volumen bruto y la divergencia de CVD como absorción visible en lugar de deducida, que es la confirmación que le faltaba al spring de m09.'
+    assumes:
+    - m09
+    - m12
+    - m14
+    lessons:
+    - id: m26-l1
+      title:
+        en: 'CVD: construction and divergence'
+        es: 'CVD: construcción y divergencia'
+      exercises:
+      - id: m26-ex-1
+        type: pattern_chart
+      - id: m26-ex-2
+        type: pattern_chart
+      - id: m26-ex-3
+        type: quiz
+  - id: m27
+    title:
+      en: 'The order book: depth and imbalance'
+      es: 'El libro de órdenes: profundidad y desequilibrio'
+    summary:
+      en: Resting orders rather than executed trades — depth and slippage, walls, spoofing and icebergs, imbalance as a crowding read, and the mechanism behind m15's thinning book before a scheduled release. Conceptual, with the real tools named.
+      es: 'Órdenes en reposo en lugar de operaciones ejecutadas: profundidad y slippage, muros, spoofing e icebergs, el desequilibrio como lectura de saturación y el mecanismo detrás del libro que se adelgaza antes de una publicación programada en m15. Conceptual, con las herramientas reales nombradas.'
+    assumes:
+    - m08
+    - m15
+    lessons:
+    - id: m27-l1
+      title:
+        en: 'The order book: depth and imbalance'
+        es: 'El libro de órdenes: profundidad y desequilibrio'
+      exercises:
+      - id: m27-ex-1
+        type: quiz
+      - id: m27-ex-2
+        type: quiz
+  - id: m28
+    title:
+      en: Premium between venues
+      es: La prima entre sitios
+    summary:
+      en: The same coin priced differently on two exchanges — regional demand versus transfer friction as two distinct causes, what a sustained or widening premium signals, and why arbitrage caps a premium rather than erasing it.
+      es: 'La misma moneda con precios distintos en dos exchanges: demanda regional frente a fricción de transferencia como dos causas distintas, qué señala una prima sostenida o que se ensancha, y por qué el arbitraje topa una prima en vez de borrarla.'
+    assumes:
+    - m17
+    lessons:
+    - id: m28-l1
+      title:
+        en: Premium between venues
+        es: La prima entre sitios
+      exercises:
+      - id: m28-ex-1
+        type: calculation
+      - id: m28-ex-2
+        type: quiz
+  - id: m29
+    title:
+      en: Footprint charts and volume profile
+      es: Gráficos de footprint y perfil de volumen
+    summary:
+      en: Volume organised by price instead of by time — what a footprint shows inside a single candle, what a volume profile's POC and value area replace hand-drawn levels with, and an honest account of why this course does not generate either.
+      es: 'El volumen organizado por precio en lugar de por tiempo: qué muestra un footprint dentro de una sola vela, con qué sustituyen el POC y el área de valor de un perfil de volumen a los niveles trazados a mano, y una explicación honesta de por qué este curso no genera ninguno de los dos.'
+    assumes:
+    - m26
+    - m27
+    lessons:
+    - id: m29-l1
+      title:
+        en: Footprint charts and volume profile
+        es: Gráficos de footprint y perfil de volumen
+      exercises:
+      - id: m29-ex-1
         type: quiz

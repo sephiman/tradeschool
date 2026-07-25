@@ -1,0 +1,39 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m11-cross-in-trend-vs-range
+kind: chart
+caption:
+  en: 'Left: signal-line crosses inside an established uptrend. Each pullback dips the
+    MACD line under its signal and turns the histogram negative, but the MACD line never
+    reaches zero — the fast and slow EMAs never swap order, so the trend was never in
+    question — and the last cross marks it resuming; the continuation follows and the
+    histogram grows. Right: the same bullish cross inside a range. Here the MACD line
+    saws across zero, this cross is one of many, and every earlier one reversed straight
+    into the next. Same event, opposite worth: the context, not the crossover, does the work.'
+  es: 'Izquierda: cruces de la línea de señal dentro de una tendencia alcista establecida.
+    Cada retroceso hunde la línea MACD por debajo de su señal y pone el histograma en
+    negativo, pero la línea MACD nunca llega a cero —las EMAs rápida y lenta nunca
+    intercambian su orden, así que la tendencia nunca estuvo en duda— y el último cruce
+    marca su reanudación; la continuación llega y el histograma crece. Derecha: el mismo
+    cruce alcista dentro de un rango. Aquí la línea MACD sierra el cero, este cruce es
+    uno de muchos y cada uno de los anteriores se dio la vuelta directo hacia el siguiente.
+    El mismo evento, valor opuesto: el contexto, no el cruce, es lo que hace el trabajo.'
+panels:
+- generator: pattern_chart
+  injector: macd_cross
+  target: signal_cross
+  seed: 12
+  n: 150
+  indicator: macd
+  show_resolution: true
+  resolution:
+    direction: up
+    strength: 0.1
+- generator: pattern_chart
+  injector: macd_cross
+  target: whipsaw
+  seed: 4
+  n: 150
+  indicator: macd
+  show_resolution: true
+  resolution:
+    direction: flat
