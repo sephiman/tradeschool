@@ -180,3 +180,27 @@ variants:
     explanation:
       en: "This is m22's sample-size problem sharpened: a dozen trades can easily produce a +1,4R average by chance, and the temptation is to declare the tier ladder proven on exactly the lucky run that made you feel like a grader. Grade at a flat 1% until the per-grade samples are real."
       es: "Es el problema del tamaño de muestra de m22 agudizado: una docena de operaciones puede dar una media de +1,4R por puro azar, y la tentación es declarar la escala probada justo con la racha de suerte que te hizo sentirte capaz de calificar. Califica con un 1% plano hasta que las muestras por calificación sean reales."
+  - id: validation-stages-match
+    kind: matching
+    prompt:
+      en: "Match each stage of validating a new system to what it can and cannot prove."
+      es: "Empareja cada etapa de validar un sistema nuevo con lo que puede y no puede demostrar."
+    pairs:
+      - id: demo
+        left: { en: "Paper or demo trading", es: "Operar en papel o en demo" }
+        right:
+          en: "Validates the process — can you find setups, size correctly, follow the plan — but not the psychology: no real slippage and, more importantly, no real fear."
+          es: "Valida el proceso (¿sabes encontrar setups, dimensionar bien, seguir el plan?), pero no la psicología: sin slippage real y, más importante, sin miedo real."
+      - id: small
+        left: { en: "The smallest real size the exchange allows", es: "El tamaño real más pequeño que permite el exchange" }
+        right:
+          en: "Starts testing the trader rather than the plan — real money introduces real fear at a low cost."
+          es: "Empieza a poner a prueba al trader más que al plan: el dinero real introduce miedo real a bajo coste."
+      - id: sample
+        left: { en: "A handful of trades", es: "Un puñado de operaciones" }
+        right:
+          en: "Noise — a 60%-win system can easily show 3 losers in its first 5. You need dozens of trades, not a weekend, before results mean anything about the edge."
+          es: "Ruido: un sistema con un 60% de acierto puede mostrar fácilmente 3 pérdidas en sus 5 primeras. Necesitas docenas de operaciones, no un fin de semana, antes de que los resultados digan algo sobre la ventaja."
+    explanation:
+      en: "Test where being wrong is free, and know what each stage is actually testing. Demo proves the mechanics; only small real money starts testing the trader."
+      es: "Prueba donde equivocarse es gratis, y ten claro qué pone a prueba cada etapa. La demo demuestra la mecánica; solo el dinero real pequeño empieza a poner a prueba al trader."

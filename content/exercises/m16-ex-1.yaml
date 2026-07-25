@@ -156,3 +156,82 @@ variants:
     explanation:
       en: "Two of its biggest inputs, volatility and momentum, are just transformations of price. So a large part of the \"emotion\" score is really a re-description of what price recently did — worth remembering, not a flaw."
       es: "Dos de sus mayores ingredientes, la volatilidad y el momentum, son solo transformaciones del precio. Así que buena parte de la puntuación de \"emoción\" es en realidad una redescripción de lo que hizo el precio hace poco: conviene recordarlo, no es un defecto."
+  - id: input-weights-match
+    kind: matching
+    prompt:
+      en: "Match each Fear & Greed input to what it reads and why it is in the index."
+      es: "Empareja cada entrada del índice de Miedo y Codicia con lo que lee y por qué está en el índice."
+    pairs:
+      - id: vol
+        left: { en: "Volatility (~25%)", es: "Volatilidad (~25%)" }
+        right:
+          en: "Calm, orderly moves read as confidence; sudden, violent swings read as panic. Computed entirely from the price series."
+          es: "Los movimientos tranquilos y ordenados se leen como confianza; los bruscos y violentos, como pánico. Se calcula por completo con la serie de precios."
+      - id: social
+        left: { en: "Social media (~15%)", es: "Redes sociales (~15%)" }
+        right:
+          en: "The volume and tone of posts — the signature of a crowd that is emotionally, not analytically, engaged."
+          es: "El volumen y el tono de las publicaciones: la firma de una multitud implicada emocionalmente, no analíticamente."
+      - id: dom
+        left: { en: "Bitcoin dominance", es: "Dominancia de Bitcoin" }
+        right:
+          en: "Money fleeing to the 'safe' corner of crypto reads as fear; chasing riskier alts reads as greed."
+          es: "El dinero huyendo al rincón 'seguro' del cripto se lee como miedo; perseguir alts más riesgosas, como codicia."
+      - id: search
+        left: { en: "Search trends", es: "Tendencias de búsqueda" }
+        right:
+          en: "A spike in 'is bitcoin dead' is fear; a surge in 'buy bitcoin' is greed."
+          es: "Un pico de '¿ha muerto bitcoin?' es miedo; una subida de 'comprar bitcoin' es codicia."
+    explanation:
+      en: "It is a composite, not one clean measurement. And note that volatility plus momentum/volume — both derived from price itself — are together about half the score."
+      es: "Es un compuesto, no una medición limpia. Y fíjate en que la volatilidad más el momentum/volumen, ambos derivados del propio precio, son juntos la mitad de la puntuación."
+  - id: worked-88
+    prompt:
+      en: "BTC grinds smoothly from 40,000 to 60,000 over three weeks with only shallow dips, and the index prints 88 — extreme greed. What actually produced that reading?"
+      es: "BTC sube suavemente de 40.000 a 60.000 en tres semanas con solo caídas leves, y el índice marca 88: codicia extrema. ¿Qué produjo realmente esa lectura?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The rising price fed most of the inputs — low orderly volatility, strong momentum and volume, celebratory posts, spiking searches. The index did not independently discover euphoria; the price did the work."
+          es: "El precio al alza alimentó la mayoría de las entradas: volatilidad baja y ordenada, momentum y volumen fuertes, publicaciones celebratorias, búsquedas al alza. El índice no descubrió la euforia por su cuenta; lo hizo el precio."
+      - id: b
+        text:
+          en: "An independent survey of traders' emotional state."
+          es: "Una encuesta independiente del estado emocional de los traders."
+      - id: c
+        text:
+          en: "A forecast that price will keep rising for three more weeks."
+          es: "Una previsión de que el precio seguirá subiendo tres semanas más."
+      - id: d
+        text:
+          en: "Falling volatility alone, which is the only input that matters."
+          es: "Solo la caída de la volatilidad, que es la única entrada que importa."
+    explanation:
+      en: "That is why a fresh price high and an extreme-greed reading almost always arrive together — they are largely the same event described twice. The index is not an independent second opinion."
+      es: "Por eso un nuevo máximo de precio y una lectura de codicia extrema casi siempre llegan juntos: son en gran medida el mismo evento descrito dos veces. El índice no es una segunda opinión independiente."
+  - id: alt-local-sentiment
+    prompt:
+      en: "The market-wide index reads a calm 50, but one thin-book altcoin's holders are wildly euphoric. What does that tell you about the index?"
+      es: "El índice del mercado marca un tranquilo 50, pero los holders de una altcoin de libro fino están en plena euforia. ¿Qué te dice eso sobre el índice?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The headline index tracks Bitcoin and the broad market, not each coin — in alts, sentiment is more local, faster and more extreme than the one dashboard number suggests."
+          es: "El índice general sigue a Bitcoin y al mercado amplio, no a cada moneda: en las alts el sentimiento es más local, más rápido y más extremo de lo que sugiere ese único número."
+      - id: b
+        text:
+          en: "The index is broken and should be ignored entirely."
+          es: "El índice está roto y debería ignorarse por completo."
+      - id: c
+        text:
+          en: "The alt's crowd must be wrong, since the broad market is calm."
+          es: "La multitud de la alt debe estar equivocada, ya que el mercado amplio está tranquilo."
+      - id: d
+        text:
+          en: "Alt sentiment always leads the market-wide index by a fixed lag."
+          es: "El sentimiento de las alts siempre adelanta al índice general con un retardo fijo."
+    explanation:
+      en: "On a thin book a handful of orders moves price and sentiment violently. The dashboard number is a market-wide average, and averages hide exactly the local extremes you are trading into."
+      es: "En un libro fino, un puñado de órdenes mueve el precio y el sentimiento con violencia. El número del panel es una media del mercado, y las medias esconden justo los extremos locales en los que estás operando."

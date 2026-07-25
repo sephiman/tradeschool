@@ -92,7 +92,10 @@ Open <http://localhost:5173>, register an account, and review the full course:
   monetary risk, differing only in collateral posted and in where liquidation sits relative to the
   stop, which is the one criterion for choosing it.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
-  matching); multiple-choice **calculations** whose distractors are instantiated common mistakes
+  matching), mixed inside every bank rather than bolted on — **721 hand-written variants across 75
+  quiz banks** (8–11 per bank, ~46% of them non-single-choice), so repeating a concept keeps asking a
+  different question about it rather than the same one mirrored;
+  multiple-choice **calculations** whose distractors are instantiated common mistakes
   (`Decimal` end to end); and **chart-reading** exercises — divergences plus fakeouts, Wyckoff,
   moving averages, oscillator readings, **MACD crossovers** (signal-line vs zero-line vs whipsaw in a
   range), Fibonacci, volume, open interest, **CVD divergence** (price makes a new extreme; does the

@@ -146,3 +146,69 @@ variants:
     explanation:
       en: "The line isn't the instrument or the outcome — it's whether you could state the entry, stop and invalidation before clicking. If you can't, the reason for the trade is just that price went up, which is the definition of a chase, and you skip it."
       es: "La línea no es el instrumento ni el resultado: es si podías decir la entrada, el stop y la invalidación antes de hacer clic. Si no puedes, el motivo de la operación es solo que el precio subió, que es la definición de una persecución, y la dejas pasar."
+  - id: fomo-numbers
+    prompt:
+      en: "A coin rips +40% in an hour. Three green candles in, you buy at the top with no stop and no plan, and minutes later it mean-reverts 15%. What is the worst part of the situation?"
+      es: "Una moneda sube un 40% en una hora. Tres velas verdes después, compras en máximos sin stop y sin plan, y minutos más tarde revierte un 15%. ¿Qué es lo peor de la situación?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "You are underwater at the single worst price of the move and, because you never defined an invalidation, you have no idea whether to hold or fold."
+          es: "Estás en pérdidas al peor precio del movimiento y, como nunca definiste una invalidación, no tienes idea de si mantener o cerrar."
+      - id: b
+        text:
+          en: "The 15% loss itself, which a stop would have prevented entirely."
+          es: "La pérdida del 15% en sí, que un stop habría evitado por completo."
+      - id: c
+        text:
+          en: "That you only bought three candles in rather than at the start."
+          es: "Que compraste solo tres velas después en vez de al principio."
+      - id: d
+        text:
+          en: "The fees on the entry, which are higher during volatile moves."
+          es: "Las comisiones de la entrada, que son mayores en movimientos volátiles."
+    explanation:
+      en: "You bought a feeling, not a setup, and arrived exactly where the earlier buyers are getting ready to sell to you. Without an invalidation there is no way to manage what follows."
+      es: "Compraste una sensación, no un setup, y llegaste exactamente donde los compradores anteriores se preparan para venderte. Sin invalidación no hay forma de gestionar lo que viene."
+  - id: fomo-drivers
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the things that make FOMO so persuasive in the moment."
+      es: "Selecciona TODO lo que hace que el FOMO sea tan persuasivo en el momento."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is really fear of future regret — the anticipated pain of watching it run on without you feels larger than the real risk in front of you."
+          es: "En realidad es miedo al arrepentimiento futuro: el dolor anticipado de verlo correr sin ti se siente mayor que el riesgo real que tienes delante."
+      - id: b
+        correct: true
+        text:
+          en: "The herd amplifies it: when price and everyone around you are moving, the move itself starts to feel like evidence."
+          es: "La manada lo amplifica: cuando el precio y todos a tu alrededor se mueven, el propio movimiento empieza a parecer evidencia."
+      - id: c
+        correct: true
+        text:
+          en: "A feed of other people's screenshotted wins — and almost never their losses — turns it into constant social pressure."
+          es: "Un feed con capturas de las ganancias de otros, y casi nunca de sus pérdidas, lo convierte en presión social constante."
+      - id: d
+        text:
+          en: "A fast move is genuine evidence that the next move will continue upward."
+          es: "Un movimiento rápido es evidencia genuina de que el siguiente continuará al alza."
+      - id: e
+        text:
+          en: "Entering late reduces risk, because the trend is already confirmed."
+          es: "Entrar tarde reduce el riesgo, porque la tendencia ya está confirmada."
+    explanation:
+      en: "All a fast move proves is that price already went up. A timeline showing only winners is not evidence about the trade in front of you."
+      es: "Todo lo que prueba un movimiento rápido es que el precio ya subió. Un timeline que solo muestra ganadores no es evidencia sobre la operación que tienes delante."
+  - id: averaging-up
+    kind: true_false
+    prompt:
+      en: "Buying 'a little' and averaging up as the move keeps running is a more disciplined way to join a runaway rally."
+      es: "Comprar 'un poco' e ir promediando al alza mientras el movimiento sigue es una forma más disciplinada de subirse a un rally desbocado."
+    answer: false
+    explanation:
+      en: "It is the same chase paid in installments — and it means your worst-priced size is your largest. If you cannot state your entry, your stop and your invalidation before you click, it is not a trade, it is a chase."
+      es: "Es la misma persecución pagada a plazos, y hace que tu mayor tamaño esté al peor precio. Si no puedes decir tu entrada, tu stop y tu invalidación antes de hacer clic, no es una operación: es una persecución."

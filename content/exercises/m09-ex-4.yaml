@@ -136,3 +136,75 @@ variants:
     explanation:
       en: "The spring is a Phase C test near the end of accumulation, not the start of the range. First a downtrend gives way to a range and long churn; only then does the false break below support (the spring) appear, recover, and lead into the markup. Remember the recovery is what makes it a spring rather than a plain breakdown."
       es: "El spring es una prueba de la fase C cerca del final de la acumulación, no el comienzo del rango. Primero una tendencia bajista da paso a un rango y a un ir y venir largo; solo entonces aparece la ruptura falsa por debajo del soporte (el spring), se recupera y desemboca en el markup. Recuerda que la recuperación es lo que lo convierte en spring y no en una simple ruptura bajista."
+  - id: spring-numbers
+    prompt:
+      en: "Support holds at 100 for two weeks. A burst of selling flushes price to 97, tripping the stops stacked just under 100; within a session or two price reclaims 100 and holds. What was that 3% flush?"
+      es: "Un soporte aguanta en 100 durante dos semanas. Un estallido de ventas hunde el precio a 97, disparando los stops acumulados justo debajo de 100; en una o dos sesiones el precio recupera 100 y se sostiene. ¿Qué fue esa caída del 3%?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A spring — the last cheap supply changing hands, harvested from panicked sellers and fresh shorts, not a breakdown."
+          es: "Un spring: la última oferta barata cambiando de manos, cosechada de vendedores en pánico y cortos nuevos, no una ruptura a la baja."
+      - id: b
+        text:
+          en: "A confirmed breakdown of support that happened to bounce."
+          es: "Una ruptura confirmada del soporte que casualmente rebotó."
+      - id: c
+        text: { en: "An upthrust, since price left the range.", es: "Un upthrust, ya que el precio salió del rango." }
+      - id: d
+        text: { en: "Proof the range will keep holding indefinitely.", es: "La prueba de que el rango seguirá aguantando indefinidamente." }
+    explanation:
+      en: "The break below is bait: a visible new low trips the stops resting under support and tempts fresh shorts, and those sell orders are exactly the last cheap supply a big buyer needs to finish. The recovery back inside is the tell it was absorbed."
+      es: "La ruptura a la baja es un cebo: un nuevo mínimo visible dispara los stops bajo el soporte y tienta a cortos nuevos, y esas órdenes de venta son exactamente la última oferta barata que un gran comprador necesita para terminar. La recuperación hacia dentro es la señal de que fue absorbida."
+  - id: utad-name
+    prompt:
+      en: "What does UTAD name, and why does it have its own label?"
+      es: "¿Qué nombra el UTAD y por qué tiene su propia etiqueta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The decisive phase-C upthrust that marks the top of a distribution — named to set it apart from smaller, inconclusive upthrusts that can appear earlier in phase B."
+          es: "El upthrust decisivo de la fase C que marca el techo de una distribución, nombrado para distinguirlo de upthrusts menores e inconcluyentes que pueden aparecer antes, en la fase B."
+      - id: b
+        text: { en: "Any false break above resistance, at any phase.", es: "Cualquier ruptura falsa por encima de la resistencia, en cualquier fase." }
+      - id: c
+        text: { en: "The spring's counterpart inside an accumulation.", es: "La contraparte del spring dentro de una acumulación." }
+      - id: d
+        text: { en: "The markdown that follows a distribution range.", es: "El markdown que sigue a un rango de distribución." }
+    explanation:
+      en: "Upthrust after distribution. A spring is a fake break below support hinting at a markup; an upthrust is a fake break above resistance warning of a markdown — and the UTAD is the one that marks the top."
+      es: "Upthrust after distribution. Un spring es una ruptura falsa bajo soporte que apunta a un markup; un upthrust es una ruptura falsa sobre resistencia que avisa de un markdown, y el UTAD es el que marca el techo."
+  - id: crypto-false-break-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that make a spring or upthrust weaker evidence in crypto than in the textbook."
+      es: "Selecciona TODO lo que hace que un spring o un upthrust sean una evidencia más débil en cripto que en el manual."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "In a shallow alt book a comparatively small market sell can wick 5–8% through the boundary and reverse."
+          es: "En un libro fino de alts, una venta a mercado relativamente pequeña puede hacer una mecha del 5-8% más allá del límite y revertir."
+      - id: b
+        correct: true
+        text:
+          en: "The identical shape can be a deliberate stop-hunt: a whale manufacturing the flush to trigger forced selling, then buying it."
+          es: "La forma idéntica puede ser una caza de stops deliberada: una ballena provocando la caída para disparar ventas forzosas y luego comprarla."
+      - id: c
+        correct: true
+        text:
+          en: "A 'markup' out of a spring can be nothing more than a short squeeze — crowded shorts being force-closed, not real demand."
+          es: "Un 'markup' saliendo de un spring puede no ser más que un short squeeze: cortos saturados cerrados por la fuerza, no demanda real."
+      - id: d
+        text:
+          en: "Crypto ranges resolve on a fixed schedule, so the phase is always knowable."
+          es: "Los rangos cripto se resuelven en un calendario fijo, así que la fase siempre es conocible."
+      - id: e
+        text:
+          en: "The deeper the wick, the more reliable the spring."
+          es: "Cuanto más profunda la mecha, más fiable el spring."
+    explanation:
+      en: "Weight a spring or upthrust by the depth of the book it happened in and the trend that led into it. Distrust a clean false break in an illiquid alt over a quiet weekend."
+      es: "Pondera un spring o un upthrust por la profundidad del libro en que ocurrió y la tendencia que llevó a él. Desconfía de una ruptura falsa limpia en una alt ilíquida durante un fin de semana tranquilo."

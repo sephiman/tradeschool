@@ -136,3 +136,78 @@ variants:
     explanation:
       en: "The formula is identical at every timeframe; only the window changes. Higher timeframes carry more weight, and a lower timeframe mostly adds noise, not information."
       es: "La fórmula es idéntica en todas las temporalidades; solo cambia la ventana. Las altas tienen más peso, y una baja añade sobre todo ruido, no información."
+  - id: crypto-daily-close
+    prompt:
+      en: "In crypto, what is the 'daily close' that traders talk about?"
+      es: "En cripto, ¿qué es el 'cierre diario' del que hablan los traders?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A convention — the price at a fixed clock cutoff, usually 00:00 UTC. It is a genuine price, but nothing special happens at it."
+          es: "Una convención: el precio en un corte fijo de reloj, normalmente 00:00 UTC. Es un precio real, pero ahí no ocurre nada especial."
+      - id: b
+        text:
+          en: "A closing auction, like a stock exchange's bell."
+          es: "Una subasta de cierre, como la campana de una bolsa."
+      - id: c
+        text: { en: "The moment daily settlement is paid out.", es: "El momento en que se paga la liquidación diaria." }
+      - id: d
+        text: { en: "The last trade before the weekend break.", es: "La última operación antes del parón del fin de semana." }
+    explanation:
+      en: "Crypto never closes: a 'daily' candle simply spans a fixed 24-hour window. There is no bell, no settlement and no overnight gap — the daily close is a convention, not an event."
+      es: "El cripto nunca cierra: una vela 'diaria' solo cubre una ventana fija de 24 horas. No hay campana, ni liquidación, ni gap nocturno: el cierre diario es una convención, no un evento."
+  - id: tz-shift
+    kind: true_false
+    prompt:
+      en: "Two traders whose charting tools use different timezones see slightly different daily candles for the same market. That means one of the charts is wrong."
+      es: "Dos traders cuyas herramientas de gráficos usan husos horarios distintos ven velas diarias algo diferentes del mismo mercado. Eso significa que uno de los gráficos está mal."
+    answer: false
+    explanation:
+      en: "Nothing is broken. Because the cutoff is just a clock time, they have simply cut the same continuous tape at different points. It is a reminder that timeframe boundaries in crypto are arbitrary."
+      es: "Nada está roto. Como el corte es solo una hora de reloj, simplemente han cortado la misma cinta continua en puntos distintos. Es un recordatorio de que los límites de temporalidad en cripto son arbitrarios."
+  - id: weekend-thin
+    prompt:
+      en: "Why should you read a dramatic-looking weekend candle with extra caution?"
+      es: "¿Por qué deberías leer con más cautela una vela de fin de semana de aspecto dramático?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Participation sags at weekends, so a thinner book lets the same order push price further — the move represents fewer participants than a weekday move of the same size."
+          es: "La participación cae los fines de semana, así que un libro más fino permite que la misma orden empuje más el precio: el movimiento representa menos participantes que uno igual en día laborable."
+      - id: b
+        text:
+          en: "Weekend candles cover a shorter window than weekday candles."
+          es: "Las velas de fin de semana cubren una ventana más corta que las de días laborables."
+      - id: c
+        text: { en: "Exchanges pause matching at weekends.", es: "Los exchanges pausan el matching los fines de semana." }
+      - id: d
+        text: { en: "Weekend prices are excluded from the daily candle.", es: "Los precios del fin de semana se excluyen de la vela diaria." }
+    explanation:
+      en: "Much professional and institutional flow steps back on Saturdays and Sundays. Same candle size, far fewer people behind it — read it with the volume caveat firmly in mind."
+      es: "Buena parte del flujo profesional e institucional se retira sábados y domingos. Misma vela, mucha menos gente detrás: léela teniendo muy presente la advertencia del volumen."
+  - id: tf-participants-match
+    kind: matching
+    prompt:
+      en: "Match each timeframe to what one of its candles can realistically represent."
+      es: "Empareja cada temporalidad con lo que una de sus velas puede representar realmente."
+    pairs:
+      - id: m1
+        left: { en: "One 1-minute candle", es: "Una vela de 1 minuto" }
+        right:
+          en: "Possibly a single large order in a quiet moment — fast to form and easy to fake."
+          es: "Posiblemente una sola orden grande en un momento tranquilo: se forma rápido y es fácil de falsear."
+      - id: h4
+        left: { en: "One 4-hour candle", es: "Una vela de 4 horas" }
+        right:
+          en: "Four hours of trading compressed into one bar — more participants than a minute, fewer than a day."
+          es: "Cuatro horas de negociación comprimidas en una barra: más participantes que un minuto, menos que un día."
+      - id: d1
+        left: { en: "One daily candle", es: "Una vela diaria" }
+        right:
+          en: "The settled verdict of everyone who traded that day — slow to form, hard to fake."
+          es: "El veredicto asentado de todos los que operaron ese día: lento de formar y difícil de falsear."
+    explanation:
+      en: "The higher the timeframe, the more participants and more money went into forming the candle. That is the whole reason higher-timeframe levels carry more weight."
+      es: "Cuanto mayor es la temporalidad, más participantes y más dinero han formado la vela. Esa es toda la razón por la que los niveles de temporalidad alta pesan más."

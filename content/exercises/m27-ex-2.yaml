@@ -180,3 +180,61 @@ variants:
     explanation:
       en: "The first three are exactly why imbalance is the flimsiest reading in this block. The fourth is not a real limitation: book data streams continuously and in near real time — being stale is not the problem. Being revocable, incomplete, and possibly backward-looking is."
       es: "Las tres primeras son justo por qué el desequilibrio es la lectura más flojita de este bloque. La cuarta no es una limitación real: los datos del libro se transmiten de forma continua y casi en tiempo real; estar desactualizado no es el problema. Ser revocable, incompleto y posiblemente retrospectivo, sí."
+  - id: wall-as-stop
+    kind: true_false
+    prompt:
+      en: "A 400 BTC bid wall sitting below your long is a sound place to tuck your stop under."
+      es: "Un muro de compra de 400 BTC por debajo de tu largo es un buen sitio para colocar el stop justo debajo."
+    answer: false
+    explanation:
+      en: "Walls get pulled, and they get pulled precisely when they would have been tested. Never let a resting order that someone can cancel for free be the reason your risk sits where it does."
+      es: "Los muros se retiran, y se retiran precisamente cuando iban a ser puestos a prueba. Nunca dejes que una orden en reposo que alguien puede cancelar gratis sea la razón de dónde está tu riesgo."
+  - id: depth-vs-direction-match
+    kind: matching
+    prompt:
+      en: "Match each thing the book shows you to what it actually means."
+      es: "Empareja cada cosa que muestra el libro con lo que realmente significa."
+    pairs:
+      - id: thin
+        left: { en: "A thin ask side above price", es: "Un lado de venta fino por encima del precio" }
+        right:
+          en: "Up is cheap *today* — a statement about what it currently costs to move price, not about where price is going."
+          es: "Subir es barato *hoy*: una afirmación sobre lo que cuesta ahora mover el precio, no sobre a dónde va el precio."
+      - id: wall
+        left: { en: "A conspicuous wall resting at one price", es: "Un muro llamativo en reposo en un precio" }
+        right:
+          en: "Someone is *currently showing* size here — never that someone will definitely trade here."
+          es: "Alguien está *mostrando ahora* tamaño aquí; nunca que alguien vaya a operar aquí con seguridad."
+      - id: iceberg
+        left: { en: "A modest bid that keeps refilling as it is eaten", es: "Una demanda modesta que se rellena cada vez que se la comen" }
+        right:
+          en: "An iceberg — genuine size hiding, deliberately invisible in the book."
+          es: "Un iceberg: tamaño genuino escondido, deliberadamente invisible en el libro."
+    explanation:
+      en: "Everything resting there is revocable, and a good deal of what matters is not in the book at all. Depth tells you the current cost of moving price, never the direction it will move."
+      es: "Todo lo que descansa ahí es revocable, y buena parte de lo que importa no está en el libro. La profundidad te dice el coste actual de mover el precio, nunca la dirección en la que se moverá."
+  - id: stand-aside
+    prompt:
+      en: "You are flat and a CPI print is thirty seconds away. What does understanding the book mechanism actually buy you?"
+      es: "Estás fuera del mercado y falta medio minuto para un dato de IPC. ¿Qué te aporta realmente entender el mecanismo del libro?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The discipline to do nothing — trading that first candle pays maximum spread and slippage for the least reliable information in the day."
+          es: "La disciplina de no hacer nada: operar esa primera vela paga el máximo spread y slippage por la información menos fiable del día."
+      - id: b
+        text:
+          en: "A read on direction, since the imbalance shows which way the vacuum will break."
+          es: "Una lectura de dirección, ya que el desequilibrio muestra hacia dónde romperá el vacío."
+      - id: c
+        text:
+          en: "Confidence to size up, because the move will be large."
+          es: "Confianza para aumentar el tamaño, porque el movimiento será grande."
+      - id: d
+        text:
+          en: "A guarantee that your stop will fill at its price during the spike."
+          es: "La garantía de que tu stop se ejecutará a su precio durante el pico."
+    explanation:
+      en: "That first violent candle into a vacuum is not a signal; it is an artefact of the book being empty. Understanding the mechanism mostly pays off as the discipline to stand aside."
+      es: "Esa primera vela violenta contra el vacío no es una señal: es un artefacto de un libro vacío. Entender el mecanismo se cobra sobre todo en la disciplina de quedarse al margen."

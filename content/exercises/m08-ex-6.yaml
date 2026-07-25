@@ -137,3 +137,64 @@ variants:
     explanation:
       en: "Wicks record rejection and engulfings record overrun — both true. A doji alone is indecision, not a reversal, and the same form changes meaning entirely with its location."
       es: "Las mechas registran rechazo y las envolventes registran overrun: ambas ciertas. Un doji solo es indecisión, no un giro, y la misma forma cambia de significado por completo según su ubicación."
+  - id: read-in-two-moves
+    kind: ordering
+    prompt:
+      en: "Put the steps for reading a candle at a level in order."
+      es: "Ordena los pasos para leer una vela en un nivel."
+    items:
+      - id: mechanic
+        position: 1
+        text:
+          en: "Name the mechanic: rejection, overrun, or non-information."
+          es: "Nombra la mecánica: rechazo, atropello o no-información."
+      - id: level
+        position: 2
+        text:
+          en: "Name the level it reacted to — if you can't name one, there is no trade."
+          es: "Nombra el nivel al que reaccionó: si no puedes nombrar ninguno, no hay operación."
+      - id: depth
+        position: 3
+        text:
+          en: "Weight it by the depth of the book it formed in — a thin weekend wick is far weaker than the same form in active hours."
+          es: "Pondérala por la profundidad del libro en que se formó: una mecha en un fin de semana ilíquido es mucho más débil que la misma forma en horas activas."
+      - id: decide
+        position: 4
+        text:
+          en: "Only then decide whether the reaction is worth acting on."
+          es: "Solo entonces decide si la reacción merece que actúes."
+    explanation:
+      en: "The mechanic tells you what happened; the location decides its weight; the book depth tells you how much order flow was really behind it. The level does the work — the candle just reports what happened there."
+      es: "La mecánica te dice qué ocurrió; la ubicación decide su peso; la profundidad del libro te dice cuánto flujo de órdenes había detrás de verdad. El nivel hace el trabajo: la vela solo informa de lo que pasó ahí."
+  - id: stop-hunt-wick
+    prompt:
+      en: "In a leveraged crypto market, what is a long wick that pierces an obvious level and snaps back often recording?"
+      es: "En un mercado cripto apalancado, ¿qué registra a menudo una mecha larga que atraviesa un nivel obvio y vuelve de inmediato?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A stop-hunt — real order flow, but manufactured by stops and liquidations stacked just beyond the level, not organic conviction."
+          es: "Una caza de stops: flujo de órdenes real, pero fabricado por los stops y liquidaciones acumulados justo más allá del nivel, no convicción orgánica."
+      - id: b
+        text:
+          en: "A heavyweight rejection, since the wick is long."
+          es: "Un rechazo de peso, ya que la mecha es larga."
+      - id: c
+        text: { en: "A data error from the exchange's feed.", es: "Un error de datos del feed del exchange." }
+      - id: d
+        text:
+          en: "Proof the level has been permanently invalidated."
+          es: "La prueba de que el nivel ha quedado invalidado para siempre."
+    explanation:
+      en: "Because leverage stacks stops and liquidations just past obvious levels, the flow is genuine but engineered. Weight every reaction by the depth of the book it happened in, and distrust a lonely, spectacular wick in a quiet market."
+      es: "Como el apalancamiento acumula stops y liquidaciones justo más allá de los niveles obvios, el flujo es genuino pero provocado. Pondera cada reacción por la profundidad del libro en que ocurrió y desconfía de una mecha solitaria y espectacular en un mercado tranquilo."
+  - id: crowded-name
+    kind: true_false
+    prompt:
+      en: "A widely watched pattern name matters slightly more than an obscure one, precisely because thousands of traders read it the same way and act on it."
+      es: "El nombre de un patrón muy seguido importa algo más que uno oscuro, precisamente porque miles de traders lo leen igual y actúan en consecuencia."
+    answer: true
+    explanation:
+      en: "True — and that is also its limit: the edge is thin, crowded, and never a substitute for the level underneath. A name is shorthand for 'this mechanic, at this location', nothing more."
+      es: "Cierto, y ahí está también su límite: la ventaja es fina, está saturada y nunca sustituye al nivel que hay debajo. Un nombre es una abreviatura de 'esta mecánica, en esta ubicación', nada más."

@@ -139,3 +139,66 @@ variants:
     explanation:
       en: "Extreme fear marks a contrarian zone of interest, not a moment. It can persist while price keeps falling, so buying the first extreme print without your own confirmation gets you run over — exactly the trap the lesson warns about."
       es: "El miedo extremo marca una zona contraria de interés, no un momento. Puede persistir mientras el precio sigue cayendo, así que comprar en la primera lectura extrema sin tu propia confirmación te arrolla: justo la trampa contra la que advierte la lección."
+  - id: capitulation-scene
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that describe what a capitulation low typically looks like."
+      es: "Selecciona TODO lo siguiente que describa cómo suele verse un mínimo de capitulación."
+    options:
+      - id: a
+        correct: true
+        text: { en: "A single violent session — BTC dropping 15% in a few hours.", es: "Una única sesión violenta: BTC cayendo un 15% en pocas horas." }
+      - id: b
+        correct: true
+        text: { en: "Enormous volume as holders finally give up.", es: "Volumen enorme cuando los holders por fin se rinden." }
+      - id: c
+        correct: true
+        text:
+          en: "A cascade of liquidations dumping even more supply into a thin book."
+          es: "Una cascada de liquidaciones vertiendo aún más oferta en un libro fino."
+      - id: d
+        correct: true
+        text:
+          en: "The index gapping down to single digits while social flips to 'it's over, crypto is dead'."
+          es: "El índice cayendo de golpe a un solo dígito mientras las redes cambian a 'se acabó, el cripto está muerto'."
+      - id: e
+        text:
+          en: "A slow, quiet drift lower on shrinking volume over several months."
+          es: "Una deriva lenta y tranquila a la baja con volumen decreciente durante varios meses."
+    explanation:
+      en: "Panic, forced selling and a spike of fear all at once — that flush is what exhausts the supply of frightened holders. It is a zone of interest, a place to look for setups, not a command to buy."
+      es: "Pánico, venta forzosa y un pico de miedo a la vez: ese lavado es lo que agota la oferta de holders asustados. Es una zona de interés, un lugar donde buscar setups, no una orden de comprar."
+  - id: overnight-swing
+    prompt:
+      en: "Crypto never closes. What does that do to a sentiment reading you check at breakfast?"
+      es: "El cripto nunca cierra. ¿Qué le hace eso a una lectura de sentimiento que consultas en el desayuno?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Sentiment compounds through overnight and weekend sessions on thin liquidity, so an extreme can be reached *and* unwound while you sleep — the number you see may be lagging both moves."
+          es: "El sentimiento se acumula en sesiones nocturnas y de fin de semana con liquidez fina, así que un extremo puede alcanzarse *y* deshacerse mientras duermes: el número que ves puede ir por detrás de ambos movimientos."
+      - id: b
+        text:
+          en: "Nothing — the index only updates during weekday hours."
+          es: "Nada: el índice solo se actualiza en horario laboral."
+      - id: c
+        text:
+          en: "It makes the reading more reliable, since it never resets."
+          es: "Hace la lectura más fiable, ya que nunca se reinicia."
+      - id: d
+        text:
+          en: "It guarantees the extreme will still be in place when you act."
+          es: "Garantiza que el extremo seguirá ahí cuando actúes."
+    explanation:
+      en: "The mood never gets a nightly reset. Combined with the index's already-lagging inputs, a reading can describe a state the market has moved on from hours ago."
+      es: "El ánimo no tiene reinicio nocturno. Combinado con las entradas ya retrasadas del índice, una lectura puede describir un estado que el mercado dejó atrás horas antes."
+  - id: fear-persists
+    kind: true_false
+    prompt:
+      en: "Extreme fear can stay extreme for months while price keeps bleeding."
+      es: "El miedo extremo puede seguir extremo durante meses mientras el precio sigue sangrando."
+    answer: true
+    explanation:
+      en: "True — fear stayed extreme through long grinding bear markets. A contrarian who bought the *first* extreme-fear print got run over: the crowd stayed lopsided far longer than their account could survive."
+      es: "Cierto: el miedo se mantuvo extremo durante mercados bajistas largos y desgastantes. Quien compró la *primera* lectura de miedo extremo fue arrollado: la multitud siguió desequilibrada mucho más de lo que su cuenta podía aguantar."

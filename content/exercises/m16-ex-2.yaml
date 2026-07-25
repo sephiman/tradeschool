@@ -139,3 +139,64 @@ variants:
     explanation:
       en: "When almost everyone is already long, few buyers are left and many shaky longs will sell on a dip. That makes the upside crowded and risky — a reason to trim risk, not a green light to pile in, and not a dated top."
       es: "Cuando casi todos ya están largos, quedan pocos compradores y muchos largos frágiles venderán a la primera caída. Eso satura y hace arriesgado el lado alcista: un motivo para recortar riesgo, no una luz verde para amontonarse ni un techo con fecha."
+  - id: greedy-top-symptoms
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that are symptoms of the same fact — that the buy side is already all-in."
+      es: "Selecciona TODO lo siguiente que sean síntomas del mismo hecho: que el lado comprador ya está todo dentro."
+    options:
+      - id: a
+        correct: true
+        text: { en: "The index has sat above 90 for a week.", es: "El índice lleva una semana por encima de 90." }
+      - id: b
+        correct: true
+        text:
+          en: "Funding is deeply positive — longs are paying shorts every few hours just to hold."
+          es: "El funding es muy positivo: los largos pagan a los cortos cada pocas horas solo por mantener."
+      - id: c
+        correct: true
+        text: { en: "Your feed is wall-to-wall price targets.", es: "Tu feed está lleno de objetivos de precio." }
+      - id: d
+        correct: true
+        text: { en: "Every dip is bought within minutes.", es: "Cada caída se compra en minutos." }
+      - id: e
+        text:
+          en: "Volume has dried up and volatility has collapsed to multi-month lows."
+          es: "El volumen se ha secado y la volatilidad ha caído a mínimos de varios meses."
+    explanation:
+      en: "Every one of the first four is the same condition seen from a different angle. That is the moment to be smaller and more careful, not braver — extreme greed means the ground is crowded, not that you should sell now."
+      es: "Cada uno de los cuatro primeros es la misma condición vista desde otro ángulo. Ese es el momento de ser más pequeño y prudente, no más valiente: la codicia extrema significa que el terreno está saturado, no que debas vender ya."
+  - id: fresh-money
+    prompt:
+      en: "What is the honest mechanism behind the contrarian reading of extreme greed?"
+      es: "¿Cuál es el mecanismo honesto detrás de la lectura contraria de la codicia extrema?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A market can only rise while fresh money is still willing to lift the offer. Extreme greed is the condition where that fresh money is running out — and where a lot of nervous late longs will sell fast on the first dip."
+          es: "Un mercado solo puede subir mientras haya dinero nuevo dispuesto a levantar la oferta. La codicia extrema es la condición en que ese dinero nuevo se agota, y en que muchos largos tardíos y nerviosos venderán rápido en la primera caída."
+      - id: b
+        text:
+          en: "Greed readings above 90 have historically marked the exact top."
+          es: "Las lecturas de codicia por encima de 90 han marcado históricamente el techo exacto."
+      - id: c
+        text:
+          en: "The index causes traders to sell once it reaches an extreme."
+          es: "El índice hace que los traders vendan cuando alcanza un extremo."
+      - id: d
+        text:
+          en: "Sentiment always reverts to 50 within a week."
+          es: "El sentimiento siempre vuelve a 50 en una semana."
+    explanation:
+      en: "If almost everyone who wanted to buy has already bought, there are few buyers left to push price higher. That is a statement about the supply of buyers, not about the date of the turn."
+      es: "Si casi todo el que quería comprar ya ha comprado, quedan pocos compradores para empujar el precio. Es una afirmación sobre la oferta de compradores, no sobre la fecha del giro."
+  - id: euphoria-can-last
+    kind: true_false
+    prompt:
+      en: "Because extreme greed means buyers are close to exhausted, a euphoric market cannot stay euphoric for long."
+      es: "Como la codicia extrema significa que los compradores están casi agotados, un mercado eufórico no puede seguir eufórico mucho tiempo."
+    answer: false
+    explanation:
+      en: "Greed has stayed extreme through entire bull runs. Persistent positive funding can bankroll it: as long as longs are willing to keep paying to hold, the crowded state can last far longer than 'it must be exhausted' suggests."
+      es: "La codicia se ha mantenido extrema durante rallies enteros. Un funding positivo persistente puede financiarla: mientras los largos estén dispuestos a seguir pagando por mantener, el estado saturado puede durar mucho más de lo que sugiere 'ya debe estar agotado'."

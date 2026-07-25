@@ -122,3 +122,65 @@ variants:
     explanation:
       en: "Same form, same overrun — but B overran nothing anyone was defending. The engulfing at a demonstrated support is a battle won at a price that matters; in open space it is a body with no context."
       es: "La misma forma, el mismo overrun, pero el B no arrolló nada que nadie defendiera. La envolvente en un soporte demostrado es una batalla ganada en un precio que importa; en espacio abierto es un cuerpo sin contexto."
+  - id: weekend-hammer
+    prompt:
+      en: "The same hammer prints twice: once on a quiet Sunday at a low-liquidity level, once at a defended level during active hours. How do they compare?"
+      es: "El mismo martillo aparece dos veces: un domingo tranquilo en un nivel de poca liquidez y en horas activas en un nivel defendido. ¿Cómo se comparan?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The Sunday one is a much weaker tell — in a thin book a handful of orders can print a dramatic wick that is really a liquidity vacuum."
+          es: "El del domingo es una señal mucho más débil: en un libro fino, un puñado de órdenes puede imprimir una mecha dramática que en realidad es un vacío de liquidez."
+      - id: b
+        text:
+          en: "They are equivalent — the form is identical, so the information is identical."
+          es: "Son equivalentes: la forma es idéntica, así que la información es idéntica."
+      - id: c
+        text:
+          en: "The Sunday one is stronger, because fewer sellers were able to stop the bounce."
+          es: "El del domingo es más fuerte, porque menos vendedores pudieron frenar el rebote."
+      - id: d
+        text:
+          en: "Neither carries information; hammers are non-information by definition."
+          es: "Ninguno aporta información; los martillos son no-información por definición."
+    explanation:
+      en: "Crypto runs 24/7, so a great many candles form in thin weekend and overnight books. Weight every reaction by the depth of the book it happened in and the level it happened at."
+      es: "El cripto funciona 24/7, así que muchísimas velas se forman en libros finos de fin de semana y de madrugada. Pondera cada reacción por la profundidad del libro en que ocurrió y por el nivel en que ocurrió."
+  - id: location-weight-match
+    kind: matching
+    prompt:
+      en: "Match each candle-and-location combination to what it is worth."
+      es: "Empareja cada combinación de vela y ubicación con lo que vale."
+    pairs:
+      - id: info
+        left:
+          en: "A rejection wick at the 0.618 retracement, over an old support that has already held twice"
+          es: "Una mecha de rechazo en el retroceso 0,618, sobre un soporte antiguo que ya ha aguantado dos veces"
+        right:
+          en: "Information — the level is what buyers were defending, and the wick shows them defending it."
+          es: "Información: el nivel es lo que los compradores defendían, y la mecha muestra que lo defendieron."
+      - id: noise
+        left:
+          en: "The identical wick in open space, leaning on no level"
+          es: "La mecha idéntica en espacio abierto, sin apoyarse en ningún nivel"
+        right:
+          en: "Noise with a wick — same shape, no value, because the level does the work."
+          es: "Ruido con mecha: la misma forma, sin valor, porque el trabajo lo hace el nivel."
+      - id: none
+        left: { en: "A doji in the middle of a range", es: "Un doji en el medio de un rango" }
+        right:
+          en: "No signal at all — indecision, which is not permission to decide for the market."
+          es: "Ninguna señal: indecisión, que no es permiso para decidir en lugar del mercado."
+    explanation:
+      en: "A candle's meaning comes overwhelmingly from where it happens. The read is always two questions in order: what is the mechanic, and where did it happen."
+      es: "El significado de una vela viene sobre todo de dónde ocurre. La lectura son siempre dos preguntas en orden: qué mecánica es y dónde ocurrió."
+  - id: no-level-no-trade
+    kind: true_false
+    prompt:
+      en: "If you cannot name the level a candle is reacting to, a textbook hammer or engulfing is still worth trading on its own."
+      es: "Si no puedes nombrar el nivel al que reacciona una vela, un martillo o envolvente de manual sigue mereciendo operarse por sí solo."
+    answer: false
+    explanation:
+      en: "A rejection that rejected nothing and an overrun that overran nothing anyone was defending fire constantly and mean almost nothing. If you can't name the level, there is no trade."
+      es: "Un rechazo que no rechazó nada y un atropello que no atropelló nada que nadie defendiera se disparan constantemente y no significan casi nada. Si no puedes nombrar el nivel, no hay operación."

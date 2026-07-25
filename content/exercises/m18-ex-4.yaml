@@ -121,3 +121,77 @@ variants:
     explanation:
       en: "Market value is price × circulating supply. If supply grows 30%, price must climb ~30% just to keep the same total value — an inflation headwind that is invisible on a candlestick. It is not automatically a price drop, and it does not show up on the chart by itself."
       es: "El valor de mercado es precio × suministro circulante. Si la oferta crece un 30%, el precio debe subir ~30% solo para mantener el mismo valor total: un viento en contra de la inflación que es invisible en una vela. No es automáticamente una caída del precio, y no aparece por sí solo en el gráfico."
+  - id: cliff-numbers
+    prompt:
+      en: "A token has 100 million circulating at $2.00 and trades about 8 million tokens a day. A cliff unlocks a 20-million-token investor tranche on one date. What has just happened to the book?"
+      es: "Un token tiene 100 millones circulando a 2,00 $ y negocia unos 8 millones de tokens al día. Un desbloqueo de golpe libera un tramo de 20 millones de tokens de inversores en una sola fecha. ¿Qué le acaba de pasar al libro?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A 20% jump in the float overnight — two and a half days of normal volume dropped on the book at once. Even if only a third sells, ~6.7 million tokens hunt for bids against a book that clears 8 million in a day."
+          es: "Un salto del 20% en el float de un día para otro: dos días y medio de volumen normal soltados en el libro a la vez. Incluso si solo vende un tercio, ~6,7 millones de tokens buscan demanda contra un libro que absorbe 8 millones al día."
+      - id: b
+        text:
+          en: "Nothing measurable — 20 million tokens is small next to 100 million circulating."
+          es: "Nada medible: 20 millones de tokens es poco al lado de 100 millones circulando."
+      - id: c
+        text:
+          en: "The max supply rose by 20 million tokens."
+          es: "El suministro máximo subió en 20 millones de tokens."
+      - id: d
+        text:
+          en: "The market cap fell by 20%, but the float is unchanged."
+          es: "La capitalización cayó un 20%, pero el float no cambia."
+    explanation:
+      en: "Price gets pushed down by the arithmetic of supply, not by anything the pattern did wrong. That is why tokenomics belongs inside your technical analysis, not beside it."
+      es: "El precio baja por la aritmética de la oferta, no porque el patrón hiciera nada mal. Por eso la tokenómica va dentro de tu análisis técnico, no al lado."
+  - id: unlock-front-run
+    prompt:
+      en: "The unlock calendar is published to the day and everyone has it. What does that do to when the price weakness shows up?"
+      es: "El calendario de desbloqueos se publica al día y todo el mundo lo tiene. ¿Qué efecto tiene eso en cuándo aparece la debilidad del precio?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because the shock is known it tends to be front-run: price frequently weakens in the days *before* the unlock, and the move can be half over before the tokens actually move."
+          es: "Como el shock es conocido, tiende a anticiparse: el precio suele debilitarse en los días *previos* al desbloqueo, y el movimiento puede estar medio hecho antes de que los tokens se muevan."
+      - id: b
+        text:
+          en: "Nothing happens until the tokens hit wallets, since only real selling moves price."
+          es: "No pasa nada hasta que los tokens llegan a las wallets, ya que solo la venta real mueve el precio."
+      - id: c
+        text:
+          en: "The weakness always arrives exactly on the unlock date, to the hour."
+          es: "La debilidad llega siempre exactamente en la fecha del desbloqueo, a la hora."
+      - id: d
+        text:
+          en: "Being public means it is fully priced in and never moves price at all."
+          es: "Ser público significa que está totalmente descontado y nunca mueve el precio."
+    explanation:
+      en: "Front-running is a tendency, not a guarantee that the event is harmless. Informed players position ahead of it, and the unlock still hits a live 24/7 order book at whatever hour it lands, with no session to digest it."
+      es: "Anticiparse es una tendencia, no una garantía de que el evento sea inocuo. Los participantes informados se posicionan antes, y el desbloqueo golpea igualmente un libro vivo 24/7 a la hora que caiga, sin sesión que lo digiera."
+  - id: supply-source-match
+    kind: matching
+    prompt:
+      en: "Match each source of new supply to how it hits the market."
+      es: "Empareja cada fuente de nueva oferta con cómo golpea el mercado."
+    pairs:
+      - id: cliff
+        left: { en: "A cliff unlock", es: "Un desbloqueo de golpe (cliff)" }
+        right:
+          en: "A big tranche releasing on a single date — more supply in a day than normal trading absorbs."
+          es: "Un tramo grande liberado en una sola fecha: más oferta en un día de la que absorbe la negociación normal."
+      - id: emissions
+        left: { en: "Staking and mining emissions", es: "Emisiones de staking y minería" }
+        right:
+          en: "Minted continuously, with farmers routinely selling to cover costs — a steady, mechanical background sell independent of sentiment."
+          es: "Se emiten continuamente, y los farmers suelen vender para cubrir costes: una venta de fondo constante y mecánica, independiente del sentimiento."
+      - id: thin
+        left: { en: "The same tranche landing on a thin alt book", es: "El mismo tramo cayendo en un libro fino de alts" }
+        right:
+          en: "What a deep BTC-scale book would absorb can gap a small alt several percent in minutes."
+          es: "Lo que un libro profundo de escala BTC absorbería puede hacer que una alt pequeña salte varios puntos porcentuales en minutos."
+    explanation:
+      en: "A scheduled unlock is a supply shock the chart cannot show. When a large one is near it overrides the technicals — treat the pattern as provisional until the new supply has been absorbed."
+      es: "Un desbloqueo programado es un shock de oferta que el gráfico no puede mostrar. Cuando hay uno grande cerca, se impone sobre lo técnico: trata el patrón como provisional hasta que la nueva oferta se haya absorbido."

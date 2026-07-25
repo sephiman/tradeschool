@@ -127,3 +127,62 @@ variants:
     explanation:
       en: "False. Three traders can run the same account on the same coin with the same indicator and still be in different styles. What separates them is how long they hold and how often they trade — not the coin or the indicator."
       es: "Falso. Tres traders pueden llevar la misma cuenta, en la misma moneda y con el mismo indicador, y aun así estar en estilos distintos. Lo que los separa es cuánto tiempo mantienen y con qué frecuencia operan, no la moneda ni el indicador."
+  - id: two-charts
+    prompt:
+      en: "Each style names two charts — a slower frame and a faster one. What different jobs do they do?"
+      es: "Cada estilo nombra dos gráficos: uno más lento y otro más rápido. ¿Qué trabajos distintos hacen?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The higher timeframe dictates the bias; the lower one dictates the entry — in that order."
+          es: "La temporalidad mayor dicta el sesgo; la menor dicta la entrada, en ese orden."
+      - id: b
+        text:
+          en: "The lower timeframe dictates the bias, since it is more current."
+          es: "La temporalidad menor dicta el sesgo, ya que está más actualizada."
+      - id: c
+        text:
+          en: "They are alternatives — you pick whichever agrees with your idea."
+          es: "Son alternativas: eliges la que coincida con tu idea."
+      - id: d
+        text:
+          en: "The slower chart is for entries and the faster one for targets."
+          es: "El gráfico lento es para entradas y el rápido para objetivos."
+    explanation:
+      en: "That is the top-down step of the trading plan: bias first on the higher timeframe, then the entry on the lower one — never flipping between them to justify a position you already hold."
+      es: "Ese es el paso descendente del plan de trading: primero el sesgo en la temporalidad mayor, luego la entrada en la menor, sin saltar entre ellas para justificar una posición que ya tienes."
+  - id: scalping-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE of scalping."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre el scalping."
+    options:
+      - id: a
+        correct: true
+        text: { en: "Positions last seconds to a few minutes.", es: "Las posiciones duran de segundos a unos pocos minutos." }
+      - id: b
+        correct: true
+        text: { en: "Dozens or hundreds of trades a day is normal.", es: "Docenas o cientos de operaciones al día es lo normal." }
+      - id: c
+        correct: true
+        text: { en: "Most days end flat, with no open risk.", es: "La mayoría de los días acaban planos, sin riesgo abierto." }
+      - id: d
+        correct: true
+        text: { en: "It reads the fastest charts — tick, 1-minute, 5-minute.", es: "Lee los gráficos más rápidos: tick, 1 minuto, 5 minutos." }
+      - id: e
+        text:
+          en: "It is the most profitable style, because it captures more moves."
+          es: "Es el estilo más rentable, porque captura más movimientos."
+    explanation:
+      en: "Holding period, trade count and timeframe move together along the spectrum — pick a point on one and the other two are largely decided. None of that makes a style inherently more profitable."
+      es: "El periodo de tenencia, el número de operaciones y la temporalidad se mueven juntos en el espectro: elige un punto en uno y los otros dos quedan casi decididos. Nada de eso hace que un estilo sea intrínsecamente más rentable."
+  - id: style-boundaries
+    kind: true_false
+    prompt:
+      en: "The boundaries between the styles are strict rules: a day trade that runs a little long has become something else and the trade is a mistake."
+      es: "Los límites entre estilos son reglas estrictas: una operación intradía que se alarga un poco se ha convertido en otra cosa y la operación es un error."
+    answer: false
+    explanation:
+      en: "The boundaries are not laws; a 'day trade' that runs a little long is not a sin. The holding period is simply the honest way to tell the styles apart — not how clever the setup looks, and not which coin you trade."
+      es: "Los límites no son leyes; una 'operación intradía' que se alarga un poco no es un pecado. El periodo de tenencia es simplemente la forma honesta de distinguir los estilos, no lo ingenioso que parezca el setup ni la moneda que operes."

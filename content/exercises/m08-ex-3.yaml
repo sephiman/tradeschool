@@ -156,3 +156,90 @@ variants:
     explanation:
       en: "False. A change of character is the first evidence the old trend's rule has stopped working — a reason to watch, not a confirmed reversal. It often precedes a range or a longer transition, and one lower low in an uptrend can still be a deep pullback that resumes."
       es: "Falso. Un cambio de carácter es la primera evidencia de que la regla de la vieja tendencia ha dejado de funcionar: un motivo para vigilar, no un giro confirmado. A menudo precede a un rango o a una transición más larga, y un solo mínimo más bajo en una tendencia alcista aún puede ser un pullback profundo que se reanuda."
+  - id: staircase-numbers
+    prompt:
+      en: "A chart reads: low 100, high 110, dip to 104, high 118, dip to 109, high 126 — then price falls from 126 through 109 to a low of 106. What has just happened?"
+      es: "Un gráfico marca: mínimo 100, máximo 110, retroceso a 104, máximo 118, retroceso a 109, máximo 126; luego el precio cae desde 126 atravesando 109 hasta un mínimo de 106. ¿Qué acaba de ocurrir?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A change of character — the first lower low in a run that had made only higher ones. Evidence the old rule stopped working, not a confirmed reversal."
+          es: "Un cambio de carácter: el primer mínimo decreciente en una secuencia que solo había hecho crecientes. Evidencia de que la regla antigua dejó de funcionar, no una reversión confirmada."
+      - id: b
+        text:
+          en: "Nothing structural — 106 is still above the original low of 100."
+          es: "Nada estructural: 106 sigue por encima del mínimo original de 100."
+      - id: c
+        text:
+          en: "A confirmed downtrend, since price made a lower low."
+          es: "Una tendencia bajista confirmada, ya que el precio hizo un mínimo decreciente."
+      - id: d
+        text: { en: "A normal higher low, so the uptrend is intact.", es: "Un mínimo creciente normal, así que la tendencia alcista sigue intacta." }
+    explanation:
+      en: "The whole uptrend rested on one mechanism: every dip being bought above the previous dip. Breaking 109 is the first time that visibly failed — the buyers did not show up where they had been showing up."
+      es: "Toda la tendencia alcista se apoyaba en un mecanismo: que cada retroceso se compraba por encima del anterior. Romper 109 es la primera vez que eso falla visiblemente: los compradores no aparecieron donde venían apareciendo."
+  - id: choch-confirmation
+    kind: multi_select
+    prompt:
+      en: "You have a change of character in an uptrend. Select ALL of the following that would help answer the question it raises — has control actually changed?"
+      es: "Tienes un cambio de carácter en una tendencia alcista. Selecciona TODO lo que ayudaría a responder la pregunta que plantea: ¿ha cambiado realmente el control?"
+    options:
+      - id: a
+        correct: true
+        text: { en: "A lower high printed after the lower low.", es: "Un máximo decreciente impreso después del mínimo decreciente." }
+      - id: b
+        correct: true
+        text: { en: "A failed attempt to reclaim the broken level.", es: "Un intento fallido de recuperar el nivel roto." }
+      - id: c
+        correct: true
+        text: { en: "A second confirming break.", es: "Una segunda ruptura que confirme." }
+      - id: d
+        text:
+          en: "The single lower low on its own — it is already the answer."
+          es: "El único mínimo decreciente por sí solo: ya es la respuesta."
+      - id: e
+        text:
+          en: "A doji printed anywhere after the break."
+          es: "Un doji impreso en cualquier parte después de la ruptura."
+    explanation:
+      en: "One CHoCH is a broken pattern, not a new trend — strong trends print the odd lower low inside a deep pullback all the time. Treat it as a question and wait for the answer."
+      es: "Un CHoCH es un patrón roto, no una tendencia nueva: las tendencias fuertes imprimen algún mínimo decreciente dentro de un retroceso profundo continuamente. Trátalo como una pregunta y espera la respuesta."
+  - id: pullback-uncertainty
+    kind: true_false
+    prompt:
+      en: "At the moment a dip forms, you can tell whether it is a pullback within the trend or the start of a reversal."
+      es: "En el momento en que se forma un retroceso, puedes saber si es un retroceso dentro de la tendencia o el inicio de una reversión."
+    answer: false
+    explanation:
+      en: "Only the next swing settles it. A dip to 109 that turns back up into a new high *was* a pullback; the same dip that keeps going and breaks the prior low was the first crack. Live, they look identical."
+      es: "Solo la siguiente oscilación lo resuelve. Un retroceso a 109 que se gira al alza hacia un nuevo máximo *era* un retroceso; el mismo retroceso que sigue y rompe el mínimo previo era la primera grieta. En vivo, se ven idénticos."
+  - id: chart-reading-order
+    kind: ordering
+    prompt:
+      en: "Put the steps for reading a chart's structure in order."
+      es: "Ordena los pasos para leer la estructura de un gráfico."
+    items:
+      - id: zones
+        position: 1
+        text:
+          en: "Mark the obvious zones first — the ones a stranger would circle. If you have to squint, it isn't a level."
+          es: "Marca primero las zonas obvias: las que un desconocido rodearía. Si tienes que entrecerrar los ojos, no es un nivel."
+      - id: swings
+        position: 2
+        text:
+          en: "Read the swing sequence: HH/HL, LH/LL, or a messy range with neither."
+          es: "Lee la secuencia de oscilaciones: HH/HL, LH/LL, o un rango desordenado sin ninguna de las dos."
+      - id: close
+        position: 3
+        text:
+          en: "At a level, wait for the close — beyond and holding is a breakout; beyond then back inside is a fakeout."
+          es: "En un nivel, espera el cierre: más allá y sosteniéndose es ruptura; más allá y de vuelta dentro es ruptura falsa."
+      - id: confirm
+        position: 4
+        text:
+          en: "Let the market confirm before you rename a pullback a reversal — the change of character is the earliest honest warning, no earlier."
+          es: "Deja que el mercado confirme antes de rebautizar un retroceso como reversión: el cambio de carácter es el aviso honesto más temprano, no antes."
+    explanation:
+      en: "Structure is read outside-in: levels, then the sequence between them, then what price does when the two meet. Acting on the first sign instead of the confirmed one is the root of both classic misreads."
+      es: "La estructura se lee de fuera hacia dentro: niveles, luego la secuencia entre ellos, luego qué hace el precio cuando ambos se encuentran. Actuar en la primera señal en vez de en la confirmada es la raíz de los dos errores clásicos."

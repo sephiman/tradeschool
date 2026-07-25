@@ -4,6 +4,7 @@ from __future__ import annotations
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.auth.models import User
 from tradeschool.content.models import Block, Exercise, Lesson, LessonCompletion, Module
 from tradeschool.content.schema import (
@@ -101,6 +102,71 @@ async def test_reconcile_reorder_add_remove_preserves_progress(session: AsyncSes
     # Historical progress survives the reorganization.
     completions = (await session.scalars(select(LessonCompletion))).all()
     assert [c.lesson_id for c in completions] == ["lB"]
+
+
+async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
+    session: AsyncSession,
+) -> None:
+    """An exercise re-homed to another lesson of the same module is *updated*, never
+    deactivated-and-reinserted — so the attempts keyed on its id survive the move."""
+    ex = ManifestExercise(id="shared-ex", type=ExerciseType.QUIZ)
+    module = ManifestModule(
+        id="mA",
+        title=_t("A"),
+        summary=_t("a"),
+        lessons=[
+            ManifestLesson(id="lA", title=_t("lA"), exercises=[ex]),
+            ManifestLesson(id="lB", title=_t("lB"), exercises=[]),
+        ],
+    )
+    await reconcile(_manifest([module]), session)
+    assert (await session.get(Exercise, "shared-ex")).lesson_id == "lA"
+
+    user = User(
+        username="ylearner",
+        hashed_password="x",
+        is_active=True,
+        is_superuser=False,
+        is_verified=False,
+        locale="en",
+    )
+    session.add(user)
+    await session.flush()
+    session.add(
+        Attempt(
+            user_id=user.id,
+            exercise_id="shared-ex",
+            seed=7,
+            instance_snapshot={"prompt": "p"},
+            is_correct=True,
+            state=AttemptState.ANSWERED,
+        )
+    )
+    await session.commit()
+
+    # The exercise moves to lB, and lands second behind a lesson-local newcomer.
+    moved = ManifestModule(
+        id="mA",
+        title=_t("A"),
+        summary=_t("a"),
+        lessons=[
+            ManifestLesson(id="lA", title=_t("lA"), exercises=[]),
+            ManifestLesson(
+                id="lB",
+                title=_t("lB"),
+                exercises=[ManifestExercise(id="lB-ex", type=ExerciseType.QUIZ), ex],
+            ),
+        ],
+    )
+    await reconcile(_manifest([moved]), session)
+
+    row = await session.get(Exercise, "shared-ex")
+    assert row.active is True  # re-homed, not removed
+    assert row.lesson_id == "lB" and row.module_id == "mA"
+    assert row.order_index == 2  # order is a plain attribute, so an out-of-sequence id is fine
+
+    attempts = (await session.scalars(select(Attempt))).all()
+    assert [(a.exercise_id, a.seed, a.is_correct) for a in attempts] == [("shared-ex", 7, True)]
 
 
 async def test_reconcile_reactivates_returned_content(session: AsyncSession) -> None:

@@ -174,3 +174,66 @@ variants:
     explanation:
       en: "Absorption is heavy volume with a tiny range — someone big quietly taking the other side of everything — and it often precedes a move their way. But it is a strong clue, not a receipt: you cannot see who it is or be sure of intent. And it is the opposite of illiquidity; it takes plenty of trading to hold price still against that pressure."
       es: "La absorción es un volumen alto con un rango minúsculo —alguien grande tomando en silencio el otro lado de todo— y suele preceder a un movimiento en su dirección. Pero es una pista fuerte, no un recibo: no puedes ver quién es ni estar seguro de su intención. Y es lo contrario de la iliquidez: hace falta mucha negociación para mantener el precio quieto contra esa presión."
+  - id: divergence-numbers
+    prompt:
+      en: "Price grinds to three successive new highs, but the volume behind each push reads 100, then 65, then 40. What does that tell you — and what does it not?"
+      es: "El precio alcanza tres nuevos máximos sucesivos, pero el volumen detrás de cada empuje marca 100, luego 65 y luego 40. ¿Qué te dice eso y qué no te dice?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Each new high is made by fewer participants — a warning that participation is thinning. It does not tell you the minute the tank runs dry."
+          es: "Cada nuevo máximo lo hacen menos participantes: un aviso de que la participación se adelgaza. No te dice el minuto en que se agota el depósito."
+      - id: b
+        text:
+          en: "A confirmed reversal signal — sell the third high."
+          es: "Una señal de reversión confirmada: vende el tercer máximo."
+      - id: c
+        text:
+          en: "Nothing — volume falling while price rises is normal and carries no information."
+          es: "Nada: que el volumen caiga mientras el precio sube es normal y no aporta información."
+      - id: d
+        text:
+          en: "That the trend is strengthening, since less volume is needed to make new highs."
+          es: "Que la tendencia se fortalece, ya que hace falta menos volumen para marcar nuevos máximos."
+    explanation:
+      en: "Participation fades before price does — the last buyers to arrive are the fewest. A price/volume divergence tells you the fuel is running low; it is not a dated appointment for a reversal."
+      es: "La participación se apaga antes que el precio: los últimos compradores en llegar son los menos. Una divergencia precio/volumen te dice que el combustible se agota; no es una cita con fecha para una reversión."
+  - id: volume-read-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps for reading a volume bar honestly in order."
+      es: "Ordena los pasos para leer con honestidad una barra de volumen."
+    items:
+      - id: neighbours
+        position: 1
+        text:
+          en: "Compare the bar against its neighbours and its recent average — is it actually large?"
+          es: "Compara la barra con sus vecinas y con su media reciente: ¿es realmente grande?"
+      - id: liketolike
+        position: 2
+        text:
+          en: "Compare like with like: liquidity ebbs and flows with the Asian, European and US hours."
+          es: "Compara lo comparable: la liquidez sube y baja con las horas asiáticas, europeas y estadounidenses."
+      - id: price
+        position: 3
+        text:
+          en: "Read it against price — what was all that participation buying or selling into?"
+          es: "Léela contra el precio: ¿en qué estaba comprando o vendiendo toda esa participación?"
+      - id: confluence
+        position: 4
+        text:
+          en: "Ask what else agrees — structure and the oscillator — before acting."
+          es: "Pregunta qué más coincide (estructura y oscilador) antes de actuar."
+    explanation:
+      en: "Volume answers how many, never which way and never by how much. It means something only against a baseline and against price — strip away either context and you are staring at a number that tells you nothing."
+      es: "El volumen responde a cuántos, nunca a hacia dónde ni cuánto. Solo significa algo contra una referencia y contra el precio: quita cualquiera de los dos contextos y estarás mirando un número que no dice nada."
+  - id: absorption-not-receipt
+    kind: true_false
+    prompt:
+      en: "Heavy volume with almost no price movement is proof that a large buyer is accumulating."
+      es: "Un volumen fuerte con apenas movimiento de precio es la prueba de que un gran comprador está acumulando."
+    answer: false
+    explanation:
+      en: "It is a strong clue, not a receipt. Absorption often precedes a move in the direction of whoever did the absorbing, but you cannot see who it is or be certain of intent — and the absorber could be on either side."
+      es: "Es un indicio fuerte, no un recibo. La absorción suele preceder a un movimiento en la dirección de quien absorbió, pero no puedes ver quién es ni estar seguro de su intención, y el que absorbe puede estar en cualquiera de los dos lados."

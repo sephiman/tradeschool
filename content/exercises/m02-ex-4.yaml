@@ -155,3 +155,71 @@ variants:
     explanation:
       en: "An API key that can withdraw is a spare key to your funds: if the app is malicious or gets breached, your coins can leave. Give tools the least access they need — read-only, or trade-only with withdrawals disabled."
       es: "Una API key que puede retirar es una copia de la llave de tus fondos: si la app es maliciosa o sufre una brecha, tus monedas pueden salir. Da a las herramientas el mínimo acceso que necesitan: solo lectura, o solo trading con los retiros desactivados."
+  - id: sim-swap
+    prompt:
+      en: "Why is an authenticator app stronger than SMS codes, even if your password is excellent?"
+      es: "¿Por qué una app de autenticación es más fuerte que los códigos por SMS, aunque tu contraseña sea excelente?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "SMS codes ride on your phone number, and an attacker who social-engineers your carrier into porting it receives every code. An app has no number to steal."
+          es: "Los códigos por SMS dependen de tu número de teléfono, y un atacante que engañe a tu operadora para portarlo recibe todos los códigos. Una app no tiene número que robar."
+      - id: b
+        text: { en: "App codes are longer, so they cannot be guessed.", es: "Los códigos de la app son más largos, así que no se pueden adivinar." }
+      - id: c
+        text: { en: "SMS codes are reused, while app codes are unique.", es: "Los códigos SMS se reutilizan y los de la app son únicos." }
+      - id: d
+        text: { en: "An app also encrypts your password on the exchange.", es: "La app además cifra tu contraseña en el exchange." }
+    explanation:
+      en: "This is the SIM-swap: people with strong passwords have been cleaned out overnight because the second factor was a phone number an attacker could take. Use a rotating six-digit code from an app."
+      es: "Es el SIM-swap: gente con contraseñas fuertes ha sido vaciada de la noche a la mañana porque el segundo factor era un número que el atacante podía tomar. Usa un código rotatorio de seis dígitos de una app."
+  - id: takeover-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps of a SIM-swap account takeover in order."
+      es: "Ordena los pasos de un robo de cuenta por SIM-swap."
+    items:
+      - id: password
+        position: 1
+        text:
+          en: "The attacker gets your password from a data breach or a phishing page."
+          es: "El atacante consigue tu contraseña de una filtración de datos o una página de phishing."
+      - id: port
+        position: 2
+        text:
+          en: "They social-engineer your carrier into porting your phone number to their SIM."
+          es: "Engañan a tu operadora para portar tu número de teléfono a su SIM."
+      - id: code
+        position: 3
+        text: { en: "Your SMS 2FA codes now arrive on their phone.", es: "Tus códigos 2FA por SMS llegan ahora a su teléfono." }
+      - id: login
+        position: 4
+        text: { en: "They log in as you.", es: "Inician sesión como si fueran tú." }
+      - id: withdraw
+        position: 5
+        text:
+          en: "They withdraw the funds, and because it settles on-chain it is final."
+          es: "Retiran los fondos y, como se liquida on-chain, es definitivo."
+    explanation:
+      en: "A withdrawal address whitelist breaks the last step — the one that actually moves the coins — even for an attacker who completed every step before it. That is why it matters more than it looks."
+      es: "Una lista blanca de direcciones de retiro rompe el último paso, el que realmente mueve las monedas, incluso para un atacante que completó todos los anteriores. Por eso importa más de lo que parece."
+  - id: bounded-loss
+    prompt:
+      en: "What is the goal that 2FA, scoped API keys and a withdrawal whitelist all share?"
+      es: "¿Cuál es el objetivo que comparten el 2FA, las API keys con permisos limitados y la lista blanca de retiros?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Bounded loss — making sure a single failure cannot empty the account."
+          es: "Pérdida acotada: asegurar que un solo fallo no pueda vaciar la cuenta."
+      - id: b
+        text: { en: "Being un-hackable, if you configure all three.", es: "Ser inhackeable, si configuras las tres." }
+      - id: c
+        text: { en: "Making withdrawals faster and cheaper.", es: "Hacer los retiros más rápidos y baratos." }
+      - id: d
+        text: { en: "Proving your identity to regulators.", es: "Probar tu identidad ante los reguladores." }
+    explanation:
+      en: "Security isn't about being un-hackable — that is not on the menu. Every control here exists to limit the blast radius, turning a total loss into a survivable one."
+      es: "La seguridad no consiste en ser inhackeable: eso no está en el menú. Cada control existe para limitar el radio de daño, convirtiendo una pérdida total en una soportable."

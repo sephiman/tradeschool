@@ -163,3 +163,77 @@ variants:
     explanation:
       en: "Dominance is BTC's cap divided by the total: 1 / 2.5 = 40%. The remaining 60% is the share held by every other coin combined."
       es: "La dominancia es la capitalización de BTC dividida entre el total: 1 / 2,5 = 40%. El 60% restante es la cuota que suman todas las demás monedas."
+  - id: dominance-worked
+    prompt:
+      en: "Start with a 2-trillion market and Bitcoin at 1 trillion (dominance 50%). A sell-off hits: Bitcoin falls 10% to 0.9 trillion, alts fall 30% from 1 trillion to 0.7 trillion. What is dominance now, and what does it prove?"
+      es: "Parte de un mercado de 2 billones con Bitcoin en 1 billón (dominancia del 50%). Llega una caída: Bitcoin pierde un 10% hasta 0,9 billones y las alts un 30%, de 1 billón a 0,7 billones. ¿Cuál es ahora la dominancia y qué demuestra?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "0.9 / 1.6 = 56% — dominance rose from 50% to 56% while Bitcoin's own price fell 10%. Nothing good happened to Bitcoin; the alts simply bled faster."
+          es: "0,9 / 1,6 = 56%: la dominancia subió del 50% al 56% mientras el precio de Bitcoin caía un 10%. A Bitcoin no le pasó nada bueno; las alts simplemente sangraron más rápido."
+      - id: b
+        text:
+          en: "45% — dominance falls because Bitcoin's price fell."
+          es: "45%: la dominancia baja porque el precio de Bitcoin cayó."
+      - id: c
+        text:
+          en: "50% — dominance is unchanged, since both sides fell."
+          es: "50%: la dominancia no cambia, ya que ambos lados cayeron."
+      - id: d
+        text:
+          en: "56%, which shows Bitcoin gained value against the dollar."
+          es: "56%, lo que muestra que Bitcoin ganó valor frente al dólar."
+    explanation:
+      en: "Dominance is a share, not a price. In a broad crash it often rises *because* everything is falling and the alts are falling faster — which is exactly why 'dominance up means BTC price up' is false."
+      es: "La dominancia es una cuota, no un precio. En una caída general suele subir *porque* todo está cayendo y las alts caen más rápido, y por eso 'dominancia arriba significa precio de BTC arriba' es falso."
+  - id: dominance-context-match
+    kind: matching
+    prompt:
+      en: "Match each dominance reading, paired with the total market, to the mood it describes."
+      es: "Empareja cada lectura de dominancia, junto con el mercado total, con el ánimo que describe."
+    pairs:
+      - id: up-up
+        left: { en: "Rising dominance, rising total market", es: "Dominancia subiendo, mercado total subiendo" }
+        right:
+          en: "A Bitcoin-led advance — money entering the space, with BTC leading."
+          es: "Un avance liderado por Bitcoin: dinero entrando en el espacio, con BTC al frente."
+      - id: up-down
+        left: { en: "Rising dominance, falling total market", es: "Dominancia subiendo, mercado total bajando" }
+        right:
+          en: "A risk-off flight to BTC while the alts bleed harder."
+          es: "Una huida risk-off hacia BTC mientras las alts sangran más."
+      - id: down
+        left: { en: "Falling dominance", es: "Dominancia bajando" }
+        right:
+          en: "Capital spreading out into alts — the classic backdrop for an 'alt season'."
+          es: "Capital repartiéndose hacia las alts: el telón de fondo clásico de una 'alt season'."
+    explanation:
+      en: "Same number, opposite mood — the total market is what tells them apart. Buying or shorting BTC because 'dominance is rising' is trading a ratio you have not paired with the total."
+      es: "El mismo número, ánimos opuestos: el mercado total es lo que los distingue. Comprar o vender BTC porque 'la dominancia sube' es operar un ratio que no has emparejado con el total."
+  - id: why-btc-first
+    prompt:
+      en: "Why does fresh capital arriving in crypto tend to enter through Bitcoin before anything else?"
+      es: "¿Por qué el capital nuevo que llega al cripto suele entrar por Bitcoin antes que por nada más?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is the most liquid, most widely listed and most understood asset — the reserve of the space and the natural first purchase for someone stepping in."
+          es: "Es el activo más líquido, más listado y más comprendido: la reserva del espacio y la primera compra natural para quien entra."
+      - id: b
+        text:
+          en: "Exchanges require a Bitcoin purchase before allowing altcoin trading."
+          es: "Los exchanges exigen una compra de Bitcoin antes de permitir operar altcoins."
+      - id: c
+        text:
+          en: "Bitcoin has the highest expected return early in a cycle."
+          es: "Bitcoin tiene el mayor rendimiento esperado al principio de un ciclo."
+      - id: d
+        text:
+          en: "Alts cannot be bought until dominance falls below 40%."
+          es: "Las alts no pueden comprarse hasta que la dominancia baje del 40%."
+    explanation:
+      en: "So money coming in usually shows up as rising dominance before it shows up anywhere else, and money getting adventurous shows up as falling dominance as it spreads into everything else."
+      es: "Así que el dinero que entra suele aparecer como dominancia creciente antes que en ningún otro sitio, y el dinero que se vuelve atrevido aparece como dominancia decreciente al repartirse por todo lo demás."

@@ -158,3 +158,92 @@ variants:
     explanation:
       en: "False. Imbalance is a crowding measure, read the way m17 taught you to read funding — not a direction. It says price is currently *easier to move* one way than the other, which is a statement about resistance to movement. And it is the flimsiest reading in this block: the orders can be cancelled, the biggest players deliberately hide their size behind icebergs, and the imbalance you see may be a consequence of the move that already happened rather than a cause of the next one."
       es: "Falso. El desequilibrio es una medida de saturación, que se lee como m17 te enseñó a leer el funding, no de dirección. Dice que ahora mismo el precio es *más fácil de mover* hacia un lado que hacia el otro, que es una afirmación sobre la resistencia al movimiento. Y es la lectura más flojita de este bloque: las órdenes se pueden cancelar, los participantes más grandes esconden deliberadamente su tamaño detrás de icebergs, y el desequilibrio que ves puede ser una consecuencia del movimiento que ya ocurrió en lugar de una causa del siguiente."
+  - id: book-vs-timeseries
+    prompt:
+      en: "How is an order book a different kind of data from everything else in this course?"
+      es: "¿En qué se diferencia un libro de órdenes de todos los demás datos de este curso?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Everything else is a time series extending left into history; a book is an instantaneous snapshot arranged by price — a photograph of intention in the present, with no history in it at all."
+          es: "Todo lo demás es una serie temporal que se extiende hacia el pasado; un libro es una instantánea ordenada por precio: una fotografía de la intención en el presente, sin ninguna historia dentro."
+      - id: b
+        text:
+          en: "It is the same shape of data, just sampled more often."
+          es: "Es el mismo tipo de dato, solo muestreado más a menudo."
+      - id: c
+        text:
+          en: "It records completed trades at higher resolution than a candle."
+          es: "Registra operaciones completadas con más resolución que una vela."
+      - id: d
+        text:
+          en: "It is a forecast of where price will trade next."
+          es: "Es una previsión de dónde cotizará el precio a continuación."
+    explanation:
+      en: "A candle is a record of the past; a book is a photograph of the present. Trades and resting orders relate directly, though: a market order eats into the book level by level, and that consumption *is* the mechanism by which price moves."
+      es: "Una vela es un registro del pasado; un libro es una fotografía del presente. Aun así, operaciones y órdenes en reposo se relacionan directamente: una orden de mercado se come el libro nivel a nivel, y ese consumo *es* el mecanismo por el que se mueve el precio."
+  - id: pre-event-steps
+    kind: ordering
+    prompt:
+      en: "Put the mechanism behind the pre-release liquidity vacuum in order."
+      es: "Ordena el mecanismo que hay detrás del vacío de liquidez previo a una publicación."
+    items:
+      - id: risk
+        position: 1
+        text:
+          en: "Ahead of a known, timed event with an unknown outcome, market makers' risk of holding the wrong side spikes."
+          es: "Ante un evento conocido y con hora fija pero resultado desconocido, el riesgo de los creadores de mercado de quedarse en el lado equivocado se dispara."
+      - id: pull
+        position: 2
+        text:
+          en: "They pull their quotes — cancelling resting orders, or moving them further out and shrinking them."
+          es: "Retiran sus cotizaciones: cancelan órdenes en reposo, o las alejan y reducen."
+      - id: thin
+        position: 3
+        text:
+          en: "The book thins dramatically and the spread widens — not because anyone turned bearish."
+          es: "El libro se adelgaza drásticamente y el spread se amplía, no porque nadie se haya vuelto bajista."
+      - id: gap
+        position: 4
+        text:
+          en: "The number prints, market orders hit a nearly empty book, and price gaps several levels on modest size."
+          es: "Sale el dato, las órdenes de mercado golpean un libro casi vacío y el precio salta varios niveles con tamaño modesto."
+      - id: refill
+        position: 5
+        text:
+          en: "The makers return, depth refills, and much of that first spike retraces."
+          es: "Los creadores de mercado vuelven, la profundidad se rellena y buena parte de ese primer pico se retrae."
+    explanation:
+      en: "That is why the advice was to stand aside for the release rather than predict it. The first move frequently is not the market's opinion of the news at all — it is a thin book being crossed."
+      es: "Por eso el consejo era apartarse en la publicación en vez de predecirla. El primer movimiento a menudo no es la opinión del mercado sobre la noticia: es un libro fino siendo atravesado."
+  - id: real-book-tools
+    kind: multi_select
+    prompt:
+      en: "Select ALL the tools that actually show you a live order book."
+      es: "Selecciona TODAS las herramientas que realmente te muestran un libro de órdenes en vivo."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A DOM or price ladder — the vertical display of resting quantity per price level."
+          es: "Un DOM o escalera de precios: la pantalla vertical con la cantidad en reposo por nivel de precio."
+      - id: b
+        correct: true
+        text:
+          en: "An order book heatmap, which plots resting depth over time as colour intensity so you can see walls appear, persist and get pulled."
+          es: "Un mapa de calor del libro, que dibuja la profundidad en reposo a lo largo del tiempo como intensidad de color, para ver aparecer, persistir y retirarse los muros."
+      - id: c
+        correct: true
+        text:
+          en: "The exchange's own trading interface — crude next to a dedicated tool, but free and enough to build intuition."
+          es: "La propia interfaz del exchange: rudimentaria al lado de una herramienta dedicada, pero gratis y suficiente para crear intuición."
+      - id: d
+        text:
+          en: "A candlestick chart with a volume pane."
+          es: "Un gráfico de velas con un panel de volumen."
+      - id: e
+        text: { en: "A CVD line under the price chart.", es: "Una línea de CVD bajo el gráfico de precio." }
+    explanation:
+      en: "Volume and CVD are records of orders that already executed. Only a depth display shows the resting orders that have not — which is why this lesson is conceptual and points you at the real instruments instead of faking a static picture."
+      es: "El volumen y el CVD son registros de órdenes ya ejecutadas. Solo una pantalla de profundidad muestra las órdenes en reposo que no lo están, y por eso esta lección es conceptual y te señala los instrumentos reales en vez de fingir una imagen estática."

@@ -123,3 +123,90 @@ variants:
     explanation:
       en: "Your real portfolio risk is your total exposure to a single move, not the number of tickets you hold. Positions that move together are effectively one bet in several costumes, so you cap the cluster's combined risk. Treating them as independent is how several 'small' positions add up to one large, undiversified bet."
       es: "Tu riesgo de cartera real es tu exposición total a un mismo movimiento, no el número de tickets que tengas. Las posiciones que se mueven juntas son en la práctica una sola apuesta con varios trajes, así que limitas el riesgo combinado del grupo. Tratarlas como independientes es como varias posiciones 'pequeñas' se suman en una sola grande y sin diversificar."
+  - id: drawdown-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about drawdown asymmetry that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre la asimetría del drawdown."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The recovery gain is calculated on what remains, not on what you started with."
+          es: "La ganancia de recuperación se calcula sobre lo que queda, no sobre lo que empezaste."
+      - id: b
+        correct: true
+        text: { en: "Losing a third of the account requires about +50% to get back to even.", es: "Perder un tercio de la cuenta exige en torno a un +50% para volver al punto de partida." }
+      - id: c
+        correct: true
+        text:
+          en: "Every further percent of drawdown removes capital and raises the recovery bar at the same time."
+          es: "Cada punto porcentual más de drawdown quita capital y sube la barra de recuperación al mismo tiempo."
+      - id: d
+        text: { en: "A 90% loss needs about +90% to recover.", es: "Una pérdida del 90% necesita en torno a un +90% para recuperarse." }
+      - id: e
+        text:
+          en: "The relationship is linear: each 10% lost needs 10% gained."
+          es: "La relación es lineal: cada 10% perdido necesita un 10% ganado."
+    explanation:
+      en: "The curve turns against you faster the deeper you fall — 50% needs +100%, 75% needs +300%, 90% needs +900%. That is the whole reason to cap risk per trade before you are anywhere near a deep hole."
+      es: "La curva se vuelve contra ti más rápido cuanto más caes: el 50% necesita +100%, el 75% +300% y el 90% +900%. Esa es toda la razón para limitar el riesgo por operación antes de estar cerca de un agujero profundo."
+  - id: moving-stop
+    prompt:
+      en: "Price nears your stop, you decide the level 'needs more room', and you slide the stop further away. What have you just done?"
+      es: "El precio se acerca a tu stop, decides que el nivel 'necesita más margen' y lo alejas. ¿Qué acabas de hacer?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Converted a defined 1% risk into an open-ended one — the fastest way to turn a planned small loss into an account-ending one."
+          es: "Convertir un riesgo definido del 1% en uno abierto: la forma más rápida de transformar una pérdida pequeña planificada en una que acaba con la cuenta."
+      - id: b
+        text:
+          en: "Given a good trade the room it needs, at no cost to your risk budget."
+          es: "Dar a una buena operación el margen que necesita, sin coste para tu presupuesto de riesgo."
+      - id: c
+        text:
+          en: "Reduced your position size automatically, since the stop is now wider."
+          es: "Reducir automáticamente tu tamaño de posición, ya que el stop es ahora más amplio."
+      - id: d
+        text:
+          en: "Nothing meaningful — the risk is still 1% because the size hasn't changed."
+          es: "Nada relevante: el riesgo sigue siendo el 1% porque el tamaño no ha cambiado."
+    explanation:
+      en: "The size was calculated from the original stop distance. Widening the stop after entry keeps the size and enlarges the loss — the arithmetic that protected you only works if the stop stays where you put it."
+      es: "El tamaño se calculó con la distancia original del stop. Ampliarlo después de entrar mantiene el tamaño y agranda la pérdida: la aritmética que te protegía solo funciona si el stop se queda donde lo pusiste."
+  - id: oversize-once
+    kind: true_false
+    prompt:
+      en: "After a good winning streak, taking one trade at 5% risk instead of 1% is acceptable — the earlier wins have paid for it."
+      es: "Tras una buena racha ganadora, tomar una operación con un 5% de riesgo en vez del 1% es aceptable: las ganancias previas ya lo han pagado."
+    answer: false
+    explanation:
+      en: "One oversized trade can undo the protection of a hundred disciplined ones. The rule only works if it has no exceptions — and 'just this once' is exactly the exception that arrives after a streak or a loss you want back quickly."
+      es: "Una sola operación sobredimensionada puede deshacer la protección de cien disciplinadas. La regla solo funciona si no tiene excepciones, y 'solo esta vez' es precisamente la excepción que llega tras una racha o una pérdida que quieres recuperar rápido."
+  - id: gap-risk
+    prompt:
+      en: "Crypto never closes, so there is no weekend gap. Does that make your 1% risk a guarantee?"
+      es: "El cripto nunca cierra, así que no hay gap de fin de semana. ¿Eso convierte tu riesgo del 1% en una garantía?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "No — a stop is a request to exit at the next available price. In a cascade, an outage, thin weekend liquidity or a 3 a.m. news shock, price can jump straight past it and your 1% becomes 2% or 4% realised."
+          es: "No: un stop es una petición de salir al siguiente precio disponible. En una cascada, una caída del exchange, liquidez fina de fin de semana o un shock de noticias a las 3 de la madrugada, el precio puede saltárselo y tu 1% se convierte en un 2% o 4% realizado."
+      - id: b
+        text:
+          en: "Yes — 24/7 trading means there is always a price at your stop level."
+          es: "Sí: operar 24/7 significa que siempre hay un precio en tu nivel de stop."
+      - id: c
+        text:
+          en: "Yes, provided you use a limit order for the stop."
+          es: "Sí, siempre que uses una orden límite para el stop."
+      - id: d
+        text:
+          en: "No, but only on exchanges without an insurance fund."
+          es: "No, pero solo en exchanges sin fondo de seguros."
+    explanation:
+      en: "Treat the 1% as a ceiling that holds in calm conditions, not a floor the exchange guarantees — and size with a little room for the fill to come out worse than planned."
+      es: "Trata el 1% como un techo que se cumple en condiciones tranquilas, no como un suelo que garantice el exchange, y dimensiona dejando algo de margen para que la ejecución salga peor de lo previsto."

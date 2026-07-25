@@ -147,3 +147,62 @@ variants:
     explanation:
       en: "Match the style to the life you actually have: swing trading fits around a job, day trading spares you overnight risk, and scalping suits someone who can sustain intense focus for a session. Fit, not excitement, is what keeps you inside your own rules."
       es: "Ajusta el estilo a la vida que de verdad tienes: el swing encaja alrededor de un empleo, el day trading te ahorra el riesgo nocturno y el scalping conviene a quien puede sostener un foco intenso durante una sesión. El encaje, no la emoción, es lo que te mantiene dentro de tus propias reglas."
+  - id: thin-hours-only
+    prompt:
+      en: "The only hours you can watch the market are the thin ones — the Asian session and weekends. What does the lesson conclude?"
+      es: "Las únicas horas en que puedes seguir el mercado son las finas: la sesión asiática y los fines de semana. ¿Qué concluye la lección?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "That is an argument for a slower style — not for trading the thin hours harder."
+          es: "Es un argumento a favor de un estilo más lento, no de operar más fuerte en las horas finas."
+      - id: b
+        text:
+          en: "Scalp those hours anyway — fewer participants means cleaner moves."
+          es: "Haz scalping en esas horas de todos modos: menos participantes significa movimientos más limpios."
+      - id: c
+        text:
+          en: "Trade larger size to compensate for the thinner book."
+          es: "Opera con más tamaño para compensar el libro más fino."
+      - id: d
+        text:
+          en: "It makes no difference — liquidity is even across the 24-hour clock."
+          es: "No hay diferencia: la liquidez es uniforme en el reloj de 24 horas."
+    explanation:
+      en: "A scalper needs hours where the book is deep and the moves are real; hunting ticks in a dead 03:00 book means paying the full fee toll for the worst liquidity of the day. A swing trader barely cares, because the position spans every session anyway."
+      es: "Un scalper necesita horas con libro profundo y movimientos reales; cazar ticks en un libro muerto a las 03:00 es pagar el peaje completo de comisiones por la peor liquidez del día. A un swing apenas le afecta, porque la posición abarca todas las sesiones."
+  - id: attention-vs-patience
+    prompt:
+      en: "Why is 'just try both and see' a weaker plan than it sounds when choosing between scalping and swing trading?"
+      es: "¿Por qué 'prueba los dos y ya verás' es un plan más débil de lo que parece al elegir entre scalping y swing?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "They are not degrees of the same thing: scalping's hard part is attention, swing trading's hard part is patience, and the two rarely live comfortably in the same person."
+          es: "No son grados de lo mismo: la parte difícil del scalping es la atención y la del swing es la paciencia, y ambas rara vez conviven a gusto en la misma persona."
+      - id: b
+        text:
+          en: "Because switching styles resets your fee tier at the exchange."
+          es: "Porque cambiar de estilo reinicia tu nivel de comisiones en el exchange."
+      - id: c
+        text:
+          en: "Because swing trading requires more capital than scalping."
+          es: "Porque el swing requiere más capital que el scalping."
+      - id: d
+        text:
+          en: "Because only one of them can be profitable in a given market."
+          es: "Porque solo uno de ellos puede ser rentable en un mercado dado."
+    explanation:
+      en: "Each style asks for a different kind of person and a different slice of your life. Scalping wants continuous intense focus; swing trading wants the stomach to hold open risk overnight without meddling."
+      es: "Cada estilo pide un tipo de persona distinto y una porción distinta de tu vida. El scalping quiere foco intenso continuo; el swing quiere el estómago de mantener riesgo abierto de noche sin toquetear."
+  - id: style-fights-schedule
+    kind: true_false
+    prompt:
+      en: "A style that fights your schedule or temperament is merely uncomfortable — it does not change your results."
+      es: "Un estilo que choca con tu horario o tu temperamento es solo incómodo: no cambia tus resultados."
+    answer: false
+    explanation:
+      en: "It walks you straight into broken rules and forced trades. Scalp with a full-time job and you take the sloppy entries distraction produces; swing trade when overnight risk keeps you up and you panic-close good positions at 3 a.m."
+      es: "Te lleva directo a romper reglas y a operaciones forzadas. Haz scalping con un trabajo a tiempo completo y tomarás las entradas descuidadas que produce la distracción; haz swing si el riesgo nocturno te desvela y cerrarás en pánico buenas posiciones a las 3 de la madrugada."

@@ -158,3 +158,87 @@ variants:
     explanation:
       en: "Below a low, both longs' stop-losses and leveraged longs' liquidation prices are sell orders — they add to the shelf. Shorts' stops sit above a high and are buys, and market buy orders are the opposite side entirely, not resting sell pressure below the low."
       es: "Debajo de un mínimo, tanto los stop-loss de los largos como los precios de liquidación de los largos apalancados son órdenes de venta: se suman a la repisa. Los stops de los cortos están encima de un máximo y son compras, y las órdenes de compra a mercado son justo el otro lado, no presión de venta en reposo debajo del mínimo."
+  - id: sweep-worked
+    prompt:
+      en: "BTC has a swing low at 60,000 that has held twice. What sits in the band just beneath it?"
+      es: "BTC tiene un mínimo relevante en 60.000 que ha aguantado dos veces. ¿Qué hay en la banda justo por debajo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A dense shelf of resting sell orders — long stop-losses around 59,900 plus the liquidation prices of leveraged longs at roughly 59,700–59,900."
+          es: "Una plataforma densa de órdenes de venta en reposo: stop-loss de largos en torno a 59.900 más los precios de liquidación de largos apalancados en aproximadamente 59.700-59.900."
+      - id: b
+        text:
+          en: "A shelf of resting buy orders, since buyers defended the low twice."
+          es: "Una plataforma de órdenes de compra en reposo, ya que los compradores defendieron el mínimo dos veces."
+      - id: c
+        text:
+          en: "Nothing in particular — orders are spread evenly below price."
+          es: "Nada en particular: las órdenes se reparten de forma uniforme por debajo del precio."
+      - id: d
+        text:
+          en: "Only exchange insurance-fund orders, which are invisible."
+          es: "Solo órdenes del fondo de seguros del exchange, que son invisibles."
+    explanation:
+      en: "The map is not random; it is built by shared, predictable reasoning. 'Put your stop just beyond the level that held twice' sends thousands of orders to the same handful of ticks."
+      es: "El mapa no es aleatorio: lo construye un razonamiento compartido y predecible. 'Pon el stop justo más allá del nivel que aguantó dos veces' envía miles de órdenes a los mismos pocos ticks."
+  - id: sweep-steps
+    kind: ordering
+    prompt:
+      en: "A large player wants to accumulate a big long near 60,000. Put the stages of the sweep in order."
+      es: "Un gran participante quiere acumular un largo grande cerca de 60.000. Ordena las etapas del barrido."
+    items:
+      - id: nudge
+        position: 1
+        text:
+          en: "Price is nudged down to 59,850 — below the shelf of stops."
+          es: "El precio se empuja hasta 59.850, por debajo de la plataforma de stops."
+      - id: stops
+        position: 2
+        text:
+          en: "Long stop-losses trigger as market sells."
+          es: "Los stop-loss de los largos se disparan como ventas a mercado."
+      - id: liq
+        position: 3
+        text:
+          en: "Leveraged longs down there are liquidated, adding more forced selling."
+          es: "Los largos apalancados de esa zona son liquidados, añadiendo más venta forzosa."
+      - id: absorb
+        position: 4
+        text:
+          en: "All of that selling is absorbed by the large player's resting buy orders."
+          es: "Toda esa venta es absorbida por las órdenes de compra en reposo del gran participante."
+      - id: snap
+        position: 5
+        text:
+          en: "Price wicks to 59,700 and snaps straight back above 60,000."
+          es: "El precio hace una mecha hasta 59.700 y vuelve de golpe por encima de 60.000."
+    explanation:
+      en: "The people who were stopped out and liquidated sold the exact low, and their orders were the liquidity someone else filled into. The tell is the snap-back: a genuine break holds beyond the level; a sweep pokes through and reclaims within a candle or two."
+      es: "Quienes fueron stopeados y liquidados vendieron exactamente el mínimo, y sus órdenes fueron la liquidez que otro absorbió. La señal es el regreso: una ruptura genuina se sostiene más allá del nivel; un barrido lo atraviesa y lo recupera en una o dos velas."
+  - id: stop-outside-pool
+    prompt:
+      en: "You are long and want to place your stop sensibly relative to an obvious swing low and round number. What is the rule?"
+      es: "Estás largo y quieres colocar el stop de forma sensata respecto a un mínimo obvio y un número redondo. ¿Cuál es la regla?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Put it beyond the round number and the swing extreme — not one tick inside the crowd. If you can see the shelf, so can whoever benefits from sweeping it."
+          es: "Colócalo más allá del número redondo y del extremo de la oscilación, no un tick por dentro de la multitud. Si tú ves la plataforma, también la ve quien se beneficia de barrerla."
+      - id: b
+        text:
+          en: "Put it just inside the pool, where liquidity is deepest so the fill is better."
+          es: "Colócalo justo dentro del grupo, donde la liquidez es mayor y la ejecución es mejor."
+      - id: c
+        text:
+          en: "Put it exactly at the swing low, so you are out before the sweep."
+          es: "Colócalo exactamente en el mínimo, para salir antes del barrido."
+      - id: d
+        text:
+          en: "Do not use a stop — sweeps make stops counterproductive."
+          es: "No uses stop: los barridos hacen que los stops sean contraproducentes."
+    explanation:
+      en: "A stop parked one tick inside an obvious pool is fuel for the sweep that takes it. Beyond the level costs a little more when you are wrong and spares you from being the liquidity someone else fills into."
+      es: "Un stop colocado un tick dentro de un grupo obvio es combustible para el barrido que lo toma. Más allá del nivel cuesta algo más cuando te equivocas y evita que seas la liquidez que otro absorbe."

@@ -139,3 +139,84 @@ variants:
     explanation:
       en: "The rotation is a tendency, not a timetable. It does not complete every cycle, the stages overlap, and many predicted alt seasons never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding them for years."
       es: "La rotación es una tendencia, no un calendario. No se completa en cada ciclo, las etapas se solapan y muchas alt seasons anunciadas nunca llegaron. A los traders que compraron alts pequeñas porque 'la rotación dice que van a continuación' les ha tocado sostenerlas durante años."
+  - id: thin-book-final-leg
+    prompt:
+      en: "Why is the final leg of the rotation — into small, speculative tokens — so violent?"
+      es: "¿Por qué el último tramo de la rotación, hacia tokens pequeños y especulativos, es tan violento?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Their books are thin: a small-cap has little capital sitting in it, so the same inflow that nudges Bitcoin a few percent can double a micro-cap."
+          es: "Sus libros son finos: un small-cap tiene poco capital dentro, así que el mismo flujo que mueve a Bitcoin unos puntos porcentuales puede duplicar un micro-cap."
+      - id: b
+        text:
+          en: "Small caps have higher leverage limits than majors."
+          es: "Los small caps tienen límites de apalancamiento más altos que los grandes."
+      - id: c
+        text:
+          en: "Their fundamentals improve fastest late in a cycle."
+          es: "Sus fundamentales mejoran más rápido al final de un ciclo."
+      - id: d
+        text:
+          en: "Market makers are required to quote them more aggressively."
+          es: "Los creadores de mercado están obligados a cotizarlos más agresivamente."
+    explanation:
+      en: "That is exactly why small tokens moon last, hardest, and most seductively — and why they bleed first and worst in reverse: the thin book that amplified the rise amplifies the fall, and there is often no bid to sell into."
+      es: "Por eso los tokens pequeños suben al final, con más fuerza y de forma más seductora, y por eso sangran primero y peor a la inversa: el libro fino que amplificó la subida amplifica la caída, y a menudo no hay demanda a la que vender."
+  - id: stylised-cycle-match
+    kind: matching
+    prompt:
+      en: "Match each stage of the stylised cycle to what is happening in it."
+      es: "Empareja cada etapa del ciclo estilizado con lo que ocurre en ella."
+    pairs:
+      - id: btc
+        left:
+          en: "Dominance grinds up from 40% into the high 40s"
+          es: "La dominancia sube poco a poco del 40% hasta cerca del 50%"
+        right: { en: "New money pouring into BTC first.", es: "Dinero nuevo entrando primero en BTC." }
+      - id: eth
+        left: { en: "Dominance stalls and ETH/BTC turns up", es: "La dominancia se estanca y ETH/BTC gira al alza" }
+        right:
+          en: "The first profits rotating out of Bitcoin into Ether."
+          es: "Los primeros beneficios rotando de Bitcoin a Ether."
+      - id: small
+        left:
+          en: "Obscure small caps triple while the crowd declares the alt season permanent"
+          es: "Small caps oscuros se triplican mientras la multitud declara permanente la alt season"
+        right:
+          en: "Dominance bottoming just as risk actually peaks."
+          es: "La dominancia hace suelo justo cuando el riesgo alcanza su máximo."
+    explanation:
+      en: "The crowd feels most certain exactly where risk is highest. Then something spooks the market and the whole ladder is climbed back down in a fraction of the time it took to go up."
+      es: "La multitud se siente más segura precisamente donde el riesgo es mayor. Luego algo asusta al mercado y toda la escalera se baja en una fracción del tiempo que costó subirla."
+  - id: rotation-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about the rotation that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre la rotación."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is a tendency, not a timetable — it does not complete on every cycle."
+          es: "Es una tendencia, no un calendario: no se completa en cada ciclo."
+      - id: b
+        correct: true
+        text: { en: "The stages overlap.", es: "Las etapas se solapan." }
+      - id: c
+        correct: true
+        text:
+          en: "Appetite for risk builds gradually, which is why capital travels in this order rather than all at once."
+          es: "El apetito por el riesgo se construye poco a poco, y por eso el capital viaja en este orden y no todo de golpe."
+      - id: d
+        text:
+          en: "Once stage N happens, stage N+1 follows on schedule."
+          es: "Una vez ocurre la etapa N, la N+1 llega según el calendario."
+      - id: e
+        text:
+          en: "Buying illiquid small caps early is safe because the rotation says they are next."
+          es: "Comprar small caps ilíquidos temprano es seguro porque la rotación dice que son los siguientes."
+    explanation:
+      en: "Plenty of 'alt seasons' have been called that never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding a thin, bleeding book for years."
+      es: "Se han anunciado muchas 'alt seasons' que nunca llegaron. Los traders que compraron alts pequeñas porque 'la rotación dice que son las siguientes' se han quedado años con un libro fino y sangrando."

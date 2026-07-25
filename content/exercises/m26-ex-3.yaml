@@ -174,3 +174,86 @@ variants:
     explanation:
       en: "The wick looks the same in both cases; the flow does not. A spring is selling being absorbed, so the CVD should show the absorption — price takes out the low while the CVD declines to follow. A genuine breakdown has the CVD making its new low with price, because nothing absorbed anything. This is confluence in m14's sense — one more independent lens agreeing — and emphatically not certainty: it still needs the test to hold, a level, and a stop."
       es: "La mecha se ve igual en los dos casos; el flujo no. Un spring es venta siendo absorbida, así que el CVD debería mostrar la absorción: el precio se lleva el mínimo mientras el CVD se niega a seguirlo. Una ruptura bajista genuina tiene el CVD haciendo su mínimo nuevo con el precio, porque nada absorbió nada. Esto es confluencia en el sentido de m14 —una lente independiente más que coincide— y desde luego no es certeza: sigue necesitando que el test aguante, un nivel y un stop."
+  - id: cvd-worked-hours
+    prompt:
+      en: "Five hours of deltas run +300, −300, +800, −800, +500. What does the CVD line do, and what does that show?"
+      es: "Cinco horas de deltas dan +300, −300, +800, −800, +500. ¿Qué hace la línea de CVD y qué muestra eso?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It runs +300, 0, +800, 0, +500 — in the negative hours it fell back toward where it started rather than turning negative. The delta is the hour's flow; the CVD is the position of the session."
+          es: "Va +300, 0, +800, 0, +500: en las horas negativas volvió hacia donde empezó en vez de ponerse negativa. El delta es el flujo de la hora; el CVD es la posición de la sesión."
+      - id: b
+        text:
+          en: "It runs +300, −300, +800, −800, +500 — the CVD is just the delta replotted."
+          es: "Va +300, −300, +800, −800, +500: el CVD es solo el delta redibujado."
+      - id: c
+        text:
+          en: "It ends at +2,700, the sum of the absolute values."
+          es: "Termina en +2.700, la suma de los valores absolutos."
+      - id: d
+        text:
+          en: "It cannot be computed without knowing the session's starting price."
+          es: "No puede calcularse sin conocer el precio inicial de la sesión."
+    explanation:
+      en: "CVD is a running sum from an arbitrary starting point, which is why its level is meaningless and its shape is everything: is it climbing, falling, flat, and where did it turn?"
+      es: "El CVD es una suma acumulada desde un punto de partida arbitrario, y por eso su nivel no significa nada y su forma lo es todo: ¿sube, baja, está plana, y dónde giró?"
+  - id: divergence-worked
+    prompt:
+      en: "BTC sells off to 58,200 with session CVD at −24,000. Price bounces, then grinds to a lower low at 57,400 — but CVD there reads −10,500. What happened over that second leg?"
+      es: "BTC cae a 58.200 con el CVD de la sesión en −24.000. El precio rebota y luego se arrastra a un mínimo inferior en 57.400, pero el CVD marca allí −10.500. ¿Qué ocurrió en ese segundo tramo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Aggressive buying lifted the running total by 13,500 while price fell 800 — sellers got a lower price and had to give up ground in flow to get it. Someone was buying everything they sold."
+          es: "La compra agresiva elevó el total acumulado en 13.500 mientras el precio caía 800: los vendedores consiguieron un precio menor y tuvieron que ceder terreno en flujo para lograrlo. Alguien compraba todo lo que vendían."
+      - id: b
+        text:
+          en: "Selling intensified, since both price and CVD reached new extremes."
+          es: "La venta se intensificó, ya que precio y CVD alcanzaron nuevos extremos."
+      - id: c
+        text:
+          en: "Nothing readable — CVD levels from different points in a session cannot be compared."
+          es: "Nada legible: los niveles de CVD de distintos momentos de una sesión no pueden compararse."
+      - id: d
+        text:
+          en: "A bearish divergence, because price made a lower low."
+          es: "Una divergencia bajista, porque el precio hizo un mínimo inferior."
+    explanation:
+      en: "That is a bullish CVD divergence: price makes a lower low, CVD makes a higher low. Aggression is spent before price moves, which is why the flow can turn while price is still making its low — and note the honest word for what follows: *often*."
+      es: "Esa es una divergencia alcista de CVD: el precio hace un mínimo inferior y el CVD un mínimo superior. La agresión se gasta antes de que el precio se mueva, y por eso el flujo puede girar mientras el precio aún marca su mínimo; y ojo con la palabra honesta sobre lo que sigue: *a menudo*."
+  - id: cvd-limits
+    kind: multi_select
+    prompt:
+      en: "Select ALL the limits on what a CVD reading can tell you."
+      es: "Selecciona TODOS los límites de lo que puede decirte una lectura de CVD."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is per-venue: a large buyer working a different exchange is invisible in it."
+          es: "Es por venue: un gran comprador operando en otro exchange es invisible en él."
+      - id: b
+        correct: true
+        text:
+          en: "Perp CVD is leveraged, reflexive flow heavy with liquidations and stops; spot CVD is closer to someone actually acquiring the coin."
+          es: "El CVD de perps es flujo apalancado y reflexivo, cargado de liquidaciones y stops; el de spot está más cerca de alguien adquiriendo la moneda de verdad."
+      - id: c
+        correct: true
+        text:
+          en: "A divergence on a 1-minute chart is a few minutes of flow and mostly noise."
+          es: "Una divergencia en un gráfico de 1 minuto son unos minutos de flujo y sobre todo ruido."
+      - id: d
+        correct: true
+        text:
+          en: "Aggregated CVD stacks estimates, so one venue with poor reporting drags the line."
+          es: "El CVD agregado acumula estimaciones, así que un venue con mal reporte arrastra la línea."
+      - id: e
+        text:
+          en: "A rising CVD line reliably means price will rise soon."
+          es: "Una línea de CVD ascendente significa de forma fiable que el precio subirá pronto."
+    explanation:
+      en: "Errors accumulate along with the flow, which is why CVD is read at the timeframe you intend to trade and always against price. A CVD pane alone is nearly useless — the information is in the disagreement between the two lines."
+      es: "Los errores se acumulan junto con el flujo, y por eso el CVD se lee en la temporalidad que piensas operar y siempre contra el precio. Un panel de CVD solo es casi inútil: la información está en el desacuerdo entre las dos líneas."

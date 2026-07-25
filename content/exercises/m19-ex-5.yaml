@@ -146,3 +146,66 @@ variants:
     explanation:
       en: "False. Because the coins move together, the long and the short largely cancel — that is a relative bet with far less directional exposure, not more. Stacking only happens when the positions point the same way (two longs, or two shorts) on correlated instruments."
       es: "Falso. Como las monedas se mueven juntas, el largo y el corto se cancelan en gran parte: eso es una apuesta relativa con mucha menos exposición direccional, no más. El apilamiento solo ocurre cuando las posiciones apuntan en la misma dirección (dos largos, o dos cortos) en instrumentos correlacionados."
+  - id: cluster-sizing-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps for sizing a correlated cluster rather than a single ticker in order."
+      es: "Ordena los pasos para dimensionar un grupo correlacionado en vez de un solo ticker."
+    items:
+      - id: cap
+        position: 1
+        text:
+          en: "Decide a maximum risk for the correlated group — for example, no more than 2% across all alt longs combined."
+          es: "Decide un riesgo máximo para el grupo correlacionado, por ejemplo no más del 2% entre todos los largos en alts."
+      - id: size
+        position: 2
+        text:
+          en: "Size the individual trades to fit inside that ceiling."
+          es: "Dimensiona las operaciones individuales para que quepan dentro de ese techo."
+      - id: count
+        position: 3
+        text:
+          en: "Before adding a position, ask whether it is genuinely a new idea or the same bet in a fresh costume."
+          es: "Antes de añadir una posición, pregunta si es realmente una idea nueva o la misma apuesta con otro disfraz."
+      - id: stress
+        position: 4
+        text:
+          en: "Stress-test the book: 'market −10% right now, what do I lose?'"
+          es: "Somete la cartera a estrés: '¿mercado −10% ahora mismo, cuánto pierdo?'"
+    explanation:
+      en: "Cap the cluster, not just the line; count independent bets, not tickers. If the answer to the stress test surprises you, you are carrying more portfolio risk than you thought."
+      es: "Limita el grupo, no solo la línea; cuenta apuestas independientes, no tickers. Si la respuesta a la prueba de estrés te sorprende, llevas más riesgo de cartera del que creías."
+  - id: beta-slippage
+    prompt:
+      en: "Your three correlated alt longs each have a 10% stop and a 100 USDT risk budget. BTC drops 10% and the alts drop 15–25% on thin books. What actually happens to the '3% bet'?"
+      es: "Tus tres largos correlacionados en alts tienen cada uno un stop del 10% y un presupuesto de riesgo de 100 USDT. BTC cae un 10% y las alts un 15-25% con libros finos. ¿Qué le pasa realmente a la 'apuesta del 3%'?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The 10% stops get blown through — you are filled lower after slippage, each position loses more than its 100 USDT budget, and the 3% quietly becomes 4% or worse, all in one move."
+          es: "Los stops del 10% se atraviesan: te ejecutan más abajo tras el slippage, cada posición pierde más de sus 100 USDT de presupuesto y el 3% se convierte discretamente en un 4% o peor, todo en un solo movimiento."
+      - id: b
+        text:
+          en: "Exactly 3% — the stops cap each position at its 100 USDT budget."
+          es: "Exactamente el 3%: los stops limitan cada posición a su presupuesto de 100 USDT."
+      - id: c
+        text:
+          en: "Less than 3%, because alts with higher beta recover faster."
+          es: "Menos del 3%, porque las alts con beta mayor se recuperan más rápido."
+      - id: d
+        text:
+          en: "Nothing until BTC itself breaks its own support level."
+          es: "Nada hasta que BTC rompa su propio nivel de soporte."
+    explanation:
+      en: "Most alts have a beta above 1 to BTC — they fall harder. Combine that with a thin book, 24/7, possibly on a weekend when there is barely anyone to fill you, and the budget is a plan rather than a promise."
+      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC: caen más. Suma un libro fino, 24/7 y posiblemente un fin de semana en el que apenas hay quien te ejecute, y el presupuesto es un plan más que una promesa."
+  - id: sum-of-caps-tf
+    kind: true_false
+    prompt:
+      en: "Adding up your per-trade 1% caps tells you your portfolio risk."
+      es: "Sumar los límites del 1% por operación te dice tu riesgo de cartera."
+    answer: false
+    explanation:
+      en: "Your portfolio risk is the answer to one question — 'if the market dropped 10% right this second, what would I lose?' — summed across every correlated position. The per-trade caps only add up honestly when the trades are genuinely independent."
+      es: "Tu riesgo de cartera es la respuesta a una pregunta ('si el mercado cayera un 10% ahora mismo, cuánto perdería') sumada en todas las posiciones correlacionadas. Los límites por operación solo suman con honestidad cuando las operaciones son de verdad independientes."

@@ -136,3 +136,81 @@ variants:
     explanation:
       en: "Phase B is the heart of the accumulation or distribution: a big order worked patiently over many sessions of two-way churn, so it fills without spiking price. The longer the churn, the bigger the cause it builds. Option b is the beginner's read that the range is 'nothing'; the spring comes later, in phase C (not b's or c's timing); and the trend is phase E, not B."
       es: "La fase B es el corazón de la acumulación o la distribución: una orden grande trabajada con paciencia a lo largo de muchas sesiones de ir y venir, para que se llene sin disparar el precio. Cuanto más largo el ir y venir, mayor la causa que construye. La opción b es la lectura de principiante de que el rango «no es nada»; el spring llega después, en la fase C (no en el momento de c); y la tendencia es la fase E, no la B."
+  - id: phase-b-churn
+    prompt:
+      en: "In the example range, price spends six weeks oscillating between roughly 41,000 and 46,000 on unremarkable activity. Why is this the phase where the real work happens?"
+      es: "En el rango de ejemplo, el precio pasa seis semanas oscilando entre unos 41.000 y 46.000 con actividad poco llamativa. ¿Por qué es esta la fase en la que ocurre el trabajo real?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A large buyer cannot lift 41,000 to 47,000 in one go without spiking price against themselves, so they buy patiently on the dips — every cycle transfers a little more supply from tired sellers to patient buyers."
+          es: "Un gran comprador no puede llevar 41.000 a 47.000 de una vez sin disparar el precio en su contra, así que compra con paciencia en las caídas: cada ciclo transfiere un poco más de oferta de vendedores cansados a compradores pacientes."
+      - id: b
+        text:
+          en: "Nothing happens in phase B; it is the pause before phase C does the work."
+          es: "En la fase B no ocurre nada; es la pausa antes de que la fase C haga el trabajo."
+      - id: c
+        text:
+          en: "It is where stop-losses are triggered, which is what builds the cause."
+          es: "Es donde se disparan los stop-loss, y eso es lo que construye la causa."
+      - id: d
+        text:
+          en: "Volume is at its highest here, which is why the move that follows is large."
+          es: "El volumen es máximo aquí, y por eso el movimiento posterior es grande."
+    explanation:
+      en: "Wyckoff calls this building the cause: the more churn, the bigger the eventual move it can pay for. Six weeks in a 41,000–46,000 band is not 'nothing happening' — it is the accumulation itself."
+      es: "Wyckoff llama a esto construir la causa: cuanto más movimiento lateral, mayor el movimiento que puede pagar después. Seis semanas en una banda de 41.000-46.000 no es 'que no pase nada': es la acumulación misma."
+  - id: phase-d-vs-b
+    prompt:
+      en: "What visibly distinguishes phase D from phase B in the same range?"
+      es: "¿Qué distingue visiblemente la fase D de la fase B en el mismo rango?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The slope. Phase B churns flat between the lines; phase D walks uphill — higher lows at 44,000 then 45,500, pressing repeatedly against the ceiling."
+          es: "La pendiente. La fase B se mueve plana entre las líneas; la fase D sube: mínimos crecientes en 44.000 y luego 45.500, presionando repetidamente contra el techo."
+      - id: b
+        text: { en: "Phase D is always shorter than phase B.", es: "La fase D siempre es más corta que la fase B." }
+      - id: c
+        text:
+          en: "Phase D happens below support, phase B above it."
+          es: "La fase D ocurre por debajo del soporte y la fase B por encima."
+      - id: d
+        text: { en: "Only phase D has a spring in it.", es: "Solo la fase D contiene un spring." }
+    explanation:
+      en: "Once supply is gone, buyers no longer need to be patient: demand overwhelms what little selling appears, so each pullback is shallower than the last. Higher lows against a flat ceiling are the fingerprint of that shift in control."
+      es: "Una vez agotada la oferta, los compradores ya no necesitan paciencia: la demanda supera la poca venta que aparece, así que cada retroceso es más superficial que el anterior. Mínimos crecientes contra un techo plano son la huella de ese cambio de control."
+  - id: depth-vs-recovery
+    kind: multi_select
+    prompt:
+      en: "Phase C in a thin crypto book is easy to fake. Select ALL statements that follow from that."
+      es: "La fase C en un libro cripto fino es fácil de falsear. Selecciona TODAS las afirmaciones que se derivan de eso."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The recovery matters more than the depth — a deep wick on a thin book is cheap to produce."
+          es: "La recuperación importa más que la profundidad: una mecha profunda en un libro fino es barata de producir."
+      - id: b
+        correct: true
+        text:
+          en: "Demand a clean snap-back inside the range before you trust the spring."
+          es: "Exige un regreso limpio al interior del rango antes de fiarte del spring."
+      - id: c
+        correct: true
+        text:
+          en: "A 'spring' printed at 3 a.m. on a Sunday deserves more suspicion, not less."
+          es: "Un 'spring' impreso a las 3 de la madrugada de un domingo merece más sospecha, no menos."
+      - id: d
+        text:
+          en: "A deeper stab below support is stronger proof of accumulation."
+          es: "Un pinchazo más profundo bajo el soporte es una prueba más fuerte de acumulación."
+      - id: e
+        text:
+          en: "You can label the break a spring the moment it happens."
+          es: "Puedes etiquetar la ruptura como spring en el momento en que ocurre."
+    explanation:
+      en: "A stab below support that keeps falling was never a spring — it was a breakdown. You only earn the label once price recovers and holds; live, the two look identical."
+      es: "Un pinchazo bajo el soporte que sigue cayendo nunca fue un spring: fue una ruptura. Solo te ganas la etiqueta cuando el precio recupera y se sostiene; en vivo, ambos se ven idénticos."

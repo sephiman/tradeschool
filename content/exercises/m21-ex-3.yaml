@@ -140,3 +140,85 @@ variants:
     explanation:
       en: "They define the trade in advance — how much you lose if wrong (SL) and where you take the win (TP) — but they guarantee nothing about the outcome. If price hits the stop-loss first, the trade ends in the planned loss. No order can guarantee a profit."
       es: "Definen la operación de antemano —cuánto pierdes si te equivocas (SL) y dónde te llevas la ganancia (TP)— pero no garantizan nada sobre el resultado. Si el precio toca antes el stop-loss, la operación acaba en la pérdida planeada. Ninguna orden puede garantizar un beneficio."
+  - id: tp-sl-numbers
+    prompt:
+      en: "You go long at 60,000, set the SL at 58,800 and the TP at 63,000. What have you just done?"
+      es: "Te pones largo en 60.000, colocas el SL en 58.800 y el TP en 63.000. ¿Qué acabas de hacer?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Fully defined the trade — risking 1,200 to make 3,000 — and it will now close itself at one end or the other whether you are watching or asleep."
+          es: "Definir por completo la operación (arriesgar 1.200 para ganar 3.000), y ahora se cerrará sola en un extremo o en el otro, estés mirando o dormido."
+      - id: b
+        text:
+          en: "Guaranteed a profit, since the TP is further away than the SL."
+          es: "Garantizar un beneficio, ya que el TP está más lejos que el SL."
+      - id: c
+        text:
+          en: "Set a 2% risk and a 5% target measured on your margin, not on price."
+          es: "Fijar un riesgo del 2% y un objetivo del 5% medidos sobre tu margen, no sobre el precio."
+      - id: d
+        text:
+          en: "Replaced the need for a position size decision."
+          es: "Sustituir la necesidad de decidir el tamaño de la posición."
+    explanation:
+      en: "Placing them together defines the trade before emotion arrives: the SL says how much you will lose if wrong, the TP says where you will take the win. Neither guarantees the outcome."
+      es: "Colocarlos juntos define la operación antes de que llegue la emoción: el SL dice cuánto perderás si te equivocas y el TP dónde tomarás la ganancia. Ninguno garantiza el resultado."
+  - id: spot-vs-perp-flip
+    prompt:
+      en: "Why does reduce-only exist on perpetuals but not need to on spot?"
+      es: "¿Por qué existe el reduce-only en los perpetuos y no hace falta en spot?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "On spot you can only sell what you hold, so an oversized sell just sells everything and stops. On perps, selling past flat opens a short — the position flips sign."
+          es: "En spot solo puedes vender lo que tienes, así que una venta excesiva vende todo y se detiene. En perps, vender más allá de cero abre un corto: la posición cambia de signo."
+      - id: b
+        text:
+          en: "Spot exchanges apply reduce-only automatically to every order."
+          es: "Los exchanges de spot aplican reduce-only automáticamente a cada orden."
+      - id: c
+        text:
+          en: "Because perps settle in a stablecoin and spot does not."
+          es: "Porque los perps se liquidan en una stablecoin y el spot no."
+      - id: d
+        text:
+          en: "Because spot has no stop orders, so there is nothing to protect."
+          es: "Porque en spot no hay órdenes stop, así que no hay nada que proteger."
+    explanation:
+      en: "Reduce-only restores the spot-like guarantee that closing a position can never accidentally open the opposite one — which is why it belongs on every exit you place on a perp."
+      es: "El reduce-only restaura la garantía propia del spot de que cerrar una posición nunca puede abrir accidentalmente la contraria, y por eso corresponde a toda salida que coloques en un perp."
+  - id: exit-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about exits that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre las salidas."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A stop-loss is a voluntary exit at a level you chose."
+          es: "Un stop-loss es una salida voluntaria en un nivel que tú elegiste."
+      - id: b
+        correct: true
+        text:
+          en: "A take-profit banks the gain before the market can hand it back."
+          es: "Un take-profit asegura la ganancia antes de que el mercado pueda devolverla."
+      - id: c
+        correct: true
+        text:
+          en: "A well-placed stop-loss should trigger long before liquidation is ever in question."
+          es: "Un stop-loss bien colocado debería activarse mucho antes de que la liquidación entre en juego."
+      - id: d
+        text:
+          en: "Liquidation is just a stop-loss the exchange places for you at your chosen level."
+          es: "La liquidación es solo un stop-loss que el exchange coloca por ti en el nivel que elegiste."
+      - id: e
+        text:
+          en: "A take-profit and stop-loss pair guarantees the trade ends green."
+          es: "Un par de take-profit y stop-loss garantiza que la operación acabe en verde."
+    explanation:
+      en: "A stop-loss is you deciding to leave at a level you chose; liquidation is the exchange deciding for you when your collateral is gone. Keeping those two apart is much of what a stop is for."
+      es: "Un stop-loss es que tú decidas salir en un nivel elegido; la liquidación es que el exchange decida por ti cuando tu colateral se agota. Mantener ambos separados es buena parte de la función del stop."

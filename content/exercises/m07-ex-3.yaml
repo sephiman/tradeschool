@@ -168,3 +168,66 @@ variants:
     explanation:
       en: "Only the number at the moment you close becomes realized. The +400 peak was unrealized and never settled — a green number on an open position can evaporate before you take it."
       es: "Solo el número del momento en que cierras pasa a estar realizado. El máximo de +400 era no realizado y nunca se materializó: un número verde en una posición abierta puede evaporarse antes de que lo cojas."
+  - id: weather-climate
+    prompt:
+      en: "What is the useful habit for telling unrealized and realized PnL apart?"
+      es: "¿Cuál es el hábito útil para distinguir el PnL no realizado del realizado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Treat unrealized PnL as weather and realized PnL as climate — the weather is loud and changes constantly; only the climate goes into your record."
+          es: "Trata el PnL no realizado como el tiempo y el realizado como el clima: el tiempo es ruidoso y cambia constantemente; solo el clima entra en tu registro."
+      - id: b
+        text:
+          en: "Treat both the same — the exchange computes them from the same price."
+          es: "Trátalos igual: el exchange los calcula con el mismo precio."
+      - id: c
+        text:
+          en: "Treat unrealized PnL as the reliable figure, since it updates tick by tick."
+          es: "Trata el PnL no realizado como la cifra fiable, ya que se actualiza tick a tick."
+      - id: d
+        text:
+          en: "Record the peak unrealized figure — it is what the position was truly worth."
+          es: "Registra el máximo no realizado: es lo que la posición valió de verdad."
+    explanation:
+      en: "Unrealized PnL is a mark-to-market estimate that the next candle can erase. Realized PnL is a final, booked change in your balance — it is the only one that belongs in your record."
+      es: "El PnL no realizado es una estimación a precio de mercado que la siguiente vela puede borrar. El realizado es un cambio final y contabilizado en tu saldo: es el único que pertenece a tu registro."
+  - id: unrealized-asymmetry
+    kind: true_false
+    prompt:
+      en: "An unrealized loss is just as provisional as an unrealized gain — it cannot cost you anything until you choose to close."
+      es: "Una pérdida no realizada es tan provisional como una ganancia no realizada: no puede costarte nada hasta que decidas cerrar."
+    answer: false
+    explanation:
+      en: "The asymmetry cuts against you. Unrealized loss is exactly what the exchange watches to decide whether your margin still covers the position: let it grow far enough and you are force-closed at a loss you did realize, whether you wanted to or not."
+      es: "La asimetría va en tu contra. La pérdida no realizada es precisamente lo que vigila el exchange para decidir si tu margen aún cubre la posición: si crece lo suficiente, te cierran por la fuerza con una pérdida que sí realizaste, quieras o no."
+  - id: pnl-lifecycle
+    kind: ordering
+    prompt:
+      en: "Put the life of a position's PnL in order, from opening to the final record."
+      es: "Ordena la vida del PnL de una posición, desde la apertura hasta el registro final."
+    items:
+      - id: mark
+        position: 1
+        text:
+          en: "While the position is open, the exchange recomputes unrealized PnL tick by tick against the mark price."
+          es: "Mientras la posición está abierta, el exchange recalcula el PnL no realizado tick a tick contra el mark price."
+      - id: close
+        position: 2
+        text:
+          en: "You close the position (or part of it)."
+          es: "Cierras la posición (o parte de ella)."
+      - id: book
+        position: 3
+        text:
+          en: "The estimate stops being an estimate and becomes a booked change in your balance."
+          es: "La estimación deja de ser una estimación y se convierte en un cambio contabilizado en tu saldo."
+      - id: still
+        position: 4
+        text:
+          en: "The number stops moving — there is nothing left to mark, because the trade is over."
+          es: "El número deja de moverse: no queda nada que marcar, porque la operación ha terminado."
+    explanation:
+      en: "Nothing settles and no money moves while the position is open, however loud the green number gets. Only closing turns the mark-to-market estimate into something in your balance."
+      es: "Nada se liquida y ningún dinero se mueve mientras la posición está abierta, por muy llamativo que sea el número verde. Solo al cerrar la estimación a mercado se convierte en algo en tu saldo."

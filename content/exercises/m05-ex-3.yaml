@@ -147,3 +147,87 @@ variants:
     explanation:
       en: "The gap is your breathing room: how far your equity can fall before it reaches the maintenance level and the position is force-closed. It is not a fee, not bonus profit, and the exchange never tops it up."
       es: "El hueco es tu margen de maniobra: cuánto puede caer tu capital antes de alcanzar el nivel de mantenimiento y que la posición se cierre a la fuerza. No es una comisión, ni un beneficio extra, y el exchange nunca lo rellena."
+  - id: breathing-room-calc
+    prompt:
+      en: "You hold a 20,000 USDT notional long at 10×, so you posted 2,000 initial margin. Maintenance margin is 0.5% of notional. How much can you lose before liquidation, and what move is that?"
+      es: "Mantienes un largo de 20.000 USDT de nocional a 10×, así que depositaste 2.000 de margen inicial. El margen de mantenimiento es el 0,5% del nocional. ¿Cuánto puedes perder antes de la liquidación y a qué movimiento equivale?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "About 1,900 USDT — you are closed when equity falls to the 100 USDT floor — which is roughly a 9.5% adverse move on the notional."
+          es: "Unos 1.900 USDT (te cierran cuando el capital cae al suelo de 100 USDT), lo que equivale a un movimiento adverso de aproximadamente el 9,5% sobre el nocional."
+      - id: b
+        text:
+          en: "The full 2,000 USDT, which is a 10% adverse move."
+          es: "Los 2.000 USDT completos, lo que supone un movimiento adverso del 10%."
+      - id: c
+        text:
+          en: "100 USDT, since that is the maintenance margin."
+          es: "100 USDT, ya que ese es el margen de mantenimiento."
+      - id: d
+        text:
+          en: "About 1,900 USDT, which is a 9.5% move on your margin."
+          es: "Unos 1.900 USDT, lo que supone un movimiento del 9,5% sobre tu margen."
+    explanation:
+      en: "Initial margin is the price of admission; maintenance margin is the eviction line. The gap between them is your breathing room — 2,000 down to 100 here, measured as a percentage of the notional, not of the deposit."
+      es: "El margen inicial es el precio de la entrada; el de mantenimiento es la línea de desahucio. El hueco entre ambos es tu margen de respiro: de 2.000 a 100 aquí, medido como porcentaje del nocional, no del depósito."
+  - id: maintenance-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE of the maintenance margin."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre el margen de mantenimiento."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is the minimum equity you must keep to hold the position open."
+          es: "Es el capital mínimo que debes mantener para conservar la posición abierta."
+      - id: b
+        correct: true
+        text:
+          en: "It is a small exchange-set fraction of the notional, often around 0.5%."
+          es: "Es una fracción pequeña del nocional fijada por el exchange, a menudo en torno al 0,5%."
+      - id: c
+        correct: true
+        text:
+          en: "It exists so the exchange can close you before your losses turn your balance negative."
+          es: "Existe para que el exchange pueda cerrarte antes de que tus pérdidas dejen tu saldo en negativo."
+      - id: d
+        text:
+          en: "It is larger than the initial margin you posted."
+          es: "Es mayor que el margen inicial que depositaste."
+      - id: e
+        text: { en: "It rises each day you keep the position open.", es: "Aumenta cada día que mantienes la posición abierta." }
+    explanation:
+      en: "Maintenance sits well below initial margin — it is the exchange's safety buffer, not a second deposit. The exchange is protecting itself from holding the bill, and that is the whole reason the eviction line exists."
+      es: "El mantenimiento está bien por debajo del margen inicial: es el colchón de seguridad del exchange, no un segundo depósito. El exchange se protege de quedarse con la factura, y esa es toda la razón de que exista la línea de desahucio."
+  - id: equity-path
+    kind: ordering
+    prompt:
+      en: "Put the life of a losing leveraged position in order, from opening to forced close."
+      es: "Ordena la vida de una posición apalancada perdedora, desde la apertura hasta el cierre forzoso."
+    items:
+      - id: open
+        position: 1
+        text:
+          en: "You post the initial margin — notional divided by leverage — and the position opens."
+          es: "Depositas el margen inicial (nocional dividido por el apalancamiento) y la posición se abre."
+      - id: move
+        position: 2
+        text:
+          en: "Price moves against you and the loss eats into your equity."
+          es: "El precio se mueve en tu contra y la pérdida se come tu capital."
+      - id: floor
+        position: 3
+        text:
+          en: "Equity falls to the maintenance-margin level — the exchange's floor."
+          es: "El capital cae al nivel de margen de mantenimiento: el suelo del exchange."
+      - id: close
+        position: 4
+        text:
+          en: "The exchange force-closes the position: that, and only that, is liquidation."
+          es: "El exchange cierra la posición por la fuerza: eso, y solo eso, es una liquidación."
+    explanation:
+      en: "Liquidation is not you choosing to sell and not the market being illiquid — it is a forced close triggered by equity hitting the maintenance level. Higher leverage shortens step 2."
+      es: "Una liquidación no es que tú decidas vender ni que el mercado sea ilíquido: es un cierre forzoso disparado por el capital al tocar el nivel de mantenimiento. Más apalancamiento acorta el paso 2."

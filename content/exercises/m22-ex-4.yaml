@@ -158,3 +158,114 @@ variants:
     explanation:
       en: "Independent losses multiply: 0.60³ = 0.216, about 22% — roughly one in five, so over a few hundred trades it happens constantly. Cubing the win rate (0.40³ ≈ 6%) answers the wrong question, and the chance doesn't stay at the single-trade 60% because the losses compound."
       es: "Las pérdidas independientes se multiplican: 0,60³ = 0,216, alrededor del 22%, más o menos una de cada cinco, así que a lo largo de unos cientos de operaciones ocurre constantemente. Elevar al cubo el win rate (0,40³ ≈ 6%) responde a la pregunta equivocada, y la probabilidad no se queda en el 60% de una sola operación porque las pérdidas se acumulan."
+  - id: larger-sample-streaks
+    prompt:
+      en: "You take more trades to let the law of averages smooth things out. What actually happens to your worst losing streak?"
+      es: "Tomas más operaciones para que la ley de los grandes números lo suavice todo. ¿Qué le pasa realmente a tu peor racha perdedora?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It gets deeper — a larger sample does not smooth the streaks away, it guarantees you eventually hit a run long enough to test your nerve."
+          es: "Se hace más profunda: una muestra mayor no suaviza las rachas, garantiza que tarde o temprano encuentres una lo bastante larga para poner a prueba tus nervios."
+      - id: b
+        text:
+          en: "It gets shorter, because losses and wins even out over time."
+          es: "Se acorta, porque las pérdidas y las ganancias se compensan con el tiempo."
+      - id: c
+        text:
+          en: "It stays the same — streak length does not depend on sample size."
+          es: "Se mantiene igual: la longitud de la racha no depende del tamaño de la muestra."
+      - id: d
+        text:
+          en: "It becomes unpredictable, since past trades influence future ones."
+          es: "Se vuelve impredecible, ya que las operaciones pasadas influyen en las futuras."
+    explanation:
+      en: "What a larger sample smooths is the measured *average*, not the streaks. Trades are near enough independent, so a bad run carries no memory and no self-correction — the market does not owe you a win after four losses."
+      es: "Lo que una muestra mayor suaviza es la *media* medida, no las rachas. Las operaciones son prácticamente independientes, así que una mala racha no tiene memoria ni autocorrección: el mercado no te debe una ganancia tras cuatro pérdidas."
+  - id: same-expectancy-feel
+    prompt:
+      en: "Two systems have identical expectancy — one wins often with small wins, the other rarely with large ones. What follows?"
+      es: "Dos sistemas tienen la misma expectativa: uno gana a menudo con ganancias pequeñas y el otro rara vez con ganancias grandes. ¿Qué se deduce?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Same maths, very different psychology — the low-win-rate one makes you sit through long strings of losses. Choose the one you can actually follow."
+          es: "Las mismas matemáticas, una psicología muy distinta: el de baja tasa de acierto te hace aguantar largas series de pérdidas. Elige el que puedas seguir de verdad."
+      - id: b
+        text:
+          en: "The high-win-rate one is objectively better, since it is easier to trade."
+          es: "El de alta tasa de acierto es objetivamente mejor, ya que es más fácil de operar."
+      - id: c
+        text:
+          en: "The low-win-rate one must have higher expectancy in practice."
+          es: "El de baja tasa de acierto debe tener mayor expectativa en la práctica."
+      - id: d
+        text:
+          en: "Identical expectancy means identical experience, so pick either."
+          es: "La misma expectativa significa la misma experiencia, así que elige cualquiera."
+    explanation:
+      en: "A system you abandon mid-drawdown has an expectancy of zero in practice, whatever the spreadsheet says. Fit matters because the rules only pay if you keep following them."
+      es: "Un sistema que abandonas en mitad del drawdown tiene una expectativa de cero en la práctica, diga lo que diga la hoja de cálculo. El encaje importa porque las reglas solo pagan si sigues cumpliéndolas."
+  - id: dilution-facts
+    kind: multi_select
+    prompt:
+      en: "Crypto never closes, so there is always another candle. Select ALL the ways that damages a real edge."
+      es: "El cripto nunca cierra, así que siempre hay otra vela. Selecciona TODAS las formas en que eso daña una ventaja real."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Your edge belongs to a specific setup, so every marginal boredom or FOMO trade dilutes the average with trades that never had one."
+          es: "Tu ventaja pertenece a un setup concreto, así que cada operación marginal por aburrimiento o FOMO diluye la media con operaciones que nunca la tuvieron."
+      - id: b
+        correct: true
+        text:
+          en: "Every extra trade pays the round-trip fee, so the break-even win rate quietly rises with every position you open."
+          es: "Cada operación extra paga la comisión de ida y vuelta, así que la tasa de acierto de equilibrio sube discretamente con cada posición que abres."
+      - id: c
+        correct: true
+        text:
+          en: "Compressed time: a normal losing streak that a swing trader meets over months can hit you in a few hours, which feels far more like a broken system than it is."
+          es: "Tiempo comprimido: una racha perdedora normal que un swing encuentra en meses puede golpearte en unas horas, y eso parece mucho más un sistema roto de lo que es."
+      - id: d
+        text:
+          en: "More trades add to your edge, because the sample grows faster."
+          es: "Más operaciones suman a tu ventaja, porque la muestra crece más rápido."
+      - id: e
+        text:
+          en: "A 24/7 market removes variance, since there are no gaps between sessions."
+          es: "Un mercado 24/7 elimina la varianza, ya que no hay huecos entre sesiones."
+    explanation:
+      en: "The discipline the 24/7 clock demands is *not taking* trades. Fewer, higher-quality trades keep the sample clean and the measured expectancy honest."
+      es: "La disciplina que exige el reloj 24/7 es *no* operar. Menos operaciones y de mayor calidad mantienen la muestra limpia y la expectativa medida honesta."
+  - id: judging-a-system-order
+    kind: ordering
+    prompt:
+      en: "Put the honest sequence for deciding whether a system has an edge in order."
+      es: "Ordena la secuencia honesta para decidir si un sistema tiene ventaja."
+    items:
+      - id: rules
+        position: 1
+        text:
+          en: "While flat and calm, write down the rules: the setup, its expectancy target and its payoff."
+          es: "Estando fuera del mercado y con calma, escribe las reglas: el setup, su expectativa objetivo y su payoff."
+      - id: streak
+        position: 2
+        text:
+          en: "Decide in advance how deep a losing run the system can normally produce, so you recognise it instead of panicking."
+          es: "Decide por adelantado cuán profunda puede ser una racha perdedora normal del sistema, para reconocerla en vez de entrar en pánico."
+      - id: sample
+        position: 3
+        text:
+          en: "Take a real sample — trades taken the same way, hundreds rather than the last five."
+          es: "Toma una muestra real: operaciones hechas de la misma forma, cientos en lugar de las últimas cinco."
+      - id: judge
+        position: 4
+        text:
+          en: "Let that sample — not a bad afternoon — be the thing that changes your mind."
+          es: "Deja que esa muestra, y no una mala tarde, sea lo que te haga cambiar de opinión."
+    explanation:
+      en: "You will almost never have enough data to be certain, and your feelings during a drawdown are the least reliable evidence you own. Deciding the rules before the emotion arrives is what makes the later judgement honest."
+      es: "Casi nunca tendrás datos suficientes para estar seguro, y tus sensaciones durante un drawdown son la evidencia menos fiable que tienes. Decidir las reglas antes de que llegue la emoción es lo que hace honesto el juicio posterior."

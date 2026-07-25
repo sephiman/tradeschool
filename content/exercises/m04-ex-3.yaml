@@ -131,3 +131,81 @@ variants:
     explanation:
       en: "On a perp a short is just as native as a long — you open a position in a contract, you do not borrow or sell any real coin. That is different from shorting on a spot market, where you really would borrow the asset."
       es: "En un perp un corto es tan nativo como un largo: abres una posición en un contrato, no pides prestada ni vendes ninguna moneda real. Es distinto de ponerte corto en el mercado spot, donde sí pedirías prestado el activo."
+  - id: zero-sum
+    prompt:
+      en: "BTC is at 20,000 and you open a long perp with 10,000 USDT of notional. Price rises 5% to 21,000. What happened?"
+      es: "BTC está en 20.000 y abres un perp largo con 10.000 USDT de nocional. El precio sube un 5% hasta 21.000. ¿Qué ha ocurrido?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "You gained 5% of notional — 500 USDT, credited in USDT — and a trader short the same notional lost exactly that 500. No Bitcoin moved."
+          es: "Ganaste el 5% del nocional (500 USDT, abonados en USDT) y un trader corto por el mismo nocional perdió exactamente esos 500. Ningún Bitcoin se movió."
+      - id: b
+        text:
+          en: "0.5 BTC was transferred into your account from the exchange's reserves."
+          es: "Se transfirieron 0,5 BTC a tu cuenta desde las reservas del exchange."
+      - id: c
+        text:
+          en: "You gained 500 USDT, paid by the exchange out of its trading revenue."
+          es: "Ganaste 500 USDT, pagados por el exchange con sus ingresos de trading."
+      - id: d
+        text:
+          en: "You gained 5% of your margin, not of the notional."
+          es: "Ganaste el 5% de tu margen, no del nocional."
+    explanation:
+      en: "The contract is a zero-sum transfer between the two sides, settled in a stablecoin. Your position size is measured in notional — the full value the contract controls — and the coin itself sat untouched in someone else's wallet the whole time."
+      es: "El contrato es una transferencia de suma cero entre las dos partes, liquidada en una stablecoin. El tamaño de tu posición se mide en nocional (el valor total que controla el contrato) y la moneda siguió intacta en la wallet de otra persona todo el tiempo."
+  - id: mark-price-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE of the mark price."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre el precio de marca (mark price)."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is a smoothed fair value built from an index of spot prices across many venues."
+          es: "Es un valor razonable suavizado, construido con un índice de precios spot de muchos venues."
+      - id: b
+        correct: true
+        text: { en: "Your liquidation level is measured against it.", es: "Tu nivel de liquidación se mide contra él." }
+      - id: c
+        correct: true
+        text:
+          en: "It moves less violently than last price because no single venue can drag it far."
+          es: "Se mueve menos violentamente que el último precio porque ningún venue puede arrastrarlo lejos."
+      - id: d
+        text:
+          en: "It is the price of the most recent trade on your exchange."
+          es: "Es el precio de la operación más reciente en tu exchange."
+      - id: e
+        text: { en: "It is set manually by the exchange's risk desk.", es: "Lo fija manualmente la mesa de riesgos del exchange." }
+    explanation:
+      en: "The mark exists for a defensive reason: if forced closes tracked the last trade, one momentary wick on a thin venue could liquidate thousands of healthy positions in a heartbeat."
+      es: "El mark existe por una razón defensiva: si los cierres forzosos siguieran la última operación, una mecha momentánea en un venue ilíquido podría liquidar miles de posiciones sanas en un instante."
+  - id: panic-close
+    prompt:
+      en: "During a violent candle a trader watches the last price stab down through their liquidation number and closes the position themselves at a terrible tick. What actually happened?"
+      es: "Durante una vela violenta, un trader ve el último precio atravesar su número de liquidación y cierra él mismo la posición a un precio terrible. ¿Qué ocurrió en realidad?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The wick existed only on the last price. Reading the calmer mark price, the exchange would never have force-closed them — they turned a non-event into a realised loss."
+          es: "La mecha solo existió en el último precio. Leyendo el mark, más tranquilo, el exchange nunca los habría cerrado por la fuerza: convirtieron un no-evento en una pérdida realizada."
+      - id: b
+        text:
+          en: "They saved themselves — the exchange would have liquidated them moments later."
+          es: "Se salvaron: el exchange los habría liquidado momentos después."
+      - id: c
+        text:
+          en: "The exchange had already liquidated them; their close did nothing."
+          es: "El exchange ya los había liquidado; su cierre no hizo nada."
+      - id: d
+        text:
+          en: "Both prices had crossed the level, so the outcome was identical either way."
+          es: "Ambos precios habían cruzado el nivel, así que el resultado era idéntico de todas formas."
+    explanation:
+      en: "Learn which number actually triggers the forced close before you react to a spike. Liquidations track the mark price, never the last price — this is exactly the scenario the mark was designed to protect you from."
+      es: "Aprende qué número dispara realmente el cierre forzoso antes de reaccionar a un pico. Las liquidaciones siguen el mark, nunca el último precio: este es precisamente el escenario del que el mark te protege."

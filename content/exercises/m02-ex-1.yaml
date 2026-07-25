@@ -150,3 +150,70 @@ variants:
     explanation:
       en: "A DEX runs on smart contracts: you keep custody and trade from your wallet. There is no support desk, and trades still incur network and pool fees."
       es: "Un DEX funciona con contratos inteligentes: mantienes la custodia y operas desde tu cartera. No hay atención al cliente y las operaciones siguen teniendo comisiones de red y de pool."
+  - id: cex-reset
+    prompt:
+      en: "Why can a centralised exchange reset your password and undo its own mistakes, when nobody can do that for a self-custody wallet?"
+      es: "¿Por qué un exchange centralizado puede restablecer tu contraseña y deshacer sus propios errores, cuando nadie puede hacerlo con una wallet de autocustodia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because it controls the coins — the same power that lets it help you also lets it freeze, lose or spend them."
+          es: "Porque controla las monedas: el mismo poder que le permite ayudarte también le permite congelarlas, perderlas o gastarlas."
+      - id: b
+        text: { en: "Because an operator can reverse a confirmed blockchain transaction.", es: "Porque un operador puede revertir una transacción confirmada en blockchain." }
+      - id: c
+        text: { en: "Because regulators require every exchange to offer account recovery.", es: "Porque los reguladores obligan a todo exchange a ofrecer recuperación de cuenta." }
+      - id: d
+        text: { en: "Because it keeps a backup copy of your personal private key.", es: "Porque guarda una copia de seguridad de tu clave privada personal." }
+    explanation:
+      en: "Custodial convenience and custodial risk are one fact seen from two sides: the company can fix things precisely because your balance is a number in its database and the coins are in its wallets."
+      es: "La comodidad y el riesgo custodial son un mismo hecho visto de dos lados: la empresa puede arreglar cosas precisamente porque tu saldo es un número en su base de datos y las monedas están en sus wallets."
+  - id: dex-swap-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps of a swap on a decentralised exchange in order."
+      es: "Ordena los pasos de un swap en un exchange descentralizado."
+    items:
+      - id: connect
+        position: 1
+        text:
+          en: "You connect your own wallet — there is no account to open."
+          es: "Conectas tu propia wallet: no hay ninguna cuenta que abrir."
+      - id: approve
+        position: 2
+        text:
+          en: "You approve the smart contract that will handle the swap."
+          es: "Apruebas el contrato inteligente que ejecutará el swap."
+      - id: sign
+        position: 3
+        text:
+          en: "You sign the swap yourself and pay the network fee."
+          es: "Firmas el swap tú mismo y pagas la comisión de red."
+      - id: settle
+        position: 4
+        text:
+          en: "The trade settles on-chain and the tokens land in your wallet seconds later."
+          es: "La operación se liquida on-chain y los tokens llegan a tu wallet segundos después."
+    explanation:
+      en: "Every step is yours: no account, no operator, no support desk. That is the appeal and also the exposure — the approval in step 2 is what a malicious contract abuses."
+      es: "Cada paso es tuyo: sin cuenta, sin operador, sin atención al cliente. Ahí está el atractivo y también la exposición: la aprobación del paso 2 es lo que abusa un contrato malicioso."
+  - id: dex-recourse
+    prompt:
+      en: "On a DEX you approve a contract that turns out to be malicious and it drains your wallet. What is your recourse?"
+      es: "En un DEX apruebas un contrato que resulta ser malicioso y te vacía la wallet. ¿Qué recurso tienes?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "None — you signed it yourself and it settled on-chain; there is no operator to reverse it."
+          es: "Ninguno: lo firmaste tú y se liquidó on-chain; no hay operador que pueda revertirlo."
+      - id: b
+        text: { en: "The DEX's support desk can claw the funds back.", es: "El soporte del DEX puede recuperar los fondos." }
+      - id: c
+        text: { en: "The network refunds transactions flagged as malicious.", es: "La red reembolsa las transacciones marcadas como maliciosas." }
+      - id: d
+        text: { en: "Your wallet provider insures approvals up to a limit.", es: "El proveedor de tu wallet asegura las aprobaciones hasta un límite." }
+    explanation:
+      en: "A DEX removes the company and with it the safety net. Finality applies to signing too: approve one bad contract and the wallet can be emptied with no way back."
+      es: "Un DEX elimina la empresa y con ella la red de seguridad. La irreversibilidad también aplica al firmar: aprueba un contrato malo y la wallet puede quedar vacía sin vuelta atrás."

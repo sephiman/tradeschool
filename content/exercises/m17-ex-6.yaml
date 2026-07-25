@@ -30,35 +30,31 @@ variants:
     explanation:
       en: "A squeeze loads before it fires: a crowded, leveraged side builds (1), price reaching the cluster triggers the first liquidations (2), those forced closes cascade into more (3), and once the crowded side is emptied the mechanical move exhausts (4)."
       es: "Un squeeze se carga antes de dispararse: un lado concurrido y apalancado se acumula (1), el precio al alcanzar el clúster dispara las primeras liquidaciones (2), esos cierres forzosos forman una cascada de más (3) y, una vez vaciado el lado concurrido, el movimiento mecánico se agota (4)."
-  - id: long-cascade-order
-    kind: ordering
+  - id: exhaustion-tell
     prompt:
-      en: "Put the stages of a long squeeze in order, first to last."
-      es: "Ordena las fases de un long squeeze, de la primera a la última."
-    items:
-      - id: l1
-        position: 1
+      en: "A short squeeze has run 15% in an hour and is still climbing. Which reading tells you it is reaching exhaustion rather than starting a trend?"
+      es: "Un short squeeze ha subido un 15% en una hora y sigue trepando. ¿Qué lectura te dice que se acerca al agotamiento en vez de empezar una tendencia?"
+    options:
+      - id: a
+        correct: true
         text:
-          en: "Price falls into a cluster of crowded, leveraged longs."
-          es: "El precio cae hasta un clúster de largos concurridos y apalancados."
-      - id: l2
-        position: 2
+          en: "The funding that was deeply negative has flipped positive and open interest has fallen as those shorts were closed out — the forced buyers behind price are gone."
+          es: "El funding, que estaba muy negativo, se ha vuelto positivo y el interés abierto ha caído a medida que esos cortos se cerraban: los compradores forzosos que había detrás del precio han desaparecido."
+      - id: b
         text:
-          en: "Those longs are force-closed — which means selling to close."
-          es: "Esos largos se cierran por la fuerza, lo que significa vender para cerrar."
-      - id: l3
-        position: 3
+          en: "The speed of the move itself — 15% in an hour confirms real conviction."
+          es: "La velocidad del movimiento en sí: un 15% en una hora confirma convicción real."
+      - id: c
         text:
-          en: "The forced selling pushes price lower."
-          es: "La venta forzada empuja el precio más abajo."
-      - id: l4
-        position: 4
+          en: "Price printing new highs on the largest volume of the day."
+          es: "El precio marcando nuevos máximos con el mayor volumen del día."
+      - id: d
         text:
-          en: "The lower price liquidates even more longs, and the move cascades down."
-          es: "El precio más bajo liquida aún más largos, y el movimiento forma una cascada hacia abajo."
+          en: "The liquidation map showing a fresh cluster of shorts above current price."
+          es: "El mapa de liquidaciones mostrando un clúster nuevo de cortos por encima del precio actual."
     explanation:
-      en: "A long squeeze is the mirror of a short squeeze: price reaches a long cluster, the forced closes are forced sells, that selling drops price, which liquidates more longs — each step driving the next, cascading downward."
-      es: "Un long squeeze es el espejo de un short squeeze: el precio alcanza un clúster de largos, los cierres forzosos son ventas forzadas, esa venta baja el precio, lo que liquida más largos; cada paso impulsa el siguiente, en cascada hacia abajo."
+      en: "The fuel was forced buying from a finite pool, so the tell is the pool emptying: funding flipping sign and open interest falling as those positions are closed. Volume proves nothing — forced flow prints volume too — and a cluster still above price is fuel, not exhaustion."
+      es: "El combustible era compra forzosa de una reserva finita, así que la señal es que esa reserva se vacía: el funding cambiando de signo y el interés abierto cayendo a medida que se cierran esas posiciones. El volumen no prueba nada (el flujo forzoso también imprime volumen) y un clúster todavía por encima del precio es combustible, no agotamiento."
   - id: durable-trend-myth
     kind: true_false
     prompt:
@@ -169,3 +165,83 @@ variants:
     explanation:
       en: "The forced buying that drives a short squeeze comes from short positions being liquidated — a finite pool. When it is exhausted there is nothing forced left to lift price, so the mechanical move stalls and frequently snaps back."
       es: "La compra forzada que impulsa un short squeeze viene de posiciones cortas que se liquidan: una bolsa finita. Cuando se agota no queda nada forzado que suba el precio, así que el movimiento mecánico se estanca y con frecuencia rebota."
+  - id: eth-squeeze-numbers
+    prompt:
+      en: "ETH bled for days with deeply negative funding and rising OI. Spot buying lifts it through 3,000, and short liquidation shelves at 3,050, 3,150 and 3,300 fire in turn — ETH runs to 3,450 in under an hour on no news. What was that move?"
+      es: "ETH sangró durante días con funding muy negativo y OI creciente. Compras en spot lo elevan por encima de 3.000, y las plataformas de liquidación de cortos en 3.050, 3.150 y 3.300 se disparan una tras otra: ETH sube a 3.450 en menos de una hora sin noticias. ¿Qué fue ese movimiento?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "About 15% of the crowded short side being emptied by forced buying — mechanics, not fresh conviction."
+          es: "Alrededor de un 15% del lado corto saturado siendo vaciado por compra forzosa: mecánica, no convicción nueva."
+      - id: b
+        text:
+          en: "A durable new uptrend, confirmed by the speed of the move."
+          es: "Una nueva tendencia alcista duradera, confirmada por la velocidad del movimiento."
+      - id: c
+        text: { en: "Spot demand alone, since the buying started in spot.", es: "Solo demanda spot, ya que la compra empezó en spot." }
+      - id: d
+        text:
+          en: "A long squeeze, because price moved violently."
+          es: "Un long squeeze, porque el precio se movió con violencia."
+    explanation:
+      en: "By 3,450 the crowded shorts are gone and funding has flipped positive. With no forced buyers left behind price, it stalls and bleeds back toward 3,150 — the violent leg was mechanical, and mechanics run out."
+      es: "En 3.450 los cortos saturados han desaparecido y el funding se ha vuelto positivo. Sin compradores forzosos detrás del precio, se estanca y retrocede hacia 3.150: el tramo violento era mecánico, y la mecánica se agota."
+  - id: crypto-cascade-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL the reasons cascades run further in crypto than in other leveraged markets."
+      es: "Selecciona TODAS las razones por las que las cascadas van más lejos en cripto que en otros mercados apalancados."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "24/7 trading — no overnight pause to let a crowded position cool off, so cascades fire at 3am and run unopposed."
+          es: "Operar 24/7: no hay pausa nocturna que enfríe una posición saturada, así que las cascadas se disparan a las 3 de la madrugada y corren sin oposición."
+      - id: b
+        correct: true
+        text:
+          en: "Extreme leverage puts liquidation prices right next to entry, so clusters are dense and go off on tiny moves."
+          es: "El apalancamiento extremo sitúa los precios de liquidación junto a la entrada, así que los grupos son densos y se disparan con movimientos mínimos."
+      - id: c
+        correct: true
+        text:
+          en: "Thin books — weekends, holidays and small-cap alts — mean the same forced flow moves price much further."
+          es: "Los libros finos (fines de semana, festivos y alts pequeñas) hacen que el mismo flujo forzoso mueva mucho más el precio."
+      - id: d
+        text:
+          en: "Exchanges halt trading during cascades, which concentrates the move."
+          es: "Los exchanges detienen la negociación durante las cascadas, lo que concentra el movimiento."
+      - id: e
+        text:
+          en: "Forced orders are limit orders, which stack the book in the direction of the move."
+          es: "Las órdenes forzosas son órdenes límite, que apilan el libro en la dirección del movimiento."
+    explanation:
+      en: "The wick overshoots because there was nothing there to absorb it. All three conditions push the same way: dense fuel, no pause, and nothing to stop the flow."
+      es: "La mecha se excede porque no había nada que la absorbiera. Las tres condiciones empujan en la misma dirección: combustible denso, sin pausa y sin nada que frene el flujo."
+  - id: fade-not-chase
+    prompt:
+      en: "A squeeze is running right now. What is the honest edge — and what if you cannot tell which phase you are in?"
+      es: "Un squeeze está en marcha ahora mismo. ¿Cuál es la ventaja honesta, y qué hacer si no sabes en qué fase estás?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Fade exhaustion, never chase the cascade — and if you cannot tell which phase you are in, the correct trade is none."
+          es: "Operar contra el agotamiento, nunca perseguir la cascada, y si no sabes en qué fase estás, la operación correcta es ninguna."
+      - id: b
+        text:
+          en: "Chase the cascade — momentum this strong tends to continue for days."
+          es: "Perseguir la cascada: un momentum tan fuerte suele continuar días."
+      - id: c
+        text:
+          en: "Enter in the direction of the cluster the map shows next."
+          es: "Entrar en la dirección del siguiente grupo que muestre el mapa."
+      - id: d
+        text:
+          en: "Add to the crowded side, since funding pays it."
+          es: "Añadir al lado saturado, ya que el funding lo paga."
+    explanation:
+      en: "The cascade looks exactly like a powerful breakout, which is why chasing it is the classic mistake: you buy precisely as the mechanical bid disappears and become the liquidity the early sellers take profit into."
+      es: "La cascada se parece exactamente a una ruptura potente, y por eso perseguirla es el error clásico: compras justo cuando desaparece la demanda mecánica y te conviertes en la liquidez con la que los primeros vendedores toman beneficio."

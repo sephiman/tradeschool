@@ -150,3 +150,60 @@ variants:
     explanation:
       en: "The value of a stop is that you set it calmly, in advance. Widening or deleting it — or averaging down to defend the level — throws that away; on leverage, no stop just means the exchange's liquidation price is now your exit. Moving toward breakeven is the only adjustment that helps you."
       es: "El valor de un stop está en que lo fijaste en calma y por adelantado. Ensancharlo o borrarlo —o promediar a la baja para defender el nivel— tira eso a la basura; con apalancamiento, no tener stop solo significa que el precio de liquidación del exchange es ahora tu salida. Moverlo al punto de equilibrio es el único ajuste que te ayuda."
+  - id: five-r-numbers
+    prompt:
+      en: "You go long BTC at 60,000 with your stop at 59,400 — a planned 1R loss. At 59,400 you slide the stop to 57,000 'to give it room', and price takes you out there anyway. What did that cost?"
+      es: "Te pones largo en BTC en 60.000 con el stop en 59.400: una pérdida planificada de 1R. En 59.400 mueves el stop a 57.000 'para darle margen' y el precio te saca allí de todos modos. ¿Qué costó eso?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "5R — five times the loss you had actually agreed to accept, and none of the extra four was a decision you made on purpose."
+          es: "5R: cinco veces la pérdida que habías aceptado de verdad, y ninguna de las cuatro extra fue una decisión tomada a propósito."
+      - id: b
+        text: { en: "1R — the original planned loss, just realised later.", es: "1R: la pérdida planificada original, solo realizada más tarde." }
+      - id: c
+        text:
+          en: "2R, because the stop was moved once."
+          es: "2R, porque el stop se movió una vez."
+      - id: d
+        text:
+          en: "Nothing extra — the position size was unchanged."
+          es: "Nada extra: el tamaño de la posición no cambió."
+    explanation:
+      en: "The size was set from the original 600-point stop. Widening it to 3,000 points keeps the size and triples-and-doubles the loss — you swapped a certain small loss for an uncertain large one."
+      es: "El tamaño se fijó con el stop original de 600 puntos. Ampliarlo a 3.000 mantiene el tamaño y multiplica la pérdida: cambiaste una pérdida pequeña segura por una grande incierta."
+  - id: sunk-cost
+    prompt:
+      en: "Why does widening a stop feel like the smart move in the moment?"
+      es: "¿Por qué ampliar un stop parece la decisión inteligente en el momento?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The sunk-cost trap: a sure loss stings so badly that taking a gamble to avoid it feels rational — you swap a certain small loss now for an uncertain large one later."
+          es: "La trampa del coste hundido: una pérdida segura escuece tanto que apostar para evitarla parece racional; cambias una pérdida pequeña segura ahora por una grande incierta después."
+      - id: b
+        text:
+          en: "Because a wider stop mathematically lowers the risk on the position."
+          es: "Porque un stop más amplio reduce matemáticamente el riesgo de la posición."
+      - id: c
+        text:
+          en: "Because levels genuinely need more room than most traders give them."
+          es: "Porque los niveles necesitan de verdad más margen del que les da la mayoría."
+      - id: d
+        text:
+          en: "Because the original stop was placed without information you now have."
+          es: "Porque el stop original se colocó sin la información que ahora tienes."
+    explanation:
+      en: "The pressure of holding an open trade is precisely the bias the stop was built to overrule. Widening it in the heat throws away the one honest, pressure-free decision you made."
+      es: "La presión de tener una operación abierta es justo el sesgo que el stop existía para anular. Ampliarlo en caliente tira por la borda la única decisión honesta y sin presión que tomaste."
+  - id: averaging-down
+    kind: true_false
+    prompt:
+      en: "Adding to a losing position to 'defend the level' is a sounder response than widening the stop."
+      es: "Añadir a una posición perdedora para 'defender el nivel' es una respuesta más sensata que ampliar el stop."
+    answer: false
+    explanation:
+      en: "Averaging down is the same trap wearing a helpful face: it piles more risk onto something already going against you. The only legitimate direction to move a stop is toward profit — to breakeven, or trailing it as price advances."
+      es: "Promediar a la baja es la misma trampa con cara amable: acumula más riesgo sobre algo que ya va en tu contra. La única dirección legítima para mover un stop es hacia el beneficio: a punto de equilibrio, o siguiéndolo mientras el precio avanza."

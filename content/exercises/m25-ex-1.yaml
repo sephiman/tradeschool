@@ -156,3 +156,82 @@ variants:
     explanation:
       en: "Delta is genuinely reported data, not a derived indicator — major venues label the taker side on their trade feeds. But elsewhere it is estimated (classically by the tick rule: a print at the ask counts as a taker buy), and aggregating stacks several such estimates while m14's wash-trading warning still applies to the volumes underneath. Treat one good venue as data and the aggregate as a well-informed approximation."
       es: "El delta son datos reportados de verdad, no un indicador derivado: los sitios grandes etiquetan el lado taker en su flujo de operaciones. Pero en otros se estima (clásicamente con la regla del tick: una impresión al precio de venta cuenta como compra taker), y agregar apila varias de esas estimaciones mientras la advertencia sobre el wash trading de m14 sigue valiendo para los volúmenes de debajo. Trata un buen sitio como dato y el agregado como una aproximación bien informada."
+  - id: delta-worked
+    prompt:
+      en: "Over one hour a perp trades 2,400 contracts on the taker-buy side and 1,750 on the taker-sell side. What does a volume bar show, and what does delta add?"
+      es: "En una hora, un perp negocia 2.400 contratos en el lado taker-compra y 1.750 en el lado taker-venta. ¿Qué muestra una barra de volumen y qué añade el delta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Volume shows 4,150. Delta is +650 — buyers were the aggressors on balance, by about 16% of the hour's total activity."
+          es: "El volumen muestra 4.150. El delta es +650: los compradores fueron los agresores en conjunto, por en torno al 16% de la actividad total de la hora."
+      - id: b
+        text:
+          en: "Volume shows 650 and delta shows 4,150 — delta is the larger, cumulative figure."
+          es: "El volumen muestra 650 y el delta 4.150: el delta es la cifra mayor y acumulada."
+      - id: c
+        text:
+          en: "Both show 4,150 — delta is just another name for volume."
+          es: "Ambos muestran 4.150: el delta es solo otro nombre para el volumen."
+      - id: d
+        text:
+          en: "Volume shows 2,400, since only the buy side counts as volume."
+          es: "El volumen muestra 2.400, ya que solo el lado comprador cuenta como volumen."
+    explanation:
+      en: "Volume adds the two sides; delta subtracts them. Volume answers how many showed up; delta answers which side was pressing, and by how much."
+      es: "El volumen suma los dos lados; el delta los resta. El volumen responde cuántos aparecieron; el delta, qué lado presionaba y con cuánta fuerza."
+  - id: taker-buy-terminology
+    prompt:
+      en: "What exactly does 'taker buy volume' mean?"
+      es: "¿Qué significa exactamente 'volumen taker de compra'?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The taker was the buyer — someone lifted the offer. It does not mean 'volume that was bought', which would be all of it."
+          es: "El taker era el comprador: alguien levantó la oferta. No significa 'volumen que se compró', que sería todo."
+      - id: b
+        text:
+          en: "All volume that resulted in a purchase, which is every trade."
+          es: "Todo el volumen que resultó en una compra, es decir, cada operación."
+      - id: c
+        text: { en: "Volume from limit buy orders resting in the book.", es: "Volumen de órdenes límite de compra en reposo en el libro." }
+      - id: d
+        text: { en: "Buy volume from market makers only.", es: "Volumen de compra solo de creadores de mercado." }
+    explanation:
+      en: "Every trade has a buyer and a seller, so volume can never be bullish or bearish by itself. The taker side is the asymmetric part: on any single trade, exactly one party paid for immediacy."
+      es: "Toda operación tiene comprador y vendedor, así que el volumen nunca puede ser alcista o bajista por sí mismo. El lado taker es la parte asimétrica: en cada operación, exactamente una parte pagó por la inmediatez."
+  - id: delta-quality
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about where delta data comes from that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre de dónde vienen los datos de delta."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is real reported data, not a derived indicator — but it is venue-specific."
+          es: "Son datos reales reportados, no un indicador derivado, pero son específicos de cada venue."
+      - id: b
+        correct: true
+        text:
+          en: "Major exchanges label the taker side on their trade feeds directly."
+          es: "Los grandes exchanges etiquetan el lado taker directamente en sus feeds de operaciones."
+      - id: c
+        correct: true
+        text:
+          en: "Elsewhere it is estimated with the tick rule — a trade at the ask is assumed taker-buy, at the bid taker-sell — which is decent but not exact."
+          es: "En otros sitios se estima con la regla del tick (una operación en el ask se asume taker-compra y en el bid taker-venta), lo que es aceptable pero no exacto."
+      - id: d
+        correct: true
+        text:
+          en: "Aggregating several venues stacks several such estimates, so cross-venue delta is an approximation."
+          es: "Agregar varios venues acumula varias de esas estimaciones, así que el delta entre venues es una aproximación."
+      - id: e
+        text:
+          en: "Cross-venue delta is the most precise figure available, since it covers the whole market."
+          es: "El delta entre venues es la cifra más precisa disponible, ya que cubre todo el mercado."
+    explanation:
+      en: "Treat delta from one good venue as data and cross-venue delta as a well-informed approximation: use it for the shape — is aggression building or fading — and never quote it to the contract."
+      es: "Trata el delta de un buen venue como dato y el delta entre venues como una aproximación bien informada: úsalo para la forma (¿la agresión crece o se apaga?) y nunca lo cites al contrato."

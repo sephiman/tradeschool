@@ -125,3 +125,58 @@ variants:
     explanation:
       en: "Speed and accuracy are not the same thing. The EMA turns sooner, which also means it turns on moves that go nowhere — more false starts, more noise. Neither line predicts anything; both only describe prices that already happened."
       es: "Velocidad y precisión no son lo mismo. La EMA gira antes, lo que también significa que gira ante movimientos que no van a ninguna parte: más arranques en falso, más ruido. Ninguna línea predice nada; ambas solo describen precios que ya ocurrieron."
+  - id: ema-sma-worked
+    prompt:
+      en: "Price sat flat at 100 for a long time, so an SMA10 and an EMA10 both read 100. Price now jumps to 110 and holds. How do the two lines behave?"
+      es: "El precio llevaba mucho tiempo plano en 100, así que una SMA10 y una EMA10 marcan ambas 100. Ahora el precio salta a 110 y se mantiene. ¿Cómo se comportan las dos líneas?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The SMA10 climbs in a straight line — 101, 102, 103… — reaching 110 only after ten bars, while the EMA10 jumps to about 101.8 on the first bar and is near 106.3 by bar five."
+          es: "La SMA10 sube en línea recta (101, 102, 103…) y solo alcanza 110 tras diez barras, mientras la EMA10 salta a unos 101,8 en la primera barra y está cerca de 106,3 en la quinta."
+      - id: b
+        text:
+          en: "Both jump to 110 immediately, since the new price is in both windows."
+          es: "Ambas saltan a 110 de inmediato, ya que el nuevo precio está en las dos ventanas."
+      - id: c
+        text:
+          en: "The SMA10 reacts faster, because every close counts equally."
+          es: "La SMA10 reacciona más rápido, porque todos los cierres cuentan igual."
+      - id: d
+        text:
+          en: "Neither moves until the tenth bar, when the window is full of 110s."
+          es: "Ninguna se mueve hasta la décima barra, cuando la ventana está llena de 110."
+    explanation:
+      en: "Same data, different weighting: the EMA has admitted most of the move before the SMA is halfway there. That speed is also what makes it noisier — it turns on moves that fizzle."
+      es: "Los mismos datos, distinta ponderación: la EMA ha admitido la mayor parte del movimiento antes de que la SMA llegue a la mitad. Esa velocidad es también lo que la hace más ruidosa: gira con movimientos que se quedan en nada."
+  - id: sma-drop-off
+    prompt:
+      en: "Why can an SMA lurch on a bar where today's price barely moved?"
+      es: "¿Por qué una SMA puede dar un salto en una barra en la que el precio de hoy apenas se movió?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because the oldest close drops out of the window completely — a big price from exactly N bars ago simply falls off the back."
+          es: "Porque el cierre más antiguo sale de la ventana por completo: un precio grande de exactamente N barras atrás simplemente se cae por detrás."
+      - id: b
+        text:
+          en: "Because the SMA weights recent closes more heavily than old ones."
+          es: "Porque la SMA pondera más los cierres recientes que los antiguos."
+      - id: c
+        text: { en: "Because it is recalculated from the high and low, not the close.", es: "Porque se recalcula con el máximo y el mínimo, no con el cierre." }
+      - id: d
+        text: { en: "Because exchanges revise old closes at the daily boundary.", es: "Porque los exchanges revisan los cierres antiguos en el límite diario." }
+    explanation:
+      en: "In an SMA a close from N bars ago has as much say as yesterday's, right up until the instant it has none. The EMA avoids the cliff: old prices fade geometrically instead of dropping out."
+      es: "En una SMA, un cierre de N barras atrás pesa igual que el de ayer, hasta el instante en que deja de pesar nada. La EMA evita el precipicio: los precios antiguos se desvanecen geométricamente en vez de caerse de golpe."
+  - id: sma50-age
+    kind: true_false
+    prompt:
+      en: "An SMA of period N is centred on a price roughly (N − 1) / 2 bars in the past, so an SMA50 effectively reports a price about 25 bars old."
+      es: "Una SMA de periodo N está centrada en un precio de aproximadamente (N − 1) / 2 barras atrás, así que una SMA50 informa en realidad de un precio de unas 25 barras de antigüedad."
+    answer: true
+    explanation:
+      en: "True, and this is arithmetic, not a flaw to tune away. Shortening the period cuts the lag but adds noise; lengthening it smooths the line but pushes the report further into the past. No setting is both fast and smooth."
+      es: "Cierto, y es aritmética, no un defecto que se pueda ajustar. Acortar el periodo reduce el retardo pero añade ruido; alargarlo suaviza la línea pero empuja el informe más al pasado. Ningún ajuste es rápido y suave a la vez."

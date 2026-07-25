@@ -140,3 +140,85 @@ variants:
     explanation:
       en: "'Altcoin' just means 'not Bitcoin'. It tells you nothing about quality — you still have to look at each one on its own."
       es: "'Altcoin' solo significa 'no Bitcoin'. No te dice nada sobre la calidad: sigues teniendo que mirar cada una por separado."
+  - id: market-cap-myth
+    kind: true_false
+    prompt:
+      en: "A token's market cap tells you how much real money has been invested in it."
+      es: "El market cap de un token te dice cuánto dinero real se ha invertido en él."
+    answer: false
+    explanation:
+      en: "Market cap is just price × total supply, and that price comes from the last trade of whatever thin slice actually changes hands. It is a number, not a pool of money you could ever withdraw."
+      es: "El market cap es solo precio × suministro total, y ese precio sale de la última operación de la porción mínima que realmente cambia de manos. Es un número, no un fondo de dinero que puedas retirar."
+  - id: thin-float
+    prompt:
+      en: "A token trades at 2 USD with a total supply of 1 billion, so its headline market cap is 2 billion USD. Only 1% of the supply really circulates and the order book holds about 200,000 USD of genuine bids. What does that 2 billion figure represent?"
+      es: "Un token cotiza a 2 USD con un suministro total de 1.000 millones, así que su market cap de titular es de 2.000 millones de USD. Solo el 1% del suministro circula de verdad y el libro de órdenes tiene unos 200.000 USD de bids reales. ¿Qué representa esa cifra de 2.000 millones?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Almost nothing real — a tiny float times a fantasy price; a holder selling a few hundred thousand would collapse the book."
+          es: "Casi nada real: un float minúsculo por un precio de fantasía; un holder que vendiera unos cientos de miles hundiría el libro."
+      - id: b
+        text:
+          en: "2 billion USD that entered the token and could be withdrawn."
+          es: "2.000 millones de USD que entraron en el token y podrían retirarse."
+      - id: c
+        text: { en: "The token's guaranteed floor value.", es: "El valor mínimo garantizado del token." }
+      - id: d
+        text: { en: "Proof the token is more liquid than a smaller-cap one.", es: "La prueba de que el token es más líquido que uno de cap menor." }
+    explanation:
+      en: "A big market cap on a thin float is not wealth and not safety — it is a number that exists only while nobody sells. Real liquidity here is the 200,000 USD in the book, a rounding error next to the quoted 'cap'."
+      es: "Un market cap grande sobre un float minúsculo no es riqueza ni seguridad: es un número que solo existe mientras nadie vende. La liquidez real aquí son los 200.000 USD del libro, un error de redondeo al lado del 'cap' publicado."
+  - id: stablecoin-truths
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are true of a stablecoin like USDT or USDC."
+      es: "Selecciona TODAS las afirmaciones que son ciertas para una stablecoin como USDT o USDC."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is the cash leg of crypto trading — where you park value between trades."
+          es: "Es la pata de efectivo del trading cripto: donde aparcas valor entre operaciones."
+      - id: b
+        correct: true
+        text:
+          en: "Holding it is a credit exposure to its issuer, not risk-free cash."
+          es: "Tenerla es una exposición de crédito a su emisor, no efectivo libre de riesgo."
+      - id: c
+        correct: true
+        text:
+          en: "On a futures venue it is usually the collateral your positions are margined in."
+          es: "En un venue de futuros suele ser el colateral con el que se margina tu posición."
+      - id: d
+        text: { en: "Its peg is legally guaranteed.", es: "Su paridad está garantizada legalmente." }
+      - id: e
+        text: { en: "It cannot trade away from 1 USD.", es: "No puede cotizar lejos de 1 USD." }
+    explanation:
+      en: "A stablecoin is the cash leg and usually your margin collateral, which is exactly why it matters that it is a claim on an issuer rather than risk-free cash. 'Stable' is an aim, not a law: pegs have broken."
+      es: "Una stablecoin es la pata de efectivo y normalmente tu colateral de margen, y precisamente por eso importa que sea un derecho frente a un emisor y no efectivo libre de riesgo. 'Estable' es un objetivo, no una ley: las paridades se han roto."
+  - id: depeg-cases
+    kind: matching
+    prompt:
+      en: "Match each stablecoin episode to what actually happened."
+      es: "Empareja cada episodio de stablecoin con lo que ocurrió realmente."
+    pairs:
+      - id: ust
+        left: { en: "UST, May 2022", es: "UST, mayo de 2022" }
+        right:
+          en: "Propped up by mechanism rather than real reserves; lost its peg and collapsed toward zero within days."
+          es: "Sostenida por un mecanismo en vez de reservas reales; perdió la paridad y se hundió hacia cero en días."
+      - id: usdc
+        left: { en: "USDC, March 2023", es: "USDC, marzo de 2023" }
+        right:
+          en: "Well reserved, but part of those reserves sat in a failing bank; briefly traded near 0.88 USD and recovered once backstopped."
+          es: "Bien respaldada, pero parte de sus reservas estaba en un banco en quiebra; cotizó brevemente cerca de 0,88 USD y se recuperó al ser respaldada."
+      - id: margin
+        left: { en: "A de-peg while you hold futures positions", es: "Una pérdida de paridad mientras tienes posiciones de futuros" }
+        right:
+          en: "Your margin itself moves, so it distorts every open position at once — not just one holding."
+          es: "Tu propio margen se mueve, así que distorsiona todas las posiciones abiertas a la vez, no solo una tenencia."
+    explanation:
+      en: "A stablecoin is only as good as its reserves and its ability to honour redemptions. UST had mechanism instead of reserves; USDC had real reserves in the wrong bank. Either way the risk lands on your collateral."
+      es: "Una stablecoin vale lo que valen sus reservas y su capacidad de atender los reembolsos. UST tenía mecanismo en vez de reservas; USDC tenía reservas reales en el banco equivocado. En ambos casos el riesgo cae sobre tu colateral."

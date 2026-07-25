@@ -151,3 +151,81 @@ variants:
     explanation:
       en: "Accumulation is where large players buy from sellers who have given up — so it follows a downtrend and, once the buying is done, resolves upward into a markup. Option b describes distribution (its mirror image); the others mix the two up, which is the most common Wyckoff mistake."
       es: "La acumulación es donde los grandes participantes compran a los vendedores que se han rendido, así que sigue a una tendencia bajista y, terminada la compra, se resuelve al alza en un markup. La opción b describe la distribución (su imagen espejo); las demás mezclan ambas, que es el error más común en Wyckoff."
+  - id: why-size-hides
+    prompt:
+      en: "A desk wants 2,000 contracts but the visible order book only offers 150 near the current price. Why does it feed 100–200 at a time over days instead of buying it all now?"
+      es: "Una mesa quiere 2.000 contratos pero el libro visible solo ofrece 150 cerca del precio actual. ¿Por qué introduce 100-200 a la vez durante días en vez de comprarlo todo ahora?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Paying up through every offer above would move price 8–10% against itself and announce its intent to the whole market."
+          es: "Pagar a través de todas las ofertas de arriba movería el precio un 8-10% en su contra y anunciaría su intención a todo el mercado."
+      - id: b
+        text: { en: "Exchanges cap order size on futures contracts.", es: "Los exchanges limitan el tamaño de orden en los contratos de futuros." }
+      - id: c
+        text: { en: "Smaller orders qualify for lower maker fees.", es: "Las órdenes más pequeñas acceden a comisiones maker más bajas." }
+      - id: d
+        text:
+          en: "It is waiting for a technical signal before committing."
+          es: "Está esperando una señal técnica antes de comprometerse."
+    explanation:
+      en: "That constraint is why a range forms at all. The sideways chop is not indecision — it is a large order being worked in slices, and each slice needs a willing counterparty on the other side."
+      es: "Esa restricción es la razón de que se forme un rango. El movimiento lateral no es indecisión: es una orden grande ejecutada en porciones, y cada porción necesita una contraparte dispuesta al otro lado."
+  - id: absorbing-question
+    prompt:
+      en: "Support at 100 has held for two weeks: every sag toward 100 gets bought, every push toward resistance fades. What is the question Wyckoff says to ask?"
+      es: "Un soporte en 100 ha aguantado dos semanas: cada caída hacia 100 se compra, cada empuje hacia la resistencia se desvanece. ¿Cuál es la pregunta que dice Wyckoff que hay que hacerse?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "\"Who is doing the absorbing, and on which side?\" — not \"is it going sideways?\""
+          es: "\"¿Quién está absorbiendo, y en qué lado?\", no \"¿está yendo de lado?\""
+      - id: b
+        text:
+          en: "\"How many days until the range must break?\""
+          es: "\"¿Cuántos días faltan para que el rango tenga que romperse?\""
+      - id: c
+        text:
+          en: "\"Which indicator confirms the range?\""
+          es: "\"¿Qué indicador confirma el rango?\""
+      - id: d
+        text:
+          en: "\"Is the range wide enough to trade profitably?\""
+          es: "\"¿Es el rango lo bastante ancho para operarlo con beneficio?\""
+    explanation:
+      en: "To a chart watcher two weeks at 100 is dead money. To Wyckoff it is a buyer sitting on the bid, absorbing everything offered, session after session, until the sellers are used up."
+      es: "Para quien solo mira el gráfico, dos semanas en 100 es dinero muerto. Para Wyckoff es un comprador sentado en la demanda, absorbiendo todo lo que se ofrece, sesión tras sesión, hasta agotar a los vendedores."
+  - id: stages-vs-phases
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that correctly separate Wyckoff's two vocabularies."
+      es: "Selecciona TODAS las afirmaciones que separan correctamente los dos vocabularios de Wyckoff."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Stages — accumulation, markup, distribution, markdown — name the cycle the whole market moves through."
+          es: "Las etapas (acumulación, markup, distribución, markdown) nombran el ciclo por el que pasa todo el mercado."
+      - id: b
+        correct: true
+        text:
+          en: "Phases A–E name the interior life of one single range."
+          es: "Las fases A-E nombran la vida interior de un único rango."
+      - id: c
+        correct: true
+        text:
+          en: "Accumulation follows a downtrend; distribution follows an uptrend."
+          es: "La acumulación sigue a una tendencia bajista; la distribución, a una alcista."
+      - id: d
+        text:
+          en: "Stages and phases are two names for the same five-step sequence."
+          es: "Etapas y fases son dos nombres para la misma secuencia de cinco pasos."
+      - id: e
+        text:
+          en: "You must be able to name the live phase before you can trade a range."
+          es: "Debes poder nombrar la fase en vivo antes de poder operar un rango."
+    explanation:
+      en: "Keep the two apart: the cycle is the market's long arc, the phases are one range's story. And you do not need to name phases live — the vocabulary is for reading the shape, not a checklist to complete."
+      es: "Mantén ambos separados: el ciclo es el arco largo del mercado, las fases son la historia de un rango. Y no necesitas nombrar las fases en vivo: el vocabulario sirve para leer la forma, no es una lista que completar."

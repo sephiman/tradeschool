@@ -159,3 +159,60 @@ variants:
     explanation:
       en: "Save the stop-limit for entries or cases where being skipped is acceptable and price control matters. For a protective stop that must get you out of a runaway loss, the stop-market's guaranteed fill is worth the slightly worse price."
       es: "Reserva el stop-limit para entradas o casos donde saltarse la orden sea aceptable y el control del precio importe. Para un stop de protección que debe sacarte de una pérdida descontrolada, la ejecución garantizada del stop-market compensa el precio algo peor."
+  - id: stop-limit-steps
+    kind: ordering
+    prompt:
+      en: "You protect a losing long with a stop-limit: trigger 100, limit 99.9. Price crashes. Put what happens in order."
+      es: "Proteges un largo perdedor con un stop-limit: disparo en 100, límite en 99,9. El precio se desploma. Ordena lo que ocurre."
+    items:
+      - id: gap
+        position: 1
+        text:
+          en: "Price gaps straight through the trigger — the next trades print at 98, then 97."
+          es: "El precio atraviesa el disparo de golpe: las siguientes operaciones imprimen en 98 y luego en 97."
+      - id: fire
+        position: 2
+        text:
+          en: "The stop fires and drops a sell limit at 99.9 into the book."
+          es: "El stop se activa y deja una orden límite de venta en 99,9 en el libro."
+      - id: nobody
+        position: 3
+        text:
+          en: "Nobody buys from you at 99.9 when the market lets them buy at 97."
+          es: "Nadie te compra a 99,9 cuando el mercado les permite comprar a 97."
+      - id: stranded
+        position: 4
+        text:
+          en: "Your order sits above the market, untouched — and you are still in the position."
+          es: "Tu orden queda por encima del mercado, sin tocar, y sigues dentro de la posición."
+    explanation:
+      en: "A stop-limit protects your price and, in exactly the moment you most need out, can fail to protect you at all. For a protective stop, prefer stop-market: getting out at a slightly worse price is the point."
+      es: "Un stop-limit protege tu precio y, justo en el momento en que más necesitas salir, puede no protegerte en absoluto. Para un stop protector, prefiere stop de mercado: salir a un precio algo peor es precisamente el objetivo."
+  - id: unbounded-loss
+    prompt:
+      en: "A stop-limit is the only protection on your leveraged long, and price gaps clean past the limit. What is your loss now bounded by?"
+      es: "Un stop-limit es la única protección de tu largo apalancado, y el precio se salta el límite por completo. ¿Por qué está limitada ahora tu pérdida?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Only by how far price falls — an effectively unbounded loss where you thought you had a floor, because there is no automatic exit left."
+          es: "Solo por cuánto caiga el precio: una pérdida efectivamente ilimitada donde creías tener un suelo, porque ya no queda ninguna salida automática."
+      - id: b
+        text: { en: "By the limit price you set, which the exchange honours later.", es: "Por el precio límite que fijaste, que el exchange respeta más tarde." }
+      - id: c
+        text: { en: "By your initial margin, which caps the loss automatically.", es: "Por tu margen inicial, que limita la pérdida automáticamente." }
+      - id: d
+        text: { en: "By the exchange's insurance fund.", es: "Por el fondo de seguros del exchange." }
+    explanation:
+      en: "This is the most dangerous mistake in the lesson because it fails silently in the exact scenario you placed the stop to survive. The fix is the rule: protective stops are stop-market."
+      es: "Es el error más peligroso de la lección porque falla en silencio precisamente en el escenario para el que colocaste el stop. La solución es la regla: los stops protectores son de mercado."
+  - id: fill-risk-routine
+    kind: true_false
+    prompt:
+      en: "On perpetuals, the stop-limit fill risk is an edge case that rarely matters in practice."
+      es: "En los perpetuos, el riesgo de no ejecución del stop-limit es un caso extremo que rara vez importa en la práctica."
+    answer: false
+    explanation:
+      en: "Traditional markets gap once, at the open, where you can react. Perpetuals never close: a thin Sunday-night book can gap several percent in seconds with nobody around — the fill risk that looks like an edge case on a liquid weekday is a routine weekend event here."
+      es: "Los mercados tradicionales hacen gap una vez, en la apertura, donde puedes reaccionar. Los perpetuos nunca cierran: un libro fino de un domingo por la noche puede saltar varios puntos porcentuales en segundos sin nadie alrededor. El riesgo que parece extremo en un día laborable líquido es aquí un evento rutinario de fin de semana."

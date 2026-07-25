@@ -141,3 +141,88 @@ variants:
     explanation:
       en: "The close is the price both sides settled on at the end of the period, which is why it is weighted most. It is not the high, not the mid-point, and it forecasts nothing."
       es: "El cierre es el precio en el que ambos lados quedaron al final del periodo, y por eso se le da más peso. No es el máximo, ni el punto medio, y no predice nada."
+  - id: two-candles-story
+    prompt:
+      en: "Candle A opens at 100, runs up to 108, falls to 96 and closes at 101. Candle B opens at 108 and closes at 101 with no lower wick. Both end near 101 — what is the difference?"
+      es: "La vela A abre en 100, sube a 108, cae a 96 y cierra en 101. La vela B abre en 108 y cierra en 101 sin mecha inferior. Ambas terminan cerca de 101: ¿cuál es la diferencia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Opposite stories: A shows price dumped to 96 and bought all the way back, B shows steady selling with nobody defending the lows."
+          es: "Historias opuestas: A muestra un precio tirado hasta 96 y recomprado del todo, B muestra venta sostenida sin nadie defendiendo los mínimos."
+      - id: b
+        text:
+          en: "None that matters — both closed at 101, so both say the same thing."
+          es: "Ninguna que importe: ambas cerraron en 101, así que dicen lo mismo."
+      - id: c
+        text:
+          en: "A is more bearish, because it reached the lower price of the two."
+          es: "A es más bajista, porque alcanzó el precio más bajo de las dos."
+      - id: d
+        text:
+          en: "B is more bullish, because its body is larger."
+          es: "B es más alcista, porque su cuerpo es más grande."
+    explanation:
+      en: "Reading only the close, or only the colour, would flatten these two into 'the same thing'. The long lower wick on A is buyers stepping in at 96; B's full body is selling with no defence."
+      es: "Leer solo el cierre, o solo el color, aplanaría estas dos en 'lo mismo'. La mecha inferior larga de A son compradores entrando en 96; el cuerpo entero de B es venta sin defensa."
+  - id: wick-against-you
+    kind: true_false
+    prompt:
+      en: "A long wick that runs against your position is bad news, because price reached that level."
+      es: "Una mecha larga que va en contra de tu posición es mala señal, porque el precio alcanzó ese nivel."
+    answer: false
+    explanation:
+      en: "A wick is *rejected* price — it went there and got pushed back before the period ended. Against your position that is often good news. The body and close are the signal; the wick is the failed attempt."
+      es: "Una mecha es precio *rechazado*: fue allí y lo empujaron de vuelta antes de cerrar el periodo. En contra de tu posición suele ser buena señal. El cuerpo y el cierre son la señal; la mecha es el intento fallido."
+  - id: volume-breakouts
+    prompt:
+      en: "Two breakouts to a new high look identical on the chart. The first prints on three times the recent average volume, the second on half of it. What does that tell you?"
+      es: "Dos rupturas a un nuevo máximo se ven idénticas en el gráfico. La primera imprime tres veces el volumen medio reciente; la segunda, la mitad. ¿Qué te dice eso?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The first has capital committed behind it and is harder to unwind; the second is a handful of trades in a quiet hour and is far easier to reverse."
+          es: "La primera tiene capital comprometido detrás y es más difícil de deshacer; la segunda son unas pocas operaciones en una hora tranquila y es mucho más fácil de revertir."
+      - id: b
+        text:
+          en: "Nothing — the candles are identical, so the breakouts are equivalent."
+          es: "Nada: las velas son idénticas, así que las rupturas son equivalentes."
+      - id: c
+        text:
+          en: "The second is more bullish, since it took less volume to push price up."
+          es: "La segunda es más alcista, ya que hizo falta menos volumen para empujar el precio."
+      - id: d
+        text: { en: "High volume means the breakout is guaranteed to continue.", es: "Un volumen alto significa que la ruptura seguirá con seguridad." }
+    explanation:
+      en: "'Price broke to a new high' and 'price broke to a new high on the strongest volume in weeks' are completely different statements. Volume is context, not a signal by itself — and never a guarantee."
+      es: "'El precio rompió a un nuevo máximo' y 'el precio rompió a un nuevo máximo con el mayor volumen en semanas' son afirmaciones completamente distintas. El volumen es contexto, no una señal por sí mismo, y nunca una garantía."
+  - id: volume-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about volume that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre el volumen."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It measures participation — how much changed hands during the candle."
+          es: "Mide la participación: cuánto cambió de manos durante la vela."
+      - id: b
+        correct: true
+        text:
+          en: "A move on high volume is harder to unwind, because many people now hold positions there."
+          es: "Un movimiento con volumen alto es más difícil de deshacer, porque mucha gente tiene ahora posiciones ahí."
+      - id: c
+        correct: true
+        text:
+          en: "A move on thin volume is easier to reverse — little conviction is behind it."
+          es: "Un movimiento con volumen fino es más fácil de revertir: hay poca convicción detrás."
+      - id: d
+        text: { en: "On its own it tells you the direction of the move.", es: "Por sí solo te dice la dirección del movimiento." }
+      - id: e
+        text: { en: "It is a complete trading signal without price context.", es: "Es una señal de trading completa sin contexto de precio." }
+    explanation:
+      en: "Price tells you where trades happened; volume tells you how many people agreed. It is context for a move, never a direction or a signal on its own."
+      es: "El precio te dice dónde ocurrieron las operaciones; el volumen, cuánta gente estuvo de acuerdo. Es contexto para un movimiento, nunca una dirección ni una señal por sí solo."

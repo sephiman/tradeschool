@@ -146,3 +146,82 @@ variants:
     explanation:
       en: "Over-leverage after a good run is the same mistake in slow motion. A great month is still mostly the market's mood plus some variance; more time doesn't protect you, it just gives you more room to rationalize. Size stays a fixed function of risk regardless of how the last month went."
       es: "Sobreapalancarse tras una buena racha es el mismo error a cámara lenta. Un gran mes sigue siendo sobre todo el humor del mercado más algo de varianza; más tiempo no te protege, solo te da más margen para racionalizar. El tamaño sigue siendo una función fija del riesgo, al margen de cómo fuera el último mes."
+  - id: sixth-trade-numbers
+    prompt:
+      en: "After five green trades at 1% risk you jump from 5× to 20× leverage and triple your size. The sixth trade is an ordinary loser. What does it cost?"
+      es: "Tras cinco operaciones verdes al 1% de riesgo, saltas de 5× a 20× de apalancamiento y triplicas el tamaño. La sexta es una perdedora normal. ¿Qué cuesta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "3R in one go — and the higher leverage puts the liquidation price inside routine noise, so a move that used to be a small planned loss can force you out entirely."
+          es: "3R de golpe, y el mayor apalancamiento sitúa el precio de liquidación dentro del ruido normal, así que un movimiento que antes era una pequeña pérdida planificada puede sacarte del todo."
+      - id: b
+        text: { en: "1R, since the risk percentage per trade did not change.", es: "1R, ya que el porcentaje de riesgo por operación no cambió." }
+      - id: c
+        text:
+          en: "Nothing — the five previous wins cover it."
+          es: "Nada: las cinco ganancias anteriores lo cubren."
+      - id: d
+        text:
+          en: "4R, because leverage multiplies the loss by the leverage ratio."
+          es: "4R, porque el apalancamiento multiplica la pérdida por el ratio de apalancamiento."
+    explanation:
+      en: "One unremarkable trade, taken at the wrong size, gives back the whole streak. Good results are allowed to change your confidence; they are not allowed to change your size."
+      es: "Una operación anodina, tomada con el tamaño equivocado, devuelve toda la racha. Los buenos resultados pueden cambiar tu confianza; no pueden cambiar tu tamaño."
+  - id: confidence-not-size
+    kind: matching
+    prompt:
+      en: "Match each thing to what a winning streak is and is not allowed to change."
+      es: "Empareja cada elemento con lo que una racha ganadora puede y no puede cambiar."
+    pairs:
+      - id: conf
+        left: { en: "Your confidence", es: "Tu confianza" }
+        right:
+          en: "Good results are allowed to change this."
+          es: "Los buenos resultados pueden cambiar esto."
+      - id: size
+        left: { en: "Your position size", es: "El tamaño de tu posición" }
+        right:
+          en: "A fixed function of account risk — the same small percentage whether you are on a five-win streak or a five-loss one."
+          es: "Una función fija del riesgo de la cuenta: el mismo porcentaje pequeño estés en una racha de cinco ganancias o de cinco pérdidas."
+      - id: evidence
+        left: { en: "A five-trade sample", es: "Una muestra de cinco operaciones" }
+        right:
+          en: "Dominated by variance — almost no evidence about whether your edge grew."
+          es: "Dominada por la varianza: casi ninguna evidencia de que tu ventaja haya crecido."
+    explanation:
+      en: "The mind credits wins to skill and would have blamed losses on bad luck, so a run of noise reads as proof you have 'got it'. Keeping size mechanical is what stops that story from costing you."
+      es: "La mente atribuye las ganancias a la habilidad y habría culpado a la mala suerte de las pérdidas, así que una racha de ruido se lee como prueba de que ya 'lo tienes'. Mantener el tamaño mecánico es lo que evita que esa historia te cueste dinero."
+  - id: why-no-alarm
+    kind: multi_select
+    prompt:
+      en: "Select ALL the reasons a winning streak is a dangerous moment."
+      es: "Selecciona TODAS las razones por las que una racha ganadora es un momento peligroso."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A handful of results is dominated by variance, but the mind refuses to see it that way."
+          es: "Un puñado de resultados está dominado por la varianza, pero la mente se niega a verlo así."
+      - id: b
+        correct: true
+        text:
+          en: "Overconfidence feels identical to competence from the inside, so no internal alarm goes off."
+          es: "El exceso de confianza se siente idéntico a la competencia desde dentro, así que no salta ninguna alarma interna."
+      - id: c
+        correct: true
+        text:
+          en: "The last five trades feel far more real than the thousands-of-trades truth that short streaks mean almost nothing."
+          es: "Las últimas cinco operaciones se sienten mucho más reales que la verdad de las miles de operaciones: que las rachas cortas no significan casi nada."
+      - id: d
+        text:
+          en: "Winning streaks genuinely indicate that your edge has grown."
+          es: "Las rachas ganadoras indican de verdad que tu ventaja ha crecido."
+      - id: e
+        text:
+          en: "Exchanges raise your fee tier after consecutive wins."
+          es: "Los exchanges suben tu nivel de comisiones tras ganancias consecutivas."
+    explanation:
+      en: "Because the feeling is indistinguishable from competence, the defence cannot be self-awareness in the moment — it has to be a size rule fixed in advance."
+      es: "Como la sensación es indistinguible de la competencia, la defensa no puede ser la autoconciencia del momento: tiene que ser una regla de tamaño fijada por adelantado."

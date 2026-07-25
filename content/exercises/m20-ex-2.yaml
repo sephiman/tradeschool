@@ -134,3 +134,68 @@ variants:
     explanation:
       en: "Before a scalper makes a cent, their edge has to beat the entire stack of fees and spreads from all those round-trips. That is why high-frequency styles need a higher win rate just to break even — it is a cost problem, not a leverage or funding one."
       es: "Antes de ganar un céntimo, el edge de un scalper tiene que superar toda la pila de comisiones y spreads de esas idas y vueltas. Por eso los estilos de alta frecuencia necesitan un win rate más alto solo para no perder: es un problema de costes, no de apalancamiento ni de funding."
+  - id: three-bills
+    prompt:
+      en: "A 10,000 USDT position captures a 3% gross move (300 USDT). Taker fee 0.04% per fill (8 USDT per round-trip); funding 0.03% per interval (3 USDT). Scalper: 15 round-trips, no funding. Day trader: 1 round-trip, no funding. Swing: 1 round-trip, 6 funding intervals. Who keeps what?"
+      es: "Una posición de 10.000 USDT captura un movimiento bruto del 3% (300 USDT). Comisión taker del 0,04% por ejecución (8 USDT por ida y vuelta); funding del 0,03% por intervalo (3 USDT). Scalper: 15 idas y vueltas, sin funding. Intradía: 1 ida y vuelta, sin funding. Swing: 1 ida y vuelta, 6 intervalos de funding. ¿Cuánto se queda cada uno?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Scalper 180 (300 − 120 fees), day trader 292 (300 − 8), swing trader 274 (300 − 8 − 18). Same move, and the gap is entirely cost."
+          es: "Scalper 180 (300 − 120 de comisiones), intradía 292 (300 − 8), swing 274 (300 − 8 − 18). El mismo movimiento, y la diferencia es puro coste."
+      - id: b
+        text:
+          en: "All three keep 300 — costs come out of margin, not profit."
+          es: "Los tres se quedan 300: los costes salen del margen, no del beneficio."
+      - id: c
+        text:
+          en: "Scalper 292, day trader 274, swing trader 180 — frequency pays."
+          es: "Scalper 292, intradía 274, swing 180: la frecuencia paga."
+      - id: d
+        text:
+          en: "Scalper 180, day trader 274, swing trader 292 — funding is smaller than fees."
+          es: "Scalper 180, intradía 274, swing 292: el funding es menor que las comisiones."
+    explanation:
+      en: "Fees punished the scalper's many round-trips; funding taxed the swing trader's overnight hold; the day trader, in and out once with nothing held over, kept the most of this particular move."
+      es: "Las comisiones castigaron las muchas idas y vueltas del scalper; el funding gravó la tenencia nocturna del swing; el intradía, entrando y saliendo una vez sin mantener nada, se quedó con lo máximo de este movimiento concreto."
+  - id: cost-clocks
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about the two costs that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre los dos costes."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Fees are charged per fill, so a single round-trip pays the toll twice."
+          es: "Las comisiones se cobran por ejecución, así que una ida y vuelta paga el peaje dos veces."
+      - id: b
+        correct: true
+        text:
+          en: "Fees scale with the number of trades, not with the size of the move."
+          es: "Las comisiones escalan con el número de operaciones, no con el tamaño del movimiento."
+      - id: c
+        correct: true
+        text: { en: "Funding scales with time held, because it is charged on a clock.", es: "El funding escala con el tiempo mantenido, porque se cobra por reloj." }
+      - id: d
+        correct: true
+        text:
+          en: "Funding only exists on perpetuals — hold the same coin as spot or as a dated future and there is none."
+          es: "El funding solo existe en los perpetuos: mantén la misma moneda en spot o en un futuro con fecha y no hay ninguno."
+      - id: e
+        text:
+          en: "Funding is a fee the exchange keeps for providing leverage."
+          es: "El funding es una comisión que el exchange se queda por dar apalancamiento."
+    explanation:
+      en: "One cost tracks how often you trade, the other how long you hold — and each style is punished by a different one. The swing trader's funding bill is a feature of the instrument, not of holding in general."
+      es: "Un coste sigue la frecuencia con la que operas y el otro cuánto tiempo mantienes, y cada estilo es castigado por uno distinto. La factura de funding del swing es una característica del instrumento, no de mantener en general."
+  - id: spread-on-top
+    kind: true_false
+    prompt:
+      en: "The worked cost comparison understates the scalper's true drag, because the spread crossed on every fill sits on top of the explicit fee."
+      es: "La comparación de costes del ejemplo subestima el lastre real del scalper, porque el spread que se cruza en cada ejecución se suma a la comisión explícita."
+    answer: true
+    explanation:
+      en: "True on both counts: the spread is an extra cost per fill, and the example also idealised the scalper by assuming they reassembled one clean 300 USDT move from 15 pieces — a real scalper takes 15 separate bets instead."
+      es: "Cierto por dos razones: el spread es un coste extra por ejecución, y el ejemplo además idealizó al scalper suponiendo que reconstruía un movimiento limpio de 300 USDT con 15 piezas; un scalper real toma 15 apuestas separadas."

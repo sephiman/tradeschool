@@ -147,3 +147,85 @@ variants:
     explanation:
       en: "Correlation is not constant. In calm markets alts drift on separate stories and look independent; in a drawdown people sell everything at once, the stories stop mattering, and correlations climb toward +1 — so the basket behaves like one leveraged long exactly when it hurts."
       es: "La correlación no es constante. En mercados tranquilos las alts se mueven por historias separadas y parecen independientes; en un drawdown la gente vende todo a la vez, las historias dejan de importar y las correlaciones suben hacia +1, así que la cesta se comporta como un único largo apalancado justo cuando duele."
+  - id: independent-bets
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about counting risk that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre cómo contar el riesgo."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Risk only diversifies away when correlation is below +1."
+          es: "El riesgo solo se diversifica cuando la correlación está por debajo de +1."
+      - id: b
+        correct: true
+        text:
+          en: "Ten longs on ten coins that all move together is one bet wearing ten costumes."
+          es: "Diez largos en diez monedas que se mueven juntas son una apuesta con diez disfraces."
+      - id: c
+        correct: true
+        text:
+          en: "A long and a short in correlated instruments partly cancel — that is a relative bet with far less directional risk."
+          es: "Un largo y un corto en instrumentos correlacionados se cancelan en parte: es una apuesta relativa con mucho menos riesgo direccional."
+      - id: d
+        text:
+          en: "The number of tickets open in your account is what determines diversification."
+          es: "El número de posiciones abiertas en tu cuenta es lo que determina la diversificación."
+      - id: e
+        text:
+          en: "Splitting one 3% idea across three coins turns it into three 1% ideas."
+          es: "Repartir una idea del 3% en tres monedas la convierte en tres ideas del 1%."
+    explanation:
+      en: "Diversification is about independent risks, never about the number of tickers on your screen. Splitting one idea across three coins just makes the 3% harder to see."
+      es: "La diversificación va de riesgos independientes, nunca del número de tickers en tu pantalla. Repartir una idea en tres monedas solo hace más difícil ver el 3%."
+  - id: cluster-cap-practice
+    prompt:
+      en: "You want a rule that stops the diversification illusion from creeping back in. Which one does the job?"
+      es: "Quieres una regla que evite que la ilusión de diversificación vuelva a colarse. ¿Cuál lo consigue?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Cap the cluster: set a maximum risk for the correlated group — say 2% across all alt longs combined — and size the individual trades to fit inside it."
+          es: "Limita el grupo: fija un riesgo máximo para el conjunto correlacionado (por ejemplo el 2% entre todos los largos en alts) y dimensiona las operaciones para que quepan dentro."
+      - id: b
+        text:
+          en: "Cap the number of open positions at three, regardless of what they are."
+          es: "Limita el número de posiciones abiertas a tres, sean cuales sean."
+      - id: c
+        text:
+          en: "Require every position to use isolated margin, which removes correlation risk."
+          es: "Exige que toda posición use margen aislado, lo que elimina el riesgo de correlación."
+      - id: d
+        text:
+          en: "Keep each trade at 1% and let the count take care of itself."
+          es: "Mantén cada operación al 1% y deja que el número se resuelva solo."
+    explanation:
+      en: "Cap the cluster, not just the line. A position limit says nothing about direction, and isolated margin bounds each loss without making the losses independent — they still arrive together."
+      es: "Limita el grupo, no solo la línea. Un límite de posiciones no dice nada sobre la dirección, y el margen aislado acota cada pérdida sin hacerlas independientes: siguen llegando juntas."
+  - id: cross-margin-cascade
+    prompt:
+      en: "Your correlated positions all share one cross-margin pool. What does a correlated drop do?"
+      es: "Tus posiciones correlacionadas comparten un mismo pool de margen cruzado. ¿Qué hace una caída correlacionada?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It draws them all down against the same collateral at once, which can push several toward liquidation simultaneously — positions that looked independent fail as a single cascade."
+          es: "Las arrastra todas a la vez contra el mismo colateral, lo que puede empujar varias hacia la liquidación al mismo tiempo: posiciones que parecían independientes fallan como una sola cascada."
+      - id: b
+        text:
+          en: "Nothing extra — each position is liquidated on its own margin."
+          es: "Nada adicional: cada posición se liquida con su propio margen."
+      - id: c
+        text:
+          en: "It protects them, because winners in the pool subsidise the losers indefinitely."
+          es: "Las protege, porque las ganadoras del pool subvencionan indefinidamente a las perdedoras."
+      - id: d
+        text:
+          en: "It converts them automatically to isolated margin at the maintenance level."
+          es: "Las convierte automáticamente a margen aislado en el nivel de mantenimiento."
+    explanation:
+      en: "Cross margin buys depth of cushion by pooling collateral — which is exactly what turns several correlated losses into one shared drawdown against that pool."
+      es: "El margen cruzado compra colchón agrupando el colateral, y eso es precisamente lo que convierte varias pérdidas correlacionadas en un único drawdown compartido contra ese pool."

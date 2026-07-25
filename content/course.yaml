@@ -444,14 +444,16 @@ blocks:
         type: pattern_chart
       - id: m17-ex-3
         type: quiz
-      - id: m17-ex-4
-        type: quiz
     - id: m17-l2
       title:
         en: Liquidity maps and squeezes
         es: Mapas de liquidez y squeezes
       exercises:
       - id: m17-ex-5
+        type: quiz
+      # m17-ex-4 drills this lesson's vocabulary (liquidation clusters, squeeze direction), so it
+      # lives here rather than in l1; ids are permanent, hence the out-of-sequence number.
+      - id: m17-ex-4
         type: quiz
       - id: m17-ex-6
         type: quiz

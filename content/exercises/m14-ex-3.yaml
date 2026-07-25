@@ -162,3 +162,61 @@ variants:
     explanation:
       en: "The logic is symmetric: a break of support on strong volume means a crowd is behind the move down, just as it does above resistance, so it is far more likely to be real. Volume matters for breakdowns exactly as much as for breakouts — and 'guaranteed' still overstates it; strong volume raises the odds, it does not remove the risk."
       es: "La lógica es simétrica: una ruptura de soporte con volumen fuerte significa que hay una multitud detrás de la caída, igual que ocurre por encima de una resistencia, así que es mucho más probable que sea real. El volumen importa en las rupturas bajistas exactamente igual que en las alcistas, y 'garantizada' sigue siendo una exageración: el volumen fuerte sube las probabilidades, no elimina el riesgo."
+  - id: relative-volume
+    prompt:
+      en: "The 20-bar average volume is 10,000 contracts an hour and the current bar prints 45,000. In a different market that habitually does 200,000 an hour, a bar also prints 45,000. What do the two bars mean?"
+      es: "El volumen medio de 20 barras es de 10.000 contratos por hora y la barra actual imprime 45.000. En otro mercado que habitualmente hace 200.000 por hora, una barra también imprime 45.000. ¿Qué significan las dos barras?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The first is roughly 4.5× normal participation — a genuine crowd. The second is a lull. The absolute figure is noise; the ratio to normal is the signal."
+          es: "La primera es unas 4,5× la participación normal: una multitud real. La segunda es una calma. La cifra absoluta es ruido; la proporción respecto a lo normal es la señal."
+      - id: b
+        text:
+          en: "Both are identical surges — 45,000 contracts is 45,000 contracts."
+          es: "Ambas son subidas idénticas: 45.000 contratos son 45.000 contratos."
+      - id: c
+        text:
+          en: "The second is the stronger signal, because that market is bigger."
+          es: "La segunda es la señal más fuerte, porque ese mercado es mayor."
+      - id: d
+        text:
+          en: "Neither means anything without knowing the direction of the candle."
+          es: "Ninguna significa nada sin conocer la dirección de la vela."
+    explanation:
+      en: "A raw volume number has no meaning on its own, which is why volume is read against its own recent average. Faced with any volume bar, ask first: is this bar taller or shorter than the ones around it?"
+      es: "Un número de volumen en bruto no significa nada por sí solo, y por eso el volumen se lee contra su propia media reciente. Ante cualquier barra de volumen, pregunta primero: ¿es más alta o más baja que las de su alrededor?"
+  - id: crypto-volume-match
+    kind: matching
+    prompt:
+      en: "Match each feature of crypto's 24/7 market to what it does to your volume reading."
+      es: "Empareja cada característica del mercado cripto 24/7 con lo que hace a tu lectura del volumen."
+    pairs:
+      - id: rolling
+        left: { en: "No session boundaries", es: "Sin límites de sesión" }
+        right:
+          en: "'Average volume' only means anything as a rolling figure, and it breathes across the day — a bar that looks thin at 04:00 may be normal for that hour. Compare like with like."
+          es: "El 'volumen medio' solo significa algo como cifra móvil, y respira a lo largo del día: una barra que parece fina a las 04:00 puede ser normal a esa hora. Compara lo comparable."
+      - id: weekend
+        left: { en: "Thin weekend participation", es: "Participación fina en fin de semana" }
+        right:
+          en: "A Sunday breakout clears a much lower bar to count as 'strong volume', so weekend moves overstate their own conviction."
+          es: "Una ruptura en domingo supera un umbral mucho más bajo para contar como 'volumen fuerte', así que los movimientos de fin de semana exageran su propia convicción."
+      - id: wash
+        left: { en: "Wash trading", es: "Wash trading" }
+        right:
+          en: "The same entity buying and selling to itself fakes activity, so raw volume on a thin or unregulated venue can be largely fiction."
+          es: "La misma entidad comprándose y vendiéndose a sí misma finge actividad, así que el volumen bruto en un venue fino o no regulado puede ser en gran parte ficción."
+    explanation:
+      en: "All three push the same way: compare like with like, be extra sceptical of a break while most of the market is asleep, and prefer aggregated or on-chain measures over one small exchange's number."
+      es: "Los tres empujan en la misma dirección: compara lo comparable, sé especialmente escéptico con una ruptura mientras la mayoría del mercado duerme, y prefiere medidas agregadas u on-chain al número de un exchange pequeño."
+  - id: unconfirmed-break
+    kind: true_false
+    prompt:
+      en: "If the volume under a breakout candle is not clearly above its recent average, the break should be treated as unconfirmed."
+      es: "Si el volumen bajo la vela de ruptura no está claramente por encima de su media reciente, la ruptura debe tratarse como no confirmada."
+    answer: true
+    explanation:
+      en: "True — a question, not an answer. A break with no participation behind it is the single most common way traders get trapped: the line is crossed, the chart looks decisive, and the probe quietly reverses the moment the handful of buyers who pushed it run out."
+      es: "Cierto: una pregunta, no una respuesta. Una ruptura sin participación detrás es la forma más común de que los traders queden atrapados: se cruza la línea, el gráfico parece decidido, y el sondeo se revierte en silencio en cuanto se agotan los pocos compradores que lo empujaron."

@@ -136,3 +136,54 @@ variants:
     explanation:
       en: "An uptrend needs higher highs and higher lows together, and matching your tactics to the regime matters. A single candle is not a trend, and ranges routinely last a long time."
       es: "Una tendencia alcista necesita máximos más altos y mínimos más altos a la vez, y ajustar las tácticas al régimen importa. Una sola vela no es una tendencia, y los rangos duran mucho tiempo con frecuencia."
+  - id: downtrend-example
+    prompt:
+      en: "Over three swings, price makes highs at 100, 95 and 91, and lows at 88, 84 and 80. What is this?"
+      es: "En tres oscilaciones, el precio marca máximos en 100, 95 y 91, y mínimos en 88, 84 y 80. ¿Qué es esto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A downtrend — each high is lower than the last and each low is lower than the last."
+          es: "Una tendencia bajista: cada máximo es más bajo que el anterior y cada mínimo también."
+      - id: b
+        text: { en: "A range, because price is oscillating between highs and lows.", es: "Un rango, porque el precio oscila entre máximos y mínimos." }
+      - id: c
+        text: { en: "An uptrend, because the lows keep being defended.", es: "Una tendencia alcista, porque los mínimos se siguen defendiendo." }
+      - id: d
+        text: { en: "Nothing readable without volume data.", es: "Nada legible sin datos de volumen." }
+    explanation:
+      en: "Lower highs plus lower lows is the definition of a downtrend. Structure is read off the sequence of swings, not off any single candle."
+      es: "Máximos decrecientes más mínimos decrecientes es la definición de tendencia bajista. La estructura se lee de la secuencia de oscilaciones, no de una vela aislada."
+  - id: why-range-default
+    prompt:
+      en: "Why is ranging the market's default state, with trends the exception?"
+      es: "¿Por qué el rango es el estado por defecto del mercado y las tendencias la excepción?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A range is balance — neither side can force a breakout. A sustained one-sided imbalance is expensive to maintain and therefore rare."
+          es: "Un rango es equilibrio: ningún lado puede forzar la ruptura. Un desequilibrio sostenido hacia un solo lado es caro de mantener y por eso raro."
+      - id: b
+        text:
+          en: "Exchanges cap how far price can move per day, which forces sideways action."
+          es: "Los exchanges limitan cuánto puede moverse el precio al día, lo que fuerza el movimiento lateral."
+      - id: c
+        text:
+          en: "Ranges are what happens when volume is missing; trends need no participation."
+          es: "Los rangos ocurren cuando falta volumen; las tendencias no necesitan participación."
+      - id: d
+        text: { en: "Most traders trade ranges, so their orders create them.", es: "La mayoría de traders operan rangos, así que sus órdenes los crean." }
+    explanation:
+      en: "Buyers defend the floor, sellers cap the ceiling, and the result is chop. That is exactly why a real trend is worth riding when you find one — and why identifying the regime is worth the effort."
+      es: "Los compradores defienden el suelo, los vendedores tapan el techo, y el resultado es serrucho. Precisamente por eso una tendencia real merece la pena cuando la encuentras, y por eso identificar el régimen vale el esfuerzo."
+  - id: mini-trend-tf
+    kind: true_false
+    prompt:
+      en: "Any single day inside a two-week range can look like a mini-trend on a lower timeframe."
+      es: "Cualquier día dentro de un rango de dos semanas puede parecer una mini-tendencia en una temporalidad menor."
+    answer: true
+    explanation:
+      en: "True, and it is the trap: BTC bouncing between 59,000 and 62,000 for two weeks is ranging even though individual days inside it trend. Read structure on the timeframe you are actually trading."
+      es: "Cierto, y es la trampa: BTC rebotando entre 59.000 y 62.000 durante dos semanas está en rango aunque los días individuales tengan tendencia. Lee la estructura en la temporalidad que realmente operas."

@@ -179,3 +179,64 @@ variants:
     explanation:
       en: "Nobody can tell a breakout from a fakeout at the instant price crosses — the close beyond that holds (and often the retest) is the discriminator. Reacting to the poke is exactly what traps the traders caught by fakeouts."
       es: "Nadie puede distinguir una ruptura de un fakeout en el instante en que el precio cruza: el cierre más allá que aguanta (y a menudo el retest) es el discriminador. Reaccionar al asomo es justo lo que atrapa a los traders que caen en los fakeouts."
+  - id: fakeout-mechanism
+    prompt:
+      en: "Mechanically, why do fakeouts happen at exactly the most obvious levels?"
+      es: "Mecánicamente, ¿por qué las rupturas falsas ocurren precisamente en los niveles más obvios?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Resting orders pile up just beyond them — stop-losses plus 'buy if it breaks' instructions. Pushing price a hair past triggers them all at once, a burst of buying with nothing real behind it; once that fuel is spent price falls back inside."
+          es: "Las órdenes en reposo se acumulan justo más allá: stop-loss más instrucciones de 'compra si rompe'. Empujar el precio un pelo más allá las dispara todas de golpe, un estallido de compras sin nada real detrás; agotado ese combustible, el precio vuelve dentro."
+      - id: b
+        text:
+          en: "Exchanges widen the spread at round numbers, which distorts the print."
+          es: "Los exchanges amplían el spread en los números redondos, lo que distorsiona la impresión."
+      - id: c
+        text:
+          en: "Obvious levels attract more genuine volume, which always sustains the break."
+          es: "Los niveles obvios atraen más volumen genuino, que siempre sostiene la ruptura."
+      - id: d
+        text:
+          en: "They are random — there is no mechanism, only bad luck."
+          es: "Son aleatorias: no hay mecanismo, solo mala suerte."
+    explanation:
+      en: "The false break didn't fail by accident; it ran out of the very orders that caused it. And the traders who bought the poke are now trapped above the level and motivated to sell — which is what pushes price back down."
+      es: "La ruptura falsa no falló por accidente: se quedó sin las mismas órdenes que la causaron. Y quienes compraron el pinchazo están ahora atrapados por encima del nivel y motivados para vender, que es lo que empuja el precio de vuelta abajo."
+  - id: genuine-break-sequence
+    kind: ordering
+    prompt:
+      en: "Put the stages of a genuine breakout above resistance in order."
+      es: "Ordena las etapas de una ruptura genuina por encima de una resistencia."
+    items:
+      - id: close
+        position: 1
+        text:
+          en: "A full candle body closes decisively beyond the level — ideally on higher volume."
+          es: "Un cuerpo de vela completo cierra decididamente más allá del nivel, idealmente con más volumen."
+      - id: hold
+        position: 2
+        text: { en: "Price holds there rather than falling straight back inside.", es: "El precio se sostiene ahí en vez de volver de inmediato dentro." }
+      - id: retest
+        position: 3
+        text:
+          en: "Price comes back to retest the old level, now as support."
+          es: "El precio regresa para hacer un retest del nivel antiguo, ahora como soporte."
+      - id: away
+        position: 4
+        text:
+          en: "It bounces away from the retest — the level that used to cap price now catches it."
+          es: "Rebota desde el retest: el nivel que antes tapaba el precio ahora lo sostiene."
+    explanation:
+      en: "The retest holds because of role reversal: sellers who defended the old resistance were overrun and cover on the pullback, while buyers who refused to chase finally get their entry at the old line. The retest is the market voting a second time."
+      es: "El retest aguanta por la inversión de papeles: los vendedores que defendían la antigua resistencia fueron atropellados y cierran en el retroceso, mientras los compradores que no quisieron perseguir consiguen por fin su entrada en la línea antigua. El retest es el mercado votando una segunda vez."
+  - id: weekend-break-weight
+    kind: true_false
+    prompt:
+      en: "A breakout printed at 04:00 on a Sunday deserves the same trust as the same break in a busy weekday session."
+      es: "Una ruptura impresa a las 04:00 de un domingo merece la misma confianza que la misma ruptura en una sesión concurrida de día laborable."
+    answer: false
+    explanation:
+      en: "In the dead hours the book is thin, so far less size is needed to shove price through an obvious level — false breaks cluster in exactly these windows. The level may simply have been pushed through empty air, and it snaps back when real volume returns."
+      es: "En las horas muertas el libro está fino, así que hace falta mucho menos tamaño para empujar el precio a través de un nivel obvio: las rupturas falsas se concentran justo en esas ventanas. El nivel puede haberse atravesado en el vacío, y vuelve atrás cuando regresa el volumen real."

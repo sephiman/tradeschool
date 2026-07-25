@@ -158,3 +158,58 @@ variants:
     explanation:
       en: "Break-even win rate = 1 / (1 + payoff) = 1 / (1 + 2) = 1/3 ≈ 33%. With winners twice the size of losers you only need to win about a third of the time to break even, and anything above that is profit. The instinct that you must win most of your trades ignores the payoff entirely."
       es: "Win rate de equilibrio = 1 / (1 + payoff) = 1 / (1 + 2) = 1/3 ≈ 33%. Con ganadoras del doble de tamaño que las perdedoras, solo necesitas ganar alrededor de un tercio de las veces para quedar en tablas, y cualquier cosa por encima es beneficio. El instinto de que debes ganar la mayoría de tus operaciones ignora por completo el payoff."
+  - id: expectancy-worked
+    prompt:
+      en: "System A: 40% win rate, average win 300, average loss 100. System B: 80% win rate, average win 50, average loss 300. What is each one's expectancy per trade?"
+      es: "Sistema A: 40% de acierto, ganancia media 300, pérdida media 100. Sistema B: 80% de acierto, ganancia media 50, pérdida media 300. ¿Cuál es la expectativa por operación de cada uno?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A: 0.40 × 300 − 0.60 × 100 = +60 USDT. B: 0.80 × 50 − 0.20 × 300 = −20 USDT. Winning four out of five and still losing money."
+          es: "A: 0,40 × 300 − 0,60 × 100 = +60 USDT. B: 0,80 × 50 − 0,20 × 300 = −20 USDT. Ganando cuatro de cinco y aun así perdiendo dinero."
+      - id: b
+        text:
+          en: "A: −60 USDT. B: +20 USDT — the higher win rate wins out."
+          es: "A: −60 USDT. B: +20 USDT: gana la tasa de acierto más alta."
+      - id: c
+        text:
+          en: "Both are positive; B is simply smaller per trade."
+          es: "Ambos son positivos; B es simplemente menor por operación."
+      - id: d
+        text:
+          en: "Neither can be computed without the number of trades taken."
+          es: "Ninguno puede calcularse sin el número de operaciones realizadas."
+    explanation:
+      en: "Expectancy is a weighted average — each outcome multiplied by how often it happens — so it already contains both win rate and payoff. Win rate on its own would have ranked these two backwards."
+      es: "La expectativa es una media ponderada (cada resultado multiplicado por su frecuencia), así que ya contiene tanto la tasa de acierto como el payoff. La tasa de acierto por sí sola habría ordenado estos dos al revés."
+  - id: breakeven-table
+    kind: matching
+    prompt:
+      en: "Match each payoff to the win rate it demands just to break even."
+      es: "Empareja cada payoff con la tasa de acierto que exige solo para no perder."
+    pairs:
+      - id: p3
+        left: { en: "Payoff 3 — winners three times your losers", es: "Payoff 3: ganadoras el triple que las perdedoras" }
+        right: { en: "25% — win one in four and you break even.", es: "25%: gana una de cada cuatro y quedas en tablas." }
+      - id: p2
+        left: { en: "Payoff 2 — winners twice your losers", es: "Payoff 2: ganadoras el doble que las perdedoras" }
+        right: { en: "33.3% — win more than one in three and you profit.", es: "33,3%: gana más de una de cada tres y ganas dinero." }
+      - id: p1
+        left: { en: "Payoff 1 — equal-sized wins and losses", es: "Payoff 1: ganancias y pérdidas del mismo tamaño" }
+        right: { en: "50% — the coin-flip threshold.", es: "50%: el umbral de la moneda al aire." }
+      - id: p05
+        left: { en: "Payoff 0.5 — winners half the size of losers", es: "Payoff 0,5: ganadoras la mitad que las perdedoras" }
+        right: { en: "66.7% — two out of three just to tread water.", es: "66,7%: dos de cada tres solo para mantenerse." }
+    explanation:
+      en: "Break-even win% = 1 ÷ (1 + payoff). It turns the vague 'you need a good payoff' into a hard threshold you can check before ever placing a trade."
+      es: "Tasa de equilibrio = 1 ÷ (1 + payoff). Convierte el vago 'necesitas un buen payoff' en un umbral concreto que puedes comprobar antes de operar."
+  - id: costs-raise-floor
+    kind: true_false
+    prompt:
+      en: "The win rate you actually need is exactly 1 ÷ (1 + payoff)."
+      es: "La tasa de acierto que realmente necesitas es exactamente 1 ÷ (1 + payoff)."
+    answer: false
+    explanation:
+      en: "Break-even is the floor, and the real floor is higher than the formula says, because every trade pays fees and, in futures, funding. A payoff that break-evens on paper loses money once costs come out."
+      es: "El equilibrio es el suelo, y el suelo real es más alto de lo que dice la fórmula, porque cada operación paga comisiones y, en futuros, funding. Un payoff que empata en el papel pierde dinero cuando salen los costes."

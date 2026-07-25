@@ -150,3 +150,71 @@ variants:
     explanation:
       en: "A self-custody wallet has no company behind it. There is no password reset and no support desk — losing the keys means losing the coins. That is the price of removing counterparty risk."
       es: "Una cartera de autocustodia no tiene ninguna empresa detrás. No hay recuperación de contraseña ni atención al cliente: perder las claves significa perder las monedas. Ese es el precio de eliminar el riesgo de contraparte."
+  - id: insolvency-status
+    prompt:
+      en: "A custodial exchange becomes insolvent while your coins are on it. What is your legal position?"
+      es: "Un exchange custodial se declara insolvente mientras tus monedas están allí. ¿Cuál es tu posición legal?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "An unsecured creditor — you queue with the rest and may get cents on the dollar, years later."
+          es: "Acreedor sin garantía: haces cola con el resto y puedes recibir céntimos por euro, años después."
+      - id: b
+        text: { en: "A protected depositor, like a bank customer.", es: "Depositante protegido, como el cliente de un banco." }
+      - id: c
+        text: { en: "The legal owner of specific coins held for you.", es: "Propietario legal de monedas concretas guardadas para ti." }
+      - id: d
+        text: { en: "Fully covered by the exchange's insurance by law.", es: "Cubierto por completo por el seguro del exchange por ley." }
+    explanation:
+      en: "Your balance was a liability on the exchange's books, pooled with everyone else's coins. Keeping savings there is quietly making that company your bank — an unregulated one, with none of a bank's guarantees."
+      es: "Tu saldo era un pasivo en la contabilidad del exchange, mezclado con las monedas de todos. Guardar ahí tus ahorros es convertir a esa empresa en tu banco sin decirlo: un banco no regulado y sin ninguna de sus garantías."
+  - id: failure-sequence
+    kind: ordering
+    prompt:
+      en: "Put the stages of a custodial exchange failure in the order they have historically played out."
+      es: "Ordena las etapas de la caída de un exchange custodial tal como han ocurrido históricamente."
+    items:
+      - id: normal
+        position: 1
+        text:
+          en: "The exchange looks untouchable and customers keep their savings on it for convenience."
+          es: "El exchange parece intocable y los clientes dejan sus ahorros allí por comodidad."
+      - id: freeze
+        position: 2
+        text: { en: "Withdrawals are frozen overnight, with no warning.", es: "Los retiros se congelan de la noche a la mañana, sin avisar." }
+      - id: bankruptcy
+        position: 3
+        text: { en: "The company enters bankruptcy.", es: "La empresa entra en quiebra." }
+      - id: creditors
+        position: 4
+        text:
+          en: "Customers discover they are unsecured creditors, not depositors."
+          es: "Los clientes descubren que son acreedores sin garantía, no depositantes."
+      - id: cents
+        position: 5
+        text:
+          en: "Years later a court hands back cents on the dollar."
+          es: "Años después un tribunal devuelve céntimos por euro."
+    explanation:
+      en: "That is the day the difference between 'coins' and 'an IOU for coins' stops being academic. Nothing in the sequence requires fraud — custody alone is enough for it."
+      es: "Ese es el día en que la diferencia entre 'monedas' y 'un pagaré por monedas' deja de ser académica. Nada en la secuencia requiere fraude: basta con la custodia."
+  - id: withdrawal-finality
+    prompt:
+      en: "You withdraw coins from an exchange to your own wallet but pick the wrong network. What happens?"
+      es: "Retiras monedas de un exchange a tu propia wallet, pero eliges la red equivocada. ¿Qué ocurre?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The coins are, in practice, simply gone — on-chain settlement is final; there is no chargeback and no support ticket that brings them back."
+          es: "En la práctica las monedas simplemente se pierden: la liquidación on-chain es definitiva; no hay contracargo ni ticket de soporte que las recupere."
+      - id: b
+        text: { en: "The transfer bounces back automatically after a few blocks.", es: "La transferencia rebota automáticamente tras unos bloques." }
+      - id: c
+        text: { en: "The exchange reverses it once you open a ticket.", es: "El exchange la revierte en cuanto abres un ticket." }
+      - id: d
+        text: { en: "The network holds the funds until you claim them.", es: "La red retiene los fondos hasta que los reclames." }
+    explanation:
+      en: "Finality is the entire design of on-chain settlement, and it does not care that you made a mistake. Withdrawing is the one moment where a careless click is irreversible — check the network and the address twice."
+      es: "La irreversibilidad es todo el diseño de la liquidación on-chain, y le da igual que te hayas equivocado. Retirar es el momento en que un clic descuidado no tiene vuelta atrás: revisa la red y la dirección dos veces."

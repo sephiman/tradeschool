@@ -163,3 +163,87 @@ variants:
     explanation:
       en: "Funding can be positive or negative. When the rate is positive, longs pay shorts; when it's negative, longs receive. It is not a reward for being long — it depends on which side the market is crowding into."
       es: "El funding puede ser positivo o negativo. Cuando la tasa es positiva, los longs pagan a los shorts; cuando es negativa, los longs cobran. No es una recompensa por ir long: depende de hacia qué lado se amontona el mercado."
+  - id: net-settlement-steps
+    kind: ordering
+    prompt:
+      en: "Put the costs and credits of a leveraged round trip in the order they actually hit your account."
+      es: "Ordena los costes y abonos de una operación completa apalancada según el orden en que golpean tu cuenta."
+    items:
+      - id: open
+        position: 1
+        text:
+          en: "You pay a fee on the opening fill, charged on notional — the taker rate if you crossed the spread."
+          es: "Pagas una comisión en la ejecución de apertura, calculada sobre el nocional: la tasa taker si cruzaste el spread."
+      - id: funding
+        position: 2
+        text:
+          en: "Every funding window you stay open, a payment moves between you and the other side."
+          es: "En cada ventana de funding que sigues abierto, un pago se mueve entre tú y el otro lado."
+      - id: closefee
+        position: 3
+        text:
+          en: "You pay a fee again on the closing fill — the round trip is two fees, not one."
+          es: "Pagas comisión otra vez en la ejecución de cierre: el viaje de ida y vuelta son dos comisiones, no una."
+      - id: net
+        position: 4
+        text:
+          en: "What survives of the gross move is booked as net realized PnL: gross − fees − funding."
+          es: "Lo que sobrevive del movimiento bruto se contabiliza como PnL neto realizado: bruto − comisiones − funding."
+    explanation:
+      en: "The gross price move is only the raw material. Everything in between is subtracted before anything lands in your balance — which is why a barely-positive move can net a loss."
+      es: "El movimiento bruto del precio es solo la materia prima. Todo lo de en medio se resta antes de que algo llegue a tu saldo, y por eso un movimiento apenas positivo puede acabar en pérdida."
+  - id: three-percentages
+    prompt:
+      en: "You go long 1 BTC at 20,000 with 5× leverage (4,000 margin), hold three days and close at 20,400. Fees are 22.22 USDT and funding cost 18 USDT. Which set of numbers describes the trade?"
+      es: "Te pones largo 1 BTC en 20.000 con 5× de apalancamiento (4.000 de margen), lo mantienes tres días y cierras en 20.400. Las comisiones son 22,22 USDT y el funding costó 18 USDT. ¿Qué conjunto de números describe la operación?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "+2% gross on notional, +1.80% net on notional (359.78 USDT), and +9.0% net on margin — only the last is the change in your account."
+          es: "+2% bruto sobre nocional, +1,80% neto sobre nocional (359,78 USDT) y +9,0% neto sobre margen: solo el último es el cambio en tu cuenta."
+      - id: b
+        text:
+          en: "+2% gross and +2% net, since fees and funding come out of the margin instead."
+          es: "+2% bruto y +2% neto, ya que las comisiones y el funding salen del margen en su lugar."
+      - id: c
+        text:
+          en: "+2% gross, +1.80% net on notional, and +1.80% on margin — leverage does not change the percentage."
+          es: "+2% bruto, +1,80% neto sobre nocional y +1,80% sobre margen: el apalancamiento no cambia el porcentaje."
+      - id: d
+        text:
+          en: "+10% gross on margin and +9.0% net, with fees charged on margin."
+          es: "+10% bruto sobre margen y +9,0% neto, con las comisiones cobradas sobre el margen."
+    explanation:
+      en: "Gross PnL is 400; net is 400 − 22.22 − 18 = 359.78. That is 1.80% of the 20,000 notional and 9.0% of the 4,000 margin. Three different percentages for one trade, and only net-on-margin is what your balance did."
+      es: "El PnL bruto es 400; el neto es 400 − 22,22 − 18 = 359,78. Eso es el 1,80% del nocional de 20.000 y el 9,0% del margen de 4.000. Tres porcentajes distintos para una operación, y solo el neto sobre margen es lo que hizo tu saldo."
+  - id: small-move-loss
+    prompt:
+      en: "Same 20,000 USDT notional position and same three-day hold, but the move is only +0.15% (+30 USDT gross). Fees are ~22 USDT and funding ~18 USDT. What is the result?"
+      es: "La misma posición de 20.000 USDT de nocional y los mismos tres días, pero el movimiento es solo +0,15% (+30 USDT brutos). Las comisiones son ~22 USDT y el funding ~18 USDT. ¿Cuál es el resultado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A loss of about 10 USDT — a green gross number and a red balance."
+          es: "Una pérdida de unos 10 USDT: número bruto en verde y saldo en rojo."
+      - id: b
+        text: { en: "A small profit of about 30 USDT.", es: "Un beneficio pequeño de unos 30 USDT." }
+      - id: c
+        text: { en: "Break-even, since costs scale with the move.", es: "Empate, ya que los costes escalan con el movimiento." }
+      - id: d
+        text:
+          en: "A profit, because funding is refunded on winning trades."
+          es: "Un beneficio, porque el funding se devuelve en las operaciones ganadoras."
+    explanation:
+      en: "30 − 22 − 18 = −10. Costs do not scale with how right you were: they are fixed against notional and time held, so they turn thin winners into real losers."
+      es: "30 − 22 − 18 = −10. Los costes no escalan con lo acertado que estuviste: son fijos contra el nocional y el tiempo mantenido, así que convierten ganancias finas en pérdidas reales."
+  - id: breakeven-round-trip
+    kind: true_false
+    prompt:
+      en: "At a 0.055% taker fee, price needs to move about 0.055% of notional for a round trip to break even."
+      es: "Con una comisión taker del 0,055%, el precio necesita moverse en torno al 0,055% del nocional para que una operación completa quede en equilibrio."
+    answer: false
+    explanation:
+      en: "You pay the fee twice — once to open, once to close — so break-even needs about 0.11% of notional before any funding. At 5× leverage that is 0.55% of your margin gone before you are even."
+      es: "Pagas la comisión dos veces, al abrir y al cerrar, así que el equilibrio exige en torno al 0,11% del nocional antes de contar el funding. Con 5× de apalancamiento eso son un 0,55% de tu margen perdidos antes de empatar."

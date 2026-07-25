@@ -149,3 +149,85 @@ variants:
     explanation:
       en: "Positive funding means longs pay shorts, so as a long you pay at every interval — a cost that compounds over days. It is charged each funding interval regardless of your leverage, and whether or not you have closed."
       es: "Una tasa positiva significa que los largos pagan a los cortos, así que como largo pagas en cada intervalo: un coste que se acumula con los días. Se cobra en cada intervalo de funding sin importar tu apalancamiento, y hayas cerrado o no."
+  - id: funding-math
+    prompt:
+      en: "You hold a long with 10,000 USDT of notional through a euphoric rally where funding runs at +0.1% per eight-hour window. What is that costing you?"
+      es: "Mantienes un largo con 10.000 USDT de nocional durante un rally eufórico en el que el funding va al +0,1% por ventana de ocho horas. ¿Cuánto te cuesta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "10 USDT every eight hours — about 30 USDT/day, 0.3% of notional per day, over 2% across a week, paid to the shorts whether or not price moves your way."
+          es: "10 USDT cada ocho horas: unos 30 USDT/día, un 0,3% del nocional diario, más del 2% en una semana, pagados a los cortos se mueva o no el precio a tu favor."
+      - id: b
+        text:
+          en: "10 USDT once a day — about 70 USDT across a week."
+          es: "10 USDT una vez al día: unos 70 USDT en una semana."
+      - id: c
+        text:
+          en: "0.1% of your margin per window, which leverage makes negligible."
+          es: "El 0,1% de tu margen por ventana, algo que el apalancamiento vuelve insignificante."
+      - id: d
+        text: { en: "Nothing until you close the position.", es: "Nada hasta que cierres la posición." }
+    explanation:
+      en: "Funding is notional × rate, charged around the clock — commonly three windows a day. A rate that is noise at +0.01% (about 3 USDT/day here) becomes the largest cost of a multi-day position at +0.1%."
+      es: "El funding es nocional × tasa, cobrado a todas horas, normalmente tres ventanas al día. Una tasa que es ruido al +0,01% (unos 3 USDT/día aquí) se convierte en el mayor coste de una posición de varios días al +0,1%."
+  - id: funding-arb-steps
+    kind: ordering
+    prompt:
+      en: "Funding is what tethers a perp to spot. Put the mechanism in order, starting from a strongly positive funding rate."
+      es: "El funding es lo que ancla un perp al spot. Ordena el mecanismo, empezando por una tasa de funding claramente positiva."
+    items:
+      - id: above
+        position: 1
+        text:
+          en: "The perp trades above spot: too many eager longs bid the contract over the real asset."
+          es: "El perp cotiza por encima del spot: demasiados largos ansiosos pujan el contrato por encima del activo real."
+      - id: pay
+        position: 2
+        text:
+          en: "Funding turns strongly positive, so longs pay shorts every window."
+          es: "El funding se vuelve claramente positivo, así que los largos pagan a los cortos cada ventana."
+      - id: arb
+        position: 3
+        text:
+          en: "An arbitrageur shorts the perp to collect that funding while buying spot to hedge the price risk."
+          es: "Un arbitrajista se pone corto en el perp para cobrar ese funding mientras compra spot para cubrir el riesgo de precio."
+      - id: converge
+        position: 4
+        text:
+          en: "That extra selling of the perp pushes it back down toward spot."
+          es: "Esa venta extra del perp lo empuja de vuelta hacia el spot."
+    explanation:
+      en: "A dated future is anchored because at expiry it must equal spot. A perp never expires, so the anchor has to be manufactured: funding discourages the crowd and pays arbitrageurs to take the other side. The tether is not magic — it is a paid incentive."
+      es: "Un futuro con fecha está anclado porque al vencimiento debe igualar al spot. Un perp nunca vence, así que el ancla hay que fabricarla: el funding desincentiva a la multitud y paga a los arbitrajistas por tomar el otro lado. El ancla no es magia: es un incentivo pagado."
+  - id: funding-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about funding that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre el funding."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It is a transfer between traders — the exchange moves it from one side to the other and keeps none of it."
+          es: "Es una transferencia entre traders: el exchange lo mueve de un lado al otro y no se queda nada."
+      - id: b
+        correct: true
+        text:
+          en: "On the unpopular side you receive it, which is a real if small income."
+          es: "En el lado impopular lo recibes, lo que supone un ingreso real aunque pequeño."
+      - id: c
+        correct: true
+        text:
+          en: "In crypto it is charged around the clock, typically every eight hours, with no weekend pause."
+          es: "En cripto se cobra a todas horas, normalmente cada ocho horas, sin pausa de fin de semana."
+      - id: d
+        text:
+          en: "It can be budgeted like a fixed commission, since the rate is stable."
+          es: "Puede presupuestarse como una comisión fija, ya que la tasa es estable."
+      - id: e
+        text: { en: "It is interest on the leverage the exchange lent you.", es: "Es el interés del apalancamiento que te prestó el exchange." }
+    explanation:
+      en: "Never budget funding like a commission: a rate that is noise one week can quietly become the single largest cost of a multi-day position the next. And you are not always the payer."
+      es: "Nunca presupuestes el funding como una comisión: una tasa que es ruido una semana puede convertirse en el mayor coste de una posición de varios días la siguiente. Y no siempre eres tú quien paga."

@@ -148,3 +148,103 @@ variants:
     explanation:
       en: "A market order walks the book level by level. With little depth, each successive level is further from the first, so a big order fills worse and worse — that's slippage in action."
       es: "Una orden de mercado recorre el libro nivel a nivel. Con poca profundidad, cada nivel sucesivo está más lejos del primero, así que una orden grande se ejecuta cada vez peor: es el slippage en acción."
+  - id: book-walk
+    kind: ordering
+    prompt:
+      en: "The asks on a thin altcoin read: 500 units at 2.00, then 800 at 2.02, then 1,500 at 2.05. You send a market buy for 2,000 units. Put the fills in the order they happen."
+      es: "Los asks de una altcoin ilíquida son: 500 unidades a 2,00, luego 800 a 2,02 y luego 1.500 a 2,05. Envías una orden de mercado de compra por 2.000 unidades. Ordena las ejecuciones según ocurren."
+    items:
+      - id: l1
+        position: 1
+        text: { en: "500 units fill at 2.00 — the best ask is taken first.", es: "500 unidades se ejecutan a 2,00: el mejor ask se toma primero." }
+      - id: l2
+        position: 2
+        text: { en: "800 units fill at 2.02 — the next level up.", es: "800 unidades se ejecutan a 2,02: el siguiente nivel." }
+      - id: l3
+        position: 3
+        text: { en: "The remaining 700 units fill at 2.05.", es: "Las 700 unidades restantes se ejecutan a 2,05." }
+      - id: avg
+        position: 4
+        text:
+          en: "The order is complete: 4,051 USDT for 2,000 units, an average of 2.026."
+          es: "La orden se completa: 4.051 USDT por 2.000 unidades, una media de 2,026."
+    explanation:
+      en: "A market order walks the book, taking each level in turn from best to worst. That is why size in a thin book prices itself progressively worse — the order eats its own liquidity."
+      es: "Una orden de mercado recorre el libro, tomando cada nivel por turno del mejor al peor. Por eso el tamaño en un libro ilíquido se ejecuta cada vez peor: la orden se come su propia liquidez."
+  - id: slippage-calc
+    prompt:
+      en: "You saw 2.00 on screen and your market buy for 2,000 units filled at an average of 2.026. What was the slippage, and what would a limit buy at 2.00 have done instead?"
+      es: "Veías 2,00 en pantalla y tu compra a mercado de 2.000 unidades se ejecutó a una media de 2,026. ¿Cuál fue el slippage y qué habría hecho en su lugar una compra límite a 2,00?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "About 1.3% before fees; the limit buy would have filled only the 500 units offered at 2.00 and left 1,500 waiting."
+          es: "Alrededor del 1,3% antes de comisiones; la compra límite habría ejecutado solo las 500 unidades ofrecidas a 2,00 y habría dejado 1.500 esperando."
+      - id: b
+        text:
+          en: "About 1.3%; the limit buy would have filled all 2,000 units at 2.00."
+          es: "Alrededor del 1,3%; la compra límite habría ejecutado las 2.000 unidades a 2,00."
+      - id: c
+        text:
+          en: "About 2.6%; the limit buy would have filled nothing at all."
+          es: "Alrededor del 2,6%; la compra límite no habría ejecutado nada."
+      - id: d
+        text:
+          en: "There was no slippage — 2.026 is within the spread."
+          es: "No hubo slippage: 2,026 está dentro del spread."
+    explanation:
+      en: "Slippage is the gap between the price you expected and the average you got: 2.026 vs 2.00 is ~1.3%. That is the whole choice in one picture — the market order got all 2,000 at a worse average, the limit order protects the price but may never complete."
+      es: "El slippage es la diferencia entre el precio que esperabas y la media que obtuviste: 2,026 frente a 2,00 es ~1,3%. Ahí está toda la elección: la orden de mercado consiguió las 2.000 a peor media, la límite protege el precio pero puede no completarse nunca."
+  - id: market-order-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE of a market order."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre una orden de mercado."
+    options:
+      - id: a
+        correct: true
+        text: { en: "It is guaranteed to execute.", es: "Tiene la ejecución garantizada." }
+      - id: b
+        correct: true
+        text:
+          en: "It takes the offers already resting in the book, level by level."
+          es: "Toma las ofertas que ya descansan en el libro, nivel a nivel."
+      - id: c
+        correct: true
+        text:
+          en: "In a thin book or a wide spread it can fill far from the price you just saw."
+          es: "En un libro ilíquido o con spread amplio puede ejecutarse lejos del precio que acabas de ver."
+      - id: d
+        text: { en: "It guarantees the price you saw on screen.", es: "Garantiza el precio que veías en pantalla." }
+      - id: e
+        text: { en: "It always pays lower fees than a limit order.", es: "Siempre paga menos comisiones que una orden límite." }
+    explanation:
+      en: "A market order buys certainty of execution at the cost of certainty of price; a limit order does the reverse. Neither is 'safer' — they trade different risks."
+      es: "Una orden de mercado compra certeza de ejecución a costa de certeza de precio; una límite hace lo contrario. Ninguna es 'más segura': cambian un riesgo por otro."
+  - id: always-open
+    kind: multi_select
+    prompt:
+      en: "Crypto trades 24/7 with no closing bell. Select ALL consequences that follow for your orders."
+      es: "El cripto opera 24/7 sin campana de cierre. Selecciona TODAS las consecuencias que eso tiene para tus órdenes."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "There are no circuit breakers to pause trading — there is no central operator to pause it."
+          es: "No hay circuit breakers que pausen el mercado: no hay operador central que lo pause."
+      - id: b
+        correct: true
+        text:
+          en: "Liquidity thins out overnight and at weekends, so the same market order slips more."
+          es: "La liquidez se adelgaza de noche y los fines de semana, así que la misma orden de mercado sufre más slippage."
+      - id: c
+        correct: true
+        text: { en: "Price can gap hard while you are asleep.", es: "El precio puede hacer un gap fuerte mientras duermes." }
+      - id: d
+        text: { en: "Spreads are constant because the market never closes.", es: "Los spreads son constantes porque el mercado nunca cierra." }
+      - id: e
+        text: { en: "Thin alt books behave like BTC books at all hours.", es: "Los libros ilíquidos de alts se comportan como los de BTC a cualquier hora." }
+    explanation:
+      en: "No closing bell also means no pause when things break. The practical effect is worst where depth is thinnest: a size that is trivial on BTC can move a small-cap several percent at 4am."
+      es: "Que no haya campana de cierre también significa que no hay pausa cuando algo se rompe. El efecto práctico es peor donde hay menos profundidad: un tamaño trivial en BTC puede mover un small-cap varios puntos porcentuales a las 4 de la mañana."

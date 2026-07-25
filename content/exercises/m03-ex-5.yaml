@@ -170,3 +170,59 @@ variants:
     explanation:
       en: "Structure is timeframe-specific, so fix the timeframe first, then read the swing points on it, compare how they line up, and only then name the regime."
       es: "La estructura depende de la temporalidad, así que fija primero la temporalidad, luego lee los puntos de giro en ella, compara cómo se alinean y solo entonces nombra el régimen."
+  - id: swing-points
+    prompt:
+      en: "What is a swing high, and why do swing points matter?"
+      es: "¿Qué es un máximo de oscilación (swing high) y por qué importan los puntos de oscilación?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A peak with lower candles on either side of it — swing points are the skeleton of structure, and reading how they line up is what defines trend or range."
+          es: "Un pico con velas más bajas a ambos lados: los puntos de oscilación son el esqueleto de la estructura, y leer cómo se alinean es lo que define tendencia o rango."
+      - id: b
+        text:
+          en: "The highest price of the week, which anchors every level below it."
+          es: "El precio más alto de la semana, que ancla todos los niveles por debajo."
+      - id: c
+        text:
+          en: "Any green candle that closes above the previous one."
+          es: "Cualquier vela verde que cierre por encima de la anterior."
+      - id: d
+        text: { en: "The midpoint between a range's floor and ceiling.", es: "El punto medio entre el suelo y el techo de un rango." }
+    explanation:
+      en: "Everything structural is read off these pivots: higher highs and higher lows for an uptrend, lower highs and lower lows for a downtrend. Without swing points there is no structure to read."
+      es: "Todo lo estructural se lee de estos pivotes: máximos y mínimos crecientes para una tendencia alcista, decrecientes para una bajista. Sin puntos de oscilación no hay estructura que leer."
+  - id: regime-tactics-match
+    kind: matching
+    prompt:
+      en: "Match each regime to the tactic that fits it."
+      es: "Empareja cada régimen con la táctica que le corresponde."
+    pairs:
+      - id: trend
+        left: { en: "A clear trend", es: "Una tendencia clara" }
+        right:
+          en: "Trade with it: buy the pullbacks in an uptrend, sell the bounces in a downtrend, and let it run."
+          es: "Opera a favor: compra los retrocesos en tendencia alcista, vende los rebotes en bajista, y déjala correr."
+      - id: range
+        left: { en: "A range", es: "Un rango" }
+        right:
+          en: "Fade the edges — lean against resistance, buy near support — and take profit quickly."
+          es: "Opera contra los extremos: apóyate contra la resistencia, compra cerca del soporte, y toma beneficio rápido."
+      - id: wrong
+        left: { en: "The wrong tactic for the regime", es: "La táctica equivocada para el régimen" }
+        right:
+          en: "Buying a 'breakout' inside a range usually just buys the top of the box; fading a strong trend gets you run over."
+          es: "Comprar una 'ruptura' dentro de un rango suele ser comprar el techo de la caja; operar contra una tendencia fuerte te arrolla."
+    explanation:
+      en: "Tactics are regime-specific, and using the wrong one is how accounts bleed out. That is why 'trending or ranging?' comes before 'up or down?'."
+      es: "Las tácticas son específicas del régimen, y usar la equivocada es como se desangran las cuentas. Por eso '¿tendencia o rango?' va antes de '¿arriba o abajo?'."
+  - id: nested-regimes
+    kind: true_false
+    prompt:
+      en: "A market can be a clean daily uptrend built out of dozens of hourly ranges."
+      es: "Un mercado puede ser una tendencia alcista diaria limpia construida con docenas de rangos horarios."
+    answer: true
+    explanation:
+      en: "Trend and range are nested, which is why the question is 'trending or ranging, *on my timeframe*?' Pick the timeframe you trade and read structure there consistently, rather than flipping zoom levels to justify a position you already hold."
+      es: "Tendencia y rango están anidados, y por eso la pregunta es '¿tendencia o rango, *en mi temporalidad*?'. Elige la temporalidad que operas y lee la estructura ahí de forma consistente, en vez de saltar de zoom para justificar una posición que ya tienes."

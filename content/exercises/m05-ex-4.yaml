@@ -131,3 +131,102 @@ variants:
     explanation:
       en: "Isolated bounds a single position's loss; cross stakes the whole balance. Leverage doesn't change those modes — it sets how thick your cushion is: more leverage, thinner cushion, closer liquidation."
       es: "El aislado acota la pérdida de una sola posición; el cruzado pone en juego todo el saldo. El apalancamiento no cambia esos modos: fija el grosor de tu colchón: más apalancamiento, colchón más fino, liquidación más cerca."
+  - id: cushion-by-leverage
+    kind: matching
+    prompt:
+      en: "Match each leverage setting to roughly how large an adverse price move it takes to reach your liquidation."
+      es: "Empareja cada nivel de apalancamiento con la magnitud aproximada del movimiento adverso necesario para llegar a tu liquidación."
+    pairs:
+      - id: x10
+        left: { en: "10×", es: "10×" }
+        right: { en: "A cushion of roughly 10% of price.", es: "Un colchón de aproximadamente el 10% del precio." }
+      - id: x20
+        left: { en: "20×", es: "20×" }
+        right: { en: "A cushion of roughly 5% of price — noise on most assets.", es: "Un colchón de aproximadamente el 5% del precio: ruido en la mayoría de activos." }
+      - id: x50
+        left: { en: "50×", es: "50×" }
+        right: { en: "A cushion of barely 2% of price.", es: "Un colchón de apenas el 2% del precio." }
+      - id: x100
+        left: { en: "100×", es: "100×" }
+        right:
+          en: "A cushion of about 1% of price — an alt that swings 10% on an ordinary day breaches it in seconds."
+          es: "Un colchón de en torno al 1% del precio: una alt que se mueve un 10% en un día normal lo rompe en segundos."
+    explanation:
+      en: "Higher leverage means a thinner cushion, so a smaller adverse move forces you out. The high tiers are available because they generate liquidations and fees, not because they help you."
+      es: "Más apalancamiento significa un colchón más fino, así que un movimiento adverso menor te saca. Los niveles altos están disponibles porque generan liquidaciones y comisiones, no porque te ayuden."
+  - id: cross-whole-account
+    prompt:
+      en: "A beginner with 3,000 USDT in the account opens on cross margin \"for the extra cushion\", thinking of it as a 500 USDT trade. One sharp move goes against them. What is actually at risk?"
+      es: "Un principiante con 3.000 USDT en la cuenta abre en margen cruzado \"por el colchón extra\", pensando que es una operación de 500 USDT. Un movimiento brusco va en su contra. ¿Qué está realmente en riesgo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The entire 3,000 balance — on cross the whole account is collateral, so the loss keeps eating past the 500 they had in mind."
+          es: "Los 3.000 completos: en cruzado toda la cuenta es colateral, así que la pérdida sigue comiéndose más allá de los 500 que tenían en mente."
+      - id: b
+        text: { en: "Only the 500 they mentally allocated.", es: "Solo los 500 que asignaron mentalmente." }
+      - id: c
+        text: { en: "The 500 plus the maintenance margin.", es: "Los 500 más el margen de mantenimiento." }
+      - id: d
+        text: { en: "Nothing, because cross margin cannot be liquidated.", es: "Nada, porque el margen cruzado no puede liquidarse." }
+    explanation:
+      en: "The stake they had in mind and the money actually at risk were never the same number. Cross buys depth of cushion by putting the full balance on the line; isolated converts a blow-up into a bounded, known loss."
+      es: "La apuesta que tenían en mente y el dinero realmente en riesgo nunca fueron el mismo número. El cruzado compra colchón poniendo todo el saldo en juego; el aislado convierte un reventón en una pérdida acotada y conocida."
+  - id: leverage-truths
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about leverage that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre el apalancamiento."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It scales how much position you control per dollar of margin."
+          es: "Escala cuánta posición controlas por cada dólar de margen."
+      - id: b
+        correct: true
+        text:
+          en: "It scales gains and losses symmetrically and identically."
+          es: "Escala ganancias y pérdidas de forma simétrica e idéntica."
+      - id: c
+        correct: true
+        text:
+          en: "It shortens the distance to a forced close."
+          es: "Acorta la distancia hasta un cierre forzoso."
+      - id: d
+        text:
+          en: "It reduces the size of the price move the trade needs to work."
+          es: "Reduce el movimiento de precio que la operación necesita para funcionar."
+      - id: e
+        text:
+          en: "It raises the expected return of a good trade."
+          es: "Eleva el rendimiento esperado de una buena operación."
+    explanation:
+      en: "A good trade is good and a bad trade is bad, at 2× or at 50× — the price still has to move the same direction, the same amount. Leverage is more risk per correct call, not more edge."
+      es: "Una buena operación es buena y una mala es mala, a 2× o a 50×: el precio sigue teniendo que moverse en la misma dirección y la misma cantidad. El apalancamiento es más riesgo por acierto, no más ventaja."
+  - id: liquidated-cant-recover
+    prompt:
+      en: "Why is being liquidated by ordinary noise worse than simply being down the same amount at lower leverage?"
+      es: "¿Por qué ser liquidado por ruido normal es peor que simplemente estar perdiendo lo mismo con menos apalancamiento?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A position closed at a loss can't recover when price comes back, because it no longer exists."
+          es: "Una posición cerrada con pérdida no puede recuperarse cuando el precio vuelve, porque ya no existe."
+      - id: b
+        text:
+          en: "Liquidation fees are larger than the loss itself."
+          es: "Las comisiones de liquidación son mayores que la propia pérdida."
+      - id: c
+        text:
+          en: "The exchange bans you from reopening the same pair for a period."
+          es: "El exchange te prohíbe reabrir el mismo par durante un tiempo." 
+      - id: d
+        text:
+          en: "Liquidations are reported to other venues, worsening your fills."
+          es: "Las liquidaciones se reportan a otros venues, empeorando tus ejecuciones."
+    explanation:
+      en: "This is the whole cost of thin cushions: the same 20× that doubles your upside on paper is why a 5% pullback — noise, on most assets — can end the trade at a loss you can never recover, before your thesis ever plays out."
+      es: "Ahí está todo el coste de los colchones finos: ese mismo 20× que duplica tu potencial en el papel es por lo que un retroceso del 5% (ruido en la mayoría de activos) puede terminar la operación con una pérdida irrecuperable, antes de que tu tesis se cumpla."

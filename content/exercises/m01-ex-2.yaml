@@ -108,3 +108,93 @@ variants:
     explanation:
       en: "Whoever controls the key controls the coins. That is the point of self-custody and also the danger: lose the key and there is no reset."
       es: "Quien controla la clave controla las monedas. Ese es el sentido de la autocustodia y también el peligro: si pierdes la clave, no hay forma de restablecerla."
+  - id: exchange-balance
+    kind: multi_select
+    prompt:
+      en: "Your coins are sitting on an exchange. Select ALL statements that are true of that situation."
+      es: "Tus monedas están en un exchange. Selecciona TODAS las afirmaciones ciertas en esa situación."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "You own an IOU from the exchange, not the coins themselves."
+          es: "Tienes un pagaré del exchange, no las monedas en sí."
+      - id: b
+        correct: true
+        text:
+          en: "The exchange can freeze withdrawals, cutting you off from the balance."
+          es: "El exchange puede congelar los retiros y dejarte sin acceso al saldo."
+      - id: c
+        correct: true
+        text:
+          en: "If the exchange goes bankrupt, your balance can go with it."
+          es: "Si el exchange quiebra, tu saldo puede irse con él."
+      - id: d
+        text: { en: "The network insures your balance.", es: "La red asegura tu saldo." }
+      - id: e
+        text: { en: "You control the private key to those coins.", es: "Controlas la clave privada de esas monedas." }
+    explanation:
+      en: "\"Not your keys, not your coins\": a balance on an exchange is a claim against a company. Several exchanges have frozen withdrawals or gone bankrupt taking customer balances with them."
+      es: "\"Not your keys, not your coins\": un saldo en un exchange es un derecho frente a una empresa. Varios exchanges han congelado retiros o han quebrado llevándose los saldos de sus clientes."
+  - id: lost-key
+    kind: true_false
+    prompt:
+      en: "If you lose the private key to your coins, they are frozen forever — nobody can restore access."
+      es: "Si pierdes la clave privada de tus monedas, quedan congeladas para siempre: nadie puede restaurar el acceso."
+    answer: true
+    explanation:
+      en: "True. The chain only knows which key authorised a transfer, so control of the key is ownership with nothing else attached. Millions of BTC are gone exactly this way."
+      es: "Cierto. La cadena solo sabe qué clave autorizó una transferencia, así que controlar la clave es la propiedad y no hay nada más detrás. Millones de BTC se han perdido exactamente así."
+  - id: settlement-steps
+    kind: ordering
+    prompt:
+      en: "Put the life of a blockchain transaction in order, from creation to the point where it can no longer be undone."
+      es: "Ordena la vida de una transacción en blockchain, desde su creación hasta el punto en que ya no puede deshacerse."
+    items:
+      - id: sign
+        position: 1
+        text:
+          en: "The holder authorises the transfer with their private key."
+          es: "El titular autoriza la transferencia con su clave privada."
+      - id: broadcast
+        position: 2
+        text:
+          en: "The transaction is broadcast to the network's independent nodes."
+          es: "La transacción se difunde a los nodos independientes de la red."
+      - id: block
+        position: 3
+        text:
+          en: "Nodes check it against the rules and it is bundled into a block."
+          es: "Los nodos la validan contra las reglas y se agrupa en un bloque."
+      - id: buried
+        position: 4
+        text:
+          en: "Later blocks stack on top, each pointing back to the previous one."
+          es: "Se apilan bloques posteriores, cada uno apuntando al anterior."
+      - id: final
+        position: 5
+        text:
+          en: "Reversing it would mean out-running the whole honest network — settlement is final."
+          es: "Revertirla exigiría adelantar a toda la red honesta: la liquidación es definitiva."
+    explanation:
+      en: "Finality is not a policy, it is arithmetic: each block that stacks on top makes rewriting the history below it more economically absurd. That same property removes your safety net."
+      es: "La irreversibilidad no es una política, es aritmética: cada bloque que se apila encima hace más económicamente absurdo reescribir la historia de debajo. Esa misma propiedad te quita la red de seguridad."
+  - id: supply-change
+    prompt:
+      en: "Why can't a large holder or a friendly regulator simply have Bitcoin's 21 million cap raised?"
+      es: "¿Por qué un gran holder o un regulador amistoso no puede simplemente subir el límite de 21 millones de Bitcoin?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "There is nobody to ask — changing a core rule means convincing the whole network of nodes, which is slow and rare by design."
+          es: "No hay a quién pedírselo: cambiar una regla central exige convencer a toda la red de nodos, algo lento y raro por diseño."
+      - id: b
+        text: { en: "It is forbidden by financial law in most countries.", es: "Lo prohíbe la ley financiera en la mayoría de países." }
+      - id: c
+        text: { en: "The cap can be raised, but only once every four years.", es: "El límite puede subirse, pero solo una vez cada cuatro años." }
+      - id: d
+        text: { en: "Only the largest mining pool may approve it, and it refuses.", es: "Solo el mayor pool de minería puede aprobarlo, y se niega." }
+    explanation:
+      en: "No central operator means no single party can print extra coins, freeze a balance or reverse a payment to please anyone. The rules are enforced by thousands of nodes at once."
+      es: "Que no haya operador central significa que ninguna parte puede emitir monedas extra, congelar un saldo ni revertir un pago para complacer a nadie. Las reglas las hacen cumplir miles de nodos a la vez."

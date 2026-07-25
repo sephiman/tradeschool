@@ -136,3 +136,64 @@ variants:
     explanation:
       en: "Support and resistance are zones that work because people remember and act on them; nothing about them is guaranteed or secret."
       es: "Los soportes y las resistencias son zonas que funcionan porque la gente las recuerda y actúa sobre ellas; no hay nada garantizado ni secreto en ellas."
+  - id: level-not-wall
+    kind: true_false
+    prompt:
+      en: "A support zone that has held several times can be treated as a floor price will not go below."
+      es: "Una zona de soporte que ha aguantado varias veces puede tratarse como un suelo por debajo del cual el precio no irá."
+    answer: false
+    explanation:
+      en: "A level is a probability, not a wall, and every level breaks eventually. The trader who treats support as a guaranteed floor adds to a losing long 'because it has to bounce here' and skips the stop."
+      es: "Un nivel es una probabilidad, no un muro, y todo nivel se rompe tarde o temprano. Quien trata el soporte como suelo garantizado añade a un largo perdedor 'porque tiene que rebotar aquí' y se salta el stop."
+  - id: mark-zone-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps for marking a support or resistance zone in order."
+      es: "Ordena los pasos para marcar una zona de soporte o resistencia."
+    items:
+      - id: tf
+        position: 1
+        text:
+          en: "Pick the timeframe you actually trade — a zone from daily swings deserves more respect than one found on the 1-minute chart."
+          es: "Elige la temporalidad que realmente operas: una zona de oscilaciones diarias merece más respeto que una hallada en el gráfico de 1 minuto."
+      - id: cluster
+        position: 2
+        text:
+          en: "Find the cluster of prior reactions at that area of price."
+          es: "Localiza el grupo de reacciones previas en esa zona de precio."
+      - id: bodies
+        position: 3
+        text:
+          en: "Let the candle bodies define the core of the band."
+          es: "Deja que los cuerpos de las velas definan el núcleo de la banda."
+      - id: wicks
+        position: 4
+        text:
+          en: "Let the wicks mark its outer edge, since a wick is price touched and rejected."
+          es: "Deja que las mechas marquen su borde exterior, ya que una mecha es precio tocado y rechazado."
+    explanation:
+      en: "Draw a band, not a line. Bodies are where trade actually settled; wicks are the failed excursions that define how far the zone reaches."
+      es: "Dibuja una banda, no una línea. Los cuerpos son donde la negociación se asentó de verdad; las mechas son las excursiones fallidas que definen hasta dónde llega la zona."
+  - id: memory-why
+    prompt:
+      en: "Mechanically, why does a support zone work at all?"
+      es: "Mecánicamente, ¿por qué funciona una zona de soporte?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Memory, and it is partly self-fulfilling — buyers bid an old support because they expect other buyers to do the same. It holds because people act on it, and fails when enough of them stop."
+          es: "La memoria, y es en parte autocumplida: los compradores pujan en un soporte antiguo porque esperan que otros hagan lo mismo. Aguanta porque la gente actúa sobre él y falla cuando suficientes dejan de hacerlo."
+      - id: b
+        text:
+          en: "Exchanges place protective orders at well-known levels."
+          es: "Los exchanges colocan órdenes de protección en niveles conocidos."
+      - id: c
+        text:
+          en: "The level is a mathematical property of the price series."
+          es: "El nivel es una propiedad matemática de la serie de precios."
+      - id: d
+        text: { en: "Market makers are obliged to defend prior lows.", es: "Los creadores de mercado están obligados a defender mínimos previos." }
+    explanation:
+      en: "A level is a place where people have acted before, nothing more and nothing less. The orders behind it are spread across a band of prices — round numbers, old bodies, old wicks, clustered stops — which is why it is a zone."
+      es: "Un nivel es un lugar donde la gente ya actuó antes, nada más y nada menos. Las órdenes detrás están repartidas por una banda de precios (números redondos, cuerpos antiguos, mechas antiguas, stops agrupados), y por eso es una zona."

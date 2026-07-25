@@ -168,3 +168,85 @@ variants:
     explanation:
       en: "A retracement measures how far price pulls back inside the move, so 61.8% is the 0.618 retracement. Extensions (1.272, 1.618) are different: they project past the old extreme toward where the next leg might reach, not the depth of a pullback."
       es: "Un retroceso mide cuánto retrocede el precio dentro del movimiento, así que el 61,8 % es el retroceso del 0,618. Las extensiones (1,272, 1,618) son otra cosa: proyectan más allá del extremo anterior hacia dónde podría llegar la siguiente pierna, no la profundidad de un retroceso."
+  - id: fib-numbers
+    prompt:
+      en: "You draw the tool across a clean leg up from 60,000 to 70,000. Where do the three levels fall?"
+      es: "Dibujas la herramienta sobre un tramo alcista limpio de 60.000 a 70.000. ¿Dónde caen los tres niveles?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "0.382 at 66,180; 0.5 at 65,000; 0.618 at 63,820 — each a fraction of the 10,000-point impulse measured down from the high."
+          es: "0,382 en 66.180; 0,5 en 65.000; 0,618 en 63.820: cada uno una fracción del impulso de 10.000 puntos medida hacia abajo desde el máximo."
+      - id: b
+        text:
+          en: "0.382 at 63,820; 0.5 at 65,000; 0.618 at 66,180."
+          es: "0,382 en 63.820; 0,5 en 65.000; 0,618 en 66.180."
+      - id: c
+        text:
+          en: "0.382 at 26,180; 0.5 at 35,000; 0.618 at 43,820 — fractions of the price, not the leg."
+          es: "0,382 en 26.180; 0,5 en 35.000; 0,618 en 43.820: fracciones del precio, no del tramo."
+      - id: d
+        text:
+          en: "0.382 at 73,820; 0.5 at 75,000; 0.618 at 76,180 — measured up from the high."
+          es: "0,382 en 73.820; 0,5 en 75.000; 0,618 en 76.180: medidos hacia arriba desde el máximo."
+    explanation:
+      en: "Each level is the fraction of the impulse price has given back: 70,000 − 0.382 × 10,000 = 66,180, and so on. A shallow pullback finds a floor near 66,180; a deep one drops toward 63,820."
+      es: "Cada nivel es la fracción del impulso que el precio ha devuelto: 70.000 − 0,382 × 10.000 = 66.180, y así sucesivamente. Un retroceso superficial encuentra suelo cerca de 66.180; uno profundo cae hacia 63.820."
+  - id: golden-zone-band
+    prompt:
+      en: "On that same 60,000→70,000 leg, what is the 'golden zone' and why is it read as a band?"
+      es: "En ese mismo tramo 60.000→70.000, ¿qué es la 'zona dorada' y por qué se lee como una banda?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "65,000 down to 63,820 — the 0.5-to-0.618 band, because a healthy pullback usually gives back between a half and roughly two-thirds of the move."
+          es: "De 65.000 a 63.820: la banda de 0,5 a 0,618, porque un retroceso sano suele devolver entre la mitad y unos dos tercios del movimiento."
+      - id: b
+        text:
+          en: "66,180 down to 65,000 — the 0.382-to-0.5 band, where strong trends turn."
+          es: "De 66.180 a 65.000: la banda de 0,382 a 0,5, donde giran las tendencias fuertes."
+      - id: c
+        text:
+          en: "63,820 exactly — it is a single line, and the 'band' is just imprecision."
+          es: "63.820 exactamente: es una única línea, y la 'banda' es solo imprecisión."
+      - id: d
+        text:
+          en: "60,000 to 70,000 — the whole impulse is the zone."
+          es: "De 60.000 a 70.000: todo el impulso es la zona."
+    explanation:
+      en: "Shallow enough that the trend is clearly still intact, deep enough to shake out weak hands and let resting orders refill. A pullback stalling above 0.5 barely tested the trend; one slicing through 0.618 warns the move may be over, not resting."
+      es: "Lo bastante superficial para que la tendencia siga claramente intacta, y lo bastante profundo para sacudir manos débiles y dejar que se rellenen las órdenes. Un retroceso que se para por encima de 0,5 apenas puso a prueba la tendencia; uno que atraviesa 0,618 avisa de que el movimiento puede haber terminado, no estar descansando."
+  - id: tool-parts-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about the Fibonacci tool that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre la herramienta de Fibonacci."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Retracement levels estimate how deep a pullback will go before the trend resumes."
+          es: "Los niveles de retroceso estiman cuánto profundizará un retroceso antes de que la tendencia se reanude."
+      - id: b
+        correct: true
+        text:
+          en: "Extensions — commonly 1.272 and 1.618 — project where the next leg might reach past the old extreme."
+          es: "Las extensiones (habitualmente 1,272 y 1,618) proyectan hasta dónde podría llegar el siguiente tramo más allá del extremo anterior."
+      - id: c
+        correct: true
+        text:
+          en: "0.5 is not a Fibonacci ratio — it is just the halfway point, kept because markets respect round halves."
+          es: "0,5 no es una proporción de Fibonacci: es solo el punto medio, mantenido porque los mercados respetan las mitades redondas."
+      - id: d
+        text:
+          en: "Anchoring the tool backwards shifts the levels but keeps shallow and deep in place."
+          es: "Anclar la herramienta al revés desplaza los niveles pero mantiene el superficial y el profundo en su sitio."
+      - id: e
+        text:
+          en: "0.618 comes from the golden ratio, and so does 0.5."
+          es: "0,618 viene de la proporción áurea, y 0,5 también."
+    explanation:
+      en: "0.618 is the inverse of the golden ratio and 0.382 is 1 − 0.618, so those two genuinely come from the sequence. Draw the leg backwards and your shallow and deep levels swap places — every read off them is then wrong."
+      es: "0,618 es el inverso de la proporción áurea y 0,382 es 1 − 0,618, así que esos dos vienen de verdad de la secuencia. Dibuja el tramo al revés y tus niveles superficial y profundo se intercambian: toda lectura sobre ellos queda mal."

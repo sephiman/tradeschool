@@ -140,3 +140,70 @@ variants:
     explanation:
       en: "A market order guarantees a fill, not a price. It takes whatever the book offers, which can differ from the last printed price — especially in a thin book, where it walks through resting orders and fills at progressively worse prices."
       es: "Una orden de mercado garantiza la ejecución, no el precio. Toma lo que ofrezca el libro, que puede diferir del último precio impreso, sobre todo en un libro fino, donde atraviesa las órdenes puestas y se ejecuta a precios cada vez peores."
+  - id: btc-order-choice
+    prompt:
+      en: "You want to buy 1 BTC and the best ask is 60,000. What does each order type actually get you?"
+      es: "Quieres comprar 1 BTC y el mejor ask está en 60.000. ¿Qué consigue realmente cada tipo de orden?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A market order fills instantly at 60,000 — a little worse if 1 BTC exceeds the top ask. A limit buy at 59,850 fills only if price dips, saving 150, and never fills if price runs away."
+          es: "Una orden de mercado ejecuta al instante en 60.000, algo peor si 1 BTC supera el mejor ask. Una compra límite en 59.850 solo se ejecuta si el precio baja, ahorrando 150, y no se ejecuta nunca si el precio se escapa."
+      - id: b
+        text:
+          en: "Both fill at 60,000; the limit order just pays lower fees."
+          es: "Ambas se ejecutan en 60.000; la límite solo paga menos comisiones."
+      - id: c
+        text:
+          en: "The limit order fills first, because it is placed inside the spread."
+          es: "La límite se ejecuta primero, porque se coloca dentro del spread."
+      - id: d
+        text:
+          en: "A market order fills at the last printed price, whatever the book holds."
+          es: "Una orden de mercado se ejecuta al último precio impreso, sea cual sea el libro."
+    explanation:
+      en: "Same idea, two outcomes chosen entirely by the order type: cheaper-or-nothing versus now-at-market. That trade-off — immediacy against price — is the whole distinction."
+      es: "La misma idea, dos resultados elegidos únicamente por el tipo de orden: más barato o nada, frente a ahora a mercado. Ese equilibrio, inmediatez contra precio, es toda la distinción."
+  - id: order-roles
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements about makers and takers that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre makers y takers."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Every order you send either takes a resting order or becomes one."
+          es: "Cada orden que envías o toma una orden en reposo o se convierte en una."
+      - id: b
+        correct: true
+        text:
+          en: "A market order makes you a taker: you get immediacy and give up price control."
+          es: "Una orden de mercado te hace taker: consigues inmediatez y renuncias al control del precio."
+      - id: c
+        correct: true
+        text:
+          en: "A limit order resting in the book makes you a maker: you get price control and give up certainty of filling."
+          es: "Una orden límite en reposo en el libro te hace maker: consigues control del precio y renuncias a la certeza de ejecución."
+      - id: d
+        correct: true
+        text:
+          en: "Most exchanges charge takers more than makers, sometimes rebating makers."
+          es: "La mayoría de exchanges cobran más a los takers que a los makers, y a veces bonifican a los makers."
+      - id: e
+        text:
+          en: "A limit order is always the better choice, because the fee is lower."
+          es: "Una orden límite siempre es la mejor opción, porque la comisión es menor."
+    explanation:
+      en: "The fee gap is small per trade and large over hundreds of trades — one reason scalpers fight to use limit orders. But a fee saved on an order that never fills is not a saving."
+      es: "La diferencia de comisiones es pequeña por operación y grande a lo largo de cientos: una razón por la que los scalpers luchan por usar órdenes límite. Pero una comisión ahorrada en una orden que nunca se ejecuta no es un ahorro."
+  - id: fee-saved-nofill
+    kind: true_false
+    prompt:
+      en: "Choosing a limit order to capture the lower maker fee is a saving even when the order never fills."
+      es: "Elegir una orden límite para aprovechar la comisión maker más baja es un ahorro incluso si la orden no se ejecuta nunca."
+    answer: false
+    explanation:
+      en: "A fee saved on an order that never fills is not a saving — it is a missed trade. Price control is only worth what it costs you in fills you do not get."
+      es: "Una comisión ahorrada en una orden que nunca se ejecuta no es un ahorro: es una operación perdida. El control del precio solo vale lo que te cuesta en ejecuciones que no consigues."

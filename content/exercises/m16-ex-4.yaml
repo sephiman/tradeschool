@@ -146,3 +146,61 @@ variants:
     explanation:
       en: "An extreme reading is a zone, not a moment: use it to lean cautious on the crowded side and to look for setups, but let your own confirmation time the entry. Using the number as an instant entry button, shorting the first extreme print, or assuming it pinpoints the turn are all the trap that gets people run over."
       es: "Una lectura extrema es una zona, no un momento: úsala para volverte prudente en el lado saturado y para buscar setups, pero deja que tu propia confirmación marque el momento de entrar. Usar el número como botón de entrada instantáneo, cortar en la primera lectura extrema o dar por hecho que señala el giro exacto son la trampa que arrolla a la gente."
+  - id: double-counting
+    prompt:
+      en: "A trader confirms a bullish price breakout by pointing at a rising greed reading. What is wrong with that?"
+      es: "Un trader confirma una ruptura alcista del precio señalando una lectura de codicia al alza. ¿Qué falla en eso?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Half the index is price in disguise, so they think they have two independent reasons when they really have one reason counted twice."
+          es: "La mitad del índice es precio disfrazado, así que creen tener dos razones independientes cuando en realidad tienen una razón contada dos veces."
+      - id: b
+        text:
+          en: "Nothing — sentiment is a genuine second witness to price."
+          es: "Nada: el sentimiento es un segundo testigo genuino del precio."
+      - id: c
+        text:
+          en: "Greed readings are always contrarian, so the breakout must fail."
+          es: "Las lecturas de codicia siempre son contrarias, así que la ruptura debe fallar."
+      - id: d
+        text:
+          en: "The index lags, so it should be read as bearish confirmation instead."
+          es: "El índice va con retardo, así que debería leerse como confirmación bajista."
+    explanation:
+      en: "Volatility and momentum — both computed from price — are together about half the score. The index is not a second witness to what price is already telling you."
+      es: "La volatilidad y el momentum, ambos calculados a partir del precio, son juntos la mitad de la puntuación. El índice no es un segundo testigo de lo que el precio ya te está diciendo."
+  - id: sentiment-role-match
+    kind: matching
+    prompt:
+      en: "Match each tool to the question it can actually answer."
+      es: "Empareja cada herramienta con la pregunta que puede responder realmente."
+    pairs:
+      - id: sent
+        left: { en: "A sentiment extreme", es: "Un extremo de sentimiento" }
+        right:
+          en: "Which side is dangerous — how crowded and one-sided the mood is right now."
+          es: "Qué lado es peligroso: lo saturado y unilateral que está el ánimo ahora mismo."
+      - id: struct
+        left: { en: "Structure, a level, confirmation", es: "Estructura, un nivel, confirmación" }
+        right:
+          en: "When to act — the actual entry trigger."
+          es: "Cuándo actuar: el disparador real de entrada."
+      - id: zone
+        left: { en: "The contrarian zone itself", es: "La zona contraria en sí" }
+        right:
+          en: "A region where the odds and risk/reward start to shift — never a moment."
+          es: "Una región donde las probabilidades y el riesgo/beneficio empiezan a cambiar; nunca un momento."
+    explanation:
+      en: "Sentiment tells you which side is dangerous; it never tells you when. The trigger has to come from your own tools."
+      es: "El sentimiento te dice qué lado es peligroso; nunca te dice cuándo. El disparador tiene que venir de tus propias herramientas."
+  - id: size-for-extremes
+    kind: true_false
+    prompt:
+      en: "Because the odds have shifted at an extreme reading, a full-size contrarian position is justified there."
+      es: "Como las probabilidades han cambiado en una lectura extrema, ahí se justifica una posición contraria a tamaño completo."
+    answer: false
+    explanation:
+      en: "An extreme can deepen and stay extreme for a long time, and a fixed-size contrarian bet placed *at* the extreme has to survive all of it. Size for the fact that the extreme can get more extreme."
+      es: "Un extremo puede profundizarse y mantenerse mucho tiempo, y una apuesta contraria de tamaño fijo colocada *en* el extremo tiene que sobrevivir a todo ello. Dimensiona asumiendo que el extremo puede volverse más extremo."
