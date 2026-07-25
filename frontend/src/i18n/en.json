@@ -18,7 +18,7 @@
   },
   "nav": {
     "course": "Course",
-    "exam": "Exam",
+    "exams": "Exams",
     "progress": "Progress"
   },
   "exam": {

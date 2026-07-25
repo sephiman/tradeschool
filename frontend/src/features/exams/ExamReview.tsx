@@ -76,7 +76,7 @@ export function ExamReview() {
       <div className="py-16 text-center text-gray-500">
         <p>{t("exam.notFound")}</p>
         <Link to="/exams" className="text-sm text-primary hover:underline">
-          ← {t("nav.exam")}
+          ← {t("nav.exams")}
         </Link>
       </div>
     );
@@ -89,7 +89,7 @@ export function ExamReview() {
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
         <Link to="/exams" className="text-sm text-primary hover:underline">
-          ← {t("nav.exam")}
+          ← {t("nav.exams")}
         </Link>
         <h1 className="mt-2 text-2xl font-bold">{scopeName}</h1>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
