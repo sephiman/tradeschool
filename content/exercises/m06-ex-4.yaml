@@ -1,0 +1,205 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: liquidation-factors
+    kind: multi_select
+    prompt:
+      en: "Which factors directly bring the mark price closer to your liquidation price?"
+      es: "¿Qué factores acercan directamente el precio mark a tu precio de liquidación?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Higher leverage choice (reduces initial and maintenance margin buffer)."
+          es: "Elección de mayor apalancamiento (reduce el colchón de margen inicial y de mantenimiento)."
+      - id: b
+        correct: true
+        text:
+          en: "Negative funding payments deducted directly from margin in long positions."
+          es: "Pagos de funding negativos deducidos directamente del margen en posiciones largas."
+      - id: c
+        correct: false
+        text:
+          en: "Increasing your account's unrealized profit on unrelated trades."
+          es: "Aumentar el beneficio no realizado de tu cuenta en operaciones no relacionadas."
+      - id: d
+        correct: true
+        text:
+          en: "High exchange maintenance margin rate requirement for the specific pair."
+          es: "Alto requerimiento de tasa de margen de mantenimiento del exchange para el par específico."
+    explanation:
+      en: "Higher leverage, funding rate deductions, and strict maintenance margin requirements move your liquidation price closer to entry."
+      es: "Un mayor apalancamiento, las deducciones por funding y los requerimientos estrictos de margen de mantenimiento acercan el precio de liquidación a tu entrada."
+
+  - id: mark-vs-last-liquidation
+    kind: true_false
+    prompt:
+      en: "Exchanges trigger liquidations based on the Last Traded Price to ensure immediate market responsiveness."
+      es: "Los exchanges activan las liquidaciones basándose en el Último Precio Operado para garantizar una respuesta inmediata del mercado."
+    answer: false
+    explanation:
+      en: "Exchanges trigger liquidations using the Mark Price (index price + fair basis) to protect traders from scam wicks and market manipulation on the order book."
+      es: "Los exchanges activan las liquidaciones usando el Precio Mark (precio índice + basis justo) para proteger a los traders de mechas manipuladas y manipulación en el libro de órdenes."
+
+  - id: mark-price-components
+    kind: matching
+    prompt:
+      en: "Match each price concept used in perpetual futures to its definition."
+      es: "Empareja cada concepto de precio usado en futuros perpetuos con su definición."
+    pairs:
+      - id: last
+        left: { en: "Last Traded Price", es: "Último Precio Operado" }
+        right:
+          en: "The price at which the most recent trade actually executed on the exchange order book."
+          es: "El precio al que se ejecutó la operación más reciente en el libro de órdenes del exchange."
+      - id: index
+        left: { en: "Index Price", es: "Precio Índice" }
+        right:
+          en: "A weighted average price of the asset aggregated from major spot exchanges."
+          es: "Un precio promedio ponderado del activo agregado de los principales exchanges spot."
+      - id: mark
+        left: { en: "Mark Price", es: "Precio Mark" }
+        right:
+          en: "Index price adjusted for fair funding basis, used to grade PnL and trigger liquidations."
+          es: "Precio índice ajustado por el basis justo de funding, usado para calcular PnL y liquidaciones."
+    explanation:
+      en: "Mark price prevents artificial liquidations caused by single-exchange order book spikes."
+      es: "El precio mark evita liquidaciones artificiales causadas por picos repentinos en el libro de un solo exchange."
+
+  - id: liquidation-cascade-order
+    kind: ordering
+    prompt:
+      en: "Arrange the chain reaction of a liquidation cascade in sequence."
+      es: "Ordena la reacción en cadena de una cascada de liquidaciones."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "A sharp price drop triggers the mark price of over-leveraged longs."
+          es: "Una caída brusca de precio activa el precio mark de posiciones largas sobreapalancadas."
+      - id: step-2
+        position: 2
+        text:
+          en: "Liquidation engine submits forced market sell orders into the order book."
+          es: "El motor de liquidación envía órdenes de venta a mercado forzosas al libro."
+      - id: step-3
+        position: 3
+        text:
+          en: "Forced sell orders consume bid liquidity, driving the price down even further."
+          es: "Las órdenes de venta forzosas consumen la liquidez de compra, bajando el precio aún más."
+      - id: step-4
+        position: 4
+        text:
+          en: "The lower price triggers lower liquidation levels, causing a cascade."
+          es: "El precio más bajo activa niveles de liquidación inferiores, provocando una cascada."
+    explanation:
+      en: "Liquidation cascades occur when forced market orders sweep thin order books, triggering lower liquidation price clusters."
+      es: "Las cascadas de liquidación ocurren cuando las órdenes a mercado forzosas barren libros poco profundos, activando clusters de liquidación inferiores."
+
+  - id: scam-wick-defense
+    kind: single_choice
+    prompt:
+      en: "How does Mark Price protect long positions during an order book flash crash on a single exchange?"
+      es: "¿Cómo protege el Precio Mark a las posiciones largas durante un flash crash en el libro de un solo exchange?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because Mark Price tracks multi-exchange spot index, single-venue order book spikes do not trigger liquidations."
+          es: "Dado que el Precio Mark sigue el índice spot de múltiples exchanges, los picos en un solo libro no activan liquidaciones."
+      - id: b
+        text:
+          en: "It automatically refunds lost margin to all affected traders."
+          es: "Reembolsa automáticamente el margen perdido a todos los traders afectados."
+      - id: c
+        text:
+          en: "It pauses trading on the exchange for 24 hours."
+          es: "Pausa las operaciones en el exchange durante 24 horas."
+      - id: d
+        text:
+          en: "It converts all futures contracts into spot holdings."
+          es: "Convierte todos los contratos de futuros en activos spot."
+    explanation:
+      en: "Mark price relies on broad spot index prices, making it immune to localized order book manipulation or isolated liquidity crashes."
+      es: "El precio mark se basa en índices spot amplios, haciéndolo inmune a la manipulación localizada del libro o a caídas de liquidez aisladas."
+
+  - id: insurance-fund-role
+    kind: single_choice
+    prompt:
+      en: "What is the primary role of a crypto exchange's Insurance Fund?"
+      es: "¿Cuál es la función principal del Fondo de Seguro de un exchange de criptomonedas?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "To absorb deficit losses when liquidated positions are closed at prices worse than bankruptcy price."
+          es: "Absorber pérdidas de déficit cuando las posiciones liquidadas se cierran a precios peores que el precio de bancarrota."
+      - id: b
+        text:
+          en: "To guarantee 100% winning trades for premium users."
+          es: "Garantizar operaciones ganadoras al 100% para usuarios premium."
+      - id: c
+        text:
+          en: "To pay daily interest on un-leveraged spot balances."
+          es: "Pagar intereses diarios sobre saldos spot sin apalancamiento."
+      - id: d
+        text:
+          en: "To cover gas fees for blockchain transactions."
+          es: "Cubrir comisiones de gas para transacciones en blockchain."
+    explanation:
+      en: "If a position is liquidated and closed at a price worse than its bankruptcy price, the negative balance is paid by the insurance fund so winning counterparties get paid in full."
+      es: "Si una posición se liquida y cierra a un precio peor que su precio de bancarrota, el saldo negativo lo paga el fondo de seguro para que la contraparte ganadora cobre íntegramente."
+
+  - id: adl-priority-queue
+    kind: single_choice
+    prompt:
+      en: "Which positions are highest in the Auto-Deleveraging (ADL) priority queue when an exchange insurance fund fails?"
+      es: "¿Qué posiciones están más arriba en la cola de prioridad de ADL cuando falla el fondo de seguro?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Positions with the highest profitability and highest effective leverage."
+          es: "Posiciones con la mayor rentabilidad y el mayor apalancamiento efectivo."
+      - id: b
+        text:
+          en: "Positions that have been open for the longest duration."
+          es: "Posiciones que han estado abiertas durante más tiempo."
+      - id: c
+        text:
+          en: "Accounts with the smallest total USD balance."
+          es: "Cuentas con el menor saldo total en USD."
+      - id: d
+        text:
+          en: "Positions using isolated margin mode exclusively."
+          es: "Posiciones que usan exclusivamente el modo de margen aislado."
+    explanation:
+      en: "ADL ranks opposing profitable positions by profit percentage and leverage; the highest-ranked traders are deleveraged first to cover systemic exchange deficits."
+      es: "El ADL ordena las posiciones rentables opuestas por porcentaje de beneficio y apalancamiento; los traders con mayor rango son desapalancados primero para cubrir déficits sistémicos."
+
+  - id: cross-margin-liquidation-risk
+    kind: single_choice
+    prompt:
+      en: "In a Cross Margin account, what happens if one bad trade experiences massive un-hedged drawdown?"
+      es: "En una cuenta de Margen Cruzado, ¿qué ocurre si una mala operación sufre un drawdown masivo sin cobertura?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It drains available balance from the whole account, potentially liquidating all open positions."
+          es: "Drena el saldo disponible de toda la cuenta, pudiendo liquidar todas las posiciones abiertas."
+      - id: b
+        text:
+          en: "It automatically isolates the loss to $100 maximum."
+          es: "Aísla automáticamente la pérdida a $100 como máximo."
+      - id: c
+        text:
+          en: "The exchange freezes the losing trade while keeping other trades profitable."
+          es: "El exchange congela la operación perdedora mientras mantiene las demás rentables."
+      - id: d
+        text:
+          en: "The position is converted to a spot holding at zero fee."
+          es: "La posición se convierte en un activo spot sin comisiones."
+    explanation:
+      en: "Cross margin uses all free collateral to prevent liquidation on one trade, risking a total wipeout of your entire account balance if price continues moving against you."
+      es: "El margen cruzado usa todo el colateral libre para evitar la liquidación de una operación, arriesgando el barrido total de tu saldo si el precio sigue en contra."

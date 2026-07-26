@@ -1,0 +1,205 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: divergence-traps
+    kind: multi_select
+    prompt:
+      en: "Which of the following are common mistakes when trading divergences?"
+      es: "¿Cuáles de los siguientes son errores comunes al operar divergencias?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Shorting a strong bull trend solely because of a regular bearish divergence."
+          es: "Vender en corto una tendencia alcista fuerte únicamente por una divergencia bajista regular."
+      - id: b
+        correct: true
+        text:
+          en: "Comparing price peaks from different market cycles instead of adjacent swings."
+          es: "Comparar picos de precio de diferentes ciclos de mercado en lugar de oscilaciones adyacentes."
+      - id: c
+        correct: false
+        text:
+          en: "Requiring divergence to form at a key HTF support/resistance level."
+          es: "Requerir que la divergencia se forme en un nivel clave de soporte/resistencia de temporalidad alta."
+      - id: d
+        correct: true
+        text:
+          en: "Ignoring that indicators can remain divergent during prolonged parabolic trends."
+          es: "Ignorar que los indicadores pueden permanecer en divergencia durante tendencias parabólicas prolongadas."
+    explanation:
+      en: "Indicators can stay in divergence mode for a long time in strong trends. Divergences must be supported by structural levels and price action."
+      es: "Los indicadores pueden permanecer en divergencia mucho tiempo en tendencias fuertes. Las divergencias deben estar respaldadas por niveles estructurales y acción del precio."
+
+  - id: regular-vs-hidden-purpose
+    kind: true_false
+    prompt:
+      en: "Hidden divergences are used primarily to trade trend reversals rather than trend continuations."
+      es: "Las divergencias ocultas se utilizan principalmente para operar inversiones de tendencia en lugar de continuaciones."
+    answer: false
+    explanation:
+      en: "Hidden divergences are continuation patterns that signal trend strength during pullbacks. Regular divergences signal potential trend reversals."
+      es: "Las divergencias ocultas son patrones de continuación que señalan fuerza de tendencia durante retrocesos. Las divergencias regulares señalan posibles inversiones."
+
+  - id: divergence-mistakes-match
+    kind: matching
+    prompt:
+      en: "Match each divergence trading error to its consequence."
+      es: "Empareja cada error de trading de divergencias con su consecuencia."
+    pairs:
+      - id: no-level
+        left: { en: "Trading divergence without a key level", es: "Operar divergencia sin un nivel clave" }
+        right:
+          en: "High rate of false signals in mid-range noise."
+          es: "Alta tasa de señales falsas en ruido a mitad de rango."
+      - id: counter-parabolic
+        left: { en: "Shorting a parabolic trend on divergence", es: "Vender en corto una tendencia parabólica por divergencia" }
+        right:
+          en: "Getting liquidated as momentum continues printing higher highs."
+          es: "Ser liquidado mientras el momentum sigue marcando máximos más altos."
+      - id: non-adjacent
+        left: { en: "Comparing non-adjacent price swings", es: "Comparar oscilaciones de precio no adyacentes" }
+        right:
+          en: "Fabricating false divergence patterns across unrelated cycles."
+          es: "Fabricar patrones de divergencia falsos entre ciclos no relacionados."
+    explanation:
+      en: "Proper divergence trading requires strict swing selection, structural level alignment, and trend awareness."
+      es: "El trading correcto de divergencias requiere selección estricta de swings, alineación de niveles estructurales y conciencia de la tendencia."
+
+  - id: parabolic-run-danger
+    kind: single_choice
+    prompt:
+      en: "Why is shorting a parabolic crypto rally based solely on bearish divergence dangerous?"
+      es: "¿Por qué es peligroso vender en corto una subida parabólica de cripto basándose solo en divergencia bajista?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "In strong trend manias, indicators can print multiple consecutive divergences while price rises 100%+."
+          es: "En manías de tendencia fuerte, los indicadores pueden marcar múltiples divergencias consecutivas mientras el precio sube un 100%+."
+      - id: b
+        text:
+          en: "Divergence indicators freeze when volume exceeds 1 billion USD."
+          es: "Los indicadores de divergencia se congelan cuando el volumen supera 1.000 millones de USD."
+      - id: c
+        text:
+          en: "Exchanges automatically close short positions during parabolic rallies."
+          es: "Los exchanges cierran automáticamente posiciones cortas durante subidas parabólicas."
+      - id: d
+        text:
+          en: "Bearish divergence guarantees price will never pull back."
+          es: "La divergencia bajista garantiza que el precio nunca retrocederá."
+    explanation:
+      en: "Parabolic rallies erase short accounts because momentum indicators reset dynamically while aggressive buyers keep driving price higher."
+      es: "Las subidas parabólicas eliminan cuentas en corto porque los indicadores de momentum se reinician dinámicamente mientras los compradores siguen empujando el precio."
+
+  - id: divergence-execution-order
+    kind: ordering
+    prompt:
+      en: "Arrange the checklist steps before placing a trade on a regular bullish divergence."
+      es: "Ordena los pasos de la lista de verificación antes de colocar una operación en una divergencia alcista regular."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "Verify price is at major high-timeframe support."
+          es: "Verificar que el precio está en un soporte importante de temporalidad alta."
+      - id: step-2
+        position: 2
+        text:
+          en: "Confirm price made a Lower Low while oscillator printed a Higher Low."
+          es: "Confirmar que el precio hizo un Mínimo Más Bajo mientras el oscilador marcó un Mínimo Más Alto."
+      - id: step-3
+        position: 3
+        text:
+          en: "Wait for bullish candle rejection or market structure break on lower timeframe."
+          es: "Esperar el rechazo de vela alcista o la rotura de estructura en temporalidad menor."
+      - id: step-4
+        position: 4
+        text:
+          en: "Calculate position size based on Stop Loss placed below recent swing low."
+          es: "Calcular el tamaño de posición basado en un Stop Loss colocado bajo el mínimo reciente."
+    explanation:
+      en: "Divergence provides context; level gives location; structural break gives entry; risk math calculates position size."
+      es: "La divergencia da el contexto; el nivel da la ubicación; la rotura da la entrada; la matemática de riesgo calcula la posición."
+
+  - id: divergence-volume-confirmation
+    kind: single_choice
+    prompt:
+      en: "Why is declining volume during a new price high peak supportive of a regular bearish divergence?"
+      es: "¿Por qué el volumen decreciente durante un nuevo pico de precio alto respalda una divergencia bajista regular?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "It confirms that fewer aggressive market participants are participating in pushing price to the new high."
+          es: "Confirma que menos participantes agresivos están participando en empujar el precio al nuevo máximo."
+      - id: b
+        text:
+          en: "It indicates that all exchange servers are undergoing maintenance."
+          es: "Indica que todos los servidores del exchange están en mantenimiento."
+      - id: c
+        text:
+          en: "It guarantees that funding rates will turn negative in the next block."
+          es: "Garantiza que las tasas de funding serán negativas en el siguiente bloque."
+      - id: d
+        text:
+          en: "It means spot and perpetual prices have merged."
+          es: "Significa que los precios de spot y perpetuos se han fusionado."
+    explanation:
+      en: "Price reaching a new high on declining volume confirms lack of buyer commitment, reinforcing the momentum exhaustion shown by the oscillator."
+      es: "El precio alcanzando un nuevo máximo con volumen decreciente confirma falta de compromiso comprador, reforzando el agotamiento del oscilador."
+
+  - id: divergence-stop-placement
+    kind: single_choice
+    prompt:
+      en: "Where is the most logical structural placement for a Stop Loss when trading a regular bullish divergence?"
+      es: "¿Cuál es la ubicación estructural más lógica para un Stop Loss al operar una divergencia alcista regular?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Just below the lowest swing point (the Lower Low) of the divergence pattern."
+          es: "Justo por debajo del punto de giro más bajo (el Mínimo Más Bajo) del patrón de divergencia."
+      - id: b
+        text:
+          en: "Exactly at the entry price to ensure zero risk."
+          es: "Exactamente en el precio de entrada para garantizar cero riesgo."
+      - id: c
+        text:
+          en: "50% above the resistance target."
+          es: "Un 50% por encima del objetivo de resistencia."
+      - id: d
+        text:
+          en: "At the 200 EMA line on the 1-minute chart."
+          es: "En la línea de la EMA 200 del gráfico de 1 minuto."
+    explanation:
+      en: "If price breaks below the lowest swing point of a bullish divergence, the structural setup is invalidated and the trade must be exited."
+      es: "Si el precio rompe por debajo del mínimo de la divergencia alcista, la configuración estructural se invalida y hay que salir de la operación."
+
+  - id: triple-divergence-phenomenon
+    kind: single_choice
+    prompt:
+      en: "What does a 'Triple Bearish Divergence' (three consecutive higher price highs with three lower indicator highs) reveal?"
+      es: "¿Qué revela una 'Triple Divergencia Bajista' (tres máximos de precio altos consecutivos con tres máximos de indicador más bajos)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Severe, compounding momentum exhaustion in an extended trend nearing structural top."
+          es: "Agotamiento severo y acumulado del momentum en una tendencia extendida cerca del techo estructural."
+      - id: b
+        text:
+          en: "That the market has entered a risk-free perpetual buying cycle."
+          es: "Que el mercado ha entrado en un ciclo de compra perpetua sin riesgo."
+      - id: c
+        text:
+          en: "That technical indicators have stopped updating."
+          es: "Que los indicadores técnicos han dejado de actualizarse."
+      - id: d
+        text:
+          en: "That funding rate calculation has been inverted."
+          es: "Que el cálculo de la tasa de funding se ha invertido."
+    explanation:
+      en: "Triple divergence shows repeated failed attempts by buyers to push price higher with strength, building extreme pressure for a deep reversal once support breaks."
+      es: "La triple divergencia muestra intentos fallidos repetidos de los compradores por empujar el precio con fuerza, acumulando presión para una inversión profunda."

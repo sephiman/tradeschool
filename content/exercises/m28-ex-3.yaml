@@ -1,0 +1,205 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: premium-basis-match
+    kind: matching
+    prompt:
+      en: "Match each futures pricing term to its market state."
+      es: "Empareja cada término de precio de futuros con su estado de mercado."
+    pairs:
+      - id: basis
+        left: { en: "Futures Basis", es: "Basis de Futuros" }
+        right:
+          en: "The price difference between the futures contract and the underlying spot index."
+          es: "La diferencia de precio entre el contrato de futuros y el índice spot subyacente."
+      - id: contango
+        left: { en: "Contango", es: "Contango" }
+        right:
+          en: "Futures price trades at a premium above the spot index (positive basis)."
+          es: "El precio de futuros cotiza con prima por encima del índice spot (basis positivo)."
+      - id: backwardation
+        left: { en: "Backwardation", es: "Backwardation" }
+        right:
+          en: "Futures price trades at a discount below the spot index (negative basis)."
+          es: "El precio de futuros cotiza con descuento por debajo del índice spot (basis negativo)."
+    explanation:
+      en: "Basis measures the premium or discount of futures versus spot. High contango signals bullish leverage demand, while backwardation signals extreme bearishness or spot scarcity."
+      es: "El basis mide la prima o descuento de los futuros frente al spot. Un contango elevado señala demanda alcista apalancada, mientras que el backwardation señala pesimismo o escasez spot."
+
+  - id: arbitrage-mechanics
+    kind: multi_select
+    prompt:
+      en: "Which statements correctly describe cash-and-carry arbitrage?"
+      es: "¿Qué afirmaciones describen correctamente el arbitraje cash-and-carry?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Buying spot asset while simultaneously shorting perpetual futures when funding is strongly positive."
+          es: "Comprar activo spot y simultáneamente vender futuros perpetuos cuando el funding es muy positivo."
+      - id: b
+        correct: true
+        text:
+          en: "Capturing market-neutral yield from positive funding payments paid by longs."
+          es: "Capturar rendimiento neutral al mercado a partir de pagos de funding positivos pagados por longs."
+      - id: c
+        correct: false
+        text:
+          en: "Taking unhedged long directional exposure on high leverage."
+          es: "Tomar exposición direccional alcista sin cobertura con alto apalancamiento."
+      - id: d
+        correct: true
+        text:
+          en: "The yield narrows as arbitrageurs compete and drive futures price back to spot."
+          es: "El rendimiento se estrecha a medida que los arbitradores compiten y devuelven el precio de futuros al spot."
+    explanation:
+      en: "Cash-and-carry arbitrage locks in market-neutral yield by going long spot and short futures when futures trade at a high premium."
+      es: "El arbitraje cash-and-carry bloquea un rendimiento neutral al mercado comprando spot y vendiendo futuros cuando cotizan con prima alta."
+
+  - id: basis-convergence-truth
+    kind: true_false
+    prompt:
+      en: "Dated futures contracts are guaranteed to converge to the spot price upon expiry."
+      es: "Se garantiza que los contratos de futuros con fecha vencen al precio spot en el momento de la expiración."
+    answer: true
+    explanation:
+      en: "At contract settlement, the futures settlement price is pegged directly to the underlying spot index, forcing basis to zero."
+      es: "En la liquidación del contrato, el precio de liquidación de futuros se fija directamente al índice spot subyacente, forzando a que el basis sea cero."
+
+  - id: premium-driver-identification
+    kind: single_choice
+    prompt:
+      en: "What does a sudden widening of the Korean Kimchi Premium (high BTC price on Korean exchanges vs global spot) indicate?"
+      es: "¿Qué indica un ensanchamiento repentino de la Prima Kimchi (precio alto de BTC en exchanges coreanos vs spot global)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Strong local retail buying demand combined with capital withdrawal/fiat transfer friction."
+          es: "Fuerte demanda compradora minorista local combinada con fricción en retirada de capital/transferencia fiat."
+      - id: b
+        text:
+          en: "Bitcoin network block creation time has increased to 1 hour."
+          es: "El tiempo de creación de bloques de la red Bitcoin ha aumentado a 1 hora."
+      - id: c
+        text:
+          en: "Global spot exchanges have permanently shut down."
+          es: "Los exchanges spot globales han cerrado permanentemente."
+      - id: d
+        text:
+          en: "Short traders are receiving 100% interest per day."
+          es: "Los traders en corto están recibiendo un 100% de interés diario."
+    explanation:
+      en: "Cross-exchange premiums persist when capital flow friction prevents arbitrageurs from quickly moving fiat/crypto between venues."
+      es: "Las primas entre exchanges persisten cuando la fricción de flujo de capital impide que los arbitradores muevan rápidamente fiat/cripto entre sitios."
+
+  - id: basis-arbitrage-sequence
+    kind: ordering
+    prompt:
+      en: "Sequence the execution steps of a cash-and-carry basis arbitrage trade."
+      es: "Ordena los pasos de ejecución de una operación de arbitraje de basis cash-and-carry."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "Identify perpetual futures trading at a substantial premium above spot with high positive funding."
+          es: "Identificar futuros perpetuos cotizando con prima sustancial sobre spot con funding positivo alto."
+      - id: step-2
+        position: 2
+        text:
+          en: "Buy spot asset on spot venue and transfer as collateral to futures venue."
+          es: "Comprar activo en el mercado spot y transferirlo como colateral al mercado de futuros."
+      - id: step-3
+        position: 3
+        text:
+          en: "Open an equivalent short position on perpetual futures (1x hedge)."
+          es: "Abrir una posición corta equivalente en futuros perpetuos (cobertura 1x)."
+      - id: step-4
+        position: 4
+        text:
+          en: "Collect periodic funding yield until premium normalizes, then close both legs."
+          es: "Cobrar el rendimiento periódico de funding hasta que la prima se normalice y cerrar ambas patas."
+    explanation:
+      en: "Cash-and-carry locks in market-neutral yield by balancing spot long against futures short."
+      es: "El cash-and-carry bloquea rendimiento neutral al mercado equilibrando spot largo contra futuros corto."
+
+  - id: funding-arb-risk
+    kind: single_choice
+    prompt:
+      en: "What is the principal risk in a delta-neutral cash-and-carry trade (long spot, short perp)?"
+      es: "¿Cuál es el riesgo principal en una operación de cash-and-carry delta-neutral (long spot, short perp)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Funding rate flipping negative, turning expected yield into a recurring payment expense."
+          es: "Que la tasa de funding se vuelva negativa, convirtiendo la rentabilidad esperada en un gasto periódico."
+      - id: b
+        text:
+          en: "Price of the asset increasing by 50%."
+          es: "Que el precio del activo suba un 50%."
+      - id: c
+        text:
+          en: "Liquidation of the spot position."
+          es: "Liquidación de la posición spot."
+      - id: d
+        text:
+          en: "Order book depth becoming infinite."
+          es: "Que la profundidad del libro de órdenes sea infinita."
+    explanation:
+      en: "While price moves are hedged, funding rate variability means positive yield can disappear or flip negative if market sentiment shifts."
+      es: "Aunque el precio esté cubierto, la variabilidad del funding implica que el rendimiento positivo puede desaparecer o volverse negativo si cambia el sentimiento."
+
+  - id: spot-perp-basis-expansion
+    kind: single_choice
+    prompt:
+      en: "Why does perpetual futures basis expand to high positive levels during euphoric bull markets?"
+      es: "¿Por qué el basis de futuros perpetuos se expande a niveles positivos altos durante mercados alcistas eufóricos?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Aggressive buyers demand leveraged long contracts faster than spot liquidity can keep pace."
+          es: "Compradores agresivos demandan contratos largos apalancados más rápido de lo que la liquidez spot puede seguir."
+      - id: b
+        text:
+          en: "Exchanges charge higher Maker fees to long traders."
+          es: "Los exchanges cobran comisiones Maker más altas a los traders alcistas."
+      - id: c
+        text:
+          en: "The underlying blockchain halts transactions."
+          es: "La blockchain subyacente detiene las transacciones."
+      - id: d
+        text:
+          en: "Short positions receive zero margin."
+          es: "Las posiciones cortas reciben cero margen."
+    explanation:
+      en: "High leverage demand drives perpetual prices above spot, creating high positive basis and elevating funding payments to shorts."
+      es: "La alta demanda de apalancamiento empuja los perpetuos por encima del spot, creando un basis positivo alto y elevando los pagos por funding."
+
+  - id: cross-venue-transfer-friction
+    kind: single_choice
+    prompt:
+      en: "Why do price premiums between two exchanges fail to close immediately when wallet withdrawals are suspended on one venue?"
+      es: "¿Por qué las primas de precio entre dos exchanges no se cierran inmediatamente cuando se suspenden las retiradas de wallet en uno de ellos?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Arbitrageurs cannot move assets to sell on the higher venue, breaking the arbitrage loop."
+          es: "Los arbitradores no pueden mover activos para vender en el sitio con precio más alto, rompiendo el bucle de arbitraje."
+      - id: b
+        text:
+          en: "Order books automatically stop displaying bid prices."
+          es: "Los libros de órdenes dejan de mostrar precios de compra automáticamente."
+      - id: c
+        text:
+          en: "Trading volume drops to zero globally."
+          es: "El volumen de negociación cae a cero globalmente."
+      - id: d
+        text:
+          en: "Funding rates are set to zero across all exchanges."
+          es: "Las tasas de funding se fijan a cero en todos los exchanges."
+    explanation:
+      en: "Arbitrage relies on physical transport of assets or fiat between exchanges; closing withdrawal rails traps capital and preserves price divergence."
+      es: "El arbitraje depende del transporte de activos o fiat entre exchanges; cerrar retiradas atrapa capital y mantiene la divergencia."

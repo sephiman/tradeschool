@@ -2,8 +2,8 @@
 type: calculation
 formula: funding_payment
 prompt:
-  en: "A **{side}** perp position carries **{nocional} USDT** of notional through the funding timestamp. The 8-hour funding rate prints at **{rate}**. How much funding do you pay this interval, in USDT? (Negative means you receive it instead.)"
-  es: "Una posición perp **{side}** arrastra **{nocional} USDT** de nocional al llegar la marca de funding. La tasa de funding a 8 horas marca **{rate}**. ¿Cuánto funding pagas en este intervalo, en USDT? (Negativo significa que lo recibes en su lugar.)"
+  en: "A **{side}** perp position carries **{notional} USDT** of notional through the funding timestamp. The 8-hour funding rate prints at **{rate}**. How much funding do you pay this interval, in USDT? (Negative means you receive it instead.)"
+  es: "Una posición perp **{side}** arrastra **{notional} USDT** de nocional al llegar la marca de funding. La tasa de funding a 8 horas marca **{rate}**. ¿Cuánto funding pagas en este intervalo, en USDT? (Negativo significa que lo recibes en su lugar.)"
 params:
   notional: { kind: int_range, min: 25000, max: 100000, step: 500 }
   rate: { kind: choice, values: ["0.0001", "0.0005", "0.001", "-0.0004"] }

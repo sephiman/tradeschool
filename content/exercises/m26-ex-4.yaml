@@ -1,0 +1,205 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: cvd-divergence-order
+    kind: ordering
+    prompt:
+      en: "Sequence the steps to identify a bearish CVD (Cumulative Volume Delta) divergence."
+      es: "Ordena los pasos para identificar una divergencia bajista de CVD (Delta de Volumen Acumulado)."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "Price prints a Higher High at a resistance level."
+          es: "El precio marca un Máximo Más Alto en un nivel de resistencia."
+      - id: step-2
+        position: 2
+        text:
+          en: "CVD prints a Lower High over the exact same timeframe."
+          es: "El CVD marca un Máximo Más Bajo durante el mismo marco temporal."
+      - id: step-3
+        position: 3
+        text:
+          en: "Deduce that aggressive buyers are exhausting while passive sellers absorb the rally."
+          es: "Deducir que los compradores agresivos se agotan mientras vendedores pasivos absorben la subida."
+      - id: step-4
+        position: 4
+        text:
+          en: "Look for price breakdown below local market structure as trade confirmation."
+          es: "Buscar la rotura del precio por debajo de la estructura local como confirmación."
+    explanation:
+      en: "When price makes Higher Highs but CVD fails to follow, aggressive buying power is fading into passive selling resistance."
+      es: "Cuando el precio hace Máximos Más Altos pero el CVD no lo sigue, la fuerza compradora se agota contra la resistencia pasiva."
+
+  - id: cvd-behavior-truth
+    kind: true_false
+    prompt:
+      en: "CVD measures the total number of limit orders resting on the order book."
+      es: "El CVD mide el número total de órdenes límite en el libro de órdenes."
+    answer: false
+    explanation:
+      en: "CVD tracks the cumulative difference between aggressive buy market orders and aggressive sell market orders executed over time."
+      es: "El CVD rastrea la diferencia acumulada entre órdenes de compra a mercado y órdenes de venta a mercado ejecutadas a lo largo del tiempo."
+
+  - id: cvd-divergence-match
+    kind: matching
+    prompt:
+      en: "Match each CVD market condition to its order flow interpretation."
+      es: "Empareja cada condición de mercado de CVD con su interpretación de flujo de órdenes."
+    pairs:
+      - id: bull-div
+        left: { en: "Price Lower Low + CVD Higher Low", es: "Precio Mínimo Más Bajo + CVD Mínimo Más Alto" }
+        right:
+          en: "Bullish Divergence: Aggressive selling pressure is decreasing at the support level."
+          es: "Divergencia Alcista: La presión vendedora agresiva disminuye en el nivel de soporte."
+      - id: bear-div
+        left: { en: "Price Higher High + CVD Lower High", es: "Precio Máximo Más Alto + CVD Máximo Más Bajo" }
+        right:
+          en: "Bearish Divergence: Aggressive buying pressure is decreasing at the resistance level."
+          es: "Divergencia Bajista: La presión compradora agresiva disminuye en el nivel de resistencia."
+      - id: absorption-bear
+        left: { en: "Price Flat + CVD Spiking High", es: "Precio Plano + CVD Subiendo Fuerte" }
+        right:
+          en: "Passive Bearish Absorption: Heavy buy aggression absorbed by limit sell wall."
+          es: "Absorción Bajista Pasiva: Fuerte agresión compradora absorbida por muro de venta límite."
+    explanation:
+      en: "CVD reveals whether volume aggression is aligned with price movement or being absorbed by passive liquidity."
+      es: "El CVD revela si la agresión de volumen está alineada con el movimiento de precio o siendo absorbida por liquidez pasiva."
+
+  - id: cvd-multi-timeframe
+    kind: multi_select
+    prompt:
+      en: "Select all valid principles when reading CVD across different venues and timeframes."
+      es: "Selecciona todos los principios válidos al leer el CVD en diferentes venues y temporalidades."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Spot CVD and Perpetual Futures CVD can diverge because perps carry leveraged speculative flow."
+          es: "El CVD Spot y el CVD de Futuros Perpetuos pueden divergir porque los perpetuos llevan flujo especulativo apalancado."
+      - id: b
+        correct: true
+        text:
+          en: "Higher timeframe CVD divergences (e.g. 1-hour or 4-hour) carry higher structural reliability."
+          es: "Las divergencias de CVD de temporalidad mayor (ej. 1 hora o 4 horas) tienen mayor fiabilidad estructural."
+      - id: c
+        correct: false
+        text:
+          en: "CVD on a 1-minute chart should be relied upon to predict major multi-week trend reversals."
+          es: "Se debe confiar en el CVD de un gráfico de 1 minuto para predecir inversiones de tendencia de varias semanas."
+      - id: d
+        correct: true
+        text:
+          en: "Aggregated multi-exchange CVD helps smooth out single-venue reporting anomalies."
+          es: "El CVD agregado de múltiples exchanges ayuda a suavizar anomalías de reporte de un solo sitio."
+    explanation:
+      en: "Perps vs spot CVD comparisons and higher timeframe alignment give robust market structure context."
+      es: "Las comparaciones de CVD perps vs spot y la alineación de temporalidades mayores dan un contexto sólido de estructura de mercado."
+
+  - id: cvd-absorption-read
+    kind: single_choice
+    prompt:
+      en: "What does it mean when CVD makes a sharp new high while price fails to breach key resistance?"
+      es: "¿Qué significa cuando el CVD hace un nuevo máximo brusco mientras el precio no logra superar una resistencia clave?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Large passive sellers are absorbing aggressive buyers at resistance, creating potential reversal risk."
+          es: "Grandes vendedores pasivos están absorbiendo a compradores agresivos en la resistencia, creando riesgo de inversión."
+      - id: b
+        text:
+          en: "Price is guaranteed to jump 10% in the next minute."
+          es: "Se garantiza que el precio suba un 10% en el siguiente minuto."
+      - id: c
+        text:
+          en: "All limit sell orders have vanished from the order book."
+          es: "Todas las órdenes límite de venta han desaparecido del libro."
+      - id: d
+        text:
+          en: "The funding rate has been disabled by the exchange."
+          es: "La tasa de funding ha sido desactivada por el exchange."
+    explanation:
+      en: "High volume buying unable to push price higher indicates limit order absorption at resistance."
+      es: "Compras de alto volumen incapaces de empujar el precio más arriba indican absorción con órdenes límite en la resistencia."
+
+  - id: spot-vs-perp-cvd-divergence
+    kind: single_choice
+    prompt:
+      en: "What does it indicate when Spot CVD is rising steadily while Perp CVD is falling?"
+      es: "¿Qué indica cuando el CVD Spot sube de forma constante mientras el CVD Perp está cayendo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Real spot accumulation is taking place while leveraged derivative traders are opening speculative shorts or getting liquidated."
+          es: "Está habiendo acumulación spot real mientras los traders de derivados apalancados abren cortos especulativos o son liquidados."
+      - id: b
+        text:
+          en: "The exchange has frozen spot trading."
+          es: "El exchange ha congelado el trading spot."
+      - id: c
+        text:
+          en: "Futures contracts have lost all value."
+          es: "Los contratos de futuros han perdido todo su valor."
+      - id: d
+        text:
+          en: "Funding rate is zero across all pairs."
+          es: "La tasa de funding es cero en todos los pares."
+    explanation:
+      en: "Spot CVD represents genuine spot asset demand without leverage, making spot-lead rallies structurally stronger than perp-led rallies."
+      es: "El CVD Spot representa demanda real de activos spot sin apalancamiento, haciendo que las subidas lideradas por spot sean estructuralmente más fuertes que las lideradas por perpetuos."
+
+  - id: cvd-breakout-fakeout-read
+    kind: single_choice
+    prompt:
+      en: "How can CVD help identify a fakeout at a key price resistance level?"
+      es: "¿Cómo puede ayudar el CVD a identificar un fakeout en un nivel clave de resistencia de precio?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Price breaks resistance on declining CVD, indicating that the move is driven by thin liquidity rather than aggressive buying power."
+          es: "El precio rompe la resistencia con un CVD decreciente, indicando que el movimiento está impulsado por liquidez fina y no por fuerza compradora agresiva."
+      - id: b
+        text:
+          en: "CVD automatically cancels all market orders at resistance."
+          es: "El CVD cancela automáticamente todas las órdenes a mercado en la resistencia."
+      - id: c
+        text:
+          en: "CVD changes color from green to red upon fakeout."
+          es: "El CVD cambia de color de verde a rojo en caso de fakeout."
+      - id: d
+        text:
+          en: "CVD forces the exchange to lower maintenance margin rates."
+          es: "El CVD obliga al exchange a bajar las tasas de margen de mantenimiento."
+    explanation:
+      en: "A price breakout lacking aggressive buying volume on CVD is prone to immediate rejection and fakeout once passive liquidity steps in."
+      es: "Una rotura de precio que carece de volumen comprador agresivo en el CVD es propensa a un rechazo e impacto inmediato de fakeout."
+
+  - id: cvd-reset-misconception
+    kind: single_choice
+    prompt:
+      en: "Why is the absolute numerical value of CVD less important than its relative slope and swing pattern?"
+      es: "¿Por qué el valor numérico absoluto del CVD es menos importante que su pendiente relativa y patrón de swings?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "CVD accumulates starting from an arbitrary session start time, so only slope relative to price swings provides actionable data."
+          es: "El CVD se acumula desde una hora de inicio de sesión arbitraria, por lo que solo la pendiente relativa a los swings de precio proporciona datos útiles."
+      - id: b
+        text:
+          en: "Because exchange APIs randomize CVD numbers every hour."
+          es: "Porque las API de los exchanges aleatorizan las cifras de CVD cada hora."
+      - id: c
+        text:
+          en: "Because CVD is calculated in Bitcoin instead of USD."
+          es: "Porque el CVD se calcula en Bitcoin en lugar de USD."
+      - id: d
+        text:
+          en: "Because CVD is only valid for options contracts."
+          es: "Porque el CVD solo es válido para contratos de opciones."
+    explanation:
+      en: "CVD starting values depend on when recording began. The key information is whether delta is making higher or lower swings relative to price."
+      es: "Los valores iniciales de CVD dependen de cuándo comenzó la grabación. La información clave es si el delta está haciendo swings más altos o más bajos en relación al precio."

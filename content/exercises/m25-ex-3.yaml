@@ -1,0 +1,205 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: order-flow-types-match
+    kind: matching
+    prompt:
+      en: "Match each order flow concept to its role in market mechanics."
+      es: "Empareja cada concepto de flujo de órdenes con su papel en la mecánica del mercado."
+    pairs:
+      - id: passive
+        left: { en: "Passive Liquidity", es: "Liquidez Pasiva" }
+        right:
+          en: "Limit orders residing on the order book awaiting execution (provides liquidity)."
+          es: "Órdenes límite en el libro a la espera de ejecución (proporcionan liquidez)."
+      - id: aggressive
+        left: { en: "Aggressive Orders", es: "Órdenes Agresivas" }
+        right:
+          en: "Market orders executing immediately against resting limit orders (consumes liquidity)."
+          es: "Órdenes a mercado ejecutadas inmediatamente contra límite existentes (consumen liquidez)."
+      - id: absorption
+        left: { en: "Order Absorption", es: "Absorción de Órdenes" }
+        right:
+          en: "Heavy market order volume failing to push price past a large resting limit wall."
+          es: "Gran volumen de órdenes a mercado que no logra mover el precio tras un muro de límite."
+    explanation:
+      en: "Market prices move when aggressive market orders consume all resting passive limit orders at a given price level."
+      es: "Los precios se mueven cuando las órdenes a mercado agresivas consumen todas las órdenes límite pasivas existentes en un nivel."
+
+  - id: absorption-signals
+    kind: multi_select
+    prompt:
+      en: "Which of the following indicate that passive absorption is taking place?"
+      es: "¿Cuáles de los siguientes indican que está habiendo absorción pasiva?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "High trading volume occurring while price remains stuck at a key level."
+          es: "Alto volumen de negociación mientras el precio permanece estancado en un nivel clave."
+      - id: b
+        correct: true
+        text:
+          en: "Large aggressive buy market orders failing to create Higher Highs."
+          es: "Grandes órdenes de compra a mercado que no logran crear Máximos Más Altos."
+      - id: c
+        correct: false
+        text:
+          en: "Declining volume during a rapid breakout in thin liquidity."
+          es: "Volumen decreciente durante una rotura rápida con poca liquidez."
+      - id: d
+        correct: true
+        text:
+          en: "Cumulative volume delta increasing sharply while price moves sideways."
+          es: "Delta de volumen acumulado aumentando con fuerza mientras el precio se mueve de lado."
+    explanation:
+      en: "Absorption happens when passive buyers or sellers absorb large market orders without allowing price to progress."
+      es: "La absorción ocurre cuando compradores o vendedores pasivos absorben grandes órdenes a mercado sin permitir que el precio avance."
+
+  - id: taker-vs-maker-truth
+    kind: true_false
+    prompt:
+      en: "A buyer using a market order is guaranteed to be an informed institutional trader."
+      es: "Un comprador que usa una orden a mercado tiene garantizado ser un trader institucional informado."
+    answer: false
+    explanation:
+      en: "Taker market order flow includes retail panic buying, stop-loss executions, and forced liquidations. Institutional size often builds via passive limit orders."
+      es: "El flujo taker a mercado incluye compras de pánico minoristas, ejecuciones de stop-loss y liquidaciones forzosas. El tamaño institucional a menudo se construye vía órdenes límite pasivas."
+
+  - id: aggressor-misconception
+    kind: single_choice
+    prompt:
+      en: "Why is a high negative delta combined with price refusing to fall a bullish signal?"
+      es: "¿Por qué un delta negativo elevado combinado con un precio que se niega a caer es una señal alcista?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Aggressive sellers are dumping market orders, but strong passive limit buyers are absorbing all sell pressure."
+          es: "Los vendedores agresivos están lanzando órdenes a mercado, pero compradores límite pasivos absorben toda la presión."
+      - id: b
+        text:
+          en: "Negative delta means all short traders are being forced to buy."
+          es: "Delta negativo significa que todos los traders en corto están obligados a comprar."
+      - id: c
+        text:
+          en: "The exchange system is glitching and reversing orders."
+          es: "El sistema del exchange está fallando e invirtiendo las órdenes."
+      - id: d
+        text:
+          en: "Price always moves in the direction of the delta number."
+          es: "El precio siempre se mueve en la dirección de la cifra de delta."
+    explanation:
+      en: "Heavy aggressive selling that produces zero price breakdown indicates institutional absorption on the bid side."
+      es: "Ventas agresivas intensas que producen cero caída de precio indican absorción institucional en el lado de la compra."
+
+  - id: order-execution-sequence
+    kind: ordering
+    prompt:
+      en: "Order the mechanics of a market order filling on an exchange order book."
+      es: "Ordena la mecánica del llenado de una orden a mercado en el libro de un exchange."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "Trader sends aggressive market buy order to the exchange."
+          es: "El trader envía una orden de compra a mercado agresiva al exchange."
+      - id: step-2
+        position: 2
+        text:
+          en: "Engine matches the market buy with the lowest available ask limit order."
+          es: "El motor empareja la compra a mercado con la orden límite de venta más baja disponible."
+      - id: step-3
+        position: 3
+        text:
+          en: "If size exceeds the lowest ask, remaining contracts sweep higher ask price tiers (slippage)."
+          es: "Si el tamaño supera la venta más baja, los contratos restantes barren niveles de venta superiores (slippage)."
+      - id: step-4
+        position: 4
+        text:
+          en: "Trade executes, delta records net positive aggressive volume, and last price updates."
+          es: "La operación se ejecuta, el delta registra volumen agresivo positivo neto y el último precio se actualiza."
+    explanation:
+      en: "Market orders consume order book depth sequentially from best price upward, causing slippage if size exceeds top of book."
+      es: "Las órdenes a mercado consumen la profundidad del libro secuencialmente desde el mejor precio hacia arriba, causando slippage si el tamaño supera el top del libro."
+
+  - id: limit-order-wall-impact
+    kind: single_choice
+    prompt:
+      en: "How does a massive passive limit order wall on the ask side affect market aggressive buyers?"
+      es: "¿Cómo afecta un muro masivo de órdenes límite pasivas de venta a los compradores agresivos del mercado?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Aggressive buy orders get filled at the wall price, halting price upward progress until the wall is completely consumed."
+          es: "Las órdenes de compra agresivas se llenan al precio del muro, deteniendo el avance del precio hasta que el muro se consuma por completo."
+      - id: b
+        text:
+          en: "It forces all market orders to execute as limit orders automatically."
+          es: "Obliga a todas las órdenes a mercado a ejecutarse como órdenes límite automáticamente."
+      - id: c
+        text:
+          en: "It causes funding rates to jump to 50% instantly."
+          es: "Hace que las tasas de funding suban al 50% al instante."
+      - id: d
+        text:
+          en: "It prevents short positions from opening."
+          es: "Impide que se abran posiciones cortas."
+    explanation:
+      en: "A large resting limit order wall acts as an absorption barrier that stops price movement until aggressive volume exhausts or consumes all liquidity at that level."
+      es: "Un gran muro de órdenes límite en reposo actúa como barrera de absorción que detiene el precio hasta que el volumen agresivo agota o consume toda la liquidez en ese nivel."
+
+  - id: market-order-slippage-cause
+    kind: single_choice
+    prompt:
+      en: "Why do large market orders experience severe slippage during low-liquidity news releases?"
+      es: "¿Por qué las órdenes a mercado grandes sufren un slippage severo durante publicaciones de noticias con baja liquidez?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Market makers pull resting limit orders prior to high volatility, thinning the book depth across price levels."
+          es: "Los market makers retiran órdenes límite antes de la alta volatilidad, adelgazando la profundidad del libro a través de los niveles."
+      - id: b
+        text:
+          en: "The exchange matching engine intentionally delays orders by 5 minutes."
+          es: "El motor de emparejamiento del exchange retrasa intencionadamente las órdenes 5 minutos."
+      - id: c
+        text:
+          en: "Liquidation prices are erased from memory."
+          es: "Los precios de liquidación se borran de la memoria."
+      - id: d
+        text:
+          en: "Taker fees increase by 1000% during news events."
+          es: "Las comisiones taker aumentan un 1000% durante eventos de noticias."
+    explanation:
+      en: "Market makers pull liquidity before major news to avoid getting picked off, causing thin books where market orders sweep deep price ranges."
+      es: "Los market makers retiran liquidez antes de noticias importantes para evitar ser atrapados, provocando libros finos donde las órdenes a mercado barren amplios rangos."
+
+  - id: order-flow-delta-divergence-read
+    kind: single_choice
+    prompt:
+      en: "What is the order flow interpretation of positive delta accompanied by declining price?"
+      es: "¿Cuál es la interpretación de flujo de órdenes de un delta positivo acompañado de una caída de precio?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Aggressive buyers are trying to push price up, but passive sellers are overpowering them with heavy limit sell walls."
+          es: "Los compradores agresivos intentan empujar el precio arriba, pero los vendedores pasivos los superan con grandes muros de venta límite."
+      - id: b
+        text:
+          en: "Long positions are receiving 100% funding yield."
+          es: "Las posiciones largas están recibiendo un 100% de rendimiento por funding."
+      - id: c
+        text:
+          en: "The exchange has blocked limit buy orders."
+          es: "El exchange ha bloqueado las órdenes límite de compra."
+      - id: d
+        text:
+          en: "Market makers have left the market permanently."
+          es: "Los market makers han abandonado el mercado permanentemente."
+    explanation:
+      en: "When aggressive buy delta fails to produce price gains, passive limit sell liquidity is dominating and absorbing buyer interest."
+      es: "Cuando el delta comprador agresivo no produce ganancias de precio, la liquidez pasiva de venta límite está dominando y absorbiendo el interés comprador."

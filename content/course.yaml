@@ -159,6 +159,10 @@ blocks:
         type: calculation
       - id: m06-ex-2
         type: calculation
+      - id: m06-ex-3
+        type: quiz
+      - id: m06-ex-4
+        type: quiz
   - id: m07
     title:
       en: Real PnL
@@ -324,6 +328,10 @@ blocks:
         type: synthetic_chart
       - id: m12-ex-2
         type: synthetic_chart
+      - id: m12-ex-3
+        type: quiz
+      - id: m12-ex-4
+        type: quiz
   - id: m13
     title:
       en: Fibonacci
@@ -671,6 +679,8 @@ blocks:
         type: quiz
       - id: m25-ex-2
         type: calculation
+      - id: m25-ex-3
+        type: quiz
   - id: m26
     title:
       en: 'CVD: construction and divergence'
@@ -693,6 +703,8 @@ blocks:
       - id: m26-ex-2
         type: pattern_chart
       - id: m26-ex-3
+        type: quiz
+      - id: m26-ex-4
         type: quiz
   - id: m27
     title:
@@ -733,6 +745,8 @@ blocks:
         type: calculation
       - id: m28-ex-2
         type: quiz
+      - id: m28-ex-3
+        type: quiz
   - id: m29
     title:
       en: Footprint charts and volume profile
@@ -750,4 +764,6 @@ blocks:
         es: Gráficos de footprint y perfil de volumen
       exercises:
       - id: m29-ex-1
+        type: quiz
+      - id: m29-ex-2
         type: quiz

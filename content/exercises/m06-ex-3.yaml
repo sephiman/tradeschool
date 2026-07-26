@@ -1,0 +1,205 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: liquidation-sequence
+    kind: ordering
+    prompt:
+      en: "Arrange the stages of a leveraged position undergoing liquidation in chronological order."
+      es: "Ordena las etapas de una posición apalancada que sufre liquidación en orden cronológico."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "Margin utilization increases as mark price moves against the position."
+          es: "La utilización del margen aumenta a medida que el precio mark se mueve en contra de la posición."
+      - id: step-2
+        position: 2
+        text:
+          en: "Position margin falls below the required maintenance margin threshold."
+          es: "El margen de la posición cae por debajo del umbral de margen de mantenimiento requerido."
+      - id: step-3
+        position: 3
+        text:
+          en: "The liquidation engine takes over the position to prevent account bankruptcy."
+          es: "El motor de liquidación toma el control de la posición para evitar la bancarrota de la cuenta."
+      - id: step-4
+        position: 4
+        text:
+          en: "The position is closed in the order book, and liquidation fees are deducted."
+          es: "La posición se cierra en el libro de órdenes y se deducen las comisiones de liquidación."
+    explanation:
+      en: "Liquidation triggers when remaining margin drops below the maintenance margin requirement. The engine takes over to execute liquidations before equity goes negative."
+      es: "La liquidación se activa cuando el margen restante cae por debajo del requerimiento de mantenimiento. El motor interviene para ejecutar la liquidación antes de que la equidad sea negativa."
+
+  - id: margin-modes-match
+    kind: matching
+    prompt:
+      en: "Match each margin mode to its liquidation risk characteristic."
+      es: "Empareja cada modo de margen con su característica de riesgo de liquidación."
+    pairs:
+      - id: isolated
+        left: { en: "Isolated Margin", es: "Margen Aislado" }
+        right:
+          en: "Liquidation risk is restricted strictly to the allocated collateral of that specific trade."
+          es: "El riesgo de liquidación se limita strictly al colateral asignado a esa operación específica."
+      - id: cross
+        left: { en: "Cross Margin", es: "Margen Cruzado" }
+        right:
+          en: "The entire available account balance is shared as collateral, risking the full balance."
+          es: "Todo el saldo disponible de la cuenta se comparte como colateral, arriesgando todo el saldo."
+      - id: maintenance
+        left: { en: "Maintenance Margin", es: "Margen de Mantenimiento" }
+        right:
+          en: "The absolute minimum equity needed to keep a position open without engine takeover."
+          es: "La equidad mínima absoluta necesaria para mantener una posición abierta sin intervención del motor."
+    explanation:
+      en: "Isolated margin caps loss to the allocated margin, whereas cross margin puts your entire account balance on the line."
+      es: "El margen aislado limita la pérdida al margen asignado, mientras que el margen cruzado pone en juego todo el saldo de tu cuenta."
+
+  - id: liquidation-price-factors
+    kind: multi_select
+    prompt:
+      en: "Select all actions that will actively move your liquidation price further away from the market price."
+      es: "Selecciona todas las acciones que alejarán activamente tu precio de liquidación del precio de mercado."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Adding extra collateral to an isolated margin position."
+          es: "Añadir colateral extra a una posición en margen aislado."
+      - id: b
+        correct: true
+        text:
+          en: "Deleveraging the position by partially closing contracts."
+          es: "Desapalancar la posición cerrando contratos parcialmente."
+      - id: c
+        correct: false
+        text:
+          en: "Increasing leverage while keeping the same position size."
+          es: "Aumentar el apalancamiento manteniendo el mismo tamaño de posición."
+      - id: d
+        correct: false
+        text:
+          en: "Holding long positions when funding rate is strongly negative (longs pay shorts)."
+          es: "Mantener posiciones largas cuando la tasa de funding es muy negativa (los longs pagan a los cortos)."
+    explanation:
+      en: "Adding collateral or reducing position size lowers risk and moves the liquidation price further away."
+      es: "Añadir colateral o reducir el tamaño de la posición disminuye el riesgo y aleja el precio de liquidación."
+
+  - id: auto-deleveraging-truth
+    kind: true_false
+    prompt:
+      en: "Auto-Deleveraging (ADL) only occurs when the exchange insurance fund is exhausted during extreme liquidations."
+      es: "El desapalancamiento automático (ADL) solo ocurre cuando el fondo de seguro del exchange se agota durante liquidaciones extremas."
+    answer: true
+    explanation:
+      en: "ADL is the ultimate fallback mechanism when bankrupt positions cannot be liquidated in the book and the insurance fund cannot cover the deficit."
+      es: "El ADL es el mecanismo de último recurso cuando las posiciones en quiebra no pueden liquidarse en el libro y el fondo de seguro no cubre el déficit."
+
+  - id: maintenance-rate-concept
+    kind: single_choice
+    prompt:
+      en: "Why is the maintenance margin rate usually set higher for larger position sizes?"
+      es: "¿Por qué la tasa de margen de mantenimiento suele ser mayor para tamaños de posición más grandes?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Larger positions carry higher order book market impact if liquidated, requiring a bigger buffer."
+          es: "Las posiciones más grandes tienen un mayor impacto en el libro de órdenes si se liquidan, requiriendo un mayor colchón."
+      - id: b
+        text:
+          en: "Exchanges charge higher fees to large accounts to discourage trading."
+          es: "Los exchanges cobran comisiones más altas a cuentas grandes para desincentivar el trading."
+      - id: c
+        text:
+          en: "It is required by fiat central banking regulations."
+          es: "Es requerido por las regulaciones bancarias de moneda fiat."
+      - id: d
+        text:
+          en: "It guarantees that large traders never suffer slippage."
+          es: "Garantiza que los grandes traders nunca sufran slippage."
+    explanation:
+      en: "Tiered margin schedules scale maintenance margin with position size to protect the exchange against market impact during large liquidations."
+      es: "Los esquemas de margen escalonado aumentan el margen de mantenimiento con el tamaño de la posición para proteger al exchange del impacto de mercado durante grandes liquidaciones."
+
+  - id: forced-liquidation-slippage
+    kind: single_choice
+    prompt:
+      en: "What primarily causes severe slippage during the liquidation of a large position?"
+      es: "¿Qué causa principalmente un slippage severo durante la liquidación de una posición grande?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The liquidation engine executes forced market orders that sweep multiple price levels in thin order book liquidity."
+          es: "El motor de liquidación ejecuta órdenes a mercado forzosas que barren múltiples niveles de precio en un libro poco profundo."
+      - id: b
+        text:
+          en: "The trader manually cancels their stop loss order during a flash crash."
+          es: "El trader cancela manualmente su orden de stop loss durante un flash crash."
+      - id: c
+        text:
+          en: "The funding rate drops to zero across all exchanges."
+          es: "La tasa de funding cae a cero en todos los exchanges."
+      - id: d
+        text:
+          en: "The exchange charges an additional 10% Maker fee."
+          es: "El exchange cobra una comisión Maker adicional del 10%."
+    explanation:
+      en: "Forced market orders generated by the liquidation engine take any available bid liquidity, sweeping down the book and experiencing heavy slippage."
+      es: "Las órdenes a mercado forzosas generadas por el motor de liquidación toman cualquier liquidez de compra disponible, barriendo el libro y sufriendo un gran slippage."
+
+  - id: partial-liquidation-purpose
+    kind: single_choice
+    prompt:
+      en: "What is the main goal of an exchange implementing a partial liquidation mechanism for institutional traders?"
+      es: "¿Cuál es el objetivo principal de un exchange al implementar un mecanismo de liquidación parcial para traders institucionales?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "To reduce position size incrementally so margin requirement drops without dumping the entire position at once."
+          es: "Reducir el tamaño de la posición de forma incremental para que baje el margen requerido sin tirar toda la posición de golpe."
+      - id: b
+        text:
+          en: "To double the account's leverage automatically during market stress."
+          es: "Duplicar automáticamente el apalancamiento de la cuenta durante el estrés del mercado."
+      - id: c
+        text:
+          en: "To convert futures contracts into physical spot deliverables immediately."
+          es: "Convertir los contratos de futuros en entregables spot físicos de inmediato."
+      - id: d
+        text:
+          en: "To prevent the trader from ever using stop loss orders."
+          es: "Evitar que el trader vuelva a usar órdenes de stop loss."
+    explanation:
+      en: "Partial liquidations reduce position size in steps to bring remaining equity back above maintenance margin while minimizing order book disruption."
+      es: "Las liquidaciones parciales reducen el tamaño de la posición por pasos para devolver la equidad restante por encima del margen de mantenimiento reduciendo el impacto en el libro."
+
+  - id: bankruptcy-price-difference
+    kind: single_choice
+    prompt:
+      en: "What is the difference between a position's Liquidation Price and its Bankruptcy Price?"
+      es: "¿Cuál es la diferencia entre el Precio de Liquidación de una posición y su Precio de Bancarrota?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Liquidation Price occurs when equity equals maintenance margin; Bankruptcy Price occurs when equity reaches zero."
+          es: "El Precio de Liquidación ocurre cuando la equidad es igual al margen de mantenimiento; el Precio de Bancarrota ocurre cuando la equidad llega a cero."
+      - id: b
+        text:
+          en: "Liquidation Price is set by the trader; Bankruptcy Price is set by the central bank."
+          es: "El Precio de Liquidación lo fija el trader; el Precio de Bancarrota lo fija el banco central."
+      - id: c
+        text:
+          en: "There is no difference; both terms mean the exact same thing."
+          es: "No hay diferencia; ambos términos significan exactamente lo mismo."
+      - id: d
+        text:
+          en: "Bankruptcy Price is only used for spot trading, while Liquidation Price is for futures."
+          es: "El Precio de Bancarrota solo se usa para trading spot, mientras que el Precio de Liquidación es para futuros."
+    explanation:
+      en: "The liquidation engine triggers at the liquidation price to close the position before mark price reaches the bankruptcy price (where account loss exceeds deposited margin)."
+      es: "El motor de liquidación se activa en el precio de liquidación para cerrar la posición antes de que el precio mark alcance el precio de bancarrota (donde la pérdida supera el margen)."

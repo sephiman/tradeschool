@@ -1,0 +1,205 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: volume-profile-match
+    kind: matching
+    prompt:
+      en: "Match each volume profile level to its trading significance."
+      es: "Empareja cada nivel del perfil de volumen con su importancia en el trading."
+    pairs:
+      - id: poc
+        left: { en: "Point of Control (POC)", es: "Punto de Control (POC)" }
+        right:
+          en: "The single price level with the highest traded volume during the specified session."
+          es: "El nivel de precio individual con el mayor volumen negociado durante la sesión."
+      - id: va
+        left: { en: "Value Area (VAH / VAL)", es: "Área de Valor (VAH / VAL)" }
+        right:
+          en: "The price range containing approximately 70% of total session trading volume."
+          es: "El rango de precios que contiene aproximadamente el 70% del volumen total de la sesión."
+      - id: lvn
+        left: { en: "Low Volume Node (LVN)", es: "Nodo de Bajo Volumen (LVN)" }
+        right:
+          en: "A price zone with sparse volume where price tends to move fast without rejection."
+          es: "Una zona de poco volumen donde el precio tiende a moverse rápido sin encontrar rechazo."
+    explanation:
+      en: "The POC represents fair value where most trading occurred. LVNs act as fast-pass zones where price moves quickly due to lack of resting volume."
+      es: "El POC representa el valor justo donde más se negoció. Los LVN actúan como zonas de paso rápido donde el precio se desplaza velozmente por falta de volumen."
+
+  - id: profile-analysis-steps
+    kind: ordering
+    prompt:
+      en: "Order the steps for trading a Value Area acceptance scenario."
+      es: "Ordena los pasos para operar un escenario de aceptación en el Área de Valor."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "Identify prior session Value Area High (VAH) and Value Area Low (VAL)."
+          es: "Identificar el VAH y VAL de la sesión anterior."
+      - id: step-2
+        position: 2
+        text:
+          en: "Observe price opening outside the Value Area."
+          es: "Observar que el precio abre fuera del Área de Valor."
+      - id: step-3
+        position: 3
+        text:
+          en: "Watch for price re-entering and accepting back inside the Value Area with volume."
+          es: "Observar si el precio vuelve a entrar y se acepta dentro del Área de Valor con volumen."
+      - id: step-4
+        position: 4
+        text:
+          en: "Target the opposite side of the Value Area (POC then VAH/VAL target)."
+          es: "Buscar como objetivo el lado opuesto del Área de Valor (POC y luego VAH/VAL)."
+    explanation:
+      en: "Value Area acceptance rules state that if price re-enters a previous value area and accepts, it has high probability of traversing to the opposite side."
+      es: "Las reglas del área de valor indican que si el precio reingresa y se acepta en una zona anterior, tiene alta probabilidad de cruzar hacia el lado opuesto."
+
+  - id: volume-profile-concepts
+    kind: multi_select
+    prompt:
+      en: "Which statements correctly describe Volume Profile characteristics?"
+      es: "¿Qué afirmaciones describen correctamente las características del Perfil de Volumen?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Volume Profile organizes trading volume by price levels rather than by time intervals."
+          es: "El Perfil de Volumen organiza el volumen por niveles de precio en lugar de por intervalos de tiempo."
+      - id: b
+        correct: true
+        text:
+          en: "High Volume Nodes (HVNs) represent fair value acceptance and consolidation zones."
+          es: "Los Nodos de Alto Volumen (HVN) representan zonas de aceptación de valor justo y consolidación."
+      - id: c
+        correct: false
+        text:
+          en: "Price is guaranteed to turn around immediately whenever it touches the Point of Control."
+          es: "Se garantiza que el precio dé la vuelta inmediatamente cada vez que toca el Punto de Control."
+      - id: d
+        correct: true
+        text:
+          en: "Low Volume Nodes (LVNs) act as rejection points or rapid movement zones."
+          es: "Los Nodos de Bajo Volumen (LVN) actúan como puntos de rechazo o zonas de movimiento rápido."
+    explanation:
+      en: "Volume profile structures show where heavy trading agreement occurred (HVN) versus price levels passed through rapidly (LVN)."
+      es: "Las estructuras del perfil de volumen muestran dónde ocurrió un fuerte acuerdo de negociación (HVN) frente a precios cruzados rápidamente (LVN)."
+
+  - id: poc-magnet-myth
+    kind: true_false
+    prompt:
+      en: "The Point of Control (POC) acts as a mandatory magnet that price is guaranteed to revisit every session."
+      es: "El Punto de Control (POC) actúa como un imán obligatorio al que el precio está obligado a volver cada sesión."
+    answer: false
+    explanation:
+      en: "Treating POC as a guaranteed target is a classic trader mistake. POC represents past fair value, not a guaranteed future appointment."
+      es: "Tratar el POC como un objetivo garantizado es un error clásico. El POC representa el valor justo pasado, no una cita futura obligatoria."
+
+  - id: lvn-behavior-read
+    kind: single_choice
+    prompt:
+      en: "Why does price tend to slice quickly through a Low Volume Node (LVN)?"
+      es: "¿Por qué el precio tiende a cruzar rápidamente un Nodo de Bajo Volumen (LVN)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Because there is minimal historical resting limit order liquidity to slow price down in that zone."
+          es: "Porque hay una liquidez de órdenes límite pasivas mínima para frenar el precio en esa zona."
+      - id: b
+        text:
+          en: "Because the exchange disables limit orders inside LVN zones."
+          es: "Porque el exchange desactiva las órdenes límite dentro de zonas LVN."
+      - id: c
+        text:
+          en: "Because LVN levels automatically double leverage for all market participants."
+          es: "Porque los niveles LVN duplican automáticamente el apalancamiento de todos los participantes."
+      - id: d
+        text:
+          en: "Because LVNs only occur when the market is closed."
+          es: "Porque los LVN solo ocurren cuando el mercado está cerrado."
+    explanation:
+      en: "LVNs represent prices where little trading previously occurred; thin order books at those prices offer little friction against aggressive price moves."
+      es: "Los LVN representan precios donde previamente ocurrió poca negociación; libros poco profundos a esos precios ofrecen poca fricción frente a movimientos bruscos."
+
+  - id: volume-profile-vah-val-meaning
+    kind: single_choice
+    prompt:
+      en: "What does price trading within the Value Area (between VAH and VAL) signify?"
+      es: "¿Qué significa que el precio cotice dentro del Área de Valor (entre VAH y VAL)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The market is in a balanced consolidation state where buyers and sellers agree on fair value."
+          es: "El mercado está en consolidación equilibrada donde compradores y vendedores acuerdan un valor justo."
+      - id: b
+        text:
+          en: "An immediate trend reversal is guaranteed."
+          es: "Se garantiza una inversión de tendencia inmediata."
+      - id: c
+        text:
+          en: "Trading fees have been removed."
+          es: "Se han eliminado las comisiones de trading."
+      - id: d
+        text:
+          en: "Spot and perp prices have disconnected."
+          es: "Los precios de spot y perpetuos se han desconectado."
+    explanation:
+      en: "The Value Area contains ~70% of traded volume, marking the range where market participants accept current prices as fair."
+      es: "El Área de Valor contiene ~70% del volumen negociado, marcando el rango donde los participantes aceptan los precios actuales como justos."
+
+  - id: footprint-delta-imbalance
+    kind: single_choice
+    prompt:
+      en: "What is a diagonal buying imbalance on a footprint chart?"
+      es: "¿Qué es un desequilibrio comprador diagonal en un gráfico de footprint?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Aggressive buyers at one ask price significantly outnumber passive limit sellers at the adjacent bid price."
+          es: "Compradores agresivos en un precio de venta superan significativamente a vendedores pasivos en el precio de compra adyacente."
+      - id: b
+        text:
+          en: "A technical error in chart candle rendering."
+          es: "Un error técnico en la representación de las velas del gráfico."
+      - id: c
+        text:
+          en: "A signal that funding rate will decrease."
+          es: "Una señal de que la tasa de funding bajará."
+      - id: d
+        text:
+          en: "A order placed on a weekend."
+          es: "Una orden colocada en fin de semana."
+    explanation:
+      en: "Footprints display trades diagonally (Ask vs Bid); a buying imbalance shows aggressive market orders sweeping a specific price level with force."
+      es: "Los footprints muestran operaciones en diagonal (Venta vs Compra); un desequilibrio comprador muestra órdenes a mercado barriendo ese nivel con fuerza."
+
+  - id: hvn-support-resistance-nature
+    kind: single_choice
+    prompt:
+      en: "Why do High Volume Nodes (HVNs) frequently act as support or resistance levels during price retests?"
+      es: "¿Por qué los Nodos de Alto Volumen (HVN) actúan con frecuencia como soporte o resistencia al retestar el precio?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "High historical trading activity leaves abundant resting order interest and institutional memory at that price."
+          es: "La alta actividad histórica deja abundante interés de órdenes pasivas y memoria institucional a ese precio."
+      - id: b
+        text:
+          en: "Exchanges freeze price movements whenever price hits an HVN."
+          es: "Los exchanges congelan los movimientos de precio cada vez que el precio toca un HVN."
+      - id: c
+        text:
+          en: "HVNs automatically trigger liquidations for all traders."
+          es: "Los HVN activan automáticamente liquidaciones para todos los traders."
+      - id: d
+        text:
+          en: "HVN levels only exist on 1-second charts."
+          es: "Los niveles HVN solo existen en gráficos de 1 segundo."
+    explanation:
+      en: "HVNs mark prices where high volume previously transacted; market participants perceive them as fair value anchors where liquidity is deep."
+      es: "Los HVN marcan precios donde se negoció alto volumen previamente; los participantes los perciben como anclas de valor justo con liquidez profunda."
