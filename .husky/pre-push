@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+echo "=== Running pre-push compilation checks ==="
+
+echo "--> [1/2] Checking Frontend compilation (TypeScript & Vite build)..."
+(cd frontend && npm run build)
+
+echo "--> [2/2] Checking Backend compilation (Python mypy)..."
+(cd backend && uv run mypy src)
+
+echo "=== All pre-push compilation checks passed successfully! ==="
