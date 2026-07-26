@@ -156,7 +156,7 @@ variants:
         correct: true
         text:
           en: "That is an argument for a slower style — not for trading the thin hours harder."
-          es: "Es un argumento a favor de un estilo más lento, no de operar más fuerte en las horas finas."
+          es: "Es un argumento a favor de un estilo más lento, no de operar más fuerte en las horas de escasa liquidez."
       - id: b
         text:
           en: "Scalp those hours anyway — fewer participants means cleaner moves."
@@ -181,7 +181,7 @@ variants:
         correct: true
         text:
           en: "They are not degrees of the same thing: scalping's hard part is attention, swing trading's hard part is patience, and the two rarely live comfortably in the same person."
-          es: "No son grados de lo mismo: la parte difícil del scalping es la atención y la del swing es la paciencia, y ambas rara vez conviven a gusto en la misma persona."
+          es: "No son grados de lo mismo: la parte difícil del scalping es la atención y en el swing es la paciencia, y ambas rara vez conviven a gusto en la misma persona."
       - id: b
         text:
           en: "Because switching styles resets your fee tier at the exchange."

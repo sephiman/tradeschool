@@ -29,7 +29,7 @@ variants:
   - id: strongest-breakout-evidence
     prompt:
       en: "Which of these is the strongest evidence that a break above a resistance zone is genuine rather than a fakeout?"
-      es: "¿Cuál de estas es la evidencia más fuerte de que una ruptura por encima de una zona de resistencia es genuina y no un fakeout?"
+      es: "¿Cuál de estas es la prueba más sólida de que una ruptura por encima de una zona de resistencia es genuina y no un fakeout?"
     options:
       - id: a
         correct: true

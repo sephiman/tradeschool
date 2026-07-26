@@ -150,7 +150,7 @@ variants:
   - id: event-volatility
     prompt:
       en: "A scheduled macro release (an FOMC rate decision, a CPI print) is coming in an hour. In trading terms, what does that date on the calendar mark?"
-      es: "Falta una hora para una publicación macro programada (una decisión de tipos del FOMC, un dato de IPC). En términos de trading, ¿qué marca esa fecha en el calendario?"
+      es: "Falta una hora para una publicación macro programada (una decisión de tipos del FOMC, un dato de IPC). Desde el punto de vista del trading, ¿qué marca esa fecha en el calendario?"
     options:
       - id: a
         correct: true
@@ -205,4 +205,4 @@ variants:
     answer: false
     explanation:
       en: "That is the worst place to be into a scheduled shock. A liquidation shelf just past a stop cluster is exactly what a violent, thin-book reaction reaches for — the print supplies the volatility, the shelf supplies the fuel. Flatten or cut leverage so a single spike can't force you out at the worst price."
-      es: "Ese es el peor sitio posible ante un shock programado. Una repisa de liquidación justo pasado un cúmulo de stops es precisamente lo que busca una reacción violenta y de libro fino: el dato aporta la volatilidad y la repisa el combustible. Aplana o reduce el apalancamiento para que un solo pico no pueda expulsarte al peor precio."
+      es: "Ese es el peor sitio posible ante un shock programado. Una repisa de liquidación justo pasado un cúmulo de stops es precisamente lo que busca una reacción violenta y de libro poco profundo: el dato aporta la volatilidad y la repisa el combustible. Aplana o reduce el apalancamiento para que un solo pico no pueda expulsarte al peor precio."

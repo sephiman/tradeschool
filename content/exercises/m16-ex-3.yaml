@@ -155,7 +155,7 @@ variants:
         correct: true
         text:
           en: "A cascade of liquidations dumping even more supply into a thin book."
-          es: "Una cascada de liquidaciones vertiendo aún más oferta en un libro fino."
+          es: "Una cascada de liquidaciones vertiendo aún más oferta en un libro poco profundo."
       - id: d
         correct: true
         text:
@@ -177,7 +177,7 @@ variants:
         correct: true
         text:
           en: "Sentiment compounds through overnight and weekend sessions on thin liquidity, so an extreme can be reached *and* unwound while you sleep — the number you see may be lagging both moves."
-          es: "El sentimiento se acumula en sesiones nocturnas y de fin de semana con liquidez fina, así que un extremo puede alcanzarse *y* deshacerse mientras duermes: el número que ves puede ir por detrás de ambos movimientos."
+          es: "El sentimiento se acumula en sesiones nocturnas y de fin de semana con escasa liquidez, así que un extremo puede alcanzarse *y* deshacerse mientras duermes: el número que ves puede ir por detrás de ambos movimientos."
       - id: b
         text:
           en: "Nothing — the index only updates during weekday hours."

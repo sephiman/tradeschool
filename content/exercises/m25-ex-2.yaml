@@ -3,7 +3,7 @@ type: calculation
 formula: net_delta
 prompt:
   en: "Over one hour a perpetual trades **{taker_buy} contracts** on the taker-buy side (someone lifted the offer) and **{taker_sell} contracts** on the taker-sell side. What was the net delta for that hour?"
-  es: "Durante una hora un perpetuo negocia **{taker_buy} contratos** por el lado de compra taker (alguien barrió la oferta) y **{taker_sell} contratos** por el lado de venta taker. ¿Cuál fue el delta neto de esa hora?"
+  es: "Durante una hora un perpetuo negocia **{taker_buy} contratos** en compras taker (a mercado) (alguien barrió la oferta) y **{taker_sell} contratos** por el lado de venta taker. ¿Cuál fue el delta neto de esa hora?"
 params:
   taker_buy: { kind: int_range, min: 1100, max: 1500, step: 50 }
   taker_sell: { kind: int_range, min: 400, max: 700, step: 50 }

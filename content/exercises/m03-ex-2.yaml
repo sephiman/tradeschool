@@ -169,7 +169,7 @@ variants:
   - id: weekend-thin
     prompt:
       en: "Why should you read a dramatic-looking weekend candle with extra caution?"
-      es: "¿Por qué deberías leer con más cautela una vela de fin de semana de aspecto dramático?"
+      es: "¿Por qué deberías leer con más cautela una vela de fin de semana de aspecto muy pronunciado?"
     options:
       - id: a
         correct: true

@@ -148,7 +148,7 @@ variants:
         correct: true
         text:
           en: "Their books are thin: a small-cap has little capital sitting in it, so the same inflow that nudges Bitcoin a few percent can double a micro-cap."
-          es: "Sus libros son finos: un small-cap tiene poco capital dentro, así que el mismo flujo que mueve a Bitcoin unos puntos porcentuales puede duplicar un micro-cap."
+          es: "Sus libros son poco profundos: un small-cap tiene poco capital dentro, así que el mismo flujo que mueve a Bitcoin unos puntos porcentuales puede duplicar un micro-cap."
       - id: b
         text:
           en: "Small caps have higher leverage limits than majors."
@@ -163,7 +163,7 @@ variants:
           es: "Los creadores de mercado están obligados a cotizarlos más agresivamente."
     explanation:
       en: "That is exactly why small tokens moon last, hardest, and most seductively — and why they bleed first and worst in reverse: the thin book that amplified the rise amplifies the fall, and there is often no bid to sell into."
-      es: "Por eso los tokens pequeños suben al final, con más fuerza y de forma más seductora, y por eso sangran primero y peor a la inversa: el libro fino que amplificó la subida amplifica la caída, y a menudo no hay demanda a la que vender."
+      es: "Por eso los tokens pequeños suben al final, con más fuerza y de forma más seductora, y por eso sangran primero y peor a la inversa: el libro poco profundo que amplificó la subida amplifica la caída, y a menudo no hay demanda a la que vender."
   - id: stylised-cycle-match
     kind: matching
     prompt:
@@ -219,4 +219,4 @@ variants:
           es: "Comprar small caps ilíquidos temprano es seguro porque la rotación dice que son los siguientes."
     explanation:
       en: "Plenty of 'alt seasons' have been called that never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding a thin, bleeding book for years."
-      es: "Se han anunciado muchas 'alt seasons' que nunca llegaron. Los traders que compraron alts pequeñas porque 'la rotación dice que son las siguientes' se han quedado años con un libro fino y sangrando."
+      es: "Se han anunciado muchas 'alt seasons' que nunca llegaron. Los traders que compraron alts pequeñas porque 'la rotación dice que son las siguientes' se han quedado años con un libro poco profundo y sangrando."

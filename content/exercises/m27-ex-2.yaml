@@ -76,7 +76,7 @@ variants:
           es: "El wash trading infló el movimiento; no hubo operaciones reales a esos precios."
     explanation:
       en: "The give-away is 'unremarkable size'. A thin book means there is nothing there to absorb incoming market orders, so price traverses many levels cheaply. That first move often is not the market's opinion of the news at all — it is a thin book being crossed, which is exactly why m15's advice was to stand aside rather than to predict the release."
-      es: "La pista es 'un tamaño poco llamativo'. Un libro fino significa que no hay nada ahí que absorba las órdenes a mercado que llegan, así que el precio atraviesa muchos niveles a bajo coste. Ese primer movimiento a menudo no es la opinión del mercado sobre la noticia: es un libro fino siendo cruzado, y justo por eso el consejo de m15 era quedarse al margen en lugar de predecir la publicación."
+      es: "La pista es 'un tamaño poco llamativo'. Un libro poco profundo significa que no hay nada ahí que absorba las órdenes a mercado que llegan, así que el precio atraviesa muchos niveles a bajo coste. Ese primer movimiento a menudo no es la opinión del mercado sobre la noticia: es un libro poco profundo siendo cruzado, y justo por eso el consejo de m15 era quedarse al margen en lugar de predecir la publicación."
   - id: wall-pulled
     prompt:
       en: "A 400 BTC bid wall has sat at 60,000 all morning. Price drifts down to 60,050 and the wall disappears within a second. What is the honest read?"
@@ -196,7 +196,7 @@ variants:
       es: "Empareja cada cosa que muestra el libro con lo que realmente significa."
     pairs:
       - id: thin
-        left: { en: "A thin ask side above price", es: "Un lado de venta fino por encima del precio" }
+        left: { en: "A thin ask side above price", es: "Un lado vendedor con poca profundidad por encima del precio" }
         right:
           en: "Up is cheap *today* — a statement about what it currently costs to move price, not about where price is going."
           es: "Subir es barato *hoy*: una afirmación sobre lo que cuesta ahora mover el precio, no sobre a dónde va el precio."

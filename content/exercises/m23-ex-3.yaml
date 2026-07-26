@@ -189,7 +189,7 @@ variants:
         left: { en: "A five-trade sample", es: "Una muestra de cinco operaciones" }
         right:
           en: "Dominated by variance — almost no evidence about whether your edge grew."
-          es: "Dominada por la varianza: casi ninguna evidencia de que tu ventaja haya crecido."
+          es: "Dominada por la varianza: casi ninguna prueba de que tu ventaja haya crecido."
     explanation:
       en: "The mind credits wins to skill and would have blamed losses on bad luck, so a run of noise reads as proof you have 'got it'. Keeping size mechanical is what stops that story from costing you."
       es: "La mente atribuye las ganancias a la habilidad y habría culpado a la mala suerte de las pérdidas, así que una racha de ruido se lee como prueba de que ya 'lo tienes'. Mantener el tamaño mecánico es lo que evita que esa historia te cueste dinero."

@@ -235,7 +235,7 @@ variants:
         correct: true
         text:
           en: "The POC is not a line you chose — it is where the most trade actually occurred, so a level comes with evidence attached."
-          es: "El POC no es una línea que elegiste: es donde ocurrió más negociación, así que el nivel viene con evidencia."
+          es: "El POC no es una línea que elegiste: es donde ocurrió más negociación, así que el nivel viene respaldado por pruebas de volumen."
       - id: b
         correct: true
         text:

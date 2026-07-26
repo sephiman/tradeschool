@@ -186,13 +186,13 @@ variants:
     kind: multi_select
     prompt:
       en: "Phase C in a thin crypto book is easy to fake. Select ALL statements that follow from that."
-      es: "La fase C en un libro cripto fino es fácil de falsear. Selecciona TODAS las afirmaciones que se derivan de eso."
+      es: "La fase C en un libro cripto poco profundo es fácil de falsear. Selecciona TODAS las afirmaciones que se derivan de eso."
     options:
       - id: a
         correct: true
         text:
           en: "The recovery matters more than the depth — a deep wick on a thin book is cheap to produce."
-          es: "La recuperación importa más que la profundidad: una mecha profunda en un libro fino es barata de producir."
+          es: "La recuperación importa más que la profundidad: una mecha profunda en un libro poco profundo es barata de producir."
       - id: b
         correct: true
         text:

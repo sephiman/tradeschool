@@ -221,4 +221,4 @@ variants:
           es: "Porque el funding se cobra tres veces al día, y eso mueve el precio."
     explanation:
       en: "Dense clusters plus no closing bell plus thin books is the whole reason cascades are worse here: they fire at 3am, run unopposed, and overshoot because there was nothing there to absorb them."
-      es: "Grupos densos, sin campana de cierre y libros finos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."
+      es: "Grupos densos, sin campana de cierre y libros poco profundos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."

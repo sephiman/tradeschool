@@ -213,7 +213,7 @@ variants:
   - id: alt-local-sentiment
     prompt:
       en: "The market-wide index reads a calm 50, but one thin-book altcoin's holders are wildly euphoric. What does that tell you about the index?"
-      es: "El índice del mercado marca un tranquilo 50, pero los holders de una altcoin de libro fino están en plena euforia. ¿Qué te dice eso sobre el índice?"
+      es: "El índice del mercado marca un tranquilo 50, pero los holders de una altcoin de libro poco profundo están en plena euforia. ¿Qué te dice eso sobre el índice?"
     options:
       - id: a
         correct: true
@@ -234,4 +234,4 @@ variants:
           es: "El sentimiento de las alts siempre adelanta al índice general con un retardo fijo."
     explanation:
       en: "On a thin book a handful of orders moves price and sentiment violently. The dashboard number is a market-wide average, and averages hide exactly the local extremes you are trading into."
-      es: "En un libro fino, un puñado de órdenes mueve el precio y el sentimiento con violencia. El número del panel es una media del mercado, y las medias esconden justo los extremos locales en los que estás operando."
+      es: "En un libro poco profundo, un puñado de órdenes mueve el precio y el sentimiento con violencia. El número del panel es una media del mercado, y las medias esconden justo los extremos locales en los que estás operando."

@@ -178,7 +178,7 @@ variants:
   - id: beta-slippage
     prompt:
       en: "Your three correlated alt longs each have a 10% stop and a 100 USDT risk budget. BTC drops 10% and the alts drop 15–25% on thin books. What actually happens to the '3% bet'?"
-      es: "Tus tres largos correlacionados en alts tienen cada uno un stop del 10% y un presupuesto de riesgo de 100 USDT. BTC cae un 10% y las alts un 15-25% con libros finos. ¿Qué le pasa realmente a la 'apuesta del 3%'?"
+      es: "Tus tres largos correlacionados en alts tienen cada uno un stop del 10% y un presupuesto de riesgo de 100 USDT. BTC cae un 10% y las alts un 15-25% con libros poco profundos. ¿Qué le pasa realmente a la 'apuesta del 3%'?"
     options:
       - id: a
         correct: true
@@ -199,7 +199,7 @@ variants:
           es: "Nada hasta que BTC rompa su propio nivel de soporte."
     explanation:
       en: "Most alts have a beta above 1 to BTC — they fall harder. Combine that with a thin book, 24/7, possibly on a weekend when there is barely anyone to fill you, and the budget is a plan rather than a promise."
-      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC: caen más. Suma un libro fino, 24/7 y posiblemente un fin de semana en el que apenas hay quien te ejecute, y el presupuesto es un plan más que una promesa."
+      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC: caen más. Suma un libro poco profundo, 24/7 y posiblemente un fin de semana en el que apenas hay quien te ejecute, y el presupuesto es un plan más que una promesa."
   - id: sum-of-caps-tf
     kind: true_false
     prompt:

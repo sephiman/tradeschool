@@ -59,7 +59,7 @@ variants:
     answer: false
     explanation:
       en: "The trigger only activates the order; it then places a limit that fills at that price or better. In a fast gap the market can print straight past the limit without trading there, leaving the order unfilled — the classic protective-stop trap."
-      es: "El disparador solo activa la orden; entonces coloca un límite que se ejecuta a ese precio o mejor. En un hueco rápido, el mercado puede imprimirse más allá del límite sin operar ahí, dejando la orden sin ejecutar: la clásica trampa del stop de protección."
+      es: "El disparador solo activa la orden; entonces coloca un límite que se ejecuta a ese precio o mejor. En un hueco rápido, el mercado puede cotizar más allá del límite sin operar ahí, dejando la orden sin ejecutar: la clásica trampa del stop de protección."
   - id: stop-market-fires
     prompt:
       en: "Your stop-market order triggers during a sharp move. What does it do the instant it activates?"
@@ -215,4 +215,4 @@ variants:
     answer: false
     explanation:
       en: "Traditional markets gap once, at the open, where you can react. Perpetuals never close: a thin Sunday-night book can gap several percent in seconds with nobody around — the fill risk that looks like an edge case on a liquid weekday is a routine weekend event here."
-      es: "Los mercados tradicionales hacen gap una vez, en la apertura, donde puedes reaccionar. Los perpetuos nunca cierran: un libro fino de un domingo por la noche puede saltar varios puntos porcentuales en segundos sin nadie alrededor. El riesgo que parece extremo en un día laborable líquido es aquí un evento rutinario de fin de semana."
+      es: "Los mercados tradicionales hacen gap una vez, en la apertura, donde puedes reaccionar. Los perpetuos nunca cierran: un libro poco profundo de un domingo por la noche puede saltar varios puntos porcentuales en segundos sin nadie alrededor. El riesgo que parece extremo en un día laborable líquido es aquí un evento rutinario de fin de semana."

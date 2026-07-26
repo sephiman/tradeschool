@@ -50,7 +50,7 @@ variants:
           es: "Las comisiones se cobran sobre tu margen, así que usar poco apalancamiento las mantiene bajas."
     explanation:
       en: "Maker orders (resting limit orders) add liquidity and get the lower rate; takers (market orders) remove it and pay more. Fees are charged on notional, not on margin — so leverage increases them; it doesn't dodge them."
-      es: "Las órdenes maker (límites en espera) aportan liquidez y consiguen la tarifa más baja; las taker (a mercado) la retiran y pagan más. Las comisiones se cobran sobre el notional, no sobre el margen: el apalancamiento las aumenta, no las esquiva."
+      es: "Las órdenes maker (límites en espera) aportan liquidez y consiguen la tarifa más baja; las taker (a mercado) la retiran y pagan más. Las comisiones se cobran sobre el nocional, no sobre el margen: el apalancamiento las aumenta, no las esquiva."
   - id: two-pct-is-not-pnl
     kind: true_false
     prompt:
@@ -83,7 +83,7 @@ variants:
       - id: notional
         left:
           en: "Notional"
-          es: "Notional"
+          es: "Nocional"
         right:
           en: "Position size × price — the base the fee is charged on, not your margin."
           es: "Tamaño de la posición × precio: la base sobre la que se cobra la comisión, no tu margen."
@@ -96,7 +96,7 @@ variants:
           es: "Un pago periódico entre longs y shorts que puede ser positivo o negativo."
     explanation:
       en: "Makers add liquidity and pay less; takers remove it and pay more. Fees are charged on notional (so leverage multiplies them), and funding is a separate periodic transfer that can go either way."
-      es: "Los maker aportan liquidez y pagan menos; los taker la retiran y pagan más. Las comisiones se cobran sobre el notional (así que el apalancamiento las multiplica), y el funding es una transferencia periódica aparte que puede ir en cualquier dirección."
+      es: "Los maker aportan liquidez y pagan menos; los taker la retiran y pagan más. Las comisiones se cobran sobre el nocional (así que el apalancamiento las multiplica), y el funding es una transferencia periódica aparte que puede ir en cualquier dirección."
   - id: what-reduces-net
     kind: multi_select
     prompt:
@@ -132,7 +132,7 @@ variants:
   - id: paid-twice
     prompt:
       en: "Your taker fee is 0.05%, charged on notional. You open and later close a position with 10,000 USDT of notional on each fill. Ignoring the price change, roughly how much do you pay in fees over the round trip?"
-      es: "Tu comisión taker es del 0,05 %, cobrada sobre el notional. Abres y más tarde cierras una posición con 10 000 USDT de notional en cada ejecución. Ignorando el cambio de precio, ¿cuánto pagas aproximadamente en comisiones en el ida y vuelta?"
+      es: "Tu comisión taker es del 0,05 %, cobrada sobre el nocional. Abres y más tarde cierras una posición con 10 000 USDT de nocional en cada ejecución. Ignorando el cambio de precio, ¿cuánto pagas aproximadamente en comisiones en el ida y vuelta?"
     options:
       - id: a
         correct: true
@@ -153,7 +153,7 @@ variants:
           es: "Depende de tu apalancamiento: más apalancamiento significa comisiones más bajas."
     explanation:
       en: "0.05% of 10,000 is 5 USDT per fill, and you pay it on both the open and the close, so about 10 USDT round trip. The fee is on notional regardless of profit, and leverage raises fees (bigger notional); it doesn't lower them."
-      es: "El 0,05 % de 10 000 son 5 USDT por ejecución, y lo pagas tanto al abrir como al cerrar, así que unos 10 USDT en el ida y vuelta. La comisión es sobre el notional independientemente de la ganancia, y el apalancamiento sube las comisiones (más notional); no las baja."
+      es: "El 0,05 % de 10 000 son 5 USDT por ejecución, y lo pagas tanto al abrir como al cerrar, así que unos 10 USDT en el ida y vuelta. La comisión es sobre el nocional independientemente de la ganancia, y el apalancamiento sube las comisiones (más nocional); no las baja."
   - id: funding-not-always-longs
     kind: true_false
     prompt:

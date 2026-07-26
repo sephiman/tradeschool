@@ -197,9 +197,9 @@ variants:
         left: { en: "No session boundaries", es: "Sin límites de sesión" }
         right:
           en: "'Average volume' only means anything as a rolling figure, and it breathes across the day — a bar that looks thin at 04:00 may be normal for that hour. Compare like with like."
-          es: "El 'volumen medio' solo significa algo como cifra móvil, y respira a lo largo del día: una barra que parece fina a las 04:00 puede ser normal a esa hora. Compara lo comparable."
+          es: "El 'volumen medio' solo significa algo como cifra móvil, y respira a lo largo del día: una barra que parece baja a las 04:00 puede ser normal a esa hora. Compara lo comparable."
       - id: weekend
-        left: { en: "Thin weekend participation", es: "Participación fina en fin de semana" }
+        left: { en: "Thin weekend participation", es: "Participación reducida en fin de semana" }
         right:
           en: "A Sunday breakout clears a much lower bar to count as 'strong volume', so weekend moves overstate their own conviction."
           es: "Una ruptura en domingo supera un umbral mucho más bajo para contar como 'volumen fuerte', así que los movimientos de fin de semana exageran su propia convicción."
@@ -207,7 +207,7 @@ variants:
         left: { en: "Wash trading", es: "Wash trading" }
         right:
           en: "The same entity buying and selling to itself fakes activity, so raw volume on a thin or unregulated venue can be largely fiction."
-          es: "La misma entidad comprándose y vendiéndose a sí misma finge actividad, así que el volumen bruto en un venue fino o no regulado puede ser en gran parte ficción."
+          es: "La misma entidad comprándose y vendiéndose a sí misma finge actividad, así que el volumen bruto en un venue ilíquido o no regulado puede ser en gran parte ficción."
     explanation:
       en: "All three push the same way: compare like with like, be extra sceptical of a break while most of the market is asleep, and prefer aggregated or on-chain measures over one small exchange's number."
       es: "Los tres empujan en la misma dirección: compara lo comparable, sé especialmente escéptico con una ruptura mientras la mayoría del mercado duerme, y prefiere medidas agregadas u on-chain al número de un exchange pequeño."

@@ -69,7 +69,7 @@ variants:
     kind: matching
     prompt:
       en: "Match each user-level property of a blockchain to its practical consequence."
-      es: "Empareja cada propiedad a nivel de usuario de una blockchain con su consecuencia práctica."
+      es: "Empareja cada propiedad de una blockchain para el usuario con su consecuencia práctica."
     pairs:
       - id: op
         left: { en: "No central operator", es: "Sin operador central" }
@@ -88,7 +88,7 @@ variants:
           es: "Quien controla la clave privada controla las monedas."
     explanation:
       en: "These three ideas are the whole user-level picture: no operator to appeal to, final settlement, and ownership that lives in the key itself."
-      es: "Estas tres ideas son toda la imagen a nivel de usuario: no hay operador al que reclamar, las transacciones son finales, y la propiedad reside en la propia clave."
+      es: "Estas tres ideas son toda la imagen para el usuario: no hay operador al que reclamar, las transacciones son finales, y la propiedad reside en la propia clave."
   - id: self-custody
     prompt:
       en: "You hold the private key to some of your coins yourself. What does that mean in practice?"

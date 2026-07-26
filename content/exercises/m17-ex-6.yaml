@@ -208,7 +208,7 @@ variants:
         correct: true
         text:
           en: "Thin books — weekends, holidays and small-cap alts — mean the same forced flow moves price much further."
-          es: "Los libros finos (fines de semana, festivos y alts pequeñas) hacen que el mismo flujo forzoso mueva mucho más el precio."
+          es: "Los libros poco profundos (fines de semana, festivos y alts pequeñas) hacen que el mismo flujo forzoso mueva mucho más el precio."
       - id: d
         text:
           en: "Exchanges halt trading during cascades, which concentrates the move."

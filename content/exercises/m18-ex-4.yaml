@@ -188,7 +188,7 @@ variants:
           en: "Minted continuously, with farmers routinely selling to cover costs — a steady, mechanical background sell independent of sentiment."
           es: "Se emiten continuamente, y los farmers suelen vender para cubrir costes: una venta de fondo constante y mecánica, independiente del sentimiento."
       - id: thin
-        left: { en: "The same tranche landing on a thin alt book", es: "El mismo tramo cayendo en un libro fino de alts" }
+        left: { en: "The same tranche landing on a thin alt book", es: "El mismo tramo cayendo en un libro poco profundo de alts" }
         right:
           en: "What a deep BTC-scale book would absorb can gap a small alt several percent in minutes."
           es: "Lo que un libro profundo de escala BTC absorbería puede hacer que una alt pequeña salte varios puntos porcentuales en minutos."

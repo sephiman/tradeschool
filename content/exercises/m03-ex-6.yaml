@@ -114,7 +114,7 @@ variants:
         correct: true
         text:
           en: "Likely a false break on a thin weekend book — wait for a close below the zone with real volume before trusting it."
-          es: "Probablemente una falsa ruptura en un libro fino de fin de semana: espera un cierre por debajo de la zona con volumen real antes de fiarte."
+          es: "Probablemente una falsa ruptura en un libro poco profundo de fin de semana: espera un cierre por debajo de la zona con volumen real antes de fiarte."
       - id: b
         text:
           en: "Support broke, so go short immediately."
@@ -188,4 +188,4 @@ variants:
           es: "En el retroceso, comprueba que el viejo soporte ahora frena el precio como resistencia."
     explanation:
       en: "A lone wick below a zone is not a break — especially on a thin book. Trust it only after a close beyond the zone, backed by volume, and confirmed by the old support flipping to resistance on the retest."
-      es: "Una mecha suelta por debajo de una zona no es una ruptura, sobre todo en un libro fino. Fíate solo tras un cierre más allá de la zona, con volumen detrás, y confirmado por el viejo soporte girándose a resistencia en el retest."
+      es: "Una mecha suelta por debajo de una zona no es una ruptura, sobre todo en un libro poco profundo. Fíate solo tras un cierre más allá de la zona, con volumen detrás, y confirmado por el viejo soporte girándose a resistencia en el retest."

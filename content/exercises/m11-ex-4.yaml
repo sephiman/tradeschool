@@ -130,7 +130,7 @@ variants:
           es: "No se puede decir nada, porque el MACD no funciona en absoluto en mercados en rango."
     explanation:
       en: "The MACD is two moving averages, so it inherits m10's whipsaw problem exactly: hand it a sideways market and its lines cross back and forth, each cross looking identical to a good one. The same bullish cross inside an established uptrend would be continuation evidence — the context, not the cross, decides. And repeated crosses do not 'build pressure'; they are what a range looks like on the indicator."
-      es: "El MACD son dos medias móviles, así que hereda exactamente el problema de la sierra de m10: dale un mercado lateral y sus líneas se cruzan de un lado a otro, cada cruce igual que uno bueno. El mismo cruce alcista dentro de una tendencia alcista establecida sería evidencia de continuación: decide el contexto, no el cruce. Y los cruces repetidos no 'acumulan presión': son el aspecto que tiene un rango en el indicador."
+      es: "El MACD son dos medias móviles, así que hereda exactamente el problema de la sierra de m10: dale un mercado lateral y sus líneas se cruzan de un lado a otro, cada cruce igual que uno bueno. El mismo cruce alcista dentro de una tendencia alcista establecida sería indicio de continuación: decide el contexto, no el cruce. Y los cruces repetidos no 'acumulan presión': son el aspecto que tiene un rango en el indicador."
   - id: cross-context
     kind: matching
     prompt:
@@ -143,7 +143,7 @@ variants:
           es: "Un cruce alcista de la línea de señal dentro de una tendencia alcista establecida, sin que la línea MACD llegue a cero"
         right:
           en: "Continuation evidence — the pullback is over and an intact trend is resuming."
-          es: "Evidencia de continuación: el retroceso ha terminado y una tendencia intacta se reanuda."
+          es: "Indicio de continuación: el retroceso ha terminado y una tendencia intacta se reanuda."
       - id: signal-in-range
         left:
           en: "The identical bullish signal-line cross inside a sideways range"

@@ -186,7 +186,7 @@ variants:
         correct: true
         text:
           en: "The herd amplifies it: when price and everyone around you are moving, the move itself starts to feel like evidence."
-          es: "La manada lo amplifica: cuando el precio y todos a tu alrededor se mueven, el propio movimiento empieza a parecer evidencia."
+          es: "La manada lo amplifica: cuando el precio y todos a tu alrededor se mueven, el propio movimiento empieza a parecer una prueba."
       - id: c
         correct: true
         text:
@@ -195,14 +195,14 @@ variants:
       - id: d
         text:
           en: "A fast move is genuine evidence that the next move will continue upward."
-          es: "Un movimiento rápido es evidencia genuina de que el siguiente continuará al alza."
+          es: "Un movimiento rápido es prueba genuina de que el siguiente continuará al alza."
       - id: e
         text:
           en: "Entering late reduces risk, because the trend is already confirmed."
           es: "Entrar tarde reduce el riesgo, porque la tendencia ya está confirmada."
     explanation:
       en: "All a fast move proves is that price already went up. A timeline showing only winners is not evidence about the trade in front of you."
-      es: "Todo lo que prueba un movimiento rápido es que el precio ya subió. Un timeline que solo muestra ganadores no es evidencia sobre la operación que tienes delante."
+      es: "Todo lo que prueba un movimiento rápido es que el precio ya subió. Un timeline que solo muestra ganadores no es prueba suficiente sobre la operación que tienes delante."
   - id: averaging-up
     kind: true_false
     prompt:

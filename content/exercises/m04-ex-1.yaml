@@ -2,8 +2,8 @@
 type: calculation
 formula: funding_payment
 prompt:
-  en: "You are holding a **{side}** perpetual position with a notional value of **{notional} USDT** when funding is charged. The funding rate is **{rate}**. What is your funding payment, in USDT? (A negative result means you RECEIVE funding.)"
-  es: "Mantienes una posición perpetua **{side}** con un valor nocional de **{notional} USDT** cuando se cobra el funding. La tasa de funding es **{rate}**. ¿Cuál es tu pago de funding, en USDT? (Un resultado negativo significa que RECIBES funding.)"
+  en: "You are holding a **{side}** perpetual position with a notional value of **{nocional} USDT** when funding is charged. The funding rate is **{rate}**. What is your funding payment, in USDT? (A negative result means you RECEIVE funding.)"
+  es: "Mantienes una posición perpetua **{side}** con un valor nocional de **{nocional} USDT** cuando se cobra el funding. La tasa de funding es **{rate}**. ¿Cuál es tu pago de funding, en USDT? (Un resultado negativo significa que RECIBES funding.)"
 params:
   notional: { kind: int_range, min: 2000, max: 20000, step: 500 }
   rate: { kind: choice, values: ["0.0001", "0.0005", "0.001", "-0.0004"] }

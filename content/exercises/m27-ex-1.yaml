@@ -79,11 +79,11 @@ variants:
       - id: c
         text:
           en: "Only the fee, since thin books charge a higher taker rate to compensate makers."
-          es: "Solo la comisión, ya que los libros finos cobran una tasa taker más alta para compensar a los makers."
+          es: "Solo la comisión, ya que los libros poco profundos cobran una tasa taker más alta para compensar a los makers."
       - id: d
         text:
           en: "The order is rejected outright in a thin book rather than filling at a worse price."
-          es: "En un libro fino la orden se rechaza directamente en vez de llenarse a un precio peor."
+          es: "En un libro poco profundo la orden se rechaza directamente en vez de llenarse a un precio peor."
     explanation:
       en: "This is slippage (m21) with its mechanism visible. A market order consumes resting orders level by level until it is filled, so how much is resting nearby decides your average fill. Same order, same number on screen, very different outcome — which is why liquidity, not just price, determines what a trade actually costs you."
       es: "Esto es el slippage (m21) con su mecanismo a la vista. Una orden a mercado consume órdenes en reposo nivel a nivel hasta quedar llena, así que cuánto hay en reposo cerca decide tu precio medio de ejecución. La misma orden, el mismo número en pantalla, un resultado muy distinto; y por eso la liquidez, y no solo el precio, determina lo que de verdad te cuesta una operación."
@@ -216,7 +216,7 @@ variants:
           es: "Los creadores de mercado vuelven, la profundidad se rellena y buena parte de ese primer pico se retrae."
     explanation:
       en: "That is why the advice was to stand aside for the release rather than predict it. The first move frequently is not the market's opinion of the news at all — it is a thin book being crossed."
-      es: "Por eso el consejo era apartarse en la publicación en vez de predecirla. El primer movimiento a menudo no es la opinión del mercado sobre la noticia: es un libro fino siendo atravesado."
+      es: "Por eso el consejo era apartarse en la publicación en vez de predecirla. El primer movimiento a menudo no es la opinión del mercado sobre la noticia: es un libro poco profundo siendo atravesado."
   - id: real-book-tools
     kind: multi_select
     prompt:

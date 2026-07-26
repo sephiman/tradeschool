@@ -4,7 +4,7 @@ variants:
   - id: golden-cross-meaning
     prompt:
       en: "A golden cross has just printed — the fast MA crossed above the slow MA. What does it actually tell you?"
-      es: "Acaba de imprimirse un cruce dorado: la MM rápida cruzó por encima de la lenta. ¿Qué te dice en realidad?"
+      es: "Se acaba de producir un cruce dorado: la MM rápida cruzó por encima de la lenta. ¿Qué te dice en realidad?"
     options:
       - id: a
         correct: true
@@ -76,7 +76,7 @@ variants:
   - id: death-cross-meaning
     prompt:
       en: "A death cross has just printed — the fast MA crossed below the slow MA. What does it actually tell you?"
-      es: "Acaba de imprimirse un cruce de la muerte: la MM rápida cruzó por debajo de la lenta. ¿Qué te dice en realidad?"
+      es: "Se acaba de producir un cruce de la muerte: la MM rápida cruzó por debajo de la lenta. ¿Qué te dice en realidad?"
     options:
       - id: a
         correct: true

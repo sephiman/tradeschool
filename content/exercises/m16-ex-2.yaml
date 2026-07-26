@@ -89,7 +89,7 @@ variants:
         correct: true
         text:
           en: "The emotional state where people buy because price is rising and cannot imagine it falling."
-          es: "El estado emocional en el que la gente compra porque el precio sube y no es capaz de imaginar que baje."
+          es: "El estado emocional en el que la gente compra porque el precio sube y no concibe que baje."
       - id: b
         text:
           en: "A calm, patient mood where traders wait for confirmation."

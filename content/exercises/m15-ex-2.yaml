@@ -156,7 +156,7 @@ variants:
         correct: true
         text:
           en: "It fell, to 2,300 / 50,000 = 0.046 — Bitcoin outperformed, so in BTC terms the alts lost ground."
-          es: "Cayó, a 2.300 / 50.000 = 0,046: Bitcoin rindió más, así que en términos de BTC las alts perdieron terreno."
+          es: "Cayó, a 2.300 / 50.000 = 0,046: Bitcoin rindió más, así que en relación con el BTC las alts perdieron terreno."
       - id: b
         text:
           en: "It rose, because Ether's dollar price rose."

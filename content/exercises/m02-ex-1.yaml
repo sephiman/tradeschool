@@ -101,7 +101,7 @@ variants:
   - id: deposit-effect
     prompt:
       en: "You deposit 500 USDC onto a centralised exchange. In custody terms, what just happened?"
-      es: "Depositas 500 USDC en un exchange centralizado. En términos de custodia, ¿qué acaba de pasar?"
+      es: "Depositas 500 USDC en un exchange centralizado. En cuanto a la custodia, ¿qué acaba de pasar?"
     options:
       - id: a
         correct: true

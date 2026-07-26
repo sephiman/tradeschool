@@ -139,7 +139,7 @@ variants:
     answer: false
     explanation:
       en: "A market order guarantees a fill, not a price. It takes whatever the book offers, which can differ from the last printed price — especially in a thin book, where it walks through resting orders and fills at progressively worse prices."
-      es: "Una orden de mercado garantiza la ejecución, no el precio. Toma lo que ofrezca el libro, que puede diferir del último precio impreso, sobre todo en un libro fino, donde atraviesa las órdenes puestas y se ejecuta a precios cada vez peores."
+      es: "Una orden de mercado garantiza la ejecución, no el precio. Toma lo que ofrezca el libro, que puede diferir del último precio impreso, sobre todo en un libro poco profundo, donde atraviesa las órdenes puestas y se ejecuta a precios cada vez peores."
   - id: btc-order-choice
     prompt:
       en: "You want to buy 1 BTC and the best ask is 60,000. What does each order type actually get you?"

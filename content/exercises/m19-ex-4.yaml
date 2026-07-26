@@ -194,7 +194,7 @@ variants:
         correct: true
         text:
           en: "No — a stop is a request to exit at the next available price. In a cascade, an outage, thin weekend liquidity or a 3 a.m. news shock, price can jump straight past it and your 1% becomes 2% or 4% realised."
-          es: "No: un stop es una petición de salir al siguiente precio disponible. En una cascada, una caída del exchange, liquidez fina de fin de semana o un shock de noticias a las 3 de la madrugada, el precio puede saltárselo y tu 1% se convierte en un 2% o 4% realizado."
+          es: "No: un stop es una petición de salir al siguiente precio disponible. En una cascada, una caída del exchange, escasa liquidez de fin de semana o un shock de noticias a las 3 de la madrugada, el precio puede saltárselo y tu 1% se convierte en un 2% o 4% realizado."
       - id: b
         text:
           en: "Yes — 24/7 trading means there is always a price at your stop level."

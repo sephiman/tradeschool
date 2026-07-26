@@ -212,7 +212,7 @@ variants:
         correct: true
         text:
           en: "Expect the level to be wicked through and reclaimed a few times rather than respected once cleanly — and expect larger overshoots in thin off-hours liquidity."
-          es: "Espera que el nivel sea atravesado por mechas y recuperado varias veces en lugar de respetado limpiamente una vez, y espera excesos mayores en la liquidez fina de horas muertas."
+          es: "Espera que el nivel sea atravesado por mechas y recuperado varias veces en lugar de respetado limpiamente una vez, y espera excesos mayores en la escasa liquidez de horas muertas."
       - id: b
         text:
           en: "Expect one clean test per day, since the daily close resets the level."

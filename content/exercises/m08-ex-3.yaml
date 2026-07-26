@@ -35,7 +35,7 @@ variants:
         correct: true
         text:
           en: "A change of character: the first evidence the uptrend's pattern has stopped working — a reason to watch, not a confirmed reversal."
-          es: "Un cambio de carácter: la primera evidencia de que el patrón alcista ha dejado de funcionar; un motivo para vigilar, no un giro confirmado."
+          es: "Un cambio de carácter: el primer indicio de que el patrón alcista ha dejado de funcionar; un motivo para vigilar, no un giro confirmado."
       - id: b
         text:
           en: "A downtrend has definitely begun; expect steadily lower prices from here."
@@ -155,7 +155,7 @@ variants:
     answer: false
     explanation:
       en: "False. A change of character is the first evidence the old trend's rule has stopped working — a reason to watch, not a confirmed reversal. It often precedes a range or a longer transition, and one lower low in an uptrend can still be a deep pullback that resumes."
-      es: "Falso. Un cambio de carácter es la primera evidencia de que la regla de la vieja tendencia ha dejado de funcionar: un motivo para vigilar, no un giro confirmado. A menudo precede a un rango o a una transición más larga, y un solo mínimo más bajo en una tendencia alcista aún puede ser un pullback profundo que se reanuda."
+      es: "Falso. Un cambio de carácter es el primer indicio de que la regla de la vieja tendencia ha dejado de funcionar: un motivo para vigilar, no un giro confirmado. A menudo precede a un rango o a una transición más larga, y un solo mínimo más bajo en una tendencia alcista aún puede ser un pullback profundo que se reanuda."
   - id: staircase-numbers
     prompt:
       en: "A chart reads: low 100, high 110, dip to 104, high 118, dip to 109, high 126 — then price falls from 126 through 109 to a low of 106. What has just happened?"
@@ -165,7 +165,7 @@ variants:
         correct: true
         text:
           en: "A change of character — the first lower low in a run that had made only higher ones. Evidence the old rule stopped working, not a confirmed reversal."
-          es: "Un cambio de carácter: el primer mínimo decreciente en una secuencia que solo había hecho crecientes. Evidencia de que la regla antigua dejó de funcionar, no una reversión confirmada."
+          es: "Un cambio de carácter: el primer mínimo decreciente en una secuencia que solo había hecho crecientes. Indicio de que la regla antigua dejó de funcionar, no una reversión confirmada."
       - id: b
         text:
           en: "Nothing structural — 106 is still above the original low of 100."

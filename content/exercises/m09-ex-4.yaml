@@ -180,13 +180,13 @@ variants:
     kind: multi_select
     prompt:
       en: "Select ALL of the following that make a spring or upthrust weaker evidence in crypto than in the textbook."
-      es: "Selecciona TODO lo que hace que un spring o un upthrust sean una evidencia más débil en cripto que en el manual."
+      es: "Selecciona TODO lo que hace que un spring o un upthrust sean una indicio más débil en cripto que en el manual."
     options:
       - id: a
         correct: true
         text:
           en: "In a shallow alt book a comparatively small market sell can wick 5–8% through the boundary and reverse."
-          es: "En un libro fino de alts, una venta a mercado relativamente pequeña puede hacer una mecha del 5-8% más allá del límite y revertir."
+          es: "En un libro poco profundo de alts, una venta a mercado relativamente pequeña puede hacer una mecha del 5-8% más allá del límite y revertir."
       - id: b
         correct: true
         text:
