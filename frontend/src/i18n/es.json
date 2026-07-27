@@ -103,7 +103,12 @@
     "moveDown": "Bajar",
     "clearPair": "Quitar",
     "history": "Tus intentos ({{count}})",
-    "firstAttempt": "primer intento"
+    "firstAttempt": "primer intento",
+    "calculator": "Calculadora",
+    "hideCalculator": "Ocultar calculadora",
+    "clear": "Limpiar",
+    "useResult": "Usar resultado",
+    "formula": "Fórmula"
   },
   "exerciseType": {
     "quiz": "Test",

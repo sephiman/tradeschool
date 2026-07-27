@@ -76,6 +76,7 @@ export function ExercisePlayer({ exerciseId, type }: { exerciseId: string; type:
               <CalculationExercise
                 options={instance.payload.options ?? []}
                 unit={instance.payload.unit}
+                formula={instance.payload.formula}
                 pending={answer.isPending}
                 onSubmit={(a) => answer.mutate(a)}
               />

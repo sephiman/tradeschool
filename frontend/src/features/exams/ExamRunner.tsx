@@ -145,6 +145,7 @@ export function ExamRunner() {
             key={q.attemptId}
             options={q.payload.options ?? []}
             unit={q.payload.unit}
+            formula={q.payload.formula}
             deferred={deferred}
           />
         )}

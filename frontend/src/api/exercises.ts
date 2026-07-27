@@ -45,6 +45,7 @@ export interface AttemptPayload {
   rights?: OptionView[]; // matching — right column (shuffled)
   // calculation
   unit?: string | null;
+  formula?: string;
   // chart
   series?: ChartSeriesPayload;
   rsi?: number[];

@@ -103,7 +103,12 @@
     "moveDown": "Move down",
     "clearPair": "Clear",
     "history": "Your attempts ({{count}})",
-    "firstAttempt": "first attempt"
+    "firstAttempt": "first attempt",
+    "calculator": "Calculator",
+    "hideCalculator": "Hide calculator",
+    "clear": "Clear",
+    "useResult": "Use result",
+    "formula": "Formula"
   },
   "exerciseType": {
     "quiz": "Quiz",
