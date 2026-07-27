@@ -202,11 +202,15 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
     "use the wrong side (flip the sign)": "usar el lado equivocado (invertir el signo)",
     "count two funding intervals": "contar dos intervalos de financiación",
     "count only half an interval": "contar solo medio intervalo",
-    "forget to divide by leverage (use the full notional)": "olvidar dividir entre el apalancamiento (usar el notional completo)",
+    "forget to divide by leverage (use the full notional)": (
+        "olvidar dividir entre el apalancamiento (usar el notional completo)"
+    ),
     "divide by leverage minus one": "dividir entre apalancamiento menos uno",
     "divide by leverage plus one": "dividir entre apalancamiento más uno",
     "take the gross move only (forget fees)": "tomar solo el movimiento bruto (olvidar las comisiones)",
-    "charge the fee on one fill instead of both": "cobrar la comisión en una sola operación en lugar de ambas",
+    "charge the fee on one fill instead of both": (
+        "cobrar la comisión en una sola operación en lugar de ambas"
+    ),
     "read the price move the wrong way round": "calcular la variación de precio al revés",
     "misread the circulating supply (~1.5x)": "leer mal la oferta circulante (~1.5x)",
     "misread the circulating supply (~0.6x)": "leer mal la oferta circulante (~0.6x)",
@@ -217,13 +221,23 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
     "double the risk percentage": "duplicar el porcentaje de riesgo",
     "halve the stop distance": "reducir a la mitad la distancia al stop",
     "assume 1% risk instead of the given percentage": "asumir un riesgo del 1% en lugar del porcentaje dado",
-    "use the win rate for losses too (forget 1 - win%)": "usar la tasa de acierto para las pérdidas (olvidar 1 - win%)",
+    "use the win rate for losses too (forget 1 - win%)": (
+        "usar la tasa de acierto para las pérdidas (olvidar 1 - win%)"
+    ),
     "add the losing side instead of subtracting": "sumar la parte perdedora en lugar de restarla",
     "ignore the losing trades entirely": "ignorar por completo las operaciones perdedoras",
-    "add the two sides instead of subtracting them (that is total volume, not net flow)": "sumar ambos lados en lugar de restarlos (eso es volumen total, no flujo neto)",
-    "read the delta the wrong way round (sell minus buy)": "calcular el delta al revés (ventas menos compras)",
-    "take only the aggressive buying and ignore the selling against it": "tomar solo las compras agresivas e ignorar las ventas",
-    "divide by the other venue's price instead of the reference venue's": "dividir entre el precio del otro exchange en lugar del de referencia",
+    "add the two sides instead of subtracting them (that is total volume, not net flow)": (
+        "sumar ambos lados en lugar de restarlos (eso es volumen total, no flujo neto)"
+    ),
+    "read the delta the wrong way round (sell minus buy)": (
+        "calcular el delta al revés (ventas menos compras)"
+    ),
+    "take only the aggressive buying and ignore the selling against it": (
+        "tomar solo las compras agresivas e ignorar las ventas"
+    ),
+    "divide by the other venue's price instead of the reference venue's": (
+        "dividir entre el precio del otro exchange en lugar del de referencia"
+    ),
     "read the premium the wrong way round": "calcular la prima al revés",
     "forget to convert the fraction into a percentage": "olvidar convertir la fracción a porcentaje",
     "ignore trading costs (take the gross move)": "ignorar los costes de trading (tomar el movimiento bruto)",
