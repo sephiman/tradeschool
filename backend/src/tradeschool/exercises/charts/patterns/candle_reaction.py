@@ -40,7 +40,7 @@ from tradeschool.exercises.charts.patterns.common import (
 
 _BASE_PRICES = (120.0, 480.0, 1850.0, 9500.0, 27000.0)
 _GAP = 0.05  # log-distance from the range midline to the level
-_TOUCH_F = 0.46  # where the approach makes its prior touch of the level (see the shape below)
+_TOUCH_F = (0.30, 0.66)  # where the approach makes its prior touches of the level (see the shape below)
 # How far PAST a drawn level a rejection wick reaches before price returns. Anchoring the tip to the
 # line rather than to a fixed fraction of the close is what makes the rejection legible, but the tip
 # must clear the line by enough that the candle still reads as a long wick (the approach already sits
@@ -131,10 +131,15 @@ class CandleReactionInjector(PatternInjector):
         sign = -1.0 if form.side == "support" else 1.0
         if at_level and form.side is not None:
             approach_end = sign * (_GAP - 0.012)  # sit just inside the level before the reaction
+            # TWO prior touches, not one. "Location is 90% of the signal" only lands if the location is
+            # established before the reaction arrives, and a single prior touch is a coincidence — the
+            # second is what makes the line a level the learner can judge the reaction against.
             pts = [
-                (0.00, 0.0), (0.14, sign * 0.010), (0.30, -sign * 0.006),
-                (_TOUCH_F, sign * (_GAP - 0.006)),  # prior touch near the level
-                (0.60, -sign * 0.004), (0.74, sign * 0.008), (0.90, approach_end),
+                (0.00, 0.0), (0.12, sign * 0.010),
+                (_TOUCH_F[0], sign * (_GAP - 0.006)),  # first touch of the level
+                (0.48, -sign * 0.006),                 # away from it, so each touch reads as a test
+                (_TOUCH_F[1], sign * (_GAP - 0.006)),  # second touch
+                (0.82, sign * 0.006), (0.90, approach_end),
             ]
         else:  # open space / non-information: no level, gentle wander around the midline
             approach_end = float(rng.uniform(-0.008, 0.008))
@@ -196,10 +201,13 @@ class CandleReactionInjector(PatternInjector):
                 LevelGuard(
                     price=level_price,
                     kind=form.side,
-                    # The prior touch and the last approach bar must reach the line, so it is drawn
+                    # Both prior touches and the last approach bar must reach the line, so it is drawn
                     # where price has actually been rather than in empty space.
                     tests=(
-                        WARMUP + resolve_swing(close_visible, int(_TOUCH_F * n), touch_kind),
+                        *(
+                            WARMUP + resolve_swing(close_visible, int(f * n), touch_kind)
+                            for f in _TOUCH_F
+                        ),
                         full_k0 - 1,
                     ),
                     # Before the reaction, the level holds — that is the premise the reaction is read

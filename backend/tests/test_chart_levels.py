@@ -145,21 +145,38 @@ def test_exercise_and_full_export_agree_on_every_level(injector: str, label: str
 
 @pytest.mark.parametrize(("injector", "label"), _LEVEL_PAIRS)
 def test_every_drawn_level_is_tested_before_the_decision(injector: str, label: str) -> None:
-    """A line price never went to is not a level. Every drawn level must be straddled by a candle in
-    the range that precedes the decision — that prior touch is the entire reason a learner can believe
+    """A line price never went to is not a level. Every drawn level must be straddled by candles in the
+    range that precedes the decision — those prior touches are the entire reason a learner can believe
     the line. Before this was enforced, `fakeout`, `volume_confirmation`, `candle_reaction` and a plain
-    `wyckoff` range drew levels with ZERO pre-decision touches in 100% of seeds."""
+    `wyckoff` range drew levels with ZERO pre-decision touches in 100% of seeds.
+
+    A barrier needs at least TWO touches, and they must be SEPARATED. One touch is a coincidence, and
+    two adjacent bars grazing the line are one touch — which is exactly the hole the first version of
+    this test left open: it asserted `.any()`, so a level brushed by two lone planted wicks 1.5% from
+    every candle body passed while still reading as a line in empty space (m14-ex-1/ex-2 review).
+    A fib level is exempt: it is a measurement grid the pullback lands on once, not a barrier."""
     config = _config(injector, [label])
     for seed in range(_SEEDS):
         _lbl, _ann, payload = _instantiate(config, seed)
         high, low, _close = _hl(payload)
         decision = int(0.76 * len(high))
         for lvl in _levels(payload):
-            price = _price(lvl)
-            pre = _straddles(high[:decision], low[:decision], price)
-            assert pre.any(), (
-                f"seed {seed}: {injector}/{label} draws {lvl['kind']} at {price} that no candle "
+            price, kind = _price(lvl), str(lvl["kind"])
+            touched = np.flatnonzero(_straddles(high[:decision], low[:decision], price))
+            assert touched.size, (
+                f"seed {seed}: {injector}/{label} draws {kind} at {price} that no candle "
                 f"reaches before the decision"
+            )
+            if kind not in _BARRIER:
+                continue
+            assert touched.size >= 2, (
+                f"seed {seed}: {injector}/{label} {kind} at {price} touched by only "
+                f"{touched.size} bar(s) before the decision"
+            )
+            # Two touches >5 bars apart: price left the level and came back to it.
+            assert int(touched[-1] - touched[0]) > 5, (
+                f"seed {seed}: {injector}/{label} {kind} at {price} touched only at bars "
+                f"{touched.tolist()} — one visit, not a level price keeps returning to"
             )
 
 

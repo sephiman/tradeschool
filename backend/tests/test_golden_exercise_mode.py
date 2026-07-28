@@ -41,10 +41,10 @@ from tradeschool.exercises.synthetic_chart import _instantiate as divergence_ins
 # `oscillator_reading`, `derivatives` and `cvd_divergence` are byte-identical below, which is what
 # proves the fix touched exactly the injectors whose levels were wrong and no others.
 GOLDEN = {
-    "candle_reaction:0": "8b4095b146838fd0",
-    "candle_reaction:1": "dace485d6a39c028",
-    "candle_reaction:2": "9737236dd314f3ea",
-    "candle_reaction:3": "841065ace006b2b0",
+    "candle_reaction:0": "f3592161214d7213",
+    "candle_reaction:1": "32628a943af8bcfe",
+    "candle_reaction:2": "1f5fca51b606ee96",
+    "candle_reaction:3": "23ecb23c6423d573",
     # Captured when the m26 CVD-divergence injector was ADDED. Its `cvd_full` pane series reaches the
     # payload through the same CONDITIONAL key the `oi` pane uses, so every hash above stayed
     # byte-identical in the same commit — which is what proves the new pane series is purely additive.
@@ -60,10 +60,10 @@ GOLDEN = {
     "divergence:1": "20efe47486dbfeb6",
     "divergence:2": "80c2d1adcbc919db",
     "divergence:3": "1ea2efa1cd2f0773",
-    "fakeout:0": "fff0fb97486f2348",
-    "fakeout:1": "13a38e198c7fe35e",
-    "fakeout:2": "7afbecd5578ff18b",
-    "fakeout:3": "9e95cd13d6f77569",
+    "fakeout:0": "043db700deeda2ad",
+    "fakeout:1": "57e6e71f34896c0f",
+    "fakeout:2": "cb8e90271c796d31",
+    "fakeout:3": "6dfb080d7cd322c1",
     "fibonacci:0": "3ab28c18effd08b8",
     "fibonacci:1": "8b504e4563b1e71d",
     "fibonacci:2": "24e876d34c071a91",
@@ -83,10 +83,10 @@ GOLDEN = {
     "oscillator_reading:1": "d3cf962a221bf0f6",
     "oscillator_reading:2": "433e75a44bca1d72",
     "oscillator_reading:3": "1f7ef799f6accb04",
-    "volume_confirmation:0": "10dd51f6e2cf4e6b",
-    "volume_confirmation:1": "40c4d327a27bdffd",
-    "volume_confirmation:2": "2e9573ecb0f93c2b",
-    "volume_confirmation:3": "069d7f71b014fbee",
+    "volume_confirmation:0": "0f21f7104405d9a2",
+    "volume_confirmation:1": "9bed4212635f0e59",
+    "volume_confirmation:2": "fbd1581abd0ca4b2",
+    "volume_confirmation:3": "3a8c9341bb70585d",
     "wyckoff:0": "385d1ef85dd76d79",
     "wyckoff:1": "d3d68b466af5df0b",
     "wyckoff:2": "c919e3cc3977bef1",

@@ -47,10 +47,17 @@ _HOLD = 0.88
 # breakout label is free to trade through.
 _BREAK_F = 0.78
 # How far inside the level the range's designed tests sit, and the bounded peak of the candle texture.
-# The test depth must exceed the noise peak (so texture alone never fakes a break) while staying close
-# enough that the touch reads as a test rather than a near-miss.
-_TEST = 0.014
-_NOISE = 0.005
+# The depth must exceed the noise peak — texture alone must never fake a break — but only just: at
+# 0.014 against a 0.005 peak the swing BODIES stopped 1.05-1.97% short of the line and the only contact
+# was the planted graze wick, so the range read as respecting nothing. At 0.010 against 0.004 the bodies
+# land 0.6-1.4% off it and the plateau's own wicks reach it, which is what a tested level looks like.
+_TEST = 0.010
+_NOISE = 0.004
+# Each test is a short PLATEAU, not a single spike: a level is credible because price sat against it for
+# a few bars and turned, and a lone bar grazing it is invisible among 130 candles. `_PLATEAU` is the
+# half-width in window fractions, so a test spans roughly 2 x that.
+_PLATEAU = 0.022
+_TEST_F = (0.28, 0.50, 0.71)  # the three fractions at which the range comes back to the level
 # Where the post-decision hold sits, as a log-distance from the level — the same for every label, and
 # far enough out that the ambient tail's random walk (~1.1% stationary sd) cannot reach back across it.
 _HOLD_D = 0.045
@@ -82,15 +89,20 @@ class FakeoutInjector(PatternInjector):
         def inside(d: float) -> float:
             return gap - d
 
+        def test_at(f: float) -> list[tuple[float, float]]:
+            """A test of the level: price sits against it for a few bars, then turns away."""
+            return [(f - _PLATEAU, inside(_TEST)), (f + _PLATEAU, inside(_TEST))]
+
         pts: list[tuple[float, float]] = [
             (0.00, inside(j(0.050, 0.062))),
             (0.10, inside(j(0.018, 0.028))),
-            (0.20, inside(j(0.052, 0.064))),
-            (0.32, inside(_TEST)),  # first test of the level
-            (0.45, inside(j(0.054, 0.066))),
-            (0.58, inside(_TEST)),  # second test — two touches are what define the line
-            (0.70, inside(j(0.040, 0.052))),
-            (0.76, inside(j(0.024, 0.032))),
+            (0.19, inside(j(0.052, 0.064))),
+            *test_at(_TEST_F[0]),
+            (0.39, inside(j(0.054, 0.066))),
+            *test_at(_TEST_F[1]),
+            (0.61, inside(j(0.048, 0.060))),
+            *test_at(_TEST_F[2]),  # the last touch before the decision
+            (0.77, inside(j(0.016, 0.024))),
         ]
         # The decision at ~0.80, then a flat hold at the post-decision level (relative to `gap`). Every
         # label holds the SAME distance from the level, differing only in WHICH SIDE it holds on and
@@ -125,8 +137,12 @@ class FakeoutInjector(PatternInjector):
         close_full = with_warmup(rng, close_visible)
         swing_kind = "high" if resistance else "low"
         decide_idx = WARMUP + resolve_swing(close_visible, int(_DECIDE * n), swing_kind)
+        # Graze the extreme of each plateau AND its neighbour: a level touched by adjacent bars reads as
+        # a level, where a single grazing wick reads as noise.
         test_idx = tuple(
-            WARMUP + resolve_swing(close_visible, int(f * n), swing_kind) for f in (0.32, 0.58)
+            WARMUP + resolve_swing(close_visible, int(f * n), swing_kind, w=int(_PLATEAU * n)) + off
+            for f in _TEST_F
+            for off in (0, 1)
         )
         # `no_break` claims the level was never breached, so nothing in the window may trade beyond it —
         # not even a wick, which `build_series` draws at random and used to put through the line in 56%

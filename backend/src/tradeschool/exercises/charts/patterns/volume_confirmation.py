@@ -40,8 +40,10 @@ _BASE_VOLUME = 1000.0
 _DECIDE, _HOLD = 0.80, 0.88
 _BREAK_LO, _BREAK_HI = 0.77, 0.87  # window (window-fractions) that carries the breakout volume
 _BREAK_F = 0.78  # where the decision ramp crosses the level; the range before it must hold the line
-_TEST = 0.014  # how far inside the level the range's two designed tests sit
-_NOISE = 0.005  # bounded peak of the candle texture — well inside `_TEST`, so it never fakes a break
+_TEST = 0.010  # how far inside the level the range's designed tests sit (see fakeout for the tuning)
+_NOISE = 0.004  # bounded peak of the candle texture — well inside `_TEST`, so it never fakes a break
+_PLATEAU = 0.022  # half-width of a test: price sits AGAINST the line for a few bars, not one
+_TEST_F = (0.28, 0.50, 0.71)  # the three fractions at which the range comes back to the level
 _HOLD_D = 0.045  # post-break hold distance beyond the level (out of the ambient tail's reach)
 
 
@@ -66,15 +68,20 @@ class VolumeConfirmationInjector(PatternInjector):
         def inside(d: float) -> float:
             return gap - d
 
+        def test_at(f: float) -> list[tuple[float, float]]:
+            """A test of the level: price sits against it for a few bars, then turns away."""
+            return [(f - _PLATEAU, inside(_TEST)), (f + _PLATEAU, inside(_TEST))]
+
         pts = [
             (0.00, inside(j(0.050, 0.062))),
             (0.10, inside(j(0.018, 0.028))),
-            (0.20, inside(j(0.052, 0.064))),
-            (0.32, inside(_TEST)),  # first test of the level
-            (0.45, inside(j(0.054, 0.066))),
-            (0.58, inside(_TEST)),  # second test — two touches are what define the line
-            (0.70, inside(j(0.040, 0.052))),
-            (0.76, inside(0.026)),
+            (0.19, inside(j(0.052, 0.064))),
+            *test_at(_TEST_F[0]),
+            (0.39, inside(j(0.054, 0.066))),
+            *test_at(_TEST_F[1]),
+            (0.61, inside(j(0.048, 0.060))),
+            *test_at(_TEST_F[2]),  # the last touch before the break
+            (0.77, inside(j(0.016, 0.024))),
             (_DECIDE, gap + 0.026), (_HOLD, gap + _HOLD_D), (1.00, gap + _HOLD_D),
         ]
         shape = shape_from_points([(f, sign * y) for f, y in pts], n)
@@ -96,7 +103,9 @@ class VolumeConfirmationInjector(PatternInjector):
         swing_kind = "high" if resistance else "low"
         decide_idx = WARMUP + resolve_swing(close_visible, int(_DECIDE * n), swing_kind)
         test_idx = tuple(
-            WARMUP + resolve_swing(close_visible, int(f * n), swing_kind) for f in (0.32, 0.58)
+            WARMUP + resolve_swing(close_visible, int(f * n), swing_kind, w=int(_PLATEAU * n)) + off
+            for f in _TEST_F
+            for off in (0, 1)
         )
         kind = "resistance" if resistance else "support"
         level_price = round(base * float(np.exp(sign * gap)), 2)
