@@ -105,6 +105,14 @@ Open <http://localhost:5173>, register an account, and review the full course:
   test (the last candles cannot predict the answer); every classification chart is guarded by the
   credibility test (the final candles are ambient noise, never a synthetic spike) plus a
   structure-matches-label test asserting the on-screen geometry really encodes the answer.
+- **Drawn levels are corroborated, not decorative:** on a chart whose question is "did this level
+  break?", a horizontal line is the thing being measured, so it may not sit where price never went. An
+  injector plants a level together with a `LevelGuard` — the bars that must *test* the line and the
+  spans where it may not be breached — and one shared step applies it to exercises and lesson figures
+  alike, so the two can never disagree about what a level means. Statistical tests over hundreds of
+  seeds lock the invariants: the drawn price is the planted level exactly, every level is touched
+  before the decision, the decision engages it, a level is breached only where its own guard allows
+  (wicks included), and no unlabeled or duplicate line renders alongside.
 - **Lesson figures:** lessons embed didactic charts via a `::figure{id}` directive — server-generated
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by

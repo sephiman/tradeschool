@@ -10,8 +10,13 @@ the resolution is never on screen and the last candles cannot betray the label.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
+
 import numpy as np
 from numpy.typing import NDArray
+
+from tradeschool.exercises.charts.patterns.base import LevelGuard
+from tradeschool.exercises.charts.types import Series
 
 Floats = NDArray[np.float64]
 
@@ -139,6 +144,63 @@ def append_linear_continuation(
     ramp = direction * strength * scale * np.linspace(0.0, 1.0, length)
     leg = last + ramp + rng.normal(0.0, 0.02 * scale, length)
     return np.concatenate([values, leg])
+
+
+# How far past a level a planted test wick reaches: 0.08% of the price — enough that the bar's range
+# provably straddles the line at every base price scale (values are rounded to 2dp), small enough to
+# read as a touch rather than a break.
+LEVEL_GRAZE = 0.0008
+
+
+def clamp_close_inside(
+    close: Floats, price: float, kind: str, start: int = 0, inset: float = 0.0015
+) -> None:
+    """Hold a close path on the inside of a level from `start` on.
+
+    `LevelGuard` can only move wicks — a body is the close path the indicators are derived from — so a
+    level that must never be breached needs the close path itself bounded. The offender is the ambient
+    tail: it is a driftless random walk, so over eight candles it can wander through a bound the label
+    says was never broken and print the very break the chart denies (6% of plain `wyckoff` ranges did).
+    The tail is signal-free by construction — the same distribution for every label — so bounding it
+    costs nothing didactically and turns "almost never breached" into "never". `inset` keeps a clamped
+    close a hair inside the line, so the level stays the wick's territory rather than the body's.
+    """
+    limit = price * (1.0 - inset) if kind == "resistance" else price * (1.0 + inset)
+    tail = close[start:]
+    if kind == "resistance":
+        np.minimum(tail, limit, out=tail)
+    else:
+        np.maximum(tail, limit, out=tail)
+
+
+def apply_level_guards(series: Series, guards: Iterable[LevelGuard]) -> None:
+    """Make the candles honour every drawn level — the single enforcement point for the invariant that
+    a drawn level is a price the visible action actually respects.
+
+    Called by the exercise generator AND the figure builder, so the two can never disagree about what
+    a level means. `tests` bars get their wick extended to the line; `no_breach` spans get breaching
+    wicks clamped back to it. A test bar that also sits inside a `no_breach` span ends up topping out
+    exactly ON the level — which is what a tested-but-unbroken level looks like.
+
+    Only wicks move. A body is the close path the indicators are derived from, so it is untouchable;
+    a body on the wrong side of a level is left visible for the level tests to fail on rather than
+    quietly papered over here.
+    """
+    for g in guards:
+        up = g.kind == "resistance"  # "beyond" is above for a resistance, below for a support
+        edge = series.high if up else series.low
+        for j in g.tests:
+            if not 0 <= j < len(edge):
+                continue
+            reach = g.price * (1.0 + LEVEL_GRAZE) if up else g.price * (1.0 - LEVEL_GRAZE)
+            edge[j] = round(max(edge[j], reach) if up else min(edge[j], reach), 2)
+        for lo, hi in g.no_breach:
+            for j in range(max(0, lo), min(hi, len(edge))):
+                body = (
+                    max(series.open[j], series.close[j]) if up else min(series.open[j], series.close[j])
+                )
+                limit = max(g.price, body) if up else min(g.price, body)
+                edge[j] = round(min(edge[j], limit) if up else max(edge[j], limit), 2)
 
 
 def resolve_swing(close: Floats, idx: int, kind: str, w: int = 3) -> int:

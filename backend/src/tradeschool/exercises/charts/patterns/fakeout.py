@@ -23,6 +23,7 @@ import numpy as np
 from tradeschool.exercises.charts.patterns.base import (
     Annotation,
     Level,
+    LevelGuard,
     PatternInjector,
     PatternResult,
 )
@@ -30,6 +31,7 @@ from tradeschool.exercises.charts.patterns.common import (
     WARMUP,
     apply_ambient_tail,
     bounded_noise,
+    clamp_close_inside,
     resolve_swing,
     shape_from_points,
     with_warmup,
@@ -41,6 +43,17 @@ _BASE_PRICES = (120.0, 480.0, 1850.0, 9500.0, 27000.0)
 # tail. Kept well left of the right edge so the last candles are pure ambient noise.
 _DECIDE = 0.80
 _HOLD = 0.88
+# Where the decision ramp crosses the level: before this the range is held to the line, after it a
+# breakout label is free to trade through.
+_BREAK_F = 0.78
+# How far inside the level the range's designed tests sit, and the bounded peak of the candle texture.
+# The test depth must exceed the noise peak (so texture alone never fakes a break) while staying close
+# enough that the touch reads as a test rather than a near-miss.
+_TEST = 0.014
+_NOISE = 0.005
+# Where the post-decision hold sits, as a log-distance from the level — the same for every label, and
+# far enough out that the ambient tail's random walk (~1.1% stationary sd) cannot reach back across it.
+_HOLD_D = 0.045
 
 
 class FakeoutInjector(PatternInjector):
@@ -57,43 +70,89 @@ class FakeoutInjector(PatternInjector):
         sign = 1.0 if resistance else -1.0
         gap = float(rng.uniform(0.052, 0.064))  # log-distance from the range midline to the level
 
-        # Range wiggle safely below the level for the first ~3/4 of the window. Amplitude and noise
-        # are kept a wide margin (>6 sigma) inside `gap`, so noise alone never fakes a break.
         def j(lo: float, hi: float) -> float:
             return float(rng.uniform(lo, hi))
 
+        # EVERY control point is written as a distance INSIDE `gap` — the level is the one number the
+        # whole picture is built from. The range used to wander an arbitrary distance below it (peaks at
+        # a fixed 0.028 against a level 0.052-0.064 away), so the drawn line was 2.4-3.6% clear of every
+        # candle and the range never once tested it: a line nothing respects reads as the wrong price,
+        # whatever it says on it. Now the range TESTS the level twice by construction, which is what
+        # makes it a level a learner can judge a break against.
+        def inside(d: float) -> float:
+            return gap - d
+
         pts: list[tuple[float, float]] = [
-            (0.00, 0.0), (0.10, j(0.008, 0.024)), (0.20, j(-0.026, -0.008)),
-            (0.32, j(0.010, 0.026)), (0.45, j(-0.028, -0.010)), (0.58, j(0.008, 0.024)),
-            (0.70, j(-0.018, 0.002)), (0.76, 0.028),
+            (0.00, inside(j(0.050, 0.062))),
+            (0.10, inside(j(0.018, 0.028))),
+            (0.20, inside(j(0.052, 0.064))),
+            (0.32, inside(_TEST)),  # first test of the level
+            (0.45, inside(j(0.054, 0.066))),
+            (0.58, inside(_TEST)),  # second test — two touches are what define the line
+            (0.70, inside(j(0.040, 0.052))),
+            (0.76, inside(j(0.024, 0.032))),
         ]
-        # The decision at ~0.80, then a flat hold at the post-decision level (relative to `gap`).
+        # The decision at ~0.80, then a flat hold at the post-decision level (relative to `gap`). Every
+        # label holds the SAME distance from the level, differing only in WHICH SIDE it holds on and
+        # whether it poked through on the way: so the answer cannot be read off how far the right edge
+        # sits from the line, and the ambient tail cannot wander back across it either (it used to, in
+        # 4% of `no_break` seeds, printing the very breach the label denies).
         if target == "genuine_breakout":  # closes decisively beyond and holds beyond
-            pts += [(_DECIDE, gap + 0.028), (_HOLD, gap + 0.030), (1.00, gap + 0.030)]
+            pts += [(_DECIDE, gap + 0.026), (_HOLD, gap + _HOLD_D), (1.00, gap + _HOLD_D)]
         elif target == "false_break":  # pokes beyond, then closes back inside and holds inside
-            pts += [(_DECIDE, gap + 0.015), (0.84, gap + 0.015), (_HOLD, gap - 0.030), (1.00, gap - 0.030)]
-        elif target == "no_break":  # tests the level (rises to just under it) and is rejected below
-            pts += [(_DECIDE, gap - 0.013), (_HOLD, gap - 0.020), (1.00, gap - 0.020)]
+            pts += [
+                (_DECIDE, gap + 0.013), (0.84, gap + 0.011),
+                (_HOLD, inside(_HOLD_D)), (1.00, inside(_HOLD_D)),
+            ]
+        elif target == "no_break":  # tests the level closer than ever before, and is rejected below
+            pts += [(_DECIDE, inside(0.007)), (_HOLD, inside(_HOLD_D)), (1.00, inside(_HOLD_D))]
         else:  # pragma: no cover - guarded by the config validator
             raise ValueError(f"unknown fakeout label {target!r}")
 
         shape = shape_from_points([(f, sign * y) for f, y in pts], n)
-        # Peak texture (0.010) stays a margin inside the smallest separation (0.013), so noise alone
-        # never crosses the level — the label is carried entirely by the designed shape.
-        noise = bounded_noise(rng, n, amp=0.010)
+        # Peak texture stays a margin inside the smallest designed separation (no_break's 0.007), so
+        # noise alone never crosses the level — the label is carried entirely by the designed shape.
+        noise = bounded_noise(rng, n, amp=_NOISE)
         close_visible = base * np.exp(shape + noise)
         apply_ambient_tail(rng, close_visible)
 
-        close_full = with_warmup(rng, close_visible)
-        level_price = base * float(np.exp(sign * gap))
-        decide_idx = WARMUP + resolve_swing(
-            close_visible, int(_DECIDE * n), "high" if resistance else "low"
-        )
+        level_price = round(base * float(np.exp(sign * gap)), 2)
         kind = "resistance" if resistance else "support"
+        if target == "no_break":
+            # "Never traded beyond it" has to be exactly true, not true in most seeds: the ambient tail
+            # is a random walk and the wick guard below can only clamp wicks, never the close path.
+            clamp_close_inside(close_visible, level_price, kind)
+        close_full = with_warmup(rng, close_visible)
+        swing_kind = "high" if resistance else "low"
+        decide_idx = WARMUP + resolve_swing(close_visible, int(_DECIDE * n), swing_kind)
+        test_idx = tuple(
+            WARMUP + resolve_swing(close_visible, int(f * n), swing_kind) for f in (0.32, 0.58)
+        )
+        # `no_break` claims the level was never breached, so nothing in the window may trade beyond it —
+        # not even a wick, which `build_series` draws at random and used to put through the line in 56%
+        # of seeds, making the label indistinguishable from `false_break`. `false_break` breaks through
+        # only during the decision: before and after it, the level holds (that reclaim IS the label).
+        # `genuine_breakout` is free from the decision on, since holding beyond is what it claims.
+        pre = (0, WARMUP + int(_BREAK_F * n))
+        no_breach: tuple[tuple[int, int], ...]
+        if target == "no_break":
+            no_breach = ((0, len(close_full)),)
+        elif target == "false_break":
+            no_breach = (pre, (WARMUP + int(_HOLD * n), len(close_full)))
+        else:
+            no_breach = (pre,)
         return PatternResult(
             close_full=close_full,
             warmup=WARMUP,
             label=target,
             annotations=[Annotation(index=decide_idx, kind="marker", label="test")],
-            levels=[Level(price=round(level_price, 2), label=kind, kind=kind)],
+            levels=[Level(price=level_price, label=kind, kind=kind)],
+            level_guards=[
+                LevelGuard(
+                    price=level_price,
+                    kind=kind,
+                    tests=(*test_idx, decide_idx),
+                    no_breach=no_breach,
+                )
+            ],
         )

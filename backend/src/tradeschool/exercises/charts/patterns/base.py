@@ -42,6 +42,35 @@ class Level:
 
 
 @dataclass
+class LevelGuard:
+    """A drawn `Level`'s contract with the CANDLES, enforced in one shared place for exercises and
+    figures alike (`apply_level_guards`).
+
+    A level's price is planted by the injector, but the candles around it are not: `build_series`
+    derives each bar's wick from a half-normal draw, so whether a bar actually touches the line — or
+    randomly pokes through it — is luck. That is what made drawn levels look wrong: a resistance the
+    range never once tested reads as an arbitrary line, and a `no_break` whose wick pierces the level
+    contradicts its own label. A guard states what the label already claims, so the candles cannot
+    disagree with the line:
+
+    * `tests` — bars that must REACH the level. Their wick is extended to it (bodies untouched), so
+      the line is one the market visibly respected rather than a number in empty space.
+    * `no_breach` — `[lo, hi)` bar spans that must not trade beyond the level *at all*, wick
+      included. Breaching wicks are clamped back to it. Spans where the pattern is meant to break
+      through (a fakeout's poke, a Wyckoff spring, an engulfing overrun) are simply left out.
+
+    Indices are FULL-series coords (warm-up included), like `Annotation.index`. Guards only ever move
+    wicks: a body on the wrong side of the line is a shape bug the statistical level tests must catch,
+    never something to paper over here.
+    """
+
+    price: float
+    kind: str  # "support" | "resistance" — which side counts as "beyond"
+    tests: tuple[int, ...] = ()
+    no_breach: tuple[tuple[int, int], ...] = ()
+
+
+@dataclass
 class PatternResult:
     """What an injector returns. `close_full` is warm-up + visible; `overlays`/`volume_full` span the
     full series (the generator trims warm-up in lockstep with the candles); `levels` are price-space.
@@ -53,6 +82,9 @@ class PatternResult:
     annotations: list[Annotation] = field(default_factory=list)
     overlays: dict[str, list[float]] = field(default_factory=dict)
     levels: list[Level] = field(default_factory=list)
+    #: candle-space contracts for the `levels` above, applied by the generator (exercise) and the
+    #: figure builder alike via `apply_level_guards`. See `LevelGuard`.
+    level_guards: list[LevelGuard] = field(default_factory=list)
     volume_full: Floats | None = None
     #: optional secondary series shown in the oscillator pane (e.g. open interest for m17). Full
     #: length; the generator trims the warm-up like the candles. Used when ``indicator == "oi"``.

@@ -23,9 +23,11 @@ from tradeschool.content.schema import LocalizedText
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import ema, macd, rsi
 from tradeschool.exercises.charts.injectors import RsiDivergenceInjector
+from tradeschool.exercises.charts.patterns.base import LevelGuard
 from tradeschool.exercises.charts.patterns.common import (
     append_linear_continuation,
     append_resolution,
+    apply_level_guards,
 )
 from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
 from tradeschool.exercises.charts.types import DivergenceType, Series
@@ -111,6 +113,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     rng = np.random.default_rng(panel.seed)
     overlays_raw: dict[str, list[float]] = {}
     levels: list[dict[str, object]] = []
+    level_guards: list[LevelGuard] = []
     annotations: list[dict[str, object]] = []
     oi_full: np.ndarray | None = None
     cvd_full: np.ndarray | None = None
@@ -134,6 +137,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         indicator = panel.indicator or injector.indicator
         overlays_raw = {k: list(v) for k, v in result.overlays.items()}
         levels = [{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels]
+        level_guards = result.level_guards
         # Figure-only richer annotations (e.g. Wyckoff phase labels A-E) come from an optional
         # `figure_annotations` method — never from build(), so exercise output is untouched.
         fig_ann = getattr(injector, "figure_annotations", None)
@@ -196,6 +200,9 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
             series.low[i] = candles_override.low[i]
             series.close[i] = candles_override.close[i]
             series.volume[i] = candles_override.volume[i]
+    # Same level/candle contract the exercise generator applies. The guards' bar indices are anchored
+    # at the start of the series, so an appended resolution leg leaves them pointing at the same bars.
+    apply_level_guards(series, level_guards)
     line, signal, hist = macd(close_full)
     w = warmup
     overlays: dict[str, list[float]] = {}

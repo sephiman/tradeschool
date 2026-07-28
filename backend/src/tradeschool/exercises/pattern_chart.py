@@ -22,6 +22,7 @@ from tradeschool.exercises.base import (
 )
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import macd, rsi
+from tradeschool.exercises.charts.patterns.common import apply_level_guards
 from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
 from tradeschool.exercises.charts.types import Series
 from tradeschool.exercises.types import ExerciseType
@@ -87,6 +88,9 @@ def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
     series = result.candles_full if result.candles_full is not None else build_series(rng, close_full)
     if result.candles_full is None and result.volume_full is not None:
         series.volume = [round(float(v), 2) for v in result.volume_full.tolist()]
+    # A drawn level's contract with the candles, enforced here and in the figure builder alike so a
+    # level never renders at a price the price action contradicts (see `LevelGuard`).
+    apply_level_guards(series, result.level_guards)
     line, signal, hist = macd(close_full)
     w = result.warmup
     indicator = config.indicator or injector.indicator

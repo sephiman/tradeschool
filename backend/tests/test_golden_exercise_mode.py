@@ -22,11 +22,29 @@ from tradeschool.exercises.synthetic_chart import _instantiate as divergence_ins
 
 # Baseline captured from the exercise generators BEFORE the figure/resolution work. Do not edit these
 # to make the test pass — a mismatch means exercise output changed, which is the bug this guards.
+#
+# RE-CAPTURED ONCE, deliberately, for the drawn-level integrity fix (see tests/test_chart_levels.py).
+# Every injector that draws a horizontal level was placing it where the price action never went: the
+# range's swings stopped 2.4-3.6% short of the line (`fakeout`, `volume_confirmation`), the bounds sat
+# outside the range they were supposed to contain (`wyckoff`), and `candle_reaction` published the
+# reaction candle's own wick extreme instead of the level its approach was built against. In 100% of
+# sampled seeds the drawn level had ZERO touches before the decision, and `no_break` printed a wick
+# through its own level in 56% — the one thing its label denies. Fixing that necessarily moved the
+# candles, so these 16 fingerprints moved with it:
+#
+#   candle_reaction:0-3        level now derived from `_GAP`; rejection wick anchored to the line
+#   fakeout:0-3                range rewritten as distances inside `gap` so it tests the level twice
+#   volume_confirmation:0-3    same range rewrite (it shares fakeout's geometry)
+#   wyckoff:0-3                bound margins widened past the noise peak; tail held inside the range
+#
+# Nothing else moved, and that is the point: `divergence`, `fibonacci`, `ma_context`, `macd_cross`,
+# `oscillator_reading`, `derivatives` and `cvd_divergence` are byte-identical below, which is what
+# proves the fix touched exactly the injectors whose levels were wrong and no others.
 GOLDEN = {
-    "candle_reaction:0": "a74351382cbb1366",
-    "candle_reaction:1": "1e21b914a6efad6f",
-    "candle_reaction:2": "c14016c371d84c77",
-    "candle_reaction:3": "72635ec0fc51c6ab",
+    "candle_reaction:0": "8b4095b146838fd0",
+    "candle_reaction:1": "dace485d6a39c028",
+    "candle_reaction:2": "9737236dd314f3ea",
+    "candle_reaction:3": "841065ace006b2b0",
     # Captured when the m26 CVD-divergence injector was ADDED. Its `cvd_full` pane series reaches the
     # payload through the same CONDITIONAL key the `oi` pane uses, so every hash above stayed
     # byte-identical in the same commit — which is what proves the new pane series is purely additive.
@@ -42,10 +60,10 @@ GOLDEN = {
     "divergence:1": "20efe47486dbfeb6",
     "divergence:2": "80c2d1adcbc919db",
     "divergence:3": "1ea2efa1cd2f0773",
-    "fakeout:0": "951ceea66d4ebf32",
-    "fakeout:1": "3b6354709fc9565b",
-    "fakeout:2": "5fb6cba619dfcf48",
-    "fakeout:3": "343c7d0bb1442f81",
+    "fakeout:0": "fff0fb97486f2348",
+    "fakeout:1": "13a38e198c7fe35e",
+    "fakeout:2": "7afbecd5578ff18b",
+    "fakeout:3": "9e95cd13d6f77569",
     "fibonacci:0": "3ab28c18effd08b8",
     "fibonacci:1": "8b504e4563b1e71d",
     "fibonacci:2": "24e876d34c071a91",
@@ -65,14 +83,14 @@ GOLDEN = {
     "oscillator_reading:1": "d3cf962a221bf0f6",
     "oscillator_reading:2": "433e75a44bca1d72",
     "oscillator_reading:3": "1f7ef799f6accb04",
-    "volume_confirmation:0": "6b673e22ed3aa209",
-    "volume_confirmation:1": "ae751257dd149708",
-    "volume_confirmation:2": "4ff73de582518f0c",
-    "volume_confirmation:3": "ccdde0c526fd9a52",
-    "wyckoff:0": "b7d09e6c8be6227f",
-    "wyckoff:1": "c67ab44de8ce0dd1",
-    "wyckoff:2": "fca7cd7ae6412cb2",
-    "wyckoff:3": "fe62d45700bf31c6",
+    "volume_confirmation:0": "10dd51f6e2cf4e6b",
+    "volume_confirmation:1": "40c4d327a27bdffd",
+    "volume_confirmation:2": "2e9573ecb0f93c2b",
+    "volume_confirmation:3": "069d7f71b014fbee",
+    "wyckoff:0": "385d1ef85dd76d79",
+    "wyckoff:1": "d3d68b466af5df0b",
+    "wyckoff:2": "c919e3cc3977bef1",
+    "wyckoff:3": "ad00ae665d810925",
 }
 
 _SEEDS = range(4)

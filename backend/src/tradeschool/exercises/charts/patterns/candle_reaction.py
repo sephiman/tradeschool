@@ -27,13 +27,26 @@ from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.patterns.base import (
     Annotation,
     Level,
+    LevelGuard,
     PatternInjector,
     PatternResult,
 )
-from tradeschool.exercises.charts.patterns.common import WARMUP, shape_from_points, with_warmup
+from tradeschool.exercises.charts.patterns.common import (
+    WARMUP,
+    resolve_swing,
+    shape_from_points,
+    with_warmup,
+)
 
 _BASE_PRICES = (120.0, 480.0, 1850.0, 9500.0, 27000.0)
 _GAP = 0.05  # log-distance from the range midline to the level
+_TOUCH_F = 0.46  # where the approach makes its prior touch of the level (see the shape below)
+# How far PAST a drawn level a rejection wick reaches before price returns. Anchoring the tip to the
+# line rather than to a fixed fraction of the close is what makes the rejection legible, but the tip
+# must clear the line by enough that the candle still reads as a long wick (the approach already sits
+# only `_GAP - 0.012` inside it), and a wick that pierces the level and closes back is the textbook
+# form — a hammer's spring below support, a shooting star's raid above resistance.
+_PIERCE = 0.012
 
 
 @dataclass(frozen=True)
@@ -120,7 +133,7 @@ class CandleReactionInjector(PatternInjector):
             approach_end = sign * (_GAP - 0.012)  # sit just inside the level before the reaction
             pts = [
                 (0.00, 0.0), (0.14, sign * 0.010), (0.30, -sign * 0.006),
-                (0.46, sign * (_GAP - 0.006)),  # prior touch near the level
+                (_TOUCH_F, sign * (_GAP - 0.006)),  # prior touch near the level
                 (0.60, -sign * 0.004), (0.74, sign * 0.008), (0.90, approach_end),
             ]
         else:  # open space / non-information: no level, gentle wander around the midline
@@ -143,15 +156,22 @@ class CandleReactionInjector(PatternInjector):
 
         # Plant the wicks build_series randomized: extend a rejection wick, or clamp a small range.
         full_k0 = len(close_full) - k
+        # At a drawn level the rejection wick is anchored to THAT LINE — "price was pushed to a price,
+        # absorbed, and returned" is only legible if the tip lands on the price the chart draws. A
+        # fixed fraction of the close (what open-space forms still use, having no line to reach) put
+        # the tip an arbitrary distance past it.
+        level_price = round(base * float(np.exp(sign * _GAP)), 2) if at_level and form.side else None
         for bar, side, frac in form.wicks:
             j = full_k0 + bar
             c = series.close[j]
             o = series.open[j]
             hi, lo = max(o, c), min(o, c)
             if side == "low":
-                series.low[j] = round(min(series.low[j], c * (1.0 - frac)), 2)
+                tip = level_price * (1.0 - _PIERCE) if level_price else c * (1.0 - frac)
+                series.low[j] = round(min(series.low[j], tip), 2)
             elif side == "high":
-                series.high[j] = round(max(series.high[j], c * (1.0 + frac)), 2)
+                tip = level_price * (1.0 + _PIERCE) if level_price else c * (1.0 + frac)
+                series.high[j] = round(max(series.high[j], tip), 2)
             else:  # clamp — a genuinely small-range candle (compression): tiny body, tiny wicks
                 series.high[j] = round(hi * (1.0 + frac), 2)
                 series.low[j] = round(lo * (1.0 - frac), 2)
@@ -161,11 +181,33 @@ class CandleReactionInjector(PatternInjector):
         annotations = [Annotation(index=marker_full, kind="marker", label=form.name)]
 
         levels: list[Level] = []
-        if at_level and form.side is not None:
-            reaction_slice_lo = min(series.low[full_k0:])
-            reaction_slice_hi = max(series.high[full_k0:])
-            price = reaction_slice_lo if form.side == "support" else reaction_slice_hi
-            levels = [Level(price=round(price, 2), label=form.side, kind=form.side)]
+        guards: list[LevelGuard] = []
+        if level_price is not None and form.side is not None:
+            # The level is the price the APPROACH was built against — `_GAP` from the range midline,
+            # the same constant the prior touch (`_GAP - 0.006`) and the pre-reaction approach
+            # (`_GAP - 0.012`) are written from. It used to be read off the reaction candles' own wick
+            # extreme instead, which put the line 3-4% beyond every bar that was supposed to establish
+            # it: the drawn level was tangent to exactly one candle (the reaction's own wick, by
+            # construction) and the prior touch never reached it. Deriving it from `_GAP` is what makes
+            # the line the price the chart visibly respects.
+            levels = [Level(price=level_price, label=form.side, kind=form.side)]
+            touch_kind = "low" if form.side == "support" else "high"
+            guards = [
+                LevelGuard(
+                    price=level_price,
+                    kind=form.side,
+                    # The prior touch and the last approach bar must reach the line, so it is drawn
+                    # where price has actually been rather than in empty space.
+                    tests=(
+                        WARMUP + resolve_swing(close_visible, int(_TOUCH_F * n), touch_kind),
+                        full_k0 - 1,
+                    ),
+                    # Before the reaction, the level holds — that is the premise the reaction is read
+                    # against. The reaction bars themselves are exempt: a rejection wick piercing the
+                    # line and a bullish engulfing's first bar dipping under it are the whole point.
+                    no_breach=((0, full_k0),),
+                )
+            ]
 
         # In open space / indecision the honest payload is that nothing directional follows.
         hint = 0.0 if target in ("open_space", "indecision") else _RESOLUTION_DIR.get(form.name, 0.0)
@@ -175,6 +217,7 @@ class CandleReactionInjector(PatternInjector):
             label=target,
             annotations=annotations,
             levels=levels,
+            level_guards=guards,
             candles_full=series,
             resolution_hint=hint,
         )

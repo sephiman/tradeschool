@@ -118,7 +118,12 @@ export function CandleChart({
   // (localized display names), never the raw backend enum. Unknown keys (swing "1"/"2", Wyckoff
   // phases "A"–"E") fall through to the raw string, which is already display-ready.
   const markerText = (raw: string): string => (raw ? t(`chartMarker.${raw}`, { defaultValue: raw }) : "");
-  const levelText = (lvl: PriceLevel): string => t(`level.${lvl.kind}`, { defaultValue: lvl.label });
+  // A level's title comes from its OWN label first, falling back to its kind, then the raw string.
+  // Keying on `kind` alone made every level of a kind render the same title — three Fibonacci lines
+  // would all read alike, and a two-bound range could not be told apart. For the support/resistance
+  // pair label and kind coincide, so this is identical for them.
+  const levelText = (lvl: PriceLevel): string =>
+    t(`level.${lvl.label}`, { defaultValue: t(`level.${lvl.kind}`, { defaultValue: lvl.label }) });
 
   useEffect(() => {
     const el = containerRef.current;
@@ -157,7 +162,19 @@ export function CandleChart({
     // so labels never collide across panes (round-2 fix).
     const candles = chart.addSeries(
       CandlestickSeries,
-      { upColor: c.up, downColor: c.down, borderVisible: false, wickUpColor: c.up, wickDownColor: c.down },
+      {
+        upColor: c.up,
+        downColor: c.down,
+        borderVisible: false,
+        wickUpColor: c.up,
+        wickDownColor: c.down,
+        // The library's default last-value price line is a DASHED horizontal line at the last close
+        // with a price on the axis and no title — indistinguishable from a drawn support/resistance.
+        // On a chart whose whole question is "where is the level?" that phantom line is read as a
+        // second, unlabeled level (it is why m08 exercises appeared to draw two lines). The only
+        // horizontal lines on the price pane must be the ones an injector planted, so it is off.
+        priceLineVisible: false,
+      },
       0,
     );
     candles.setData(
