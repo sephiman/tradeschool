@@ -144,18 +144,18 @@ variants:
       - id: b
         text:
           en: "Completely — aggregating many venues averages out the errors, so the combined figure is more exact than any single venue's."
-          es: "Completamente: agregar muchos sitios promedia los errores, así que la cifra combinada es más exacta que la de cualquier sitio individual."
+          es: "Completamente: agregar muchos exchanges promedia los errores, así que la cifra combinada es más exacta que la de cualquier sitio individual."
       - id: c
         text:
           en: "Not at all — delta is a derived indicator like RSI, so no venue reports anything real about the taker side."
-          es: "En absoluto: el delta es un indicador derivado como el RSI, así que ningún sitio reporta nada real sobre el lado taker."
+          es: "En absoluto: el delta es un indicador derivado como el RSI, así que ningún exchange reporta nada real sobre el lado taker."
       - id: d
         text:
           en: "Exactly as much as a single venue's figure; aggregation changes nothing about data quality."
-          es: "Exactamente igual que la cifra de un solo sitio; la agregación no cambia nada en la calidad del dato."
+          es: "Exactamente igual que la cifra de un solo exchange; la agregación no cambia nada en la calidad del dato."
     explanation:
       en: "Delta is genuinely reported data, not a derived indicator — major venues label the taker side on their trade feeds. But elsewhere it is estimated (classically by the tick rule: a print at the ask counts as a taker buy), and aggregating stacks several such estimates while m14's wash-trading warning still applies to the volumes underneath. Treat one good venue as data and the aggregate as a well-informed approximation."
-      es: "El delta son datos reportados de verdad, no un indicador derivado: los sitios grandes etiquetan el lado taker en su flujo de operaciones. Pero en otros se estima (clásicamente con la regla del tick: una impresión al precio de venta cuenta como compra taker), y agregar apila varias de esas estimaciones mientras la advertencia sobre el wash trading de m14 sigue valiendo para los volúmenes de debajo. Trata un buen sitio como dato y el agregado como una aproximación bien informada."
+      es: "El delta son datos reportados de verdad, no un indicador derivado: los exchanges grandes etiquetan el lado taker en su flujo de operaciones. Pero en otros se estima (clásicamente con la regla del tick: una impresión al precio de venta cuenta como compra taker), y agregar apila varias de esas estimaciones mientras la advertencia sobre el wash trading de m14 sigue valiendo para los volúmenes de debajo. Trata un buen sitio como dato y el agregado como una aproximación bien informada."
   - id: delta-worked
     prompt:
       en: "Over one hour a perp trades 2,400 contracts on the taker-buy side and 1,750 on the taker-sell side. What does a volume bar show, and what does delta add?"
@@ -222,7 +222,7 @@ variants:
         correct: true
         text:
           en: "Elsewhere it is estimated with the tick rule — a trade at the ask is assumed taker-buy, at the bid taker-sell — which is decent but not exact."
-          es: "En otros sitios se estima con la regla del tick (una operación en el ask se asume taker-compra y en el bid taker-venta), lo que es aceptable pero no exacto."
+          es: "En otros exchanges se estima con la regla del tick (una operación en el ask se asume taker-compra y en el bid taker-venta), lo que es aceptable pero no exacto."
       - id: d
         correct: true
         text:

@@ -29,7 +29,7 @@ variants:
   - id: two-causes
     prompt:
       en: "A venue in a country with strict capital controls has traded at a 3-4% premium continuously for the past eight months. What is the most likely explanation?"
-      es: "Un sitio de un país con controles de capital estrictos lleva ocho meses cotizando de forma continua con una prima del 3-4 %. ¿Cuál es la explicación más probable?"
+      es: "Un exchange de un país con controles de capital estrictos lleva ocho meses cotizando de forma continua con una prima del 3-4 %. ¿Cuál es la explicación más probable?"
     options:
       - id: a
         correct: true
@@ -47,7 +47,7 @@ variants:
       - id: d
         text:
           en: "The venue is reporting false prices, since a real premium cannot persist for months."
-          es: "El sitio está reportando precios falsos, ya que una prima real no puede persistir durante meses."
+          es: "El exchange está reportando precios falsos, ya que una prima real no puede persistir durante meses."
     explanation:
       en: "Duration is the tell. A demand-driven premium is a flow reading and changes as flow changes; a premium that sits at the same level for months is closer to a structural constant — the cost of the barrier. Arbitrage is certainly aware of it, but the fiat leg is restricted, so the gap can only be capped at the cost of getting around the restriction. Reading a friction premium as bullish enthusiasm is a straightforward mistake."
       es: "La duración es la pista. Una prima impulsada por demanda es una lectura de flujo y cambia cuando cambia el flujo; una prima que se queda en el mismo nivel durante meses está más cerca de ser una constante estructural: el coste de la barrera. El arbitraje sin duda la conoce, pero la pata fiat está restringida, así que el hueco solo puede toparse en el coste de sortear la restricción. Leer una prima de fricción como entusiasmo alcista es un error de manual."
@@ -91,13 +91,13 @@ variants:
   - id: widening-vs-level
     prompt:
       en: "A venue's premium has gone from 0.4% to 2.1% over three days. Another venue has sat flat at 2.0% for months. Which is telling you more, and what?"
-      es: "La prima de un exchange ha pasado del 0,4 % al 2,1 % en tres días. Otro sitio lleva meses plano en el 2,0 %. ¿Cuál te dice más, y qué?"
+      es: "La prima de un exchange ha pasado del 0,4 % al 2,1 % en tres días. Otro exchange lleva meses plano en el 2,0 %. ¿Cuál te dice más, y qué?"
     options:
       - id: a
         correct: true
         text:
           en: "The widening one — buying pressure is arriving through that venue first. The flat one is closer to a structural cost and carries little fresh information."
-          es: "El que se ensancha: la presión compradora está llegando primero por ese sitio. El plano está más cerca de un coste estructural y aporta poca información nueva."
+          es: "El que se ensancha: la presión compradora está llegando primero por ese exchange. El plano está más cerca de un coste estructural y aporta poca información nueva."
       - id: b
         text:
           en: "The flat one — a premium sustained for months is far stronger evidence than a three-day move."
@@ -112,7 +112,7 @@ variants:
           es: "El plano, porque una prima estable es un ingreso de arbitraje fiable."
     explanation:
       en: "This is why the premium's *change* matters more than its level. Both venues currently read about 2%, and they mean completely different things: one is a flow event in progress, the other is the standing price of a barrier. The same venue can even show both at once — a structural base with demand-driven spikes on top — which is exactly why you track the change."
-      es: "Por esto el *cambio* de la prima importa más que su nivel. Los dos sitios marcan ahora en torno al 2 % y significan cosas completamente distintas: uno es un suceso de flujo en marcha, el otro es el precio permanente de una barrera. El mismo sitio puede incluso mostrar las dos a la vez —una base estructural con picos de demanda encima—, y justo por eso sigues el cambio."
+      es: "Por esto el *cambio* de la prima importa más que su nivel. Los dos exchanges marcan ahora en torno al 2 % y significan cosas completamente distintas: uno es un suceso de flujo en marcha, el otro es el precio permanente de una barrera. El mismo sitio puede incluso mostrar las dos a la vez —una base estructural con picos de demanda encima—, y justo por eso sigues el cambio."
   - id: collapsing-premium
     prompt:
       en: "A premium that spent weeks at 3% falls to 0.2% in two days. What are the two readings worth considering?"
@@ -150,7 +150,7 @@ variants:
           es: "Una prima se ensancha con fuerza en unos pocos días en un exchange"
         right:
           en: "Regional demand — buying pressure arriving through that venue first"
-          es: "Demanda regional: presión compradora que llega primero por ese sitio"
+          es: "Demanda regional: presión compradora que llega primero por ese exchange"
       - id: friction
         left:
           en: "A premium holds the same level for months on a capital-controlled venue"

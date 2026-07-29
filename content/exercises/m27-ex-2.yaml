@@ -130,7 +130,7 @@ variants:
   - id: deep-vs-thin-fill
     prompt:
       en: "Two venues both display 60,000. Venue A has 200 BTC resting within 0.1% of price; venue B has 8 BTC. You need to buy 50 BTC at market. What should you expect?"
-      es: "Dos sitios muestran los dos 60.000. El sitio A tiene 200 BTC en reposo dentro del 0,1 % del precio; el sitio B tiene 8. Necesitas comprar 50 BTC a mercado. ¿Qué deberías esperar?"
+      es: "Dos exchanges muestran los dos 60.000. El exchange A tiene 200 BTC en reposo dentro del 0,1 % del precio; el exchange B tiene 8. Necesitas comprar 50 BTC a mercado. ¿Qué deberías esperar?"
     options:
       - id: a
         correct: true
@@ -140,7 +140,7 @@ variants:
       - id: b
         text:
           en: "Both fill at 60,000, since that is the price both venues are displaying."
-          es: "Los dos se llenan en 60.000, ya que ese es el precio que muestran los dos sitios."
+          es: "Los dos se llenan en 60.000, ya que ese es el precio que muestran los dos exchanges."
       - id: c
         text:
           en: "B fills better, because less resting size means less competition for your order."

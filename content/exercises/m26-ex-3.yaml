@@ -119,7 +119,7 @@ variants:
     kind: ordering
     prompt:
       en: "Put the steps in order for building a CVD line from a venue's raw trade feed."
-      es: "Ordena los pasos para construir una línea de CVD a partir del flujo de operaciones bruto de un sitio."
+      es: "Ordena los pasos para construir una línea de CVD a partir del flujo de operaciones bruto de un exchange."
     items:
       - id: label
         position: 1
