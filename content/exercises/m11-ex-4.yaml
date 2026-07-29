@@ -192,10 +192,10 @@ variants:
       - id: d
         text:
           en: "As a standalone trigger: sell the moment RSI crosses above 70, buy the moment it crosses below 30."
-          es: "Como disparador autónomo: vender en cuanto el RSI cruce por encima de 70 y comprar en cuanto cruce por debajo de 30."
+          es: "Como detonante autónomo: vender en cuanto el RSI cruce por encima de 70 y comprar en cuanto cruce por debajo de 30."
     explanation:
       en: "RSI is for context and confirmation, not standalone triggers. Reading it as momentum, weighing it against a level, or using it to back a thesis you already have are all sound; firing trades purely off 70/30 crossings is the mistake this module keeps warning about."
-      es: "El RSI es para contexto y confirmación, no para disparadores autónomos. Leerlo como momentum, sopesarlo contra un nivel o usarlo para respaldar una tesis que ya tienes son formas sensatas; disparar operaciones solo por los cruces de 70/30 es el error del que este módulo no deja de advertir."
+      es: "El RSI es para contexto y confirmación, no para detonantes autónomos. Leerlo como momentum, sopesarlo contra un nivel o usarlo para respaldar una tesis que ya tienes son formas sensatas; disparar operaciones solo por los cruces de 70/30 es el error del que este módulo no deja de advertir."
   - id: oversold-scenario
     prompt:
       en: "A coin is in a strong, sustained downtrend and its RSI has been below 30 for over a week while price keeps making new lows. What does this tell you?"

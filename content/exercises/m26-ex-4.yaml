@@ -91,7 +91,7 @@ variants:
         correct: true
         text:
           en: "Aggregated multi-exchange CVD helps smooth out single-venue reporting anomalies."
-          es: "El CVD agregado de múltiples exchanges ayuda a suavizar anomalías de reporte de un solo sitio."
+          es: "El CVD agregado de múltiples exchanges ayuda a suavizar anomalías de reporte de un solo exchange."
     explanation:
       en: "Perps vs spot CVD comparisons and higher timeframe alignment give robust market structure context."
       es: "Las comparaciones de CVD perps vs spot y la alineación de temporalidades mayores dan un contexto sólido de estructura de mercado."

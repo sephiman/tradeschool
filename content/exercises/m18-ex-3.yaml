@@ -193,14 +193,14 @@ variants:
       - id: c
         text:
           en: "They are equally priced; supply differences cancel out."
-          es: "Están igual de caros; las diferencias de suministro se cancelan."
+          es: "Están igual de caros; las diferencias de oferta se cancelan."
       - id: d
         text:
           en: "Cannot be compared without knowing each one's circulating supply."
           es: "No pueden compararse sin conocer el oferta circulante de cada uno."
     explanation:
       en: "Price per token is arbitrary — the team simply chose a supply. Only market cap and FDV, measured against what the thing actually does, say anything about value. And compare like with like: market cap to market cap, FDV to FDV."
-      es: "El precio por token es arbitrario: el equipo simplemente eligió un suministro. Solo la capitalización y el FDV, medidos contra lo que la cosa hace realmente, dicen algo sobre el valor. Y compara lo comparable: capitalización con capitalización, FDV con FDV."
+      es: "El precio por token es arbitrario: el equipo simplemente eligió una oferta total. Solo la capitalización y el FDV, medidos contra lo que la cosa hace realmente, dicen algo sobre el valor. Y compara lo comparable: capitalización con capitalización, FDV con FDV."
   - id: tokenomics-check
     kind: ordering
     prompt:
@@ -221,7 +221,7 @@ variants:
         position: 3
         text:
           en: "Read the emission/inflation rate: is supply growing fast, and who receives it?"
-          es: "Lee la tasa de emisión/inflación: ¿crece rápido el suministro y quién lo recibe?"
+          es: "Lee la tasa de emisión/inflación: ¿crece rápido la oferta y quién lo recibe?"
       - id: calendar
         position: 4
         text:

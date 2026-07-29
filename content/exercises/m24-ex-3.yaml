@@ -15,7 +15,7 @@ variants:
         text: { en: "Identify the setup at a level (confluence)", es: "Identificar el setup en un nivel (confluencia)" }
       - id: trigger
         position: 3
-        text: { en: "Wait for the reaction (entry trigger)", es: "Esperar la reacción (disparador de entrada)" }
+        text: { en: "Wait for the reaction (entry trigger)", es: "Esperar la reacción (detonante de entrada)" }
       - id: stop
         position: 4
         text: { en: "Place the stop where the idea is wrong", es: "Colocar el stop donde la idea es errónea" }
@@ -154,7 +154,7 @@ variants:
   - id: micro-against-macro
     prompt:
       en: "The 4-hour chart is in a clear downtrend. On the 5-minute you get a clean long trigger at a level. What is the correct action?"
-      es: "El gráfico de 4 horas está en una tendencia bajista clara. En el de 5 minutos obtienes un disparador largo limpio en un nivel. ¿Cuál es la acción correcta?"
+      es: "El gráfico de 4 horas está en una tendencia bajista clara. En el de 5 minutos obtienes un trigger largo limpio en un nivel. ¿Cuál es la acción correcta?"
     options:
       - id: a
         correct: true

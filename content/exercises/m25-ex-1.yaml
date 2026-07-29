@@ -140,7 +140,7 @@ variants:
         correct: true
         text:
           en: "Use it for the shape — whether aggression is building or fading — but not to the contract: it stacks per-venue estimates of varying quality."
-          es: "Úsalo para la forma —si la agresión se acumula o se apaga— pero no al contrato: apila estimaciones por sitio de calidad variable."
+          es: "Úsalo para la forma —si la agresión se acumula o se apaga— pero no al contrato: apila estimaciones por exchange de calidad variable."
       - id: b
         text:
           en: "Completely — aggregating many venues averages out the errors, so the combined figure is more exact than any single venue's."

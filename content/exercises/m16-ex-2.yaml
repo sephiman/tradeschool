@@ -25,7 +25,7 @@ variants:
           es: "El índice está roto y debe ignorarse por completo."
     explanation:
       en: "Extreme greed marks a crowded, one-sided zone that warrants caution, not excitement. It is not a precise 'sell now' trigger — extremes can persist — so you reduce risk on the crowded side, you don't blindly short or blindly add."
-      es: "La codicia extrema marca una zona saturada y unilateral que pide cautela, no euforia. No es un disparador preciso de \"vende ya\" —los extremos pueden persistir—, así que reduces riesgo en el lado saturado; no cortas a ciegas ni añades a ciegas."
+      es: "La codicia extrema marca una zona saturada y unilateral que pide cautela, no euforia. No es un detonante preciso de \"vende ya\" —los extremos pueden persistir—, así que reduces riesgo en el lado saturado; no cortas a ciegas ni añades a ciegas."
   - id: why-caution
     prompt:
       en: "Why does extreme greed warrant caution rather than excitement?"

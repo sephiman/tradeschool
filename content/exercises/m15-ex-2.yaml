@@ -212,4 +212,4 @@ variants:
           es: "Se mueve al unísono con el precio en dólares de Ether."
     explanation:
       en: "It is a thermometer, not a trigger: it tells you the temperature of risk appetite, never the moment to act."
-      es: "Es un termómetro, no un disparador: te dice la temperatura del apetito por el riesgo, nunca el momento de actuar."
+      es: "Es un termómetro, no un detonante: te dice la temperatura del apetito por el riesgo, nunca el momento de actuar."

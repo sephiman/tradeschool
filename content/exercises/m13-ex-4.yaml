@@ -171,7 +171,7 @@ variants:
         position: 4
         text:
           en: "Wait for price to react at the level — the level is an alert, not a trigger."
-          es: "Espera a que el precio reaccione en el nivel: el nivel es una alerta, no un disparador."
+          es: "Espera a que el precio reaccione en el nivel: el nivel es una alerta, no un detonante."
     explanation:
       en: "The order matters: the level only earns attention once something else agrees with it, and it only earns a trade once price actually reacts there. Skip either step and you are trading a decimal."
       es: "El orden importa: el nivel solo merece atención cuando algo más coincide con él, y solo merece una operación cuando el precio reacciona ahí de verdad. Si te saltas cualquiera de los dos pasos, estás operando un decimal."

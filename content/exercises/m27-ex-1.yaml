@@ -61,7 +61,7 @@ variants:
           es: "Confirmación de que un vendedor grande pretende de verdad defender ese precio."
     explanation:
       en: "Repeatedly appearing and vanishing before it can be touched is the signature of spoofing — illegal in regulated markets, endemic in less-supervised crypto venues. Note the contrast with an iceberg, which is nearly the opposite behaviour: an iceberg shows a *small* quantity and quietly refills each time it is eaten, deliberately hiding genuine size rather than advertising fake size."
-      es: "Aparecer y desvanecerse repetidamente antes de que se la pueda tocar es la firma del spoofing: ilegal en mercados regulados y endémico en los sitios cripto menos supervisados. Fíjate en el contraste con un iceberg, que es casi el comportamiento opuesto: un iceberg muestra una cantidad *pequeña* y se rellena en silencio cada vez que se la comen, escondiendo deliberadamente tamaño genuino en vez de anunciar tamaño falso."
+      es: "Aparecer y desvanecerse repetidamente antes de que se la pueda tocar es la firma del spoofing: ilegal en mercados regulados y endémico en los exchanges cripto menos supervisados. Fíjate en el contraste con un iceberg, que es casi el comportamiento opuesto: un iceberg muestra una cantidad *pequeña* y se rellena en silencio cada vez que se la comen, escondiendo deliberadamente tamaño genuino en vez de anunciar tamaño falso."
   - id: depth-and-slippage
     prompt:
       en: "You send the same large market order into a deep book and into a thin one. What differs?"

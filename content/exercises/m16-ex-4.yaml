@@ -88,7 +88,7 @@ variants:
   - id: where-trigger-comes-from
     prompt:
       en: "If sentiment only tells you which side is dangerous, where does the actual entry trigger come from?"
-      es: "Si el sentimiento solo te dice qué lado es peligroso, ¿de dónde viene el disparador real de entrada?"
+      es: "Si el sentimiento solo te dice qué lado es peligroso, ¿de dónde viene el detonante real de entrada?"
     options:
       - id: a
         correct: true
@@ -186,7 +186,7 @@ variants:
         left: { en: "Structure, a level, confirmation", es: "Estructura, un nivel, confirmación" }
         right:
           en: "When to act — the actual entry trigger."
-          es: "Cuándo actuar: el disparador real de entrada."
+          es: "Cuándo actuar: el detonante real de entrada."
       - id: zone
         left: { en: "The contrarian zone itself", es: "La zona contraria en sí" }
         right:
