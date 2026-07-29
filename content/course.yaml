@@ -729,7 +729,7 @@ blocks:
   - id: m28
     title:
       en: Premium between venues
-      es: La prima entre sitios
+      es: La prima entre exchanges
     summary:
       en: The same coin priced differently on two exchanges — regional demand versus transfer friction as two distinct causes, what a sustained or widening premium signals, and why arbitrage caps a premium rather than erasing it.
       es: 'La misma moneda con precios distintos en dos exchanges: demanda regional frente a fricción de transferencia como dos causas distintas, qué señala una prima sostenida o que se ensancha, y por qué el arbitraje topa una prima en vez de borrarla.'
@@ -739,7 +739,7 @@ blocks:
     - id: m28-l1
       title:
         en: Premium between venues
-        es: La prima entre sitios
+        es: La prima entre exchanges
       exercises:
       - id: m28-ex-1
         type: calculation

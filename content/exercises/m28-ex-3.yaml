@@ -91,7 +91,7 @@ variants:
           es: "Los traders en corto están recibiendo un 100% de interés diario."
     explanation:
       en: "Cross-exchange premiums persist when capital flow friction prevents arbitrageurs from quickly moving fiat/crypto between venues."
-      es: "Las primas entre exchanges persisten cuando la fricción de flujo de capital impide que los arbitradores muevan rápidamente fiat/cripto entre sitios."
+      es: "Las primas entre exchanges persisten cuando la fricción de flujo de capital impide que los arbitradores muevan rápidamente fiat/cripto entre exchanges."
 
   - id: basis-arbitrage-sequence
     kind: ordering
@@ -187,7 +187,7 @@ variants:
         correct: true
         text:
           en: "Arbitrageurs cannot move assets to sell on the higher venue, breaking the arbitrage loop."
-          es: "Los arbitradores no pueden mover activos para vender en el sitio con precio más alto, rompiendo el bucle de arbitraje."
+          es: "Los arbitradores no pueden mover activos para vender en el exchange con precio más alto, rompiendo el bucle de arbitraje."
       - id: b
         text:
           en: "Order books automatically stop displaying bid prices."

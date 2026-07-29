@@ -43,23 +43,23 @@ variants:
       - id: c
         text:
           en: "Because an unlock raises the token's maximum supply, so the chart's levels move up with it."
-          es: "Porque un desbloqueo eleva el suministro máximo del token, así que los niveles del gráfico suben con él."
+          es: "Porque un desbloqueo eleva el oferta máxima del token, así que los niveles del gráfico suben con él."
       - id: d
         text:
           en: "Because once an unlock happens, market cap and FDV become the same number."
           es: "Porque, una vez ocurre un desbloqueo, el market cap y la FDV pasan a ser el mismo número."
     explanation:
       en: "An unlock moves tokens from locked to circulating — it does not change the max supply, and market cap and FDV remain distinct. What it does add is real sell-side supply, a fundamental force that can invalidate a technically clean setup. That is why it belongs in the analysis, not beside it."
-      es: "Un desbloqueo mueve tokens de bloqueados a circulantes: no cambia el suministro máximo, y el market cap y la FDV siguen siendo distintos. Lo que sí añade es oferta vendedora real, una fuerza fundamental que puede invalidar un setup técnicamente limpio. Por eso forma parte del análisis y no va aparte."
+      es: "Un desbloqueo mueve tokens de bloqueados a circulantes: no cambia el oferta máxima, y el market cap y la FDV siguen siendo distintos. Lo que sí añade es oferta vendedora real, una fuerza fundamental que puede invalidar un setup técnicamente limpio. Por eso forma parte del análisis y no va aparte."
   - id: unlock-raises-maxsupply
     kind: true_false
     prompt:
       en: "A scheduled token unlock raises the token's maximum supply."
-      es: "Un desbloqueo programado de tokens eleva el suministro máximo del token."
+      es: "Un desbloqueo programado de tokens eleva el oferta máxima del token."
     answer: false
     explanation:
       en: "An unlock only moves tokens from locked to circulating — the max supply (and the FDV built on it) already counted those tokens. What changes is the tradable supply hitting the market, which is why an unlock can add real sell-side pressure."
-      es: "Un desbloqueo solo mueve tokens de bloqueados a circulantes: el suministro máximo (y la FDV que se apoya en él) ya contaban esos tokens. Lo que cambia es la oferta negociable que llega al mercado, y por eso un desbloqueo puede añadir presión vendedora real."
+      es: "Un desbloqueo solo mueve tokens de bloqueados a circulantes: el oferta máxima (y la FDV que se apoya en él) ya contaban esos tokens. Lo que cambia es la oferta negociable que llega al mercado, y por eso un desbloqueo puede añadir presión vendedora real."
   - id: unlock-priced-in
     kind: true_false
     prompt:
@@ -99,7 +99,7 @@ variants:
   - id: emission-inflation
     prompt:
       en: "A token's emission schedule inflates its circulating supply by about 30% a year. All else equal, what does price have to do just to hold the same total market value?"
-      es: "El calendario de emisión de un token infla su suministro circulante alrededor de un 30% al año. En igualdad de condiciones, ¿qué tiene que hacer el precio solo para mantener el mismo valor total de mercado?"
+      es: "El calendario de emisión de un token infla su oferta circulante alrededor de un 30% al año. En igualdad de condiciones, ¿qué tiene que hacer el precio solo para mantener el mismo valor total de mercado?"
     options:
       - id: a
         correct: true
@@ -109,7 +109,7 @@ variants:
       - id: b
         text:
           en: "Nothing — inflation only affects max supply, not the market value."
-          es: "Nada: la inflación solo afecta al suministro máximo, no al valor de mercado."
+          es: "Nada: la inflación solo afecta al oferta máxima, no al valor de mercado."
       - id: c
         text:
           en: "Fall about 30%, because more supply always drags the price down by the same amount."
@@ -120,7 +120,7 @@ variants:
           es: "Subir alrededor de un 30%, y esto ya se ve como una clara tendencia bajista en las velas."
     explanation:
       en: "Market value is price × circulating supply. If supply grows 30%, price must climb ~30% just to keep the same total value — an inflation headwind that is invisible on a candlestick. It is not automatically a price drop, and it does not show up on the chart by itself."
-      es: "El valor de mercado es precio × suministro circulante. Si la oferta crece un 30%, el precio debe subir ~30% solo para mantener el mismo valor total: un viento en contra de la inflación que es invisible en una vela. No es automáticamente una caída del precio, y no aparece por sí solo en el gráfico."
+      es: "El valor de mercado es precio × oferta circulante. Si la oferta crece un 30%, el precio debe subir ~30% solo para mantener el mismo valor total: un viento en contra de la inflación que es invisible en una vela. No es automáticamente una caída del precio, y no aparece por sí solo en el gráfico."
   - id: cliff-numbers
     prompt:
       en: "A token has 100 million circulating at $2.00 and trades about 8 million tokens a day. A cliff unlocks a 20-million-token investor tranche on one date. What has just happened to the book?"
@@ -138,7 +138,7 @@ variants:
       - id: c
         text:
           en: "The max supply rose by 20 million tokens."
-          es: "El suministro máximo subió en 20 millones de tokens."
+          es: "El oferta máxima subió en 20 millones de tokens."
       - id: d
         text:
           en: "The market cap fell by 20%, but the float is unchanged."

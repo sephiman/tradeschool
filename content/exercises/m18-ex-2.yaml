@@ -3,7 +3,7 @@ type: calculation
 formula: fdv
 prompt:
   en: "A token trades at **{price} USD** and its maximum supply is **{max_supply} million tokens** (every token that will ever exist). What is its fully-diluted valuation (FDV)? Give the answer in million USD."
-  es: "Un token cotiza a **{price} USD** y su suministro máximo es de **{max_supply} millones de tokens** (todos los que existirán jamás). ¿Cuál es su valoración totalmente diluida (FDV)? Da la respuesta en millones de USD."
+  es: "Un token cotiza a **{price} USD** y su oferta máxima es de **{max_supply} millones de tokens** (todos los que existirán jamás). ¿Cuál es su valoración totalmente diluida (FDV)? Da la respuesta en millones de USD."
 params:
   price: { kind: choice, values: ["0.5", "1.2", "3.5", "12", "85"] }
   max_supply: { kind: int_range, min: 500, max: 8000, step: 50 }
@@ -12,4 +12,4 @@ round: 2
 unit: million USD
 explanation:
   en: "FDV = price × max supply. It values every token that will ever exist at today's price — the hypothetical ceiling. When the FDV dwarfs the market cap, most of the supply is still to be released and price must absorb that future dilution."
-  es: "FDV = precio × suministro máximo. Valora al precio de hoy todos los tokens que llegarán a existir: el techo hipotético. Cuando la FDV empequeñece al market cap, la mayor parte de la oferta aún está por liberarse y el precio tendrá que absorber esa dilución futura."
+  es: "FDV = precio × oferta máxima. Valora al precio de hoy todos los tokens que llegarán a existir: el techo hipotético. Cuando la FDV empequeñece al market cap, la mayor parte de la oferta aún está por liberarse y el precio tendrá que absorber esa dilución futura."

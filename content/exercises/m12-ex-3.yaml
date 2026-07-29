@@ -56,7 +56,7 @@ variants:
         position: 4
         text:
           en: "Wait for trigger confirmation (e.g. reversal candle or trendline break) before entering."
-          es: "Esperar la confirmación del gatillo (ej. vela de inversión o rotura de línea de tendencia) antes de entrar."
+          es: "Esperar la confirmación del detonante (ej. vela de inversión o rotura de línea de tendencia) antes de entrar."
     explanation:
       en: "Divergences are context clues, not immediate market buy/sell market signals. Always wait for price action confirmation."
       es: "Las divergencias son pistas de contexto, no señales automáticas de compra/venta. Espera siempre la confirmación del price action."

@@ -50,7 +50,7 @@ variants:
           es: "Un desplome garantizado de cripto el mismo día en que sube el dólar."
     explanation:
       en: "A strong dollar has broadly coincided with weakness in risk assets, crypto included. It is an inverse tendency and context, not a mechanical seesaw or a same-day trigger."
-      es: "Un dólar fuerte ha coincidido en general con debilidad en los activos de riesgo, cripto incluida. Es una tendencia inversa y de contexto, no un balancín mecánico ni un gatillo del mismo día."
+      es: "Un dólar fuerte ha coincidido en general con debilidad en los activos de riesgo, cripto incluida. Es una tendencia inversa y de contexto, no un balancín mecánico ni un detonante del mismo día."
   - id: safe-haven-myth
     kind: true_false
     prompt:

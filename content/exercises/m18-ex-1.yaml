@@ -3,7 +3,7 @@ type: calculation
 formula: market_cap
 prompt:
   en: "A token trades at **{price} USD** and its circulating supply is **{circulating} million tokens**. What is its market capitalisation? Give the answer in million USD."
-  es: "Un token cotiza a **{price} USD** y su suministro circulante es de **{circulating} millones de tokens**. ¿Cuál es su capitalización de mercado? Da la respuesta en millones de USD."
+  es: "Un token cotiza a **{price} USD** y su oferta circulante es de **{circulating} millones de tokens**. ¿Cuál es su capitalización de mercado? Da la respuesta en millones de USD."
 params:
   price: { kind: choice, values: ["0.5", "1.2", "3.5", "12", "85"] }
   circulating: { kind: int_range, min: 50, max: 1500, step: 10 }
@@ -12,4 +12,4 @@ round: 2
 unit: million USD
 explanation:
   en: "Market cap = price × circulating supply. Only the tradable float counts here, so this is the token's real present size — not the fully-diluted figure that also includes tokens still locked in the schedule."
-  es: "Market cap = precio × suministro circulante. Aquí solo cuenta el float negociable, así que este es el tamaño real y presente del token, no la cifra totalmente diluida que también incluye los tokens aún bloqueados en el calendario."
+  es: "Market cap = precio × oferta circulante. Aquí solo cuenta el float negociable, así que este es el tamaño real y presente del token, no la cifra totalmente diluida que también incluye los tokens aún bloqueados en el calendario."

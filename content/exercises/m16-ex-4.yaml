@@ -14,7 +14,7 @@ variants:
       - id: b
         text:
           en: "Buy immediately with size — an extreme reading is a precise entry trigger."
-          es: "Comprar de inmediato y con tamaño: una lectura extrema es un disparador preciso de entrada."
+          es: "Comprar de inmediato y con tamaño: una lectura extrema es un trigger preciso de entrada."
       - id: c
         text:
           en: "Short immediately, since fear means price will keep falling from here."
@@ -29,7 +29,7 @@ variants:
   - id: zone-not-timing
     prompt:
       en: "Why is an extreme sentiment reading a zone rather than a timing trigger?"
-      es: "¿Por qué una lectura extrema de sentimiento es una zona y no un disparador de timing?"
+      es: "¿Por qué una lectura extrema de sentimiento es una zona y no un trigger de timing?"
     options:
       - id: a
         correct: true
@@ -55,7 +55,7 @@ variants:
     kind: true_false
     prompt:
       en: "An extreme sentiment reading is, by itself, a precise buy or sell trigger."
-      es: "Una lectura extrema de sentimiento es, por sí sola, un disparador preciso de compra o venta."
+      es: "Una lectura extrema de sentimiento es, por sí sola, un trigger preciso de compra o venta."
     answer: false
     explanation:
       en: "This is the classic trap. An extreme reading marks a crowded, contrarian zone — never a moment. Extremes can persist for weeks or months, so the trigger must come from your own tools: structure, a level, confirmation."
@@ -194,7 +194,7 @@ variants:
           es: "Una región donde las probabilidades y el riesgo/beneficio empiezan a cambiar; nunca un momento."
     explanation:
       en: "Sentiment tells you which side is dangerous; it never tells you when. The trigger has to come from your own tools."
-      es: "El sentimiento te dice qué lado es peligroso; nunca te dice cuándo. El disparador tiene que venir de tus propias herramientas."
+      es: "El sentimiento te dice qué lado es peligroso; nunca te dice cuándo. El trigger tiene que venir de tus propias herramientas."
   - id: size-for-extremes
     kind: true_false
     prompt:

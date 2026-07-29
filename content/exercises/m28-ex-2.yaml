@@ -4,7 +4,7 @@ variants:
   - id: absolute-vs-percentage
     prompt:
       en: "BTC is 60,000 on venue A and 60,900 on venue B. Separately, a smaller coin is 6,000 on A and 6,900 on B. Both gaps are 900 — are the two premiums comparable?"
-      es: "BTC está a 60.000 en el sitio A y a 60.900 en el B. Aparte, una moneda más pequeña está a 6.000 en A y a 6.900 en B. Los dos huecos son 900: ¿son comparables las dos primas?"
+      es: "BTC está a 60.000 en el exchange A y a 60.900 en el B. Aparte, una moneda más pequeña está a 6.000 en A y a 6.900 en B. Los dos huecos son 900: ¿son comparables las dos primas?"
     options:
       - id: a
         correct: true
@@ -22,7 +22,7 @@ variants:
       - id: d
         text:
           en: "No, because premiums can only ever be compared between venues, never between coins."
-          es: "No, porque las primas solo se pueden comparar entre sitios, nunca entre monedas."
+          es: "No, porque las primas solo se pueden comparar entre exchanges, nunca entre monedas."
     explanation:
       en: "The percentage is the figure worth quoting, and this is why. A 15% premium is an extraordinary dislocation; a 1.5% one is notable but ordinary in a market with real transfer friction. The absolute number cannot distinguish them, which is also why the percentage is what lets you compare a premium today against a premium two years ago."
       es: "El porcentaje es la cifra que merece citarse, y esta es la razón. Una prima del 15 % es una dislocación extraordinaria; una del 1,5 % es llamativa pero corriente en un mercado con fricción de transferencia real. El número absoluto no puede distinguirlas, y por eso también el porcentaje es lo que te permite comparar una prima de hoy con una de hace dos años."
@@ -55,7 +55,7 @@ variants:
     kind: true_false
     prompt:
       en: "A venue trading at a premium means institutions are buying there, which makes it a reason to go long."
-      es: "Que un sitio cotice con prima significa que las instituciones están comprando ahí, lo que lo convierte en una razón para ponerse largo."
+      es: "Que un exchange cotice con prima significa que las instituciones están comprando ahí, lo que lo convierte en una razón para ponerse largo."
     answer: false
     explanation:
       en: "False, and it skips every step that matters. You have not established which of the two causes you are looking at, whether the premium is widening or merely high, or whether the move it supposedly predicts has already happened. Like funding in m17, it is a positioning and flow reading: most informative at extremes, near-meaningless in the middle, and crowded positioning is fragile positioning."
@@ -64,13 +64,13 @@ variants:
     kind: multi_select
     prompt:
       en: "Why doesn't arbitrage close a cross-venue premium instantly? Select all that apply."
-      es: "¿Por qué el arbitraje no cierra al instante una prima entre sitios? Selecciona todas las que correspondan."
+      es: "¿Por qué el arbitraje no cierra al instante una prima entre exchanges? Selecciona todas las que correspondan."
     options:
       - id: a
         correct: true
         text:
           en: "Moving coin between venues needs blockchain confirmations, and price can move against you the whole time"
-          es: "Mover moneda entre sitios necesita confirmaciones de blockchain, y el precio puede moverse en tu contra todo ese tiempo"
+          es: "Mover moneda entre exchanges necesita confirmaciones de blockchain, y el precio puede moverse en tu contra todo ese tiempo"
       - id: b
         correct: true
         text:
@@ -91,7 +91,7 @@ variants:
   - id: widening-vs-level
     prompt:
       en: "A venue's premium has gone from 0.4% to 2.1% over three days. Another venue has sat flat at 2.0% for months. Which is telling you more, and what?"
-      es: "La prima de un sitio ha pasado del 0,4 % al 2,1 % en tres días. Otro sitio lleva meses plano en el 2,0 %. ¿Cuál te dice más, y qué?"
+      es: "La prima de un exchange ha pasado del 0,4 % al 2,1 % en tres días. Otro sitio lleva meses plano en el 2,0 %. ¿Cuál te dice más, y qué?"
     options:
       - id: a
         correct: true
@@ -126,7 +126,7 @@ variants:
       - id: b
         text:
           en: "Either price is about to crash, or the venue is about to be delisted."
-          es: "O el precio está a punto de desplomarse, o el sitio está a punto de ser deslistado."
+          es: "O el precio está a punto de desplomarse, o el exchange está a punto de ser deslistado."
       - id: c
         text:
           en: "Either arbitrageurs have all left, or the coin's supply has changed."
@@ -147,21 +147,21 @@ variants:
       - id: demand
         left:
           en: "A premium widens sharply over a few days on one venue"
-          es: "Una prima se ensancha con fuerza en unos pocos días en un sitio"
+          es: "Una prima se ensancha con fuerza en unos pocos días en un exchange"
         right:
           en: "Regional demand — buying pressure arriving through that venue first"
           es: "Demanda regional: presión compradora que llega primero por ese sitio"
       - id: friction
         left:
           en: "A premium holds the same level for months on a capital-controlled venue"
-          es: "Una prima aguanta el mismo nivel durante meses en un sitio con controles de capital"
+          es: "Una prima aguanta el mismo nivel durante meses en un exchange con controles de capital"
         right:
           en: "Transfer friction — the standing price of the barrier, not a demand signal"
           es: "Fricción de transferencia: el precio permanente de la barrera, no una señal de demanda"
       - id: small
         left:
           en: "A persistent premium of a few basis points on a major global venue"
-          es: "Una prima persistente de unos pocos puntos básicos en un sitio global grande"
+          es: "Una prima persistente de unos pocos puntos básicos en un exchange global grande"
         right:
           en: "Ordinary arbitrage floor — smaller than the round-trip cost of closing it"
           es: "El suelo corriente del arbitraje: menor que el coste de ida y vuelta de cerrarla"

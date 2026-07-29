@@ -25,7 +25,7 @@ variants:
           es: "Como la cantidad de ETH que hay que pagar en comisiones por cada transacción de BTC."
     explanation:
       en: "Because Ether is the largest, most liquid alt, its price measured in BTC works as a rough gauge of appetite for alts in general. It is a thermometer, not a trigger."
-      es: "Como Ether es la alt más grande y líquida, su precio medido en BTC sirve de indicador aproximado del apetito por las alts en general. Es un termómetro, no un gatillo."
+      es: "Como Ether es la alt más grande y líquida, su precio medido en BTC sirve de indicador aproximado del apetito por las alts en general. Es un termómetro, no un detonante."
   - id: rising-means
     prompt:
       en: "A rising ETH/BTC ratio most likely suggests what?"
@@ -109,7 +109,7 @@ variants:
     answer: false
     explanation:
       en: "ETH/BTC is a thermometer, not a trigger. It tells you the temperature of risk appetite — that the environment currently favours alts — never the precise moment to act, and that environment can cool overnight."
-      es: "El ETH/BTC es un termómetro, no un gatillo. Te dice la temperatura del apetito por el riesgo —que el entorno favorece de momento a las alts—, nunca el momento exacto para actuar, y ese entorno puede enfriarse de la noche a la mañana."
+      es: "El ETH/BTC es un termómetro, no un detonante. Te dice la temperatura del apetito por el riesgo —que el entorno favorece de momento a las alts—, nunca el momento exacto para actuar, y ese entorno puede enfriarse de la noche a la mañana."
   - id: ratio-signals-match
     kind: matching
     prompt:
@@ -143,10 +143,10 @@ variants:
           es: "Lo que ETH/BTC no es"
         right:
           en: "A precise trigger telling you the minute to act"
-          es: "Un gatillo preciso que indique el minuto de actuar"
+          es: "Un detonante preciso que indique el minuto de actuar"
     explanation:
       en: "Rising means Ether is winning and appetite is warming; falling means Bitcoin is winning and capital is retreating. Traders watch this pair because Ether is the most liquid alt — but it reads the temperature, it is not a trigger."
-      es: "Al alza significa que Ether gana y el apetito se calienta; a la baja, que Bitcoin gana y el capital se repliega. Los traders vigilan este par porque Ether es la alt más líquida, pero mide la temperatura, no es un gatillo."
+      es: "Al alza significa que Ether gana y el apetito se calienta; a la baja, que Bitcoin gana y el capital se repliega. Los traders vigilan este par porque Ether es la alt más líquida, pero mide la temperatura, no es un detonante."
   - id: ratio-worked
     prompt:
       en: "Bitcoin rallies to 50,000 (+25%) and Ether to 2,300 (+15%). Ether is up in dollars — what has ETH/BTC done?"

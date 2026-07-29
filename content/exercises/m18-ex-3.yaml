@@ -39,7 +39,7 @@ variants:
       - id: b
         text:
           en: "Token A, because a larger circulating supply means more selling ahead."
-          es: "El token A, porque un suministro circulante mayor implica más ventas por delante."
+          es: "El token A, porque un oferta circulante mayor implica más ventas por delante."
       - id: c
         text:
           en: "Neither — dilution depends only on the price, not on how much supply is still locked."
@@ -58,17 +58,17 @@ variants:
       es: "Empareja cada término de tokenómica con lo que mide en realidad."
     pairs:
       - id: circ
-        left: { en: "Circulating supply", es: "Suministro circulante" }
+        left: { en: "Circulating supply", es: "Oferta circulante" }
         right:
           en: "The tokens tradable right now, free to be bought and sold."
           es: "Los tokens negociables ahora mismo, libres para comprarse y venderse."
       - id: total
-        left: { en: "Total supply", es: "Suministro total" }
+        left: { en: "Total supply", es: "Oferta total" }
         right:
           en: "Everything minted so far, including locked and vesting tokens not yet on the market."
           es: "Todo lo emitido hasta la fecha, incluidos los tokens bloqueados y en vesting que aún no están en el mercado."
       - id: max
-        left: { en: "Max supply", es: "Suministro máximo" }
+        left: { en: "Max supply", es: "Oferta máxima" }
         right:
           en: "The ceiling — the most tokens that will ever exist once all emissions have happened."
           es: "El techo: la mayor cantidad de tokens que existirá jamás una vez ocurridas todas las emisiones."
@@ -76,15 +76,15 @@ variants:
         left: { en: "Market cap", es: "Market cap" }
         right:
           en: "Price × circulating supply — what the tradable float is worth today."
-          es: "Precio × suministro circulante: lo que vale hoy el float negociable."
+          es: "Precio × oferta circulante: lo que vale hoy el float negociable."
       - id: fdv
         left: { en: "FDV", es: "FDV" }
         right:
           en: "Price × max supply — what the whole thing would be worth if every token traded at today's price."
-          es: "Precio × suministro máximo: lo que valdría el conjunto si cada token cotizara al precio de hoy."
+          es: "Precio × oferta máxima: lo que valdría el conjunto si cada token cotizara al precio de hoy."
     explanation:
       en: "The three supply numbers differ by how much is tradable: circulating (now), total (minted so far), max (the final ceiling). Market cap uses circulating supply; FDV uses max supply. The gap between the last two is the future supply still waiting to unlock."
-      es: "Las tres cifras de oferta se distinguen por cuánto es negociable: circulante (ahora), total (lo emitido hasta la fecha) y máximo (el techo final). El market cap usa el suministro circulante; la FDV, el suministro máximo. La distancia entre las dos últimas es la oferta futura que aún espera para desbloquearse."
+      es: "Las tres cifras de oferta se distinguen por cuánto es negociable: circulante (ahora), total (lo emitido hasta la fecha) y máximo (el techo final). El market cap usa el oferta circulante; la FDV, el oferta máxima. La distancia entre las dos últimas es la oferta futura que aún espera para desbloquearse."
   - id: mcap-fdv-same
     kind: true_false
     prompt:
@@ -93,7 +93,7 @@ variants:
     answer: false
     explanation:
       en: "They are different. Market cap = price × circulating supply (the tradable float today); FDV = price × max supply (every token that will ever exist, at today's price). The gap between them is exactly the future supply still waiting to unlock."
-      es: "Son distintos. El market cap = precio × suministro circulante (el float negociable hoy); la FDV = precio × suministro máximo (cada token que existirá, al precio de hoy). La distancia entre ambos es justo la oferta futura que aún espera para desbloquearse."
+      es: "Son distintos. El market cap = precio × oferta circulante (el float negociable hoy); la FDV = precio × oferta máxima (cada token que existirá, al precio de hoy). La distancia entre ambos es justo la oferta futura que aún espera para desbloquearse."
   - id: low-float-red-flags
     kind: multi_select
     prompt:
@@ -122,7 +122,7 @@ variants:
       - id: e
         text:
           en: "Its max supply is capped and every token is already circulating."
-          es: "Su suministro máximo tiene tope y todos los tokens ya circulan."
+          es: "Su oferta máxima tiene tope y todos los tokens ya circulan."
     explanation:
       en: "A huge FDV-to-market-cap gap, a tiny float, and big scheduled unlocks all point to heavy future dilution. A small market cap by itself is not a bargain, and a fully-circulating capped supply is reassuring — the opposite of a red flag."
       es: "Una diferencia enorme entre FDV y market cap, un float minúsculo y desbloqueos grandes programados apuntan todos a una fuerte dilución futura. Un market cap pequeño por sí solo no es una ganga, y una oferta con tope ya del todo en circulación es tranquilizadora: lo contrario de una señal de alarma."
@@ -154,7 +154,7 @@ variants:
   - id: low-float-worked
     prompt:
       en: "A token launches with a 1-billion max supply but only 8% circulating — 80 million tokens — and gets bid to $3.00. What do the numbers say?"
-      es: "Un token se lanza con un suministro máximo de 1.000 millones pero solo el 8% circulando (80 millones de tokens) y se puja hasta 3,00 $. ¿Qué dicen los números?"
+      es: "Un token se lanza con un oferta máxima de 1.000 millones pero solo el 8% circulando (80 millones de tokens) y se puja hasta 3,00 $. ¿Qué dicen los números?"
     options:
       - id: a
         correct: true
@@ -179,7 +179,7 @@ variants:
   - id: penny-coin
     prompt:
       en: "Token A trades at $0.001 with a 100-billion max supply. Token B trades at $50 with a 1-million max supply. Which is the more expensive network?"
-      es: "El token A cotiza a 0,001 $ con un suministro máximo de 100.000 millones. El token B cotiza a 50 $ con un máximo de 1 millón. ¿Cuál es la red más cara?"
+      es: "El token A cotiza a 0,001 $ con un oferta máxima de 100.000 millones. El token B cotiza a 50 $ con un máximo de 1 millón. ¿Cuál es la red más cara?"
     options:
       - id: a
         correct: true
@@ -197,7 +197,7 @@ variants:
       - id: d
         text:
           en: "Cannot be compared without knowing each one's circulating supply."
-          es: "No pueden compararse sin conocer el suministro circulante de cada uno."
+          es: "No pueden compararse sin conocer el oferta circulante de cada uno."
     explanation:
       en: "Price per token is arbitrary — the team simply chose a supply. Only market cap and FDV, measured against what the thing actually does, say anything about value. And compare like with like: market cap to market cap, FDV to FDV."
       es: "El precio por token es arbitrario: el equipo simplemente eligió un suministro. Solo la capitalización y el FDV, medidos contra lo que la cosa hace realmente, dicen algo sobre el valor. Y compara lo comparable: capitalización con capitalización, FDV con FDV."
@@ -211,7 +211,7 @@ variants:
         position: 1
         text:
           en: "Look up circulating, total and max supply — most data sites list all three."
-          es: "Busca el suministro circulante, total y máximo: la mayoría de webs de datos listan los tres."
+          es: "Busca el oferta circulante, total y máximo: la mayoría de webs de datos listan los tres."
       - id: ratio
         position: 2
         text:

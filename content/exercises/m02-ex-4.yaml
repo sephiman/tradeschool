@@ -25,7 +25,7 @@ variants:
           es: "La contraseña de tu cuenta, ya que las API keys son menos seguras que una contraseña."
     explanation:
       en: "Grant the least access the tool needs: read-only is enough to show balances. A key that can trade or withdraw is a spare key to your funds, and you never share your account password."
-      es: "Concede el mínimo acceso que necesita la herramienta: solo lectura basta para mostrar saldos. Una clave que puede operar o retirar es una copia de la llave de tus fondos, y la contraseña de la cuenta no se comparte nunca."
+      es: "Concede el mínimo acceso que necesita la herramienta: solo lectura basta para mostrar saldos. Una clave que puede operar o retirar es una copia de la clave de tus fondos, y la contraseña de la cuenta no se comparte nunca."
   - id: 2fa-whitelist
     prompt:
       en: "Which pair of measures best protects a CEX account?"
@@ -154,7 +154,7 @@ variants:
     answer: false
     explanation:
       en: "An API key that can withdraw is a spare key to your funds: if the app is malicious or gets breached, your coins can leave. Give tools the least access they need — read-only, or trade-only with withdrawals disabled."
-      es: "Una API key que puede retirar es una copia de la llave de tus fondos: si la app es maliciosa o sufre una brecha, tus monedas pueden salir. Da a las herramientas el mínimo acceso que necesitan: solo lectura, o solo trading con los retiros desactivados."
+      es: "Una API key que puede retirar es una copia de la clave de tus fondos: si la app es maliciosa o sufre una brecha, tus monedas pueden salir. Da a las herramientas el mínimo acceso que necesitan: solo lectura, o solo trading con los retiros desactivados."
   - id: sim-swap
     prompt:
       en: "Why is an authenticator app stronger than SMS codes, even if your password is excellent?"
