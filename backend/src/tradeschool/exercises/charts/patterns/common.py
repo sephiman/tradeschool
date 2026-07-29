@@ -210,3 +210,26 @@ def resolve_swing(close: Floats, idx: int, kind: str, w: int = 3) -> int:
     segment = close[lo:hi]
     offset = int(np.argmax(segment) if kind == "high" else np.argmin(segment))
     return lo + offset
+
+
+def candle_extreme(series: Series, lo: int, hi: int, kind: str) -> int:
+    """The bar with the highest high / lowest low in `[lo, hi)` — a pivot anchored to the CANDLES.
+
+    `resolve_swing` answers the same question on the close path, which is where an injector's designed
+    shape lives, and that is the right anchor for a swing the shape defines. But a pivot LABEL ("this
+    bar is the higher high") is read off the wicks, and `build_series` draws every wick from a
+    half-normal: the close-path extreme and the candle extreme land a bar or two apart, which puts the
+    label beside the visibly highest bar instead of on it.
+
+    Taking the extreme over a whole swing SEGMENT — bounded by the neighbouring opposite pivots, not by
+    a few bars either side of a designed index — makes the marked bar the extreme of its swing by
+    construction. That is what lets the annotation tests assert extremality outright instead of
+    tolerating a near-miss, and near-misses are the whole problem: on a plateaued pivot the difference
+    between the marked bar and its neighbour is one wick draw, so any tolerance is arbitrary.
+    """
+    lo = max(0, lo)
+    hi = min(len(series.close), hi)
+    edge = series.high if kind == "high" else series.low
+    window = np.asarray(edge[lo:hi], dtype=float)
+    offset = int(np.argmax(window) if kind == "high" else np.argmin(window))
+    return lo + offset

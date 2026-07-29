@@ -38,10 +38,25 @@ from tradeschool.exercises.pattern_chart import (
 
 _SEEDS = 300  # per injector label — the defect is distributional, so a handful of seeds proves nothing
 _N = 130
-_KINDS = {"support", "resistance", "fib"}  # every kind the frontend has a colour and a title for
+_KINDS = {"support", "resistance", "fib", "plan"}  # every kind the frontend has a colour and a title for
 # A level with a SIDE is a barrier: "beyond" it means broken. A fib level is a measurement grid — price
 # travels through it on the way up and that says nothing about it — so the breach rules do not apply.
 _BARRIER = {"support", "resistance"}
+# Kinds that are claims about where price HAS BEEN, and so must be corroborated by the candles.
+#
+# A `plan` level is not one of them: an entry, a stop, a target, a stop-limit's trigger and limit are
+# prices the TRADER chose. A stop that the price action reached is a stop that got hit, and a target
+# price already traded is not a target — so "every drawn level is touched before the decision" is not
+# merely inapplicable here, it is the opposite of what those lines claim. They are not exempt from
+# scrutiny, they answer to a different and stricter contract: each one is pinned to a specific feature
+# of the planted geometry (the entry IS the entry bar's close, the target IS the prior high, the stop
+# sits under a rejection wick nothing else trades below, the limit is a line no later bar reaches), and
+# `tests/test_chart_annotations.py` is where that is enforced.
+_CORROBORATED = _BARRIER | {"fib"}
+# Injectors whose chart draws NO corroborated level, only order lines. There is exactly one, and it is
+# named here rather than discovered so that an injector which silently stops publishing its
+# support/resistance cannot slip through the tests below by looking like this case.
+_ORDER_LINE_ONLY = {"stop_limit_gap"}
 _CONTENT = Path(__file__).resolve().parents[2] / "content"
 
 
@@ -154,7 +169,8 @@ def test_every_drawn_level_is_tested_before_the_decision(injector: str, label: s
     two adjacent bars grazing the line are one touch — which is exactly the hole the first version of
     this test left open: it asserted `.any()`, so a level brushed by two lone planted wicks 1.5% from
     every candle body passed while still reading as a line in empty space (m14-ex-1/ex-2 review).
-    A fib level is exempt: it is a measurement grid the pullback lands on once, not a barrier."""
+    A fib level needs only one: it is a measurement grid the pullback lands on, not a barrier. A `plan`
+    level is out of scope entirely — see `_CORROBORATED`."""
     config = _config(injector, [label])
     for seed in range(_SEEDS):
         _lbl, _ann, payload = _instantiate(config, seed)
@@ -162,6 +178,8 @@ def test_every_drawn_level_is_tested_before_the_decision(injector: str, label: s
         decision = int(0.76 * len(high))
         for lvl in _levels(payload):
             price, kind = _price(lvl), str(lvl["kind"])
+            if kind not in _CORROBORATED:
+                continue
             touched = np.flatnonzero(_straddles(high[:decision], low[:decision], price))
             assert touched.size, (
                 f"seed {seed}: {injector}/{label} draws {kind} at {price} that no candle "
@@ -183,8 +201,18 @@ def test_every_drawn_level_is_tested_before_the_decision(injector: str, label: s
 @pytest.mark.parametrize(("injector", "label"), _LEVEL_PAIRS)
 def test_the_decision_engages_a_drawn_level(injector: str, label: str) -> None:
     """The event the exercise asks about happens AT a drawn level: somewhere in the decision region a
-    candle must trade to or through one. A test that stops short of the line is not a test of it."""
+    candle must trade to or through one. A test that stops short of the line is not a test of it.
+
+    Only corroborated kinds count towards it — a chart whose sole engaged line was the trader's own
+    stop would satisfy the letter of this and none of its point. A chart with no corroborated line at
+    all has no subject here, and `_ORDER_LINE_ONLY` pins which chart that is allowed to be."""
     config = _config(injector, [label])
+    _l0, _a0, first = _instantiate(config, 0)
+    if not [lvl for lvl in _levels(first) if str(lvl["kind"]) in _CORROBORATED]:
+        assert injector in _ORDER_LINE_ONLY, (
+            f"{injector}/{label} draws only order lines — did it stop publishing its market level?"
+        )
+        return
     for seed in range(_SEEDS):
         _lbl, _ann, payload = _instantiate(config, seed)
         high, low, _close = _hl(payload)
@@ -195,6 +223,7 @@ def test_the_decision_engages_a_drawn_level(injector: str, label: str) -> None:
         engaged = any(
             _reaches(high[tail], low[tail], _price(lvl), str(lvl["kind"])).any()
             for lvl in _levels(payload)
+            if str(lvl["kind"]) in _CORROBORATED
         )
         assert engaged, f"seed {seed}: {injector}/{label} decision never reaches a drawn level"
 
@@ -373,24 +402,57 @@ def _figure_panels() -> list[tuple[str, int]]:
 def test_figure_levels_are_tested_by_the_pre_resolution_action(figure_id: str, panel: int) -> None:
     """Figures run the same injectors through the same `Level`/`LevelGuard` contract, then append the
     resolution an exercise cuts off. The resolution legitimately walks away from the level — that IS
-    the lesson — so what must hold is that the action BEFORE it tested the line."""
+    the lesson — so what must hold is that the action BEFORE it tested the line.
+
+    `plan` levels are out of scope here for the reason given at `_CORROBORATED`: the resolution is
+    precisely where a target gets reached and where a stop proves it was never hit."""
     p = _panels(figure_id)[panel]
     high, low, _close = _hl(p)
     # The injector's own window, before `_RESOLUTION_CANDLES` of appended continuation.
     pre = len(high) - 24
     for lvl in _levels(p):
         price = _price(lvl)
+        assert str(lvl["label"]), f"{figure_id} panel{panel}: level with no label renders bare"
+        if str(lvl["kind"]) not in _CORROBORATED:
+            continue
         assert _straddles(high[:pre], low[:pre], price).any(), (
             f"{figure_id} panel{panel}: {lvl['kind']} at {price} is never reached before the resolution"
         )
-        assert str(lvl["label"]), f"{figure_id} panel{panel}: level with no label renders bare"
+
+
+def test_no_two_figures_draw_the_same_level_price() -> None:
+    """Two different figures labelling a line with the SAME price to the cent reads as a bug, and is
+    one: every injector picks its base price from the same five-tier table with the same two opening
+    draws, so two figures on one seed get an identical base — and the m17/m21/m24 injectors each draw
+    their level AT that base, which put `2016.67` on three charts in three different modules.
+
+    A figure's seed is frozen content, so the fix is a seed per tier, and this is what keeps it fixed:
+    the next figure built on one of these injectors either picks a fresh tier or fails here.
+
+    Panels WITHIN one figure are exempt: a two-panel comparison deliberately shares a scale (m08's two
+    ladders are the same chart until the last swing), and there the repetition is the point."""
+    by_price: dict[float, list[str]] = {}
+    for figure_id, panel in _figure_panels():
+        for lvl in _levels(_panels(figure_id)[panel]):
+            by_price.setdefault(_price(lvl), []).append(f"{figure_id}:{lvl['label']}")
+    shared = {
+        price: where
+        for price, where in by_price.items()
+        if len({w.split(":")[0] for w in where}) > 1
+    }
+    assert not shared, f"the same level price drawn by different figures: {shared}"
 
 
 def test_every_injector_that_draws_a_level_is_covered() -> None:
     """The parametrised suites above discover their own targets; this fails if that discovery silently
     finds nothing (a refactor that stops publishing levels would otherwise make the file vacuous)."""
     drawn = {name for name, _label in _LEVEL_PAIRS}
-    assert drawn >= {"fakeout", "volume_confirmation", "wyckoff", "fibonacci", "candle_reaction"}
+    assert drawn >= {
+        "fakeout", "volume_confirmation", "wyckoff", "fibonacci", "candle_reaction",
+        # ...and the figure injectors that draw lines: the m24 trade's four, the m17/m06 shelf, and the
+        # m21 order pair (whose `plan` kinds still owe the discovered price/guard/no-orphan checks).
+        "trade_anatomy", "liquidity_sweep", "stop_limit_gap",
+    }
     assert _figure_panels(), "no figure exposes a level — level rendering lost its figure coverage"
 
 

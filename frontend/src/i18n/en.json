@@ -199,11 +199,23 @@
     "tweezers_top": "Tweezers top",
     "doji": "Doji",
     "small_range": "Small range",
-    "test": "Test"
+    "test": "Test",
+    "rejection": "Rejection",
+    "sweep": "Sweep",
+    "liquidation": "Liquidation",
+    "gap": "Gap through",
+    "unfilled": "Order unfilled"
   },
   "level": {
     "support": "Support",
-    "resistance": "Resistance"
+    "resistance": "Resistance",
+    "shelf": "Shelf",
+    "confluence": "Confluence level",
+    "entry": "Entry",
+    "stop": "Stop",
+    "target": "Target",
+    "trigger": "Trigger",
+    "limit": "Limit"
   },
   "candle": {
     "open": "Open",

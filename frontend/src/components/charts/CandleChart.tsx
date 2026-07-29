@@ -75,11 +75,15 @@ const palette = (dark: boolean) => ({
   overlays: dark ? ["#60a5fa", "#c084fc", "#22d3ee", "#facc15"] : ["#2563eb", "#9333ea", "#0891b2", "#ca8a04"],
 });
 
-/** Horizontal-level color keyed by semantic kind (support/resistance/fib/…). */
+/** Horizontal-level color keyed by semantic kind (support/resistance/fib/plan/…). */
 function levelColor(c: ReturnType<typeof palette>, kind: string): string {
   if (kind === "support") return c.up;
   if (kind === "resistance") return c.down;
   if (kind === "fib") return c.signal;
+  // A `plan` line — entry, stop, target, a stop-limit's trigger and limit — is a price the TRADER chose,
+  // not one the market has respected, so it reads as the annotation layer: the same high-contrast neutral
+  // the markers use. Deliberately not red/green, which would make a stop line look like a resistance.
+  if (kind === "plan") return c.marker;
   return c.text;
 }
 

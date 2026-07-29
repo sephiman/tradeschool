@@ -453,3 +453,16 @@ def test_candle_reaction_form_and_location_match_label() -> None:
         if label == "indecision":
             assert bodies == 0, "indecision is a tiny body (doji / small range)"
     assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
+
+
+# --- the four figure-only injectors ---------------------------------------------------------------
+#
+# `market_structure` (m08-l1), `liquidity_sweep` (m17-l2 + m06-l1), `stop_limit_gap` (m21-l1) and
+# `trade_anatomy` (m24-l1) get the same treatment as everything above — the credibility test at the top
+# of this file is parametrised over every registered injector, so it already covers them — but their
+# structure-matches-label tests live in `test_chart_annotations.py` instead of here.
+#
+# That is not an exception, it is where the claim is: each of them plants a MARKED feature (the labelled
+# pivot, the sweep bar, the slice candle, the rejection wick) and draws lines pinned to it, so "does the
+# geometry encode the label" and "does the annotation match the geometry" are one question for them and
+# asking it twice in two files would let the two answers drift apart.

@@ -91,6 +91,30 @@ GOLDEN = {
     "wyckoff:1": "d3d68b466af5df0b",
     "wyckoff:2": "c919e3cc3977bef1",
     "wyckoff:3": "ad00ae665d810925",
+    # Captured when the four FIGURE-ONLY injectors were ADDED (m08-l1 swing structure, m17-l2 + m06-l1
+    # liquidity sweep, m21-l1 stop-limit gap, m24-l1 trade anatomy). They are registered like any other
+    # injector — that is what puts them under the discovered level, credibility and annotation suites —
+    # but no exercise config selects them: their whole subject is the resolution a figure shows and an
+    # exercise may not. Kept as one group rather than filed alphabetically, so this addition reads as the
+    # single event it was. Every hash above stayed byte-identical in the same commit, which is what proves
+    # that the two things they added to shared code — `candle_extreme` and the `plan` level kind — touched
+    # no existing generator path.
+    "liquidity_sweep:0": "33e87d8a6d718f65",
+    "liquidity_sweep:1": "24245e3ad81698c7",
+    "liquidity_sweep:2": "fd2c2f805ae4ea57",
+    "liquidity_sweep:3": "d4b3f8df0636cb1c",
+    "market_structure:0": "95b2b2b265cdf541",
+    "market_structure:1": "7f629f144edda030",
+    "market_structure:2": "5c6ed95aeebb7922",
+    "market_structure:3": "3f4dff5667efc0e5",
+    "stop_limit_gap:0": "46b173dc594957eb",
+    "stop_limit_gap:1": "8597f86ebbb5dd32",
+    "stop_limit_gap:2": "ecc2a943ad23658d",
+    "stop_limit_gap:3": "5df192595f0e130a",
+    "trade_anatomy:0": "e8b93001f6b010de",
+    "trade_anatomy:1": "29f82a1ec9e46d10",
+    "trade_anatomy:2": "d8c8c4215544609c",
+    "trade_anatomy:3": "92ea34b457f360e0",
 }
 
 _SEEDS = range(4)

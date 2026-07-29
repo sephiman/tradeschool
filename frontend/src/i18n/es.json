@@ -199,11 +199,23 @@
     "tweezers_top": "Pinzas superiores",
     "doji": "Doji",
     "small_range": "Rango pequeño",
-    "test": "Prueba"
+    "test": "Prueba",
+    "rejection": "Rechazo",
+    "sweep": "Barrido",
+    "liquidation": "Liquidación",
+    "gap": "Hueco",
+    "unfilled": "Orden sin ejecutar"
   },
   "level": {
     "support": "Soporte",
-    "resistance": "Resistencia"
+    "resistance": "Resistencia",
+    "shelf": "Repisa",
+    "confluence": "Nivel de confluencia",
+    "entry": "Entrada",
+    "stop": "Stop",
+    "target": "Objetivo",
+    "trigger": "Disparador",
+    "limit": "Límite"
   },
   "candle": {
     "open": "Apertura",

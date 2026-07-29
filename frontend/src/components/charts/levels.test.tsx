@@ -120,6 +120,29 @@ describe("price-pane horizontal lines", () => {
     expect(titles).toEqual(["382", "618"]);
   });
 
+  it("draws a trade's plan lines by name, in one neutral colour distinct from support/resistance", () => {
+    mount(
+      <CandleChart
+        series={series}
+        indicator="none"
+        levels={[
+          { price: 13.9, label: "resistance", kind: "resistance" },
+          { price: 13.2, label: "target", kind: "plan" },
+          { price: 12.4, label: "entry", kind: "plan" },
+          { price: 11.6, label: "stop", kind: "plan" },
+        ]}
+      />,
+    );
+    const calls = createPriceLine.mock.calls.map((c) => c[0] as { title: string; color: string });
+    // Each plan line keeps its own title (three same-kind lines must not collapse into one name)...
+    expect(calls.map((c) => c.title)).toEqual(["Resistencia", "target", "entry", "stop"]);
+    // ...and they share a colour that is NOT the resistance colour: a stop line that renders red reads
+    // as a level the market defended rather than as a price the trader chose.
+    const [resistance, ...plan] = calls.map((c) => c.color);
+    expect(new Set(plan).size).toBe(1);
+    expect(plan[0]).not.toBe(resistance);
+  });
+
   it("keeps the RSI pane's 30/70 guides off the price pane", () => {
     mount(<CandleChart series={series} indicator="rsi" rsi={[50, 55, 60, 58]} />);
     // Two guides, both created on the RSI line series — and still no price line for the candles.

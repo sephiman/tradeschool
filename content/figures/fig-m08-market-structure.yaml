@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m08-market-structure
+kind: chart
+caption:
+  en: 'Left: an uptrend as a labelled staircase — every HH above the previous high,
+    every HL above the previous dip, and the ladder carries on. Right: the same ladder
+    whose last swing fails — price loses the previous higher low and prints a lower
+    one instead (CHoCH). What follows is a transition, not a promised reversal.'
+  es: 'Izquierda: una tendencia alcista como escalera etiquetada —cada HH por encima
+    del máximo anterior, cada HL por encima del retroceso anterior— y la escalera
+    continúa. Derecha: la misma escalera cuyo último swing falla —el precio pierde
+    el mínimo más alto anterior e imprime uno más bajo (CHoCH)—. Lo que sigue es una
+    transición, no un giro prometido.'
+panels:
+- generator: pattern_chart
+  injector: market_structure
+  target: uptrend_ladder
+  seed: 1
+  n: 150
+  indicator: none
+  resolution:
+    direction: up
+    strength: 0.1
+- generator: pattern_chart
+  injector: market_structure
+  target: choch_after_uptrend
+  seed: 1
+  n: 150
+  indicator: none
+  resolution:
+    direction: down
+    strength: 0.1

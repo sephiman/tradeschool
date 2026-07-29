@@ -10,9 +10,13 @@ from tradeschool.exercises.charts.patterns.cvd_divergence import CvdDivergenceIn
 from tradeschool.exercises.charts.patterns.derivatives import DerivativesInjector
 from tradeschool.exercises.charts.patterns.fakeout import FakeoutInjector
 from tradeschool.exercises.charts.patterns.fibonacci import FibonacciInjector
+from tradeschool.exercises.charts.patterns.liquidity_sweep import LiquiditySweepInjector
 from tradeschool.exercises.charts.patterns.ma_context import MaContextInjector
 from tradeschool.exercises.charts.patterns.macd_cross import MacdCrossInjector
+from tradeschool.exercises.charts.patterns.market_structure import MarketStructureInjector
 from tradeschool.exercises.charts.patterns.oscillator_reading import OscillatorReadingInjector
+from tradeschool.exercises.charts.patterns.stop_limit_gap import StopLimitGapInjector
+from tradeschool.exercises.charts.patterns.trade_anatomy import TradeAnatomyInjector
 from tradeschool.exercises.charts.patterns.volume_confirmation import VolumeConfirmationInjector
 from tradeschool.exercises.charts.patterns.wyckoff import WyckoffInjector
 
@@ -29,6 +33,11 @@ _INJECTORS: dict[str, PatternInjector] = {
         DerivativesInjector(),
         CandleReactionInjector(),
         CvdDivergenceInjector(),
+        # Figure-only injectors: shapes whose whole point is the resolution, so no exercise uses them.
+        MarketStructureInjector(),
+        LiquiditySweepInjector(),
+        StopLimitGapInjector(),
+        TradeAnatomyInjector(),
     )
 }
 

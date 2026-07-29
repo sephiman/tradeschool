@@ -112,11 +112,24 @@ Open <http://localhost:5173>, register an account, and review the full course:
   alike, so the two can never disagree about what a level means. Statistical tests over hundreds of
   seeds lock the invariants: the drawn price is the planted level exactly, every level is touched
   before the decision, the decision engages it, a level is breached only where its own guard allows
-  (wicks included), and no unlabeled or duplicate line renders alongside.
+  (wicks included), and no unlabeled or duplicate line renders alongside. A **`plan`** line — an entry,
+  a stop, a target, a stop-limit's trigger and limit — is the one kind those rules do *not* apply to,
+  because a stop the price action reached is a stop that got hit; each is pinned instead to a specific
+  feature of the planted geometry (the entry *is* the entry bar's close, the target *is* the prior high,
+  the stop sits under a rejection wick nothing else trades below).
+- **Markers are held to the same standard:** a label reading "HH" on a bar that is not the higher high
+  teaches the wrong reading off a chart that looks fine, so every annotation is checked against the
+  geometry it names — the marked bar is the extreme of its own swing, a CHoCH is *the first* lower low,
+  the sweep marker is the only bar that traded below the shelf, an "order unfilled" marker sits on a bar
+  the limit never reached.
 - **Lesson figures:** lessons embed didactic charts via a `::figure{id}` directive — server-generated
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by
-  `GET /api/figures/{id}` (auth + locale-aware, cached).
+  `GET /api/figures/{id}` (auth + locale-aware, cached). 25 figures across the course, including the
+  labelled HH/HL staircase and the swing that breaks it (m08), a liquidity sweep read as a shelf being
+  taken (m17) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
+  (m21), and one complete trade with its level, entry, stop and target drawn (m24). Every reference is
+  checked to resolve in both languages, and no spec may sit unembedded.
 - **Exams** (`/exams`): a sampled, graded run over the exercise bank — one question per module,
   **global** (every module) or **per-block**, each instantiated with a fresh seed. One attempt per
   question, free navigation, **no feedback until submission**; everything (your answer, the correct

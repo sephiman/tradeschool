@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m06-liquidation-cascade
+kind: chart
+caption:
+  en: 'A liquidation wick. Forced selling from a cascade of closures empties a thin
+    book, so price overshoots far below the level on a volume bar several times the
+    usual size, then snaps straight back. The spike is mechanical flow with nothing
+    durable behind it, not new information about value — which is why it retraces as
+    fast as it came.'
+  es: 'Una mecha de liquidación. La venta forzosa de una cascada de cierres vacía un
+    libro poco profundo, así que el precio se pasa de frenada muy por debajo del nivel
+    con una barra de volumen varias veces mayor de lo normal, y vuelve de golpe. El
+    pico es flujo mecánico sin nada duradero detrás, no información nueva sobre el
+    valor: por eso se deshace tan rápido como llegó.'
+panels:
+- generator: pattern_chart
+  injector: liquidity_sweep
+  target: liquidation_cascade
+  seed: 4
+  n: 150
+  indicator: none
+  resolution:
+    direction: up
+    strength: 0.08

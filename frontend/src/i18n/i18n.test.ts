@@ -28,14 +28,24 @@ const CHART_LABELS = [
 
 // Figure/chart ANNOTATION labels are also student-facing and must be localized, never rendered as the
 // raw backend enum (the `bearish_e…` / `support` leak). Marker labels live under `chartMarker.*`
-// (candle-reaction forms + the fakeout "test" marker); level titles under `level.*`. Keep in sync
-// with the injectors' Annotation/Level labels. Pass-through keys (swing "1"/"2", Wyckoff phases
-// "A"–"E", Fibonacci ratios) are display-ready and intentionally absent.
+// (candle-reaction forms, the fakeout "test" marker, and the m08/m17/m06/m21/m24 figure markers); level
+// titles under `level.*`. Keep in sync with the injectors' Annotation/Level labels. Pass-through keys
+// (swing "1"/"2", Wyckoff phases "A"–"E", Fibonacci ratios, and the market-structure acronyms HH / HL /
+// CHoCH, which read the same in both languages) are display-ready and intentionally absent.
 const CHART_MARKERS = [
   "hammer", "shooting_star", "bullish_engulfing", "bearish_engulfing", "morning_star", "evening_star",
   "harami", "tweezers_bottom", "tweezers_top", "doji", "small_range", "test",
+  "rejection", "sweep", "liquidation", "gap", "unfilled",
 ];
-const LEVEL_KINDS = ["support", "resistance"];
+// A level's title comes from its own LABEL first (falling back to its kind), so this list is of labels:
+// the support/resistance pair where the two coincide, plus every named line the figure injectors draw —
+// the `plan` lines of m21/m24 among them, whose whole purpose is to be read by name.
+const LEVEL_LABELS = [
+  "support", "resistance", "shelf", "confluence", "entry", "stop", "target", "trigger", "limit",
+];
+// The figure-only injectors' own labels (`uptrend_ladder`, `long_setup`, …) are deliberately NOT under
+// `chartLabel.*`: that namespace is the set of choices an exercise can present, and no exercise may use
+// those injectors — they show their own resolution. A backend test enforces it.
 
 const catalogs = { en, es } as Record<string, Record<string, Record<string, string>>>;
 
@@ -63,8 +73,8 @@ describe("UI translations", () => {
     for (const key of CHART_MARKERS) {
       expect(catalogs[lang].chartMarker?.[key], `chartMarker.${key} missing in ${lang}`).toBeTruthy();
     }
-    for (const kind of LEVEL_KINDS) {
-      expect(catalogs[lang].level?.[kind], `level.${kind} missing in ${lang}`).toBeTruthy();
+    for (const label of LEVEL_LABELS) {
+      expect(catalogs[lang].level?.[label], `level.${label} missing in ${lang}`).toBeTruthy();
     }
   });
 });
