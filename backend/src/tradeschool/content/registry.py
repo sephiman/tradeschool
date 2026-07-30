@@ -62,6 +62,9 @@ class CourseRegistry:
     _modules: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
     _lessons: dict[str, LessonLocation] = field(default_factory=dict)
     _exercises: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
+    # exercise_id -> lesson_id. Separate from _exercises because a module may hold two lessons,
+    # so the module is not enough to route back to the page an exercise actually lives on.
+    _exercise_lessons: dict[str, str] = field(default_factory=dict)
 
     def get_exercise_config(self, exercise_id: str) -> tuple[ExerciseType, BaseModel] | None:
         return self.exercise_configs.get(exercise_id)
@@ -73,6 +76,7 @@ class CourseRegistry:
                 self._lessons[lesson.id] = LessonLocation(block, module, lesson)
                 for exercise in lesson.exercises:
                     self._exercises[exercise.id] = (block, module)
+                    self._exercise_lessons[exercise.id] = lesson.id
 
     # --- lookups ---
     def module_lesson_ids(self, module_id: str) -> list[str]:
@@ -83,6 +87,10 @@ class CourseRegistry:
         """(block_id, module_id) for an exercise, or None if unknown."""
         found = self._exercises.get(exercise_id)
         return (found[0].id, found[1].id) if found else None
+
+    def exercise_lesson_id(self, exercise_id: str) -> str | None:
+        """The lesson an exercise is embedded in — what a link back to it has to address."""
+        return self._exercise_lessons.get(exercise_id)
 
     def module_block(self, module_id: str) -> str | None:
         found = self._modules.get(module_id)

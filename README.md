@@ -137,6 +137,27 @@ Open <http://localhost:5173>, register an account, and review the full course:
   breakdown (no pass/fail). Sessions are resumable and their seeds persist, so old reviews reproduce
   exactly. **Exam attempts are a separate lane** — they never touch practice statistics or course
   mastery. Sampling, seeds and grading are server-side; no solution reaches the client mid-session.
+- **Progress** (`/stats`) informs and routes; it never rewards. Two rules keep it honest when there
+  is barely any data yet. **Below ten observations a rate is a fraction, not a percentage** — "2/3 at
+  first attempt", never "67%" — because one data point below ten moves a percentage by more than ten
+  points, so the digits would claim a resolution the sample cannot support; counts over a known total
+  (lessons marked, exercises passed) are censuses and stay as they are. And **"your costliest
+  sections" refuses to rank a module until you have answered at least three of its distinct
+  exercises** (or all of them, in the three modules that carry only two): fourteen attempts at one
+  exercise are still one exercise. Below that the panel is empty and says why — an empty panel that
+  admits it beats a confident ranking built on one data point.
+  Every rate carries its own denominator, because two of them are counted over different populations:
+  **accuracy is over answered attempts, first-attempt accuracy is over distinct exercises**, which is
+  how "1 wrong · 100% first attempt" used to be printed as one self-contradicting line.
+  Each failure links straight to the exercise that produced it — `/lessons/{lesson}#ex-{exercise}`,
+  the exercise inside its lesson, outlined on arrival. It is the ordinary practice player, so a
+  re-attempt started there is an ordinary practice attempt; **exam failures can never appear**, since
+  the whole page is computed from practice attempts only. Modules with nothing in them collapse into
+  one expandable "N modules not started" row, and each fraction carries a small neutral bar (no
+  colour semantics — a half-finished module is a fact, not a grade).
+  The reading counter measures the **"mark lesson as read" button and nothing else** — it is named
+  that way ("lessons marked as read"), and the lesson footer says so. There is no implicit
+  read-tracking: no scroll heuristics, no dwell time.
 - Toggle **ES ↔ EN** (progress is unchanged) and **light/dark**; check mobile widths.
 - The **chart-credibility gallery** at <http://localhost:5173/dev/charts> renders grids of the
   generated charts with their ground-truth labels — the exact renderer students see. The exercise-id

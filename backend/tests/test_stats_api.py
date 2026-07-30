@@ -91,7 +91,60 @@ async def test_me_stats_reading_and_mastery_are_separate(
     assert m01["lessonsTotal"] == 1 and m01["lessonsCompleted"] == 1
     assert m01["exercisesTotal"] == 2 and m01["exercisesPassed"] == 2
     assert m01["answered"] == 3
+    # m01 carries only two exercises and both were answered, so the ranking gate is satisfied.
     assert "m01" in [c["moduleId"] for c in stats["costliestSections"]]
+
+    # Both populations are serialized so the client never has to guess a denominator: `correct`
+    # is out of `answered` attempts, `firstCorrect` out of `firstSeen` distinct exercises.
+    assert (m01["correct"], m01["answered"]) == (2, 3)
+    assert (m01["firstCorrect"], m01["firstSeen"]) == (1, 2)
+    assert (stats["exercise"]["firstCorrect"], stats["exercise"]["firstSeen"]) == (1, 2)
+
+
+async def test_costliest_sections_need_more_than_one_exercise(
+    content_client: AsyncClient, settings: Settings
+) -> None:
+    """One failed exercise is a fact about that exercise, not a ranking of the section it sits in.
+
+    m03 carries six exercises, so it needs three answered before it may be ranked."""
+    await _login(content_client, "gateuser")
+    await _answer_quiz(content_client, settings, "m03-ex-1", correct=False)
+    await _answer_quiz(content_client, settings, "m03-ex-2", correct=True)
+
+    stats = (await content_client.get("/api/stats/me")).json()
+    m03 = next(m for m in stats["modules"] if m["id"] == "m03")
+    # The module row still reports the failure honestly — only the *ranking* is withheld.
+    assert m03["exercisesFailed"] == 1
+    assert "m03" not in [c["moduleId"] for c in stats["costliestSections"]]
+
+    await _answer_quiz(content_client, settings, "m03-ex-3", correct=True)
+    stats = (await content_client.get("/api/stats/me")).json()
+    assert "m03" in [c["moduleId"] for c in stats["costliestSections"]]
+
+
+async def test_failed_exercises_carry_their_lesson_for_review(
+    content_client: AsyncClient, settings: Settings
+) -> None:
+    """Each failure names the exercise and the lesson it lives on, so the UI can link back to it."""
+    await _login(content_client, "reviewuser")
+    # m03 spans two lessons: ex-1 on m03-l1, ex-5 on m03-l2. A module id alone cannot route here.
+    await _answer_quiz(content_client, settings, "m03-ex-1", correct=False)
+    await _answer_quiz(content_client, settings, "m03-ex-1", correct=True)
+    await _answer_quiz(content_client, settings, "m03-ex-5", correct=False)
+    await _answer_quiz(content_client, settings, "m03-ex-2", correct=True)
+
+    stats = (await content_client.get("/api/stats/me")).json()
+    m03 = next(m for m in stats["modules"] if m["id"] == "m03")
+    assert m03["toReview"] == [
+        {"exerciseId": "m03-ex-1", "lessonId": "m03-l1", "incorrect": 1, "passed": True},
+        {"exerciseId": "m03-ex-5", "lessonId": "m03-l2", "incorrect": 1, "passed": False},
+    ]
+    # Distinct failed exercises never exceeds the count of wrong attempts — the drill-down
+    # reconciles with the number printed beside it instead of contradicting it.
+    assert m03["exercisesFailed"] == 2 <= m03["answered"] - m03["correct"]
+
+    costly = next(c for c in stats["costliestSections"] if c["moduleId"] == "m03")
+    assert costly["toReview"] == m03["toReview"]
 
 
 async def test_global_stats_are_anonymous_and_worst_first(

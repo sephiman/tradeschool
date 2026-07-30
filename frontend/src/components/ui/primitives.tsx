@@ -109,6 +109,25 @@ export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   );
 }
 
+/**
+ * A count-of-total rendered pre-attentively, next to the same figure in text.
+ *
+ * Deliberately monochrome: emerald/red would turn a half-finished module into a grade, and indigo
+ * is this app's interactive accent — a filled indigo bar reads as an award. Progress is a fact.
+ * `aria-hidden` because the fraction beside it already announces the value to a screen reader.
+ */
+export function MiniBar({ value, total, className }: { value: number; total: number; className?: string }) {
+  const filled = total > 0 ? Math.min(100, Math.max(0, (value / total) * 100)) : 0;
+  return (
+    <span
+      aria-hidden
+      className={cn("inline-block h-1 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700", className)}
+    >
+      <span className="block h-full rounded-full bg-gray-500 dark:bg-gray-400" style={{ width: `${filled}%` }} />
+    </span>
+  );
+}
+
 export function Spinner({ className }: { className?: string }) {
   return (
     <span

@@ -17,7 +17,19 @@ export interface ExerciseOverall {
   correct: number;
   accuracy: number | null;
   firstAttemptAccuracy: number | null;
+  /** Distinct exercises with at least one answered attempt — the first-attempt denominator. */
+  firstSeen: number;
+  firstCorrect: number;
   avgAttemptsToSuccess: number | null;
+}
+
+/** An exercise the learner got wrong at least once, and where to go to try it again. */
+export interface ReviewTarget {
+  exerciseId: string;
+  lessonId: string | null;
+  incorrect: number;
+  /** Solved since — shown as solved rather than implying unfinished business. */
+  passed: boolean;
 }
 
 export interface ModuleStat {
@@ -28,9 +40,15 @@ export interface ModuleStat {
   lessonsCompleted: number;
   exercisesTotal: number;
   exercisesPassed: number;
+  /** Answered attempts — the `accuracy` denominator. Distinct from `firstSeen`. */
   answered: number;
+  correct: number;
   accuracy: number | null;
   firstAttemptAccuracy: number | null;
+  firstSeen: number;
+  firstCorrect: number;
+  exercisesFailed: number;
+  toReview: ReviewTarget[];
 }
 
 export interface CostliestSection {
@@ -38,11 +56,22 @@ export interface CostliestSection {
   title: string | null;
   incorrect: number;
   answered: number;
+  correct: number;
   firstAttemptAccuracy: number | null;
+  firstSeen: number;
+  firstCorrect: number;
+  exercisesFailed: number;
+  toReview: ReviewTarget[];
+}
+
+export interface Thresholds {
+  /** Distinct exercises a module needs answered before it may be ranked as "costliest". */
+  minExercisesToRank: number;
 }
 
 export interface MeStats {
   coverage: Coverage;
+  thresholds: Thresholds;
   reading: Reading;
   exercise: ExerciseOverall;
   modules: ModuleStat[];
@@ -53,6 +82,7 @@ export interface GlobalModule {
   moduleId: string;
   title: string | null;
   attemptedByUsers: number;
+  firstCorrect: number;
   firstAttemptAccuracy: number | null;
 }
 
@@ -60,6 +90,7 @@ export interface GlobalExercise {
   exerciseId: string;
   moduleId: string;
   attemptedByUsers: number;
+  firstCorrect: number;
   firstAttemptAccuracy: number | null;
 }
 

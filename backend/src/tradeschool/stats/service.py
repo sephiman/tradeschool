@@ -1,7 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Derived statistics. Only *answered* attempts count; abandoned/open never affect accuracy (§3.4).
 First-attempt accuracy is computed at the exercise level — the earliest answered attempt per
-exercise — because that is the metric hardest to inflate by retrying."""
+exercise — because that is the metric hardest to inflate by retrying.
+
+Two populations coexist here and must never be conflated: `answered`/`correct` count *attempts*,
+while `first_seen`/`first_correct` count *distinct exercises*. Both numerators and denominators are
+serialized so the client can state which is which instead of printing two rates side by side as if
+they shared a denominator."""
 
 from __future__ import annotations
 
@@ -15,6 +20,21 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.content.models import LessonCompletion
 from tradeschool.content.registry import CourseRegistry
+
+# A module is only rankable in "your costliest sections" once the learner has answered this many
+# *distinct* exercises in it. Modules carry four to six exercises, so below three the panel would be
+# ranking a section on evidence that only covers one or two of its questions — and attempt volume
+# cannot substitute, since fourteen attempts at one exercise are still one exercise. Below the gate
+# the panel reports that it has nothing to say (§ honest at small n).
+#
+# Capped at the module's own size (`_rank_threshold`): three modules carry only two exercises, and a
+# learner who has answered both has full coverage of that section — a fixed floor would exclude them
+# from the panel forever, which is a different lie from the one this gate exists to stop.
+MIN_EXERCISES_TO_RANK = 3
+
+
+def _rank_threshold(exercises_total: int) -> int:
+    return min(MIN_EXERCISES_TO_RANK, exercises_total)
 
 
 def _ratio(num: int, den: int) -> float | None:
@@ -83,7 +103,7 @@ async def me_stats(
 
     overall = _Agg()  # exercise stats across all published modules
     module_rows: list[dict[str, object]] = []
-    costly_src: list[tuple[str, str | None, _Agg]] = []
+    costly_src: list[tuple[str, str | None, _Agg, list[dict[str, object]]]] = []
     published_lessons = 0
     completed_published = 0
     published_modules = 0
@@ -101,6 +121,7 @@ async def me_stats(
 
         exercise_ids = registry.module_exercise_ids(module.id)
         mod = _Agg()
+        to_review: list[dict[str, object]] = []
         for eid in exercise_ids:
             roll = rolls.get(eid)
             if roll is None:
@@ -112,6 +133,18 @@ async def me_stats(
                 agg.first_correct += 1 if roll.first_correct else 0
                 if roll.attempts_to_success is not None:
                     agg.success_attempts.append(roll.attempts_to_success)
+            # "Failed" = at least one wrong *answered practice* attempt — the same population the
+            # module's incorrect count sums over, so the drill-down reconciles with the number
+            # printed beside it. Exam attempts cannot appear here: _answered() excluded them.
+            if roll.answered - roll.correct > 0:
+                to_review.append(
+                    {
+                        "exerciseId": eid,
+                        "lessonId": registry.exercise_lesson_id(eid),
+                        "incorrect": roll.answered - roll.correct,
+                        "passed": roll.correct > 0,
+                    }
+                )
 
         module_rows.append(
             {
@@ -127,10 +160,18 @@ async def me_stats(
                 "answered": mod.answered,
                 "accuracy": _ratio(mod.correct, mod.answered),
                 "firstAttemptAccuracy": _ratio(mod.first_correct, mod.first_seen),
+                # Raw numerators/denominators so the client can print a fraction instead of a
+                # percentage at small n without re-deriving either population.
+                "correct": mod.correct,
+                "firstSeen": mod.first_seen,
+                "firstCorrect": mod.first_correct,
+                # Where to go next: the exercises this module's wrong answers came from.
+                "exercisesFailed": len(to_review),
+                "toReview": to_review,
             }
         )
-        if mod.answered - mod.correct > 0:
-            costly_src.append((module.id, module.title.get(locale), mod))
+        if mod.answered - mod.correct > 0 and mod.first_seen >= _rank_threshold(len(exercise_ids)):
+            costly_src.append((module.id, module.title.get(locale), mod, to_review))
 
     costly_src.sort(
         key=lambda t: (-(t[2].answered - t[2].correct), _ratio(t[2].first_correct, t[2].first_seen) or 0.0)
@@ -141,9 +182,14 @@ async def me_stats(
             "title": title,
             "incorrect": mod.answered - mod.correct,
             "answered": mod.answered,
+            "correct": mod.correct,
             "firstAttemptAccuracy": _ratio(mod.first_correct, mod.first_seen),
+            "firstSeen": mod.first_seen,
+            "firstCorrect": mod.first_correct,
+            "exercisesFailed": len(to_review),
+            "toReview": to_review,
         }
-        for mid, title, mod in costly_src[:5]
+        for mid, title, mod, to_review in costly_src[:5]
     ]
 
     return {
@@ -152,6 +198,9 @@ async def me_stats(
             "totalModules": total_modules,
             "publishedLessons": published_lessons,
         },
+        # Sent rather than hardcoded client-side so the copy explaining the gate cannot drift
+        # away from the gate itself.
+        "thresholds": {"minExercisesToRank": MIN_EXERCISES_TO_RANK},
         "reading": {
             "lessonsCompleted": completed_published,
             "lessonsTotal": published_lessons,
@@ -162,6 +211,8 @@ async def me_stats(
             "correct": overall.correct,
             "accuracy": _ratio(overall.correct, overall.answered),
             "firstAttemptAccuracy": _ratio(overall.first_correct, overall.first_seen),
+            "firstSeen": overall.first_seen,
+            "firstCorrect": overall.first_correct,
             "avgAttemptsToSuccess": _avg(overall.success_attempts),
         },
         "modules": module_rows,
@@ -196,6 +247,7 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
                 "exerciseId": exercise_id,
                 "moduleId": (registry.exercise_location(exercise_id) or ("", ""))[1],
                 "attemptedByUsers": agg.first_seen,
+                "firstCorrect": agg.first_correct,
                 "firstAttemptAccuracy": _ratio(agg.first_correct, agg.first_seen),
             }
             for exercise_id, agg in by_exercise.items()
@@ -208,6 +260,7 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
                 "moduleId": mid,
                 "title": registry.module_title(mid, locale),
                 "attemptedByUsers": agg.first_seen,
+                "firstCorrect": agg.first_correct,
                 "firstAttemptAccuracy": _ratio(agg.first_correct, agg.first_seen),
             }
             for mid, agg in by_module.items()

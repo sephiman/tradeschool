@@ -45,6 +45,17 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
         assert "m06-l1" in registry.markdown[locale]
 
 
+def test_every_exercise_resolves_to_the_lesson_it_lives_on() -> None:
+    """A link back to a failed exercise addresses a lesson, and six modules carry two of them — so
+    the module is not enough and the `m08-ex-5` → `m08` prefix is actively wrong for half of m08."""
+    registry = load_registry(get_settings().content_dir)
+    for _, lesson, exercise in registry.manifest.iter_exercises():
+        assert registry.exercise_lesson_id(exercise.id) == lesson.id
+    assert registry.exercise_lesson_id("m08-ex-1") == "m08-l1"
+    assert registry.exercise_lesson_id("m08-ex-5") == "m08-l2"
+    assert registry.exercise_lesson_id("nope-ex-1") is None
+
+
 def test_all_phase1_exercises_are_playable() -> None:
     # Every exercise declared in the manifest must have a valid, loaded generator config.
     registry = load_registry(get_settings().content_dir)

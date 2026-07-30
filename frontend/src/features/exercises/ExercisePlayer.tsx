@@ -10,6 +10,7 @@ import { CalculationExercise } from "@/features/exercises/CalculationExercise";
 import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { Prose } from "@/lib/markdown";
+import { cn } from "@/lib/cn";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set([
   "synthetic_chart",
@@ -17,7 +18,16 @@ const CHART_TYPES: ReadonlySet<ExerciseType> = new Set([
   "pattern_chart",
 ]);
 
-export function ExercisePlayer({ exerciseId, type }: { exerciseId: string; type: ExerciseType }) {
+export function ExercisePlayer({
+  exerciseId,
+  type,
+  highlighted = false,
+}: {
+  exerciseId: string;
+  type: ExerciseType;
+  /** Outlined because a link (today: Progress → review) pointed the learner at this exercise. */
+  highlighted?: boolean;
+}) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [instance, setInstance] = useState<AttemptInstance | null>(null);
@@ -42,7 +52,13 @@ export function ExercisePlayer({ exerciseId, type }: { exerciseId: string; type:
   });
 
   return (
-    <Card className="my-4 p-4">
+    // The anchor a Progress "review" link addresses. `highlighted` is driven by the URL fragment
+    // rather than CSS `:target`, which never resolves here: the player mounts after the lesson
+    // query settles, by which point the browser has already given up on the fragment.
+    <Card
+      id={`ex-${exerciseId}`}
+      className={cn("my-4 scroll-mt-4 p-4", highlighted && "ring-2 ring-primary")}
+    >
       <div className="flex items-center justify-between">
         <span className="font-mono text-xs text-gray-400">{exerciseId}</span>
         <Badge tone="indigo">{t(`exerciseType.${type}`)}</Badge>

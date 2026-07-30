@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { completeLesson, getCourse, getLesson, type ExerciseType } from "@/api/course";
@@ -13,6 +13,7 @@ import { LessonMarkdown } from "@/lib/markdown";
 export function LessonPage() {
   const { t, i18n } = useTranslation();
   const { lessonId = "" } = useParams();
+  const { hash } = useLocation();
   const queryClient = useQueryClient();
   const lang = i18n.resolvedLanguage;
 
@@ -36,6 +37,19 @@ export function LessonPage() {
       void queryClient.invalidateQueries({ queryKey: ["course"] });
     },
   });
+
+  // A "review" link from Progress arrives as /lessons/:id#ex-:exerciseId. The browser cannot honour
+  // the fragment on first paint — the markdown, and the exercise players inside it, mount only once
+  // the lesson query resolves — so the scroll is done here instead, and repeated after the figures
+  // and charts above the anchor have finished laying out and pushing it down the page.
+  const highlightedExerciseId = hash.startsWith("#ex-") ? hash.slice("#ex-".length) : null;
+  useEffect(() => {
+    if (!lesson || !hash) return;
+    const scroll = () => document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+    scroll();
+    const settle = window.setTimeout(scroll, 700);
+    return () => window.clearTimeout(settle);
+  }, [lesson, hash]);
 
   const typeById = useMemo(() => {
     const map = new Map<string, ExerciseType>();
@@ -84,23 +98,32 @@ export function LessonPage() {
           markdown={lesson.markdown}
           renderExercise={(id) => {
             const type = typeById.get(id);
-            return type ? <ExercisePlayer exerciseId={id} type={type} /> : null;
+            return type ? (
+              <ExercisePlayer exerciseId={id} type={type} highlighted={id === highlightedExerciseId} />
+            ) : null;
           }}
           renderFigure={(id) => <LessonFigure id={id} />}
         />
       </div>
-      <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-6 dark:border-gray-800">
-        {lesson.completed ? (
-          <Badge tone="green">{t("course.completed")}</Badge>
-        ) : (
-          <Button onClick={() => void onMarkComplete()} disabled={complete.isPending}>
-            {t("course.markComplete")}
-          </Button>
-        )}
-        {nextStep && (
-          <Link to={nextStep.to} className="ml-auto text-sm font-medium text-primary hover:underline">
-            {t("course.next", { step: nextStep.label })} →
-          </Link>
+      {/* End-of-lesson panel. The button is the *only* thing that marks a lesson read — nothing is
+          inferred from scrolling or dwell time — so it says so rather than sitting unexplained. */}
+      <div className="mt-8 rounded-lg border border-border p-4 dark:border-gray-800">
+        <div className="flex flex-wrap items-center gap-3">
+          {lesson.completed ? (
+            <Badge tone="green">{t("course.completed")}</Badge>
+          ) : (
+            <Button onClick={() => void onMarkComplete()} disabled={complete.isPending}>
+              {t("course.markComplete")}
+            </Button>
+          )}
+          {nextStep && (
+            <Link to={nextStep.to} className="ml-auto text-sm font-medium text-primary hover:underline">
+              {t("course.next", { step: nextStep.label })} →
+            </Link>
+          )}
+        </div>
+        {!lesson.completed && (
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{t("course.markCompleteHint")}</p>
         )}
       </div>
     </article>
