@@ -1,0 +1,178 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+#
+# Where a lesson teaches with worked numbers next to a generated figure, the FIGURE is the source of
+# truth: the prose quotes rounded, human-readable approximations of the figure's own generated values,
+# so text and chart visibly agree. That makes the prose depend on figure output — a reseed, an injector
+# change or a new resolution leg would silently strand it.
+#
+# This file is what makes that impossible to ship unnoticed. It declares, per figure, which lessons
+# quote it and which generated value each quoted number approximates.
+# `backend/tests/test_figure_prose_coupling.py` then checks both directions on every run:
+#
+#   1. the value recomputed from the built figure is still within tolerance of `prose`
+#      -> a figure that moves fails here, and the failure names the lessons needing a prose pass;
+#   2. `prose`, formatted per locale (1.800 in es / 1,800 in en), still appears in every named lesson
+#      in BOTH content trees -> prose that is edited away from the figure fails here.
+#
+# Anchor `what` grammar (all indices are into the RENDERED series, warm-up already trimmed):
+#   level:<label>        the drawn level's price
+#   open|high|low|close:<i>   an OHLC value at bar i
+#   rsi|oi|cvd:<i>       a value in the indicator pane at bar i
+#   volume_ratio:<a>-<b> median volume over bars [a,b) divided by the median over `volume_baseline`
+#   fib_impulse_low      the impulse anchor the drawn 0.5 / 0.618 grid implies (and _high for the top)
+#
+# An anchor states EITHER `prose` (+ optional `tol` relative, default 0.01, or `abstol`) for a number
+# the lessons print, OR `min`/`max` for a band that keeps a qualitative claim ("about three times")
+# honest. `in_prose: false` skips the text search — use it for small integers (RSI readings, ratios)
+# where searching for "9" or "3" would match anything and prove nothing.
+#
+# `identical_through` asserts two panels are literally the same chart out to that bar. Three figures
+# now say so in prose ("son el mismo gráfico", "the same price series, candle for candle"), which is
+# only true because those panels share a seed — this is what keeps that claim honest.
+#
+# EXCEPTIONS are figures a lesson deliberately does NOT adapt to, because the prose's numbers are the
+# teaching (a ratio, a chosen sizing chain, a deliberately exaggerated separation). They carry no
+# anchors; instead each must keep a lead-in that tells the reader the figure is a generated instance
+# with its own prices, and the test checks that phrase is still there.
+
+figures:
+
+  fig-m09-accumulation:
+    lessons: [m09-l2]
+    anchors:
+      - {what: "level:support",    prose: 1800}
+      - {what: "level:resistance", prose: 1930}
+      - {what: "close:0",          prose: 2050}   # where the prior downtrend starts
+      - {what: "low:111",          prose: 1745}   # the phase-C spring
+      - {what: "close:130",        prose: 1870}   # the phase-D shelf
+      - {what: "low:146",          prose: 1810}   # deepest post-spring dip: support is never lost again
+      - {what: "close:173",        prose: 2210}   # the markup
+
+  fig-m09-distribution:
+    lessons: [m09-l2]
+    anchors:
+      - {what: "level:resistance", prose: 29640}
+      - {what: "level:support",    prose: 28140}
+      - {what: "close:0",          prose: 25400}  # where the prior uptrend starts
+      - {what: "high:112",         prose: 30590}  # the phase-C upthrust (UTAD)
+      - {what: "close:130",        prose: 29000}  # the phase-D shelf
+      - {what: "high:147",         prose: 29350}  # highest post-upthrust bounce: resistance is never regained
+      - {what: "close:173",        prose: 23900}  # the markdown
+
+  fig-m17-liquidity-sweep:
+    lessons: [m17-l2]
+    anchors:
+      - {what: "level:shelf", prose: 25900}
+      - {what: "close:119",   prose: 26200}  # where price was trading before the sweep candle
+      - {what: "low:120",     prose: 25350}  # the sweep wick, through the whole pocket
+      - {what: "close:120",   prose: 26220}  # the same candle closes back above the shelf
+
+  fig-m06-liquidation-cascade:
+    lessons: [m06-l1]
+    # The lesson's whole liquidation chain (8.597,50 / 6.381 / 9.357,50) is arithmetic on an entry
+    # taken AT the shelf, so pinning the shelf pins the chain.
+    anchors:
+      - {what: "level:shelf", prose: 9500}
+      - {what: "low:120",     prose: 9314}  # the cascade wick, below the 50x liquidation price
+
+  fig-m14-volume-confirmation:
+    lessons: [m14-l1]
+    identical_through: 149        # "son el mismo gráfico" / "they are the same chart"
+    volume_baseline: [0, 115]     # the bars before the breakout window
+    anchors:
+      - {what: "level:resistance", panel: 0, prose: 2125}
+      - {what: "level:resistance", panel: 1, prose: 2125, in_prose: false}
+      - {what: "close:123",        panel: 0, prose: 2195}   # the breakout candle
+      - {what: "volume_ratio:115-131", panel: 0, min: 2.5, max: 4.5, in_prose: false}   # "unas tres veces"
+      - {what: "volume_ratio:115-131", panel: 1, min: 0.35, max: 0.8, in_prose: false}  # "algo mas de la mitad"
+
+  fig-m13-golden-pullback:
+    lessons: [m13-l1]
+    anchors:
+      - {what: "fib_impulse_low",  prose: 2020}
+      - {what: "fib_impulse_high", prose: 2500}
+      - {what: "level:382",        prose: 2317}
+      - {what: "level:500",        prose: 2260}
+      - {what: "level:618",        prose: 2203}
+      - {what: "low:119",          prose: 2186}  # the pullback's overshoot through the 0.618
+
+  fig-m12-bearish-regular:
+    lessons: [m12-l1]
+    anchors:
+      - {what: "high:54",  prose: 31000}
+      - {what: "rsi:54",   prose: 90, abstol: 1, in_prose: false}
+      - {what: "high:109", prose: 32600}
+      - {what: "rsi:109",  prose: 85, abstol: 1, in_prose: false}
+
+  fig-m12-bullish-regular:
+    lessons: [m12-l1]
+    anchors:
+      - {what: "low:56",  prose: 8600}
+      - {what: "rsi:56",  prose: 9, abstol: 1, in_prose: false}
+      - {what: "low:107", prose: 8150}
+      - {what: "rsi:107", prose: 18, abstol: 1, in_prose: false}
+
+  fig-m12-bullish-hidden:
+    lessons: [m12-l1]
+    anchors:
+      - {what: "low:38",  prose: 26900}
+      - {what: "rsi:38",  prose: 38, abstol: 1, in_prose: false}
+      - {what: "low:102", prose: 28250}
+      - {what: "rsi:102", prose: 28, abstol: 1, in_prose: false}
+
+  fig-m17-oi-quadrants:
+    lessons: [m17-l1]
+    identical_through: 149        # "la misma serie de precio, vela por vela"
+    anchors:
+      - {what: "close:0",   panel: 0, prose: 2000}
+      - {what: "close:149", panel: 0, prose: 2300}
+      - {what: "oi:0",      panel: 0, prose: 10000}
+      - {what: "oi:149",    panel: 0, prose: 13000}
+      - {what: "close:173", panel: 0, prose: 2670}
+      - {what: "oi:149",    panel: 1, prose: 7750}
+      - {what: "close:173", panel: 1, prose: 2020}
+
+  fig-m26-cvd-divergence:
+    lessons: [m26-l1]
+    anchors:
+      - {what: "low:68",   prose: 24400}
+      - {what: "cvd:68",   prose: -18800}
+      - {what: "low:136",  prose: 23500}
+      - {what: "cvd:136",  prose: -4800}
+
+  fig-m08-breakout-vs-fakeout:
+    lessons: [m08-l1]
+    identical_through: 113        # "el mismo grafico ... hasta el momento de la decision"
+    anchors:
+      - {what: "level:resistance", panel: 0, prose: 2130}
+      - {what: "level:resistance", panel: 1, prose: 2130, in_prose: false}
+      - {what: "close:140",        panel: 0, prose: 2225}  # the breakout holds beyond
+      - {what: "high:122",         panel: 1, prose: 2166}  # the fakeout's furthest poke
+      - {what: "close:140",        panel: 1, prose: 2035}  # and where it ends up instead
+
+exceptions:
+
+  fig-m21-stop-limit-gap:
+    lessons: [m21-l1]
+    why: >-
+      The figure deliberately exaggerates the trigger/limit separation so the two lines are
+      distinguishable, and the caption says so. The prose keeps 100 / 99,9 because "in practice they
+      sit a tick apart" IS the lesson's point; adapting would destroy it.
+    guard_phrase: {en: "generated instance", es: "instancia generada"}
+
+  fig-m24-trade-anatomy:
+    lessons: [m24-l1]
+    why: >-
+      The sizing chain (1% of 10.000 = 100 USDT; risk 1.000 -> 0,1 BTC; 3,7R) is arithmetic chosen to
+      teach cleanly. The figure's own prices make it unreadable, so the lesson states the shape is
+      what to read.
+    guard_phrase: {en: "generated setup", es: "setup generado"}
+
+  fig-m08-reversal-forms:
+    lessons: [m08-l2]
+    why: >-
+      m08-l2 teaches candle mechanics as proportions (a 0,1% doji body, a ~1% wick below support, a
+      0,8% / 1,9% engulfing) rather than locations. No panel claims those prices, and rounding them
+      onto a panel would trade a clean ratio for an arbitrary pair. One lead-in covers all four of the
+      lesson's figures.
+    guard_phrase: {en: "generated instance", es: "instancia generada"}

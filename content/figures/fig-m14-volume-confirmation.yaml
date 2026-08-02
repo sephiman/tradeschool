@@ -9,6 +9,10 @@ caption:
     (participación) —continúa—. Derecha: la misma ruptura con volumen débil (sin participación)
     —fracasa—. Las barras de volumen son la pista.'
 panels:
+# BOTH panels run the same seed on purpose. The injector builds the price geometry identically for
+# its two labels and puts the signal in the volume alone, so one seed makes the two panels the SAME
+# chart to the cent — the break bar closes at 2195.47 over a 2124.35 resistance in both — and the
+# volume bars underneath are the only thing that differs. That is exactly what the caption claims.
 - generator: pattern_chart
   injector: volume_confirmation
   target: confirmed_breakout
@@ -21,9 +25,10 @@ panels:
 - generator: pattern_chart
   injector: volume_confirmation
   target: unconfirmed_breakout
-  seed: 2
+  seed: 1
   n: 150
   indicator: none
   resolution:
-    direction: up
+    # No participation behind the break, so it fails — the mirror of the panel above.
+    direction: down
     strength: 0.16

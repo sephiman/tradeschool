@@ -10,6 +10,10 @@ caption:
     mientras el precio sube —un rally de cierre de cortos sin convicción nueva, se
     estanca y se gira—.'
 panels:
+# BOTH panels run the same seed on purpose: the whole point is "identical candles, opposite meaning",
+# so the price series must be the SAME series, not merely a similar-looking one. On one seed the two
+# labels print the same close path through the entire pre-resolution window (2002.56 -> 2303.20) and
+# differ only in the OI pane underneath — which is the claim the caption and the lesson both make.
 - generator: pattern_chart
   injector: derivatives
   target: rising_oi
@@ -22,7 +26,7 @@ panels:
 - generator: pattern_chart
   injector: derivatives
   target: falling_oi
-  seed: 2
+  seed: 1
   n: 150
   indicator: oi
   resolution:

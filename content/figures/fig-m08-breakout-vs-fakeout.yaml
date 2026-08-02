@@ -3,12 +3,18 @@ id: fig-m08-breakout-vs-fakeout
 kind: chart
 caption:
   en: 'Left: a genuine breakout — price closes beyond the level and follows through.
-    Right: a fakeout — price pokes beyond, closes back inside, and reverses. Same
-    level; the close and the follow-through tell them apart.'
+    Right: a fakeout — price pokes beyond, closes back inside, and reverses. One
+    level, one range, the same first candles past the line; the close and what
+    follows are the only difference.'
   es: 'Izquierda: una ruptura genuina —el precio cierra más allá del nivel y continúa—.
-    Derecha: un fakeout —el precio asoma, cierra de nuevo dentro y se gira—. Mismo
-    nivel; el cierre y la continuación los distinguen.'
+    Derecha: un fakeout —el precio asoma, cierra de nuevo dentro y se gira—. Un solo
+    nivel, un solo rango, las mismas primeras velas pasada la línea; el cierre y lo
+    que viene después son toda la diferencia.'
 panels:
+# BOTH panels run the same seed on purpose: the comparison IS that the two charts are identical up
+# to the decision, so the level, the range and every candle before it match to the cent and only the
+# outcome differs. (`fig-m08-market-structure` shares a seed across its panels for the same reason;
+# the duplicate-level-price test exempts panels within one figure precisely for this case.)
 - generator: pattern_chart
   injector: fakeout
   target: genuine_breakout
@@ -21,9 +27,10 @@ panels:
 - generator: pattern_chart
   injector: fakeout
   target: false_break
-  seed: 2
+  seed: 1
   n: 150
   indicator: none
   resolution:
-    direction: up
+    # A failed breakout of RESISTANCE rolls over — the mirror of the panel above, not a repeat of it.
+    direction: down
     strength: 0.16

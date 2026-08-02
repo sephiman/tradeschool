@@ -23,7 +23,9 @@ before you answer: statistics are trustworthy by construction.
 backend/    FastAPI service (see backend/README.md)
 frontend/   React SPA served by nginx, /api proxied to the backend
 content/    course.yaml manifest (course → blocks → modules → lessons → exercises) + es/ and en/
-            content trees + figures; see content/README.md for the stable-ID / namespacing convention
+            content trees + figures + figure-coupling.yaml (the lesson numbers that are rounded
+            values of a figure's generated output); see content/README.md for the stable-ID /
+            namespacing convention and the worked-numbers-follow-the-figure rule
 docker-compose.yml  .env.example  LICENSE
 ```
 
