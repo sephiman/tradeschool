@@ -1,14 +1,17 @@
 import { useTranslation } from "react-i18next";
+import type { ResolvedTheme } from "@/lib/theme";
 
 /** A hand-drawn, theme-aware, responsive SVG of a single candle with its OHLC parts labeled — used
- * as the m03 "anatomy of a candle" figure. Scales to the container width (no fixed pixel size). */
-export function CandleAnatomy() {
+ * as the m03 "anatomy of a candle" figure. Scales to the container width (no fixed pixel size).
+ * `theme` pins the palette instead of following the UI theme (the PDF export prints light). */
+export function CandleAnatomy({ theme }: { theme?: ResolvedTheme } = {}) {
   const { t } = useTranslation();
+  const light = theme === "light";
   // Geometry in a 340×220 viewBox: one bullish candle, wicks to high/low, dashed guides to labels.
   const cx = 120;
   const high = 24, bodyTop = 66, bodyBottom = 150, low = 196;
-  const guide = "stroke-gray-300 dark:stroke-gray-700";
-  const label = "fill-gray-600 dark:fill-gray-300 text-[13px]";
+  const guide = light ? "stroke-gray-300" : "stroke-gray-300 dark:stroke-gray-700";
+  const label = light ? "fill-gray-600 text-[13px]" : "fill-gray-600 dark:fill-gray-300 text-[13px]";
   const rows: [number, string][] = [
     [high, t("candle.high")],
     [bodyTop, t("candle.close")],

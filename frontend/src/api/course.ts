@@ -105,6 +105,39 @@ export async function getModule(moduleId: string): Promise<ModuleDetail> {
   return data;
 }
 
+/** The whole course as theory in ONE language — the shape `/course/export?lang=…` serves. Lesson
+ *  markdown arrives with the `::exercise` directives already stripped server-side. */
+export interface CourseExportLesson {
+  id: string;
+  title: string;
+  markdown: string;
+}
+
+export interface CourseExportModule {
+  id: string;
+  title: string;
+  summary: string;
+  lessons: CourseExportLesson[];
+}
+
+export interface CourseExportBlock {
+  id: string;
+  title: string;
+  modules: CourseExportModule[];
+}
+
+export interface CourseExport {
+  locale: string;
+  blocks: CourseExportBlock[];
+}
+
+/** The single-locale export document. `lang` is explicit: the PDF is built for the language being
+ *  browsed, and an absent `lang` would hand back the bilingual document instead. */
+export async function getCourseExport(locale: string): Promise<CourseExport> {
+  const { data } = await apiClient.get<CourseExport>("/course/export", { params: { lang: locale } });
+  return data;
+}
+
 export interface FigurePanel {
   series: { time: number[]; open: number[]; high: number[]; low: number[]; close: number[]; volume: number[] };
   rsi?: number[];

@@ -81,7 +81,19 @@
     "markCompleteHint": "This is the only thing Progress counts as \"read\" — we don't measure reading.",
     "markCompleteConfirm": "You haven't tried all the exercises in this lesson yet. Mark it complete anyway?",
     "next": "Next: {{step}}",
-    "continue": "Continue: {{step}}"
+    "continue": "Continue: {{step}}",
+    "pdfAction": "Export PDF",
+    "pdfBusy": "Generating…",
+    "pdfPreparing": "Reading the course…",
+    "pdfFigures": "Drawing figures {{done}}/{{total}}…",
+    "pdfTypesetting": "Typesetting the document…",
+    "pdfFailed": "The PDF could not be generated: {{reason}}",
+    "pdfRetry": "Try again",
+    "pdfHint": "The whole course — theory and figures, no exercises — as one printable document.",
+    "pdfContents": "Contents",
+    "pdfLanguage": "English",
+    "pdfGenerated": "{{language}} · generated {{date}}",
+    "pdfPage": "{{current}} / {{total}}"
   },
   "exercise": {
     "comingSoon": "Interactive exercise — arrives in the next increment.",

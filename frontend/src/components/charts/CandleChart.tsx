@@ -15,7 +15,7 @@ import {
   type Time,
   type UTCTimestamp,
 } from "lightweight-charts";
-import { useTheme } from "@/lib/theme";
+import { useResolvedTheme, type ResolvedTheme } from "@/lib/theme";
 
 /** Always European: day/month for day ticks, localized month name for month ticks (never MM/DD). */
 function formatTick(time: Time, tickMarkType: TickMarkType, locale: string): string {
@@ -115,6 +115,8 @@ export function CandleChart({
   bands,
   height = 420,
   rightOffset = 4,
+  theme,
+  onReady,
 }: {
   series: ChartSeries;
   rsi?: number[];
@@ -132,9 +134,14 @@ export function CandleChart({
   // Empty bars of margin on the right so a marker planted near the last candle isn't clipped by the
   // boundary. Figures (patterns at the very edge) pass more; exercise charts keep the small default.
   rightOffset?: number;
+  // Pin the palette instead of following the UI theme. Only the PDF export passes it: print is light.
+  theme?: ResolvedTheme;
+  // The created chart, for the PDF export's screenshot. Like `series` and `markers` it is an effect
+  // dependency, so an unstable identity rebuilds the chart — fine for a capture, not for a live view.
+  onReady?: (chart: IChartApi) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { resolvedTheme } = useTheme();
+  const resolvedTheme = useResolvedTheme(theme);
   const { i18n, t } = useTranslation();
   const locale = i18n.resolvedLanguage === "es" ? "es-ES" : "en-GB";
   // Annotation text is student-facing: marker labels and level titles come from the i18n catalog
@@ -380,8 +387,10 @@ export function CandleChart({
     // Show every candle plus `rightOffset` empty bars of margin on the right (room for edge markers).
     chart.timeScale().setVisibleLogicalRange({ from: -0.5, to: series.close.length - 0.5 + rightOffset });
 
+    onReady?.(chart);
+
     return () => chart.remove();
-  }, [series, rsi, macd, oi, cvd, indicator, markers, overlays, levels, bands, resolvedTheme, locale, rightOffset, t]);
+  }, [series, rsi, macd, oi, cvd, indicator, markers, overlays, levels, bands, resolvedTheme, locale, rightOffset, t, onReady]);
 
   return <div ref={containerRef} style={{ height }} className="w-full" />;
 }

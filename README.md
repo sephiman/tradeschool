@@ -13,7 +13,8 @@ before you answer: statistics are trustworthy by construction.
   (username identity, cookie + database strategy, Argon2, no JWT) · slowapi · NumPy · `decimal.Decimal`
   for every financial formula · pytest + testcontainers (real Postgres)
 - **Frontend:** React 19 · TypeScript (strict) · Vite · react-router · TanStack Query · axios · Tailwind ·
-  react-i18next · lightweight-charts · react-markdown (+ remark-gfm, remark-directive)
+  react-i18next · lightweight-charts · react-markdown (+ remark-gfm, remark-directive) · pdfmake
+  (whole-course PDF, lazy-loaded on demand)
 - **Infrastructure:** Docker Compose, external Postgres 17 on a shared Docker network, multi-stage builds,
   frontend published on `127.0.0.1` only, behind external nginx + Cloudflare.
 
@@ -22,6 +23,7 @@ before you answer: statistics are trustworthy by construction.
 ```
 backend/    FastAPI service (see backend/README.md)
 frontend/   React SPA served by nginx, /api proxied to the backend
+            (course PDF export lives in frontend/src/lib/pdf/ — see "Printing the course")
 content/    course.yaml manifest (course → blocks → modules → lessons → exercises) + es/ and en/
             content trees + figures + figure-coupling.yaml (the lesson numbers that are rounded
             values of a figure's generated output); see content/README.md for the stable-ID /
@@ -265,6 +267,58 @@ so you can see where each generated chart belongs.
 
 Auth (session cookie) is required, like the rest of the content API. The registry is built **once at
 startup**, so newly authored content needs a backend restart before it appears in an export.
+
+## Printing the course (PDF)
+
+**Export PDF**, next to the course-page header, produces the whole course as one print-ready document
+in the language being browsed — cover, table of contents with page numbers, block and module headings
+with their summaries, and every lesson's prose, callouts and figures. ~148 pages, 36 lessons, 29
+figures. **Exercises and exams are not in it**: it is the course to read, not to answer. Every lesson
+starts on a new page. The file is named `tradeschool-<course>-<locale>-<YYYY-MM-DD>.pdf`.
+
+**It is generated in the browser, and that is the load-bearing decision.** Figures are drawn by
+lightweight-charts on a canvas, so the browser is the only place a rendered figure actually exists.
+Rather than teach the backend to draw charts a second time — a second renderer to keep in step with the
+injectors and the level/band invariants — the export mounts each figure off-screen with the app's *own*
+components (`CandleChart`, `CandleAnatomy`), pins the palette to **light** whatever theme the reader
+uses, and screenshots it at 2× for print (~230 dpi). A figure that will not draw **fails the export,
+naming the figure and reporting what it threw**; it never quietly leaves a hole where a chart should be,
+because the prose around it quotes the numbers that chart draws.
+
+That capture root mounts **only i18n** — no `ThemeProvider`, no router, no query client — which is why
+`CandleChart` takes its palette through `useResolvedTheme(theme)`: an explicit theme also means "no
+provider required". A figure component that insists on one of the app's providers cannot be captured, and
+the symptom is silent — the chart simply never appears. `figures-providers.test.tsx` mounts the *real*
+component in that harness (mocking only lightweight-charts, as the other chart tests do) to keep this
+honest; `figures.test.tsx` covers the capture mechanics around it.
+
+The lesson tree comes from `GET /api/course/export?lang=…` — the JSON export above — so the PDF is
+theory-only for the same reason that endpoint is (`registry._theory_only` strips the `::exercise`
+directives server-side) and complete for the same reason too: one walk of the manifest. **No backend
+code is involved in making the PDF.**
+
+```
+frontend/src/lib/pdf/
+  document.ts   the course -> a pdfmake document (pure: no DOM, no network, no i18next)
+  markdown.ts   lesson markdown -> print content; the print twin of lib/markdown.tsx
+  figures.tsx   off-screen light-theme capture of every ::figure, at print resolution
+  page.ts       A4 geometry, print palette, type scale
+  generate.ts   orchestration (export -> figures -> typeset) with progress, and the download
+  runtime.ts    loads the ~1 MB PDF engine on first use, never in the app's initial chunk
+```
+
+**The embedded font is not cosmetic.** A PDF carries its own type, and pdfmake's bundled Roboto has no
+`U+2192` — `→` appears in the lesson prose over a hundred times and printed as an empty box.
+`frontend/src/assets/fonts/liberation-sans/` therefore ships **Liberation Sans** (SIL OFL 1.1,
+unmodified, `LICENSE` alongside it), which is metric-compatible with the app's Helvetica/Arial stack.
+`fonts.test.ts` asserts it covers **every character in `content/`**, so a new symbol in a lesson fails a
+test instead of printing a box.
+
+The frontend test suite builds the real course — read straight off `content/course.yaml` and the lesson
+files, in both languages — and typesets it with pdfmake: lesson count and order against the manifest,
+one page group per lesson, one figure block per `::figure`, no `::exercise` and no exercise id anywhere
+(in the document *or* in the PDF's bytes), and a real `%PDF` for each locale. Same lesson as
+`test_export_is_complete_against_the_manifest`, applied to the document a reader prints.
 
 ## Accounts
 

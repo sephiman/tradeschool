@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { getCourse, type CourseBlock, type CourseModule } from "@/api/course";
+import { ExportPdfButton } from "@/features/course/ExportPdfButton";
 import { flattenLessons, resumeTarget, stepLabel } from "@/features/course/courseNav";
 import {
   blockLessons,
@@ -164,14 +165,19 @@ export function CoursePage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold">{course.course.title}</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{course.course.description}</p>
-        {headerMeta.length > 0 && (
-          <p className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-            {headerMeta.join(" · ")}
-          </p>
-        )}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">{course.course.title}</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{course.course.description}</p>
+          {headerMeta.length > 0 && (
+            <p className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+              {headerMeta.join(" · ")}
+            </p>
+          )}
+        </div>
+        <div className="shrink-0">
+          <ExportPdfButton course={course.course} />
+        </div>
       </div>
       {course.started && resume && (
         <Link to={`/lessons/${resume.lessonId}`} className="block">

@@ -49,7 +49,11 @@ vi.mock("lightweight-charts", () => ({
   }),
 }));
 
-vi.mock("@/lib/theme", () => ({ useTheme: () => ({ resolvedTheme: "dark" }) }));
+// `useResolvedTheme` is what the chart calls: an explicit `theme` prop wins (the PDF export pins light),
+// otherwise the UI theme — dark here, which is the palette these assertions are written against.
+vi.mock("@/lib/theme", () => ({
+  useResolvedTheme: (override?: "light" | "dark") => override ?? "dark",
+}));
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
     i18n: { resolvedLanguage: "es" },

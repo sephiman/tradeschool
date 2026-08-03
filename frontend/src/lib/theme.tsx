@@ -76,3 +76,17 @@ export function useTheme() {
   if (!ctx) throw new Error("useTheme must be used within a ThemeProvider");
   return ctx;
 }
+
+/**
+ * The palette to draw with: an explicit override wins, otherwise the UI theme.
+ *
+ * An override also means "no `ThemeProvider` needed", which is the point: the PDF export draws figures in
+ * its own React root outside the app tree, and mounting a second provider there would write `localStorage`
+ * and toggle `<html class="dark">` as a side effect of exporting a file.
+ */
+export function useResolvedTheme(override?: ResolvedTheme): ResolvedTheme {
+  const ctx = useContext(ThemeContext);
+  if (override) return override;
+  if (!ctx) throw new Error("useResolvedTheme must be used within a ThemeProvider, or given a theme");
+  return ctx.resolvedTheme;
+}

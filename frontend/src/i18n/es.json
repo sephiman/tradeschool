@@ -81,7 +81,19 @@
     "markCompleteHint": "Es lo único que cuenta como «leída» en Progreso: no medimos la lectura.",
     "markCompleteConfirm": "Aún no has probado todos los ejercicios de esta lección. ¿Marcarla como completada igualmente?",
     "next": "Siguiente: {{step}}",
-    "continue": "Continuar: {{step}}"
+    "continue": "Continuar: {{step}}",
+    "pdfAction": "Exportar PDF",
+    "pdfBusy": "Generando…",
+    "pdfPreparing": "Leyendo el curso…",
+    "pdfFigures": "Dibujando figuras {{done}}/{{total}}…",
+    "pdfTypesetting": "Componiendo el documento…",
+    "pdfFailed": "No se pudo generar el PDF: {{reason}}",
+    "pdfRetry": "Reintentar",
+    "pdfHint": "Todo el curso — teoría y figuras, sin ejercicios — en un único documento imprimible.",
+    "pdfContents": "Índice",
+    "pdfLanguage": "Español",
+    "pdfGenerated": "{{language}} · generado el {{date}}",
+    "pdfPage": "{{current}} / {{total}}"
   },
   "exercise": {
     "comingSoon": "Ejercicio interactivo — llega en el siguiente incremento.",
