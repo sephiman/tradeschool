@@ -164,7 +164,8 @@
     "incorrectCount_one": "{{count}} wrong",
     "incorrectCount_other": "{{count}} wrong",
     "globalTitle": "Where everyone struggles",
-    "globalHint": "Anonymous, aggregated first-attempt accuracy across all learners — hardest modules first.",
+    "globalHint": "Anonymous, aggregated first-attempt accuracy across all learners — hardest modules first. The rate is over first attempts at distinct exercises; the figure after it is how many learners have tried the module, and a module only appears once at least {{min}} have.",
+    "globalNeedsData": "There are still too few of us for this to mean anything. A module appears here once at least {{min}} distinct learners have attempted it; below that the figure would describe one or two specific people rather than the course.",
     "nUsers_one": "{{count}} learner",
     "nUsers_other": "{{count}} learners"
   },

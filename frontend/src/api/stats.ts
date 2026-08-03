@@ -78,10 +78,21 @@ export interface MeStats {
   costliestSections: CostliestSection[];
 }
 
+export interface GlobalThresholds {
+  /** Distinct learners a row needs before the global panel is allowed to show it at all. */
+  minLearners: number;
+}
+
+/**
+ * `learners` and `firstSeen` are two populations, not one: a learner who answered four of a module's
+ * exercises is four first-attempt observations but one person. The rate goes over `firstSeen`; the
+ * headcount printed next to it is `learners`.
+ */
 export interface GlobalModule {
   moduleId: string;
   title: string | null;
-  attemptedByUsers: number;
+  learners: number;
+  firstSeen: number;
   firstCorrect: number;
   firstAttemptAccuracy: number | null;
 }
@@ -89,12 +100,14 @@ export interface GlobalModule {
 export interface GlobalExercise {
   exerciseId: string;
   moduleId: string;
-  attemptedByUsers: number;
+  learners: number;
+  firstSeen: number;
   firstCorrect: number;
   firstAttemptAccuracy: number | null;
 }
 
 export interface GlobalStats {
+  thresholds: GlobalThresholds;
   exercises: GlobalExercise[];
   modules: GlobalModule[];
 }

@@ -93,6 +93,14 @@ Open <http://localhost:5173>, register an account, and review the full course:
   that **leverage is not risk** — the same trade at 5× and 20× carries identical size and identical
   monetary risk, differing only in collateral posted and in where liquidation sits relative to the
   stop, which is the one criterion for choosing it.
+- **Conventions are named as conventions:** the periods everyone quotes — 9/21 intraday, 20/50 for
+  swing, 50/200 on the daily, which is where the golden and death crosses got their names — are
+  taught in m10-l1 as exactly that, with the mechanism m13 gives Fibonacci levels: enough people
+  watch the same line that resting orders pile up around it, so it works while it is crowded rather
+  than because the number is right. What the parameters change is the **horizon a signal talks
+  about**, never how it is read — the three EMA signatures (order, slope, price relative to the pair)
+  are self-similar across timeframes, which is why m20's style ↔ timeframe choice picks the periods
+  as a side effect.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
   matching), mixed inside every bank rather than bolted on — **721 hand-written variants across 75
   quiz banks** (8–11 per bank, ~46% of them non-single-choice), so repeating a concept keeps asking a
@@ -139,7 +147,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   breakdown (no pass/fail). Sessions are resumable and their seeds persist, so old reviews reproduce
   exactly. **Exam attempts are a separate lane** — they never touch practice statistics or course
   mastery. Sampling, seeds and grading are server-side; no solution reaches the client mid-session.
-- **Progress** (`/stats`) informs and routes; it never rewards. Two rules keep it honest when there
+- **Progress** (`/stats`) informs and routes; it never rewards. Three rules keep it honest when there
   is barely any data yet. **Below ten observations a rate is a fraction, not a percentage** — "2/3 at
   first attempt", never "67%" — because one data point below ten moves a percentage by more than ten
   points, so the digits would claim a resolution the sample cannot support; counts over a known total
@@ -147,7 +155,12 @@ Open <http://localhost:5173>, register an account, and review the full course:
   sections" refuses to rank a module until you have answered at least three of its distinct
   exercises** (or all of them, in the three modules that carry only two): fourteen attempts at one
   exercise are still one exercise. Below that the panel is empty and says why — an empty panel that
-  admits it beats a confident ranking built on one data point.
+  admits it beats a confident ranking built on one data point. The third rule applies the same
+  standard to the cohort: **"where everyone struggles" publishes a row only once three distinct
+  learners have attempted it**, because below that the panel is not aggregate at all — at two
+  learners you subtract yourself and are reading one identifiable classmate's results — and the
+  headcount it prints counts *people*, kept apart from the first-attempt observations the rate is
+  computed over (one learner answering four exercises is four observations and one person).
   Every rate carries its own denominator, because two of them are counted over different populations:
   **accuracy is over answered attempts, first-attempt accuracy is over distinct exercises**, which is
   how "1 wrong · 100% first attempt" used to be printed as one self-contradicting line.

@@ -15,7 +15,8 @@ the worst kind of content bug, because nothing crashes and the page still looks 
   a prose pass — which is the whole point: the manifest turns "somebody has to remember" into a test.
 * **The prose moved.** Every anchor's number, formatted the way each locale writes it (1.800 in es,
   1,800 in en), must still appear in every lesson that quotes the figure, in BOTH content trees. An
-  edit that drops or changes a coupled number fails here.
+  edit that drops or changes a coupled number fails here. An anchor may narrow that lesson list to a
+  subset, for the case of two lessons embedding one figure and quoting different amounts of it.
 * **Panels that claim to be the same chart are the same chart.** Three figures share a seed across
   their panels so the comparison is "identical candles, one difference", and three lessons now say so
   in prose. `identical_through` holds those panels to it bar by bar.
@@ -179,7 +180,11 @@ def test_every_coupled_number_appears_in_every_lesson_that_quotes_it(
 ) -> None:
     if not anchor.get("in_prose", True) or "prose" not in anchor:
         pytest.skip("value-checked only: too small a number to search for meaningfully")
-    for lesson_id in spec["lessons"]:
+    # An anchor may narrow the figure's lesson list: two lessons can embed one figure and quote
+    # different amounts of it (m09-l1 is the map and prints the support and the spring; m09-l2 walks
+    # every phase), and demanding the whole chart from the lesson that needs two numbers would push
+    # the other five into it just to satisfy a test.
+    for lesson_id in anchor.get("lessons", spec["lessons"]):
         for locale in LOCALES:
             wanted = _localized(float(anchor["prose"]), locale)
             body = _lesson_text(lesson_id, locale)

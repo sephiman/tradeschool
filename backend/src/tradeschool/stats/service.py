@@ -32,6 +32,14 @@ from tradeschool.content.registry import CourseRegistry
 # from the panel forever, which is a different lie from the one this gate exists to stop.
 MIN_EXERCISES_TO_RANK = 3
 
+# A row in the global "where everyone struggles" panel only renders once this many *distinct learners*
+# have attempted it. Two reasons that point the same way. It is the same small-n honesty the rest of
+# the page runs on: below three learners the ranking describes one or two people, not the course. And
+# below three it is not anonymous either — a learner reading "· 2 learners" subtracts themselves and
+# is left holding one identifiable classmate's results. Aggregation only anonymizes once there is
+# something to aggregate over, so below the gate the panel says so instead of printing a row.
+MIN_LEARNERS_FOR_GLOBAL = 3
+
 
 def _rank_threshold(exercises_total: int) -> int:
     return min(MIN_EXERCISES_TO_RANK, exercises_total)
@@ -232,7 +240,12 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
 
     by_exercise: dict[str, _Agg] = defaultdict(_Agg)
     by_module: dict[str, _Agg] = defaultdict(_Agg)
-    for (_, exercise_id), correct in first_seen.items():
+    # Distinct learners, counted apart from `first_seen` because they are different populations: one
+    # learner answering four of a module's exercises is four first-attempt observations but still one
+    # person. The rate is over the observations; the gate and the printed headcount are over people.
+    exercise_learners: dict[str, set[uuid.UUID]] = defaultdict(set)
+    module_learners: dict[str, set[uuid.UUID]] = defaultdict(set)
+    for (user_id, exercise_id), correct in first_seen.items():
         loc = registry.exercise_location(exercise_id)
         if loc is None:
             continue
@@ -240,17 +253,21 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
         for agg in (by_exercise[exercise_id], by_module[module_id]):
             agg.first_seen += 1
             agg.first_correct += 1 if correct else 0
+        exercise_learners[exercise_id].add(user_id)
+        module_learners[module_id].add(user_id)
 
     exercises = sorted(
         (
             {
                 "exerciseId": exercise_id,
                 "moduleId": (registry.exercise_location(exercise_id) or ("", ""))[1],
-                "attemptedByUsers": agg.first_seen,
+                "learners": len(exercise_learners[exercise_id]),
+                "firstSeen": agg.first_seen,
                 "firstCorrect": agg.first_correct,
                 "firstAttemptAccuracy": _ratio(agg.first_correct, agg.first_seen),
             }
             for exercise_id, agg in by_exercise.items()
+            if len(exercise_learners[exercise_id]) >= MIN_LEARNERS_FOR_GLOBAL
         ),
         key=lambda d: (d["firstAttemptAccuracy"] if d["firstAttemptAccuracy"] is not None else 1.0),
     )
@@ -259,12 +276,20 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
             {
                 "moduleId": mid,
                 "title": registry.module_title(mid, locale),
-                "attemptedByUsers": agg.first_seen,
+                "learners": len(module_learners[mid]),
+                "firstSeen": agg.first_seen,
                 "firstCorrect": agg.first_correct,
                 "firstAttemptAccuracy": _ratio(agg.first_correct, agg.first_seen),
             }
             for mid, agg in by_module.items()
+            if len(module_learners[mid]) >= MIN_LEARNERS_FOR_GLOBAL
         ),
         key=lambda d: (d["firstAttemptAccuracy"] if d["firstAttemptAccuracy"] is not None else 1.0),
     )
-    return {"exercises": exercises, "modules": module_rows}
+    return {
+        # Sent rather than hardcoded client-side so the copy explaining the gate cannot drift away
+        # from the gate itself — the same deal as `me_stats`'s thresholds.
+        "thresholds": {"minLearners": MIN_LEARNERS_FOR_GLOBAL},
+        "exercises": exercises,
+        "modules": module_rows,
+    }

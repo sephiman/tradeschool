@@ -164,7 +164,8 @@
     "incorrectCount_one": "{{count}} fallado",
     "incorrectCount_other": "{{count}} fallados",
     "globalTitle": "Dónde falla todo el mundo",
-    "globalHint": "Acierto al primer intento anónimo y agregado de todos los estudiantes; primero los módulos más difíciles.",
+    "globalHint": "Acierto al primer intento, anónimo y agregado de todos los estudiantes; primero los módulos más difíciles. La tasa va sobre primeros intentos a ejercicios distintos, y la cifra que la sigue es cuántos estudiantes han probado el módulo: solo aparece cuando son al menos {{min}}.",
+    "globalNeedsData": "Aún somos pocos para que esto signifique algo. Un módulo aparece aquí cuando lo han intentado al menos {{min}} estudiantes distintos; por debajo de eso la cifra hablaría de una o dos personas concretas, no del curso.",
     "nUsers_one": "{{count}} estudiante",
     "nUsers_other": "{{count}} estudiantes"
   },

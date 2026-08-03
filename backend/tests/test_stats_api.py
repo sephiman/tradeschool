@@ -157,12 +157,42 @@ async def test_global_stats_are_anonymous_and_worst_first(
     await _login(content_client, "usertwo")
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=True)  # user2 first attempt right
 
+    # Two learners is below the gate: at this size "aggregated" is a fiction, because either one can
+    # subtract themselves from the row and read the other's result. Nothing is published.
+    glob = (await content_client.get("/api/stats/global")).json()
+    assert glob["thresholds"]["minLearners"] == 3
+    assert glob["exercises"] == []
+    assert glob["modules"] == []
+    await content_client.post("/api/auth/logout")
+
+    await _login(content_client, "userthree")
+    await _answer_quiz(content_client, settings, "m01-ex-1", correct=True)  # user3 first attempt right
+
     glob = (await content_client.get("/api/stats/global")).json()
     ex = next(e for e in glob["exercises"] if e["exerciseId"] == "m01-ex-1")
-    assert ex["attemptedByUsers"] == 2
-    assert ex["firstAttemptAccuracy"] == 0.5
+    assert ex["learners"] == 3
+    assert ex["firstSeen"] == 3
+    assert ex["firstAttemptAccuracy"] == round(2 / 3, 4)
     # No user identifiers anywhere in the payload.
     assert "user" not in str(glob).lower() or "userId" not in str(glob)
+
+
+async def test_global_learner_count_is_people_not_observations(
+    content_client: AsyncClient, settings: Settings
+) -> None:
+    """A module's headcount counts learners; its rate counts first attempts. Different populations.
+
+    One learner answering three of m03's exercises is three first-attempt observations and one
+    person. Printing the observation count as "3 learners" would both overstate the cohort and hide
+    that the gate has not actually been cleared.
+    """
+    await _login(content_client, "soloworker")
+    for exercise_id in ("m03-ex-1", "m03-ex-2", "m03-ex-3"):
+        await _answer_quiz(content_client, settings, exercise_id, correct=False)
+
+    glob = (await content_client.get("/api/stats/global")).json()
+    # Three observations from one person: still one learner, so still nothing to publish.
+    assert glob["modules"] == []
 
 
 async def test_me_stats_empty_for_new_user(content_client: AsyncClient) -> None:

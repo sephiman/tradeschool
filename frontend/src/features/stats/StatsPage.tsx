@@ -273,26 +273,41 @@ export function StatsPage() {
               </table>
             </div>
           </section>
-        </>
-      )}
 
-      {global.data && global.data.modules.length > 0 && (
-        <section>
-          <h2 className="mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
-            {t("stats.globalTitle")}
-          </h2>
-          <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">{t("stats.globalHint")}</p>
-          <div className="space-y-1">
-            {global.data.modules.slice(0, 5).map((m) => (
-              <div key={m.moduleId} className="flex items-center justify-between gap-2 text-sm">
-                <span>{m.title ?? m.moduleId}</span>
-                <span className="text-gray-500 tabular-nums dark:text-gray-400">
-                  {rateShort(m.firstCorrect, m.attemptedByUsers)} · {t("stats.nUsers", { count: m.attemptedByUsers })}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
+          {/* The cohort view lives behind the same activity guard as everything above it, so a
+              brand-new account still sees one "nothing yet" card rather than two. */}
+          {global.data && (
+            <section>
+              <h2 className="mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                {t("stats.globalTitle")}
+              </h2>
+              {/* The hint carries both denominators for the whole list, the way byModuleNote does
+                  for the table: the rate is over first attempts, the headcount is over people. */}
+              <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+                {t("stats.globalHint", { min: global.data.thresholds.minLearners })}
+              </p>
+              {global.data.modules.length === 0 ? (
+                // Same honest empty state as "your costliest sections". Below the gate this panel
+                // would not be aggregate at all: at two learners you subtract yourself and read the
+                // other one's results off the row.
+                <Card className="p-4 text-sm text-gray-500 dark:text-gray-400">
+                  {t("stats.globalNeedsData", { min: global.data.thresholds.minLearners })}
+                </Card>
+              ) : (
+                <div className="space-y-1">
+                  {global.data.modules.slice(0, 5).map((m) => (
+                    <div key={m.moduleId} className="flex items-center justify-between gap-2 text-sm">
+                      <span>{m.title ?? m.moduleId}</span>
+                      <span className="text-gray-500 tabular-nums dark:text-gray-400">
+                        {rateShort(m.firstCorrect, m.firstSeen)} · {t("stats.nUsers", { count: m.learners })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+        </>
       )}
     </div>
   );

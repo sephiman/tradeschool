@@ -26,6 +26,11 @@
 # honest. `in_prose: false` skips the text search — use it for small integers (RSI readings, ratios)
 # where searching for "9" or "3" would match anything and prove nothing.
 #
+# An anchor may also narrow `lessons` to a subset of the figure's own list. Two lessons can embed the
+# same figure and quote different amounts of it — m09-l1 is the map and prints only the support and
+# the spring, while m09-l2 walks every phase — and without narrowing, check 2 would demand the whole
+# chart's numbers from the lesson that only needs two of them.
+#
 # `identical_through` asserts two panels are literally the same chart out to that bar. Three figures
 # now say so in prose ("son el mismo gráfico", "the same price series, candle for candle"), which is
 # only true because those panels share a seed — this is what keeps that claim honest.
@@ -38,15 +43,19 @@
 figures:
 
   fig-m09-accumulation:
-    lessons: [m09-l2]
+    # Both m09 lessons embed this figure. m09-l2 walks the range phase by phase and prints every
+    # value below; m09-l1 is the map, and quotes only the two numbers its worked examples need — the
+    # support the absorbing buyer sits on, and the spring that takes it out. Hence the per-anchor
+    # `lessons` scoping: the rest of the chart is not m09-l1's to print.
+    lessons: [m09-l2, m09-l1]
     anchors:
       - {what: "level:support",    prose: 1800}
-      - {what: "level:resistance", prose: 1930}
-      - {what: "close:0",          prose: 2050}   # where the prior downtrend starts
-      - {what: "low:111",          prose: 1745}   # the phase-C spring
-      - {what: "close:130",        prose: 1870}   # the phase-D shelf
-      - {what: "low:146",          prose: 1810}   # deepest post-spring dip: support is never lost again
-      - {what: "close:173",        prose: 2210}   # the markup
+      - {what: "level:resistance", prose: 1930, lessons: [m09-l2]}
+      - {what: "close:0",          prose: 2050, lessons: [m09-l2]}   # where the prior downtrend starts
+      - {what: "low:111",          prose: 1745}   # the phase-C spring (and m09-l1's worked spring)
+      - {what: "close:130",        prose: 1870, lessons: [m09-l2]}   # the phase-D shelf
+      - {what: "low:146",          prose: 1810, lessons: [m09-l2]}   # deepest post-spring dip: support is never lost again
+      - {what: "close:173",        prose: 2210, lessons: [m09-l2]}   # the markup
 
   fig-m09-distribution:
     lessons: [m09-l2]
@@ -89,11 +98,11 @@ figures:
   fig-m13-golden-pullback:
     lessons: [m13-l1]
     anchors:
-      - {what: "fib_impulse_low",  prose: 2020}
-      - {what: "fib_impulse_high", prose: 2500}
-      - {what: "level:382",        prose: 2317}
-      - {what: "level:500",        prose: 2260}
-      - {what: "level:618",        prose: 2203}
+      - {what: "fib_impulse_low",  prose: 2017}
+      - {what: "fib_impulse_high", prose: 2499}
+      - {what: "level:382",        prose: 2315}
+      - {what: "level:500",        prose: 2258}
+      - {what: "level:618",        prose: 2201}
       - {what: "low:119",          prose: 2186}  # the pullback's overshoot through the 0.618
 
   fig-m12-bearish-regular:
