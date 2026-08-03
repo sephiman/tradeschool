@@ -2,8 +2,15 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { getCourse, type CourseModule } from "@/api/course";
+import { getCourse, type CourseBlock, type CourseModule } from "@/api/course";
 import { flattenLessons, resumeTarget, stepLabel } from "@/features/course/courseNav";
+import {
+  blockLessons,
+  courseLessons,
+  formatReadingTime,
+  moduleLessons,
+  remainingSeconds,
+} from "@/features/course/readingTime";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 
@@ -11,11 +18,21 @@ function isComplete(m: CourseModule): boolean {
   return m.hasContent && m.lessonsTotal > 0 && m.lessonsCompleted >= m.lessonsTotal;
 }
 
+function BlockReadingTime({ block }: { block: CourseBlock }) {
+  const { t } = useTranslation();
+  const timeLeft = formatReadingTime(remainingSeconds(blockLessons(block)), t);
+  if (timeLeft === null) return null;
+  return <span className="ml-2 font-normal normal-case">· {timeLeft}</span>;
+}
+
 function ModuleCard({ module, suggested }: { module: CourseModule; suggested: boolean }) {
   const { t } = useTranslation();
   const complete = isComplete(module);
   // Advisory prereqs are soft: muted text, and never shown once the module is done.
   const showPrereqs = module.unmetPrereqs.length > 0 && !complete;
+  // Time LEFT in this module — null once every lesson is read, so a finished card says nothing
+  // rather than "~0 min".
+  const timeLeft = formatReadingTime(remainingSeconds(moduleLessons(module)), t);
 
   const inner = (
     <Card className={cn("h-full p-4 transition-colors", suggested ? "border-primary ring-1 ring-primary" : module.hasContent ? "hover:border-primary" : "opacity-70")}>
@@ -38,6 +55,12 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
             <>
               {" · "}
               <span>{t("course.exerciseProgress", { done: module.exercisesPassed, total: module.exercisesTotal })}</span>
+            </>
+          )}
+          {timeLeft !== null && (
+            <>
+              {" · "}
+              <span>{timeLeft}</span>
             </>
           )}
         </p>
@@ -110,6 +133,27 @@ export function CoursePage() {
     return { lessonsDone, lessonsTotal, exDone, exTotal };
   }, [course]);
 
+  // Reading time left in the whole course: the sum of every unread lesson's own seconds, rounded once.
+  // Same function, same per-lesson values as each block header and module card below, so the header
+  // can never disagree with the numbers under it.
+  const timeLeft = useMemo(
+    () => (course ? formatReadingTime(remainingSeconds(courseLessons(course)), t) : null),
+    [course, t],
+  );
+
+  // The header meta line. The progress fractions stay hidden until the learner has begun (a fresh
+  // account has nothing to report), but the time estimate does not depend on having begun — for a new
+  // reader "how long is this course?" is the question, and remaining time is simply all of it.
+  const headerMeta = [
+    ...(course?.started
+      ? [
+          t("course.lessonProgress", { done: totals.lessonsDone, total: totals.lessonsTotal }),
+          t("course.exerciseProgress", { done: totals.exDone, total: totals.exTotal }),
+        ]
+      : []),
+    ...(timeLeft !== null ? [timeLeft] : []),
+  ];
+
   if (isLoading || !course) {
     return (
       <div className="flex justify-center py-16 text-gray-500">
@@ -123,11 +167,9 @@ export function CoursePage() {
       <div>
         <h1 className="text-2xl font-bold">{course.course.title}</h1>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{course.course.description}</p>
-        {course.started && (
+        {headerMeta.length > 0 && (
           <p className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-            {t("course.lessonProgress", { done: totals.lessonsDone, total: totals.lessonsTotal })}
-            {" · "}
-            {t("course.exerciseProgress", { done: totals.exDone, total: totals.exTotal })}
+            {headerMeta.join(" · ")}
           </p>
         )}
       </div>
@@ -143,6 +185,8 @@ export function CoursePage() {
         <section key={block.id}>
           <h2 className="mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
             {block.title}
+            {/* The block's own remaining time, in normal case so "min" is not shouted by the uppercase heading. */}
+            <BlockReadingTime block={block} />
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {block.modules.map((module) => (

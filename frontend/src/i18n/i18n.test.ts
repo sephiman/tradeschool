@@ -62,6 +62,21 @@ describe("UI translations", () => {
     expect(keyPaths(es).sort()).toEqual(keyPaths(en).sort());
   });
 
+  // The reading-time string is the one place a number reaches the reader through interpolation alone:
+  // a catalog entry without the `{{minutes}}` placeholder still renders, silently, as a time with no
+  // time in it ("~ min"). Both catalogs are checked, in both directions.
+  it.each(Object.keys(catalogs))("%s renders the reading-time estimate with its number", (lang) => {
+    const course = catalogs[lang].course;
+    for (const [key, placeholders] of [
+      ["readingTime", ["{{minutes}}"]],
+      ["readingTimeHours", ["{{hours}}"]],
+      ["readingTimeHoursMinutes", ["{{hours}}", "{{minutes}}"]],
+    ] as const) {
+      expect(course?.[key], `course.${key} missing in ${lang}`).toBeTruthy();
+      for (const placeholder of placeholders) expect(course[key]).toContain(placeholder);
+    }
+  });
+
   it.each(Object.keys(catalogs))("%s labels every exercise type", (lang) => {
     for (const type of EXERCISE_TYPES) {
       expect(catalogs[lang].exerciseType?.[type], `exerciseType.${type} missing in ${lang}`).toBeTruthy();

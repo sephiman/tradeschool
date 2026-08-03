@@ -14,6 +14,7 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, ValidationError
 
+from tradeschool.content.reading import estimate_seconds
 from tradeschool.content.schema import (
     LOCALES,
     LocalizedText,
@@ -61,6 +62,9 @@ class CourseRegistry:
     exercise_configs: dict[str, tuple[ExerciseType, BaseModel]] = field(default_factory=dict)
     # figure_id -> spec (lesson figures embedded via ::figure{id=...}).
     figures: dict[str, FigureSpec] = field(default_factory=dict)
+    # reading_seconds[locale][lesson_id] -> estimated reading time. Derived from the markdown once
+    # here, so every surface that shows time is summing the same per-lesson numbers.
+    reading_seconds: dict[str, dict[str, int]] = field(default_factory=dict)
     _modules: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
     _lessons: dict[str, LessonLocation] = field(default_factory=dict)
     _exercises: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
@@ -72,6 +76,12 @@ class CourseRegistry:
         return self.exercise_configs.get(exercise_id)
 
     def __post_init__(self) -> None:
+        # Reading time is computed here — at load, once per (locale, lesson) — and never per request:
+        # it is a pure function of the markdown, and the markdown only changes on restart.
+        for locale, lessons in self.markdown.items():
+            self.reading_seconds[locale] = {
+                lesson_id: estimate_seconds(body) for lesson_id, body in lessons.items()
+            }
         for block, module in self.manifest.iter_modules():
             self._modules[module.id] = (block, module)
             for lesson in module.lessons:
@@ -113,6 +123,11 @@ class CourseRegistry:
             if not (dep_lessons & completed_lesson_ids):
                 unmet.append(dep)
         return unmet
+
+    def lesson_reading_seconds(self, lesson_id: str, locale: str) -> int:
+        """Estimated reading time for one lesson in one language. The ONE number every surface is
+        built from: module/block/course figures are sums of these, never estimates of their own."""
+        return self.reading_seconds.get(locale, {}).get(lesson_id, 0)
 
     def module_title(self, module_id: str, locale: str) -> str | None:
         found = self._modules.get(module_id)
@@ -156,6 +171,7 @@ class CourseRegistry:
                         "order": l_index,
                         "title": lesson.title.get(locale),
                         "completed": lesson.id in completed_lesson_ids,
+                        "readingSeconds": self.lesson_reading_seconds(lesson.id, locale),
                         "exercises": [self._exercise_dict(ex) for ex in lesson.exercises],
                     }
                     for l_index, lesson in enumerate(module.lessons, start=1)
@@ -266,6 +282,7 @@ class CourseRegistry:
             "blockId": loc.block.id,
             "markdown": self.markdown[locale][lesson_id],
             "completed": lesson_id in completed_lesson_ids,
+            "readingSeconds": self.lesson_reading_seconds(lesson_id, locale),
             "exercises": [self._exercise_dict(ex) for ex in loc.lesson.exercises],
         }
 
@@ -293,6 +310,7 @@ class CourseRegistry:
                     "order": index,
                     "title": lesson.title.get(locale),
                     "completed": lesson.id in completed_lesson_ids,
+                    "readingSeconds": self.lesson_reading_seconds(lesson.id, locale),
                 }
                 for index, lesson in enumerate(module.lessons, start=1)
             ],

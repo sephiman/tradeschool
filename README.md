@@ -203,6 +203,25 @@ Open <http://localhost:5173>, register an account, and review the full course:
   The reading counter measures the **"mark lesson as read" button and nothing else** — it is named
   that way ("lessons marked as read"), and the lesson footer says so. There is no implicit
   read-tracking: no scroll heuristics, no dwell time.
+- **Reading-time estimates** appear on the course header, every block header, every module card, the
+  module page — its own remaining total, plus **each lesson's own estimate on its row**, which is the
+  number you need when choosing which of a two-lesson module to open — and the lesson page, appended to
+  the existing meta line (`0/2 lecciones · 0/6 ejercicios ·
+  ~25 min`). Every one of them is **time remaining** — total minus the lessons you have marked read — so
+  a finished module, block or course shows **no figure at all** rather than "~0 min"; a lesson page is
+  atomic and always shows its own full estimate. The estimate is computed **per lesson, per language**,
+  at registry load: prose words at `READING_WPM` (200) plus `FIGURE_SECONDS` (30) per embedded
+  `::figure`, counting callout text as prose and ignoring directives, markup and fenced code. Exercises
+  and exams contribute nothing. Both constants are a **starting calibration** meant to be tuned against
+  real reading, which is why they are named constants in one module
+  (`backend/src/tradeschool/content/reading.py`) and why the estimate is a derived metric that is
+  **absent from the course export**. ES and EN differ for the same lesson because the prose differs.
+  The API serves **seconds per lesson** and nothing else — every module/block/course figure is a sum of
+  those seconds, rounded once at display time (`frontend/src/features/course/readingTime.ts`), so no
+  aggregate is ever built from already-rounded minutes and the levels nest exactly. Past an hour the
+  same figure is said as **hours and minutes** (`~5 h 20 min`), with an exact hour dropping the minutes
+  part (`~1 h`, never `~1 h 0 min`) — one format in both languages, and still only that one rounding:
+  the hours are a *split* of the rounded total (`floor` + `%`), not a rounding of their own.
 - Toggle **ES ↔ EN** (progress is unchanged) and **light/dark**; check mobile widths.
 - The **chart-credibility gallery** at <http://localhost:5173/dev/charts> renders grids of the
   generated charts with their ground-truth labels — the exact renderer students see. The exercise-id

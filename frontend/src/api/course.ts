@@ -17,6 +17,9 @@ export interface CourseLesson {
   order: number;
   title: string;
   completed: boolean;
+  /** Estimated reading time for THIS lesson in this locale, in seconds. Every module/block/course
+   *  figure the UI shows is a sum of these — see features/course/readingTime.ts. */
+  readingSeconds: number;
   exercises: ExerciseRef[];
 }
 
@@ -65,6 +68,7 @@ export interface LessonDetail {
   blockId: string;
   markdown: string;
   completed: boolean;
+  readingSeconds: number;
   exercises: ExerciseRef[];
 }
 
@@ -79,7 +83,7 @@ export interface ModuleDetail {
   summary: string;
   assumes: PrereqRef[];
   unmetPrereqs: PrereqRef[];
-  lessons: { id: string; order: number; title: string; completed: boolean }[];
+  lessons: { id: string; order: number; title: string; completed: boolean; readingSeconds: number }[];
 }
 
 export async function getCourse(): Promise<Course> {

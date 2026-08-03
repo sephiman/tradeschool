@@ -8,6 +8,7 @@ import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
 import { LessonFigure } from "@/features/course/LessonFigure";
 import { currentAndNext, flattenLessons, stepLabel } from "@/features/course/courseNav";
+import { formatReadingTime } from "@/features/course/readingTime";
 import { LessonMarkdown } from "@/lib/markdown";
 
 export function LessonPage() {
@@ -88,11 +89,20 @@ export function LessonPage() {
       ? { to: `/lessons/${nav.next.lessonId}`, label: stepLabel(nav.next, lesson.moduleId) }
       : { to: "/stats", label: t("nav.progress") };
 
+  // A lesson is atomic, so it shows its OWN full estimate — "remaining" is meaningless inside one, and
+  // a lesson already marked read still tells you what re-reading it costs.
+  const readingTime = formatReadingTime(lesson.readingSeconds, t);
+
   return (
     <article className="mx-auto max-w-2xl">
-      <Link to={backTo} className="text-sm text-primary hover:underline">
-        ← {backLabel}
-      </Link>
+      <div className="flex items-baseline justify-between gap-3">
+        <Link to={backTo} className="text-sm text-primary hover:underline">
+          ← {backLabel}
+        </Link>
+        {readingTime !== null && (
+          <span className="text-xs text-gray-500 dark:text-gray-400">{readingTime}</span>
+        )}
+      </div>
       <div className="mt-4">
         <LessonMarkdown
           markdown={lesson.markdown}
