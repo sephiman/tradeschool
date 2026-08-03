@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  BaselineSeries,
   CandlestickSeries,
   ColorType,
   createChart,
@@ -57,6 +58,14 @@ export interface PriceLevel {
   kind: string;
 }
 
+/** A shaded price ZONE — m30's origin zone and imbalance. Two prices, because that is what it is. */
+export interface PriceBand {
+  low: number;
+  high: number;
+  label: string;
+  kind: string;
+}
+
 const palette = (dark: boolean) => ({
   background: "transparent",
   text: dark ? "#9ca3af" : "#6b7280",
@@ -71,6 +80,12 @@ const palette = (dark: boolean) => ({
   oi: "#0891b2",
   cvd: "#0d9488",
   marker: dark ? "#e5e7eb" : "#111827",
+  // A shaded zone follows the `plan` colour precedent: the SAME high-contrast neutral the markers use,
+  // deliberately not red/green. An origin zone can be demand or supply and an imbalance can point either
+  // way, so a green band would import exactly the "bullish order block" semantics m30-l1 refuses. The
+  // fill is that neutral at low alpha — enough to read as an area, not enough to tint the candles.
+  band: dark ? "#e5e7eb" : "#111827",
+  bandFill: dark ? "rgba(229,231,235,0.10)" : "rgba(17,24,39,0.08)",
   // Distinct thin-line colors for price-pane overlays (e.g. moving averages), cycled by order.
   overlays: dark ? ["#60a5fa", "#c084fc", "#22d3ee", "#facc15"] : ["#2563eb", "#9333ea", "#0891b2", "#ca8a04"],
 });
@@ -97,6 +112,7 @@ export function CandleChart({
   markers = [],
   overlays,
   levels,
+  bands,
   height = 420,
   rightOffset = 4,
 }: {
@@ -109,6 +125,9 @@ export function CandleChart({
   markers?: SwingMarker[];
   overlays?: Record<string, number[]>;
   levels?: PriceLevel[];
+  // Shaded zones. Ground truth on the backend, so an exercise chart only ever receives these AFTER
+  // grading — drawing the zone on the question would be the answer (m30).
+  bands?: PriceBand[];
   height?: number;
   // Empty bars of margin on the right so a marker planted near the last candle isn't clipped by the
   // boundary. Figures (patterns at the very edge) pass more; exercise charts keep the small default.
@@ -128,6 +147,9 @@ export function CandleChart({
   // pair label and kind coincide, so this is identical for them.
   const levelText = (lvl: PriceLevel): string =>
     t(`level.${lvl.label}`, { defaultValue: t(`level.${lvl.kind}`, { defaultValue: lvl.label }) });
+  // Same own-label-first rule as levels, in the `band.*` namespace.
+  const bandText = (band: PriceBand): string =>
+    t(`band.${band.label}`, { defaultValue: t(`band.${band.kind}`, { defaultValue: band.label }) });
 
   useEffect(() => {
     const el = containerRef.current;
@@ -161,6 +183,52 @@ export function CandleChart({
       },
       crosshair: { mode: CrosshairMode.Normal },
     });
+
+    // Shaded price zones (m30's origin zone / imbalance), added FIRST so the candles draw on top of the
+    // tint rather than under it — lightweight-charts z-orders series by creation order.
+    //
+    // A band is a BaselineSeries pinned at its lower edge with every bar valued at its upper edge, which
+    // fills the region between the two, plus one flat line for the lower edge (the baseline itself is not
+    // drawn). Deliberately NOT two `createPriceLine` calls: the price-pane line count is an invariant
+    // (`levels.test.tsx` — exactly one line per planted level, no phantom line a learner reads as a
+    // mystery level), and a zone rendered as two dashed lines would both break that count and look like
+    // two independent levels. `topFillColor1 === topFillColor2` keeps the fill flat: a gradient would
+    // imply "stronger near the top", which is not a claim a zone makes.
+    if (bands) {
+      for (const band of bands) {
+        const upper = chart.addSeries(
+          BaselineSeries,
+          {
+            baseValue: { type: "price", price: band.low },
+            topFillColor1: c.bandFill,
+            topFillColor2: c.bandFill,
+            bottomFillColor1: "rgba(0,0,0,0)",
+            bottomFillColor2: "rgba(0,0,0,0)",
+            topLineColor: c.band,
+            bottomLineColor: c.band,
+            lineWidth: 1,
+            priceLineVisible: false,
+            crosshairMarkerVisible: false,
+            lastValueVisible: true,
+            title: bandText(band),
+          },
+          0,
+        );
+        upper.setData(series.close.map((_, i) => ({ time: t(i), value: band.high })));
+        const lower = chart.addSeries(
+          LineSeries,
+          {
+            color: c.band,
+            lineWidth: 1,
+            priceLineVisible: false,
+            crosshairMarkerVisible: false,
+            lastValueVisible: false, // the zone is named once, on its upper edge
+          },
+          0,
+        );
+        lower.setData(series.close.map((_, i) => ({ time: t(i), value: band.low })));
+      }
+    }
 
     // Pane 0: candles. Pane 1: volume. Pane 2: oscillator. Each pane has its own price scale,
     // so labels never collide across panes (round-2 fix).
@@ -313,7 +381,7 @@ export function CandleChart({
     chart.timeScale().setVisibleLogicalRange({ from: -0.5, to: series.close.length - 0.5 + rightOffset });
 
     return () => chart.remove();
-  }, [series, rsi, macd, oi, cvd, indicator, markers, overlays, levels, resolvedTheme, locale, rightOffset, t]);
+  }, [series, rsi, macd, oi, cvd, indicator, markers, overlays, levels, bands, resolvedTheme, locale, rightOffset, t]);
 
   return <div ref={containerRef} style={{ height }} className="w-full" />;
 }

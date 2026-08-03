@@ -9,11 +9,11 @@ import {
   type PatternGroundTruth,
 } from "@/api/dev";
 import { CandleChart } from "@/components/charts/CandleChart";
-import { divergenceMarkers, patternMarkers } from "@/components/charts/markers";
+import { divergenceMarkers, patternBands, patternMarkers } from "@/components/charts/markers";
 import { Badge, Button, Card, Input, Select, Spinner } from "@/components/ui/primitives";
 import { LessonFigure } from "@/features/course/LessonFigure";
 
-const EXERCISES = ["m12-ex-1", "m12-ex-2", "m26-ex-1"];
+const EXERCISES = ["m12-ex-1", "m12-ex-2", "m26-ex-1", "m30-ex-1", "m30-ex-2"];
 
 /** Divergence ground truth carries a `divergence` string; pattern_chart carries a `label`. */
 function isDivergence(gt: GroundTruth): gt is DivergenceGroundTruth {
@@ -155,6 +155,9 @@ export function ChartGallery() {
                     markers={markers}
                     overlays={item.payload.overlays}
                     levels={item.payload.levels}
+                    // The gallery shows ground truth by design, so the zone IS drawn here — which is
+                    // what makes it reviewable against the candles it claims to be read from.
+                    bands={isDivergence(gt) ? [] : patternBands(gt)}
                     height={320}
                   />
                 )}

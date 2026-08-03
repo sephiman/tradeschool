@@ -32,6 +32,12 @@ Rules:
   course uses `spot-m01`, `spot-m01-l1`, `spot-m01-ex-3`, `fig-spot-m01-…`, `spot-block-a`. This keeps
   the global namespace collision-free without ever touching the crypto-futures ids.
 - The course id itself is also globally unique (`crypto-futures`, `spot`, …) and is likewise permanent.
+- **Ids are never renumbered, and display order is list position — not the id.** So new content either
+  **appends to its block** or arrives as a **new trailing block**; it is never inserted mid-sequence,
+  because that would leave the id badge on the course page reading `M14 → M30 → M15`. The id is a
+  permanent label, the position is the order, and the two are allowed to disagree only where nothing
+  renders them side by side (`m17-ex-4` sits out of numeric sequence inside its lesson, with the reason
+  on file in the manifest). `block-g` (one module, `m30`) is the first block added under this rule.
 
 There is intentionally **no course catalog, switcher, or `/courses/{id}` routing yet** — the UI stays
 single-course until a second course actually exists. This document plus the root `course` entity and

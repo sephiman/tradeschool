@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: origin_zone
+n: 130
+indicator: none
+# The zone is NEVER drawn here — the shaded band is ground truth, and drawing it would be the answer.
+# The learner has to find it the way the lesson says to: locate the impulse, check whether it broke
+# structure at all, then read what the return did. Grading reveals the band on the same chart.
+targets: [zone_respected, zone_failed, no_zone]
+choices: [zone_respected, zone_failed, no_zone]
+prompt:
+  en: "Work in the lesson's order. First: did a move **break structure** — a close clean past the high the range had been testing? If it did, the last down candles before that move are the **origin zone** (what the dialect calls an order block), and price has come back to it near the right edge. Did the return **hold the zone** (traded into it and left upward), did the zone **fail** (price closed clean through it and kept going), or is there **no zone at all** because nothing ever broke?"
+  es: "Trabaja en el orden de la lección. Primero: ¿hubo un movimiento que **rompiera la estructura** —un cierre limpio por encima del máximo que el rango venía testeando—? Si lo hubo, las últimas velas bajistas antes de ese movimiento son la **zona de origen** (lo que el dialecto llama order block), y el precio ha vuelto a ella cerca del borde derecho. ¿La vuelta **respetó la zona** (entró en ella y se fue hacia arriba), la zona **falló** (el precio cerró limpiamente a través de ella y siguió) o **no hay zona** porque nunca se rompió nada?"
+explanation:
+  en: "The break comes first, and it is what most people skip. Without a close past the prior high there is no impulse that broke anything, so the dip before the rally is just a dip: calling it an order block is reading a zone into an ordinary pullback, which is the commonest error in this dialect. When structure did break, the zone is real but not a promise — it is where size was working and could not all get filled, so a return often finds the remainder and sometimes does not. A zone that holds shows price trading into the band and leaving; a zone that fails shows a close clean through it. Both are ordinary; only the dogma says the zone must hold."
+  es: "La ruptura va primero, y es lo que casi todo el mundo se salta. Sin un cierre por encima del máximo anterior no hay ningún impulso que haya roto nada, así que la caída previa al rebote es solo una caída: llamarla order block es leer una zona dentro de un retroceso corriente, que es el error más común de este dialecto. Cuando la estructura sí se rompió, la zona es real pero no es una promesa: es donde había tamaño trabajando que no pudo llenarse del todo, así que una vuelta encuentra el resto muchas veces y otras no. Una zona que aguanta muestra al precio entrando en la banda y marchándose; una zona que falla muestra un cierre limpio a través de ella. Las dos cosas son normales; solo el dogma dice que la zona tiene que aguantar."

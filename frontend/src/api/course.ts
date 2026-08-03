@@ -109,6 +109,8 @@ export interface FigurePanel {
   cvd?: number[];
   overlays?: Record<string, number[]>;
   levels?: { price: number; label: string; kind: string }[];
+  /** Shaded zones. A figure draws them; an exercise payload never carries them (m30). */
+  bands?: { low: number; high: number; label: string; kind: string }[];
   indicator: "rsi" | "macd" | "oi" | "cvd" | "none";
   annotations: { index: number; kind: string; label: string }[];
 }

@@ -1,4 +1,4 @@
-import type { SwingMarker } from "@/components/charts/CandleChart";
+import type { PriceBand, SwingMarker } from "@/components/charts/CandleChart";
 
 /** Build the two swing markers from a graded chart answer ({divergence, swing1, swing2}). */
 export function divergenceMarkers(groundTruth: unknown): SwingMarker[] {
@@ -15,6 +15,18 @@ interface PatternAnnotation {
   index: number;
   kind: string;
   label: string;
+}
+
+/** Map a pattern_chart ground truth to CandleChart bands (m30's origin zone / imbalance).
+ *
+ * Bands live in the GRADED answer and nowhere else: the pre-answer payload has no `bands` key at all,
+ * because shading the zone on the question would be handing over the answer. So this is the only path by
+ * which an exercise chart ever draws one — after answering, on the same chart, which is where the zone is
+ * finally worth seeing. Absent for every label that plants no zone (`no_zone`, `no_imbalance`). */
+export function patternBands(groundTruth: unknown): PriceBand[] {
+  const g = groundTruth as { bands?: PriceBand[] };
+  if (!Array.isArray(g?.bands)) return [];
+  return g.bands.filter((b) => b && typeof b.low === "number" && typeof b.high === "number");
 }
 
 /** Map a pattern_chart ground truth ({label, annotations, levels}) to CandleChart markers.

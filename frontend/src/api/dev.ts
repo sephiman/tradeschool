@@ -8,11 +8,12 @@ export interface DivergenceGroundTruth {
   swing2?: number | null;
 }
 
-/** pattern_chart exercises grade to {label, annotations, levels}. */
+/** pattern_chart exercises grade to {label, annotations} (+ `bands` where the injector plants a zone). */
 export interface PatternGroundTruth {
   label?: string;
   annotations?: Array<{ index: number; kind: string; label: string }>;
   levels?: PriceLevelPayload[];
+  bands?: Array<{ low: number; high: number; label: string; kind: string }>;
 }
 
 /** Ground truth is exercise-type dependent; consumers narrow it at runtime. */

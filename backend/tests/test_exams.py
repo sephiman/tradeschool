@@ -46,6 +46,38 @@ async def test_block_exam_scopes_to_one_block(content_client: AsyncClient) -> No
     assert len(exam["questions"]) >= 1
 
 
+async def test_a_single_module_block_yields_a_one_question_exam(content_client: AsyncClient) -> None:
+    """Block G is one module (m30, the SMC dialect), which is the first block to be. Nothing in the exam
+    path special-cases block size, and this is what says so out loud: the scope is accepted, sampling
+    produces exactly one question rather than an `EXAM_EMPTY`, and submitting it scores a one-question
+    block cleanly (a per-block ratio over a denominator of one, not a division by zero)."""
+    await _auth(content_client)
+    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-g"})).json()
+    assert exam["scope"] == "block" and exam["blockId"] == "block-g"
+    assert [q["moduleId"] for q in exam["questions"]] == ["m30"]
+
+    submitted = (await content_client.post(f"/api/exams/{exam['id']}/submit")).json()
+    result = submitted["result"]
+    assert result["total"] == 1
+    assert result["blocks"] == [
+        {"blockId": "block-g", "title": submitted["blockTitle"], "correct": 0, "total": 1, "score": 0.0}
+    ]
+    # Unanswered, so incorrect — but distinguishable from a wrong answer, and the solution is revealed.
+    assert submitted["questions"][0]["unanswered"] is True
+
+
+async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncClient) -> None:
+    """Module selection walks the manifest, so a new module joins the global exam by being registered —
+    no exam-side list to keep in step. m30 is the check that this is still true after block G was added."""
+    await _auth(content_client)
+    exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    m30 = [q for q in exam["questions"] if q["moduleId"] == "m30"]
+    assert len(m30) == 1, "the global exam did not pick up m30"
+    assert m30[0]["blockId"] == "block-g"
+    # ...and it sampled from m30's own bank, not from somewhere else.
+    assert m30[0]["exerciseId"] in {"m30-ex-1", "m30-ex-2", "m30-ex-3", "m30-ex-4"}
+
+
 async def test_bad_block_scope_rejected(content_client: AsyncClient) -> None:
     await _auth(content_client)
     resp = await content_client.post("/api/exams", json={"scope": "block", "blockId": "ghost"})

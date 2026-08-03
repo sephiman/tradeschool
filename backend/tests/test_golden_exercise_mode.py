@@ -115,6 +115,27 @@ GOLDEN = {
     "trade_anatomy:1": "29f82a1ec9e46d10",
     "trade_anatomy:2": "d8c8c4215544609c",
     "trade_anatomy:3": "92ea34b457f360e0",
+    # Captured when the m30 SMC-dialect injectors were ADDED (`origin_zone`, `imbalance`) — the first two
+    # to plant a shaded `Band`, and, unlike the group above, each feeding a figure AND an exercise. Kept as
+    # one group for the same reason that one is: this was a single event. Every hash above stayed
+    # byte-identical in the same commit, which is what proves the three additions to shared code touched
+    # no existing generator path — the `bands` field on `PatternResult`/`FullPatternChart` (ground truth,
+    # so it never enters the pre-answer payload these hashes cover), the conditional `bands` key on
+    # `grade()`'s answer (like `oi`/`cvd` before it), and `grade()` reading `_full` instead of
+    # `_instantiate`.
+    #
+    # That last one is the batch's ONLY edit to a shared code path, and these fingerprints cannot see it:
+    # they cover `_instantiate`, which is not what changed. It has its own dedicated proof in
+    # `test_chart_bands.py::test_grading_is_identical_whether_read_from_full_or_instantiate`, which
+    # reconstructs the pre-change `grade()` for every registered injector and compares the two outputs.
+    "imbalance:0": "9d7099f65136bff2",
+    "imbalance:1": "bfa85922cc15a9db",
+    "imbalance:2": "d92f571868493d78",
+    "imbalance:3": "af5f347dd83d0d0d",
+    "origin_zone:0": "75b31548d708875e",
+    "origin_zone:1": "35837b9f3863204a",
+    "origin_zone:2": "4fd664189c2442f1",
+    "origin_zone:3": "c0a82bfb26bf6e5f",
 }
 
 _SEEDS = range(4)

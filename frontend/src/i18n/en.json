@@ -210,7 +210,13 @@
     "rejection_at_level": "Rejection at a level → informative",
     "overrun_at_level": "Overrun at a level → informative",
     "open_space": "Same form in open space → noise",
-    "indecision": "Indecision → no signal"
+    "indecision": "Indecision → no signal",
+    "zone_respected": "Origin zone respected",
+    "zone_failed": "Origin zone failed",
+    "no_zone": "No zone — nothing broke structure",
+    "imbalance_unfilled": "Imbalance still open",
+    "imbalance_filled": "Imbalance already filled",
+    "no_imbalance": "No imbalance — the candles overlap"
   },
   "chartMarker": {
     "hammer": "Hammer",
@@ -229,7 +235,13 @@
     "sweep": "Sweep",
     "liquidation": "Liquidation",
     "gap": "Gap through",
-    "unfilled": "Order unfilled"
+    "unfilled": "Order unfilled",
+    "origin": "Origin",
+    "retest": "Retest",
+    "failed_break": "Failed break",
+    "imbalance": "Imbalance",
+    "revisit": "Revisit",
+    "traded_through": "Traded through"
   },
   "level": {
     "support": "Support",
@@ -241,6 +253,10 @@
     "target": "Target",
     "trigger": "Trigger",
     "limit": "Limit"
+  },
+  "band": {
+    "origin": "Origin zone",
+    "imbalance": "Imbalance"
   },
   "candle": {
     "open": "Open",

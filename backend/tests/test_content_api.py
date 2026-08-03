@@ -1,9 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from httpx import AsyncClient
+
+from tradeschool.config import get_settings
+from tradeschool.content.registry import load_registry
 
 CREDS = {"username": "student", "password": "correcthorse"}
 
@@ -31,12 +35,12 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
 
     data = (await content_client.get("/api/course/export?lang=en")).json()
     assert data["locale"] == "en"
-    assert len(data["blocks"]) == 6
+    assert len(data["blocks"]) == 7
     modules = [m for b in data["blocks"] for m in b["modules"]]
-    assert len(modules) == 29
+    assert len(modules) == 30
     lessons = [lesson for m in modules for lesson in m["lessons"]]
-    # 29 modules, six of which carry a second lesson -> 35 in total.
-    assert len(lessons) == 35
+    # 30 modules, six of which carry a second lesson -> 36 in total.
+    assert len(lessons) == 36
     assert [m["id"] for m in modules if len(m["lessons"]) == 2] == ["m03", "m08", "m09", "m17", "m19", "m24"]
 
     for m in modules:
@@ -53,16 +57,107 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
     assert es["locale"] == "es"
     assert _module(es, "m16")["title"] == "Sentimiento de masas"
 
-    # Download flag serves it as a file attachment.
+    # Download flag serves it as a file attachment, named for what is inside it.
+    dl = await content_client.get("/api/course/export?lang=es&download=true")
+    assert 'filename="tradeschool-course-es.json"' in dl.headers.get("content-disposition", "")
+
+
+async def test_course_export_carries_both_languages_by_default(content_client: AsyncClient) -> None:
+    """No `lang` means BOTH languages, not the reader's own. The course is authored in two and every
+    content change touches both, so an archive of one of them is half an archive — and reading the two
+    against each other is the main reason to pull the whole course out at once."""
+    await _auth(content_client)
+    default = (await content_client.get("/api/course/export")).json()
+    explicit = (await content_client.get("/api/course/export?lang=all")).json()
+    assert default == explicit, "an absent lang and lang=all must be the same document"
+
+    assert default["locales"] == ["en", "es"]
+    assert "locale" not in default, "the bilingual document is discriminated by its `locales` key"
+    modules = [m for b in default["blocks"] for m in b["modules"]]
+    lessons = [lesson for m in modules for lesson in m["lessons"]]
+    # The same walk of the manifest as the single-locale export, so the two cannot carry different
+    # modules — for a document whose job is to be a faithful copy, that is the defect that matters.
+    assert len(default["blocks"]) == 7 and len(modules) == 30 and len(lessons) == 36
+
+    # Every localized field is paired, and each side matches the single-locale document exactly.
+    for locale in ("en", "es"):
+        single = (await content_client.get(f"/api/course/export?lang={locale}")).json()
+        assert single["locale"] == locale
+        assert [b["title"][locale] for b in default["blocks"]] == [b["title"] for b in single["blocks"]]
+        single_modules = [m for b in single["blocks"] for m in b["modules"]]
+        single_lessons = [x for m in single_modules for x in m["lessons"]]
+        assert [x["markdown"][locale] for x in lessons] == [x["markdown"] for x in single_lessons]
+        assert [m["summary"][locale] for m in modules] == [m["summary"] for m in single_modules]
+
+    # ...and the two languages really are different text, not one copied into both slots.
+    m30 = next(lesson for lesson in lessons if lesson["id"] == "m30-l1")
+    assert m30["markdown"]["en"] != m30["markdown"]["es"]
+    assert m30["title"]["es"] == "El dialecto SMC (order blocks, FVG, BOS)"
+
     dl = await content_client.get("/api/course/export?download=true")
-    assert "attachment" in dl.headers.get("content-disposition", "")
+    assert 'filename="tradeschool-course-all.json"' in dl.headers.get("content-disposition", "")
+
+
+async def test_export_is_complete_against_the_manifest(content_client: AsyncClient) -> None:
+    """The export carries EVERY id the manifest declares, in canonical order, in every document it serves.
+
+    This is the test that catches a dropped trailing block. It is driven entirely off `content/course.yaml`
+    — no counts, no id literals — so a block appended tomorrow is covered the moment it is declared, which
+    is the whole point: a hardcoded `== 30` passes happily while the thirty-first module goes missing.
+
+    Order is asserted, not just membership: the manifest's order *is* the curriculum, so a reordered export
+    is as wrong as an incomplete one, and a set comparison would wave both through.
+
+    On exercises. The manifest's fourth id level is deliberately NOT in the export — this endpoint is the
+    course *theory*, and `_theory_only` strips the `::exercise` directives — so completeness here means the
+    three levels the document actually carries, plus an assertion that the fourth appears nowhere. That
+    absence is a product decision worth locking rather than leaving implicit: if exercise ids are ever
+    wanted in the archive, this test is where the change announces itself.
+    """
+    await _auth(content_client)
+    manifest = load_registry(get_settings().content_dir).manifest
+    want_blocks = [b.id for b in manifest.blocks]
+    want_modules = [m.id for _, m in manifest.iter_modules()]
+    want_lessons = [lesson.id for _, lesson in manifest.iter_lessons()]
+    want_exercises = {ex.id for _, _, ex in manifest.iter_exercises()}
+    assert want_blocks and want_modules and want_lessons and want_exercises  # the manifest is not empty
+
+    for query in ("", "?lang=all", "?lang=en", "?lang=es"):
+        doc = (await content_client.get(f"/api/course/export{query}")).json()
+        where = f"/api/course/export{query or ' (no lang)'}"
+        blocks = doc["blocks"]
+        modules = [m for b in blocks for m in b["modules"]]
+        lessons = [lesson for m in modules for lesson in m["lessons"]]
+
+        assert [b["id"] for b in blocks] == want_blocks, f"{where}: block ids differ from the manifest"
+        assert [m["id"] for m in modules] == want_modules, f"{where}: module ids differ from the manifest"
+        assert [x["id"] for x in lessons] == want_lessons, f"{where}: lesson ids differ from the manifest"
+
+        # A block can be present and hollow, so every leaf has to carry text in every locale it claims.
+        locales = doc.get("locales") or [doc["locale"]]
+        for lesson in lessons:
+            body = lesson["markdown"]
+            for locale in locales:
+                text = body[locale] if isinstance(body, dict) else body
+                assert text.strip(), f"{where}: {lesson['id']} has no prose in {locale}"
+                assert "::exercise" not in text, f"{where}: {lesson['id']} kept an exercise directive"
+
+        # ...and the fourth level stays out, which is what "theory only" means.
+        serialized = json.dumps(doc, ensure_ascii=False)
+        leaked = sorted(ex for ex in want_exercises if f'"{ex}"' in serialized)
+        assert not leaked, f"{where}: exercise ids reached the theory export: {leaked}"
+
+
+async def test_course_export_rejects_an_unknown_language(content_client: AsyncClient) -> None:
+    await _auth(content_client)
+    assert (await content_client.get("/api/course/export?lang=fr")).status_code == 422
 
 
 async def test_course_tree_shape(content_client: AsyncClient) -> None:
     await _auth(content_client)
     course = (await content_client.get("/api/course")).json()
     assert [b["id"] for b in course["blocks"]] == [
-        "block-a", "block-b", "block-c", "block-d", "block-e", "block-f",
+        "block-a", "block-b", "block-c", "block-d", "block-e", "block-f", "block-g",
     ]
 
     # Root course identity for the header (localized; sourced from the manifest).

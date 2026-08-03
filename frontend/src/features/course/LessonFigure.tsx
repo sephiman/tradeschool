@@ -51,6 +51,7 @@ export function LessonFigure({ id }: { id: string }) {
               cvd={p.cvd}
               overlays={p.overlays}
               levels={p.levels}
+              bands={p.bands}
               indicator={p.indicator}
               markers={toMarkers(p.annotations)}
               height={300}

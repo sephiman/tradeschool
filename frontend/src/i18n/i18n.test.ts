@@ -24,6 +24,8 @@ const CHART_LABELS = [
   "rising_oi", "falling_oi", "flat_oi",
   "cvd_bullish_divergence", "cvd_bearish_divergence", "cvd_confirms",
   "rejection_at_level", "overrun_at_level", "open_space", "indecision",
+  "zone_respected", "zone_failed", "no_zone",
+  "imbalance_unfilled", "imbalance_filled", "no_imbalance",
 ];
 
 // Figure/chart ANNOTATION labels are also student-facing and must be localized, never rendered as the
@@ -36,6 +38,9 @@ const CHART_MARKERS = [
   "hammer", "shooting_star", "bullish_engulfing", "bearish_engulfing", "morning_star", "evening_star",
   "harami", "tweezers_bottom", "tweezers_top", "doji", "small_range", "test",
   "rejection", "sweep", "liquidation", "gap", "unfilled",
+  // m30: the origin-zone sequence and the imbalance. "BOS" is deliberately absent — like HH / HL /
+  // CHoCH it is an acronym that reads the same in both languages, so it passes through.
+  "origin", "retest", "failed_break", "imbalance", "revisit", "traded_through",
 ];
 // A level's title comes from its own LABEL first (falling back to its kind), so this list is of labels:
 // the support/resistance pair where the two coincide, plus every named line the figure injectors draw —
@@ -43,6 +48,9 @@ const CHART_MARKERS = [
 const LEVEL_LABELS = [
   "support", "resistance", "shelf", "confluence", "entry", "stop", "target", "trigger", "limit",
 ];
+// A shaded ZONE is titled the same way — own label first, falling back to its kind — in its own
+// namespace, because a band is a different render primitive from a horizontal line (m30).
+const BAND_LABELS = ["origin", "imbalance"];
 // The figure-only injectors' own labels (`uptrend_ladder`, `long_setup`, …) are deliberately NOT under
 // `chartLabel.*`: that namespace is the set of choices an exercise can present, and no exercise may use
 // those injectors — they show their own resolution. A backend test enforces it.
@@ -75,6 +83,9 @@ describe("UI translations", () => {
     }
     for (const label of LEVEL_LABELS) {
       expect(catalogs[lang].level?.[label], `level.${label} missing in ${lang}`).toBeTruthy();
+    }
+    for (const label of BAND_LABELS) {
+      expect(catalogs[lang].band?.[label], `band.${label} missing in ${lang}`).toBeTruthy();
     }
   });
 });

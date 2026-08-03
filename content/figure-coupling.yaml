@@ -16,6 +16,8 @@
 #
 # Anchor `what` grammar (all indices are into the RENDERED series, warm-up already trimmed):
 #   level:<label>        the drawn level's price
+#   band_low|band_high:<label>  one edge of a shaded zone (m30's origin zone / imbalance). A zone has two
+#                        prices and the prose quotes both, so each edge is its own anchor.
 #   open|high|low|close:<i>   an OHLC value at bar i
 #   rsi|oi|cvd:<i>       a value in the indicator pane at bar i
 #   volume_ratio:<a>-<b> median volume over bars [a,b) divided by the median over `volume_baseline`
@@ -159,6 +161,40 @@ figures:
       - {what: "high:122",         panel: 1, prose: 2166}  # the fakeout's furthest poke
       - {what: "close:140",        panel: 1, prose: 2035}  # and where it ends up instead
 
+  fig-m30-origin-zone:
+    lessons: [m30-l1]
+    # The lesson walks this chart as a sequence — the high the range had tested, the zone the last down
+    # candles left, the close that broke past the high, and the return that traded into the zone — so
+    # every step of that walk is pinned. Registered with the figure rather than after it, which is what
+    # the house rule means by "from birth".
+    anchors:
+      - {what: "high:21",           prose: 1960}   # the range high the impulse has to take out
+      - {what: "band_low:origin",   prose: 1810}
+      - {what: "band_high:origin",  prose: 1855}
+      - {what: "close:88",          prose: 1965}   # the BOS: the FIRST close past that high...
+      - {what: "close:99",          prose: 2045}   # ...and where the impulse's body settles, 4%+ clear of
+      #   it. Both are quoted because the first one alone cannot carry "a clean break": `bos` is by
+      #   definition the first bar to close past the high, so on some seeds it clears it by a hundredth of a
+      #   percent. The margin lives on this number, and `test_chart_bands.py` asserts it on the body.
+      - {what: "low:120",           prose: 1834}   # the return's low, inside the zone
+      - {what: "close:173",         prose: 2100}   # where the continuation the figure shows ends up
+
+  fig-m30-imbalance:
+    lessons: [m30-l1]
+    anchors:
+      - {what: "open:66",             prose: 26780}  # the impulse candle opens...
+      - {what: "close:66",            prose: 28320}  # ...and closes almost 6% higher, in one bar
+      - {what: "band_low:imbalance",  prose: 27100}  # the prior candle's high — the span's floor
+      - {what: "band_high:imbalance", prose: 28000}  # the next candle's low — its ceiling
+      # The revisit, in the leg an exercise cuts off. Note what this anchor does NOT police: at the default
+      # 1% tolerance it would accept a low of ~27.047, which is BELOW the span's floor (27.100) — i.e. a
+      # figure that had quietly become the `imbalance_filled` picture under a caption saying the gap stayed
+      # open. That is a geometric claim, not a prose-agreement one, so it is asserted where the other
+      # geometry lives: `test_chart_bands.py::test_the_imbalance_figure_shows_the_revisit_an_exercise_cuts_
+      # _off` requires this low to land INSIDE [band_low, band_high]. This anchor's job is only that the
+      # number the lesson prints still rounds to the number the figure draws.
+      - {what: "low:170",             prose: 27320}
+
 exceptions:
 
   fig-m21-stop-limit-gap:
@@ -176,6 +212,18 @@ exceptions:
       teach cleanly. The figure's own prices make it unreadable, so the lesson states the shape is
       what to read.
     guard_phrase: {en: "generated setup", es: "setup generado"}
+
+  fig-m08-market-structure:
+    lessons: [m08-l1]
+    why: >-
+      m08-l1 walks a ladder in round numbers — low 100, high 110, pullback 104, high 118, pullback 109,
+      high 126, then the 106 that breaks it — and those numbers ARE the teaching: a staircase you could
+      describe to somebody over the phone. The injector plants exactly that shape, but as log RATIOS from
+      a tier base price, so the figure draws the same ladder at 2.012-2.655 and can never print 100-126.
+      Rounding the prose onto the panel would trade a ladder anyone can hold in their head for six
+      arbitrary four-digit numbers; anchoring the panel's own values would put six numbers in the prose
+      that teach nothing. So the prose keeps its ratios and the lesson says the figure is an instance.
+    guard_phrase: {en: "generated instance", es: "instancia generada"}
 
   fig-m08-reversal-forms:
     lessons: [m08-l2]

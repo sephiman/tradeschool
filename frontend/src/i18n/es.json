@@ -210,7 +210,13 @@
     "rejection_at_level": "Rechazo en un nivel → informativo",
     "overrun_at_level": "Arrollamiento en un nivel → informativo",
     "open_space": "La misma forma en espacio abierto → ruido",
-    "indecision": "Indecisión → sin señal"
+    "indecision": "Indecisión → sin señal",
+    "zone_respected": "Zona de origen respetada",
+    "zone_failed": "Zona de origen fallida",
+    "no_zone": "Sin zona: nada rompió la estructura",
+    "imbalance_unfilled": "Desequilibrio todavía abierto",
+    "imbalance_filled": "Desequilibrio ya rellenado",
+    "no_imbalance": "Sin desequilibrio: las velas se solapan"
   },
   "chartMarker": {
     "hammer": "Martillo",
@@ -229,7 +235,13 @@
     "sweep": "Barrido",
     "liquidation": "Liquidación",
     "gap": "Hueco",
-    "unfilled": "Orden sin ejecutar"
+    "unfilled": "Orden sin ejecutar",
+    "origin": "Origen",
+    "retest": "Retest",
+    "failed_break": "Ruptura fallida",
+    "imbalance": "Desequilibrio",
+    "revisit": "Revisita",
+    "traded_through": "Negociado del todo"
   },
   "level": {
     "support": "Soporte",
@@ -241,6 +253,10 @@
     "target": "Objetivo",
     "trigger": "Disparador",
     "limit": "Límite"
+  },
+  "band": {
+    "origin": "Zona de origen",
+    "imbalance": "Desequilibrio"
   },
   "candle": {
     "open": "Apertura",

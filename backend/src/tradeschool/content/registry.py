@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import logging
 import re
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -15,6 +16,7 @@ from pydantic import BaseModel, ValidationError
 
 from tradeschool.content.schema import (
     LOCALES,
+    LocalizedText,
     Manifest,
     ManifestBlock,
     ManifestExercise,
@@ -183,34 +185,71 @@ class CourseRegistry:
             )
         return blocks
 
+    def _export_blocks(
+        self,
+        localized: Callable[[LocalizedText], object],
+        prose: Callable[[str], object],
+    ) -> list[dict[str, object]]:
+        """The export tree, with how to render a localized field left to the caller.
+
+        One walk of the manifest serves both the single-locale and the bilingual export, so the two can
+        never drift into carrying different modules — which for a document whose whole job is to be a
+        faithful copy of the course would be the defect that matters.
+        """
+        return [
+            {
+                "id": block.id,
+                "title": localized(block.title),
+                "modules": [
+                    {
+                        "id": module.id,
+                        "title": localized(module.title),
+                        "summary": localized(module.summary),
+                        "lessons": [
+                            {
+                                "id": lesson.id,
+                                "title": localized(lesson.title),
+                                "markdown": prose(lesson.id),
+                            }
+                            for lesson in module.lessons
+                        ],
+                    }
+                    for module in block.modules
+                ],
+            }
+            for block in self.manifest.blocks
+        ]
+
     def course_export(self, locale: str) -> dict[str, object]:
-        """The whole course as structured theory — blocks → modules → lessons with prose only
-        (exercise directives stripped). Progress-independent; used by the logged-in export endpoint."""
+        """The whole course as structured theory in ONE language — blocks → modules → lessons with prose
+        only (exercise directives stripped). Progress-independent; used by the export endpoint when a
+        `lang` is named explicitly."""
         return {
             "locale": locale,
-            "blocks": [
-                {
-                    "id": block.id,
-                    "title": block.title.get(locale),
-                    "modules": [
-                        {
-                            "id": module.id,
-                            "title": module.title.get(locale),
-                            "summary": module.summary.get(locale),
-                            "lessons": [
-                                {
-                                    "id": lesson.id,
-                                    "title": lesson.title.get(locale),
-                                    "markdown": _theory_only(self.markdown[locale][lesson.id]),
-                                }
-                                for lesson in module.lessons
-                            ],
-                        }
-                        for module in block.modules
-                    ],
-                }
-                for block in self.manifest.blocks
-            ],
+            "blocks": self._export_blocks(
+                lambda text: text.get(locale),
+                lambda lesson_id: _theory_only(self.markdown[locale][lesson_id]),
+            ),
+        }
+
+    def course_export_bilingual(self) -> dict[str, object]:
+        """The same document with BOTH languages in it — the export endpoint's default.
+
+        One tree with every localized field as `{"en": …, "es": …}`, rather than two trees side by side:
+        the reason to want both languages at once is to read them against each other (the course is
+        authored in two and every content change touches both), and paired fields make that immediate
+        while two trees would duplicate 30 modules of structure and leave you to zip them yourself.
+
+        Discriminated by the key: this carries `locales`, the single-locale document carries `locale`.
+        """
+        return {
+            "locales": list(LOCALES),
+            "blocks": self._export_blocks(
+                lambda text: {loc: text.get(loc) for loc in LOCALES},
+                lambda lesson_id: {
+                    loc: _theory_only(self.markdown[loc][lesson_id]) for loc in LOCALES
+                },
+            ),
         }
 
     def lesson_detail(

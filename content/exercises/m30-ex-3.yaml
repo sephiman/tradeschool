@@ -1,0 +1,265 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# The map itself: each dialect term against the mechanic it renames and the module that taught it. The
+# mix follows the terrain rather than a quota — a vocabulary map is naturally a `matching` question, a
+# setup is naturally an `ordering` one, and the two definitions that people get wrong get their own
+# single-choice drills.
+type: quiz
+variants:
+  - id: order-block-is
+    prompt:
+      en: "Mechanically, what is an \"order block\"?"
+      es: "Mecánicamente, ¿qué es un «order block»?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The last opposing candles before a move that broke structure — the area where the size that caused the move was working and could not all get filled."
+          es: "Las últimas velas contrarias antes de un movimiento que rompió la estructura: la zona donde estaba trabajando el tamaño que causó el movimiento y no pudo llenarse del todo."
+      - id: b
+        text:
+          en: "A block of orders an institution has publicly announced, visible on the exchange's order book."
+          es: "Un bloque de órdenes que una institución ha anunciado públicamente, visible en el libro de órdenes del exchange."
+      - id: c
+        text:
+          en: "Any candle with an unusually large body, wherever it appears on the chart."
+          es: "Cualquier vela con un cuerpo inusualmente grande, aparezca donde aparezca en el gráfico."
+      - id: d
+        text:
+          en: "A price level calculated from the range's 61.8% retracement."
+          es: "Un nivel de precio calculado a partir del retroceso del 61,8 % del rango."
+    explanation:
+      en: "It is m08-l1's shelf of resting orders and m09's absorbing buyer under a new name. Nothing is announced and nothing is visible: the *inference* is that size which moved price that hard was unlikely to have filled in one place, so a return to where it was working may find the remainder. That inference is ordinary order-flow reasoning. Two things it is not: a big candle by itself (location does the work — m08-l2), and anything derived from a ratio."
+      es: "Es la repisa de órdenes en reposo de m08-l1 y el comprador que absorbe de m09 con otro nombre. Nada se anuncia y nada es visible: la *inferencia* es que un tamaño capaz de mover el precio así difícilmente se llenó en un solo sitio, así que una vuelta a donde estaba trabajando puede encontrar el resto. Esa inferencia es razonamiento de flujo de órdenes corriente. Dos cosas que no es: una vela grande por sí sola (el trabajo lo hace la ubicación, m08-l2) y nada derivado de una proporción."
+  - id: break-first
+    prompt:
+      en: "You spot a clean dip, then a rally, then price coming back to the dip. What has to be true before that dip can be called an origin zone at all?"
+      es: "Ves una caída limpia, luego un rebote y luego el precio volviendo a la caída. ¿Qué tiene que ser cierto para que esa caída pueda llamarse zona de origen?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The rally has to have **broken structure** — closed clean past the swing high the market had been respecting."
+          es: "El rebote tiene que haber **roto la estructura**: cerrar limpiamente por encima del máximo de swing que el mercado venía respetando."
+      - id: b
+        text:
+          en: "The dip has to be at least three candles long."
+          es: "La caída tiene que durar al menos tres velas."
+      - id: c
+        text:
+          en: "The rally has to have happened on higher volume than the dip."
+          es: "El rebote tiene que haber ocurrido con más volumen que la caída."
+      - id: d
+        text:
+          en: "Nothing further — a dip followed by a rally is an order block by definition."
+          es: "Nada más: una caída seguida de un rebote es un order block por definición."
+    explanation:
+      en: "Without the break there is no impulse that broke anything, and the dip is an ordinary pullback of the kind m08-l1 describes — every trend is full of them. This is the single most common error in the dialect: the zone gets drawn first and the structure is never checked, which means a zone can be found on any chart at all. Volume is corroboration you would welcome, not the qualifying condition, and candle count has nothing to do with it."
+      es: "Sin la ruptura no hay ningún impulso que haya roto nada, y la caída es un retroceso corriente de los que describe m08-l1: toda tendencia está llena de ellos. Este es el error más común del dialecto: la zona se dibuja primero y la estructura no se comprueba nunca, lo que significa que se puede encontrar una zona en cualquier gráfico. El volumen es una corroboración bienvenida, no la condición que cualifica, y el número de velas no tiene nada que ver."
+  - id: fvg-test
+    prompt:
+      en: "What exactly makes a three-candle stretch a \"fair value gap\"?"
+      es: "¿Qué convierte exactamente un tramo de tres velas en un «fair value gap»?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The first candle's **high** sits below the **low** of the candle two bars later, so that span was crossed inside a single bar."
+          es: "El **máximo** de la primera vela queda por debajo del **mínimo** de la vela dos barras después, así que ese tramo se cruzó dentro de una sola barra."
+      - id: b
+        text:
+          en: "The middle candle's body is at least twice the size of its neighbours' bodies."
+          es: "El cuerpo de la vela central es al menos el doble que el de sus vecinas."
+      - id: c
+        text:
+          en: "The market was closed between the two candles, leaving a true price gap."
+          es: "El mercado estuvo cerrado entre las dos velas, dejando un hueco de precio real."
+      - id: d
+        text:
+          en: "Volume on the middle candle was below the chart's average."
+          es: "El volumen de la vela central estuvo por debajo de la media del gráfico."
+    explanation:
+      en: "The test is about the *neighbours*, not the big candle: only when the earlier high sits below the later low was a span skipped, and a span crossed within one bar is a span where almost anything resting simply did not get hit. Note the honest wording — *almost* nothing traded there, since the middle candle did trade through it. Option (c) describes a session gap, which crypto's 24/7 book essentially never produces (m10-l1); this is an imbalance *inside* a continuous series."
+      es: "El test va de las *vecinas*, no de la vela grande: solo cuando el máximo anterior queda por debajo del mínimo posterior se saltó un tramo, y un tramo cruzado dentro de una barra es un tramo donde casi nada de lo que estuviera en reposo llegó a ejecutarse. Fíjate en la formulación honesta: ahí *casi* no se negoció nada, porque la vela central sí lo atravesó. La opción (c) describe un hueco de sesión, que el libro 24/7 del cripto prácticamente nunca produce (m10-l1); esto es un desequilibrio *dentro* de una serie continua."
+  - id: bos-vs-choch
+    kind: true_false
+    prompt:
+      en: "A BOS and a CHoCH are both breaks of a swing level, and the difference is only which direction the break went relative to the trend: a BOS continues the pattern, a CHoCH breaks it."
+      es: "Un BOS y un CHoCH son los dos rupturas de un nivel de swing, y la diferencia es solo en qué dirección fue la ruptura respecto a la tendencia: un BOS continúa el patrón y un CHoCH lo rompe."
+    answer: true
+    explanation:
+      en: "True, and that is the whole content of the two acronyms. m08-l1 already taught the ladder and named the break that *ends* it — the change of character, the first lower low in an uptrend. Its twin never got a name there: an uptrend making yet another higher high is a break of structure too, just one that confirms the pattern instead of contradicting it. One ladder, two kinds of break, and the second acronym adds a word rather than an idea."
+      es: "Verdadero, y en eso se agota el contenido de los dos acrónimos. m08-l1 ya enseñaba la escalera y nombraba la ruptura que la *termina*: el cambio de carácter, el primer mínimo más bajo en una tendencia alcista. Su gemelo no recibió nombre allí: una tendencia alcista haciendo otro máximo más alto también es una ruptura de estructura, solo que una que confirma el patrón en vez de contradecirlo. Una escalera, dos clases de ruptura, y el segundo acrónimo añade una palabra, no una idea."
+  - id: dialect-map
+    kind: matching
+    prompt:
+      en: "Match each term from the dialect to the mechanic it renames."
+      es: "Empareja cada término del dialecto con la mecánica que renombra."
+    pairs:
+      - id: ob
+        left: { en: "Order block", es: "Order block" }
+        right:
+          en: "The origin zone of an impulse: the last opposing candles before the move that broke structure (m08-l1's role reversal, m09's absorption)."
+          es: "La zona de origen de un impulso: las últimas velas contrarias antes del movimiento que rompió la estructura (la inversión de roles de m08-l1, la absorción de m09)."
+      - id: fvg
+        left: { en: "Fair value gap (FVG)", es: "Fair value gap (FVG)" }
+        right:
+          en: "A span crossed inside one candle, so almost nothing traded there — m08-l2's *liquidity void*, taught as a zone instead of only as a warning."
+          es: "Un tramo cruzado dentro de una sola vela, así que ahí casi no se negoció nada: el *vacío de liquidez* de m08-l2, enseñado como zona y no solo como advertencia."
+      - id: grab
+        left: { en: "Liquidity grab / sweep", es: "Toma de liquidez / barrido" }
+        right:
+          en: "m17-l2's *barrido*: a pocket of resting stops taken out by one wick that reclaims the level straight back."
+          es: "El *barrido* de m17-l2: una bolsa de stops en reposo barrida por una mecha que recupera el nivel de inmediato."
+      - id: bos
+        left: { en: "BOS / CHoCH", es: "BOS / CHoCH" }
+        right:
+          en: "m08-l1's ladder: the break that continues the sequence of higher highs and higher lows, and the one that ends it."
+          es: "La escalera de m08-l1: la ruptura que continúa la secuencia de máximos y mínimos más altos, y la que la termina."
+      - id: pd
+        left: { en: "Premium / discount", es: "Premium / discount" }
+        right:
+          en: "Above or below the midpoint of a range you drew yourself — m13's 0.5 line, and nothing beyond it."
+          es: "Por encima o por debajo del punto medio de un rango que dibujaste tú: la línea del 0,5 de m13, y nada más allá."
+    explanation:
+      en: "Five terms, three mechanics and a midline. This is the same conclusion m08-l2 reaches about candle names: there are not sixty patterns, there are a few mechanics with sixty names. Knowing the dialect lets you read what the crowd writes; it does not add a reading you did not already have."
+      es: "Cinco términos, tres mecánicas y una línea media. Es la misma conclusión a la que llega m08-l2 con los nombres de las velas: no hay sesenta patrones, hay unas pocas mecánicas con sesenta nombres. Saber el dialecto te permite leer lo que escribe la masa; no añade una lectura que no tuvieras ya."
+  - id: origin-zone-sequence
+    kind: ordering
+    prompt:
+      en: "Put the origin-zone setup in the order it has to happen for the zone to mean anything."
+      es: "Ordena el setup de zona de origen en el orden en que tiene que ocurrir para que la zona signifique algo."
+    items:
+      - id: structure
+        position: 1
+        text:
+          en: "A swing level the market has visibly been respecting."
+          es: "Un nivel de swing que el mercado viene respetando de forma visible."
+      - id: origin
+        position: 2
+        text:
+          en: "The last opposing candles before the move — the zone itself."
+          es: "Las últimas velas contrarias antes del movimiento: la zona en sí."
+      - id: bos
+        position: 3
+        text:
+          en: "An impulse that closes clean past that level: the break."
+          es: "Un impulso que cierra limpiamente más allá de ese nivel: la ruptura."
+      - id: retest
+        position: 4
+        text:
+          en: "Price returning to the zone."
+          es: "El precio volviendo a la zona."
+      - id: decision
+        position: 5
+        text:
+          en: "What the return does there — which is the only part you get to trade."
+          es: "Lo que hace la vuelta ahí, que es la única parte que puedes operar."
+    explanation:
+      en: "The order is the argument. Read it backwards and every step is available in hindsight on any chart: pick a reaction, call the candles before it a zone, and the story assembles itself. Read it forwards and each step has to be there before the next one is allowed to mean anything — which is exactly m08-l1's discipline of waiting for the close and the confirmation rather than acting on the first thing that looks like a signal."
+      es: "El orden es el argumento. Léelo al revés y cada paso está disponible a posteriori en cualquier gráfico: eliges una reacción, llamas zona a las velas anteriores y la historia se monta sola. Léelo hacia delante y cada paso tiene que estar ahí antes de que el siguiente pueda significar algo, que es exactamente la disciplina de m08-l1 de esperar al cierre y a la confirmación en vez de actuar con lo primero que parece una señal."
+  - id: premium-discount
+    prompt:
+      en: "Someone says ETH is \"in premium, so I'm looking for shorts\". What does *premium* honestly amount to?"
+      es: "Alguien dice que ETH está «en premium, así que busco cortos». ¿A qué equivale honestamente *premium*?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Price is in the upper half of a range that person drew — the 0.5 line of m13, restated. It says where you are in a range, not which way it breaks."
+          es: "El precio está en la mitad superior de un rango que esa persona dibujó: la línea del 0,5 de m13, dicha de otra forma. Dice dónde estás dentro de un rango, no hacia qué lado rompe."
+      - id: b
+        text:
+          en: "ETH is trading above its price on other exchanges, so arbitrage will pull it back down."
+          es: "ETH cotiza por encima de su precio en otros exchanges, así que el arbitraje lo hará volver abajo."
+      - id: c
+        text:
+          en: "The perpetual is trading above spot, which is the basis turning positive."
+          es: "El perpetuo cotiza por encima del spot, que es la base volviéndose positiva."
+      - id: d
+        text:
+          en: "Price has entered the 0.705–0.79 retracement band, which is where reversals are statistically concentrated."
+          es: "El precio ha entrado en la banda de retroceso 0,705–0,79, que es donde se concentran estadísticamente los giros."
+      - id: e
+        text:
+          en: "Open interest is above its 30-day average, so positioning is crowded."
+          es: "El open interest está por encima de su media de 30 días, así que el posicionamiento está saturado."
+    explanation:
+      en: "It is the range midline and no more. Worth knowing because it is a real observation — buying nearer the bottom of a range you have identified is better than buying nearer the top — and worth deflating because the word makes it sound like a measurement of value. Watch out for two collisions this term causes in a crypto course: (b) is m28's inter-venue premium and (c) is m20's basis, both genuinely different things with real mechanisms. And (d) is where this vocabulary tips into numerology: no retracement band has a mechanism behind it beyond m13's crowding, and adding decimal places does not add one."
+      es: "Es la línea media del rango y nada más. Vale la pena saberlo porque es una observación real —comprar más cerca del suelo de un rango que has identificado es mejor que comprar más cerca del techo— y vale la pena desinflarlo porque la palabra hace que suene a una medición de valor. Cuidado con dos colisiones que provoca este término en un curso de cripto: (b) es la prima entre exchanges de m28 y (c) es la base de m20, dos cosas genuinamente distintas y con mecanismos reales. Y (d) es donde este vocabulario cae en la numerología: ninguna banda de retroceso tiene detrás más mecanismo que la masificación de m13, y añadir decimales no le añade ninguno."
+  - id: zone-not-line
+    kind: multi_select
+    prompt:
+      en: "Select ALL the reasons an origin zone and an imbalance are drawn as **bands** rather than lines."
+      es: "Selecciona TODAS las razones por las que una zona de origen y un desequilibrio se dibujan como **bandas** y no como líneas."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Each is defined by candle extremes that genuinely span a range — a down-leg's high and low, or the two wicks either side of a fast candle."
+          es: "Cada una está definida por extremos de vela que abarcan de verdad un rango: el máximo y el mínimo de un tramo bajista, o las dos mechas a cada lado de una vela rápida."
+      - id: b
+        correct: true
+        text:
+          en: "Reacting *somewhere inside* the area is the claim; expecting a turn at one exact price is the precision error m08-l1 and m13 both warn about."
+          es: "La afirmación es que habrá reacción *en algún punto dentro* de la zona; esperar un giro en un precio exacto es el error de precisión del que avisan tanto m08-l1 como m13."
+      - id: c
+        text:
+          en: "A band is a stronger signal than a line, so it can be traded without confirmation."
+          es: "Una banda es una señal más fuerte que una línea, así que se puede operar sin confirmación."
+      - id: d
+        text:
+          en: "Bands are drawn wide so that price is guaranteed to reach them eventually."
+          es: "Las bandas se dibujan anchas para garantizar que el precio acabe llegando a ellas."
+    explanation:
+      en: "The band is honest about its own resolution — the same point m08-l1 makes when it says a support is 58,000–58,400 and not 58,150. What a wider zone is not is more reliable: (c) has it backwards, since a zone still needs the same confirmation any level does, and (d) describes fitting the drawing to the outcome, which is how a zone becomes unfalsifiable. A zone so wide it cannot be wrong is telling you nothing."
+      es: "La banda es honesta sobre su propia resolución: el mismo punto que hace m08-l1 cuando dice que un soporte es 58.000–58.400 y no 58.150. Lo que una zona más ancha no es, es más fiable: (c) lo tiene al revés, porque una zona sigue necesitando la misma confirmación que cualquier nivel, y (d) describe ajustar el dibujo al resultado, que es cómo una zona se vuelve infalsable. Una zona tan ancha que no puede estar equivocada no te está diciendo nada."
+  - id: filled-gap
+    prompt:
+      en: "An imbalance formed three weeks ago; price has since traded all the way back through it and moved on. What is it now?"
+      es: "Un desequilibrio se formó hace tres semanas; desde entonces el precio ha vuelto a atravesarlo por completo y ha seguido su camino. ¿Qué es ahora?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Spent. What made it a zone was that almost nothing had traded there; something has now, so the thing being pointed at is gone."
+          es: "Está gastado. Lo que lo hacía zona era que allí casi no se había negociado nada; ahora sí se ha negociado, así que lo que se señalaba ya no está."
+      - id: b
+        text:
+          en: "Stronger than before — a zone that has been tested and survived is more reliable."
+          es: "Más fuerte que antes: una zona que ha sido testeada y ha sobrevivido es más fiable."
+      - id: c
+        text:
+          en: "Still live, since an imbalance stays valid until price closes a full candle beyond its far edge."
+          es: "Sigue vivo, ya que un desequilibrio sigue siendo válido hasta que el precio cierre una vela entera más allá de su extremo lejano."
+      - id: d
+        text:
+          en: "Inverted — it now acts with the same strength in the opposite direction."
+          es: "Invertido: ahora actúa con la misma fuerza en dirección contraria."
+    explanation:
+      en: "This one follows straight from the definition, which is why it is worth asking: the zone was never a magic price, it was the *absence* of trade in a span. Fill the span and the absence is what got filled. (b) confuses it with a support, which genuinely is built from repeated tests (m08-l1) — the opposite construction. And (d) is the dialect at its loosest: an inverted zone is a rule with no mechanism, added so that a zone which failed can be recorded as a zone that worked in reverse."
+      es: "Esta se sigue directamente de la definición, y por eso vale la pena preguntarla: la zona nunca fue un precio mágico, fue la *ausencia* de negociación en un tramo. Rellena el tramo y lo que se ha rellenado es la ausencia. (b) lo confunde con un soporte, que sí se construye a base de tests repetidos (m08-l1): la construcción contraria. Y (d) es el dialecto en su versión más laxa: una zona invertida es una regla sin mecanismo, añadida para que una zona que falló pueda anotarse como una zona que funcionó al revés."
+  - id: sweep-into-zone
+    prompt:
+      en: "A long wick pierces a swing low, closes back above it, and price then runs up and closes past the swing high. In this vocabulary, what just happened?"
+      es: "Una mecha larga perfora un mínimo de swing, cierra de vuelta por encima y luego el precio sube y cierra más allá del máximo de swing. En este vocabulario, ¿qué acaba de pasar?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A liquidity grab (m17-l2's sweep) followed by a break of structure — and the candles that did the sweeping are the origin zone the move left behind."
+          es: "Una toma de liquidez (el barrido de m17-l2) seguida de una ruptura de estructura, y las velas que hicieron el barrido son la zona de origen que dejó el movimiento."
+      - id: b
+        text:
+          en: "A change of character, since the swing low was broken first."
+          es: "Un cambio de carácter, ya que el mínimo de swing se rompió primero."
+      - id: c
+        text:
+          en: "A fair value gap, since a long wick means little traded in that range."
+          es: "Un fair value gap, ya que una mecha larga significa que se negoció poco en ese rango."
+      - id: d
+        text:
+          en: "Nothing nameable — the two events are unrelated and must be read separately."
+          es: "Nada que se pueda nombrar: los dos eventos no están relacionados y hay que leerlos por separado."
+    explanation:
+      en: "This is the dialect's most-repeated sequence, and it is three things you already know in a row: m17-l2's sweep, m08-l1's break, and the zone the impulse left. Two near misses worth separating. A wick through a low that is *reclaimed* is not a change of character — a CHoCH needs a low that holds as a lower low, which is why m08-l1 insists the close and never the extreme decides (that is the same sentence twice). And a long wick is not an imbalance either, though the two are easy to run together — m08-l2 calls a thin-book wick a *liquidity void* precisely because little changed hands out at its tip. The difference is not how much traded, it is the geometry: a wick is one candle's own range, price traversing it and coming back inside the same bar, while an imbalance is a span the NEIGHBOURING candles never reach into — the high before it below the low after it. One is a shape inside a bar; the other is a gap between bars."
+      es: "Es la secuencia más repetida del dialecto, y son tres cosas que ya conoces seguidas: el barrido de m17-l2, la ruptura de m08-l1 y la zona que dejó el impulso. Dos casi-aciertos que conviene separar. Una mecha que atraviesa un mínimo y lo *recupera* no es un cambio de carácter: un CHoCH necesita un mínimo que aguante como mínimo más bajo, y por eso m08-l1 insiste en que decide el cierre y nunca el extremo (es la misma frase dos veces). Y una mecha larga tampoco es un desequilibrio, aunque es fácil confundirlos: m08-l2 llama *vacío de liquidez* a una mecha en un libro fino precisamente porque en su punta cambió de manos muy poco. La diferencia no está en cuánto se negoció, está en la geometría: una mecha es el recorrido de una sola vela, el precio yendo y volviendo dentro de la misma barra, mientras que un desequilibrio es un tramo al que las velas VECINAS no llegan —el máximo de antes por debajo del mínimo de después—. Una es una forma dentro de una barra; el otro es un hueco entre barras."

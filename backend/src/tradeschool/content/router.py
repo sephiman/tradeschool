@@ -28,6 +28,10 @@ from tradeschool.exercises.figures import build_figure
 router = APIRouter(tags=["content"])
 
 LangQuery = Annotated[str | None, Query(pattern="^(en|es)$")]
+# The export alone also takes `all`, and treats an absent `lang` as `all`: it is the one endpoint whose
+# job is to hand over the whole course rather than to render it for the reader in front of it, and the
+# course exists in two languages. Everywhere else an absent `lang` still means "the user's locale".
+ExportLangQuery = Annotated[str | None, Query(pattern="^(en|es|all)$")]
 
 
 def get_registry(request: Request) -> CourseRegistry:
@@ -104,16 +108,22 @@ async def get_course(
 async def export_course(
     user: Annotated[User, Depends(current_active_user)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    lang: ExportLangQuery = None,
     download: Annotated[bool, Query()] = False,
 ) -> JSONResponse:
     """The whole course as a single JSON document — blocks → modules → lessons with the lesson prose
-    only (exercises stripped) — for a logged-in user to read or archive. Localized via `lang` (else
-    the user's locale). `?download=true` serves it as a file attachment."""
-    locale = _resolve_locale(lang, user)
-    data = registry.course_export(locale)
+    only (exercises stripped) — for a logged-in user to read or archive.
+
+    **Both languages by default.** The course is authored in two and every content change touches both,
+    so an archive of one of them is half an archive; `lang` is how you ask for less. Omit it (or pass
+    `all`) and every localized field is `{"en": …, "es": …}` under a `locales` key; name a language and
+    you get that one, as plain strings under a `locale` key. `?download=true` serves it as a file.
+    """
+    bilingual = lang in (None, "all")
+    data = registry.course_export_bilingual() if bilingual else registry.course_export(str(lang))
+    suffix = "all" if bilingual else str(lang)
     headers = (
-        {"Content-Disposition": f'attachment; filename="tradeschool-course-{locale}.json"'}
+        {"Content-Disposition": f'attachment; filename="tradeschool-course-{suffix}.json"'}
         if download
         else {}
     )

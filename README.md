@@ -69,7 +69,7 @@ cd frontend && npm install && npm run dev
 
 Open <http://localhost:5173>, register an account, and review the full course:
 
-- **29 modules across 6 blocks, 35 lessons** (six modules carry a second lesson), through a
+- **30 modules across 7 blocks, 36 lessons** (six modules carry a second lesson), through a
   capstone (m24) that assembles everything into a **complete trading plan** — one worked trade end to
   end (top-down protocol, sizing from the stop, live management, and the **daily stop** that closes a
   losing day), then the journal, the risk tiers that only a journal can earn, validation and the step
@@ -86,6 +86,21 @@ Open <http://localhost:5173>, register an account, and review the full course:
   depth ladder and a footprint are an instant snapshot and a distribution-inside-a-bar, not the time
   series this engine builds — the lesson **says so and names the real tools** instead of faking a
   chart, the same honest-frontier stance as m08's candle-pattern dictionary.
+- **The SMC dialect, mapped onto mechanics** (block G, m30): learners arrive from fintwit knowing *order
+  block*, *FVG*, *BOS*, *liquidity grab*, *premium/discount* — vocabulary the course never named though
+  it already taught most of the substance. This closing module does for that lexicon what m08-l2's candle
+  dictionary does for named candle patterns: each term is mapped onto a mechanic plus a location, never
+  as a standalone signal. An **order block** is the origin zone of an impulse — m08-l1's shelf of resting
+  orders and m09's absorbing buyer, renamed — and it only exists once a close has broken structure, which
+  is the step that makes the difference between a zone and an ordinary pullback. An **FVG** is a span
+  crossed inside one candle, which is m08-l2's *liquidity void* taught as a zone rather than only as a
+  warning. **BOS** is the twin m08-l1 never named (the break that *continues* the ladder, against the
+  CHoCH that ends it), and m08-l1 now names it where the ladder lives. **Premium/discount** is a range
+  midline and is deflated to exactly that. The **honest boundary is load-bearing**: no engineered-intent
+  narratives, because "smart money did this" is contradicted by no observation and so predicts nothing;
+  no zones fitted in hindsight; no retracement numerology past what m13 already allows. The stance is
+  that the dialect is worth reading because the crowd speaks it, not because it predicts — the same
+  focal-point logic m13 and m10-l1 use, with the same expiry date.
 - **The conditions, not only the chart:** open interest read with price, funding as positioning, and
   the **basis** (perp vs spot) as a leverage-mania thermometer whose violent dislocations mark
   squeeze exhaustion; liquidity maps; the **session map inside the 24/7 clock** (where liquidity
@@ -102,15 +117,18 @@ Open <http://localhost:5173>, register an account, and review the full course:
   are self-similar across timeframes, which is why m20's style ↔ timeframe choice picks the periods
   as a side effect.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
-  matching), mixed inside every bank rather than bolted on — **721 hand-written variants across 75
+  matching), mixed inside every bank rather than bolted on — **804 hand-written variants across 85
   quiz banks** (8–11 per bank, ~46% of them non-single-choice), so repeating a concept keeps asking a
   different question about it rather than the same one mirrored;
   multiple-choice **calculations** whose distractors are instantiated common mistakes
   (`Decimal` end to end); and **chart-reading** exercises — divergences plus fakeouts, Wyckoff,
   moving averages, oscillator readings, **MACD crossovers** (signal-line vs zero-line vs whipsaw in a
   range), Fibonacci, volume, open interest, **CVD divergence** (price makes a new extreme; does the
-  aggression underneath refuse to follow it, or make its own with it?), and **candle reactions**
-  (rejection/overrun/indecision, where location is 90% of the signal). Every detection chart is
+  aggression underneath refuse to follow it, or make its own with it?), **candle reactions**
+  (rejection/overrun/indecision, where location is 90% of the signal), and the two **zone** reads of the
+  SMC dialect — did the return hold the impulse's origin zone, fail it, or was there no zone because
+  nothing broke structure; and is an imbalance still open, already filled, or absent because the
+  candles overlap. Every detection chart is
   guarded by a statistical anti-leak
   test (the last candles cannot predict the answer); every classification chart is guarded by the
   credibility test (the final candles are ambient noise, never a synthetic spike) plus a
@@ -132,10 +150,22 @@ Open <http://localhost:5173>, register an account, and review the full course:
   geometry it names — the marked bar is the extreme of its own swing, a CHoCH is *the first* lower low,
   the sweep marker is the only bar that traded below the shelf, an "order unfilled" marker sits on a bar
   the limit never reached.
+- **Zones are drawn as zones, and withheld from the question:** an origin zone and an imbalance are
+  bands, not lines, so they render as a shaded **`Band`** — a filled region between two planted prices,
+  in the same high-contrast neutral the `plan` lines use, because an origin zone can be demand or supply
+  and a coloured band would assert a direction the lesson refuses. A band is **ground truth**: the
+  exercise asks the learner to *find* the zone, so shading it on the question would be the answer, and it
+  reaches the client only through grading (revealed on the same chart, once answered) and through lesson
+  figures. That inversion is asserted structurally over every registered injector, not remembered. And
+  unlike a level, a band's contract is **asserted, never enforced** — widening a wick to make an
+  imbalance "tested" would destroy the untraded span the band exists to point at — so each kind's claim
+  is pinned over 300 seeds per label: the zone precedes the break it is the origin of, the return really
+  trades into it, which *side* price ends on carries the label while the *distance* does not, and every
+  chart carries at most one imbalance, matching the three-candle detector exactly.
 - **Lesson figures:** lessons embed didactic charts via a `::figure{id}` directive — server-generated
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by
-  `GET /api/figures/{id}` (auth + locale-aware, cached). 25 figures across the course, including the
+  `GET /api/figures/{id}` (auth + locale-aware, cached). 27 figures across the course, including the
   labelled HH/HL staircase and the swing that breaks it (m08), a liquidity sweep read as a shelf being
   taken (m17) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
   (m21), and one complete trade with its level, entry, stop and target drawn (m24). Every reference is
@@ -179,21 +209,43 @@ Open <http://localhost:5173>, register an account, and review the full course:
   box accepts any chart exercise, e.g. `m12-ex-1` (divergences), `m08-ex-1` (fakeouts),
   `m09-ex-1` (Wyckoff), `m10-ex-1` (moving averages), `m11-ex-1` (RSI), `m11-ex-5` (MACD crossovers),
   `m13-ex-1` (Fibonacci), `m14-ex-1` (volume), `m17-ex-1` (open interest), `m26-ex-1` (CVD
-  divergence); CSV export per seed on each
+  divergence), `m30-ex-1` (origin zones) and `m30-ex-2` (imbalances) — the last two draw their
+  ground-truth **zone**, which the exercise itself withholds; CSV export per seed on each
   card.
 
 ## Exporting the course theory
 
 A logged-in user can pull the entire course as one JSON document — every block → module → lesson
-with its prose (localized; exercise directives stripped, theory only):
+with its prose (exercise directives stripped, theory only), **in both languages by default**. The course
+is authored in ES + EN and every content change touches both, so an archive of one of them is half an
+archive; `lang` is how you ask for less.
 
 ```
-GET /api/course/export            # inline JSON
-GET /api/course/export?lang=es    # localized (en|es; defaults to the user's locale)
-GET /api/course/export?download=true   # served as a file attachment (tradeschool-course-<locale>.json)
+GET /api/course/export                  # both languages (the default) — see the shape below
+GET /api/course/export?lang=all         # the same document, asked for explicitly
+GET /api/course/export?lang=es          # one language (en|es), as plain strings
+GET /api/course/export?download=true    # file attachment (tradeschool-course-all.json, or -es/-en)
 ```
 
-Auth (session cookie) is required, like the rest of the content API.
+The two shapes are discriminated by their top-level key, so a consumer never has to guess:
+
+```jsonc
+// no lang / lang=all  ->  every localized field is paired
+{"locales": ["en", "es"],
+ "blocks": [{"id": "block-g", "title": {"en": "The dialect", "es": "El dialecto"},
+   "modules": [{"id": "m30", "title": {…}, "summary": {…},
+     "lessons": [{"id": "m30-l1", "title": {…}, "markdown": {"en": "# The SMC…", "es": "# El dialecto…"}}]}]}]}
+
+// lang=es  ->  plain strings, one language
+{"locale": "es", "blocks": [{"id": "block-g", "title": "El dialecto", "modules": [{…}]}]}
+```
+
+Both shapes come from one walk of the manifest, so they can never carry different modules. Note that
+`::figure{id=…}` markers are **kept** in the exported prose (only `::exercise` directives are stripped),
+so you can see where each generated chart belongs.
+
+Auth (session cookie) is required, like the rest of the content API. The registry is built **once at
+startup**, so newly authored content needs a backend restart before it appears in an export.
 
 ## Accounts
 
@@ -218,3 +270,12 @@ docker compose up -d --build
 
 The backend applies migrations and reconciles the course manifest on startup. The frontend is published on
 `127.0.0.1:${FRONTEND_PORT}`; put your external nginx / Cloudflare in front.
+
+**`--build` is not optional after a content change.** `content/` is *baked into the image*
+(`backend/Dockerfile`: `COPY content /app/content`, with `CONTENT_DIR=/app/content`) — there is no bind
+mount — and the registry is read **once at process startup**. So `docker compose up -d` without `--build`
+reuses the existing `tradeschool-backend:latest` and keeps serving the previous content, and `restart`
+alone re-reads the same baked copy. Every content consumer shares that one snapshot — lessons, figures,
+exercises, exams and the export — so a stale image is stale everywhere at once, never in one endpoint
+only. `test_export_is_complete_against_the_manifest` asserts the export matches `content/course.yaml`
+exactly, which is what turns "did my export miss a block?" into a question with an answer.

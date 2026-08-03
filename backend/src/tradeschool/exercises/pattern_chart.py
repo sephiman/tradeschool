@@ -73,6 +73,9 @@ class FullPatternChart:
     overlays: dict[str, list[float]]  # full-length lines over the close series
     levels: list[dict[str, object]]
     annotations: list[dict[str, object]]  # visible coords
+    #: shaded price zones (m30). Ground truth: `_instantiate` drops them from the pre-answer payload and
+    #: `grade` reveals them. Price-space, so unlike `annotations` there is no warm-up coord to convert.
+    bands: list[dict[str, object]]
     oi: list[float]  # full-length open-interest series (empty unless the injector supplies it)
     cvd: list[float]  # full-length cumulative-volume-delta series (empty unless supplied)
 
@@ -107,6 +110,9 @@ def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
         oi=([round(float(x), 2) for x in result.oi_full.tolist()] if result.oi_full is not None else []),
         cvd=([round(float(x), 2) for x in result.cvd_full.tolist()] if result.cvd_full is not None else []),
         levels=[{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels],
+        bands=[
+            {"low": b.low, "high": b.high, "label": b.label, "kind": b.kind} for b in result.bands
+        ],
         annotations=[
             {"index": a.index - w, "kind": a.kind, "label": a.label}
             for a in result.annotations
@@ -133,6 +139,9 @@ def _instantiate(
         "choices": list(config.choices),
         "overlays": {k: v[w:] for k, v in f.overlays.items()},
         "levels": f.levels,
+        # `f.bands` is deliberately absent: a shaded zone drawn on the chart IS the answer to the
+        # question that asks the learner to find it (m30). Bands reach the client only through
+        # `grade()`'s `correct_answer`, and `test_chart_bands.py` asserts this key can never appear.
     }
     if f.oi:
         payload["oi"] = f.oi[w:]
@@ -163,9 +172,20 @@ class PatternChartGenerator(ExerciseGenerator):
         chosen = answer.get("label")
         if not isinstance(chosen, str):
             raise InvalidAnswerError("expected a 'label' choice")
-        label, annotations, _ = _instantiate(config, seed)
+        # `_full` rather than `_instantiate`: grading now also reveals the ground-truth `bands`, and
+        # `_instantiate` is unpacked as a 3-tuple at ~30 call sites across the test suites. `_instantiate`
+        # is itself `_full` plus the warm-up trim, and `FullPatternChart.annotations` are already in
+        # visible coords, so this yields byte-identical label/annotations for every existing injector —
+        # asserted, not assumed, by `test_chart_bands.py::
+        # test_grading_is_identical_whether_read_from_full_or_instantiate`.
+        f = _full(config, seed)
+        revealed: dict[str, object] = {"label": f.label, "annotations": f.annotations}
+        if f.bands:
+            # Conditional, like the `oi`/`cvd` payload keys: every pre-existing injector plants no band,
+            # so its graded answer keeps exactly the two keys it always had.
+            revealed["bands"] = f.bands
         return GradeResult(
-            correct=chosen == label,
-            correct_answer={"label": label, "annotations": annotations},
+            correct=chosen == f.label,
+            correct_answer=revealed,
             explanation=config.explanation.get(locale) if config.explanation else None,
         )

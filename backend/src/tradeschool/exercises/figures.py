@@ -113,6 +113,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     rng = np.random.default_rng(panel.seed)
     overlays_raw: dict[str, list[float]] = {}
     levels: list[dict[str, object]] = []
+    bands: list[dict[str, object]] = []
     level_guards: list[LevelGuard] = []
     annotations: list[dict[str, object]] = []
     oi_full: np.ndarray | None = None
@@ -137,6 +138,9 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         indicator = panel.indicator or injector.indicator
         overlays_raw = {k: list(v) for k, v in result.overlays.items()}
         levels = [{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels]
+        # A figure DRAWS the band an exercise must withhold: the zone is the resolution being shown
+        # (m30's origin zone and imbalance), which is the same asymmetry `show_resolution` already is.
+        bands = [{"low": b.low, "high": b.high, "label": b.label, "kind": b.kind} for b in result.bands]
         level_guards = result.level_guards
         # Figure-only richer annotations (e.g. Wyckoff phase labels A-E) come from an optional
         # `figure_annotations` method — never from build(), so exercise output is untouched.
@@ -220,6 +224,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         "indicator": indicator,
         "overlays": {k: v[w:] for k, v in overlays.items()},
         "levels": levels,
+        "bands": bands,
         "annotations": annotations,
     }
     if oi_full is not None:

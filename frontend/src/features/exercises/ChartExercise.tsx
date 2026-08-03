@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { ExerciseType } from "@/api/course";
 import type { Answer, AttemptPayload, Deferred, GradeResponse } from "@/api/exercises";
 import { CandleChart } from "@/components/charts/CandleChart";
-import { divergenceMarkers, patternMarkers } from "@/components/charts/markers";
+import { divergenceMarkers, patternBands, patternMarkers } from "@/components/charts/markers";
 import { Button } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 import { AttemptResult } from "@/features/exercises/AttemptResult";
@@ -52,6 +52,9 @@ export function ChartExercise({
     : isDivergence
       ? divergenceMarkers(result.correctAnswer)
       : patternMarkers(result.correctAnswer);
+  // Shaded zones appear only once the answer is in — same rule as the markers, and for a stronger
+  // reason: the question is "find the zone", so drawing it beforehand would BE the answer (m30).
+  const bands = !result || isDivergence ? [] : patternBands(result.correctAnswer);
 
   const revealed =
     result && typeof (result.correctAnswer as { divergence?: string; label?: string })?.[answerKey] === "string"
@@ -69,6 +72,7 @@ export function ChartExercise({
           cvd={payload.cvd}
           overlays={payload.overlays}
           levels={payload.levels}
+          bands={bands}
           indicator={payload.indicator ?? "rsi"}
           markers={markers}
           rightOffset={8}

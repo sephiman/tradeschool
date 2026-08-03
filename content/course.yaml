@@ -767,3 +767,50 @@ blocks:
         type: quiz
       - id: m29-ex-2
         type: quiz
+# A trailing block of its own, because this is a translation layer rather than a new theme: it maps the
+# vocabulary the crowd uses onto mechanics every earlier block already taught. Placing it last is what
+# keeps the dependency graph clean: everything m30-l1 points at — m06, m08, m09, m10, m13, m17, m19, m20,
+# m23, m25, m28, m29 — is behind it, so the lesson makes no forward reference at all.
+#
+# `assumes` below is NOT that list, and deliberately. It is ADVISORY ONLY: it renders a grey "Se apoya en
+# … — contexto opcional" hint on the module card plus a longer notice on the module page (via
+# `unmet_prereqs`, whose own docstring says "Advisory only"), and it gates nothing — not navigation, not
+# exercises, not exam sampling. On that criterion the right list is the short curated one: the modules a
+# reader would be lost without, not every module cited. So m08 (structure, zones, role reversal, the
+# ladder), m09 (absorption), m13 (self-fulfilling levels) and m17 (liquidity pools and sweeps) are in;
+# m06 and m10, cited once and twice as supporting colour, are not — putting them in would pad the hint
+# until nobody reads it.
+#
+# Per content/README.md, ids are never renumbered and display order is list position, so new content
+# appends to its block or, as here, as a new trailing block.
+- id: block-g
+  title:
+    en: The dialect
+    es: El dialecto
+  modules:
+  - id: m30
+    title:
+      en: The SMC dialect (order blocks, FVG, BOS)
+      es: El dialecto SMC (order blocks, FVG, BOS)
+    summary:
+      en: 'Order block, fair value gap, BOS, liquidity grab, premium/discount: the vocabulary you meet on fintwit, mapped onto mechanics this course already taught — an impulse''s origin zone, a span crossed in one candle, and the structure ladder — plus the honest boundary where the dogma stops being mechanical.'
+      es: 'Order block, fair value gap, BOS, toma de liquidez, premium/discount: el vocabulario que te encuentras en el Twitter de trading, mapeado sobre mecánica que este curso ya ha enseñado —la zona de origen de un impulso, un tramo cruzado en una sola vela y la escalera de estructura—, más el límite honesto donde el dogma deja de ser mecánico.'
+    assumes:
+    - m08
+    - m09
+    - m13
+    - m17
+    lessons:
+    - id: m30-l1
+      title:
+        en: The SMC dialect (order blocks, FVG, BOS)
+        es: El dialecto SMC (order blocks, FVG, BOS)
+      exercises:
+      - id: m30-ex-1
+        type: pattern_chart
+      - id: m30-ex-2
+        type: pattern_chart
+      - id: m30-ex-3
+        type: quiz
+      - id: m30-ex-4
+        type: quiz

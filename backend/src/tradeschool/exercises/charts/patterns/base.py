@@ -4,8 +4,8 @@
 An injector builds a full close path (warm-up + visible), declares the ground-truth label it planted,
 and optionally exposes public overlays/levels (things the learner is meant to SEE and read, e.g.
 moving averages or a Fibonacci grid) and a volume override (for volume-based patterns). Anything that
-would reveal the answer — the label and the swing/zone annotations — is ground truth and is returned
-separately so the generator can withhold it until grading.
+would reveal the answer — the label, the swing/zone annotations, and the shaded `Band`s — is ground
+truth and is returned separately so the generator can withhold it until grading.
 """
 
 from __future__ import annotations
@@ -39,6 +39,41 @@ class Level:
     price: float
     label: str = ""
     kind: str = "level"  # "support" | "resistance" | "fib" | "level"
+
+
+@dataclass
+class Band:
+    """A shaded price ZONE — the thing an origin zone (SMC's "order block") and an imbalance (an "FVG")
+    actually are, which a horizontal `Level` cannot express: m30 teaches both as bands a few candles
+    wide, exactly as m08-l1 insists a support is a band and not a line.
+
+    A band is GROUND TRUTH, not a public overlay, and that is the whole anti-leak design: drawing the
+    zone on an exercise chart *is* the answer. So it travels the same channel `annotations` do — absent
+    from the pre-answer payload, revealed by `grade()` (the learner sees the zone they were asked to
+    find), and rendered by lesson figures, which show the resolution by design.
+
+    Prices, not bar indices: the band spans the whole chart width like every drawn level, and WHEN it
+    formed is carried by its markers (`origin` / `imbalance`) rather than by a bounded rectangle.
+
+    Each `kind` carries its own contract with the candles, and — unlike `LevelGuard` — it is ASSERTED,
+    never enforced by mutation:
+
+    * ``origin``    — these bars are the last opposing candles before the impulse that broke structure,
+      the impulse left them, and the return reached them.
+    * ``imbalance`` — no candle traded through this span when it formed.
+
+    A guard that widened a wick to make an imbalance "tested" would destroy the untraded span that IS
+    the band's claim, so bands are pinned by `tests/test_chart_bands.py` over hundreds of seeds instead.
+    Where a candle-space BOUND is genuinely needed — the ambient tail is a random walk and can wander
+    into a gap the label calls unfilled — the injector ships an *undrawn* `LevelGuard` on the band edge,
+    reusing the vetted machinery; the band suite checks those guards itself, since `test_chart_levels.py`
+    discovers its targets from published `levels` and so cannot see them.
+    """
+
+    low: float
+    high: float
+    label: str = ""
+    kind: str = "origin"  # "origin" | "imbalance"
 
 
 @dataclass
@@ -82,6 +117,10 @@ class PatternResult:
     annotations: list[Annotation] = field(default_factory=list)
     overlays: dict[str, list[float]] = field(default_factory=dict)
     levels: list[Level] = field(default_factory=list)
+    #: shaded price zones (m30's origin zone / imbalance). GROUND TRUTH like `annotations`: never in the
+    #: pre-answer payload — drawing the zone would hand over the answer — revealed by `grade()` and
+    #: rendered by figures. See `Band`.
+    bands: list[Band] = field(default_factory=list)
     #: candle-space contracts for the `levels` above, applied by the generator (exercise) and the
     #: figure builder alike via `apply_level_guards`. See `LevelGuard`.
     level_guards: list[LevelGuard] = field(default_factory=list)

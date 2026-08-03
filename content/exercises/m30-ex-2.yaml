@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: imbalance
+n: 130
+indicator: none
+# As in m30-ex-1, the band stays off the chart: shading the gap would answer the question. Every chart
+# carries at most ONE imbalance (the injector repairs incidental ones), so the subject is unambiguous.
+targets: [imbalance_unfilled, imbalance_filled, no_imbalance]
+choices: [imbalance_unfilled, imbalance_filled, no_imbalance]
+prompt:
+  en: "Find the fast move, then apply the three-candle test: is there a span between one candle's **high** and the **low** of the candle two bars later — a stretch crossed inside a single bar, where almost nothing traded? If there is, has price since come back and traded through it? Answer: an **imbalance still open**, an **imbalance already filled**, or **no imbalance** (the move's candles overlap all the way, so no span was skipped)."
+  es: "Localiza el movimiento rápido y aplica el test de las tres velas: ¿hay un tramo entre el **máximo** de una vela y el **mínimo** de la vela dos barras después —un trecho cruzado dentro de una sola barra, donde casi no se negoció nada—? Si lo hay, ¿ha vuelto el precio desde entonces a atravesarlo? Responde: un **desequilibrio todavía abierto**, un **desequilibrio ya rellenado** o **ningún desequilibrio** (las velas del movimiento se solapan todo el camino, así que no se saltó ningún tramo)."
+explanation:
+  en: "A big candle is not an imbalance. The test is geometric and it is about what the *neighbouring* candles did: only when one candle's high sits below the low of the candle two bars later was a span crossed inside a single bar, and only then did almost nothing change hands there. A fast move whose candles overlap traded through its whole range — no gap, however large the move looks. And a gap price has already traded back through is spent: it was a span nothing had traded in, and now something has. Treating a filled gap as a live zone is drawing on the chart's past instead of reading its present."
+  es: "Una vela grande no es un desequilibrio. El test es geométrico y va de lo que hicieron las velas *vecinas*: solo cuando el máximo de una vela queda por debajo del mínimo de la vela dos barras después se cruzó un tramo dentro de una sola barra, y solo entonces casi nada cambió de manos ahí. Un movimiento rápido cuyas velas se solapan negoció todo su recorrido: no hay hueco, por grande que parezca el movimiento. Y un hueco que el precio ya ha vuelto a atravesar está gastado: era un tramo en el que nada se había negociado, y ahora sí. Tratar un hueco rellenado como zona viva es dibujar sobre el pasado del gráfico en vez de leer su presente."

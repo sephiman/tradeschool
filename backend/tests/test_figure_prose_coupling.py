@@ -83,6 +83,15 @@ def _resolve(panel: dict[str, Any], what: str, spec: dict[str, Any]) -> float:
             if level["label"] == arg:
                 return float(level["price"])
         raise AssertionError(f"no level labelled {arg!r} (has: {[x['label'] for x in panel['levels']]})")
+    if kind in ("band_low", "band_high"):
+        # A zone has two prices and a lesson quotes both, so each edge is its own anchor (m30's origin
+        # zone and imbalance). The edges are derived from the CANDLES the injector planted — a down-leg's
+        # range, a pair of wicks either side of a one-bar move — so they move if the generator moves,
+        # which is exactly what this manifest exists to catch.
+        for band in panel["bands"]:
+            if band["label"] == arg:
+                return float(band["low" if kind == "band_low" else "high"])
+        raise AssertionError(f"no band labelled {arg!r} (has: {[x['label'] for x in panel['bands']]})")
     if kind in _SERIES_KEYS:
         return float(series[kind][int(arg)])
     if kind in _PANE_KEYS:
