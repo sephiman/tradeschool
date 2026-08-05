@@ -19,7 +19,8 @@
   "nav": {
     "course": "Curso",
     "exams": "Exámenes",
-    "progress": "Progreso"
+    "progress": "Progreso",
+    "homeLabel": "{{name}} — inicio"
   },
   "exam": {
     "intro": "Un examen muestreado y calificado sobre el banco de ejercicios: una pregunta por módulo, revelado todo junto al final.",

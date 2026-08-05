@@ -1,9 +1,9 @@
 import { type ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/auth/AuthContext";
 import { AccountMenu } from "@/components/layout/AccountMenu";
-import { NAV_ITEMS } from "@/components/layout/nav";
+import { HOME_PATH, NAV_ITEMS } from "@/components/layout/nav";
 import { cn } from "@/lib/cn";
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -17,7 +17,19 @@ export function AppShell({ children }: { children: ReactNode }) {
             below `sm`, where it would otherwise crowd them (space-driven — a narrowed window too). */}
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
           <div className="flex min-w-0 items-center gap-6">
-            <span className="shrink-0 text-lg font-semibold text-primary">{t("app.name")}</span>
+            {/* The wordmark is the way back to the start from anywhere. A plain `Link`, deliberately
+                with no `replace` prop: react-router replaces only when the target already IS the
+                current location, so clicking it on the course page adds no history entry while
+                clicking it on a lesson leaves that lesson for Back to return to. The accessible name
+                keeps the visible text inside it ("TradeSchool — home"), which is what lets someone
+                driving by voice say what they can read. */}
+            <Link
+              to={HOME_PATH}
+              aria-label={t("nav.homeLabel", { name: t("app.name") })}
+              className="shrink-0 rounded-md text-lg font-semibold text-primary transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900"
+            >
+              {t("app.name")}
+            </Link>
             {user && (
               <nav className="hidden items-center gap-4 text-sm sm:flex">
                 {NAV_ITEMS.map(({ to, labelKey }) => (

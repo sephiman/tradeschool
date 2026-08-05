@@ -19,7 +19,8 @@
   "nav": {
     "course": "Course",
     "exams": "Exams",
-    "progress": "Progress"
+    "progress": "Progress",
+    "homeLabel": "{{name}} — home"
   },
   "exam": {
     "intro": "A sampled, graded run over the exercise bank — one question per module, revealed all at once at the end.",

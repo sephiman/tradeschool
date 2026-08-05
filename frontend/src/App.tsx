@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
+import { HOME_PATH } from "@/components/layout/nav";
 import { ToastHost } from "@/components/ui/ToastHost";
 import { LoginPage } from "@/auth/LoginPage";
 import { RegisterPage } from "@/auth/RegisterPage";
@@ -25,7 +26,7 @@ export default function App() {
             <RequireAuth>
               <AppShell>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/course" replace />} />
+                  <Route path="/" element={<Navigate to={HOME_PATH} replace />} />
                   <Route path="/course" element={<CoursePage />} />
                   <Route path="/modules/:moduleId" element={<ModulePage />} />
                   <Route path="/lessons/:lessonId" element={<LessonPage />} />
@@ -35,7 +36,7 @@ export default function App() {
                   <Route path="/exams/:examId/review" element={<ExamReview />} />
                   {/* Unadvertised review route; its data comes from the DEV_MODE-gated /api/dev endpoint. */}
                   <Route path="/dev/charts" element={<ChartGallery />} />
-                  <Route path="*" element={<Navigate to="/course" replace />} />
+                  <Route path="*" element={<Navigate to={HOME_PATH} replace />} />
                 </Routes>
               </AppShell>
             </RequireAuth>

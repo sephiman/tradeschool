@@ -225,6 +225,13 @@ Open <http://localhost:5173>, register an account, and review the full course:
   part (`~1 h`, never `~1 h 0 min`) — one format in both languages, and still only that one rounding:
   the hours are a *split* of the rounded total (`floor` + `%`), not a rounding of their own.
 - Toggle **ES ↔ EN** (progress is unchanged) and **light/dark**; check mobile widths.
+- The header **wordmark is the way back to `/course`** from any depth — an ordinary client-side link
+  (keyboard-focusable, Enter-activated, focus ring in both themes), with no `replace` of its own so
+  that Back still returns to the lesson you left, while a click on the course page itself replaces
+  rather than stacking a second entry. `HOME_PATH` in `frontend/src/components/layout/nav.ts` is the
+  one definition of where home is — the wordmark, the first nav item and `App.tsx`'s redirects all
+  read it. The wordmark above the **login/register** card is deliberately *not* a link: there is
+  nowhere for it to go that `RequireAuth` would not bounce straight back to `/login`.
 - The **chart-credibility gallery** at <http://localhost:5173/dev/charts> renders grids of the
   generated charts with their ground-truth labels — the exact renderer students see. The exercise-id
   box accepts any chart exercise, e.g. `m12-ex-1` (divergences), `m08-ex-1` (fakeouts),
