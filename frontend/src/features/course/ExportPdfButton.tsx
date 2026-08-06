@@ -5,27 +5,32 @@ import type { CourseMeta } from "@/api/course";
 import { Button, Spinner } from "@/components/ui/primitives";
 import type { PdfLabels } from "@/lib/pdf/document";
 import { downloadPdf, generateCoursePdf, type GenerateProgress } from "@/lib/pdf/generate";
+import { pdfLabels } from "@/lib/pdf/labels";
 
 /**
  * The whole course as one printable PDF, in the language being browsed.
  *
- * It is not instant — 36 lessons and 29 figures, each drawn off-screen — so the button reports which
- * phase it is in rather than just spinning, and a failure stays on the page: an error that disappears
- * after three seconds is not an error state.
+ * It is not instant — 36 lessons, 29 figures and 23 exercise charts, each drawn off-screen — so the
+ * button reports which phase it is in, and counts the two capture phases rather than just spinning.
+ * A failure stays on the page: an error that disappears after three seconds is not an error state.
+ *
+ * Every word the document prints is resolved here and handed over as `labels`, which is what keeps
+ * `lib/pdf/` free of i18next and buildable for either locale in a test. The chart label chains
+ * (`chartLabel`/`divergence`, `chartMarker`, `band`) are the app's own, so a printed answer names a
+ * pattern exactly as the screen does.
  */
 export function ExportPdfButton({ course }: { course: CourseMeta }) {
   const { t, i18n } = useTranslation();
   const [progress, setProgress] = useState<GenerateProgress | null>(null);
   const locale = i18n.resolvedLanguage === "es" ? "es" : "en";
 
-  const labels: PdfLabels = {
-    contents: t("course.pdfContents"),
-    generated: t("course.pdfGenerated", {
+  const labels: PdfLabels = pdfLabels(
+    t,
+    t("course.pdfGenerated", {
       language: t("course.pdfLanguage"),
       date: new Date().toLocaleDateString(locale === "es" ? "es-ES" : "en-GB"),
     }),
-    page: (current, total) => t("course.pdfPage", { current, total }),
-  };
+  );
 
   const exportPdf = useMutation({
     // Success is the file landing in the downloads folder; failure is reported in place, below.
@@ -48,10 +53,11 @@ export function ExportPdfButton({ course }: { course: CourseMeta }) {
 
   const phaseLabel = (): string => {
     if (!progress) return t("course.pdfBusy");
-    if (progress.phase === "figures" && progress.total > 0) {
-      return t("course.pdfFigures", { done: progress.done, total: progress.total });
-    }
-    if (progress.phase === "typeset") return t("course.pdfTypesetting");
+    const { phase, done, total } = progress;
+    if (phase === "figures" && total > 0) return t("course.pdfFigures", { done, total });
+    if (phase === "charts" && total > 0) return t("course.pdfCharts", { done, total });
+    if (phase === "exercises") return t("course.pdfExercises");
+    if (phase === "typeset") return t("course.pdfTypesetting");
     return t("course.pdfPreparing");
   };
 

@@ -13,8 +13,11 @@ src/tradeschool/
   config.py     pydantic-settings
   db.py         async SQLAlchemy engine/session
   auth/         fastapi-users (cookie + database strategy, Argon2), rate limiting
-  content/      manifest + content registry loader, validation, reconciliation, CLI sync
+  content/      manifest + content registry loader, validation, reconciliation, CLI sync,
+                print_export.py (the printed book's frozen exercise instances + their answer key —
+                the one place a solution leaves the server before a learner has answered)
   exercises/    ExerciseGenerator ABC + registry + generators + Decimal formulas + chart engine + lesson figures
+                + reveal.py (read an instance's ground truth, verified by re-grading it)
   attempts/     seeded attempts, server-side grading, abandoned rule
   progress/     lesson completion
   stats/        per-user + anonymous global statistics

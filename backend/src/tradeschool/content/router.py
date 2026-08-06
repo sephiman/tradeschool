@@ -19,6 +19,7 @@ from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.auth.backend import current_active_user
 from tradeschool.auth.models import User
 from tradeschool.content.models import LessonCompletion
+from tradeschool.content.print_export import build_print_exercises
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.content.schema import LOCALES
 from tradeschool.db import get_async_session
@@ -128,6 +129,35 @@ async def export_course(
         else {}
     )
     return JSONResponse(content=data, headers=headers)
+
+
+@router.get("/course/print/exercises")
+async def export_print_exercises(
+    request: Request,
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    lang: LangQuery = None,
+) -> dict[str, object]:
+    """Every exercise as it is PRINTED — one frozen instance each, **with its answer** — for the
+    course PDF's exercises and its answer key.
+
+    **This endpoint reveals solutions, and that is deliberate.** Everywhere else a solution is produced
+    only by ``grade()``, after the learner has answered, which is what makes the statistics honest.
+    A book with an answer key cannot work that way: the key is the solutions, in the reader's hands,
+    by definition. Grading itself is untouched and still server-side, so nothing here changes how an
+    attempt is scored — but a reader who wants the answers can read them here, exactly as they can
+    turn to the back of the book. Single-locale: a book is printed in one language.
+
+    Deterministic: each instance is generated at ``print_seed(exercise_id)``, so every export of the
+    same content version prints the same book. Built once per locale and cached, like the figures.
+    """
+    locale = _resolve_locale(lang, user)
+    if not hasattr(request.app.state, "print_cache"):
+        request.app.state.print_cache = {}
+    cache: dict[str, dict[str, object]] = request.app.state.print_cache
+    if locale not in cache:
+        cache[locale] = build_print_exercises(registry, locale)
+    return cache[locale]
 
 
 @router.get("/figures/{figure_id}")

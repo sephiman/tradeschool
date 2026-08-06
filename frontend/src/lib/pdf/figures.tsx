@@ -18,9 +18,9 @@ import type { CapturedFigure } from "@/lib/pdf/document";
 
 /** Stage size in CSS px. Kept small so lightweight-charts' fixed 12 px axis labels stay ~8 pt on the
  *  page; the pixel count comes from PRINT_SCALE, which is ~230 dpi at this width. */
-const STAGE_WIDTH = 760;
-const STAGE_HEIGHT = 300;
-const PRINT_SCALE = 2;
+export const STAGE_WIDTH = 760;
+export const STAGE_HEIGHT = 300;
+export const PRINT_SCALE = 2;
 
 export interface CaptureProgress {
   done: number;
@@ -40,13 +40,13 @@ const SVG_FIGURES: Record<string, () => ReactNode> = {
   "candle-anatomy": () => <CandleAnatomy theme="light" />,
 };
 
-function nextFrame(): Promise<void> {
+export function nextFrame(): Promise<void> {
   return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
 }
 
 /** Catches what a figure threw while rendering, so the export can report that instead of a timeout —
  *  a component that throws on mount is otherwise indistinguishable from a slow one. */
-class CaptureBoundary extends Component<{ onError: (error: Error) => void; children: ReactNode }> {
+export class CaptureBoundary extends Component<{ onError: (error: Error) => void; children: ReactNode }> {
   componentDidCatch(error: Error): void {
     this.props.onError(error);
   }
@@ -56,7 +56,7 @@ class CaptureBoundary extends Component<{ onError: (error: Error) => void; child
 }
 
 /** React runs `useEffect` after paint, so "the chart exists" is polled, not known from the render call. */
-async function waitFor(ready: () => boolean, failure: () => Error | null, what: string): Promise<void> {
+export async function waitFor(ready: () => boolean, failure: () => Error | null, what: string): Promise<void> {
   for (let attempt = 0; attempt < 180; attempt++) {
     if (ready()) return;
     const error = failure();
@@ -67,7 +67,7 @@ async function waitFor(ready: () => boolean, failure: () => Error | null, what: 
 }
 
 /** Off-screen but still laid out: `display: none` would give the chart zero width to measure. */
-function makeStage(width: number, height: number): HTMLDivElement {
+export function makeStage(width: number, height: number): HTMLDivElement {
   const stage = document.createElement("div");
   stage.setAttribute("aria-hidden", "true");
   Object.assign(stage.style, {
@@ -83,13 +83,13 @@ function makeStage(width: number, height: number): HTMLDivElement {
   return stage;
 }
 
-interface Mounted {
+export interface Mounted {
   root: ReactRoot;
   failure: () => Error | null;
 }
 
 /** i18n only — figures are handed an explicit `theme`, so they must not need the app's ThemeProvider. */
-async function mount(stage: HTMLElement, node: ReactNode): Promise<Mounted> {
+export async function mount(stage: HTMLElement, node: ReactNode): Promise<Mounted> {
   const thrown: { error: Error | null } = { error: null };
   const root = createRoot(stage);
   root.render(
@@ -109,13 +109,13 @@ async function mount(stage: HTMLElement, node: ReactNode): Promise<Mounted> {
  *  the figure can still be named. */
 const MIN_BITMAP_PX = 64;
 
-function toPng(canvas: HTMLCanvasElement, figureId: string): string {
+export function toPng(canvas: HTMLCanvasElement, what: string): string {
   if (canvas.width < MIN_BITMAP_PX || canvas.height < MIN_BITMAP_PX) {
-    throw new Error(`figure ${figureId}: bitmap is ${canvas.width}×${canvas.height}, too small to print`);
+    throw new Error(`${what}: bitmap is ${canvas.width}×${canvas.height}, too small to print`);
   }
   const url = canvas.toDataURL("image/png");
   if (!url.startsWith("data:image/png;base64,")) {
-    throw new Error(`figure ${figureId}: canvas produced no PNG`);
+    throw new Error(`${what}: canvas produced no PNG`);
   }
   return url;
 }
@@ -148,7 +148,7 @@ async function capturePanel(panel: FigurePanel, figureId: string): Promise<strin
     );
     await waitFor(() => ready.chart !== null, mounted.failure, `figure ${figureId}`);
     await nextFrame(); // one more, so the panes have laid out before we ask for a bitmap
-    return toPng(ready.chart!.takeScreenshot(), figureId);
+    return toPng(ready.chart!.takeScreenshot(), `figure ${figureId}`);
   } finally {
     mounted?.root.unmount();
     stage.remove();
@@ -219,7 +219,7 @@ async function captureSvg(name: string, figureId: string): Promise<string> {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-    return toPng(canvas, figureId);
+    return toPng(canvas, `figure ${figureId}`);
   } finally {
     mounted?.root.unmount();
     stage.remove();
@@ -238,7 +238,7 @@ async function captureOne(data: FigureData): Promise<CapturedFigure> {
 }
 
 /** Pin the pixel ratio while drawing, so the export's resolution is the same on every display. */
-function withPrintPixelRatio<T>(run: () => Promise<T>): Promise<T> {
+export function withPrintPixelRatio<T>(run: () => Promise<T>): Promise<T> {
   const original = Object.getOwnPropertyDescriptor(window, "devicePixelRatio");
   try {
     Object.defineProperty(window, "devicePixelRatio", { value: PRINT_SCALE, configurable: true });

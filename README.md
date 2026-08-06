@@ -6,7 +6,9 @@ with proper risk management. Third app in the **Sephilabs** ecosystem, and its *
 
 Content is bilingual (ES + EN); progress is honest information, never a reward — no streaks, points or
 badges. Exercises are **generated and graded on the server**, so a solution never reaches the client
-before you answer: statistics are trustworthy by construction.
+before you answer: statistics are trustworthy by construction. (The one deliberate exception is the
+printed book's answer key — see [the print endpoint](#the-printed-exercises-and-the-one-endpoint-that-reveals-solutions);
+grading stays server-side, so what the statistics measure is unchanged.)
 
 - **License:** AGPL-3.0-only
 - **Backend:** Python 3.14 · FastAPI · SQLAlchemy 2 (async) · Alembic · Pydantic v2 · fastapi-users
@@ -275,13 +277,85 @@ so you can see where each generated chart belongs.
 Auth (session cookie) is required, like the rest of the content API. The registry is built **once at
 startup**, so newly authored content needs a backend restart before it appears in an export.
 
+### The printed exercises, and the one endpoint that reveals solutions
+
+```
+GET /api/course/print/exercises?lang=es   # one frozen instance per exercise, WITH its answer
+```
+
+This is what the PDF's exercises and its answer key are made of, and it is the **only** endpoint that
+hands a solution to a client without a learner having answered first. That is what an answer key *is* —
+the solutions, in the reader's hands, printed at the back of the book — so the trade-off is stated here
+rather than hidden: **grading is untouched and still server-side**, an attempt still reveals nothing
+before it is answered, and the statistics are computed from graded attempts exactly as before. A reader
+who wants the answers can read them here, as they can turn to the back of any textbook.
+
+Three properties make it a *book* rather than a dump:
+
+* **A fixed seed per exercise.** Each instance is generated at `print_seed(exercise_id)` — blake2b of
+  the id, deliberately not `hash()`, which is salted per process and would print a different book after
+  every restart. Two exports of the same content version are identical.
+* **One instance, one pass.** `generate()` is called once; the answer is read from `grade()` on the same
+  `(config, seed)` and then **re-graded as a submitted answer, which must come back correct** before it
+  is published. Every number the answer quotes is read out of the payload being published — a chart
+  answer's prices are indexed out of the very series the reader sees — so a key cannot drift from its
+  question. `tests/test_print_exercises.py` re-grades all 126.
+* **Nothing dropped quietly.** An exercise that cannot be printed is listed in `excluded` with a reason
+  and logged; the export console names it, and the lesson in the PDF prints *"N interactive exercises
+  not included"*. Today the whole course prints: 126 of 126, nothing excluded.
+
 ## Printing the course (PDF)
 
 **Export PDF**, next to the course-page header, produces the whole course as one print-ready document
 in the language being browsed — cover, table of contents with page numbers, block and module headings
-with their summaries, and every lesson's prose, callouts and figures. ~148 pages, 36 lessons, 29
-figures. **Exercises and exams are not in it**: it is the course to read, not to answer. Every lesson
-starts on a new page. The file is named `tradeschool-<course>-<locale>-<YYYY-MM-DD>.pdf`.
+with their summaries, every lesson's prose, callouts and figures, **the lesson's exercises after its
+prose, and an answer key at the back**. ~203 pages (EN) / ~215 (ES): 36 lessons, 29 figures, 126
+exercises, 23 of which print a chart. Every lesson starts on a new page, and the answer key is a
+table-of-contents entry with a resolved page number. The running footer carries the course title, the
+**top-level section the page belongs to** (the block, or the answer key) and the page number, so a page
+found loose still says where it came from; the cover and the contents precede the first block and name
+no section. The file is named `tradeschool-<course>-<locale>-<YYYY-MM-DD>.pdf`.
+
+**That footer is why the document is rendered twice.** pdfmake gives the footer callback a page number
+and nothing else, and which page a block starts on is not known until the document has been laid out.
+So the first render resolves the section-to-page mapping (through the same `pageBreakBefore` hook the
+pagination rules use, which is pdfmake's only view of a laid-out node) and the second one — cheap,
+because every page break is decided by then, ~2s against ~50s — writes the file. Footers are drawn into
+the bottom margin after the content, so none of this moves a line: the page count is identical with the
+section in the footer and without it.
+
+### Where the pages break
+
+Two rules, in `lib/pdf/pagination.ts`, both about not stranding something from the thing that explains
+it: **a heading keeps at least two lines of its own body on its page**, or it moves to the next one;
+and **a callout, and an answer-key entry, print whole** — one that would straddle a page moves entire.
+Figures already hold to their captions, and a test now says so.
+
+**They are `pageBreakBefore` rules and deliberately not `unbreakable`.** pdfmake does not overflow an
+unbreakable block taller than a page, it **truncates** it — `commitUnbreakableBlock` keeps `pages[0]`
+and drops the rest — so a long note would lose a paragraph and the page would look fine. A break rule
+cannot lose content: a box genuinely taller than a page breaks, and is **named in the generation
+report** instead. (The course has none today.)
+
+Three things about pdfmake's node model shape those rules, each found by a wrong page in the real book:
+the **running footer** follows every page's content, so "is anything after this heading?" is always yes
+until it is excluded; a **container** records its position where layout *enters* it, so a stack whose
+unbreakable child moved to the next page still claims the one before; and a **callout's ink lives in
+its inner paragraphs**, which leave with the box when it moves. `pagination.test.ts` pins all three.
+
+The cost is real: pdfmake inserts one break per layout pass, so each one re-lays out the whole book and
+typesetting goes from ~3s to ~35s per locale. That phase has no progress hook to report through — it
+is the one part of the export that spins rather than counts.
+
+**Exercises print as paper, and the key points back at the page.** A question carries a number derived
+from its id — `m11-ex-5` prints as **Exercise 11.5**, stable for the life of the course because ids are
+append-only — and the key answers *11.5*, so exercise → answer and answer → exercise both work. Options
+are lettered where they were dealt, and the key cites that letter (`b) …`), never the option's internal
+id: the correct option is rarely printed first. Chart exercises print the generated chart exactly as the
+app draws it *before* you answer — no swing markers, no shaded zones, already cut before the resolution
+because the instance is — and their answers name the resolution with the prices and dates of that very
+chart (`Origin — 106.94 · 13/02/2024`). A calculation prints its worked solution; any exercise whose
+content provides an explanation prints it as *Why*.
 
 **It is generated in the browser, and that is the load-bearing decision.** Figures are drawn by
 lightweight-charts on a canvas, so the browser is the only place a rendered figure actually exists.
@@ -299,19 +373,29 @@ the symptom is silent — the chart simply never appears. `figures-providers.tes
 component in that harness (mocking only lightweight-charts, as the other chart tests do) to keep this
 honest; `figures.test.tsx` covers the capture mechanics around it.
 
-The lesson tree comes from `GET /api/course/export?lang=…` — the JSON export above — so the PDF is
-theory-only for the same reason that endpoint is (`registry._theory_only` strips the `::exercise`
-directives server-side) and complete for the same reason too: one walk of the manifest. **No backend
-code is involved in making the PDF.**
+The document is assembled from **two** server documents, joined by id: the lesson tree from
+`GET /api/course/export?lang=…` (prose only — `registry._theory_only` strips the `::exercise`
+directives server-side) and the exercises from `GET /api/course/print/exercises?lang=…`. Both are one
+walk of the manifest, which is why the printed book cannot carry a different set of lessons — or a
+different set of questions — from the app.
+
+Exercise charts are captured the same way figures are, on the same off-screen stage, and are the reason
+generation now takes noticeably longer: 29 figures plus 23 exercise charts. The button counts **both**
+capture phases (`Drawing figures 12/29…`, then `Drawing exercise charts 8/23…`) rather than spinning.
 
 ```
 frontend/src/lib/pdf/
-  document.ts   the course -> a pdfmake document (pure: no DOM, no network, no i18next)
-  markdown.ts   lesson markdown -> print content; the print twin of lib/markdown.tsx
-  figures.tsx   off-screen light-theme capture of every ::figure, at print resolution
-  page.ts       A4 geometry, print palette, type scale
-  generate.ts   orchestration (export -> figures -> typeset) with progress, and the download
-  runtime.ts    loads the ~1 MB PDF engine on first use, never in the app's initial chunk
+  document.ts        the course -> a pdfmake document (pure: no DOM, no network, no i18next)
+  markdown.ts        lesson markdown -> print content; the print twin of lib/markdown.tsx
+                     (an exercise prompt is markdown too, and goes through the same renderer)
+  exercises.ts       one printed exercise per kind, and the answer key — pure, like document.ts
+  pagination.ts      where pages may break: headings keep their body, boxes print whole
+  figures.tsx        off-screen light-theme capture of every ::figure, at print resolution
+  exerciseCharts.tsx the same stage for the charts that ARE the question, markers and zones withheld
+  labels.ts          every word the PDF prints that is not course content, resolved in one place
+  page.ts            A4 geometry, print palette, type scale
+  generate.ts        orchestration (export -> exercises -> figures -> charts -> typeset), with progress
+  runtime.ts         loads the ~1 MB PDF engine on first use, never in the app's initial chunk
 ```
 
 **The embedded font is not cosmetic.** A PDF carries its own type, and pdfmake's bundled Roboto has no
@@ -321,11 +405,22 @@ unmodified, `LICENSE` alongside it), which is metric-compatible with the app's H
 `fonts.test.ts` asserts it covers **every character in `content/`**, so a new symbol in a lesson fails a
 test instead of printing a box.
 
-The frontend test suite builds the real course — read straight off `content/course.yaml` and the lesson
-files, in both languages — and typesets it with pdfmake: lesson count and order against the manifest,
-one page group per lesson, one figure block per `::figure`, no `::exercise` and no exercise id anywhere
-(in the document *or* in the PDF's bytes), and a real `%PDF` for each locale. Same lesson as
+The frontend test suite builds the real course — read straight off `content/course.yaml`, the lesson
+files and the exercise configs, in both languages — and typesets it with pdfmake: lesson count and order
+against the manifest, one page group per lesson, one figure block per `::figure`, no heading left at
+the foot of a page and no callout or answer entry split across one (read back from the laid-out
+document, in a second pass that observes the final pagination without changing it), every declared
+exercise printed once inside its own lesson in course order, **a bijection between the printed exercises
+and the answer key** (one entry each, both directions, no shared numbers), the key resolving to a page
+number in the contents, an excluded exercise named in its lesson and absent from both halves, and a real
+`%PDF` for each locale. Exercise *ids* still appear nowhere: the book speaks in numbers. Same lesson as
 `test_export_is_complete_against_the_manifest`, applied to the document a reader prints.
+
+The instances those tests print are stand-ins built from the real configs — running the generators means
+running Python, and a second implementation of a seeded RNG in TypeScript is exactly the drift this
+codebase refuses elsewhere. What the *instances* must satisfy lives where they are made:
+`backend/tests/test_print_exercises.py` re-grades every published answer against its own seed, checks
+each chart answer's prices against the published series, and asserts two builds are byte-identical.
 
 ## Accounts
 

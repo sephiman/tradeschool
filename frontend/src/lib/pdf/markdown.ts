@@ -2,10 +2,11 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
-import type { Content, ContentText, TableCell } from "pdfmake/interfaces";
+import type { Content, ContentStack, ContentText, TableCell } from "pdfmake/interfaces";
 import type { PhrasingContent, Root, RootContent, TableContent } from "mdast";
 // Type-only import: this is what teaches mdast about `containerDirective` / `leafDirective` nodes.
 import type {} from "mdast-util-directive";
+import { CALLOUT_ID, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
 import { PRINT, contentWidth } from "@/lib/pdf/page";
 
 /**
@@ -90,10 +91,15 @@ function runs(nodes: PhrasingContent[], marks: Marks = {}): ContentText[] {
 
 const HEADING_STYLE = ["lessonTitle", "h2", "h3", "h4", "h4", "h4"] as const;
 
-/** The app's callout: a one-cell table is how pdfmake draws a filled box with a coloured left rule. */
-function callout(tone: string, body: Content[]): Content {
+/** The app's callout: a one-cell table is how pdfmake draws a filled box with a coloured left rule.
+ *
+ *  The `id` is what lets the pagination rule keep the box whole and, in the rare case of a box taller
+ *  than a page, name it in the generation report. It has to be unique across the document — pdfmake
+ *  throws on a duplicate — which is what `source` is for. */
+function callout(tone: string, body: Content[], id: string): Content {
   const tones = PRINT.notes[tone] ?? PRINT.notes.info;
-  return {
+  // Annotated, so the tuple margins keep their contextual type through `withId`.
+  const box: Content = {
     table: { widths: ["*"], body: [[{ stack: body, fillColor: tones.fill, margin: [8, 7, 8, 7] }]] },
     layout: {
       hLineWidth: () => 0,
@@ -107,14 +113,25 @@ function callout(tone: string, body: Content[]): Content {
     style: "note",
     margin: [0, 6, 0, 8],
   };
+  return withId(box, id);
 }
 
-function listItems(node: Extract<RootContent, { type: "list" }>, r: MarkdownRenderers): Content[] {
+/** Hands out `<kind>-<source>-<n>` ids within one lesson (or one exercise prompt), so every callout
+ *  and figure block the pagination rules act on can be told apart and named. */
+class Ids {
+  private next = 0;
+  constructor(private readonly source: string) {}
+  for(kind: string): string {
+    return printedId(kind, this.source, this.next++);
+  }
+}
+
+function listItems(node: Extract<RootContent, { type: "list" }>, r: MarkdownRenderers, ids: Ids): Content[] {
   return node.children.map((item) => {
     const [first, ...rest] = item.children;
     // One paragraph is the common shape: emit it as the item's text so the marker hugs the line.
     if (first?.type === "paragraph" && rest.length === 0) return { text: runs(first.children) };
-    return { stack: blocks(item.children, r) };
+    return { stack: blocks(item.children, r, ids) };
   });
 }
 
@@ -122,18 +139,24 @@ function tableRow(row: TableContent, header: boolean): TableCell[] {
   return row.children.map((cell) => ({ text: runs(cell.children), bold: header }));
 }
 
-function blocks(nodes: RootContent[], r: MarkdownRenderers): Content[] {
+function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[] {
   const out: Content[] = [];
   for (const node of nodes) {
     switch (node.type) {
       case "heading":
-        out.push({ text: runs(node.children), style: HEADING_STYLE[node.depth - 1] });
+        // `headlineLevel` is pdfmake's own marker for "this is a heading", and the one custom-ish
+        // property that survives into the pagination callback. It is what keeps a heading with its body.
+        out.push({
+          text: runs(node.children),
+          style: HEADING_STYLE[node.depth - 1],
+          headlineLevel: node.depth,
+        });
         break;
       case "paragraph":
         out.push({ text: runs(node.children), style: "p" });
         break;
       case "list": {
-        const items = listItems(node, r);
+        const items = listItems(node, r, ids);
         const shared = { style: "list", markerColor: PRINT.marker } as const;
         out.push(node.ordered ? { ol: items, ...shared } : { ul: items, ...shared });
         break;
@@ -142,7 +165,7 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers): Content[] {
         out.push({ text: node.value, style: "codeBlock" });
         break;
       case "blockquote":
-        out.push({ stack: blocks(node.children, r), style: "quote", margin: [14, 4, 0, 8] });
+        out.push({ stack: blocks(node.children, r, ids), style: "quote", margin: [14, 4, 0, 8] });
         break;
       case "thematicBreak":
         out.push({
@@ -171,14 +194,18 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers): Content[] {
         break;
       case "containerDirective":
         if (node.name === "note") {
-          out.push(callout(node.attributes?.type ?? "info", blocks(node.children, r)));
+          out.push(
+            callout(node.attributes?.type ?? "info", blocks(node.children, r, ids), ids.for(CALLOUT_ID)),
+          );
         }
         break;
       case "leafDirective":
         if (node.name === "figure") {
           const id = node.attributes?.id;
           if (!id) throw new Error("a ::figure directive has no id");
-          out.push(r.figure(id));
+          // The block is `unbreakable`, which already holds a figure to its caption; the id makes
+          // that checkable, and would catch its removal.
+          out.push(withId(r.figure(id) as ContentStack, ids.for(FIGURE_ID)));
         }
         break;
       default:
@@ -208,6 +235,8 @@ export function figureIds(markdown: string): string[] {
   return ids;
 }
 
-export function lessonToContent(markdown: string, r: MarkdownRenderers): Content[] {
-  return blocks(parseLesson(markdown).children, r);
+/** `source` names what is being rendered (a lesson id, an exercise id). It only feeds the ids given
+ *  to callouts and figure blocks, which must be unique across the whole document. */
+export function lessonToContent(markdown: string, r: MarkdownRenderers, source: string): Content[] {
+  return blocks(parseLesson(markdown).children, r, new Ids(source));
 }

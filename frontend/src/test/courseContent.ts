@@ -27,6 +27,9 @@ function findContentDir(): string {
 
 const CONTENT = `${findContentDir()}/`;
 
+/** The content tree, for the fixtures that read more of it than this module does. */
+export const CONTENT_DIR = CONTENT;
+
 /** The print font as absolute paths, by pdfmake vfs file name. */
 export function printFontPaths(): Record<string, string> {
   const dir = resolve(CONTENT, "..", "frontend", "src", FONT_DIR);

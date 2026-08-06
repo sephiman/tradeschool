@@ -69,4 +69,14 @@ export const PRINT_STYLES: StyleDictionary = {
   codeBlock: { fontSize: 9.5, color: PRINT.codeText, background: PRINT.codeFill, margin: [0, 4, 0, 8] },
   caption: { fontSize: 9, color: PRINT.muted, margin: [0, 5, 0, 0], lineHeight: 1.3 },
   footer: { fontSize: 8, color: PRINT.muted },
+  // Exercises and the answer key. Deliberately quieter than the prose around them: the lesson is what
+  // the page is for, and a question set that shouts would read as the point of the chapter.
+  exercisesHeading: { fontSize: 13, bold: true, color: PRINT.heading, margin: [0, 18, 0, 8] },
+  exerciseNumber: { fontSize: 10.5, bold: true, color: PRINT.primary, margin: [0, 0, 0, 3] },
+  exercisePrompt: { margin: [0, 0, 0, 4] },
+  exerciseHint: { fontSize: 9.5, italics: true, color: PRINT.muted, margin: [8, 0, 0, 4] },
+  exerciseNote: { fontSize: 9.5, italics: true, color: PRINT.muted, margin: [0, 4, 0, 6] },
+  answerGroup: { fontSize: 11.5, bold: true, color: PRINT.heading, margin: [0, 12, 0, 6] },
+  answerNumber: { bold: true, color: PRINT.primary },
+  answerAside: { fontSize: 9.5, color: PRINT.muted, margin: [46, 2, 0, 0], lineHeight: 1.3 },
 };

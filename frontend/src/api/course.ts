@@ -1,4 +1,8 @@
 import { apiClient } from "@/api/client";
+// Type-only, so the pair `exercises.ts` -> `course.ts` -> `exercises.ts` never becomes a runtime cycle:
+// a printed exercise carries exactly the payload an attempt would, and describing it twice would let
+// the page and the screen drift apart.
+import type { AttemptPayload, QuizKind } from "@/api/exercises";
 
 export type ExerciseType =
   | "quiz"
@@ -135,6 +139,91 @@ export interface CourseExport {
  *  browsed, and an absent `lang` would hand back the bilingual document instead. */
 export async function getCourseExport(locale: string): Promise<CourseExport> {
   const { data } = await apiClient.get<CourseExport>("/course/export", { params: { lang: locale } });
+  return data;
+}
+
+/**
+ * The course's exercises as they are PRINTED — the shape `/course/print/exercises?lang=…` serves.
+ *
+ * One frozen instance per exercise (generated at a seed derived from its id, so every export prints
+ * the same book) plus the answer to *that* instance, which is what the answer key at the back is made
+ * of. This is the one endpoint that hands over solutions; see its docstring for why that is the deal
+ * an answer key strikes.
+ */
+export interface PrintAnswer {
+  kind: QuizKind | "calculation" | "chart";
+  /** Which printed options are correct (single_choice, multi_select, calculation). */
+  optionIds?: string[];
+  /** ordering: the printed item ids in their correct sequence. */
+  order?: string[];
+  /** matching: printed left id -> printed right id. */
+  pairs?: Record<string, string>;
+  /** true_false. */
+  value?: boolean;
+  /** calculation: the correct option's value, its unit, and the worked steps. */
+  numericValue?: string;
+  unit?: string | null;
+  steps?: string[];
+  /** chart: the raw label (localized here, never by the server) and the bars it is read at. */
+  label?: string;
+  anchors?: PrintAnchor[];
+  zones?: PrintZone[];
+  explanation?: string | null;
+}
+
+/** A ground-truth bar, priced out of the printed series — the key's link to the printed chart. */
+export interface PrintAnchor {
+  index: number;
+  time: number;
+  kind: string;
+  label: string;
+  price: number;
+}
+
+export interface PrintZone {
+  low: number;
+  high: number;
+  kind: string;
+  label: string;
+}
+
+export interface PrintExercise {
+  id: string;
+  /** The reader-facing label, derived from the id: `m11-ex-5` prints as `11.5`. */
+  number: string;
+  type: ExerciseType;
+  isChart: boolean;
+  seed: number;
+  prompt: string;
+  /** Exactly what an attempt would show — no markers, no zones, cut before the resolution. */
+  payload: AttemptPayload;
+  answer: PrintAnswer;
+}
+
+export interface PrintLesson {
+  lessonId: string;
+  moduleId: string;
+  exercises: PrintExercise[];
+}
+
+export interface PrintExclusion {
+  id: string;
+  number: string;
+  lessonId: string;
+  type: string;
+  reason: string;
+}
+
+export interface PrintExercises {
+  locale: string;
+  lessons: PrintLesson[];
+  excluded: PrintExclusion[];
+}
+
+export async function getPrintExercises(locale: string): Promise<PrintExercises> {
+  const { data } = await apiClient.get<PrintExercises>("/course/print/exercises", {
+    params: { lang: locale },
+  });
   return data;
 }
 

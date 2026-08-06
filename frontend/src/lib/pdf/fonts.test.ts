@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { openSync } from "fontkit";
 import en from "@/i18n/en.json";
 import es from "@/i18n/es.json";
+import { COURSE_AUTHOR } from "@/lib/pdf/document";
 import { installPrintFonts, PRINT_FONT_FILES, type PdfMakeLike } from "@/lib/pdf/fonts";
 import { contentCharacters, printFontBytes, printFontPaths } from "@/test/courseContent";
 
@@ -16,25 +17,33 @@ import { contentCharacters, printFontBytes, printFontPaths } from "@/test/course
 
 const paths = printFontPaths();
 
-/** The chrome the PDF adds: table of contents, cover line, page numbers. */
+/** The chrome the PDF adds: contents, cover line, page numbers, and everything the exercises and the
+ *  answer key print — the pattern names, marker names and zone names come out of the app's catalogs
+ *  rather than out of `content/`, so `contentCharacters()` cannot see them. */
 function pdfChrome(): string {
-  const catalogs = [en.course, es.course] as unknown as Record<string, string>[];
+  const catalogs = [en, es] as unknown as Record<string, Record<string, string>>[];
+  const namespaces = ["course", "exercise", "divergence", "chartLabel", "chartMarker", "band", "level"];
   return catalogs
-    .flatMap((course) =>
-      Object.entries(course)
-        .filter(([key]) => key.startsWith("pdf"))
-        .map(([, value]) => value),
+    .flatMap((catalog) =>
+      namespaces.flatMap((namespace) => Object.values(catalog[namespace] ?? {})),
     )
     .join("");
 }
 
+/** Characters the generators produce that are authored nowhere: a formatted price, a printed date, an
+ *  option letter. Every one of them has to draw, and none of them is in the content tree. The author's
+ *  name is in the same position — printed on the cover, but a code constant rather than content. */
+const GENERATED = `0123456789abcdefghijklmnopqrstuvwxyz.,-+/()%×…·—${COURSE_AUTHOR}`;
+
 describe("the print font", () => {
-  const required = new Set([...contentCharacters(), ...pdfChrome()]);
+  const required = new Set([...contentCharacters(), ...pdfChrome(), ...GENERATED]);
 
   it("has something to cover in the first place", () => {
     // Or an empty character set would make the coverage checks below vacuous.
     expect(required.size).toBeGreaterThan(80);
     expect(required.has("→")).toBe(true);
+    // The answer key's own punctuation: a price range, a step separator, an anchor dash.
+    expect(required.has("…") && required.has("·") && required.has("—")).toBe(true);
   });
 
   it.each(PRINT_FONT_FILES)("%s draws every character the course uses", (file) => {

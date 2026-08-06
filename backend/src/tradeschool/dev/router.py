@@ -23,24 +23,10 @@ from tradeschool.db import get_async_session
 from tradeschool.errors import AppError
 from tradeschool.exercises.pattern_chart import PatternChartConfig, PatternChartGenerator
 from tradeschool.exercises.registry import get_generator
+from tradeschool.exercises.reveal import dummy_answer as _dummy_answer
 from tradeschool.exercises.synthetic_chart import SyntheticChartConfig, SyntheticChartGenerator
 
 router = APIRouter(tags=["dev"])
-
-
-def _dummy_answer(payload: dict[str, object]) -> dict[str, object]:
-    """A type-appropriate throwaway answer so grade() yields the ground truth for display."""
-    if "choices" in payload:
-        choices = payload["choices"]
-        first = choices[0] if isinstance(choices, list) and choices else "none"
-        # Both chart generators read a single choice key ("divergence" for divergence charts,
-        # "label" for the generic pattern charts); supplying both is harmless and covers either.
-        return {"divergence": first, "label": first}
-    if "options" in payload:
-        options = payload["options"]
-        first = options[0]["id"] if isinstance(options, list) and options else ""
-        return {"optionId": first}
-    return {"value": "0"}
 
 
 class GalleryItem(BaseModel):
