@@ -19,6 +19,9 @@ export function Badge({
   tone?: "neutral" | "amber" | "indigo" | "green" | "red";
   className?: string;
 }) {
+  // Untouched by OLED on purpose: a badge is content, not a surface. Its tint IS its separation, and
+  // every one of these fills gains contrast against #000 rather than losing it — blacking them out
+  // would turn a pre-attentive pill into an outline and cost the hierarchy for nothing.
   const tones = {
     neutral: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300",
     amber: "bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200",
@@ -37,19 +40,21 @@ export const Button = forwardRef<
   HTMLButtonElement,
   ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "secondary" | "danger" | "ghost" }
 >(({ className, variant = "primary", type = "button", ...props }, ref) => {
+  // `primary` and `danger` are solid accent fills that stand on their own against black; only the
+  // two that lean on a gray surface need the border to survive it.
   const variants = {
     primary: "bg-primary text-primary-foreground hover:bg-indigo-700",
     secondary:
-      "bg-white border border-border text-gray-900 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-700",
+      "bg-white border border-border text-gray-900 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-700 oled:bg-oled-bg oled:border-oled-line-strong oled:hover:bg-oled-hover",
     danger: "bg-red-600 text-white hover:bg-red-700",
-    ghost: "bg-transparent text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800",
+    ghost: "bg-transparent text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
   };
   return (
     <button
       ref={ref}
       type={type}
       className={cn(
-        "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:focus:ring-offset-gray-900",
+        "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:focus:ring-offset-gray-900 oled:focus:ring-offset-oled-bg",
         variants[variant],
         className,
       )}
@@ -67,7 +72,9 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
       ref={ref}
       aria-invalid={invalid || undefined}
       className={cn(
-        "block w-full rounded-md border border-border bg-white px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:disabled:bg-gray-700",
+        // A field on black has no fill to distinguish it from the page, so `line-strong` carries the
+        // whole affordance; disabled darkens nothing (it is already black) and dims the border instead.
+        "block w-full rounded-md border border-border bg-white px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:disabled:bg-gray-700 oled:border-oled-line-strong oled:bg-oled-bg oled:disabled:border-oled-line oled:disabled:bg-oled-bg",
         invalid && invalidRing,
         className,
       )}
@@ -83,7 +90,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSel
       ref={ref}
       aria-invalid={invalid || undefined}
       className={cn(
-        "block w-full rounded-md border border-border bg-white px-3 py-2 text-sm shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100",
+        "block w-full rounded-md border border-border bg-white px-3 py-2 text-sm shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 oled:border-oled-line-strong oled:bg-oled-bg",
         invalid && invalidRing,
         className,
       )}
@@ -97,11 +104,17 @@ export function Label({ className, ...props }: LabelHTMLAttributes<HTMLLabelElem
   return <label className={cn("mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300", className)} {...props} />;
 }
 
+/**
+ * The card is where "no elevation on pure black" bites hardest: it is a gray-900 panel on a gray-950
+ * page today — a step of background contrast plus `shadow-sm` — and both of those vanish when page
+ * and card are the same #000. The border is not decoration there, it is the only thing left saying
+ * where the card ends, so it steps up from gray-800 to the (lighter) `line` token.
+ */
 export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-border bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900",
+        "rounded-lg border border-border bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line oled:bg-oled-bg",
         className,
       )}
       {...props}

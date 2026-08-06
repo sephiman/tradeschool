@@ -53,12 +53,12 @@ export function CalculationExercise({
   return (
     <div className="mt-3 space-y-3">
       {/* Top tools strip: Formula reminder & Calculator toggle */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-2.5 dark:border-gray-800">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-2.5 dark:border-gray-800 oled:border-oled-line">
         <FormulaReminder formula={formula} />
         <button
           type="button"
           onClick={() => setShowCalc((prev) => !prev)}
-          className="inline-flex items-center gap-1.5 rounded-md border border-border bg-white px-2.5 py-1 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-750"
+          className="inline-flex items-center gap-1.5 rounded-md border border-border bg-white px-2.5 py-1 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-750 oled:border-oled-line-strong oled:bg-oled-bg oled:hover:bg-oled-hover"
         >
           <span>🧮</span>
           <span>{showCalc ? t("exercise.hideCalculator") : t("exercise.calculator")}</span>

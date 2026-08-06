@@ -20,7 +20,10 @@ export function ToastHost() {
           type="button"
           onClick={() => dismissToast(t.id)}
           className={cn(
-            "pointer-events-auto flex w-full items-start gap-2 rounded-md px-3 py-2 text-left text-sm font-medium text-white shadow-lg ring-1 ring-black/10",
+            // The tinted fills carry themselves on black; the hairline does not — `ring-black/10`
+            // over a black page is black on black, and `shadow-lg` has nothing to fall on, so the
+            // one floating element in the app would lose its edge. It flips to a light ring instead.
+            "pointer-events-auto flex w-full items-start gap-2 rounded-md px-3 py-2 text-left text-sm font-medium text-white shadow-lg ring-1 ring-black/10 oled:ring-white/15",
             t.kind === "success" && "bg-emerald-600 hover:bg-emerald-700",
             t.kind === "error" && "bg-red-600 hover:bg-red-700",
             t.kind === "info" && "bg-gray-700 hover:bg-gray-800",

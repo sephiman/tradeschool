@@ -117,7 +117,7 @@ export function AttemptResult({
           <p className="mb-1 text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
             {t("exercise.solution")}
           </p>
-          <pre className="overflow-x-auto rounded-md bg-gray-100 p-3 font-mono text-xs leading-relaxed text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+          <pre className="overflow-x-auto rounded-md bg-gray-100 p-3 font-mono text-xs leading-relaxed text-gray-800 dark:bg-gray-800 dark:text-gray-200 oled:bg-oled-bg oled:ring-1 oled:ring-oled-line">
             {solutionSteps.join("\n")}
           </pre>
         </div>

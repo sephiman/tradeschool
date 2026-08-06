@@ -14,6 +14,7 @@
   "theme": {
     "light": "Light",
     "dark": "Dark",
+    "oled": "OLED",
     "system": "System"
   },
   "nav": {

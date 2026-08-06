@@ -3,6 +3,25 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 
+/**
+ * Keypad faces, hoisted out of thirteen identical `className` attributes so the OLED delta is stated
+ * once rather than thirteen times. The strings are the existing ones verbatim, plus `KEY_OLED`.
+ *
+ * A key is a gray-800 tile on a gray-900 panel today — in OLED both are #000, so the tile stops
+ * being a tile and the border has to become the key. The operator, clear and equals keys are absent
+ * on purpose: their indigo/red/primary fills are accents, and accents read fine on black.
+ */
+const KEY_OLED = "oled:border-oled-line-strong oled:bg-oled-bg oled:hover:bg-oled-hover";
+const KEY_DIGIT =
+  "flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 " +
+  KEY_OLED;
+const KEY_DOT =
+  "flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-bold text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 " +
+  KEY_OLED;
+const KEY_UTIL =
+  "flex h-10 items-center justify-center rounded-md border border-border bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 " +
+  KEY_OLED;
+
 function cleanResult(val: number): string {
   if (!Number.isFinite(val)) return "Error";
   // Trim floating point artifacts up to 10 decimals
@@ -174,9 +193,9 @@ export function InlineCalculator({
   };
 
   return (
-    <div className="w-full max-w-xs rounded-xl border border-border bg-gray-50/90 p-3 shadow-sm dark:border-gray-800 dark:bg-gray-900/90">
+    <div className="w-full max-w-xs rounded-xl border border-border bg-gray-50/90 p-3 shadow-sm dark:border-gray-800 dark:bg-gray-900/90 oled:border-oled-line oled:bg-oled-bg">
       {/* Display header */}
-      <div className="mb-2 rounded-lg border border-gray-200 bg-white p-2.5 text-right shadow-inner dark:border-gray-700 dark:bg-gray-950">
+      <div className="mb-2 rounded-lg border border-gray-200 bg-white p-2.5 text-right shadow-inner dark:border-gray-700 dark:bg-gray-950 oled:border-oled-line-strong oled:bg-oled-bg">
         <div className="h-4 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-xs text-gray-400 dark:text-gray-500">
           {expression}
         </div>
@@ -191,7 +210,7 @@ export function InlineCalculator({
           <button
             type="button"
             onClick={memoryClear}
-            className="rounded border border-border px-1.5 py-0.5 font-mono text-xs text-gray-500 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="rounded border border-border px-1.5 py-0.5 font-mono text-xs text-gray-500 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 oled:hover:bg-oled-hover"
             title="Memory Clear"
           >
             MC
@@ -200,7 +219,7 @@ export function InlineCalculator({
             type="button"
             onClick={memoryRecall}
             disabled={memory === null}
-            className="rounded border border-border px-1.5 py-0.5 font-mono text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-40 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="rounded border border-border px-1.5 py-0.5 font-mono text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-40 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 oled:hover:bg-oled-hover"
             title="Memory Recall"
           >
             MR {memory !== null && "•"}
@@ -208,7 +227,7 @@ export function InlineCalculator({
           <button
             type="button"
             onClick={memoryAdd}
-            className="rounded border border-border px-1.5 py-0.5 font-mono text-xs text-gray-500 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="rounded border border-border px-1.5 py-0.5 font-mono text-xs text-gray-500 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 oled:hover:bg-oled-hover"
             title="Memory Add"
           >
             M+
@@ -238,14 +257,14 @@ export function InlineCalculator({
         <button
           type="button"
           onClick={backspace}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className={KEY_UTIL}
         >
           ⌫
         </button>
         <button
           type="button"
           onClick={toggleSign}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className={KEY_UTIL}
         >
           ±
         </button>
@@ -265,21 +284,21 @@ export function InlineCalculator({
         <button
           type="button"
           onClick={() => inputDigit("7")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           7
         </button>
         <button
           type="button"
           onClick={() => inputDigit("8")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           8
         </button>
         <button
           type="button"
           onClick={() => inputDigit("9")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           9
         </button>
@@ -299,21 +318,21 @@ export function InlineCalculator({
         <button
           type="button"
           onClick={() => inputDigit("4")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           4
         </button>
         <button
           type="button"
           onClick={() => inputDigit("5")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           5
         </button>
         <button
           type="button"
           onClick={() => inputDigit("6")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           6
         </button>
@@ -333,21 +352,21 @@ export function InlineCalculator({
         <button
           type="button"
           onClick={() => inputDigit("1")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           1
         </button>
         <button
           type="button"
           onClick={() => inputDigit("2")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           2
         </button>
         <button
           type="button"
           onClick={() => inputDigit("3")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           3
         </button>
@@ -367,14 +386,14 @@ export function InlineCalculator({
         <button
           type="button"
           onClick={() => inputDigit("0")}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-medium text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DIGIT}
         >
           0
         </button>
         <button
           type="button"
           onClick={inputDot}
-          className="flex h-10 items-center justify-center rounded-md border border-border bg-white text-base font-bold text-gray-900 hover:bg-gray-100 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+          className={KEY_DOT}
         >
           .
         </button>

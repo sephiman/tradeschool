@@ -18,7 +18,7 @@ export function AuthCard({ title, children }: { title: string; children: ReactNo
           <h1 className="mb-4 text-lg font-semibold">{title}</h1>
           {children}
           {/* Preferences, not the task: muted, one compact row, below the sign-in/up link. */}
-          <div className="mt-6 flex items-center justify-center gap-2 border-t border-border pt-4 opacity-90 dark:border-gray-800">
+          <div className="mt-6 flex items-center justify-center gap-2 border-t border-border pt-4 opacity-90 dark:border-gray-800 oled:border-oled-line">
             <LanguageControl />
             {/* Full three-option control on wider screens; icon-cycle on phones so the row stays one line. */}
             <div className="hidden sm:block">

@@ -117,7 +117,7 @@ export function LessonPage() {
       </div>
       {/* End-of-lesson panel. The button is the *only* thing that marks a lesson read — nothing is
           inferred from scrolling or dwell time — so it says so rather than sitting unexplained. */}
-      <div className="mt-8 rounded-lg border border-border p-4 dark:border-gray-800">
+      <div className="mt-8 rounded-lg border border-border p-4 dark:border-gray-800 oled:border-oled-line">
         <div className="flex flex-wrap items-center gap-3">
           {lesson.completed ? (
             <Badge tone="green">{t("course.completed")}</Badge>

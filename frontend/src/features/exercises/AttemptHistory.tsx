@@ -43,7 +43,7 @@ export function AttemptHistory({ exerciseId }: { exerciseId: string }) {
   if (answered.length === 0) return null;
 
   return (
-    <details className="mt-4 border-t border-border pt-3 dark:border-gray-800">
+    <details className="mt-4 border-t border-border pt-3 dark:border-gray-800 oled:border-oled-line">
       <summary className="cursor-pointer text-sm font-medium text-gray-600 dark:text-gray-300">
         {t("exercise.history", { count: answered.length })}
       </summary>
@@ -53,7 +53,7 @@ export function AttemptHistory({ exerciseId }: { exerciseId: string }) {
             <button
               type="button"
               onClick={() => setSelected(a.attemptId === selected ? null : a.attemptId)}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-left text-xs hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-left text-xs hover:bg-gray-100 dark:hover:bg-gray-800 oled:hover:bg-oled-hover"
             >
               <span className="text-gray-500 dark:text-gray-400">
                 {formatDateTime(a.createdAt)}
@@ -69,7 +69,7 @@ export function AttemptHistory({ exerciseId }: { exerciseId: string }) {
       {review && review.attemptId === selected && (
         // Scoped strictly to this expanded item — its own chart instance, independent of any
         // fresh attempt in progress above; collapsing unmounts it and cleans up.
-        <div className="mt-2 rounded-md bg-gray-50 p-3 dark:bg-gray-900/50">
+        <div className="mt-2 rounded-md bg-gray-50 p-3 dark:bg-gray-900/50 oled:bg-oled-bg oled:ring-1 oled:ring-oled-line">
           <Prose markdown={review.prompt} />
           {CHART_TYPES.has(review.type) && review.payload.series && (
             <div className="mt-2">

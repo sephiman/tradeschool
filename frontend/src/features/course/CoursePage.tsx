@@ -201,7 +201,7 @@ export function CoursePage() {
           </div>
         </section>
       ))}
-      <p className="border-t border-border pt-4 text-xs text-gray-400 dark:border-gray-800 dark:text-gray-500">
+      <p className="border-t border-border pt-4 text-xs text-gray-400 dark:border-gray-800 dark:text-gray-500 oled:border-oled-line">
         {t("course.prereqFootnote")}
       </p>
     </div>

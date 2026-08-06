@@ -10,7 +10,10 @@ export function CandleAnatomy({ theme }: { theme?: ResolvedTheme } = {}) {
   // Geometry in a 340×220 viewBox: one bullish candle, wicks to high/low, dashed guides to labels.
   const cx = 120;
   const high = 24, bodyTop = 66, bodyBottom = 150, low = 196;
-  const guide = light ? "stroke-gray-300" : "stroke-gray-300 dark:stroke-gray-700";
+  // A dashed 1px guide at gray-700 is already the faintest mark on the figure; against #000 it drops
+  // below legible, so OLED takes it one step up. The labels keep gray-300 — readable on black, and
+  // deliberately not white, which the dark theme already tones down for the same reason.
+  const guide = light ? "stroke-gray-300" : "stroke-gray-300 dark:stroke-gray-700 oled:stroke-gray-600";
   const label = light ? "fill-gray-600 text-[13px]" : "fill-gray-600 dark:fill-gray-300 text-[13px]";
   const rows: [number, string][] = [
     [high, t("candle.high")],

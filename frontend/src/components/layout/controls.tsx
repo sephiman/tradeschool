@@ -24,7 +24,7 @@ export function Segmented<T extends string>({
       role="group"
       aria-label={ariaLabel}
       className={cn(
-        "gap-0.5 rounded-md border border-border p-0.5 dark:border-gray-700",
+        "gap-0.5 rounded-md border border-border p-0.5 dark:border-gray-700 oled:border-oled-line-strong",
         block ? "flex w-full" : "inline-flex",
       )}
     >
@@ -41,7 +41,7 @@ export function Segmented<T extends string>({
               block && "flex-1",
               active
                 ? "bg-primary text-primary-foreground"
-                : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
+                : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
             )}
           >
             {o.label}
@@ -72,7 +72,7 @@ export function LanguageControl({ block }: { block?: boolean }) {
   );
 }
 
-/** Claro/Oscuro/Sistema segmented control. */
+/** Claro/Oscuro/OLED/Sistema segmented control. */
 export function ThemeControl({ block }: { block?: boolean }) {
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
@@ -85,13 +85,14 @@ export function ThemeControl({ block }: { block?: boolean }) {
       options={[
         { value: "light", label: t("theme.light") },
         { value: "dark", label: t("theme.dark") },
+        { value: "oled", label: t("theme.oled") },
         { value: "system", label: t("theme.system") },
       ]}
     />
   );
 }
 
-const THEME_ORDER: ThemePreference[] = ["light", "dark", "system"];
+const THEME_ORDER: ThemePreference[] = ["light", "dark", "oled", "system"];
 
 function ThemeIcon({ theme }: { theme: ThemePreference }) {
   const common = {
@@ -120,6 +121,16 @@ function ThemeIcon({ theme }: { theme: ThemePreference }) {
       </svg>
     );
   }
+  // OLED gets the contrast glyph rather than a second moon: it is not "more night", it is the same
+  // dark theme taken to maximum contrast, and next to the moon a half-filled disc says that.
+  if (theme === "oled") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
   return (
     <svg {...common}>
       <rect x="2" y="4" width="20" height="13" rx="2" />
@@ -128,8 +139,9 @@ function ThemeIcon({ theme }: { theme: ThemePreference }) {
   );
 }
 
-/** Compact theme control that cycles light → dark → system. Used where a three-option segmented
- * control would be too wide (the auth-card footer on phone widths). */
+/** Compact theme control that cycles light → dark → OLED → system. Used where the segmented control
+ * would be too wide (the auth-card footer on phone widths) — it cycles through every option rather
+ * than a subset, because a phone is exactly where OLED matters most. */
 export function ThemeCycleButton() {
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
@@ -140,7 +152,7 @@ export function ThemeCycleButton() {
       aria-label={t("common.theme")}
       title={t(`theme.${theme}`)}
       onClick={() => setTheme(next)}
-      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 oled:border-oled-line-strong oled:hover:bg-oled-hover"
     >
       <ThemeIcon theme={theme} />
     </button>

@@ -117,7 +117,7 @@ export function ExamRunner() {
               onClick={() => setCurrent(i)}
               className={cn(
                 "h-8 w-8 rounded-md border text-xs font-medium tabular-nums transition-colors",
-                i === current && "ring-2 ring-primary ring-offset-1 dark:ring-offset-gray-900",
+                i === current && "ring-2 ring-primary ring-offset-1 dark:ring-offset-gray-900 oled:ring-offset-oled-bg",
                 isAnswered
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border text-gray-600 hover:border-primary/60 dark:border-gray-700 dark:text-gray-300",
@@ -166,7 +166,7 @@ export function ExamRunner() {
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2 border-t border-border pt-4 dark:border-gray-800">
+      <div className="flex items-center justify-between gap-2 border-t border-border pt-4 dark:border-gray-800 oled:border-oled-line">
         <button
           type="button"
           onClick={onAbandon}

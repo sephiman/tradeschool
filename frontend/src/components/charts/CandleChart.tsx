@@ -66,32 +66,64 @@ export interface PriceBand {
   kind: string;
 }
 
-const palette = (dark: boolean) => ({
-  background: "transparent",
-  text: dark ? "#9ca3af" : "#6b7280",
-  grid: dark ? "#1f2937" : "#eef2f7",
-  border: dark ? "#374151" : "#e5e7eb",
-  up: "#16a34a",
-  down: "#dc2626",
-  upVol: dark ? "rgba(22,163,74,0.4)" : "rgba(22,163,74,0.3)",
-  downVol: dark ? "rgba(220,38,38,0.4)" : "rgba(220,38,38,0.3)",
-  indicator: "#6366f1",
-  signal: "#f59e0b",
-  oi: "#0891b2",
-  cvd: "#0d9488",
-  marker: dark ? "#e5e7eb" : "#111827",
-  // A shaded zone follows the `plan` colour precedent: the SAME high-contrast neutral the markers use,
-  // deliberately not red/green. An origin zone can be demand or supply and an imbalance can point either
-  // way, so a green band would import exactly the "bullish order block" semantics m30-l1 refuses. The
-  // fill is that neutral at low alpha — enough to read as an area, not enough to tint the candles.
-  band: dark ? "#e5e7eb" : "#111827",
-  bandFill: dark ? "rgba(229,231,235,0.10)" : "rgba(17,24,39,0.08)",
-  // Distinct thin-line colors for price-pane overlays (e.g. moving averages), cycled by order.
-  overlays: dark ? ["#60a5fa", "#c084fc", "#22d3ee", "#facc15"] : ["#2563eb", "#9333ea", "#0891b2", "#ca8a04"],
-});
+/**
+ * The drawing palette. OLED is the dark palette with a delta applied on top, never a third branch:
+ * light and dark come out of the same expression they always did, so the two shipped themes cannot
+ * drift while the third is tuned.
+ *
+ * What the delta touches is only what pure black actually changes. Every SIGNAL colour is kept —
+ * candle up/down, the indicator/signal pair, OI, CVD, the overlay cycle, and the neutral the markers,
+ * `plan` lines and shaded bands share — because saturated ink gains contrast on #000 rather than
+ * losing it, and re-tinting it per theme would mean m21's stop line is a different colour depending
+ * on the reader's preference. What does change is the CHROME: the grid and axis borders carry a blue
+ * cast (gray-800/700) that reads as a colour rather than a rule once the background is neutral black,
+ * and the crosshair, which is a library default in light and dark, is too dim against it.
+ */
+const OLED_INK = {
+  background: "#000000",
+  // Neutral, and at the same visibility the blue-tinted grid had against gray-950 — a grid that gains
+  // contrast with the background is a grid that competes with the candles. Shared with SharedLedger's
+  // `--color-chart-grid`; the axis border is its `border-strong`, since here that line is also the
+  // RSI/MACD/CVD guide and has to stay readable as a rule rather than as decoration.
+  grid: "#262626",
+  border: "#454545",
+  // Explicit ONLY here. Light and dark leave the library's crosshair defaults alone (which is why the
+  // chart options below spread this in rather than passing undefined), so neither can shift.
+  crosshair: "#5a5a5a",
+} as const;
+
+export const palette = (theme: ResolvedTheme) => {
+  const dark = theme !== "light";
+  const base = {
+    background: "transparent",
+    text: dark ? "#9ca3af" : "#6b7280",
+    grid: dark ? "#1f2937" : "#eef2f7",
+    border: dark ? "#374151" : "#e5e7eb",
+    up: "#16a34a",
+    down: "#dc2626",
+    upVol: dark ? "rgba(22,163,74,0.4)" : "rgba(22,163,74,0.3)",
+    downVol: dark ? "rgba(220,38,38,0.4)" : "rgba(220,38,38,0.3)",
+    indicator: "#6366f1",
+    signal: "#f59e0b",
+    oi: "#0891b2",
+    cvd: "#0d9488",
+    marker: dark ? "#e5e7eb" : "#111827",
+    // A shaded zone follows the `plan` colour precedent: the SAME high-contrast neutral the markers use,
+    // deliberately not red/green. An origin zone can be demand or supply and an imbalance can point either
+    // way, so a green band would import exactly the "bullish order block" semantics m30-l1 refuses. The
+    // fill is that neutral at low alpha — enough to read as an area, not enough to tint the candles.
+    band: dark ? "#e5e7eb" : "#111827",
+    bandFill: dark ? "rgba(229,231,235,0.10)" : "rgba(17,24,39,0.08)",
+    // Distinct thin-line colors for price-pane overlays (e.g. moving averages), cycled by order.
+    overlays: dark ? ["#60a5fa", "#c084fc", "#22d3ee", "#facc15"] : ["#2563eb", "#9333ea", "#0891b2", "#ca8a04"],
+    // No crosshair override: the library's own default, in both shipped themes.
+    crosshair: undefined as string | undefined,
+  };
+  return theme === "oled" ? { ...base, ...OLED_INK } : base;
+};
 
 /** Horizontal-level color keyed by semantic kind (support/resistance/fib/plan/…). */
-function levelColor(c: ReturnType<typeof palette>, kind: string): string {
+export function levelColor(c: ReturnType<typeof palette>, kind: string): string {
   if (kind === "support") return c.up;
   if (kind === "resistance") return c.down;
   if (kind === "fib") return c.signal;
@@ -161,7 +193,7 @@ export function CandleChart({
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const c = palette(resolvedTheme === "dark");
+    const c = palette(resolvedTheme);
     const t = (i: number) => series.time[i] as UTCTimestamp;
 
     const chart: IChartApi = createChart(el, {
@@ -188,7 +220,14 @@ export function CandleChart({
         // mistakable for MM/DD), day ticks show DD/MM. No truncated edge labels.
         tickMarkFormatter: formatTick,
       },
-      crosshair: { mode: CrosshairMode.Normal },
+      // The colours are spread in only when the palette names them, so light and dark keep the
+      // library's own crosshair exactly as before rather than being handed an explicit `undefined`.
+      crosshair: {
+        mode: CrosshairMode.Normal,
+        ...(c.crosshair
+          ? { vertLine: { color: c.crosshair }, horzLine: { color: c.crosshair } }
+          : {}),
+      },
     });
 
     // Shaded price zones (m30's origin zone / imbalance), added FIRST so the candles draw on top of the

@@ -73,7 +73,7 @@ function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewT
 
 function ModuleRow({ m }: { m: ModuleStat }) {
   return (
-    <tr className="border-t border-border dark:border-gray-800">
+    <tr className="border-t border-border dark:border-gray-800 oled:border-oled-line">
       <td className="py-1.5 pr-2">{m.title ?? m.id}</td>
       <td className="py-1.5 pl-2">
         <span className="flex items-center justify-end gap-2 tabular-nums">
@@ -255,7 +255,7 @@ export function StatsPage() {
                   {/* Modules with nothing in them collapse to one line, so the few rows that carry
                       the learner's actual story are not buried under two dozen "0/x — —". */}
                   {untouched.length > 0 && (
-                    <tr className="border-t border-border dark:border-gray-800">
+                    <tr className="border-t border-border dark:border-gray-800 oled:border-oled-line">
                       <td colSpan={TABLE_COLUMNS} className="py-1.5">
                         <button
                           type="button"

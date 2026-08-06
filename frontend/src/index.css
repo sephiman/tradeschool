@@ -2,12 +2,57 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/**
+ * Where an `oled:` utility belongs, so the delta stays a delta:
+ *
+ *   1. Page and SURFACES — body, cards, the header, the floating menu, inset panels, code blocks —
+ *      go to `oled-bg`, and gain a border (or a `ring`, where a border would move the geometry)
+ *      whenever the fill they are losing was the only thing separating them from the page.
+ *   2. Inputs and controls take `oled-line-strong`: there the border is the affordance, not a seam.
+ *   3. Hover fills built on gray-700/800 become `oled-hover` — the least fill that still reads.
+ *   4. `dark:focus:ring-offset-gray-900` ALWAYS gets an `oled:focus:ring-offset-oled-bg` beside it.
+ *      The offset is painted, not transparent, so leaving it draws a gray halo around the ring.
+ *   5. Everything else — badges, tinted callouts, accents, text — inherits dark untouched. Ink gains
+ *      contrast against #000; only chrome that borrowed elevation actually breaks.
+ */
+
+/**
+ * OLED is dark plus a delta, never a third palette: the document carries BOTH `.dark` and `.oled`
+ * (see `applyToDocument` in lib/theme.tsx), so every `dark:` utility still applies and an `oled:`
+ * one only overrides what pure black actually breaks. That is also what keeps the dark theme
+ * untouched by construction — with no `.oled` ancestor, none of these rules can match.
+ *
+ * The descendant form (`.oled &`, specificity 0-2-0) is deliberate: `dark:` compiles to a
+ * `:where()` clause worth 0-1-0, so an `oled:` utility wins on specificity rather than on source
+ * order, which Tailwind does not promise between two custom variants.
+ */
+@custom-variant oled (.oled &);
+
 @theme {
   --color-primary: #4f46e5;
   --color-primary-foreground: #ffffff;
   --color-muted: #f3f4f6;
   --color-border: #e5e7eb;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /**
+   * The OLED palette, in one place. On #000 there is no elevation to borrow: a shadow falls on
+   * nothing and a surface one step lighter than the page is the only thing separating a card from
+   * its background — so a border does the work `shadow-sm` does elsewhere.
+   *   bg          every surface, page and card alike: pure black, which is the point of the theme
+   *   line        the separation border that replaces elevation (cards, panels, dividers)
+   *   line-strong inputs and controls, where the border is the affordance and not just a seam
+   *   hover       the smallest fill that still reads as "this responded to the pointer"
+   *
+   * The two line values are SharedLedger's `--color-border` / `--color-border-strong` under OLED, and
+   * the chart grid below matches its `--color-chart-grid`: the seams are what the eye compares across
+   * two apps from the same ecosystem sitting side by side, so they are shared numbers, not taste.
+   * Neutral greys throughout, never Tailwind's blue-tinted ones, which read as washed against #000.
+   */
+  --color-oled-bg: #000000;
+  --color-oled-line: #303030;
+  --color-oled-line-strong: #454545;
+  --color-oled-hover: #1c1c1c;
 }
 
 html, body, #root { height: 100%; }

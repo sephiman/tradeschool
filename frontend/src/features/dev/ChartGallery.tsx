@@ -63,7 +63,7 @@ export function ChartGallery() {
         <div>
           <h1 className="text-xl font-bold">Chart credibility gallery</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Dev-only. Ground-truth labels shown. Toggle the app theme to review light and dark.
+            Dev-only. Ground-truth labels shown. Toggle the app theme to review light, dark and OLED.
           </p>
         </div>
         <label className="text-sm">
@@ -168,7 +168,7 @@ export function ChartGallery() {
       )}
 
       {figureIds && figureIds.length > 0 && (
-        <section className="mt-10 border-t border-border pt-6 dark:border-gray-800">
+        <section className="mt-10 border-t border-border pt-6 dark:border-gray-800 oled:border-oled-line">
           <h2 className="text-lg font-bold">Lesson figures ({figureIds.length})</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             The whole figure set. Toggle the app language (EN/ES) and theme (light/dark) to review

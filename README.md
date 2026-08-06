@@ -362,7 +362,7 @@ lightweight-charts on a canvas, so the browser is the only place a rendered figu
 Rather than teach the backend to draw charts a second time — a second renderer to keep in step with the
 injectors and the level/band invariants — the export mounts each figure off-screen with the app's *own*
 components (`CandleChart`, `CandleAnatomy`), pins the palette to **light** whatever theme the reader
-uses, and screenshots it at 2× for print (~230 dpi). A figure that will not draw **fails the export,
+uses (light, dark or OLED — print is paper), and screenshots it at 2× for print (~230 dpi). A figure that will not draw **fails the export,
 naming the figure and reporting what it threw**; it never quietly leaves a hole where a chart should be,
 because the prose around it quotes the numbers that chart draws.
 
@@ -421,6 +421,39 @@ running Python, and a second implementation of a seeded RNG in TypeScript is exa
 codebase refuses elsewhere. What the *instances* must satisfy lives where they are made:
 `backend/tests/test_print_exercises.py` re-grades every published answer against its own seed, checks
 each chart answer's prices against the published series, and asserts two builds are byte-identical.
+
+## Themes
+
+Four choices — **Light**, **Dark**, **OLED**, **System** — in the avatar menu and in the auth-card
+footer (which collapses to an icon that cycles the same four on phone widths). The preference is
+stored in `localStorage`, not on the server, so it applies before the first request and is re-applied
+by a small inline script in `index.html` before React mounts (otherwise the first paint is the wrong
+theme).
+
+**System resolves to Light or Dark, and never to OLED.** `prefers-color-scheme` has no pure-black
+value to report, so reading system-dark as OLED would move every dark-mode reader onto a theme they
+never chose; pure black is a deliberate choice or it is nothing. `theme.test.tsx` pins the rule from
+both directions.
+
+**OLED is the dark theme plus a delta, not a third palette.** The document carries *both* `.dark` and
+`.oled`, so every existing `dark:` utility still applies and an `oled:` one overrides only what pure
+black actually breaks — which is also what makes the dark theme untouchable by construction: with no
+`.oled` ancestor, none of those rules can match. What the delta covers, and the rule for where an
+`oled:` utility belongs, is documented at the top of `src/index.css`. In short: on `#000` a shadow
+falls on nothing and a surface one step lighter than the page is no longer lighter than the page, so
+cards, panels, inputs and the floating menu trade elevation for a visible border, while badges,
+callouts, accents and text inherit dark unchanged — ink *gains* contrast against black.
+
+For **figures**, the same rule holds: `palette()` in `CandleChart.tsx` returns the dark palette with a
+delta, so every signal colour is shared across themes — candle up/down, the indicator/signal pair, OI,
+CVD, the overlay cycle, and the neutral that markers, shaded bands and `plan` lines share (m21/m24's
+entry/stop/target, which are deliberately *not* red or green). Only the chrome moves: background to
+pure black, a neutral grid and axis border in place of the blue-tinted grays, and an explicit
+crosshair — light and dark keep the library's default there, so neither can shift. `palette.test.ts`
+freezes the light and dark tables and asserts the OLED delta touches those four keys and no others.
+
+The dev-only chart gallery at `/dev/charts` renders every figure and a sweep of generated exercise
+charts with the production renderer, which is where a theme pass over the figures is done.
 
 ## Accounts
 

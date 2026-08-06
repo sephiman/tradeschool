@@ -12,7 +12,9 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-full flex-col">
-      <header className="border-b border-border bg-white dark:border-gray-800 dark:bg-gray-900">
+      {/* In OLED the header no longer sits a shade above the page, so its bottom rule is the only
+          thing dividing chrome from content — it steps up with the rest of the seams. */}
+      <header className="border-b border-border bg-white dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line oled:bg-oled-bg">
         {/* Logo and avatar never shrink or clip; the nav between them collapses into the avatar menu
             below `sm`, where it would otherwise crowd them (space-driven — a narrowed window too). */}
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
@@ -26,7 +28,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Link
               to={HOME_PATH}
               aria-label={t("nav.homeLabel", { name: t("app.name") })}
-              className="shrink-0 rounded-md text-lg font-semibold text-primary transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900"
+              className="shrink-0 rounded-md text-lg font-semibold text-primary transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900 oled:focus:ring-offset-oled-bg"
             >
               {t("app.name")}
             </Link>

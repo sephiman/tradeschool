@@ -261,7 +261,7 @@ function Matching({
               className={cn(
                 "rounded-md border p-3 transition-colors",
                 active
-                  ? cn(optionOn, "ring-2 ring-primary ring-offset-1 dark:ring-offset-gray-900")
+                  ? cn(optionOn, "ring-2 ring-primary ring-offset-1 dark:ring-offset-gray-900 oled:ring-offset-oled-bg")
                   : optionOff,
               )}
             >
@@ -313,7 +313,7 @@ function Matching({
               className={cn(
                 "flex w-full items-start gap-2 rounded-md border p-3 text-left text-sm transition-colors disabled:cursor-not-allowed",
                 isUsed
-                  ? "border-border bg-gray-50 text-gray-400 dark:border-gray-700 dark:bg-gray-800/40 dark:text-gray-500"
+                  ? "border-border bg-gray-50 text-gray-400 dark:border-gray-700 dark:bg-gray-800/40 dark:text-gray-500 oled:bg-oled-hover"
                   : "border-border hover:border-primary/60 dark:border-gray-700",
                 activeLeft === null && !isUsed && "opacity-60",
               )}
