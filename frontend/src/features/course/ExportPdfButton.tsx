@@ -10,14 +10,8 @@ import { pdfLabels } from "@/lib/pdf/labels";
 /**
  * The whole course as one printable PDF, in the language being browsed.
  *
- * It is not instant — 36 lessons, 29 figures and 23 exercise charts, each drawn off-screen — so the
- * button reports which phase it is in, and counts the two capture phases rather than just spinning.
- * A failure stays on the page: an error that disappears after three seconds is not an error state.
- *
- * Every word the document prints is resolved here and handed over as `labels`, which is what keeps
- * `lib/pdf/` free of i18next and buildable for either locale in a test. The chart label chains
- * (`chartLabel`/`divergence`, `chartMarker`, `band`) are the app's own, so a printed answer names a
- * pattern exactly as the screen does.
+ * Slow enough to report phases rather than spin, and a failure stays on the page. Every printed word is
+ * resolved here and handed over as `labels`, which keeps `lib/pdf/` free of i18next.
  */
 export function ExportPdfButton({ course }: { course: CourseMeta }) {
   const { t, i18n } = useTranslation();

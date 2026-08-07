@@ -11,9 +11,7 @@ function initials(username: string): string {
   return username.slice(0, 2).toUpperCase();
 }
 
-/** Account controls collapsed behind an avatar button (SharedLedger pattern): signed-in-as,
- * segmented language + theme, and sign out. Below `sm` the primary nav folds in here as a top
- * section too (one single menu), so the header never has to fit the links. */
+/** Account controls behind an avatar button (SharedLedger pattern); below `sm` the primary nav folds in. */
 export function AccountMenu({ user }: { user: Me }) {
   const { t } = useTranslation();
   const { logout } = useAuth();

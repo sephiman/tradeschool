@@ -16,7 +16,10 @@ from tradeschool.models import Base  # imports all domain models -> full metadat
 config = context.config
 
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    # disable_existing_loggers defaults to True, which would switch off every `tradeschool.*` logger
+    # already created by the time migrations run — silently, and for the rest of the process. The app
+    # runs migrations from its own startup lifespan, so that default costs us all application logging.
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = Base.metadata
 

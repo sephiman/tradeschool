@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Bulk instance generation for the in-app chart gallery (§ credibility gate). Returns full
-instances **with ground truth** — safe only because this router is mounted solely under DEV_MODE."""
+"""Bulk instance generation for the in-app chart gallery (§ credibility gate).
+
+Returns full instances **with ground truth** — safe only because it is mounted solely under DEV_MODE.
+"""
 
 from __future__ import annotations
 
@@ -47,8 +49,7 @@ async def dev_figures(
     _user: Annotated[User, Depends(current_active_user)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
 ) -> list[str]:
-    """Every lesson-figure id, for the dev gallery to render the whole set at once (both locales via
-    the app language toggle, both themes via the theme toggle). Dev-only."""
+    """Every lesson-figure id, for the dev gallery to render the whole set at once. Dev-only."""
     return sorted(registry.figures)
 
 
@@ -104,9 +105,8 @@ def _chart_rows(
 ) -> tuple[dict[str, list[Any]], int, object, str]:
     """Return (columns, warmup, groundTruth, indicator).
 
-    For synthetic charts the columns include the WARM-UP rows (indicator convergence), so the RSI
-    column is exactly reproducible by recomputing Wilder's RSI over the full `close` column. The
-    chart hides those rows; `visible`/`visible_index` mark which rows the learner actually sees.
+    Columns include the WARM-UP rows, so the RSI reproduces from the full `close` column;
+    `visible`/`visible_index` mark which rows the learner actually sees.
     """
     resolved = registry.get_exercise_config(exercise_id)
     if resolved is None:
@@ -166,9 +166,7 @@ async def dev_chart_data(
     lang: Annotated[str, Query(pattern="^(en|es)$")] = "en",
     fmt: Annotated[str, Query(pattern="^(json|csv)$")] = "json",
 ) -> object:
-    """Exact data behind a rendered chart for a given seed: full OHLC + the RSI/MACD as computed
-    and rendered, INCLUDING warm-up rows so the RSI reproduces from `close`. Recompute Wilder's RSI
-    over the full `close` column and compare the `rsi` column — they match exactly."""
+    """Exact data behind a rendered chart for a seed: full OHLC + RSI/MACD, warm-up rows included."""
     cols, warmup, ground, indicator = _chart_rows(registry, exercise_id, seed, lang)
     n = len(cols["close"])
     base_keys = ["time", "open", "high", "low", "close", "volume", "rsi", "macd", "macd_signal", "macd_hist"]
@@ -213,8 +211,7 @@ async def dev_attempts(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
 ) -> list[DevAttempt]:
-    """Your own attempts for an exercise WITH their seeds — so a past chart can be reproduced
-    exactly via /dev/charts/data. Dev-only (seeds aren't exposed in production)."""
+    """Your own attempts WITH their seeds, to reproduce a past chart. Dev-only — seeds aren't public."""
     rows = await session.scalars(
         select(Attempt)
         .where(Attempt.user_id == user.id, Attempt.exercise_id == exercise_id)

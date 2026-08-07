@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Exam session table. Modeled now so `attempts.exam_session_id` has a real FK from day one; a
-future exam is a selection of exercises with fresh seeds hanging off a session. No UI in v1."""
+"""Exam session table, modeled early so `attempts.exam_session_id` has a real FK from day one."""
 
 from __future__ import annotations
 

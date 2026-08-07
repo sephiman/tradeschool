@@ -10,12 +10,10 @@ import { CALLOUT_ID, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
 import { PRINT, contentWidth } from "@/lib/pdf/page";
 
 /**
- * Lesson markdown -> pdfmake content: the print half of the pair whose screen half is `lib/markdown.tsx`,
- * over the same dialect (GFM + remark-directive, `:::note` callouts, `::figure` leaves).
+ * Lesson markdown -> pdfmake content: the print half of `lib/markdown.tsx`, over the same dialect.
  *
- * A directive with no print rule renders as nothing, which is how `::exercise` stays out. That is the
- * absence of a rule, not a second implementation of the server-side stripping: nothing here matches on
- * the word "exercise".
+ * A directive with no print rule renders as nothing, which is how `::exercise` stays out — an absence
+ * of a rule, not a second copy of the server-side stripping.
  */
 
 const processor = unified().use(remarkParse).use(remarkGfm).use(remarkDirective);
@@ -34,8 +32,7 @@ interface Marks {
   link?: string;
 }
 
-/** A soft break is a space in markdown but a HARD break in pdfmake, so prose wrapped at 110 columns
- *  has to be unwrapped or every source line breaks on the page. */
+/** A soft break is a space in markdown but a HARD break in pdfmake, so wrapped prose must be unwrapped. */
 function unwrap(value: string): string {
   return value.replace(/[ \t]*\n[ \t]*/g, " ");
 }
@@ -93,9 +90,7 @@ const HEADING_STYLE = ["lessonTitle", "h2", "h3", "h4", "h4", "h4"] as const;
 
 /** The app's callout: a one-cell table is how pdfmake draws a filled box with a coloured left rule.
  *
- *  The `id` is what lets the pagination rule keep the box whole and, in the rare case of a box taller
- *  than a page, name it in the generation report. It has to be unique across the document — pdfmake
- *  throws on a duplicate — which is what `source` is for. */
+ *  The `id` lets the pagination rule keep the box whole; it must be unique or pdfmake throws. */
 function callout(tone: string, body: Content[], id: string): Content {
   const tones = PRINT.notes[tone] ?? PRINT.notes.info;
   // Annotated, so the tuple margins keep their contextual type through `withId`.
@@ -116,8 +111,7 @@ function callout(tone: string, body: Content[], id: string): Content {
   return withId(box, id);
 }
 
-/** Hands out `<kind>-<source>-<n>` ids within one lesson (or one exercise prompt), so every callout
- *  and figure block the pagination rules act on can be told apart and named. */
+/** Hands out `<kind>-<source>-<n>` ids within one lesson, so the pagination rules can name blocks. */
 class Ids {
   private next = 0;
   constructor(private readonly source: string) {}
@@ -235,8 +229,7 @@ export function figureIds(markdown: string): string[] {
   return ids;
 }
 
-/** `source` names what is being rendered (a lesson id, an exercise id). It only feeds the ids given
- *  to callouts and figure blocks, which must be unique across the whole document. */
+/** `source` (a lesson or exercise id) only feeds the block ids, which must be document-unique. */
 export function lessonToContent(markdown: string, r: MarkdownRenderers, source: string): Content[] {
   return blocks(parseLesson(markdown).children, r, new Ids(source));
 }

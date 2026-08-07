@@ -1,8 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Auth endpoints: thin wrappers over fastapi-users so slowapi rate limiting and the shared
-error envelope apply, and so the session cookie is written with the running app's settings.
-Identity is the username (no email); see auth/manager.py.
-"""
+"""Auth endpoints: thin wrappers over fastapi-users, so rate limiting and the error envelope apply."""
 
 from __future__ import annotations
 

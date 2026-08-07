@@ -1,38 +1,16 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Imbalance injector (module m30-l1): what the SMC dialect calls a "fair value gap" (FVG).
+"""Imbalance injector (m30-l1): what the SMC dialect calls a "fair value gap" (FVG).
 
-m08-l2 already warns about this phenomenon from the other end: a long wick printed in a thin weekend
-book is *un vacío de liquidez* — a stretch of price almost nothing traded through — and it says to
-distrust it. m30 keeps that warning and adds the half m08-l2 left out: the same emptiness, when a fast
-move leaves it behind, is a ZONE, and price coming back to it is common enough to be worth naming.
+Plants the standard three-candle detector: bar *i*'s high below bar *i+2*'s low, so exactly one candle
+crossed the span. Every chart carries at most one — `_close_stray_gaps` repairs incidental gaps, so the
+question has a single subject.
 
-The standard three-candle detector is what this plants and what the tests measure: bar *i*'s high sits
-BELOW bar *i+2*'s low, so the span between them was crossed by exactly one candle — bar *i+1* — and a
-span crossed inside a single bar is a span where almost nothing changed hands. Note "almost nothing",
-not "nothing": bar *i+1* did trade through it. That is the honest claim, and it is the one the lesson
-makes.
+Every label is BULLISH, deliberately — the same decision `origin_zone` documents, guarded by
+`test_chart_bands.py::test_imbalance_only_ever_plants_the_bullish_case`. `gap_spans` still detects both
+directions, since a chart must be provably free of a gap in *either*.
 
-* ``imbalance_unfilled`` — the gap is still open: no later candle has traded back into it.
-* ``imbalance_filled``   — price came back and traded clean through the whole span. A gap that has been
-  filled is spent, and treating a filled gap as a live zone is the second characteristic error.
-* ``no_imbalance``       — a move just as fast and just as large, whose candles OVERLAP all the way up,
-  so no span was crossed in one bar. This is the first characteristic error — reading any big candle as
-  an FVG — given its own label.
-
-Every chart carries **exactly one** imbalance (or none): `_close_stray_gaps` repairs any incidental
-three-candle gap outside the planted one, so the question always has a single, unambiguous subject.
-
-**Every label is BULLISH, deliberately** — the same decision `origin_zone` documents. `gap_spans` below
-detects both directions, because a chart must be provably free of a gap in *either* of them, but the
-planted move only ever runs up: m30-l1 and m30-ex-2 state the up-gap case in words ("one candle's HIGH
-below the LOW of the candle two bars later"), and a bearish seed would be graded against a prompt
-describing the mirror. `test_chart_bands.py::test_imbalance_only_ever_plants_the_bullish_case` fails if a
-bearish variant is ever added, until both prompts and the lesson are made symmetric in BOTH languages.
-
-The `Band` is ground truth (drawing it answers the question); `hides_resolution` is True. Candles are
-planted (`candles_full`) because the gap's two edges ARE two specific wicks: `build_series` draws them
-from a half-normal, and at the impulse bar the local volatility it derives is large enough to swallow the
-whole gap, so leaving those edges to chance would leave the label to chance.
+Candles are planted (`candles_full`) because the gap's edges ARE two specific wicks: at the impulse bar,
+the volatility `build_series` derives is large enough to swallow the whole gap.
 """
 
 from __future__ import annotations
@@ -107,12 +85,9 @@ GAP_FLOOR = 0.012
 
 
 def gap_spans(series: Series, lo: int, hi: int) -> list[tuple[int, float, float]]:
-    """Every three-candle imbalance in `[lo, hi)`: (index of the first bar, span low, span high).
+    """Every three-candle imbalance in `[lo, hi)`, both directions: (first bar, span low, span high).
 
-    The standard detector, in both directions: bar *i*'s high below bar *i+2*'s low (a gap left by a fast
-    rise), or bar *i*'s low above bar *i+2*'s high (the mirror, left by a fast fall). Only spans of at
-    least `GAP_FLOOR` count — this is the definition the injector plants, the repair pass removes and the
-    tests measure, so it lives in one place.
+    The one definition the injector plants, the repair pass removes and the tests measure.
     """
     out: list[tuple[int, float, float]] = []
     for i in range(max(0, lo), min(hi, len(series.close) - 2)):
@@ -126,12 +101,9 @@ def gap_spans(series: Series, lo: int, hi: int) -> list[tuple[int, float, float]
 
 
 def _close_stray_gaps(series: Series, keep: int | None) -> None:
-    """Leave `keep`'s gap alone and remove every other one, by extending the earlier bar's WICK across it.
+    """Remove every gap but `keep`'s, extending the earlier bar's WICK to where the later bar traded.
 
-    A chart with two imbalances on it has two possible answers, so this is what makes the question
-    single-subject. It only ever lengthens a wick — the same restriction `apply_level_guards` works
-    under — and it lengthens it to exactly where the later bar traded, which is the honest edit: the
-    claim being removed is "nothing crossed this span", and a bar whose range reaches across it did.
+    Only ever lengthens a wick — the same restriction `apply_level_guards` works under.
     """
     for i in range(len(series.close) - 2):
         if i == keep:

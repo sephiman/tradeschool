@@ -11,13 +11,8 @@ vi.mock("lightweight-charts", () => ({
 const { levelColor, palette } = await import("./CandleChart");
 
 /**
- * The colours the figures are drawn with, pinned.
- *
- * The point of the frozen light and dark tables is the OLED brief's hardest constraint: the shipped
- * themes must come out of this change unchanged. A palette is the kind of thing that gets "tidied"
- * while a third variant is being tuned — one shared neutral nudged, and every chart in the course
- * shifts — and nothing else in the suite would notice, because a chart that draws in slightly wrong
- * colours still draws.
+ * The colours the figures are drawn with, pinned so the shipped themes cannot shift while a third is
+ * tuned. Nothing else in the suite would notice: a chart in slightly wrong colours still draws.
  */
 
 const LIGHT = {

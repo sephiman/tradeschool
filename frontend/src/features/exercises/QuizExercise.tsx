@@ -31,8 +31,7 @@ function SubmitButton({ disabled, onSubmit }: { disabled: boolean; onSubmit?: ()
   );
 }
 
-/** Dispatch on the quiz sub-kind. Each control lives in its own component so
- *  its local state (and hooks) mount/unmount cleanly with the sub-kind. */
+/** Dispatch on the quiz sub-kind; each control is its own component so its state unmounts cleanly. */
 export function QuizExercise({
   payload,
   pending,

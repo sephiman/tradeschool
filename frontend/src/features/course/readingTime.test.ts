@@ -14,25 +14,15 @@ import {
 } from "./readingTime";
 
 /**
- * Reading time across the four surfaces.
- *
- * The backend serves SECONDS per lesson; everything else — module, block, course, and the string a
- * reader sees — is derived here. Two properties matter more than any single number:
- *
- * 1. **Sum seconds, round once.** Rounded minutes do not add up: three 89-second lessons are "~1 min"
- *    each and "~4 min" together. A reader who adds the visible block figures must land exactly on the
- *    course figure, and that only holds if minutes are computed from summed seconds at the very end.
- * 2. **One source, every level.** Course remaining, block remaining and module remaining all come from
- *    the same function over the same per-lesson values, so they cannot drift apart — the consistency is
- *    structural, not a coincidence three call sites keep up by hand.
+ * Reading time across the four surfaces. Two properties matter more than any single number: sum seconds
+ * and round ONCE (rounded minutes do not add up), and derive every level from the same function.
  */
 
 function lesson(readingSeconds: number, completed = false): TimedLesson {
   return { readingSeconds, completed };
 }
 
-/** i18next's interpolation, over the REAL catalogs: the tests below assert the string a reader sees,
- *  not a shape a stand-in invented — a catalog missing a key or a placeholder fails here. */
+/** i18next interpolation over the REAL catalogs, so a missing key or placeholder fails here. */
 function translator(catalog: Record<string, unknown>) {
   const course = (catalog as { course: Record<string, string> }).course;
   return (key: string, params: Record<string, number>): string => {

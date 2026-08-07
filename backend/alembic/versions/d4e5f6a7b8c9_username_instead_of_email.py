@@ -1,10 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """username instead of email
 
-Switches user identity from email to username (self-hosted, no SMTP). Existing accounts get an
-initial username derived from their email's local part (sanitized, collision-suffixed). The email
-column is dropped, a case-insensitive UNIQUE index on lower(username) is added, and all session
-tokens are cleared so everyone re-authenticates with their new username.
+Backfills usernames from the email local part, drops email, and clears all session tokens.
 
 Revision ID: d4e5f6a7b8c9
 Revises: c7d9e1f3a5b7

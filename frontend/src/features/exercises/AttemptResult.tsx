@@ -12,11 +12,7 @@ function asStringArray(value: unknown): string[] | null {
   return Array.isArray(value) ? value.map((x) => String(x)) : null;
 }
 
-/**
- * `correctAnswer` arrives in one of several server shapes depending on the
- * exercise kind. Narrow with guards and render each readably (human text for
- * matching/ordering, not raw ids).
- */
+/** Narrow `correctAnswer`'s several server shapes and render each readably, never as raw ids. */
 function renderCorrectAnswer(value: unknown, t: TFunction): ReactNode {
   if (value == null) return null;
   if (typeof value === "string") return value;

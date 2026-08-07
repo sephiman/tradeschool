@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Attempt lifecycle: open (generate a seeded scenario without the solution), answer (grade
-server-side and reveal the instantiated solution), review (replay any past attempt from its seed).
-"""
+"""Attempt lifecycle: open a seeded scenario, answer it (graded server-side), review it from its seed."""
 
 from __future__ import annotations
 

@@ -1,15 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Quiz generator: a per-concept variant bank. The seed picks a variant and lays it out
-deterministically (shuffling options / items / pair sides). A variant is one of five sub-kinds,
-selected by its `kind` field — all graded server-side, all hiding the solution from the pre-answer
-payload, all sharing the same attempt/seed/statistics model:
+"""Quiz generator: a per-concept variant bank, laid out deterministically from the seed.
 
-* ``single_choice`` (default) — pick one option.
-* ``true_false``            — judge a claim.
-* ``multi_select``          — pick every correct option (graded all-or-nothing on the exact set).
-* ``ordering``              — arrange items into the correct sequence (all-or-nothing).
-* ``matching``              — pair each left item with its right item (exact mapping; both sides
-                              shuffled independently so position never reveals the pairing).
+Five sub-kinds selected by a variant's `kind` field: `single_choice`, `true_false`, `multi_select`,
+`ordering` and `matching`. The last three are graded all-or-nothing.
 """
 
 from __future__ import annotations

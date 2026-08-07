@@ -1,23 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Liquidity-sweep injector (modules m17-l2 and m06-l1): the shelf, the wick through it, the snap-back.
+"""Liquidity-sweep injector (m17-l2 and m06-l1): the shelf, the wick through it, the snap-back.
 
-Two lessons describe the same candle from different ends. m17-l2 builds the picture from the ORDERS: a
-low that held twice, stops shelved just below it, liquidation prices under those — a pocket of resting
-sell orders that price is drawn through and then leaves. m06-l1 builds it from the MECHANICS: forced
-selling exhausts a thin book, the wick overshoots violently and snaps back, because the spike was
-liquidation flow and not new information about value.
+The geometry is identical across labels on purpose — it is one event, and sharing an injector is what
+keeps the two lessons from teaching two different shapes for it. Only the annotation and spike size
+differ, which is the difference in emphasis between the two passages.
 
-* ``liquidity_sweep``     — marked `sweep`, a firm volume spike on the sweep bar (m17-l2).
-* ``liquidation_cascade`` — the same geometry marked `liquidation`, with the volume spike of forced flow
-  hitting a thin book (m06-l1).
-
-The geometry is identical on purpose: it is one event, and having the two figures share an injector is
-what keeps the two lessons from teaching two different shapes for it. What differs is the annotation and
-the size of the spike, which is exactly the difference in emphasis between the two passages.
-
-The sweep is a planted WICK (`candles_full`), not a close-path excursion: "price wicked to 59,700 and
-snapped straight back above 60,000" means the body stayed above the shelf and only the wick went through.
-Classification injector — the sweep is on screen, there is no hidden future to leak.
+The sweep is a planted WICK (`candles_full`), not a close-path excursion: the body stayed above the
+shelf and only the wick went through. Classification injector — no hidden future to leak.
 """
 
 from __future__ import annotations

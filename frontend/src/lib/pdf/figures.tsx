@@ -9,15 +9,13 @@ import { CandleChart, type SwingMarker } from "@/components/charts/CandleChart";
 import type { CapturedFigure } from "@/lib/pdf/document";
 
 /**
- * Figure capture for the PDF export: each figure drawn off-screen by the app's OWN chart components —
- * there is no second renderer to drift from the one on screen — then screenshotted as a PNG.
+ * Figure capture for the PDF: each figure drawn off-screen by the app's OWN chart components, so there
+ * is no second renderer to drift, then screenshotted as a PNG.
  *
- * Every failure throws, naming the figure. A figure that will not render has to stop the export: the
- * prose around it quotes the numbers it draws.
+ * Every failure throws, naming the figure — the prose around it quotes the numbers it draws.
  */
 
-/** Stage size in CSS px. Kept small so lightweight-charts' fixed 12 px axis labels stay ~8 pt on the
- *  page; the pixel count comes from PRINT_SCALE, which is ~230 dpi at this width. */
+/** Stage size in CSS px, kept small so lightweight-charts' fixed 12 px axis labels stay ~8 pt. */
 export const STAGE_WIDTH = 760;
 export const STAGE_HEIGHT = 300;
 export const PRINT_SCALE = 2;
@@ -44,8 +42,7 @@ export function nextFrame(): Promise<void> {
   return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
 }
 
-/** Catches what a figure threw while rendering, so the export can report that instead of a timeout —
- *  a component that throws on mount is otherwise indistinguishable from a slow one. */
+/** Catches a figure's render error, so the export reports it rather than an indistinguishable timeout. */
 export class CaptureBoundary extends Component<{ onError: (error: Error) => void; children: ReactNode }> {
   componentDidCatch(error: Error): void {
     this.props.onError(error);
@@ -105,8 +102,7 @@ export async function mount(stage: HTMLElement, node: ReactNode): Promise<Mounte
   return { root, failure: () => thrown.error };
 }
 
-/** A degenerate bitmap does not make the typesetter complain — it makes it spin. Reject it here, where
- *  the figure can still be named. */
+/** A degenerate bitmap makes the typesetter SPIN rather than complain, so reject it while it has a name. */
 const MIN_BITMAP_PX = 64;
 
 export function toPng(canvas: HTMLCanvasElement, what: string): string {
@@ -155,8 +151,7 @@ async function capturePanel(panel: FigurePanel, figureId: string): Promise<strin
   }
 }
 
-/** Paint properties to inline: a hand-drawn figure's colours come from Tailwind classes, which do not
- *  travel with the markup once it is serialized away from the app's stylesheet. */
+/** Paint properties to inline: Tailwind class colours do not survive serialization away from the sheet. */
 const INLINED_SVG_PROPS = [
   "fill",
   "stroke",

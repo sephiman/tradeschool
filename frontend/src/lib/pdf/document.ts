@@ -13,19 +13,14 @@ import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf
 import { DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, panelWidth } from "@/lib/pdf/page";
 
 /**
- * The course as a print document: a pure function of (course identity, theory export, figure images,
- * printed exercises). No DOM, no network, no i18next — the localized chrome arrives as `labels` — so
- * the whole document is buildable, and assertable, for either locale in a test.
+ * The course as a print document: a pure function of (identity, theory export, figures, exercises).
  *
- * Two sources, joined by id. The lesson tree comes from `/course/export`, which is prose only
- * (`registry._theory_only` strips the `::exercise` directives server-side); the exercises come from
- * `/course/print/exercises`, one frozen instance each, and are printed after the prose of the lesson
- * they belong to. Their answers make the key at the back — built from the same objects, so an
- * exercise and its answer cannot come from different instances.
+ * No DOM, network or i18next — the localized chrome arrives as `labels` — so either locale is
+ * assertable in a test. Two sources joined by id: prose from `/course/export`, exercises from
+ * `/course/print/exercises`, whose answers make the key from the same objects.
  */
 
-/** Who the course is by. Not translated — a name is a name — so the localized part is only the label
- *  around it, which arrives through `labels.author`. */
+/** Who the course is by. Not translated; only the label around it, via `labels.author`. */
 export const COURSE_AUTHOR = "Juan José Hernández Garrido";
 
 /** A figure as captured from the app's chart renderer: one PNG per panel, plus its caption. */
@@ -53,17 +48,14 @@ export interface BuildCourseDocumentOptions {
   exercises: PrintExercises;
   /** One captured PNG per chart exercise, keyed by exercise id. */
   exerciseCharts: Map<string, string>;
-  /** Called for a box too tall to fit on any page, so the report can name it. Such a box has to
-   *  break somewhere; it is reported, never a failure. */
+  /** Called for a box too tall for any page, so the report can name it. Never a failure. */
   onOversizedBlock?: (block: OversizedBlock) => void;
-  /** Collects which page each top-level section starts on, for the running footer. Pass one in to
-   *  read the mapping back after rendering; otherwise the document keeps its own. */
+  /** Which page each top-level section starts on, for the footer. Pass one in to read it back. */
   sections?: SectionTracker;
   labels: PdfLabels;
 }
 
-/** `lessonId` and `figureId` are not pdfmake properties — the renderer ignores them, and they are what
- *  let the tests check "every lesson starts a page" and "one block per figure" on the document itself. */
+/** `lessonId`/`figureId` are not pdfmake properties; the renderer ignores them and the tests use them. */
 export interface LessonSection extends ContentStack {
   lessonId: string;
   pageBreak: "before";
@@ -154,14 +146,12 @@ function renderers(figures: Map<string, CapturedFigure>): MarkdownRenderers {
   };
 }
 
-/** What the footer prints on the left: the book, and — once the first block has started — where in it
- *  the reader is. Before that (cover, contents) there is no section, and it reads as it always did. */
+/** The footer's left side: the book, plus the current section once the first block has started. */
 export function runningTitle(courseTitle: string, section: string | undefined): string {
   return section ? `${courseTitle} · ${section}` : courseTitle;
 }
 
-/** The captured chart for one exercise, or a stop: a question printed without its chart is unanswerable
- *  — the same rule a lesson figure follows, for the same reason. */
+/** The captured chart for one exercise, or a stop — a chartless question is unanswerable. */
 function exerciseChart(charts: Map<string, string>): ExerciseChartLookup {
   return (exerciseId) => {
     const image = charts.get(exerciseId);

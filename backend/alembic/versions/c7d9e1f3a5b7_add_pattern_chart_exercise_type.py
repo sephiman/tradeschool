@@ -1,9 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """add pattern_chart to the exercise_type enum
 
-Phase 2 introduces the generic pattern-chart generator (fakeouts, Wyckoff, moving averages,
-oscillator readings, Fibonacci, volume, derivatives). Its ExerciseType value must exist in the
-Postgres enum before the manifest can reconcile pattern_chart exercises.
+Must land before the manifest can reconcile pattern_chart exercises.
 
 Revision ID: c7d9e1f3a5b7
 Revises: 1386dd39f51f

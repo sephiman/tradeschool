@@ -1,10 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Authentication backend: cookie transport + database (opaque token) strategy.
 
-Cookie *reading* (validating an incoming session) uses a module-level transport configured with
-the process defaults — only the cookie name matters there, and it is stable. Cookie *writing*
-(login/logout) is done explicitly in the router using the running app's settings, so the Secure
-flag follows COOKIE_SECURE per deployment (and per test).
+Reading a cookie uses the module-level transport (only the stable cookie name matters); WRITING one is
+done in the router with the running app's settings, so Secure follows COOKIE_SECURE per deployment.
 """
 
 from __future__ import annotations

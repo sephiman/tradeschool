@@ -19,19 +19,15 @@ interface PatternAnnotation {
 
 /** Map a pattern_chart ground truth to CandleChart bands (m30's origin zone / imbalance).
  *
- * Bands live in the GRADED answer and nowhere else: the pre-answer payload has no `bands` key at all,
- * because shading the zone on the question would be handing over the answer. So this is the only path by
- * which an exercise chart ever draws one — after answering, on the same chart, which is where the zone is
- * finally worth seeing. Absent for every label that plants no zone (`no_zone`, `no_imbalance`). */
+ * Bands live in the GRADED answer only — the pre-answer payload has no `bands` key — so this is the one
+ * path by which an exercise chart ever draws one. */
 export function patternBands(groundTruth: unknown): PriceBand[] {
   const g = groundTruth as { bands?: PriceBand[] };
   if (!Array.isArray(g?.bands)) return [];
   return g.bands.filter((b) => b && typeof b.low === "number" && typeof b.high === "number");
 }
 
-/** Map a pattern_chart ground truth ({label, annotations, levels}) to CandleChart markers.
- * annotations[].index is in visible-window coordinates; kind "high"/"low" arrow above/below,
- * anything else renders as a neutral marker. */
+/** Map a pattern_chart ground truth to CandleChart markers; indices are visible-window coordinates. */
 export function patternMarkers(groundTruth: unknown): SwingMarker[] {
   const g = groundTruth as { annotations?: PatternAnnotation[] };
   if (!Array.isArray(g?.annotations)) return [];

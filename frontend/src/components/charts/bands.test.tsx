@@ -3,22 +3,14 @@ import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 /**
- * The shaded-zone primitive (m30's origin zone and imbalance).
+ * The shaded-zone primitive (m30's origin zone and imbalance) — what the RENDERER owes.
  *
- * A band is the one annotation in this course that is *withheld* rather than drawn: the exercise asks the
- * learner to find the zone, so shading it on the question would be handing over the answer. The backend
- * side of that is enforced in `test_chart_bands.py`; what this file locks is everything the renderer owes:
+ * A band must be a FILL between its two prices (not two more dashed lines, which read as mystery
+ * levels), drawn UNDER the candles, in the neutral annotation colour (never the up/down pair — a green
+ * band would assert a direction the lesson refuses), and carrying its own name.
  *
- * 1. a band renders as a FILL between its two planted prices, not as two more dashed price lines — the
- *    price-pane line count is an invariant (`levels.test.tsx`), and two dashed lines would read as two
- *    independent mystery levels, which is the exact defect that suite exists to prevent;
- * 2. it is drawn UNDER the candles, or the tint sits on top of the price action it describes;
- * 3. its colour is the neutral annotation colour, never the up/down pair — an origin zone can be demand
- *    or supply, so a green band would assert a direction the lesson explicitly refuses to;
- * 4. it carries its own localized name, so two bands never collapse into one title.
- *
- * The library renders to canvas, so as in `levels.test.tsx` it is mocked: what matters is the options the
- * component asks for, which is what a mock can assert and a jsdom render cannot.
+ * The library is mocked, as in `levels.test.tsx`: it renders to canvas, so only the requested options
+ * are assertable.
  */
 
 const addSeries = vi.fn();

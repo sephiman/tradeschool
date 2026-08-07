@@ -1,9 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """course entity
 
-Introduces the root course table and links the existing block/module tree to it. All current
-content belongs to the stable course id ``crypto-futures``; its blocks and modules are backfilled to
-that id. Progress, attempts and stats tables are untouched.
+Adds the root course table and backfills the block/module tree to ``crypto-futures``.
 
 Revision ID: e5f6a7b8c9d0
 Revises: d4e5f6a7b8c9

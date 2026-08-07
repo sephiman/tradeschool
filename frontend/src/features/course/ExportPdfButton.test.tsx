@@ -5,11 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
 import type { GenerateProgress } from "@/lib/pdf/generate";
 
-/**
- * What the reader sees while a 148-page PDF is being made, and when it fails. 36 lessons and 29 figures
- * drawn one at a time is too long for "click and wait": the button says which part of the work is
- * happening, and a failure stays on screen next to it rather than flashing past in a toast.
- */
+/** What the reader sees while the PDF is being made: a named phase, and a failure that stays on screen. */
 
 const generateCoursePdf = vi.fn<(o: { onProgress?: (p: GenerateProgress) => void }) => Promise<unknown>>();
 const downloadPdf = vi.fn();

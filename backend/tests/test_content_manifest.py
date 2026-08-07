@@ -46,8 +46,7 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
 
 
 def test_every_exercise_resolves_to_the_lesson_it_lives_on() -> None:
-    """A link back to a failed exercise addresses a lesson, and six modules carry two of them — so
-    the module is not enough and the `m08-ex-5` → `m08` prefix is actively wrong for half of m08."""
+    """Every exercise resolves to its LESSON — the `m08-ex-5` → `m08` prefix is wrong for half of m08."""
     registry = load_registry(get_settings().content_dir)
     for _, lesson, exercise in registry.manifest.iter_exercises():
         assert registry.exercise_lesson_id(exercise.id) == lesson.id
@@ -64,10 +63,10 @@ def test_all_phase1_exercises_are_playable() -> None:
 
 
 def test_every_figure_reference_resolves_and_no_spec_is_orphaned() -> None:
-    """A `::figure{id=…}` directive is a plain string in prose, so a typo or a renamed spec produces a
-    lesson with a permanently spinning placeholder — nothing server-side objects. Both directions are
-    checked: every reference must resolve to a loaded spec, and every spec must be referenced by some
-    lesson, so a figure that was built and never embedded cannot sit unused in the tree."""
+    """Both directions: every `::figure` reference resolves to a spec, and every spec is referenced.
+
+    A directive is a plain string in prose, so a typo produces a permanently spinning placeholder.
+    """
     registry = load_registry(get_settings().content_dir)
     referenced: dict[str, set[str]] = {}
     for locale, lessons in registry.markdown.items():
@@ -86,9 +85,7 @@ def test_every_figure_reference_resolves_and_no_spec_is_orphaned() -> None:
 
 
 def test_figure_only_injectors_are_never_used_by_an_exercise() -> None:
-    """The four figure-only injectors resolve their scenario on screen — the ladder continues, the trade
-    reaches its target, the limit never fills. That is the point of a figure and the opposite of what an
-    exercise may show, so no exercise config is allowed to select one."""
+    """No exercise config selects a figure-only injector: those resolve their scenario on screen."""
     registry = load_registry(get_settings().content_dir)
     for _, _, exercise in registry.manifest.iter_exercises():
         config = registry.get_exercise_config(exercise.id)

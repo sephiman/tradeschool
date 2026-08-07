@@ -1,8 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Base price engine: derive believable OHLC candles and correlated volume from a close path.
 
-Float is fine here — this is scenario data, not a graded financial figure (§8). The design goals
-(§3.3) are realistic candles (proportional wicks, no sawtooth) and volume correlated with movement.
+Float is fine here — this is scenario data, not a graded financial figure (§8).
 """
 
 from __future__ import annotations
@@ -45,9 +44,7 @@ def random_walk_close(
 
 
 def trend_walk_close(rng: np.random.Generator, n: int, base_price: float, sigma: Floats) -> Floats:
-    """A walk with a few drift *regimes* (trend up / trend down / range). Unlike a driftless walk,
-    a directional stretch carries real momentum, so RSI genuinely reaches oversold/overbought during
-    a trend (and stays mid-range when ranging) — how a real market segment reads."""
+    """A walk with a few drift regimes, so RSI genuinely reaches oversold/overbought during a trend."""
     regimes = int(rng.integers(2, 5))
     bounds = np.linspace(0, n, regimes + 1).astype(int)
     drift = np.zeros(n)

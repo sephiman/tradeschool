@@ -1,9 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { ResolvedTheme } from "@/lib/theme";
 
-/** A hand-drawn, theme-aware, responsive SVG of a single candle with its OHLC parts labeled — used
- * as the m03 "anatomy of a candle" figure. Scales to the container width (no fixed pixel size).
- * `theme` pins the palette instead of following the UI theme (the PDF export prints light). */
+/** Responsive SVG of one candle with its OHLC parts labeled (m03). `theme` pins the palette. */
 export function CandleAnatomy({ theme }: { theme?: ResolvedTheme } = {}) {
   const { t } = useTranslation();
   const light = theme === "light";

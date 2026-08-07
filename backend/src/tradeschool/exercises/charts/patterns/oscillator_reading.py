@@ -1,17 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Oscillator-reading injector (module m11).
+"""Oscillator-reading injector (m11): read the CURRENT state of the RSI beneath the price.
 
-A CLASSIFICATION pattern: read the CURRENT state of the RSI shown beneath the price.
-
-* ``overbought`` — a sustained recent rally pushes RSI above 70.
-* ``oversold``   — a sustained recent decline pushes RSI below 30.
-* ``neutral``    — choppy, balanced price keeps RSI mid-range (~40-60).
-
-The label is the visible reading, so there is no hidden resolution and the "last candles must not
-predict the label" test does not apply — the recent move IS the signal. No ambient tail is applied
-(that would flatten the very move being read); instead the ends are gentle bounded noise, so the
-credibility test (no synthetic spike) still holds. m11's lesson makes the point that an overbought
-reading in a strong trend is not itself a sell — but classifying the reading is the drill here.
+A CLASSIFICATION pattern, so no last-candle leak test. No ambient tail either — it would flatten the
+very move being read; the ends are gentle bounded noise so the no-synthetic-spike gate still holds.
 """
 
 from __future__ import annotations

@@ -32,12 +32,8 @@ function systemPrefersDark(): boolean {
 }
 
 /**
- * The OS is asked one question — dark or not — and it can only ever answer with one of those two.
- *
- * OLED is a choice, never an inference: `prefers-color-scheme` has no pure-black value to report, so
- * reading system-dark as OLED would put every dark-mode user on a theme they never asked for. It is
- * reachable only by picking it, which is also why it survives a reload — it is stored like any other
- * preference, not re-derived.
+ * The OS can only answer dark or not, so OLED is a choice and never an inference: `prefers-color-scheme`
+ * has no pure-black value, and reading system-dark as OLED would opt every dark-mode user in.
  */
 function resolve(theme: ThemePreference): ResolvedTheme {
   if (theme === "system") return systemPrefersDark() ? "dark" : "light";
@@ -45,10 +41,8 @@ function resolve(theme: ThemePreference): ResolvedTheme {
 }
 
 /**
- * OLED sets BOTH classes. It is the dark theme plus a delta (see the `oled` variant in index.css):
- * `.dark` keeps every existing dark utility applying, and `.oled` switches on the handful that pure
- * black needs. Dropping `.dark` here would leave OLED rendering as *light* everywhere no `oled:`
- * override happens to exist.
+ * OLED sets BOTH classes — it is dark plus a delta. Dropping `.dark` would render OLED as *light*
+ * everywhere no `oled:` override exists.
  */
 function applyToDocument(resolved: ResolvedTheme) {
   document.documentElement.classList.toggle("dark", resolved !== "light");
@@ -102,9 +96,8 @@ export function useTheme() {
 /**
  * The palette to draw with: an explicit override wins, otherwise the UI theme.
  *
- * An override also means "no `ThemeProvider` needed", which is the point: the PDF export draws figures in
- * its own React root outside the app tree, and mounting a second provider there would write `localStorage`
- * and toggle `<html class="dark">` as a side effect of exporting a file.
+ * An override also means no `ThemeProvider` is needed — the PDF export's own React root must not write
+ * `localStorage` or toggle `<html class="dark">` as a side effect of exporting a file.
  */
 export function useResolvedTheme(override?: ResolvedTheme): ResolvedTheme {
   const ctx = useContext(ThemeContext);

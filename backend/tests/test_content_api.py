@@ -63,9 +63,7 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
 
 
 async def test_course_export_carries_both_languages_by_default(content_client: AsyncClient) -> None:
-    """No `lang` means BOTH languages, not the reader's own. The course is authored in two and every
-    content change touches both, so an archive of one of them is half an archive — and reading the two
-    against each other is the main reason to pull the whole course out at once."""
+    """No `lang` means BOTH languages, not the reader's own."""
     await _auth(content_client)
     default = (await content_client.get("/api/course/export")).json()
     explicit = (await content_client.get("/api/course/export?lang=all")).json()
@@ -99,20 +97,11 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
 
 
 async def test_export_is_complete_against_the_manifest(content_client: AsyncClient) -> None:
-    """The export carries EVERY id the manifest declares, in canonical order, in every document it serves.
+    """Every manifest id, in canonical ORDER, in every document the export serves.
 
-    This is the test that catches a dropped trailing block. It is driven entirely off `content/course.yaml`
-    — no counts, no id literals — so a block appended tomorrow is covered the moment it is declared, which
-    is the whole point: a hardcoded `== 30` passes happily while the thirty-first module goes missing.
-
-    Order is asserted, not just membership: the manifest's order *is* the curriculum, so a reordered export
-    is as wrong as an incomplete one, and a set comparison would wave both through.
-
-    On exercises. The manifest's fourth id level is deliberately NOT in the export — this endpoint is the
-    course *theory*, and `_theory_only` strips the `::exercise` directives — so completeness here means the
-    three levels the document actually carries, plus an assertion that the fourth appears nowhere. That
-    absence is a product decision worth locking rather than leaving implicit: if exercise ids are ever
-    wanted in the archive, this test is where the change announces itself.
+    Driven off `content/course.yaml` with no counts or id literals, so a hardcoded `== 30` cannot pass
+    while the thirty-first module goes missing. Exercise ids are deliberately absent — this endpoint is
+    theory — and that absence is asserted, so wanting them later announces itself here.
     """
     await _auth(content_client)
     manifest = load_registry(get_settings().content_dir).manifest

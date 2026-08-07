@@ -6,15 +6,11 @@ import en from "@/i18n/en.json";
 import { HOME_PATH } from "@/components/layout/nav";
 
 /**
- * The header wordmark is the way back to the start of the course from any depth.
+ * The header wordmark as the way back to the course from any depth.
  *
- * Two properties are easy to get wrong and are the reason this file exists. First, the click must be
- * **intercepted** — a wordmark wrapped in a bare `<a href>` looks identical and works, by throwing the
- * whole SPA away and re-fetching it. Second, the history must stay honest in *both* directions: from a
- * lesson the visit has to PUSH, or Back no longer returns to the lesson you left; on the course page
- * itself it has to REPLACE, or a reader who taps the logo twice has to press Back twice to escape.
- * Those two pull in opposite directions, which is why the link passes no `replace` prop at all and
- * leans on react-router's same-path rule — a rule worth pinning, since it is not ours to change.
+ * Two easy mistakes: a bare `<a href>` looks identical but throws the SPA away, and the history has to
+ * PUSH from a lesson yet REPLACE on the course page itself. Those pull opposite ways, so the link passes
+ * no `replace` prop and leans on react-router's same-path rule — pinned here, since it is not ours.
  */
 
 const USER = { username: "juanjo", locale: "en" as const };
@@ -51,8 +47,7 @@ function CoursePageProbe() {
   return <p>course page</p>;
 }
 
-/** The shell nested over the two routes this test needs — the app wires the same shell over the same
- * paths through an inner `<Routes>`; what the wordmark does depends only on the router context. */
+/** The shell over the two routes this test needs; the wordmark depends only on router context. */
 function mountAt(entry: string): ReturnType<typeof createMemoryRouter> {
   const router = createMemoryRouter(
     [
@@ -89,8 +84,7 @@ function logo(): HTMLAnchorElement {
   return el;
 }
 
-/** A real left-click, so react-router's own guards (button, modifiers, target) apply as in a browser.
- * The event is returned: whether it was default-prevented is what tells us the SPA kept the page. */
+/** A real left-click, so react-router's guards apply. Returned, since default-prevented means the SPA kept it. */
 function click(el: HTMLElement): MouseEvent {
   const event = new MouseEvent("click", { bubbles: true, cancelable: true, button: 0 });
   act(() => {

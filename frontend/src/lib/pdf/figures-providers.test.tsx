@@ -2,13 +2,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { FigureData } from "@/api/course";
 
 /**
- * The REAL `CandleChart` in the capture harness — the test that would have caught the bug that shipped.
- * Standing the component in (as `figures.test.tsx` must, for the canvas) is exactly why nobody noticed it
- * called `useTheme`, which throws without the `ThemeProvider` the capture root deliberately omits: every
- * chart figure failed in the browser and the export blamed a timeout.
- *
- * So only the library is mocked here, as `charts/levels.test.tsx` and `bands.test.tsx` do it. That also
- * puts "figures print light" under test at its source: the palette handed to `createChart`.
+ * The REAL `CandleChart` in the capture harness: standing it in is why nobody noticed it called
+ * `useTheme`, which throws without the `ThemeProvider` the capture root omits. Only the library is
+ * mocked here, which also puts "figures print light" under test at the palette handed to `createChart`.
  */
 
 const created: { layout?: { textColor?: string; background?: { color?: string } } }[] = [];

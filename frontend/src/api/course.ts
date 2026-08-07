@@ -21,8 +21,7 @@ export interface CourseLesson {
   order: number;
   title: string;
   completed: boolean;
-  /** Estimated reading time for THIS lesson in this locale, in seconds. Every module/block/course
-   *  figure the UI shows is a sum of these — see features/course/readingTime.ts. */
+  /** This lesson's reading time in seconds; every aggregate is a sum of these (see readingTime.ts). */
   readingSeconds: number;
   exercises: ExerciseRef[];
 }
@@ -109,8 +108,7 @@ export async function getModule(moduleId: string): Promise<ModuleDetail> {
   return data;
 }
 
-/** The whole course as theory in ONE language — the shape `/course/export?lang=…` serves. Lesson
- *  markdown arrives with the `::exercise` directives already stripped server-side. */
+/** The shape `/course/export?lang=…` serves: theory only, `::exercise` stripped server-side. */
 export interface CourseExportLesson {
   id: string;
   title: string;
@@ -135,20 +133,16 @@ export interface CourseExport {
   blocks: CourseExportBlock[];
 }
 
-/** The single-locale export document. `lang` is explicit: the PDF is built for the language being
- *  browsed, and an absent `lang` would hand back the bilingual document instead. */
+/** The single-locale export document. `lang` must be explicit — omitting it returns the bilingual one. */
 export async function getCourseExport(locale: string): Promise<CourseExport> {
   const { data } = await apiClient.get<CourseExport>("/course/export", { params: { lang: locale } });
   return data;
 }
 
 /**
- * The course's exercises as they are PRINTED — the shape `/course/print/exercises?lang=…` serves.
+ * The shape `/course/print/exercises?lang=…` serves: one frozen instance per exercise plus its answer.
  *
- * One frozen instance per exercise (generated at a seed derived from its id, so every export prints
- * the same book) plus the answer to *that* instance, which is what the answer key at the back is made
- * of. This is the one endpoint that hands over solutions; see its docstring for why that is the deal
- * an answer key strikes.
+ * The one endpoint that hands over solutions — see its server-side docstring.
  */
 export interface PrintAnswer {
   kind: QuizKind | "calculation" | "chart";

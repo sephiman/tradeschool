@@ -1,19 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Wyckoff accumulation / distribution injector (module m09).
+"""Wyckoff accumulation / distribution injector (m09).
 
-A DETECTION pattern. The learner reads the schematic — a prior trend, a trading range, and the
-tell-tale false break inside it — and classifies it, WITHOUT seeing the resolution (the markup or
-markdown that follows is off screen):
-
-* ``accumulation`` — a prior DOWNTREND stalls into a range; a **spring** briefly breaks below range
-  support and recovers back inside (smart money absorbing supply before a markup).
-* ``distribution`` — a prior UPTREND stalls into a range; an **upthrust** briefly breaks above range
-  resistance and fails back inside (supply overwhelming demand before a markdown).
-* ``none``         — a plain range with no spring/upthrust and no clear prior trend.
-
-Every label ends inside the range on a drift-free ambient tail, so the final candles cannot betray
-the answer (the markup/markdown is never shown); the spring/upthrust sits mid-range, well left of the
-tail. The range support/resistance are drawn as levels.
+A DETECTION pattern: a prior trend, a range, and the tell-tale false break inside it, classified
+without seeing the markup/markdown that follows. Every label ends inside the range on an ambient tail,
+with the spring/upthrust well left of it, so the final candles cannot betray the answer.
 """
 
 from __future__ import annotations

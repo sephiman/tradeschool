@@ -4,12 +4,7 @@ import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
 import { cn } from "@/lib/cn";
 
-/**
- * Turn remark-directive nodes into plain elements carrying data-* hints:
- *   :::note{type=warning} ... :::   -> <div data-note-type="warning">
- *   ::exercise{id=foo}              -> <div data-exercise-id="foo">
- * The React `components` map below renders those into callouts / embedded exercises.
- */
+/** Turn remark-directive nodes into plain elements carrying data-* hints for the `components` map. */
 interface DirectiveNode {
   type: string;
   name?: string;

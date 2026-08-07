@@ -6,10 +6,9 @@ import type { FigureData, FigurePanel } from "@/api/course";
 import { useResolvedTheme, type ResolvedTheme } from "@/lib/theme";
 
 /**
- * The capture mechanics: mounting each panel off-screen, waiting for the chart rather than guessing,
- * screenshotting at print resolution, refusing a bitmap too small to be a figure, and leaving no trace in
- * the page. The renderer is stood in for (jsdom has no canvas); `figures-providers.test.tsx` mounts the
- * real one.
+ * The capture mechanics: mount off-screen, wait for the chart, screenshot at print resolution, refuse a
+ * too-small bitmap, leave no trace. The renderer is stood in for — jsdom has no canvas — and
+ * `figures-providers.test.tsx` mounts the real one.
  */
 
 interface Rendered {
@@ -27,8 +26,7 @@ let bitmap = { width: 1520, height: 600 };
 /** Makes the stand-in throw during render, as a component with a missing dependency does. */
 let failOnRender: Error | null = null;
 
-/** Calls the same hooks the real component does, so the harness's provider contract is exercised rather
- *  than assumed — a dumb stub is what hid the shipped `useTheme` bug from this suite. */
+/** Calls the same hooks the real component does — a dumb stub hid the shipped `useTheme` bug. */
 vi.mock("@/components/charts/CandleChart", () => ({
   CandleChart: (props: Record<string, unknown> & { onReady?: (chart: IChartApi) => void }) => {
     if (failOnRender) throw failOnRender;

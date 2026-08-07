@@ -1,8 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Course skeleton tables (stable IDs + structure + order + active) and lesson completions.
+"""Course skeleton tables (stable IDs, structure, order, active) and lesson completions.
 
-Only structural facts live here; localized prose and generator configs live in the in-memory
-registry loaded from `content/`. Progress references these stable IDs, never content (§8).
+Structural facts only; progress references these stable IDs, never content (§8).
 """
 
 from __future__ import annotations
@@ -28,9 +27,7 @@ class SkeletonModel(Base):
 
 
 class Course(SkeletonModel):
-    """The root course a block/module tree belongs to. Single course today (crypto-futures);
-    the table exists so more can be added without a structural change. Localized title/description
-    live in the registry (from the manifest), like every other label."""
+    """The root course a block/module tree belongs to; its localized labels live in the registry."""
 
     __tablename__ = "courses"
 

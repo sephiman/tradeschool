@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Synthetic chart generator: base engine + a pattern injector (§3.3). The seed picks the planted
-pattern and builds the candles; grading re-derives the same pattern from the seed, so the ground
-truth is exact and never travels to the client before answering."""
+"""Synthetic chart generator: base engine + a pattern injector (§3.3).
+
+Grading re-derives the pattern from the seed, so ground truth never travels to the client early.
+"""
 
 from __future__ import annotations
 
@@ -50,8 +51,7 @@ class SyntheticChartConfig(BaseModel):
 
 @dataclass
 class FullChart:
-    """The complete generated chart INCLUDING the warm-up prefix — used to render the visible
-    window and, for dev export, to make the RSI fully reproducible from the raw OHLC."""
+    """The complete generated chart INCLUDING the warm-up prefix."""
 
     target: DivergenceType
     warmup: int

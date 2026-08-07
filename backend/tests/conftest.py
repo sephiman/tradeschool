@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Shared pytest fixtures: a real Postgres via testcontainers, migrations applied once,
-a per-test ASGI client, and truncation between tests for isolation.
-"""
+"""Shared fixtures: Postgres via testcontainers, migrations once, a per-test client, truncation between."""
 
 from __future__ import annotations
 

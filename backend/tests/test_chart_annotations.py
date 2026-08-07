@@ -1,27 +1,14 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Marker and plan-line integrity: an annotation must be true of the bar it points at.
 
-`test_chart_levels.py` did this for horizontal levels, on the grounds that a level is the thing a
-learner *measures against*, so a line at a price the candles do not corroborate makes the question
-unanswerable while the ground truth stays right. A MARKER is the same defect with a different shape: a
-label reading "HH" on a bar that is not the higher high, or "CHoCH" on a bar that is not the first lower
-low, teaches the wrong reading off a chart that looks fine. And a `plan` line — an entry, a stop, a
-target, a stop-limit's trigger and limit — is a third shape again: it is exempt from the level suite's
-"the price action reached it" rule (a stop the action reached is a stop that got hit), so without this
-file those lines would be the only annotations in the course under no contract at all.
+`plan` lines (entry, stop, target, a stop-limit's trigger and limit) are exempt from the level suite's
+"the action reached it" rule — a stop the action reached is a stop that got hit — so without this file
+they would be under no contract at all.
 
-Two layers, deliberately:
-
-1. a DISCOVERED sweep over every registered injector and every chart figure, asserting the invariants
-   that hold for any annotation whatever (in range, known kind, labelled, not duplicated);
-2. per-injector geometry, over hundreds of seeds, for the markers and plan lines whose whole content is
-   a geometric claim — checked on the exercise payload, which is where the injector's own window ends
-   and so exactly the region the claim is about.
-
-Layer 2 covers the four figure-only injectors, whose markers were added with it. The older injectors'
-markers (a Wyckoff spring, a fakeout's test bar, a Fibonacci swing) have layer 1 only: their positions
-come from `resolve_swing` on the close path, so pinning them to the candles the way `candle_extreme`
-does would move their bars and re-cut every golden fingerprint. Worth doing, deliberately not here.
+Two layers: a DISCOVERED sweep over every injector and figure for the invariants that hold for any
+annotation, then per-injector geometry over hundreds of seeds. Older injectors' markers have layer 1
+only — their positions come from `resolve_swing`, so pinning them to the candles would re-cut every
+golden fingerprint.
 """
 
 from __future__ import annotations
@@ -85,10 +72,7 @@ def _injector_labels() -> list[tuple[str, str]]:
 
 @pytest.mark.parametrize(("injector", "label"), _injector_labels())
 def test_every_annotation_is_renderable(injector: str, label: str) -> None:
-    """An annotation the frontend cannot place, or cannot name, is worse than no annotation: it renders
-    as a marker on the wrong bar or as a bare dot. So every one must sit inside the visible window, use
-    a kind the renderer knows, carry a non-empty label, and not collide with another marker on the same
-    bar (two markers on one candle render on top of each other)."""
+    """Every annotation is in the visible window, of a known kind, labelled, and alone on its bar."""
     config = _config(injector, [label])
     for seed in range(40):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -116,9 +100,7 @@ def _figure_annotations() -> list[tuple[str, int]]:
 
 @pytest.mark.parametrize(("figure_id", "panel"), _figure_annotations())
 def test_figure_annotations_are_renderable(figure_id: str, panel: int) -> None:
-    """The same contract on the figure path, which reaches the markers through its own code (visible
-    coords are recomputed there, and a figure may swap in richer `figure_annotations`) — so a figure can
-    render a marker off the end of the chart while every exercise is fine."""
+    """The same contract on the figure path, which recomputes visible coords through its own code."""
     panels = build_figure(load_figures(_CONTENT)[figure_id], "en")["panels"]
     assert isinstance(panels, list)
     p = panels[panel]
@@ -139,9 +121,7 @@ def test_figure_annotations_are_renderable(figure_id: str, panel: int) -> None:
 
 
 def _extreme_window(indices: list[int], k: int, n: int) -> tuple[int, int]:
-    """The swing a marker owns: from the previous marker to the next one. The last marker's window stops
-    where the AMBIENT TAIL begins — the tail is signal-free noise generated identically for every label,
-    so it is not part of the designed structure and no pivot is claimed to be extreme against it."""
+    """The swing a marker owns, previous marker to next. The last one stops at the AMBIENT TAIL."""
     lo = indices[k - 1] if k > 0 else 0
     hi = indices[k + 1] + 1 if k + 1 < len(indices) else n - TAIL
     return lo, hi
@@ -149,10 +129,7 @@ def _extreme_window(indices: list[int], k: int, n: int) -> tuple[int, int]:
 
 @pytest.mark.parametrize("label", ["uptrend_ladder", "choch_after_uptrend"])
 def test_pivot_markers_are_the_extreme_of_their_own_swing(label: str) -> None:
-    """Each HH / HL / CHoCH marker sits on the bar whose WICK is the extreme of its swing — not near it.
-    This is the invariant `candle_extreme` exists for: the injector designs the ladder in the close path,
-    but the marker is read against the candles, and on a plateaued pivot the difference between the
-    marked bar and its neighbour is one half-normal wick draw."""
+    """Each HH / HL / CHoCH marker sits on the bar whose WICK is its swing's extreme — not near it."""
     config = _config("market_structure", [label])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -172,9 +149,7 @@ def test_pivot_markers_are_the_extreme_of_their_own_swing(label: str) -> None:
 
 
 def test_uptrend_ladder_labels_are_a_rising_staircase() -> None:
-    """"Higher high" and "higher low" are comparative claims, so each labelled pivot must actually exceed
-    the previous one of its own kind. A ladder whose second HH prints below its first is the one thing
-    the figure exists to teach, rendered wrong."""
+    """Each labelled pivot exceeds the previous one of its own kind."""
     config = _config("market_structure", ["uptrend_ladder"])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -187,10 +162,7 @@ def test_uptrend_ladder_labels_are_a_rising_staircase() -> None:
 
 
 def test_choch_marker_is_the_first_lower_low() -> None:
-    """The CHoCH claim is precise and easy to get wrong in both directions: the marked low must be BELOW
-    the previous higher low (that is the break), and every labelled low before it must still be rising
-    (that is what makes it the FIRST). A chart with two lower lows before the marker would make the label
-    a lie about which swing broke the pattern."""
+    """The marked low is below the previous higher low, and every labelled low before it is still rising."""
     config = _config("market_structure", ["choch_after_uptrend"])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -209,9 +181,7 @@ def test_choch_marker_is_the_first_lower_low() -> None:
 
 @pytest.mark.parametrize("label", ["liquidity_sweep", "liquidation_cascade"])
 def test_sweep_marker_is_the_bar_that_took_the_pool(label: str) -> None:
-    """The marker names the sweep, so it has to be the sweep: the lowest low of the window, reaching a
-    visible distance below the shelf, on the only bar that trades below it, and closing back above — the
-    reclaim is what separates a sweep from a break, and it is the marked bar that must do it."""
+    """The marked bar is the window's lowest low, the only one below the shelf, and closes back above."""
     config = _config("liquidity_sweep", [label])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -227,9 +197,7 @@ def test_sweep_marker_is_the_bar_that_took_the_pool(label: str) -> None:
 
 @pytest.mark.parametrize(("label", "floor"), [("liquidity_sweep", 3.0), ("liquidation_cascade", 5.0)])
 def test_sweep_bar_carries_the_volume_of_forced_flow(label: str, floor: float) -> None:
-    """m06-l1's reading of this candle is the volume: the spike IS the forced closing, which is why the
-    move retraces. So the marked bar's volume must stand out against the chart it sits on — and stand out
-    harder on the cascade, which is the whole difference in emphasis between the two figures."""
+    """The marked bar's volume stands out against its chart, and harder on the cascade."""
     config = _config("liquidity_sweep", [label])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -240,8 +208,7 @@ def test_sweep_bar_carries_the_volume_of_forced_flow(label: str, floor: float) -
 
 
 def test_the_cascade_spikes_harder_than_the_plain_sweep() -> None:
-    """The two labels share their geometry on purpose — one event, so the two lessons cannot teach two
-    shapes for it — and differ in emphasis. This is that difference, asserted rather than assumed."""
+    """The two labels share their geometry and differ only in spike size — asserted, not assumed."""
     sweeps: list[float] = []
     cascades: list[float] = []
     for label, out in (("liquidity_sweep", sweeps), ("liquidation_cascade", cascades)):
@@ -258,9 +225,8 @@ def test_the_cascade_spikes_harder_than_the_plain_sweep() -> None:
 
 
 def test_one_candle_slices_through_both_order_lines() -> None:
-    """The trap is a single bar, not a slide: the lesson's whole point is that price crosses the trigger
-    and the limit in one move with no pause between them, so the limit never gets a chance to fill. A
-    three-bar drift through the same distance would fill at the limit and teach the opposite."""
+    """One bar crosses both lines — a three-bar drift through the same distance would fill and teach the
+    opposite."""
     config = _config("stop_limit_gap", ["unfilled_stop_limit"])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -280,9 +246,10 @@ def test_one_candle_slices_through_both_order_lines() -> None:
 
 
 def test_the_limit_order_never_fills_after_the_gap() -> None:
-    """"Unfilled" is a claim about every bar that follows, and a strict one: a resting sell-limit fills
-    the moment price TOUCHES it. So no later bar may so much as reach the limit — not a wick, which is
-    why a `LevelGuard` alone cannot carry this (a guard clamps a breaching wick back TO the line)."""
+    """No later bar so much as reaches the limit, wick included.
+
+    A `LevelGuard` cannot carry this: it clamps a breaching wick back TO the line, which would fill.
+    """
     config = _config("stop_limit_gap", ["unfilled_stop_limit"])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -301,9 +268,7 @@ def test_the_limit_order_never_fills_after_the_gap() -> None:
 
 
 def test_entry_line_is_the_entry_bar_close() -> None:
-    """"We enter on the close back above the level" is only true if the entry line IS that close. An
-    entry drawn a hair off the candle it came from is the m24 version of the level defect: the picture
-    would show a trade nobody could have taken at that price."""
+    """The entry line IS the entry bar's close, not a hair off it."""
     config = _config("trade_anatomy", ["long_setup"])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -318,10 +283,7 @@ def test_entry_line_is_the_entry_bar_close() -> None:
 
 
 def test_stop_line_sits_under_the_deepest_low_and_is_never_hit() -> None:
-    """Two claims, and the figure is a lie without either: the stop is just UNDER the rejection wick (so
-    it is read off the structure, not picked out of the air), and nothing ever trades there (so the trade
-    the figure shows working could actually have run). The rejection wick therefore has to be the deepest
-    low of the setup — otherwise "just below the wick" would still be inside earlier price action."""
+    """The stop sits just under the rejection wick, which is the setup's deepest low, and is never hit."""
     config = _config("trade_anatomy", ["long_setup"])
     for seed in range(_SEEDS):
         _lbl, annotations, payload = _instantiate(config, seed)
@@ -337,9 +299,7 @@ def test_stop_line_sits_under_the_deepest_low_and_is_never_hit() -> None:
 
 
 def test_target_line_is_the_prior_high() -> None:
-    """The target is "the next obvious supply, the prior high", so it must be exactly the extreme the
-    impulse printed on this chart — and far enough above the entry that the trade is the lopsided bet the
-    lesson is describing rather than a coin flip."""
+    """The target is exactly the extreme the impulse printed, and far enough above the entry to be a bet."""
     config = _config("trade_anatomy", ["long_setup"])
     for seed in range(_SEEDS):
         _lbl, _ann, payload = _instantiate(config, seed)
@@ -353,9 +313,7 @@ def test_target_line_is_the_prior_high() -> None:
 
 
 def test_the_figure_shows_the_trade_reaching_its_target() -> None:
-    """The one claim that lives on the FIGURE rather than the injector: m24 narrates a winning trade, so
-    the appended resolution has to actually get there. Frozen seed, so this is a fact about the published
-    figure — if the seed or the resolution strength is ever retuned, this is what notices."""
+    """The appended resolution actually reaches the target — a fact about the published frozen seed."""
     panels = build_figure(load_figures(_CONTENT)["fig-m24-trade-anatomy"], "en")["panels"]
     assert isinstance(panels, list)
     p = panels[0]

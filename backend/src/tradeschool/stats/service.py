@@ -1,12 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Derived statistics. Only *answered* attempts count; abandoned/open never affect accuracy (§3.4).
-First-attempt accuracy is computed at the exercise level — the earliest answered attempt per
-exercise — because that is the metric hardest to inflate by retrying.
 
-Two populations coexist here and must never be conflated: `answered`/`correct` count *attempts*,
-while `first_seen`/`first_correct` count *distinct exercises*. Both numerators and denominators are
-serialized so the client can state which is which instead of printing two rates side by side as if
-they shared a denominator."""
+Two populations that must never be conflated: `answered`/`correct` count ATTEMPTS, `first_seen`/
+`first_correct` count DISTINCT EXERCISES. Both denominators are serialized so the client can say which.
+"""
 
 from __future__ import annotations
 

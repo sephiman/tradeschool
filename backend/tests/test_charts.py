@@ -104,9 +104,7 @@ def _collect_last3(targets: list[str], per: int) -> tuple[np.ndarray, np.ndarray
 
 
 def test_last_candles_do_not_leak_the_label() -> None:
-    """The distribution of the final candles must NOT be predictive of the label (round-6 leak).
-    Guards every future injector too: the last N candles are drift-free ambient noise for all labels.
-    """
+    """The final candles' distribution is not predictive of the label (round-6 leak)."""
     bull_net, bull_abs = _collect_last3(["bullish_regular", "bullish_hidden"], 120)
     bear_net, bear_abs = _collect_last3(["bearish_regular", "bearish_hidden"], 120)
     none_net, none_abs = _collect_last3(["none"], 240)

@@ -1,28 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Shaded-zone integrity, for every injector that plants one and every figure that renders one.
 
-`test_chart_levels.py` guards the horizontal line, on the grounds that a level is the thing a learner
-*measures against*. A `Band` is the same defect surface with two differences that make it need its own
-file rather than a few more cases in that one.
-
-**It is withheld, not drawn.** m30's two questions are "find the origin zone" and "find the imbalance",
-so shading the zone on the exercise chart would be the answer. A band therefore travels the ground-truth
-channel: absent from the pre-answer payload, revealed by `grade()`, rendered by figures. That inversion is
-the single most important thing here, so it is asserted structurally over every injector and label rather
-than trusted to whoever adds the next zone (§1).
-
-**Its contract is asserted, never enforced.** `LevelGuard` makes a level's claim true by moving wicks. For
-a band that is actively wrong: widening a wick to make an imbalance "tested" would destroy the untraded
-span the band exists to point at. So each kind's claim is pinned over hundreds of seeds instead (§3, §4) —
-the defect is distributional, exactly as it is for levels, because `build_series` draws every wick from a
-half-normal. Where a candle-space BOUND is genuinely needed the injector ships an *undrawn* `LevelGuard`,
-and because `test_chart_levels.py` discovers its targets from published `levels` it cannot see those; §2
-checks them here.
-
-§5 covers the two published figures, whose claims are facts about a frozen seed.
-
-One test in this file is not about bands at all: `test_grading_is_identical_whether_read_from_full_or_
-instantiate` is the proof for the batch's only edit to a shared code path (see its docstring).
+A `Band` needs its own file rather than cases in `test_chart_levels.py` because it is withheld rather
+than drawn (§1), and because its contract is asserted over hundreds of seeds rather than enforced by
+moving wicks (§3, §4). §2 checks the *undrawn* `LevelGuard`s that the levels suite cannot discover;
+§5 covers the two published figures.
 """
 
 from __future__ import annotations
@@ -96,8 +78,7 @@ def _injector_labels() -> list[tuple[str, str]]:
 
 
 def _band_labels() -> list[tuple[str, str]]:
-    """(injector, label) pairs that plant a band — discovered, so a new zone injector is covered the
-    moment it is registered."""
+    """(injector, label) pairs that plant a band, discovered so a new one is covered on registration."""
     out: list[tuple[str, str]] = []
     for inj in all_injectors():
         for label in inj.labels:
@@ -114,13 +95,7 @@ _BAND_PAIRS = _band_labels()
 
 @pytest.mark.parametrize(("injector", "label"), _injector_labels())
 def test_no_exercise_payload_ever_carries_a_band(injector: str, label: str) -> None:
-    """The anti-leak inversion, asserted for EVERY injector rather than only the two that plant zones.
-
-    m30-ex-1 asks the learner to locate the origin zone and m30-ex-2 the imbalance, so a `bands` key in
-    the pre-answer payload would print the answer on the question — the worst version of a leak, because
-    the chart would look right and the exercise would be free. Parametrised over every registered
-    injector so that the next one to plant a zone is covered before anybody remembers to think about it.
-    """
+    """No pre-answer payload carries `bands` — asserted for EVERY injector, not just the two with zones."""
     config = _config(injector, [label])
     for seed in range(40):
         _lbl, _ann, payload = _instantiate(config, seed)
@@ -132,8 +107,7 @@ def test_no_exercise_payload_ever_carries_a_band(injector: str, label: str) -> N
 
 @pytest.mark.parametrize(("injector", "label"), _BAND_PAIRS)
 def test_grading_reveals_the_band_it_withheld(injector: str, label: str) -> None:
-    """...and grading hands it over, on the same chart. A zone the learner never gets to see is a zone
-    they cannot learn to find, so the reveal is half of the didactic point, not a convenience."""
+    """...and grading hands the band over, on the same chart."""
     config = _config(injector, [label])
     gen = PatternChartGenerator()
     for seed in range(40):
@@ -143,8 +117,7 @@ def test_grading_reveals_the_band_it_withheld(injector: str, label: str) -> None
 
 
 def test_labels_that_plant_no_zone_publish_no_band() -> None:
-    """`no_zone` and `no_imbalance` are the two characteristic errors given their own label, so their
-    charts must contain no zone to reveal — a band on either would contradict the label outright."""
+    """`no_zone` and `no_imbalance` have no zone to reveal — a band would contradict the label."""
     for injector, label in (("origin_zone", "no_zone"), ("imbalance", "no_imbalance")):
         config = _config(injector, [label])
         for seed in range(60):
@@ -152,8 +125,7 @@ def test_labels_that_plant_no_zone_publish_no_band() -> None:
 
 
 def test_every_injector_that_plants_a_band_is_covered() -> None:
-    """The parametrised suites discover their own targets; this fails if that discovery silently finds
-    nothing, which a refactor that stopped publishing bands would otherwise make invisible."""
+    """Fails if the parametrised suites' discovery silently finds nothing."""
     assert {name for name, _label in _BAND_PAIRS} == _BAND_INJECTORS
     assert _figure_band_panels(), "no figure renders a zone — band rendering lost its figure coverage"
 
@@ -163,12 +135,10 @@ def test_every_injector_that_plants_a_band_is_covered() -> None:
 
 @pytest.mark.parametrize(("injector", "label"), _BAND_PAIRS)
 def test_band_is_renderable_and_reads_as_a_zone(injector: str, label: str) -> None:
-    """A band the frontend cannot place, or cannot name, is worse than no band: it renders as an untitled
-    tint. And its WIDTH has to read as an area — a hairline is a level wearing the wrong primitive, and a
-    zone spanning a third of the chart cannot be wrong about anything. Both bounds are load-bearing: a
-    three-bar window around the origin dip collapsed to 0.17% of price whenever the noise flattened those
-    candles, and a walk back through bearish closes ran to 6.3% whenever it chained onto the prior
-    descent."""
+    """A band is placeable, titled, and wide enough to read as an area but not as a third of the chart.
+
+    Both width bounds are load-bearing: earlier origin-zone windows collapsed to 0.17% and ran to 6.3%.
+    """
     config = _config(injector, [label])
     for seed in range(_SEEDS):
         f = _full(config, seed)
@@ -196,9 +166,7 @@ def test_band_is_renderable_and_reads_as_a_zone(injector: str, label: str) -> No
 def test_undrawn_level_guards_are_honoured(injector: str, label: str) -> None:
     """A band's edge may ship a `LevelGuard` with no `Level` beside it — the contract without the line.
 
-    `test_chart_levels.py` discovers its targets from PUBLISHED levels, so those guards are invisible to
-    it: this is the only place they are checked. Bodies are checked too, exactly as they are there — the
-    guard only moves wicks, so a close on the wrong side is a shape bug it cannot fix.
+    The only place these are checked: the levels suite discovers its targets from PUBLISHED levels.
     """
     config = _config(injector, [label])
     inj = get_injector(injector)
@@ -230,10 +198,7 @@ _ORIGIN_LABELS = ("zone_respected", "zone_failed")
 
 @pytest.mark.parametrize("label", _ORIGIN_LABELS)
 def test_origin_zone_precedes_the_break_it_is_the_origin_of(label: str) -> None:
-    """The whole claim, in order: the zone's candles come first, the impulse then closes clean past the
-    high the range had been testing, and only afterwards does price return. Read the other way round
-    every step is available in hindsight on any chart, which is precisely the error m30-l1 names — so
-    this is the assertion that the generated chart earns the label rather than merely allowing it."""
+    """The claim in order: zone candles, then the impulse closing past the tested high, then the return."""
     config = _config("origin_zone", [label])
     for seed in range(_SEEDS):
         f = _full(config, seed)
@@ -268,10 +233,7 @@ def test_origin_zone_precedes_the_break_it_is_the_origin_of(label: str) -> None:
 
 @pytest.mark.parametrize("label", _ORIGIN_LABELS)
 def test_the_return_actually_trades_into_the_origin_zone(label: str) -> None:
-    """"Price came back to the block" is the claim both labels are built on, so the marked return bar's
-    range has to overlap the zone. A return that stops a hair short of it is a different chart — and a
-    commoner one — and grading it as either outcome would be grading a chart that showed something else.
-    """
+    """The marked return bar's range overlaps the zone — the claim both labels are built on."""
     config = _config("origin_zone", [label])
     for seed in range(_SEEDS):
         f = _full(config, seed)
@@ -285,9 +247,7 @@ def test_the_return_actually_trades_into_the_origin_zone(label: str) -> None:
 
 
 def test_respected_and_failed_differ_by_side_and_not_by_distance() -> None:
-    """Which side of the zone price ends on is the answer; HOW FAR from it must not be, or the label is
-    readable off a ruler instead of off the structure. This is `fakeout`'s hold-distance test applied to
-    a zone, and it is why both outcomes are planted at the same designed magnitude."""
+    """Which SIDE of the zone price ends on is the answer; how FAR must not be readable off a ruler."""
     dist: dict[str, list[float]] = {}
     for label in _ORIGIN_LABELS:
         config = _config("origin_zone", [label])
@@ -303,9 +263,7 @@ def test_respected_and_failed_differ_by_side_and_not_by_distance() -> None:
 
 
 def test_a_respected_zone_holds_and_a_failed_one_does_not() -> None:
-    """The two outcomes, stated as the learner reads them: after the return, a respected zone is never
-    closed through and price ends above it; a failed zone is closed clean through and price ends below.
-    Both are ordinary — a course that only ever generated the first would be teaching the dogma."""
+    """A respected zone is never closed through and ends above; a failed one is, and ends below."""
     for label in _ORIGIN_LABELS:
         config = _config("origin_zone", [label])
         for seed in range(_SEEDS):
@@ -324,9 +282,7 @@ def test_a_respected_zone_holds_and_a_failed_one_does_not() -> None:
 
 
 def test_no_zone_never_breaks_structure() -> None:
-    """The distractor has to be honestly un-answerable as anything else: the rally must fail to take out
-    the prior high at all, wick included, because that absence IS the answer. If a stray wick cleared it,
-    the chart would contain a real break and the label would be a lie."""
+    """The `no_zone` rally never takes out the prior high, wick included — that absence IS the answer."""
     config = _config("origin_zone", ["no_zone"])
     for seed in range(_SEEDS):
         f = _full(config, seed)
@@ -400,13 +356,9 @@ def _series_of(f: object) -> Series:
 
 @pytest.mark.parametrize("label", ["imbalance_unfilled", "imbalance_filled"])
 def test_the_band_is_the_span_crossed_inside_one_candle(label: str) -> None:
-    """The definition, measured on the rendered candles rather than trusted from the design: the marked
-    impulse bar's predecessor tops out below its successor's low, and the zone is exactly that span.
+    """The definition, measured on the RENDERED candles: predecessor's high below successor's low.
 
-    Checked here because it cannot be enforced: the two edges are wicks, and `build_series` derives the
-    local volatility at the impulse bar from a window containing the jump itself, which draws wicks large
-    enough to swallow the whole gap. That is why the injector plants both edges — and why the plant is
-    verified against the payload instead of assumed.
+    Cannot be enforced — at the impulse bar `build_series` draws wicks large enough to swallow the gap.
     """
     config = _config("imbalance", [label])
     for seed in range(_SEEDS):
@@ -428,9 +380,7 @@ def test_the_band_is_the_span_crossed_inside_one_candle(label: str) -> None:
 
 
 def test_every_chart_carries_at_most_one_imbalance() -> None:
-    """A chart with two gaps on it has two possible answers. The injector repairs incidental ones, so the
-    question always has a single subject — and `no_imbalance` has none at all, which is what makes "a big
-    candle is not an imbalance" a claim about the chart rather than a hope about the noise."""
+    """One gap per chart, so the question has a single subject; `no_imbalance` has none at all."""
     for label in get_injector("imbalance").labels:
         config = _config("imbalance", [label])
         expected = 0 if label == "no_imbalance" else 1
@@ -450,9 +400,7 @@ def test_every_chart_carries_at_most_one_imbalance() -> None:
 
 
 def test_unfilled_stays_open_and_filled_is_traded_clean_through() -> None:
-    """The two live labels, as the learner reads them off the right-hand side of the chart: an open gap
-    has no later candle with any range inside it, and a filled one has a candle that traded clean past
-    its far edge. The strictness is the point — "unfilled" is a claim about every bar that follows."""
+    """An open gap has no later candle ranging into it; a filled one is traded clean past its far edge."""
     for label, filled in (("imbalance_unfilled", False), ("imbalance_filled", True)):
         config = _config("imbalance", [label])
         for seed in range(_SEEDS):
@@ -501,10 +449,7 @@ def _hlc(panel: Payload) -> tuple[list[float], list[float], list[float]]:
 
 @pytest.mark.parametrize(("figure_id", "panel"), _figure_band_panels())
 def test_figure_zone_is_reached_by_the_action_it_is_drawn_over(figure_id: str, panel: int) -> None:
-    """A figure runs the same injector through the same contract and then appends the resolution an
-    exercise cuts off. What must hold for every zone figure is that the zone is a place the chart
-    visibly went: some candle's range overlaps it, and the band carries a title so it never renders as
-    an anonymous tint."""
+    """Every figure zone is somewhere the chart visibly went, and carries a title."""
     p = _panels(figure_id)[panel]
     high, low, _close = _hlc(p)
     for band in _bands(p):
@@ -516,10 +461,11 @@ def test_figure_zone_is_reached_by_the_action_it_is_drawn_over(figure_id: str, p
 
 
 def test_no_two_figures_draw_the_same_zone_edge() -> None:
-    """Two figures printing the same zone price to the cent reads as a bug, and would be one: every
-    injector picks its base price from the same five-tier table with the same two opening draws, so two
-    figures on one seed get an identical anchor. This is the band analogue of the duplicate-level-price
-    test, and it also compares zone edges against every LEVEL price for the same reason."""
+    """No two figures print the same zone edge — or the same edge as a LEVEL price.
+
+    Every injector draws its base price from the same five-tier table, so one seed gives an identical
+    anchor.
+    """
     where: dict[float, set[str]] = {}
     for figure_id, panel in _figure_band_panels():
         for band in _bands(_panels(figure_id)[panel]):
@@ -538,9 +484,7 @@ def test_no_two_figures_draw_the_same_zone_edge() -> None:
 
 
 def test_the_origin_zone_figure_shows_the_move_running_away_from_the_zone() -> None:
-    """The claim m30-l1's prose makes about this figure: the zone held, and the continuation it bought is
-    on screen. Frozen seed, so this is a fact about the published figure — if the seed or the resolution
-    strength is ever retuned, this is what notices."""
+    """m30-l1's prose claim: the zone held and the continuation is on screen. Frozen seed."""
     p = _panels("fig-m30-origin-zone")[0]
     _high, low, close = _hlc(p)
     lo, _hi = _edges(_bands(p)[0])
@@ -550,10 +494,7 @@ def test_the_origin_zone_figure_shows_the_move_running_away_from_the_zone() -> N
 
 
 def test_the_imbalance_figure_shows_the_revisit_an_exercise_cuts_off() -> None:
-    """The asymmetry this figure exists for. The injector's own window ends with the gap still open —
-    that IS the label m30-ex-2 grades — and the appended leg is price coming back for it. So the zone must
-    be untouched before the resolution and reached inside it, which is the figure/exercise split stated as
-    an assertion rather than as a caption."""
+    """The zone is untouched before the resolution and reached inside it — the figure/exercise split."""
     p = _panels("fig-m30-imbalance")[0]
     high, low, close = _hlc(p)
     lo, hi = _edges(_bands(p)[0])
@@ -581,14 +522,9 @@ def test_the_imbalance_figure_shows_the_revisit_an_exercise_cuts_off() -> None:
 
 
 def test_grading_is_identical_whether_read_from_full_or_instantiate() -> None:
-    """`grade()` now reads `_full` instead of `_instantiate`. This is the proof that the move is a no-op.
+    """`grade()` reading `_full` instead of `_instantiate` is a no-op, over every injector and locale.
 
-    Why it needs its own test: the golden suite fingerprints `_instantiate`'s payload, which is not what
-    changed, so it cannot see a regression here. The change was needed because grading also reveals the
-    ground-truth `bands`, and `_instantiate` is unpacked as a 3-tuple at ~30 call sites across three test
-    files. `_instantiate` is itself `_full` plus the warm-up trim, and `FullPatternChart.annotations` are
-    already in visible coords — so this reconstructs the pre-change reveal from `_instantiate` and asserts
-    it equals what `grade()` now returns, for every registered injector, every label and both locales.
+    Needs its own test: the golden suite fingerprints `_instantiate`'s payload, so it cannot see this.
     """
     gen = PatternChartGenerator()
     checked = 0
@@ -614,8 +550,7 @@ def test_grading_is_identical_whether_read_from_full_or_instantiate() -> None:
 
 
 def test_band_is_part_of_the_injector_contract() -> None:
-    """`bands` lives on `PatternResult` next to `levels`, not as an optional extra a new injector can
-    miss seeing — the same standard `level_guards` is held to in `test_chart_levels.py`."""
+    """`bands` lives on `PatternResult` next to `levels`, not as an optional extra."""
     result = get_injector("origin_zone").build(np.random.default_rng(0), _N, "zone_respected")
     assert isinstance(result, PatternResult)
     assert result.bands and result.bands[0].kind in _KINDS

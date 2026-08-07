@@ -1,9 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Pydantic schema for `course.yaml` (the manifest) plus structural validation.
 
-The manifest is the canonical structure: blocks → modules → lessons → exercises, the canonical
-order (list position), advisory prerequisites (`assumes`), and localized labels. Lesson prose and
-generator configs live elsewhere (content trees / exercise files) and are loaded by the registry.
+The canonical structure and order; prose and generator configs live elsewhere, loaded by the registry.
 """
 
 from __future__ import annotations
@@ -58,8 +56,7 @@ class ManifestBlock(BaseModel):
 
 
 class ManifestCourse(BaseModel):
-    """The root course entity. Its blocks live at the manifest's top level (a single course today;
-    the structure is ready for more). Also the data source for the course-page header."""
+    """The root course entity; its blocks live at the manifest's top level."""
 
     model_config = ConfigDict(extra="forbid")
     id: str

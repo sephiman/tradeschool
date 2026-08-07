@@ -112,13 +112,9 @@ async def export_course(
     lang: ExportLangQuery = None,
     download: Annotated[bool, Query()] = False,
 ) -> JSONResponse:
-    """The whole course as a single JSON document — blocks → modules → lessons with the lesson prose
-    only (exercises stripped) — for a logged-in user to read or archive.
+    """The whole course as one JSON document — prose only, exercises stripped.
 
-    **Both languages by default.** The course is authored in two and every content change touches both,
-    so an archive of one of them is half an archive; `lang` is how you ask for less. Omit it (or pass
-    `all`) and every localized field is `{"en": …, "es": …}` under a `locales` key; name a language and
-    you get that one, as plain strings under a `locale` key. `?download=true` serves it as a file.
+    Both languages by default, under a `locales` key; name a `lang` for one, under `locale`.
     """
     bilingual = lang in (None, "all")
     data = registry.course_export_bilingual() if bilingual else registry.course_export(str(lang))
@@ -138,18 +134,11 @@ async def export_print_exercises(
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     lang: LangQuery = None,
 ) -> dict[str, object]:
-    """Every exercise as it is PRINTED — one frozen instance each, **with its answer** — for the
-    course PDF's exercises and its answer key.
+    """Every exercise as it is PRINTED — one frozen instance each, **with its answer**.
 
-    **This endpoint reveals solutions, and that is deliberate.** Everywhere else a solution is produced
-    only by ``grade()``, after the learner has answered, which is what makes the statistics honest.
-    A book with an answer key cannot work that way: the key is the solutions, in the reader's hands,
-    by definition. Grading itself is untouched and still server-side, so nothing here changes how an
-    attempt is scored — but a reader who wants the answers can read them here, exactly as they can
-    turn to the back of the book. Single-locale: a book is printed in one language.
-
-    Deterministic: each instance is generated at ``print_seed(exercise_id)``, so every export of the
-    same content version prints the same book. Built once per locale and cached, like the figures.
+    This endpoint reveals solutions, deliberately: an answer key is the solutions in the reader's
+    hands by definition. Grading stays server-side, so attempt scoring is unaffected. Single-locale,
+    deterministic per ``print_seed(exercise_id)``, cached per locale.
     """
     locale = _resolve_locale(lang, user)
     if not hasattr(request.app.state, "print_cache"):
@@ -168,8 +157,7 @@ async def get_figure(
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     lang: LangQuery = None,
 ) -> dict[str, object]:
-    """A lesson figure's rendered chart data + localized caption. Deterministic (frozen seed), so the
-    built result is cached in-process per (figure, locale) — no per-request generation after the first."""
+    """A lesson figure's chart data + caption. Frozen seed, so it is cached per (figure, locale)."""
     locale = _resolve_locale(lang, user)
     spec = registry.figures.get(figure_id)
     if spec is None:

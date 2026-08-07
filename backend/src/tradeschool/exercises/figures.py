@@ -1,12 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Lesson figures: curated, frozen-seed didactic charts built from the SAME generators/injectors as
-exercises — but showing the RESOLUTION (the divergence's reversal, the range's markup) that exercises
-cut off. A figure spec (content/figures/<id>.yaml) is content: a fixed seed hand-picked for looks and
-frozen forever, so every student and both languages see an identical chart.
+"""Lesson figures: frozen-seed charts from the same injectors as exercises, but showing the RESOLUTION.
 
-The build is strictly additive: it calls the injector's unchanged `build()` and *appends* a resolution
-leg to the resulting close path (see `append_resolution`). It never feeds back into exercise mode —
-the golden regression test locks that.
+A figure spec is content — its seed is hand-picked and frozen forever. The build is strictly additive
+(`append_resolution` on the injector's unchanged `build()`) and never feeds back into exercise mode.
 """
 
 from __future__ import annotations

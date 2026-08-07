@@ -1,9 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Reconcile the manifest into the DB skeleton by stable ID.
+"""Reconcile the manifest into the DB skeleton by stable ID (§4.2).
 
-Rules (§4.2): match by id only; upsert order/active; content present in the DB but absent from
-the manifest is marked inactive (never hard-deleted, so historical progress survives). IDs are
-never reused or renumbered — order is a plain attribute.
+Rows absent from the manifest are marked inactive, never hard-deleted, so historical progress
+survives. IDs are never reused or renumbered — order is a plain attribute.
 """
 
 from __future__ import annotations

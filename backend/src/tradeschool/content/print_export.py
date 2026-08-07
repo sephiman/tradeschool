@@ -1,28 +1,14 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """The course's exercises as PRINT: one frozen instance per exercise, plus the answer to that instance.
 
-The app generates a fresh random instance per attempt and reveals the solution only after answering.
-A book cannot do either: the page has to hold ONE instance, chosen once and identically for every
-reader, and the back of the book has to hold the answer to *that* instance. This module is where those
-two constraints are met, and it is the only place in the codebase that hands a solution to a client
-without a learner having answered first — see the endpoint's docstring for that trade-off.
+The only place that hands a solution to a client before the learner answers — see the endpoint's
+docstring. Three rules hold it together:
 
-Three rules hold it together:
-
-**One instance, one pass.** ``generate`` is called once. The answer is read from ``grade`` against the
-same ``(config, seed)`` and — through ``reveal`` — is verified by grading it back as correct. Every
-number the answer quotes is then read out of *the payload being published*, never re-derived: a chart
-answer's prices are indexed out of the very series the reader sees. A key that drifted from its
-instance is not a wording bug, it is a wrong answer, so the shapes here make the drift impossible
-rather than tested-for.
-
-**A fixed seed per exercise.** ``print_seed`` hashes the exercise id with blake2b — deliberately not
-``hash()``, which is salted per process and would print a different book every restart. Two exports of
-the same content version are identical, byte for byte.
-
-**Nothing is dropped quietly.** An exercise that cannot be printed is listed in ``excluded`` with the
-reason and logged at WARNING. The reader is told too: the PDF prints a note in the lesson. An answer
-key silently missing a question is the failure this guards against.
+* **One instance, one pass.** Every number the answer quotes is read out of the payload being
+  published, never re-derived, so a key cannot drift from its instance.
+* **A fixed seed per exercise** (``print_seed``), so two exports of a content version are identical.
+* **Nothing is dropped quietly.** Unprintable exercises land in ``excluded`` with a reason, logged at
+  WARNING, and the PDF prints a note in the lesson.
 """
 
 from __future__ import annotations
@@ -54,9 +40,8 @@ class PrintExerciseError(RuntimeError):
 def print_seed(exercise_id: str) -> int:
     """The one seed this exercise is always printed at.
 
-    blake2b of the id: stable across processes, releases and machines. ``hash()`` is not — PYTHONHASHSEED
-    is randomized per process, so it would silently print a different instance on every restart while
-    every determinism test that ran inside one process still passed.
+    blake2b, not ``hash()``: PYTHONHASHSEED is per-process, so that would print a different book on
+    every restart while every in-process determinism test still passed.
     """
     digest = hashlib.blake2b(exercise_id.encode("utf-8"), digest_size=8).digest()
     return int.from_bytes(digest, "big") % PRINT_SEED_SPACE
@@ -68,10 +53,8 @@ _NUMBER = re.compile(r"^m0*(\d+)-ex-0*(\d+)$")
 def print_number(exercise_id: str) -> str:
     """The reader-facing label: ``m11-ex-5`` prints as ``11.5``.
 
-    Derived from the id rather than counted, because ids are append-only and never renumbered (see
-    content/README.md): a number derived from one is stable for the life of the course, and the same
-    label identifies the exercise in the answer key. An id that does not fit the convention keeps its
-    raw form — still unique, so the exercise ↔ answer pairing survives either way.
+    Derived from the id, not counted, since ids are append-only and never renumbered. An id that does
+    not fit the convention keeps its raw form, so the exercise ↔ answer pairing survives either way.
     """
     match = _NUMBER.match(exercise_id)
     return f"{int(match[1])}.{int(match[2])}" if match else exercise_id
@@ -95,11 +78,7 @@ def _series(payload: Mapping[str, object]) -> Mapping[str, Sequence[float]]:
 def _anchor(
     series: Mapping[str, Sequence[float]], index: int, kind: str, label: str
 ) -> dict[str, object]:
-    """One ground-truth bar, priced from the PRINTED series — the answer's link to the printed chart.
-
-    A high-swing is quoted at its high and a low-swing at its low, which is where the marker points
-    on the page; anything else is quoted at its close.
-    """
+    """One ground-truth bar, priced from the PRINTED series — the answer's link to the printed chart."""
     closes = series["close"]
     if not 0 <= index < len(closes):
         raise PrintExerciseError(f"ground-truth bar {index} is outside the printed {len(closes)} bars")
@@ -116,11 +95,10 @@ def _anchor(
 def _zones(
     series: Mapping[str, Sequence[float]], bands: object
 ) -> list[dict[str, object]]:
-    """Shaded ground-truth zones (m30's origin zone / imbalance), checked against the printed range.
+    """Shaded ground-truth zones (m30), checked to name prices the printed chart actually reaches.
 
-    A band is ground truth in price space and appears nowhere in the payload, so it cannot be indexed
-    out of the series like an anchor can. What CAN be checked is that it names prices the printed
-    chart actually reaches — a zone off the top of the page would be an answer to a different chart.
+    A band lives in price space and is absent from the payload, so it cannot be indexed out of the
+    series the way an anchor can.
     """
     if not isinstance(bands, list) or not bands:
         return []
@@ -280,12 +258,7 @@ def build_print_exercise(
 
 
 def build_print_exercises(registry: CourseRegistry, locale: str) -> dict[str, object]:
-    """Every printable exercise in the course, in manifest order, each with its answer.
-
-    One walk of the manifest, like ``course_export``, so the printed book cannot carry a different set
-    of lessons from the read one. Lessons appear even when empty: the document is a complete walk, and
-    the renderer looks its exercises up by lesson id.
-    """
+    """Every printable exercise in manifest order, each with its answer. Empty lessons still appear."""
     lessons: list[dict[str, object]] = []
     excluded: list[dict[str, str]] = []
     for _, module in registry.manifest.iter_modules():

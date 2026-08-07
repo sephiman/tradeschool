@@ -13,10 +13,9 @@ import { figureIds } from "@/lib/pdf/markdown";
 import { loadPdfMake } from "@/lib/pdf/runtime";
 
 /**
- * Generate the course PDF in the locale being browsed: pull the theory export and the printed
- * exercises, draw every lesson figure and every exercise chart off-screen, typeset. Each phase is
- * reported so the button can say what is taking the time — the two capture phases are the long ones,
- * and they count. Any failure propagates: a partial course is not a smaller PDF, it is a wrong one.
+ * Generate the course PDF in the locale being browsed: export + exercises, capture figures and charts
+ * off-screen, typeset. Each phase reports progress. Any failure propagates — a partial course is not a
+ * smaller PDF, it is a wrong one.
  */
 
 export type GeneratePhase = "export" | "exercises" | "figures" | "charts" | "typeset";
@@ -43,8 +42,7 @@ export interface GenerateCoursePdfOptions {
   /** Injected, never read from the clock in here. */
   date: Date;
   onProgress?: (progress: GenerateProgress) => void;
-  /** Reports what could not be printed. Defaults to the console: an exclusion is never silent, and
-   *  the reader's copy says so too (the lesson carries a note). */
+  /** Reports what could not be printed. Defaults to the console; an exclusion is never silent. */
   onExcluded?: (excluded: PrintExercises["excluded"]) => void;
   /** Reports boxes too tall for any page, which therefore had to break. Defaults to the console. */
   onOversizedBlocks?: (blocks: OversizedBlock[]) => void;
@@ -68,13 +66,12 @@ function isoDay(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
-/** Course slug + locale + date, so a folder of exports sorts by course and reads by language and day. */
+/** Course slug + locale + date, so a folder of exports sorts and reads sensibly. */
 export function pdfFilename(courseId: string, locale: string, date: Date): string {
   return `tradeschool-${courseId}-${locale}-${isoDay(date)}.pdf`;
 }
 
-/** A box taller than the page it prints on has to break somewhere. It is not a failure — the book is
- *  still complete — but it is the one pagination rule the document cannot honour, so it is named. */
+/** Names the boxes taller than a page. Not a failure — the book is still complete. */
 function reportOversized(blocks: OversizedBlock[]): void {
   for (const block of blocks) {
     console.warn(

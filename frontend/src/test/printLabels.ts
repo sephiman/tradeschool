@@ -5,12 +5,10 @@ import { pdfLabels, type Translate } from "@/lib/pdf/labels";
 import type { Locale } from "@/test/courseContent";
 
 /**
- * The PDF's chrome as a reader actually gets it: the app's own catalogs, through the app's own
- * `pdfLabels`. The tests therefore assert on the printed Spanish and English rather than on stand-in
- * strings — which is what lets the font-coverage test see every character the document can print.
+ * The PDF's chrome as a reader gets it: the app's own catalogs through the app's own `pdfLabels`, so the
+ * font-coverage test sees every character the document can print.
  *
- * A small `t` rather than a real i18next instance: the PDF uses three of its features (interpolation,
- * `count` plurals, `defaultValue`), and those are worth having in-process and synchronous.
+ * A small `t`, not a real i18next instance — the PDF uses three of its features, synchronously.
  */
 
 const CATALOGS: Record<Locale, Record<string, Record<string, string>>> = {

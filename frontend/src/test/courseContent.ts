@@ -7,9 +7,8 @@ import { FONT_DIR, PRINT_FONT_FILES } from "@/lib/pdf/fonts";
 import { testPng } from "@/test/png";
 
 /**
- * The REAL course, read straight off `content/`, so the export's completeness tests cannot drift from it:
- * driven off the manifest, no counts and no id literals, like the backend's export test. A block appended
- * tomorrow is covered the moment it is declared.
+ * The REAL course, read straight off `content/`, so the completeness tests cannot drift from it: no
+ * counts and no id literals, like the backend's export test.
  */
 
 /** Found by walking up, so the tests work from `frontend/` or from the repo root. */
@@ -108,10 +107,8 @@ export function manifestExerciseIds(): string[] {
 }
 
 /**
- * The course as `/course/export?lang=…` serves it, built from the manifest and the lesson files — with the
- * markdown deliberately RAW, exercise directives and all, where the real endpoint hands over prose already
- * stripped. That makes every "no exercise reached the PDF" assertion stronger than production: it holds
- * even with the upstream stripping gone, because the print renderer has no rule for one.
+ * The course as `/course/export?lang=…` serves it, but with the markdown deliberately RAW where the real
+ * endpoint pre-strips it — so "no exercise reached the PDF" holds even with the upstream stripping gone.
  */
 export function courseExportFromContent(locale: Locale): CourseExport {
   return {
@@ -133,8 +130,7 @@ export function courseExportFromContent(locale: Locale): CourseExport {
   };
 }
 
-/** Every distinct character in the authored course: prose in both languages, plus the manifest and figure
- *  specs, which is where titles, summaries and captions come from. */
+/** Every distinct character in the authored course: both languages, plus manifest and figure specs. */
 export function contentCharacters(): Set<string> {
   const chars = new Set<string>();
   const walk = (dir: string): void => {

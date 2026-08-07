@@ -1,27 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Whole-trade injector (module m24-l1): one setup with its four lines drawn on it.
+"""Whole-trade injector (m24-l1): one setup with its four lines drawn on it.
 
-m24-l1 narrates a complete trade in prose — a confluence level, a rejection wick below it, entry on the
-close back above, a stop under the wick, a target at the prior high — and it is the most chart-shaped
-lesson in the course. This injector draws that anatomy:
+Draws m24-l1's narrated anatomy. The role reversal it teaches earns the level its corroboration
+honestly: the level ships one `LevelGuard` per role rather than an exemption.
 
-* ``long_setup`` — the level is tested twice as RESISTANCE, broken, the impulse prints the prior high,
-  price pulls back to the old level (now support), pierces it with a rejection wick and closes back
-  above. The close of that rejection bar is the entry; the stop sits just under the wick; the target is
-  the prior high the impulse printed.
-
-The role reversal the lesson teaches — "the old resistance becomes support" — is what earns the level
-its corroboration honestly: the two pre-break touches are tests of a resistance, the pullback is a test
-of a support, and the level ships one `LevelGuard` per role rather than an exemption.
-
-Three of the four lines are `plan` levels: an entry, a stop and a target are prices the TRADER chose,
-not prices the market has respected, so the "every drawn level was tested by the price action" contract
-does not apply to them. They carry a stricter contract of their own instead (see
-`tests/test_chart_annotations.py`): the entry IS the close of the entry bar, the target IS the prior
-high, and the stop sits just below a rejection wick that is the deepest low of the whole setup.
-
-Figure-only (the trade is fully resolved on screen, which is the opposite of what an exercise may
-show), so the label is the visible state and the last-candle leak test does not apply.
+Three of the four lines are `plan` levels — an entry, stop and target are prices the TRADER chose, so
+the "every drawn level was tested" contract does not apply. They carry a stricter one instead, in
+`tests/test_chart_annotations.py`. Figure-only, so no last-candle leak test.
 """
 
 from __future__ import annotations

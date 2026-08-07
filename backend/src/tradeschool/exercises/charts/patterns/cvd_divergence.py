@@ -1,43 +1,14 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""CVD-divergence injector (module m26): cumulative volume delta read against price.
+"""CVD-divergence injector (m26): cumulative volume delta read against price.
 
-A DETECTION pattern. Price makes a second extreme of the same kind late in the window; the tell is
-what the **cumulative volume delta** — the running sum of (taker buy volume - taker sell volume),
-shown in the lower pane — did while price got there:
+A DETECTION pattern. Every label shares the same price geometry, so only the CVD pane separates them —
+which is the drill. Two anti-leak details that are easy to undo: ``cvd_confirms`` is built in BOTH
+directions, so no divergence label owns a direction; and the ``sign`` coin is drawn for every label so
+the RNG stream does not fork and the noise draws stay identically distributed.
 
-* ``cvd_bullish_divergence`` — price makes a LOWER LOW, CVD makes a HIGHER low. Sellers reached
-  further and got less for it: their aggression is being absorbed by a resting buyer. This is m14's
-  absorption and m09's spring test measured instead of eyeballed.
-* ``cvd_bearish_divergence`` — price makes a HIGHER HIGH, CVD makes a LOWER high. The new peak was
-  bought by less aggression than the last one — distribution into strength.
-* ``cvd_confirms`` — CVD makes its new extreme WITH price. The aggression agrees with the move, so
-  there is no divergence to read: a genuine, flow-backed break rather than an absorbed one.
-
-Unlike m17's open interest, CVD cannot be identical across labels — a divergence is by definition a
-disagreement between two series, so both have to be built. What IS held label-independent is
-everything that could leak the answer another way:
-
-* the answer lives in the CVD pane, not in price: the two divergence labels and ``cvd_confirms``
-  share the same price geometry (a second extreme reached on a shallow leg, flat afterwards), so the
-  candles narrow the choice to a direction's pair and only the CVD line separates that pair — which
-  is exactly the drill;
-* ``cvd_confirms`` is built in BOTH directions (coin-flipped), so neither divergence label owns a
-  direction the confirming case cannot also show;
-* the ``sign`` coin is drawn for every label, so the RNG stream does not fork and the noise draws
-  that follow are identically distributed per label;
-* the visible window ends in the standard drift-free ambient tail, so the resolution is off screen
-  and the last candles cannot betray the label (the blocking statistical gate).
-
-The CVD is generated, not derived from candle shape: a delta read off a candle's body would be a
-restatement of price the learner could answer without the pane, and would not be order-flow data at
-all. It is built as a per-bar taker-imbalance RATIO of that bar's volume — a price-tracking term plus
-a piecewise leg bias — so ``|delta| <= 0.78 x volume`` holds bar by bar by construction and the pane
-can never show flow the volume bars could not have carried.
-
-Vetted over 300 seeds per label at n = 110, 120, 130 (the exercise) and 150 (the figure): no seed
-failed to plant, the second price extreme always cleared its swing by >= 2.2%, and CVD's second swing
-always landed >= 0.24 of the pane's own height from the first — several times the verification gate,
-so no chart is technically-correct-but-unreadable.
+The CVD is generated, not derived from candle shape — a delta read off a body would just restate price.
+It is a per-bar taker-imbalance ratio of that bar's volume, so ``|delta| <= 0.78 x volume`` holds by
+construction and the pane can never show flow the volume bars could not have carried.
 """
 
 from __future__ import annotations
@@ -98,8 +69,7 @@ class CvdUnplantable(RuntimeError):
 
 
 def _volume(rng: np.random.Generator, close: Floats) -> Floats:
-    """A believable volume series for the full path: a noisy baseline (the house idiom) lifted where
-    the bar moved, using the window's typical move as the yardstick so no rolling window is needed."""
+    """A believable volume series: a noisy baseline lifted where the bar moved."""
     logret = np.diff(np.log(close), prepend=np.log(close[0]))
     typical = float(np.median(np.abs(logret))) or 1e-9
     move = np.clip(np.abs(logret) / typical, 0.0, 6.0)
@@ -108,12 +78,9 @@ def _volume(rng: np.random.Generator, close: Floats) -> Floats:
 
 
 def _cvd(close: Floats, volume: Floats, s1: int, s2: int, bias: float) -> Floats:
-    """Cumulative volume delta over the full path, anchored to 0 where the visible window opens.
+    """Cumulative volume delta, anchored to 0 where the visible window opens.
 
-    Each bar contributes `volume x ratio`, where ratio is the fraction of that bar's volume that was
-    net aggressive on one side: a price-tracking term everywhere, plus `bias` between the two swings
-    (the absorption / confirmation flow). Clipping the ratio is what guarantees the pane never shows
-    more signed flow than the volume bar beneath it could have carried.
+    Clipping the per-bar ratio is what keeps the pane from showing more flow than its volume bar could.
     """
     logret = np.diff(np.log(close), prepend=np.log(close[0]))
     typical = float(np.median(np.abs(logret))) or 1e-9
@@ -195,8 +162,7 @@ class CvdDivergenceInjector(PatternInjector):
 
 
 def _verified(target: str, sign: float, close: Floats, cvd: Floats, s1: int, s2: int) -> bool:
-    """The rendered series must actually read as labelled at the two swings, with margins that dwarf
-    the noise: price a clear new extreme, CVD clearly against it (divergence) or with it (confirms)."""
+    """Whether the rendered series actually reads as labelled at the two swings."""
     price_margin = _PRICE_MARGIN * float(close[s1])
     visible = cvd[WARMUP:]
     cvd_margin = _CVD_MARGIN * float(np.max(visible) - np.min(visible))

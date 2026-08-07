@@ -1,11 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""User and session-token tables.
+"""User and session-token tables, keyed by **username** — no email (self-hosted, no SMTP).
 
-TradeSchool identifies users by **username**, not email (self-hosted, no SMTP, no notifications).
-The user table therefore does *not* inherit ``SQLAlchemyBaseUserTableUUID`` — that base hardcodes a
-non-null unique ``email`` column. We spell the same columns out here, swapping ``email`` → ``username``.
-Everything else (session tokens, password hashing, the ``current_user`` dependency) stays stock; see
-``auth/manager.py`` for how the email-centric bits of fastapi-users are pointed at ``username``.
+Deliberately not inheriting ``SQLAlchemyBaseUserTableUUID``: that base hardcodes a non-null unique
+``email``. The same columns are spelled out here instead. See ``auth/manager.py``.
 """
 
 from __future__ import annotations

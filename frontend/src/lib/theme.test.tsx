@@ -4,13 +4,10 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { ThemeProvider, useResolvedTheme, useTheme, type ResolvedTheme } from "@/lib/theme";
 
 /**
- * Who needs a `ThemeProvider`. The PDF export draws figures in its own root, outside the app tree, so a
- * component that insists on the provider cannot be captured — and the failure is invisible at the call
- * site, because a hook that throws on mount looks like a component that is slow to appear.
+ * Who needs a `ThemeProvider`, and what "System" may mean.
  *
- * And what "System" is allowed to mean. `prefers-color-scheme` answers dark or light and has no third
- * value: reading system-dark as OLED would move every dark-mode reader onto a pure-black theme they
- * never chose, which is the one thing the preference must never do.
+ * A component that insists on the provider cannot be captured for the PDF, and the failure is invisible
+ * — a hook throwing on mount looks like a slow component. And system-dark must never resolve to OLED.
  */
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -76,9 +73,8 @@ function stubSystem(dark: boolean) {
 }
 
 /**
- * `localStorage` for a jsdom that has none either — this one runs on `about:blank`, which has no
- * origin to key storage by, so the global is genuinely absent (hence the try/catch around every
- * access in the provider). The map is returned so a test can read back what was written to it.
+ * `localStorage` for a jsdom that has none: on `about:blank` there is no origin to key it by, hence the
+ * provider's try/catch. The map is returned so a test can read back what was written.
  */
 function stubStorage(initial?: string): Map<string, string> {
   const store = new Map<string, string>();

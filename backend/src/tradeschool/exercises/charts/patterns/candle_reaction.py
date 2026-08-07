@@ -1,19 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Candle-reaction injector (module m08-l2): a single formation at the right edge, cut BEFORE it
-resolves. A candle is the footprint of order flow, and two mechanics wear many names:
+"""Candle-reaction injector (m08-l2): a single formation at the right edge, cut BEFORE it resolves.
 
-* **rejection** — a long wick: price was pushed to a price, absorbed, and returned (hammer at lows,
-  shooting star at highs, tweezers = double rejection).
-* **overrun** — an engulfing body: one side steamrolled the other and invalidated the prior range
-  (a morning/evening star tells the same across three candles; a harami is the compression after).
-* **non-information** — a doji (nobody won) or a small-range candle (compression): no signal.
+Tests the governing rule that location is 90% of the signal: the same form at a drawn level is
+information, in open space it is noise. A classification injector, so no hidden future to leak.
 
-The governing rule the exercise tests: **location is 90% of the signal.** The same form at a drawn
-level is information; in open space it is noise. This is a *classification* injector — the label IS
-the visible state (form + location), so ``hides_resolution`` is False; there is no hidden future to
-leak. "Cut before resolution" means the reaction is the final candle(s); what happens next is off
-screen. build_series randomizes wicks, so this injector ships its own OHLC via ``candles_full`` to
-plant the wick/body precisely; the reaction's close move stays well under the credibility spike bound.
+Ships its own OHLC via ``candles_full`` because `build_series` randomizes wicks and the wick/body has
+to be planted precisely.
 """
 
 from __future__ import annotations
@@ -51,8 +43,7 @@ _PIERCE = 0.012
 
 @dataclass(frozen=True)
 class _Form:
-    """A concrete formation: per-bar body moves (log returns) for the trailing reaction candles,
-    optional wick plants, the level side it belongs at, and which reaction bar to mark."""
+    """A concrete formation: body moves, wick plants, level side and which reaction bar to mark."""
 
     name: str
     deltas: tuple[float, ...]
@@ -231,8 +222,7 @@ class CandleReactionInjector(PatternInjector):
         )
 
     def _resolve_form(self, rng: np.random.Generator, target: str) -> tuple[_Form, bool]:
-        """Map a target to a concrete form and whether a level is drawn. Judgment targets sample a
-        form (and 'at level' for all but open space); named-form targets map directly."""
+        """Map a target to a concrete form and whether a level is drawn."""
         if target in _JUDGMENT:
             choices = _JUDGMENT[target]
             form = _FORMS[choices[int(rng.integers(0, len(choices)))]]

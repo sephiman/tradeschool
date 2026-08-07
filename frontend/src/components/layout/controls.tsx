@@ -4,8 +4,7 @@ import { useAuth } from "@/auth/AuthContext";
 import { useTheme, type ThemePreference } from "@/lib/theme";
 import { cn } from "@/lib/cn";
 
-/** One control vocabulary shared by the in-app avatar menu and the auth pages. `block` fills the
- * width (menu panel); the default is compact/content-width (auth card top-right). */
+/** One control vocabulary for the avatar menu and the auth pages. `block` fills the width. */
 export function Segmented<T extends string>({
   value,
   options,
@@ -52,8 +51,7 @@ export function Segmented<T extends string>({
   );
 }
 
-/** EN/ES segmented control. Anonymously it just switches the UI language; signed in it also
- * persists the preference (see AuthContext.setLocale). */
+/** EN/ES segmented control; signed in it also persists the preference (AuthContext.setLocale). */
 export function LanguageControl({ block }: { block?: boolean }) {
   const { t, i18n } = useTranslation();
   const { setLocale } = useAuth();
@@ -139,9 +137,7 @@ function ThemeIcon({ theme }: { theme: ThemePreference }) {
   );
 }
 
-/** Compact theme control that cycles light → dark → OLED → system. Used where the segmented control
- * would be too wide (the auth-card footer on phone widths) — it cycles through every option rather
- * than a subset, because a phone is exactly where OLED matters most. */
+/** Compact theme control cycling light → dark → OLED → system, where the segmented one is too wide. */
 export function ThemeCycleButton() {
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();

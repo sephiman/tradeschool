@@ -1,8 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Async SQLAlchemy engine, session factory and declarative base.
 
-The engine is created once at application startup (`init_engine`). Request handlers depend on
-`get_async_session`; tests override that dependency to point at a throwaway Postgres container.
+Created once at startup (`init_engine`); handlers depend on `get_async_session`, which tests override.
 """
 
 from __future__ import annotations

@@ -67,17 +67,11 @@ export interface PriceBand {
 }
 
 /**
- * The drawing palette. OLED is the dark palette with a delta applied on top, never a third branch:
- * light and dark come out of the same expression they always did, so the two shipped themes cannot
- * drift while the third is tuned.
+ * The drawing palette. OLED is the dark palette plus a delta, never a third branch, so the two shipped
+ * themes cannot drift while the third is tuned.
  *
- * What the delta touches is only what pure black actually changes. Every SIGNAL colour is kept —
- * candle up/down, the indicator/signal pair, OI, CVD, the overlay cycle, and the neutral the markers,
- * `plan` lines and shaded bands share — because saturated ink gains contrast on #000 rather than
- * losing it, and re-tinting it per theme would mean m21's stop line is a different colour depending
- * on the reader's preference. What does change is the CHROME: the grid and axis borders carry a blue
- * cast (gray-800/700) that reads as a colour rather than a rule once the background is neutral black,
- * and the crosshair, which is a library default in light and dark, is too dim against it.
+ * The delta touches CHROME only (grid, axis borders, crosshair). Every SIGNAL colour is kept, so m21's
+ * stop line is not a different colour depending on the reader's preference.
  */
 const OLED_INK = {
   background: "#000000",

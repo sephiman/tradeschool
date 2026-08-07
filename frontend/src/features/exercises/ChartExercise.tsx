@@ -8,12 +8,8 @@ import { Button } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 import { AttemptResult } from "@/features/exercises/AttemptResult";
 
-/** Interactive chart exercise. Divergence charts (`synthetic_chart`/`fixture_chart`) answer with a
- * `divergence`; the generic `pattern_chart` answers with a `label`. Choice buttons and the revealed
- * answer are localized (never raw injector ids), and overlays / price levels / OI all render.
- *
- * Practice passes onSubmit + result (grade inline). Exams pass `deferred` (capture-only); the exam
- * review passes a `result` to reveal the answer + markers, same as practice review. */
+/** Interactive chart exercise: divergence charts answer with a `divergence`, `pattern_chart` with a
+ * `label`. Practice passes onSubmit + result; exams pass `deferred` (capture-only). */
 export function ChartExercise({
   type,
   payload,

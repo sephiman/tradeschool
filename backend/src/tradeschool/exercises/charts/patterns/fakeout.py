@@ -1,17 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Breakout / fakeout injector (module m08).
+"""Breakout / fakeout injector (m08).
 
-A horizontal level (support or resistance) is tested near the right edge. The learner classifies the
-OUTCOME that is on screen — not a hidden future move:
-
-* ``genuine_breakout`` — price closed decisively beyond the level and is holding there.
-* ``false_break``      — price broke beyond the level, then closed back inside and is holding inside.
-* ``no_break``         — price approached the level, was rejected and never traded beyond it.
-
-The "resolution" (the trend that a real breakout unleashes) is off screen: after the decision the
-series is flat and then a drift-free ambient tail, identical for every label, so the final candles
-can't leak the answer (Phase-1 round-6 rule). The tell is structural and visible: where price sits
-relative to the drawn level line, and whether it ever closed beyond it.
+A level is tested near the right edge and the learner classifies the on-screen outcome. The resolution
+is off screen: after the decision comes a flat stretch and an ambient tail identical for every label,
+so the final candles cannot leak the answer.
 """
 
 from __future__ import annotations

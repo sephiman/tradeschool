@@ -31,8 +31,7 @@ function label(item: GalleryItem): string {
   return "?";
 }
 
-/** Dev-only credibility gallery: renders many generated charts with their ground-truth labels
- * using the exact production renderer (lightweight-charts). "What you review is what ships." */
+/** Dev-only credibility gallery: many generated charts with their labels, in the production renderer. */
 export function ChartGallery() {
   const [exerciseId, setExerciseId] = useState(EXERCISES[1]);
   const [draft, setDraft] = useState("");

@@ -1,9 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Central import point so `Base.metadata` sees every table.
-
-Alembic's env.py and the test schema bootstrap both import this module; each domain package
-registers its ORM models here as they are added.
-"""
+"""Central import point so `Base.metadata` sees every table — imported by alembic and the tests."""
 
 from __future__ import annotations
 

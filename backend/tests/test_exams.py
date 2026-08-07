@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Exams: sampling coverage, deferred grading, resume, unanswered handling, review reproducibility,
-and the hard requirement — exam attempts never contaminate practice statistics."""
+"""Exams: sampling, deferred grading, resume, review — and that they never touch practice statistics."""
 
 from __future__ import annotations
 
@@ -47,10 +46,7 @@ async def test_block_exam_scopes_to_one_block(content_client: AsyncClient) -> No
 
 
 async def test_a_single_module_block_yields_a_one_question_exam(content_client: AsyncClient) -> None:
-    """Block G is one module (m30, the SMC dialect), which is the first block to be. Nothing in the exam
-    path special-cases block size, and this is what says so out loud: the scope is accepted, sampling
-    produces exactly one question rather than an `EXAM_EMPTY`, and submitting it scores a one-question
-    block cleanly (a per-block ratio over a denominator of one, not a division by zero)."""
+    """A one-module block samples one question and scores cleanly — no `EXAM_EMPTY`, no zero division."""
     await _auth(content_client)
     exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-g"})).json()
     assert exam["scope"] == "block" and exam["blockId"] == "block-g"
@@ -67,8 +63,7 @@ async def test_a_single_module_block_yields_a_one_question_exam(content_client: 
 
 
 async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncClient) -> None:
-    """Module selection walks the manifest, so a new module joins the global exam by being registered —
-    no exam-side list to keep in step. m30 is the check that this is still true after block G was added."""
+    """A new module joins the global exam by being registered — there is no exam-side list to update."""
     await _auth(content_client)
     exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
     m30 = [q for q in exam["questions"] if q["moduleId"] == "m30"]

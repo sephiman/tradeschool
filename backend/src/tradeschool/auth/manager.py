@@ -1,11 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """User manager: Argon2 hashing, password/username policy, username-keyed identity.
 
-fastapi-users is email-centric. We keep its session/token backend, password hashing and the
-timing-safe ``authenticate`` flow entirely stock, and point the one email-shaped hook it calls
-(``get_by_email``) at our ``username`` column. Registration/locale updates go through small explicit
-methods (``register`` / ``set_locale`` / ``set_password``) rather than the stock ``create``/``update``,
-because those read an ``email`` field our schemas do not have.
+fastapi-users is email-centric: its ``get_by_email`` hook is pointed at our ``username`` column, and
+registration/locale go through explicit methods because the stock ``create``/``update`` read ``email``.
 """
 
 from __future__ import annotations
@@ -39,8 +36,7 @@ MIN_PASSWORD_LENGTH = 8
 
 
 class UserDatabase(SQLAlchemyUserDatabase[User, uuid.UUID]):  # type: ignore[type-var]
-    """SQLAlchemy adapter keyed on ``username``. TradeSchool stores no email; ``get_by_email`` is the
-    hook fastapi-users' ``authenticate``/``get_by_email`` call, so we alias it to the username lookup."""
+    """SQLAlchemy adapter keyed on ``username``: ``get_by_email`` is aliased to the username lookup."""
 
     async def get_by_username(self, username: str) -> User | None:
         statement = select(User).where(func.lower(User.username) == func.lower(username))

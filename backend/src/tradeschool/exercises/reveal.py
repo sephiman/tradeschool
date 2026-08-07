@@ -1,17 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Reading an instance's ground truth without a learner in front of it.
 
-A generator only ever yields the solution from ``grade()``, and ``grade()`` needs an answer. The two
-callers that legitimately want the truth anyway — the dev chart gallery and the print export — need
-the same two moves, so they share them here rather than each keeping a half-complete copy:
-
-1. ``dummy_answer`` — a *type-appropriate* throwaway, so ``grade`` reaches its reveal instead of
-   raising ``InvalidAnswerError``. It must cover every quiz sub-kind: an `ordering` payload answered
-   with a string, which is what the first version of this helper did, never gets that far.
-2. ``reveal`` — grade once to learn the answer, rebuild it as a real submission, and grade AGAIN with
-   it. The second pass is the point: if the submission the caller is about to publish does not grade
-   as correct against this very seed, the answer is wrong and the caller stops. An answer key that the
-   grader itself refuses is exactly the defect worth failing on.
+``grade()`` needs an answer, so ``dummy_answer`` builds a type-appropriate throwaway — it must cover
+every quiz sub-kind or ``grade`` raises ``InvalidAnswerError`` before revealing anything. ``reveal``
+then grades TWICE: the second pass fails the caller if the answer it is about to publish does not
+grade as correct against this very seed.
 """
 
 from __future__ import annotations
@@ -46,11 +39,7 @@ def _ids(payload: Mapping[str, object], key: str) -> list[str]:
 
 
 def dummy_answer(payload: Mapping[str, object]) -> dict[str, object]:
-    """A throwaway answer of the right SHAPE for this payload, so ``grade`` yields its ground truth.
-
-    Shape, not correctness: whether it happens to be right is irrelevant — only that the generator
-    accepts it rather than rejecting it as malformed.
-    """
+    """A throwaway answer of the right SHAPE for this payload, so ``grade`` yields its ground truth."""
     if "choices" in payload:
         choices = payload["choices"]
         first = str(choices[0]) if isinstance(choices, list) and choices else "none"
@@ -76,8 +65,7 @@ def dummy_answer(payload: Mapping[str, object]) -> dict[str, object]:
 def submission_for(correct_answer: object) -> dict[str, object]:
     """The revealed answer turned back into an answer a learner could have submitted.
 
-    Key order matters: a calculation reveals both ``optionId`` and ``value`` (the option and what it
-    reads), and it is the option that is graded.
+    Key order matters: a calculation reveals both ``optionId`` and ``value``, and the option is graded.
     """
     if not isinstance(correct_answer, Mapping):
         raise RevealError(f"revealed answer is not a mapping: {correct_answer!r}")
@@ -104,8 +92,7 @@ def reveal(
 ) -> Revealed:
     """Ground truth for ``(config, seed)``, verified by grading it back as a correct answer.
 
-    ``payload`` is the instance the caller is publishing — passed in rather than regenerated, so the
-    answer is read against the very thing the reader will see.
+    ``payload`` is passed in, not regenerated, so the answer is read against what the reader sees.
     """
     first = generator.grade(config, seed, dummy_answer(payload), locale)
     submission = submission_for(first.correct_answer)

@@ -5,15 +5,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 /**
  * The price pane must draw EXACTLY the horizontal lines the backend planted — no more.
  *
- * lightweight-charts defaults `priceLineVisible` to true, which puts a dashed horizontal line at the
- * last close with a price on the axis and no title: visually a support/resistance line, and on a chart
- * whose whole question is "did this level break?" a learner reads it as a second, unlabeled level. That
- * phantom line is what made m08 exercises appear to draw two levels, one of them mislabeled. It is off
- * now, and this locks it off — a regression here is invisible in a screenshot review but breaks every
- * level-reading exercise and figure at once.
+ * lightweight-charts defaults `priceLineVisible` to true, adding an untitled dashed line at the last
+ * close that reads as a second, unlabeled level. A regression here is invisible in a screenshot review
+ * but breaks every level-reading exercise at once.
  *
- * The library is mocked because it renders to canvas: what matters is the options the component asks
- * for, which is exactly what a mock can assert and a jsdom render cannot.
+ * The library is mocked: it renders to canvas, so only the requested options are assertable.
  */
 
 const addSeries = vi.fn();

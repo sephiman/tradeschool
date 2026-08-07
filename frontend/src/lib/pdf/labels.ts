@@ -3,10 +3,8 @@ import { COURSE_AUTHOR, type PdfLabels } from "@/lib/pdf/document";
 /**
  * Every word the PDF prints that is not course content, resolved from the app's catalogs in ONE place.
  *
- * `lib/pdf/` deliberately knows nothing about i18next — that is what makes the document buildable for
- * either locale in a test — so the chrome has to be handed in. Building it here rather than inside the
- * button means the tests print the same strings the reader gets, and the font's glyph coverage can be
- * checked against exactly this set instead of a guess at it.
+ * `lib/pdf/` knows nothing about i18next, so the chrome is handed in — which is what makes the document
+ * buildable for either locale in a test, and lets the font's glyph coverage be checked against this set.
  */
 
 /** i18next's `t`, narrowed to what the PDF needs (interpolation, `count` plurals, `defaultValue`). */

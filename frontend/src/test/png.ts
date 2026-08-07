@@ -1,9 +1,9 @@
 import zlib from "node:zlib";
 
 /**
- * A real PNG data URL, w×h of flat grey, for tests that need a figure bitmap without a browser. Generated
- * rather than a pasted base64 blob on purpose: a degenerate PNG does not make pdfmake complain, it makes
- * it spin — a 1×1 "transparent pixel" hung the typesetter for minutes with no error.
+ * A real PNG data URL, w×h of flat grey, for tests needing a figure bitmap without a browser.
+ *
+ * Generated, not a pasted blob: a degenerate PNG makes pdfmake SPIN rather than complain.
  */
 
 const CRC_TABLE = Array.from({ length: 256 }, (_, n) => {

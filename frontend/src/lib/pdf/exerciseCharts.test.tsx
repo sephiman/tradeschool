@@ -8,12 +8,8 @@ import { useResolvedTheme, type ResolvedTheme } from "@/lib/theme";
 /**
  * Capturing the charts that ARE the question.
  *
- * The assertion that matters is the negative one: the printed chart carries no markers and no shaded
- * zones. Those are the answer — drawing them on the question would hand it over, on paper exactly as
- * on screen (m30) — and the failure mode is silent, since a chart with the answer drawn on it still
- * looks like a perfectly good chart.
- *
- * The renderer is stood in for, as in `figures.test.tsx`: jsdom has no canvas.
+ * The assertion that matters is the negative one — no markers, no shaded zones — and its failure mode is
+ * silent: a chart with the answer drawn on it still looks like a perfectly good chart.
  */
 
 interface Rendered {

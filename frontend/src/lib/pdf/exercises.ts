@@ -8,14 +8,9 @@ import { PRINT, contentWidth } from "@/lib/pdf/page";
 /**
  * Printed exercises and the answer key, as pure pdfmake content.
  *
- * Everything a reader needs to answer is on the page; everything that answers it is at the back. The
- * two halves are built from the SAME `PrintExercise` objects, and the key addresses the page through
- * it: an answer names option *ids*, which are resolved here against the very option list that was
- * laid out, so the key cannot cite a "b)" the page does not print. Chart answers quote prices the
- * server already indexed out of the published series.
- *
- * No i18next: like `document.ts`, every word arrives through `ExerciseLabels`, so both locales are
- * buildable — and assertable — in a test.
+ * Both halves are built from the SAME `PrintExercise` objects and the key resolves option IDS against
+ * the laid-out list, so it cannot cite a "b)" the page does not print. No i18next — every word arrives
+ * through `ExerciseLabels`, so both locales are assertable in a test.
  */
 
 /** The letters options are printed under. Beyond 26 options (nothing comes close) it wraps to aa, ab. */
@@ -42,8 +37,7 @@ export interface ExerciseLabels {
   selectAllHint: string;
   orderingHint: string;
   matchingHint: string;
-  /** A chart exercise's choice, localized: `divergence.*` for the divergence charts, `chartLabel.*`
-   *  for the pattern charts — the same two namespaces the app reads. */
+  /** A chart exercise's choice: `divergence.*` or `chartLabel.*`, the namespaces the app reads. */
   chartChoice: (label: string, isDivergence: boolean) => string;
   /** A ground-truth marker's name (`chartMarker.*`, falling back to the raw label). */
   marker: (raw: string) => string;
@@ -51,8 +45,7 @@ export interface ExerciseLabels {
   zone: (label: string, kind: string) => string;
 }
 
-/** `exerciseId` is not a pdfmake property — the renderer ignores it, and it is what lets the tests
- *  check "every exercise is printed once, after its lesson" on the document itself. */
+/** `exerciseId` is not a pdfmake property; the renderer ignores it and the tests assert on it. */
 export interface ExerciseBlock extends ContentStack {
   exerciseId: string;
   exerciseNumber: string;
@@ -63,8 +56,7 @@ export interface AnswerEntry extends ContentStack {
   exerciseNumber: string;
 }
 
-/** A captured exercise chart, keyed by exercise id. MUST throw for a missing one: an exercise whose
- *  chart never drew is a question with no question in it. */
+/** A captured exercise chart by id. MUST throw when missing — a chartless question is unanswerable. */
 export type ExerciseChartLookup = (exerciseId: string) => string;
 
 const DIVERGENCE_TYPES = new Set(["synthetic_chart", "fixture_chart"]);
@@ -80,8 +72,7 @@ export function printDate(seconds: number): string {
   return `${pad(date.getUTCDate())}/${pad(date.getUTCMonth() + 1)}/${date.getUTCFullYear()}`;
 }
 
-/** Payload numbers are already rounded to two decimals server-side; this keeps them locale-neutral,
- *  so the price in the key is character-for-character the number behind the printed candle. */
+/** Locale-neutral, so the price in the key is character-for-character the printed candle's number. */
 export function printPrice(price: number): string {
   return price.toFixed(2);
 }
@@ -106,8 +97,7 @@ function hint(text: string): Content {
   return { text, style: "exerciseHint" };
 }
 
-/** Matching prints as a two-column table: the items numbered, the options lettered, because the
- *  answer has to name one of each ("1 → c") and a bare list of ten strings names neither. */
+/** Matching prints as a two-column table — numbered items, lettered options — so "1 → c" can address it. */
 function matchingTable(exercise: PrintExercise): Content {
   const lefts = optionsOf(exercise, "lefts");
   const rights = optionsOf(exercise, "rights");
@@ -136,8 +126,7 @@ function chartImage(exercise: PrintExercise, chart: ExerciseChartLookup): Conten
   return { image: chart(exercise.id), width: contentWidth(), margin: [0, 4, 0, 6] };
 }
 
-/** A prompt is markdown, and the app renders it as such (`<Prose markdown={instance.prompt} />`) —
- *  half of them emphasise the words the question turns on. Printed raw, those arrive as asterisks. */
+/** A prompt is markdown — printed raw, its emphasis arrives as literal asterisks. */
 export function promptContent(markdown: string, source: string): Content[] {
   const rendered = lessonToContent(
     markdown,
@@ -343,10 +332,7 @@ export interface AnswerKeyGroup {
   exercises: PrintExercise[];
 }
 
-/** The one answer-key section, at the back of the book, in the book's own order.
- *
- *  `null` when nothing was printed to answer: a key with no answers in it is a heading, and a heading
- *  in the table of contents pointing at an empty page is worse than no section. */
+/** The answer-key section, in the book's own order. `null` when nothing was printed to answer. */
 export function answerKeySection(
   groups: AnswerKeyGroup[],
   labels: ExerciseLabels,

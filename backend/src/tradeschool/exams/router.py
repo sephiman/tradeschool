@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Exam endpoints. Sampling, seeds and grading are server-side; no solution reaches the client for
-the whole session — only /submit and /review carry correct answers and worked solutions."""
+"""Exam endpoints. Only /submit and /review carry solutions; nothing reaches the client before then."""
 
 from __future__ import annotations
 

@@ -21,9 +21,7 @@ def ema(values: Floats, period: int) -> Floats:
 def rsi(close: Floats, period: int = 14) -> Floats:
     """Wilder's RSI in [0, 100], length == len(close).
 
-    Textbook Wilder: the first average gain/loss is the simple mean of the first `period` price
-    changes; subsequent values use Wilder's smoothing. RSI is only defined from index `period`
-    onward — earlier bars are warm-up and are filled with the first real value (callers drop them).
+    Only defined from index `period` on; earlier bars are warm-up filled with the first real value.
     """
     n = len(close)
     out = np.full(n, 50.0)

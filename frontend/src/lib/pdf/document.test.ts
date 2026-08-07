@@ -26,12 +26,9 @@ import { printExercisesFromContent, stubExerciseCharts } from "@/test/printExerc
 import { testPdfLabels } from "@/test/printLabels";
 
 /**
- * The course PDF checked against the course itself: driven off `content/course.yaml`, no counts and no id
- * literals, like the backend's `test_export_is_complete_against_the_manifest`. A document whose job is to
- * be a faithful copy has one interesting defect — being quietly incomplete.
- *
- * With exercises in the book that defect has a second half: a question printed with no answer at the
- * back, or an answer whose question is not in the book. Both are checked as a bijection below.
+ * The course PDF checked against the course itself: driven off `content/course.yaml`, no counts and no
+ * id literals. The defect that matters is being quietly incomplete — including a question with no
+ * answer at the back, or an answer with no question, both checked here as a bijection.
  */
 
 const labels: PdfLabels = testPdfLabels("en");

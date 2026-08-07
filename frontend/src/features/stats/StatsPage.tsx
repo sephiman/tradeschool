@@ -36,11 +36,7 @@ function StatTile({ label, value, note, bar }: { label: string; value: string; n
 
 const MAX_REVIEW_LINKS = 4;
 
-/**
- * The shortest path from "you struggle here" to "practise here": the exercise, inside the lesson it
- * lives on. Nothing about the destination is special — it is the ordinary practice player, so a
- * re-attempt started from here counts exactly as any other practice attempt does.
- */
+/** Links from "you struggle here" to the exercise inside its lesson — the ordinary practice player. */
 function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewTarget[] }) {
   const { t } = useTranslation();
   if (targets.length === 0) return null;

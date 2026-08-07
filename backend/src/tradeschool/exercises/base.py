@@ -1,10 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""The ExerciseGenerator contract (§3.2).
+"""The ExerciseGenerator contract (§3.2): pure, seed-deterministic `(config, seed) -> instance`.
 
-Generators are pure, seed-deterministic functions: `(config, seed) -> instance`. The same seed
-always reproduces the same instance and the same grading, so any past attempt is exactly
-replayable from its stored seed. A generator never leaks the solution in `generate`; the solution
-is produced only by `grade`, after the learner has answered (§3.1).
+A generator never leaks the solution in `generate`; only `grade` produces it, after answering (§3.1).
 """
 
 from __future__ import annotations

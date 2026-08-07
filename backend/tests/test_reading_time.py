@@ -1,10 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""The per-lesson reading-time estimate: what counts as prose, what a figure costs, and the fact that
-the number reaching every surface is the same number.
+"""The per-lesson reading-time estimate: what counts as prose, what a figure costs, one shared number.
 
-The estimate is served in SECONDS and aggregated by the client. That split is the point: the backend
-owns "how long is this lesson", the display layer owns "how do I say it", and no aggregate is ever
-computed from rounded minutes (the frontend suite locks that half).
+Served in SECONDS and aggregated by the client, so no aggregate is computed from rounded minutes —
+the frontend suite locks that half.
 """
 
 from __future__ import annotations
@@ -74,9 +72,7 @@ def _lessons(course: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def test_directives_and_markup_are_stripped_and_callout_prose_is_kept() -> None:
-    """What the reader reads is what gets counted: headings, sentences, list items and callout text —
-    not the `::figure` / `::exercise` directives, not the `:::note` fences, not the markup characters,
-    and not a fenced code block (read at a wholly different speed, if at all)."""
+    """Headings, sentences, list items and callout text count; directives, fences and code do not."""
     text = prose_text(FIXTURE)
     # The directives and the fence syntax are gone...
     assert "::figure" not in text and "::exercise" not in text and ":::" not in text
@@ -95,16 +91,13 @@ def test_directives_and_markup_are_stripped_and_callout_prose_is_kept() -> None:
 
 
 def test_a_lesson_with_no_prose_at_all_still_costs_its_figures() -> None:
-    """The degenerate case the aggregate rules care about: zero words is zero seconds (so a module of
-    unwritten lessons shows nothing), but a lesson that is one chart is not free to read."""
+    """Zero words is zero seconds, but a lesson that is one chart is not free to read."""
     assert estimate_seconds("::exercise{id=m01-ex-1}\n") == 0
     assert estimate_seconds("::figure{id=fig-x1}\n") == FIGURE_SECONDS
 
 
 def test_adding_a_figure_moves_the_estimate_by_exactly_figure_seconds() -> None:
-    """FIGURE_SECONDS is the whole cost of a figure and the directive itself is worth no words, so the
-    delta is exact — not "about 30". A rounding scheme that fuzzed this would also fuzz the constant's
-    meaning, which is the thing that has to stay tunable."""
+    """The delta is exactly FIGURE_SECONDS, not "about 30" — the constant has to stay tunable."""
     before = estimate_seconds(FIXTURE)
     after = estimate_seconds(FIXTURE + "\n::figure{id=fig-x2}\n")
     assert figure_count(FIXTURE) + 1 == figure_count(FIXTURE + "\n::figure{id=fig-x2}\n")
@@ -112,9 +105,7 @@ def test_adding_a_figure_moves_the_estimate_by_exactly_figure_seconds() -> None:
 
 
 def test_estimates_are_per_locale_and_differ_between_es_and_en() -> None:
-    """ES and EN are different text, so the same lesson is a different read in each — and that is the
-    correct answer, not drift. Both must be nonzero: a locale silently estimating 0 would show a
-    Spanish reader no time at all."""
+    """ES and EN estimate differently, and both nonzero — a locale at 0 would show no time at all."""
     registry = load_registry(get_settings().content_dir)
     en = registry.lesson_reading_seconds("m30-l1", "en")
     es = registry.lesson_reading_seconds("m30-l1", "es")
@@ -128,8 +119,7 @@ def test_estimates_are_per_locale_and_differ_between_es_and_en() -> None:
 
 
 def test_real_lessons_are_estimated_from_their_own_words_and_figures() -> None:
-    """The registry's stored number is the pure function of that locale's markdown — no per-request
-    recomputation, no cross-locale leakage."""
+    """The registry's stored number is a pure function of that locale's markdown."""
     registry = load_registry(get_settings().content_dir)
     for locale in ("en", "es"):
         for _, lesson in registry.manifest.iter_lessons():
@@ -138,9 +128,7 @@ def test_real_lessons_are_estimated_from_their_own_words_and_figures() -> None:
 
 
 async def test_every_view_serves_the_same_per_lesson_seconds(content_client: AsyncClient) -> None:
-    """Course, module and lesson payloads all carry `readingSeconds`, and they agree. This is what
-    makes cross-level consistency structural rather than lucky: the client cannot compute a course
-    total that disagrees with a lesson page, because there is only one number to compute it from."""
+    """Course, module and lesson payloads all carry `readingSeconds`, and they agree."""
     await _auth(content_client)
 
     course = (await content_client.get("/api/course?lang=en")).json()
@@ -169,12 +157,10 @@ async def test_every_view_serves_the_same_per_lesson_seconds(content_client: Asy
 
 
 async def test_the_export_carries_no_reading_estimate(content_client: AsyncClient) -> None:
-    """The export is the course *content*. Reading time is derived from it — a calibration we expect to
-    retune — so baking it into an archive would publish a number that silently ages.
+    """The export carries no reading estimate — a retunable calibration would silently age in an archive.
 
-    Asserted over the parsed keys rather than a substring of the raw document, deliberately: the
-    bilingual export is megabytes of JSON, and a failing `"x" not in raw` on a string that size takes
-    pytest minutes to render. Keys are also the sharper claim — it is the field that must be absent.
+    Asserted over parsed KEYS, not a raw substring: a failing `not in` on megabytes of JSON takes
+    pytest minutes to render.
     """
     await _auth(content_client)
     for query in ("", "?lang=en"):

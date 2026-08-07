@@ -31,9 +31,8 @@ import { testPdfLabels } from "@/test/printLabels";
 /**
  * The whole course, both languages, typeset by pdfmake into a real PDF.
  *
- * Two stand-ins: the figure bitmaps (a canvas needs a browser) and the PDF *writer* — this drives
- * pdfmake's node build, the same layout engine `src/` compiles to for the browser, but writing through
- * node's zlib rather than a polyfill. The document and its pagination are the button's own.
+ * Two stand-ins: the figure bitmaps (canvas needs a browser) and the PDF writer. The layout engine,
+ * document and pagination are the real ones.
  */
 
 async function nodePdfMake() {
@@ -177,15 +176,12 @@ describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
 /**
  * Where the pages actually broke, in the book as it will be printed.
  *
- * pdfmake decides each node's page break exactly once, so the enforcing pass sees offenders in the
- * moment BEFORE they are fixed — useless as a check. The outcome is read in a second pass over the
- * same definition: the breaks the first pass inserted are kept, pdfmake's per-node "already decided"
- * flags are cleared, and a callback that changes nothing observes every node at its final position.
- * That is the same repeated layout of one definition that `layoutDocument` does internally.
+ * Needs a SECOND pass: pdfmake decides each break once, so the enforcing pass only ever sees offenders
+ * before they are fixed. The second keeps the inserted breaks, clears the "already decided" flags, and
+ * observes every node at its final position.
  */
 describe.each(LOCALES)("the printed pages (%s)", (locale) => {
-  /** Walk the document's OWN container keys. After a layout pass pdfmake decorates every node with
-   *  cyclic internals, so a walk over all values never returns. */
+  /** Walk the document's OWN container keys — pdfmake's post-layout internals are cyclic. */
   function walk(node: unknown, visit: (n: Record<string, unknown>) => void): void {
     if (Array.isArray(node)) {
       node.forEach((child) => walk(child, visit));

@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Generator registry (the house connector pattern §3.2): one implementation per type, resolved by
-type. Adding a type is a new entry here, not a core change."""
+"""Generator registry (§3.2): one implementation per type. Adding a type is a new entry, not a change."""
 
 from __future__ import annotations
 

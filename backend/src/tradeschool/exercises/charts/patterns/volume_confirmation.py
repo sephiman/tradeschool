@@ -1,16 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Volume-confirmation injector (module m14).
+"""Volume-confirmation injector (m14).
 
-A DETECTION pattern where the tell is VOLUME, not price. Price breaks a level and holds just beyond
-it — identically for both labels — so price alone cannot betray the answer:
-
-* ``confirmed_breakout``   — the breakout candle prints on a clear volume surge (participation).
-* ``unconfirmed_breakout`` — the same break happens on weak, below-average volume (no participation).
-
-Because the price geometry is the same for both labels, the last-candle price distribution is
-identical (the anti-leak test passes trivially) and the resolution — whether the break ultimately
-holds or fails — is off screen. The learner must read the volume bars under the breakout. Volume is
-supplied explicitly (overriding the engine's price-derived volume) so it carries the signal.
+A DETECTION pattern where the tell is VOLUME: the price geometry is identical for both labels, so the
+candles cannot betray the answer. Volume is supplied explicitly, overriding the engine's
+price-derived volume, so it carries the signal.
 """
 
 from __future__ import annotations

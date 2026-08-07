@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Dev-only endpoints (mounted because the test settings set dev_mode=True). These guard the exact
-URL shapes documented to the reviewer: /api/dev/attempts (with seed) and /api/dev/charts/data."""
+"""Dev-only endpoints: the exact URL shapes /api/dev/attempts (with seed) and /api/dev/charts/data."""
 
 from __future__ import annotations
 

@@ -1,43 +1,17 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Origin-zone injector (module m30-l1): what the SMC dialect calls an "order block".
+"""Origin-zone injector (m30-l1): what the SMC dialect calls an "order block".
 
-The mechanic the course already taught, under two other names. m08-l1 explains a support as *a shelf of
-resting buy orders* the last visits taught people to leave, and a genuine break as role reversal — the
-level that capped price now holds it. m09 explains a large buyer who cannot fill in one go and absorbs
-supply across a whole range. Put those together and the origin zone falls out: the **last opposing
-candles before the impulse that broke structure** are where the size that caused the impulse was working,
-it could not all get filled there, and a return often finds the remainder.
+Plants a sequence, not a shape: a range whose high is tested twice -> a dip (the ORIGIN) -> an impulse
+closing clean past that high (the BOS) -> a return into the dip -> what the return does. All labels
+share their opening two thirds bar for bar, so only *did structure break* separates them.
 
-So the geometry this plants is a sequence, not a shape:
+Every label is BULLISH, deliberately: m30-l1 and m30-ex-1 state the bullish case in words, so a
+bearish seed would be graded against a prompt describing its mirror. Adding one fails
+`test_chart_bands.py::test_origin_zone_only_ever_plants_the_bullish_case` until the prompts and the
+lesson are made symmetric in BOTH languages — in that order.
 
-  a range whose high is tested twice  ->  a dip (the ORIGIN)  ->  an impulse that closes clean past that
-  high (the BOS)  ->  a return into the dip  ->  and what the return does.
-
-* ``zone_respected`` — the return wicks into the zone, closes above it, and price leaves upward.
-* ``zone_failed``    — the return closes clean through the zone and keeps going. Zones fail; a lesson
-  that only ever showed them holding would be teaching the dogma rather than the mechanic.
-* ``no_zone``        — the same dip and the same return, but the rally between them **never took out the
-  prior high**. Nothing broke, so there is no origin zone: this is the characteristic error (calling any
-  pullback an order-block retest) given its own label instead of a footnote.
-
-All three share their opening two thirds bar for bar, which is deliberate: the reading that separates
-them is *did structure break*, and that is only a fair question when nothing else differs.
-
-**Every label is BULLISH, deliberately.** The break is always of a HIGH and the zone is always demand, in
-all three labels and on every seed. That is a content decision, not an oversight: m30-l1 and m30-ex-1 both
-state the bullish case in words ("a close clean past the high the range had been testing"), and a bearish
-seed served under those prompts would be graded against a question that describes the mirror of what is on
-screen. The mechanic is symmetric and the lesson says so in prose; what is not symmetric is the generated
-set. If a bearish variant is ever added here, `test_chart_bands.py::test_origin_zone_only_ever_plants_the
-_bullish_case` fails until the prompts and the lesson are made symmetric in BOTH languages — which is the
-order those two changes have to happen in.
-
-The shaded `Band` is GROUND TRUTH — drawing it would answer the question — so it reaches the learner
-only after grading, and the figure. `hides_resolution` is True: like `fakeout`, the decision is on screen
-but what follows it is not, and the ambient tail is what keeps the last candles from betraying the label.
-
-Candles are built here (`candles_full`) because the band IS the origin candles' own range: it has to be
-read off the wicks a learner sees, not off the close path the dip was designed in.
+Candles are built here (`candles_full`) because the band IS the origin candles' own range: it must be
+read off the wicks the learner sees, not the close path the dip was designed in.
 """
 
 from __future__ import annotations
@@ -113,17 +87,10 @@ _NOISE = 0.003  # peak texture, well inside every designed separation above
 
 
 def _origin_bars(series: Series, low_bar: int) -> tuple[int, int]:
-    """[lo, hi) — the last down-leg before the impulse, in the series' own coords. The zone is its range.
+    """[lo, hi) — the last down-leg before the impulse. The zone is its range.
 
-    The definition applied rather than approximated: the origin zone is *the last opposing candles before
-    the move*, so the window runs from the local high that leg started at down to the low it ended on.
-
-    Anchoring on that high, rather than on a fixed window around the low or on a walk back through
-    consecutive bearish closes, is what keeps the zone's WIDTH honest at both ends. A fixed three-bar
-    window collapsed to a 0.17%-wide hairline whenever the noise flattened those three candles, and a
-    walk back through bearish closes ran 6% wide whenever the noise chained the dip onto the range's own
-    descent — a "zone" that size is a downtrend. The high is always strictly before the low, so the
-    window is at least two candles wide by construction.
+    Anchored high-to-low, not on a fixed window (collapses to a hairline) or a walk back through
+    bearish closes (runs 6% wide, which is a downtrend, not a zone).
     """
     lo = candle_extreme(series, max(0, low_bar - _ORIGIN_LOOKBACK), low_bar, "high")
     return lo, low_bar + 1

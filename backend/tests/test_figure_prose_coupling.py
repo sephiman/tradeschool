@@ -1,27 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""The lessons' worked numbers are approximations of their figures' generated values — this keeps them
-that way.
+"""The lessons' worked numbers are approximations of their figures' generated values.
 
-Several lessons teach with numbers next to a generated figure ("cerca de 25.900" for a shelf drawn at
-25911.85). The convention is that the FIGURE is the source of truth and the prose rounds it, so text
-and chart visibly agree. That couples prose to generator output: a reseed, an injector change or a
-different resolution leg moves the chart and silently strands every number in the lesson beside it —
-the worst kind of content bug, because nothing crashes and the page still looks finished.
-
-`content/figure-coupling.yaml` declares the coupling; this module checks it in both directions.
-
-* **The figure moved.** Every anchor is recomputed from the built figure and compared against the
-  number the prose prints. A drifted value fails here, and the message names the lessons that now need
-  a prose pass — which is the whole point: the manifest turns "somebody has to remember" into a test.
-* **The prose moved.** Every anchor's number, formatted the way each locale writes it (1.800 in es,
-  1,800 in en), must still appear in every lesson that quotes the figure, in BOTH content trees. An
-  edit that drops or changes a coupled number fails here. An anchor may narrow that lesson list to a
-  subset, for the case of two lessons embedding one figure and quoting different amounts of it.
-* **Panels that claim to be the same chart are the same chart.** Three figures share a seed across
-  their panels so the comparison is "identical candles, one difference", and three lessons now say so
-  in prose. `identical_through` holds those panels to it bar by bar.
-* **Exceptions stay guarded.** A figure the prose deliberately does NOT adapt to must keep its
-  lead-in telling the reader it is a generated instance with its own prices.
+The FIGURE is the source of truth and the prose rounds it, which couples prose to generator output: a
+reseed silently strands every number beside the chart, and nothing crashes.
+`content/figure-coupling.yaml` declares the coupling; this checks it both ways — the figure moved, and
+the prose moved (per-locale number formatting, both content trees). `identical_through` holds
+same-seed panels equal bar by bar, and guarded exceptions must keep their generated-instance lead-in.
 """
 
 from __future__ import annotations

@@ -1,11 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Shared, gate-vetted anti-leak primitives for pattern injectors.
+"""Shared anti-leak primitives for pattern injectors.
 
-These are an independent copy of the machinery proven on the Phase-1 divergence injector (the frozen
-`charts/injectors.py` is left untouched, per the freeze). Every Phase-2 injector composes from these
-so it inherits the same guarantees: indicator warm-up is generated then hidden, control-point shapes
-are smoothed without a boundary artifact, and the visible window ends in drift-free ambient noise so
-the resolution is never on screen and the last candles cannot betray the label.
+An independent copy of the Phase-1 machinery: the frozen `charts/injectors.py` stays untouched.
 """
 
 from __future__ import annotations
@@ -33,9 +29,10 @@ TAIL_REVERT = 0.4  # mean-revert toward the last real level so the tail consolid
 
 
 def smooth(values: Floats, window: int = 3) -> Floats:
-    """Moving-average smoothing with EDGE padding. `mode="same"` zero-pads the boundaries, which
-    drags the last shape value toward 0; since a shape's sign encodes the pattern, that produced a
-    large final candle in the resolution direction (a leak). Edge padding keeps the ends put."""
+    """Moving-average smoothing with EDGE padding.
+
+    Not `mode="same"`: its zero-padding drags the last shape value toward 0, leaking the resolution.
+    """
     pad = window // 2
     padded = np.pad(values, pad, mode="edge")
     kernel = np.ones(window) / window
@@ -43,8 +40,7 @@ def smooth(values: Floats, window: int = 3) -> Floats:
 
 
 def shape_from_points(points: list[tuple[float, float]], n: int) -> Floats:
-    """Interpolate (fraction-of-window, log-offset) control points onto an n-length log-offset curve,
-    then smooth. The curve is added to a log base price to build a close path with a designed shape."""
+    """Interpolate (fraction-of-window, log-offset) control points onto an n-length curve, smoothed."""
     xs = [p[0] * (n - 1) for p in points]
     ys = [p[1] for p in points]
     x = np.arange(n, dtype=float)
@@ -52,17 +48,17 @@ def shape_from_points(points: list[tuple[float, float]], n: int) -> Floats:
 
 
 def detrended_noise(rng: np.random.Generator, n: int, sigma: float) -> Floats:
-    """A driftless Brownian-bridge-ish noise path: a random walk with its own net linear drift
-    removed, so variance stays everywhere (candles never go dead-flat) but the noise adds no trend."""
+    """A driftless noise path: a random walk with its own net linear drift removed."""
     walk = np.cumsum(rng.normal(0.0, sigma, n))
     x = np.arange(n, dtype=float)
     return walk - np.polyval(np.polyfit(x, walk, 1), x)
 
 
 def bounded_noise(rng: np.random.Generator, n: int, amp: float, base_sigma: float = 0.006) -> Floats:
-    """Correlated candle texture (a detrended walk) rescaled so its PEAK absolute excursion equals
-    `amp`. A raw walk's mid-path excursions (~sigma*sqrt(n)) can rival a pattern's designed separations and
-    accidentally cross a level; bounding the peak keeps the texture without ever faking the pattern."""
+    """Candle texture rescaled so its PEAK absolute excursion equals `amp`.
+
+    Bounding the peak stops a raw walk's excursions from rivalling the pattern's own separations.
+    """
     noise = detrended_noise(rng, n, base_sigma)
     peak = float(np.max(np.abs(noise)))
     return noise * (amp / peak) if peak > 0 else noise
@@ -71,15 +67,10 @@ def bounded_noise(rng: np.random.Generator, n: int, amp: float, base_sigma: floa
 def with_warmup(
     rng: np.random.Generator, close_visible: Floats, drift: float = 0.0, sigma: float = 0.008
 ) -> Floats:
-    """Prepend WARMUP gentle candles that connect into the visible series purely to converge the
-    oscillators. Dropped from what the learner sees.
+    """Prepend WARMUP hidden candles to converge the oscillators before the visible window.
 
-    `drift` ramps the warm-up in log-price so it *arrives* already trending (it starts `drift` below
-    the visible open and ends at it), and `sigma` sets its candle noise. Both default to the original
-    flat, driftless walk, so every existing injector is byte-identical. They exist for the one case
-    where the visible reading needs the indicator to ALREADY have a settled sign at the left edge:
-    m11's MACD crossovers, where a flat warm-up leaves the MACD line wandering across zero there and
-    would show a stray crossing the label never claimed.
+    `drift` makes the warm-up arrive already trending, for readings needing a settled sign at the
+    left edge (m11's MACD, where a flat warm-up shows a stray crossing the label never claimed).
     """
     walk = np.cumsum(rng.normal(0.0, sigma, WARMUP + 1))
     walk = walk - walk[-1]  # end the warm-up at ~close_visible[0]
@@ -90,9 +81,7 @@ def with_warmup(
 
 
 def apply_ambient_tail(rng: np.random.Generator, close: Floats, tail: int = TAIL) -> None:
-    """Overwrite the last `tail` candles (in place) with drift-free, mean-reverting noise at the fixed
-    ambient volatility, for EVERY label. No resolution or confirmation move is shown; the final
-    candles carry no directional signal that could betray the label."""
+    """Overwrite the last `tail` candles in place with signal-free noise, identical for every label."""
     n = len(close)
     core = n - tail
     if core < 20:
@@ -107,11 +96,7 @@ def apply_ambient_tail(rng: np.random.Generator, close: Floats, tail: int = TAIL
 def append_resolution(
     rng: np.random.Generator, close: Floats, direction: float, strength: float = 0.18, length: int = 24
 ) -> Floats:
-    """Append `length` candles continuing the story — the pattern's RESOLUTION — for lesson FIGURES
-    only (never exercises, which stop before it). `direction` is +1 up / -1 down / 0 sideways; a
-    directional leg moves ~`strength` in log-price with believable texture, a sideways leg consolidates
-    around the last level. Purely additive: it extends an already-built close path and never feeds back
-    into an injector's `build()`."""
+    """Append the pattern's resolution (+1 up / -1 down / 0 sideways) — FIGURES only, never exercises."""
     start = float(np.log(close[-1]))
     if direction == 0:
         leg = np.empty(length)
@@ -128,12 +113,9 @@ def append_resolution(
 def append_linear_continuation(
     rng: np.random.Generator, values: Floats, direction: float, strength: float, length: int
 ) -> Floats:
-    """`append_resolution` for a series that lives in LINEAR space and may sit at or below zero.
+    """`append_resolution` for a LINEAR series that may sit at or below zero, e.g. a CVD.
 
-    The price/OI version builds its leg as ``exp(log(last) + ramp)``, which is meaningless for a
-    cumulative volume delta: a CVD is a running sum of signed flow anchored at 0, so it is routinely
-    negative and ``log`` of it is not a number. Here the leg is a straight ramp of `strength` x the
-    series' own visible amplitude, plus proportional texture. Figure-only, like `append_resolution`.
+    The log-space version returns NaN there, since a CVD is signed flow anchored at 0.
     """
     last = float(values[-1])
     span = float(np.max(values) - np.min(values))
@@ -157,13 +139,8 @@ def clamp_close_inside(
 ) -> None:
     """Hold a close path on the inside of a level from `start` on.
 
-    `LevelGuard` can only move wicks — a body is the close path the indicators are derived from — so a
-    level that must never be breached needs the close path itself bounded. The offender is the ambient
-    tail: it is a driftless random walk, so over eight candles it can wander through a bound the label
-    says was never broken and print the very break the chart denies (6% of plain `wyckoff` ranges did).
-    The tail is signal-free by construction — the same distribution for every label — so bounding it
-    costs nothing didactically and turns "almost never breached" into "never". `inset` keeps a clamped
-    close a hair inside the line, so the level stays the wick's territory rather than the body's.
+    `LevelGuard` moves only wicks, so a never-breached level needs the close path bounded too —
+    otherwise the ambient tail's random walk prints the very break the label denies.
     """
     limit = price * (1.0 - inset) if kind == "resistance" else price * (1.0 + inset)
     tail = close[start:]
@@ -174,17 +151,10 @@ def clamp_close_inside(
 
 
 def apply_level_guards(series: Series, guards: Iterable[LevelGuard]) -> None:
-    """Make the candles honour every drawn level — the single enforcement point for the invariant that
-    a drawn level is a price the visible action actually respects.
+    """Make the candles honour every drawn level — the single enforcement point, shared by exercises
+    and figures.
 
-    Called by the exercise generator AND the figure builder, so the two can never disagree about what
-    a level means. `tests` bars get their wick extended to the line; `no_breach` spans get breaching
-    wicks clamped back to it. A test bar that also sits inside a `no_breach` span ends up topping out
-    exactly ON the level — which is what a tested-but-unbroken level looks like.
-
-    Only wicks move. A body is the close path the indicators are derived from, so it is untouchable;
-    a body on the wrong side of a level is left visible for the level tests to fail on rather than
-    quietly papered over here.
+    Only wicks move; a body on the wrong side is left visible for the level tests to fail on.
     """
     for g in guards:
         up = g.kind == "resistance"  # "beyond" is above for a resistance, below for a support
@@ -215,17 +185,8 @@ def resolve_swing(close: Floats, idx: int, kind: str, w: int = 3) -> int:
 def candle_extreme(series: Series, lo: int, hi: int, kind: str) -> int:
     """The bar with the highest high / lowest low in `[lo, hi)` — a pivot anchored to the CANDLES.
 
-    `resolve_swing` answers the same question on the close path, which is where an injector's designed
-    shape lives, and that is the right anchor for a swing the shape defines. But a pivot LABEL ("this
-    bar is the higher high") is read off the wicks, and `build_series` draws every wick from a
-    half-normal: the close-path extreme and the candle extreme land a bar or two apart, which puts the
-    label beside the visibly highest bar instead of on it.
-
-    Taking the extreme over a whole swing SEGMENT — bounded by the neighbouring opposite pivots, not by
-    a few bars either side of a designed index — makes the marked bar the extreme of its swing by
-    construction. That is what lets the annotation tests assert extremality outright instead of
-    tolerating a near-miss, and near-misses are the whole problem: on a plateaued pivot the difference
-    between the marked bar and its neighbour is one wick draw, so any tolerance is arbitrary.
+    Use this, not `resolve_swing`, to place a pivot LABEL: readers read pivots off the wicks, and the
+    close-path extreme lands a bar or two away from the visibly highest one.
     """
     lo = max(0, lo)
     hi = min(len(series.close), hi)

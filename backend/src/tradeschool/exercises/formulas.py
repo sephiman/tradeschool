@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Named financial formulas — **`Decimal` end to end** (house rule §8). Each formula both computes
-its result and explains itself with the scenario's real numbers, so the step-by-step solution is
-always correct and consistent with the value being graded. Float is never used here.
+"""Named financial formulas — **`Decimal` end to end** (house rule §8), never float.
+
+Each formula computes its result and explains itself with the scenario's real numbers, so the
+step-by-step solution cannot drift from the graded value.
 """
 
 from __future__ import annotations

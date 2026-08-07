@@ -1,11 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """The printed exercises and their answer key.
 
-The defect that matters here is not a wrong pixel, it is a wrong ANSWER: a key that belongs to a
-different instance than the one on the page. So the tests below check the join rather than the text —
-every printed exercise re-graded from its own key, every quoted price indexed back out of the very
-series that was published — and check it for all 126 exercises, driven off `content/course.yaml` with
-no id literals and no counts, like the export test it sits next to.
+Checks the JOIN, not the text: every exercise re-graded from its own key, every quoted price indexed
+back out of the published series. Driven off `content/course.yaml` with no id literals and no counts.
 """
 
 from __future__ import annotations
@@ -68,12 +65,7 @@ def manifest_exercise_ids() -> list[str]:
 
 @pytest.mark.parametrize("locale", LOCALES)
 def test_print_export_is_complete_against_the_manifest(locale: str) -> None:
-    """Every declared exercise is printed or excluded — never simply absent.
-
-    Order is asserted, not just membership: the manifest's order is the order the book prints in, and
-    a set comparison would wave a shuffled book through. Driven off the manifest, so an exercise
-    appended tomorrow is covered the moment it is declared.
-    """
+    """Every declared exercise is printed or excluded, in manifest ORDER — not just membership."""
     doc = built(locale)
     wanted = manifest_exercise_ids()
     assert wanted, "the manifest declares no exercises"
@@ -124,8 +116,7 @@ def test_print_seed_is_stable_and_derived_from_the_id() -> None:
 
 
 def test_print_seed_is_the_same_in_a_fresh_process() -> None:
-    """`hash()` is salted per process: inside one process it looks perfectly stable, and every export
-    after a restart would print a different book. Only a subprocess can catch that."""
+    """Needs a subprocess: `hash()` is salted per process, so in-process stability proves nothing."""
     code = "from tradeschool.content.print_export import print_seed; print(print_seed('m12-ex-1'))"
     out = subprocess.run(
         [sys.executable, "-c", code], capture_output=True, text=True, check=True
@@ -141,8 +132,7 @@ def test_two_builds_are_identical(locale: str) -> None:
 
 
 def _shape(payload: Mapping[str, Any]) -> dict[str, Any]:
-    """A payload with the localized WORDS removed: the ids, the order and the numbers that are the
-    instance itself, as opposed to the language it is posed in."""
+    """A payload with the localized WORDS removed — the ids, order and numbers that ARE the instance."""
     ids = {
         key: [option["id"] for option in payload[key]]
         for key in ("options", "items", "lefts", "rights")
@@ -154,9 +144,7 @@ def _shape(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def test_the_two_locales_print_the_same_instances() -> None:
-    """Same seeds, same instance, different words: the Spanish book poses the same questions as the
-    English one — the same options in the same order, the same candles — or the two are different
-    courses and one of the answer keys is answering the other book."""
+    """Same seeds, same instance, different words — both books pose identical questions."""
     en = {ex["id"]: ex for ex in printed("en")}
     es = {ex["id"]: ex for ex in printed("es")}
     assert en.keys() == es.keys()
@@ -176,11 +164,7 @@ def test_the_two_locales_print_the_same_instances() -> None:
 
 @pytest.mark.parametrize("locale", LOCALES)
 def test_every_answer_grades_as_correct_against_its_printed_seed(locale: str) -> None:
-    """The single-instance discipline, checked by the grader itself.
-
-    The key is re-submitted as if a learner had answered the printed instance. Anything generic,
-    hardcoded, or copied from another seed fails here — this is the test the whole feature rests on.
-    """
+    """Each key re-submitted against its printed instance — the test the whole feature rests on."""
     for exercise in printed(locale):
         resolved = registry().get_exercise_config(exercise["id"])
         assert resolved is not None
@@ -217,12 +201,7 @@ def test_chart_answers_are_priced_out_of_the_printed_series(locale: str) -> None
 
 @pytest.mark.parametrize("locale", LOCALES)
 def test_the_printed_payload_still_withholds_the_ground_truth(locale: str) -> None:
-    """Printing an exercise must not turn its payload into a spoiler.
-
-    The m30 rule — a shaded zone drawn on the question IS the answer — holds on paper too: the chart
-    on the page is the pre-answer instance, cut before its resolution, with the markers and bands only
-    in the key at the back.
-    """
+    """Printing an exercise does not turn its payload into a spoiler: markers and bands stay in the key."""
     for exercise in printed(locale):
         payload = exercise["payload"]
         assert "bands" not in payload, f"{exercise['id']} leaked its zones onto the question"
@@ -237,8 +216,7 @@ def test_the_printed_payload_still_withholds_the_ground_truth(locale: str) -> No
 
 
 def test_todays_course_prints_in_full() -> None:
-    """A statement of fact worth locking: nothing in the course is currently unprintable. If this goes
-    red, the book grew a hole — check `excluded` for the reason before adjusting anything."""
+    """Nothing in the course is currently unprintable. If this goes red, check `excluded` for the reason."""
     for locale in LOCALES:
         assert built(locale)["excluded"] == []
 
@@ -300,8 +278,7 @@ def test_an_exercise_that_fails_to_build_is_excluded_with_what_it_threw(
 
 
 def test_reveal_refuses_an_answer_the_grader_rejects() -> None:
-    """The guard behind every answer in the key: a solution that does not grade as correct against
-    this instance is not published, it raises."""
+    """A solution that does not grade as correct against its instance raises instead of publishing."""
 
     class Liar:
         def grade(
@@ -316,8 +293,7 @@ def test_reveal_refuses_an_answer_the_grader_rejects() -> None:
 
 @pytest.mark.parametrize("locale", LOCALES)
 def test_dummy_answers_are_accepted_by_every_quiz_sub_kind(locale: str) -> None:
-    """`ordering` and `matching` payloads answered with a bare string never reach the reveal at all —
-    the generator rejects them as malformed first. Every printed kind is covered here."""
+    """Every printed quiz kind accepts its dummy answer — `ordering`/`matching` reject a bare string."""
     kinds = set()
     for exercise in printed(locale):
         resolved = registry().get_exercise_config(exercise["id"])
@@ -358,8 +334,7 @@ async def test_print_endpoint_serves_the_built_document(content_client: AsyncCli
 
 
 async def test_the_theory_export_is_unchanged_by_all_this(content_client: AsyncClient) -> None:
-    """The archive endpoint stays theory-only: the answer key is a separate door, not a widening of
-    the existing one."""
+    """The archive endpoint stays theory-only — the answer key is a separate door."""
     await _auth(content_client)
     doc = (await content_client.get("/api/course/export?lang=en")).json()
     text = json.dumps(doc)

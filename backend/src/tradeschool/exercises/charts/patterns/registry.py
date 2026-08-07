@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Pattern-injector registry (the house-connector pattern §3.2): one injector per `name`. Adding a
-Phase-2 injector is a new entry here plus its module — never a change to the frozen generators."""
+"""Pattern-injector registry (§3.2): one injector per `name`, never a change to the frozen generators."""
 
 from __future__ import annotations
 

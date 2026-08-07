@@ -104,9 +104,7 @@ async def test_me_stats_reading_and_mastery_are_separate(
 async def test_costliest_sections_need_more_than_one_exercise(
     content_client: AsyncClient, settings: Settings
 ) -> None:
-    """One failed exercise is a fact about that exercise, not a ranking of the section it sits in.
-
-    m03 carries six exercises, so it needs three answered before it may be ranked."""
+    """A section needs several answered exercises before it may be ranked as costly."""
     await _login(content_client, "gateuser")
     await _answer_quiz(content_client, settings, "m03-ex-1", correct=False)
     await _answer_quiz(content_client, settings, "m03-ex-2", correct=True)
@@ -180,12 +178,7 @@ async def test_global_stats_are_anonymous_and_worst_first(
 async def test_global_learner_count_is_people_not_observations(
     content_client: AsyncClient, settings: Settings
 ) -> None:
-    """A module's headcount counts learners; its rate counts first attempts. Different populations.
-
-    One learner answering three of m03's exercises is three first-attempt observations and one
-    person. Printing the observation count as "3 learners" would both overstate the cohort and hide
-    that the gate has not actually been cleared.
-    """
+    """A module's headcount counts LEARNERS while its rate counts first attempts — different populations."""
     await _login(content_client, "soloworker")
     for exercise_id in ("m03-ex-1", "m03-ex-2", "m03-ex-3"):
         await _answer_quiz(content_client, settings, exercise_id, correct=False)

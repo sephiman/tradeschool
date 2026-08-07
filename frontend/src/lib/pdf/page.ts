@@ -1,7 +1,6 @@
 import type { Style, StyleDictionary } from "pdfmake/interfaces";
 
-/** Print geometry, palette and type scale: A4 in PDF points, deliberately light and chrome-free — the
- *  app's proportions carried onto paper, with no dark surfaces, cards or badges. */
+/** Print geometry, palette and type scale: A4 in PDF points, deliberately light and chrome-free. */
 
 export const PAGE = {
   size: "A4" as const,

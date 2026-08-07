@@ -1,11 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Phase-2 generic pattern-chart generator + its injectors.
 
-The blocking gate for EVERY injector (round-6 rule, now permanent):
-  * credibility — the last candles are drift-free ambient noise, so no synthetic-looking spike ends
-    the chart (checked for every injector);
-  * anti-leak  — for detection injectors (``hides_resolution``) the distribution of the final candles
-    must NOT be predictive of the label (no label pair separable on last-3 net/abs return).
+The blocking gate for every injector (round-6 rule): credibility — no synthetic spike ends the chart;
+and, for detection injectors, anti-leak — no label pair separable on last-3 net/abs return.
 """
 
 from __future__ import annotations
@@ -56,8 +53,7 @@ def _collect(injector_name: str, label: str, per: int) -> tuple[np.ndarray, np.n
 
 @pytest.mark.parametrize("injector", [inj.name for inj in all_injectors()])
 def test_injector_last_candles_are_credible(injector: str) -> None:
-    """No injector may end on a synthetic spike: every candle in the ambient tail stays within a few
-    fixed sigmas of a normal continuation move (TAIL_SIGMA≈0.9%)."""
+    """No injector ends on a synthetic spike: the ambient tail stays within a few fixed sigmas."""
     for label in get_injector(injector).labels:
         _net, _abs, tail_max = _collect(injector, label, 40)
         assert tail_max < 0.05, f"{injector}/{label}: tail candle {tail_max:.3f} looks synthetic"
@@ -65,8 +61,7 @@ def test_injector_last_candles_are_credible(injector: str) -> None:
 
 @pytest.mark.parametrize("injector", [inj.name for inj in all_injectors() if inj.hides_resolution])
 def test_detection_injector_last_candles_do_not_leak_label(injector: str) -> None:
-    """For detection injectors the final candles must not separate any pair of labels (round-6 rule):
-    the resolution is off screen and the tail is the same ambient distribution for every label."""
+    """For detection injectors the final candles separate no pair of labels (round-6 rule)."""
     labels = list(get_injector(injector).labels)
     nets = {lbl: _collect(injector, lbl, _PER)[0] for lbl in labels}
     abss = {lbl: _collect(injector, lbl, _PER)[1] for lbl in labels}
@@ -88,9 +83,7 @@ def _fakeout_beyond(close: float, level: float, kind: str) -> bool:
 
 
 def test_fakeout_structure_matches_label() -> None:
-    """The visible geometry encodes the label robustly: where price SETTLED (median of the hold
-    plateau, ignoring the noisy ambient tail) relative to the level, and — for a false break — the
-    fact that it did poke beyond during the decision before failing."""
+    """Where price SETTLED relative to the level encodes the label, plus a false break's poke beyond."""
     config = _config("fakeout", ["genuine_breakout", "false_break", "no_break"],
                      ["genuine_breakout", "false_break", "no_break"])
     seen = {"genuine_breakout": 0, "false_break": 0, "no_break": 0}
@@ -174,8 +167,7 @@ def test_oscillator_reading_matches_label() -> None:
 
 
 def _side_changes(values: np.ndarray) -> list[int]:
-    """Indices where a series changes side. An exact 0.0 (a payload value rounded to 4dp) is treated
-    as still belonging to the previous side, so one zero can never count as two crossings."""
+    """Indices where a series changes side; an exact 0.0 keeps the previous side, never counting twice."""
     idx: list[int] = []
     prev = 0.0
     for i, v in enumerate(values):
@@ -189,10 +181,7 @@ def _side_changes(values: np.ndarray) -> list[int]:
 
 
 def test_macd_cross_matches_label() -> None:
-    """The three labels are separated by the single quantity the learner reads off the pane: how often
-    the MACD LINE crosses zero. Never — the only cross is against the signal line, a wobble inside an
-    intact trend. Once, late — the fast EMA crossed the slow one: a regime change. Repeatedly — a
-    range where every cross whipsaws."""
+    """The labels are separated by how often the MACD LINE crosses zero: never, once and late, or often."""
     labels = ["signal_cross", "zero_cross", "whipsaw"]
     config = _config("macd_cross", labels, labels)
     seen = dict.fromkeys(labels, 0)
@@ -323,8 +312,7 @@ def test_derivatives_oi_matches_label() -> None:
 
 
 def test_derivatives_price_is_label_independent() -> None:
-    """Price must be built identically for every label (only OI carries the signal), so the same
-    seed yields the same candles regardless of which OI label was requested."""
+    """One seed yields the same candles for every OI label — only OI carries the signal."""
     gen = PatternChartGenerator()
     seeds_price: dict[str, list[float]] = {}
     for label in ("rising_oi", "falling_oi", "flat_oi"):
@@ -352,9 +340,7 @@ def _swing_pair(annotations: list[dict]) -> tuple[int, int, str]:
 
 
 def test_cvd_divergence_matches_label() -> None:
-    """The rendered pane must encode the label at the two swings the solution points at: price makes a
-    new extreme, and CVD either refuses to follow it (a divergence) or makes its own new extreme with
-    it (confirmation). This is the read the lesson teaches, checked on the payload the learner sees."""
+    """At the two solution swings, price makes a new extreme and CVD either refuses to follow or does."""
     config = _config("cvd_divergence", list(_CVD_LABELS), list(_CVD_LABELS))
     seen = dict.fromkeys(_CVD_LABELS, 0)
     for seed in range(60):
@@ -388,10 +374,7 @@ def test_cvd_divergence_matches_label() -> None:
 
 
 def test_cvd_flow_never_exceeds_its_volume_bar() -> None:
-    """Credibility of generated order flow: a bar's signed flow cannot exceed the volume that bar
-    traded. Each CVD step is `volume x imbalance ratio` by construction — this asserts the rendered,
-    rounded payload still honours it, so the pane (and the dev CSV export) can never show impossible
-    flow. Also checks the line is genuinely CUMULATIVE — it accumulates rather than jittering."""
+    """No bar's signed flow exceeds the volume it traded, in the ROUNDED payload; and the line accumulates."""
     for label in _CVD_LABELS:
         config = _config("cvd_divergence", [label], list(_CVD_LABELS))
         for seed in range(20):

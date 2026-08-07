@@ -1,8 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Consistent error envelope: every failure returns {code, message, fields?}.
-
-Matches the frontend `ApiError` contract so the UI can localise by `errors.<code>`.
-"""
+"""Error envelope {code, message, fields?}, matching `ApiError` so the UI localises by `errors.<code>`."""
 
 from __future__ import annotations
 

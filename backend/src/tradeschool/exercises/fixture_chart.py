@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Fixture chart generator: draws from a curated bank of frozen OHLC scenarios (§3.2). The fallback
-for concepts that are hard to synthesize (e.g. volume absorption). Fixtures are embedded in the
-exercise config; the seed selects which one, and each carries its own ground-truth label."""
+"""Fixture chart generator: a curated bank of frozen OHLC scenarios (§3.2), selected by the seed.
+
+The fallback for concepts that are hard to synthesize; each fixture carries its own label.
+"""
 
 from __future__ import annotations
 

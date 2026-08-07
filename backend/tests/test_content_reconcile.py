@@ -107,8 +107,7 @@ async def test_reconcile_reorder_add_remove_preserves_progress(session: AsyncSes
 async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
     session: AsyncSession,
 ) -> None:
-    """An exercise re-homed to another lesson of the same module is *updated*, never
-    deactivated-and-reinserted — so the attempts keyed on its id survive the move."""
+    """A re-homed exercise is UPDATED, not reinserted, so attempts keyed on its id survive."""
     ex = ManifestExercise(id="shared-ex", type=ExerciseType.QUIZ)
     module = ManifestModule(
         id="mA",

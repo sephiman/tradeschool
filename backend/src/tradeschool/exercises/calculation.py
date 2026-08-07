@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Parametric calculation generator. The seed samples the parameters; the graded value comes from a
-named `Decimal` formula. The exact result and three instantiated common-error distractors become
-shuffled multiple-choice options (§D.8b); grading matches the chosen option. `Decimal` end to end (§8)."""
+"""Parametric calculation generator: the seed samples parameters, a named formula grades the value.
+
+The result plus three common-error distractors become shuffled options (§D.8b). `Decimal` end to end.
+"""
 
 from __future__ import annotations
 
@@ -96,12 +97,11 @@ def _sample_params(config: CalculationConfig, seed: int) -> dict[str, object]:
 def _mc_options(
     config: CalculationConfig, seed: int
 ) -> tuple[dict[str, object], Decimal, list[dict[str, str]], str, dict[str, str | None]]:
-    """Build the shuffled multiple-choice options for a seed. Returns
-    (params, exact result, options[{id,value}], correct option id, {option id -> mistake or None}).
+    """Shuffled options for a seed: (params, result, options, correct id, {option id -> mistake}).
 
-    The correct value plus up to three instantiated common-error distractors (from the formula) become
-    four options, deduped after rounding and kept to the same order of magnitude so none is eliminable
-    by size alone; a labelled arithmetic-slip perturbation only pads the rare case of a collision."""
+    Distractors are deduped after rounding and held to the same order of magnitude, so none is
+    eliminable by size alone.
+    """
     params = _sample_params(config, seed)
     formula = get_formula(config.formula)
     expected = formula.compute(params)

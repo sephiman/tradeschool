@@ -4,12 +4,10 @@ import { Button } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
 
 /**
- * Keypad faces, hoisted out of thirteen identical `className` attributes so the OLED delta is stated
- * once rather than thirteen times. The strings are the existing ones verbatim, plus `KEY_OLED`.
+ * Keypad faces, hoisted so the OLED delta is stated once rather than thirteen times.
  *
- * A key is a gray-800 tile on a gray-900 panel today — in OLED both are #000, so the tile stops
- * being a tile and the border has to become the key. The operator, clear and equals keys are absent
- * on purpose: their indigo/red/primary fills are accents, and accents read fine on black.
+ * On OLED a key's tile and its panel are both #000, so the border has to become the key. Operator, clear
+ * and equals are absent on purpose — their accent fills read fine on black.
  */
 const KEY_OLED = "oled:border-oled-line-strong oled:bg-oled-bg oled:hover:bg-oled-hover";
 const KEY_DIGIT =

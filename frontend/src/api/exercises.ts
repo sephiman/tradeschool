@@ -10,11 +10,7 @@ export type QuizKind =
   | "ordering"
   | "matching";
 
-/**
- * A selectable item in an exercise payload. Quiz options and ordering/matching
- * items carry `text`; calculation options carry `value`. Which field is present
- * depends on the exercise kind, so both are optional here.
- */
+/** A selectable item: quiz/ordering/matching carry `text`, calculation carries `value`. */
 export interface OptionView {
   id: string;
   text?: string;
@@ -104,8 +100,7 @@ export type Answer =
   | { divergence: string } // divergence chart
   | { label: string }; // pattern chart
 
-/** Deferred-grading mode (exams): the control is answer-capture only — it reports every change and
- * shows no submit button or feedback. Absent for practice, which submits + grades inline. */
+/** Deferred-grading mode (exams): answer-capture only, no submit button or feedback. */
 export type Deferred = { value: Answer | null; onChange: (answer: Answer) => void };
 
 export async function createAttempt(exerciseId: string): Promise<AttemptInstance> {

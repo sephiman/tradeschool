@@ -1,16 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Moving-average context injector (module m10).
+"""Moving-average context injector (m10): read the trend regime off the MAs drawn on the price.
 
-A CLASSIFICATION pattern: the label is the visible state, so there is no hidden resolution — the
-learner reads the trend regime straight off the moving averages drawn on the price:
-
-* ``uptrend``   — price above both MAs, the fast MA above the slow, both rising.
-* ``downtrend`` — price below both MAs, the fast MA below the slow, both falling.
-* ``range``     — the MAs are flat and intertwined; price chops across them.
-
-Because the label IS on screen, the statistical "last candles must not predict the label" test does
-not apply (the trend genuinely ends up/down); this injector ships the credibility half of the gate
-instead — the ambient tail keeps the final candles free of any synthetic spike.
+A CLASSIFICATION pattern, so no last-candle leak test — the ambient tail ships the credibility half of
+the gate instead.
 """
 
 from __future__ import annotations

@@ -3,11 +3,7 @@ import type { LayoutNode } from "@/lib/pdf/pagination";
 import { createSectionTracker, type SectionTracker } from "@/lib/pdf/sections";
 import { runningTitle } from "@/lib/pdf/document";
 
-/**
- * Which section a page belongs to. The interesting cases are the boundaries: the page a block starts
- * on must already name it, the page before must still name the one before, and the pages ahead of the
- * first block — the cover and the contents — must name nothing at all.
- */
+/** Which section a page belongs to. The interesting cases are the boundaries. */
 
 /** A laid-out section heading, as pdfmake hands it to the layout hook. */
 function heading(id: string, page: number): LayoutNode {

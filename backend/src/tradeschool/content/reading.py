@@ -1,13 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Reading-time estimate for a lesson, in SECONDS.
 
-Seconds — not minutes — because every aggregate the UI shows (module, block, course) is a *sum* of
-lessons, and summing already-rounded minutes drifts: three 89-second lessons are "1 min" each and
-"4 min" together, and a reader adding up the visible figures would get 3. So this module produces the
-single source of truth per lesson in seconds, and the display layer rounds exactly once.
-
-The estimate is a *derived metric*, never content: it is computed from the markdown at load time and
-served alongside it, and deliberately absent from the course export.
+Seconds, not minutes: every aggregate the UI shows is a sum of lessons, and summing already-rounded
+minutes drifts. The display layer rounds exactly once. A derived metric, absent from the course export.
 """
 
 from __future__ import annotations
@@ -55,8 +50,7 @@ _ESCAPE = re.compile(r"\\(.)")
 
 
 def prose_text(markdown: str) -> str:
-    """The lesson stripped down to what a reader actually reads: directives, front matter and markup
-    syntax gone, callout text kept."""
+    """The lesson stripped to what a reader actually reads; callout text kept."""
     text = _FRONT_MATTER.sub("", markdown)
     text = _HTML_COMMENT.sub("", text)
     text = _FENCED_CODE.sub("", text)
@@ -79,10 +73,7 @@ def prose_text(markdown: str) -> str:
 def prose_word_count(markdown: str) -> int:
     """Words in the lesson prose, counted the same way in every language.
 
-    Whitespace tokenization, with one filter: a token needs at least one alphanumeric character to be
-    a word, so a dash used as punctuation (`— like this —`, which this course's prose is full of) is
-    not counted as one. Nothing here is language-specific — ES and EN produce different counts for the
-    same lesson because they are different text, which is correct, not drift.
+    A token needs one alphanumeric character to count, so a dash used as punctuation is not a word.
     """
     return sum(1 for token in prose_text(markdown).split() if any(ch.isalnum() for ch in token))
 
@@ -93,11 +84,10 @@ def figure_count(markdown: str) -> int:
 
 
 def estimate_seconds(markdown: str) -> int:
-    """Estimated reading time for one lesson in one language, in whole seconds.
+    """Estimated reading time for one lesson, in whole seconds.
 
-    Whole seconds are the finest granularity anything consumes, so the prose part is rounded here and
-    once only; the figure term is exact, which is what lets a test assert that adding a figure moves a
-    lesson's estimate by exactly FIGURE_SECONDS.
+    Only the prose term is rounded; the figure term stays exact, so adding a figure moves the estimate
+    by exactly FIGURE_SECONDS.
     """
     prose = round(prose_word_count(markdown) / READING_WPM * 60)
     return prose + figure_count(markdown) * FIGURE_SECONDS

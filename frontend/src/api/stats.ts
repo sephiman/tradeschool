@@ -83,11 +83,7 @@ export interface GlobalThresholds {
   minLearners: number;
 }
 
-/**
- * `learners` and `firstSeen` are two populations, not one: a learner who answered four of a module's
- * exercises is four first-attempt observations but one person. The rate goes over `firstSeen`; the
- * headcount printed next to it is `learners`.
- */
+/** `learners` and `firstSeen` are two populations: the rate goes over `firstSeen`, the headcount is `learners`. */
 export interface GlobalModule {
   moduleId: string;
   title: string | null;

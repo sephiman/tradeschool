@@ -1,37 +1,15 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""MACD-crossover injector (module m11).
+"""MACD-crossover injector (m11).
 
-A CLASSIFICATION pattern: read which crossover picture the MACD pane shows — and, just as much, the
-context it shows it in.
-
-* ``signal_cross`` — the MACD line crosses its signal line (the histogram flips sign) while the MACD
-  line itself stays on ONE side of zero: a short-term momentum wobble inside an intact trend. Price
-  is a staircase trend with one shallow pullback, and the cross that ends the pullback is
-  continuation evidence, not a reversal.
-* ``zero_cross``   — the MACD line crosses zero itself, i.e. the fast (12) EMA crosses the slow (26)
-  EMA outright: m10's golden/death cross on the 12/26 pair, a change of trend *regime* rather than a
-  wobble within one. Price runs one way for most of the window, then turns and takes the MACD through
-  zero late.
-* ``whipsaw``      — a flat range: the MACD line saws back and forth across zero, so crosses fire
-  again and again and none of them leads anywhere. The same cross shape as the other two, worth
-  nothing.
-
-All three are separated by ONE robust, fully on-screen quantity — how often the MACD line crosses
-**zero** across the visible window: never, exactly once and late, or repeatedly. That is precisely
-the distinction the lesson draws, so reading it is the drill. Every label is built in both
-directions (a bullish cross in an uptrend, its mirror in a downtrend), so which way the chart points
+A CLASSIFICATION pattern, separated by one on-screen quantity: how often the MACD line crosses ZERO —
+never, once and late, or repeatedly. Every label is built in both directions, so the chart's direction
 never hints at the answer.
 
-The label IS the visible state, so there is no hidden resolution and the statistical "last candles
-must not predict the label" test does not apply — the crossover on screen IS the signal. Like
-``oscillator_reading`` (same module, same reason) no ambient tail is applied: overwriting the final
-candles with drift-free noise would flatten the very cross being read. The ends are gentle bounded
-noise instead, so the credibility half of the gate (no synthetic-looking spike) still holds.
+No ambient tail (like ``oscillator_reading``): overwriting the final candles would flatten the very
+cross being read. Gentle bounded noise instead, so the no-synthetic-spike gate still holds.
 
-Unlike every other injector this one needs a *trending* warm-up (``with_warmup(drift=…)``): a flat
-warm-up leaves the MACD wandering across zero at the left edge, printing a crossing the label does
-not claim. Vetted over 300 seeds per label at n = 130 (the exercise) and n = 150 (the figure); the
-shapes hold from n ≈ 110 to 150.
+Needs a *trending* warm-up (``with_warmup(drift=…)``), unlike every other injector — a flat one leaves
+the MACD wandering across zero at the left edge, printing a crossing the label does not claim.
 """
 
 from __future__ import annotations

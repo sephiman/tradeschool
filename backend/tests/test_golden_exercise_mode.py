@@ -1,12 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Golden-master lock on EXERCISE-MODE chart output.
+"""Golden-master lock on EXERCISE-MODE chart output: the figure branch must never change it.
 
-Phase-3 adds a figure-only "resolution continuation" branch. The hard rule: it must never change what
-an exercise renders. This test fingerprints the full exercise-mode output (all OHLCV + rsi + macd + oi
-+ overlays + levels + ground-truth label + annotations) for a fixed set of seeds per injector and for
-the frozen divergence generator, and asserts it byte-for-byte matches the baseline captured before any
-figure work. If a figure change touches an exercise path, a fingerprint flips and this fails — that is
-the signal to stop and flag the injector rather than adapt its exercise path silently.
+Fingerprints the full exercise-mode output per injector against a baseline captured before any figure
+work. A flipped fingerprint means stop and flag the injector, never adapt its exercise path.
 """
 
 from __future__ import annotations

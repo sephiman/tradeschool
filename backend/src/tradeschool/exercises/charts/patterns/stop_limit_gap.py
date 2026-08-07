@@ -1,22 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Stop-limit gap injector (module m21-l1): the protective order that never fills.
+"""Stop-limit gap injector (m21-l1): the protective order that never fills.
 
-The central warning of m21-l1 is a sequence, not a state: a stop-limit's trigger sits at one price and
-its limit just below, price slices through BOTH in a single fast candle, and the sell-limit is then
-resting *above* the market — where nobody will lift it, because the market lets them buy lower. The
-position stays open and keeps losing. That is hard to hold in prose and trivial to see on a chart.
+Plants m21-l1's warning as a sequence: one candle's body slices through both trigger and limit, leaving
+the sell-limit resting above the market where nobody will lift it.
 
-* ``unfilled_stop_limit`` — price drifts down to the trigger, one candle's body crosses the trigger and
-  the limit together, and from that bar on nothing ever trades back up to the limit again.
-
-Both lines are `plan` levels: an order price is a price the TRADER chose, so the "every drawn level was
-tested by the price action" contract does not apply. They carry a stricter contract instead (see
-`tests/test_chart_annotations.py`): one bar's body must span both lines, and after it no bar's high may
-reach the limit — the order's non-execution is a property of the candles, not of the caption.
-
-The slice candle's close is written after the smoothing (a smeared drop over three bars is not a gap),
-and the decline that follows is written directly rather than interpolated, so the path can never bounce
-back through the limit on the way down. Classification injector: the label is the visible sequence.
+Both lines are `plan` levels, so the "every drawn level was tested" contract does not apply; they carry
+a stricter one in `tests/test_chart_annotations.py`. The slice candle's close is written AFTER the
+smoothing (a smeared drop over three bars is not a gap) and the decline that follows is written
+directly, not interpolated, so the path can never bounce back through the limit.
 """
 
 from __future__ import annotations

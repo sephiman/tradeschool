@@ -40,8 +40,7 @@ _EXERCISE_DIRECTIVE = re.compile(r"^::exercise\{[^}]*\}[ \t]*$", re.MULTILINE)
 
 
 def _theory_only(markdown: str) -> str:
-    """Strip the ``::exercise{...}`` directives (the interactive parts) so only the lesson prose —
-    headings, text, and `:::note` callouts — remains, then collapse the blank lines left behind."""
+    """Strip the ``::exercise{...}`` directives, leaving only prose, and collapse the blank lines."""
     stripped = _EXERCISE_DIRECTIVE.sub("", markdown)
     return re.sub(r"\n{3,}", "\n\n", stripped).strip()
 
@@ -125,8 +124,7 @@ class CourseRegistry:
         return unmet
 
     def lesson_reading_seconds(self, lesson_id: str, locale: str) -> int:
-        """Estimated reading time for one lesson in one language. The ONE number every surface is
-        built from: module/block/course figures are sums of these, never estimates of their own."""
+        """Reading time for one lesson. The ONE number every surface sums; never re-estimated."""
         return self.reading_seconds.get(locale, {}).get(lesson_id, 0)
 
     def module_title(self, module_id: str, locale: str) -> str | None:
@@ -208,9 +206,8 @@ class CourseRegistry:
     ) -> list[dict[str, object]]:
         """The export tree, with how to render a localized field left to the caller.
 
-        One walk of the manifest serves both the single-locale and the bilingual export, so the two can
-        never drift into carrying different modules — which for a document whose whole job is to be a
-        faithful copy of the course would be the defect that matters.
+        One walk serves both the single-locale and bilingual exports, so they cannot carry different
+        modules.
         """
         return [
             {
@@ -237,9 +234,7 @@ class CourseRegistry:
         ]
 
     def course_export(self, locale: str) -> dict[str, object]:
-        """The whole course as structured theory in ONE language — blocks → modules → lessons with prose
-        only (exercise directives stripped). Progress-independent; used by the export endpoint when a
-        `lang` is named explicitly."""
+        """The whole course as structured theory in ONE language, prose only."""
         return {
             "locale": locale,
             "blocks": self._export_blocks(
@@ -249,12 +244,7 @@ class CourseRegistry:
         }
 
     def course_export_bilingual(self) -> dict[str, object]:
-        """The same document with BOTH languages in it — the export endpoint's default.
-
-        One tree with every localized field as `{"en": …, "es": …}`, rather than two trees side by side:
-        the reason to want both languages at once is to read them against each other (the course is
-        authored in two and every content change touches both), and paired fields make that immediate
-        while two trees would duplicate 30 modules of structure and leave you to zip them yourself.
+        """The same document with BOTH languages, every localized field as `{"en": …, "es": …}`.
 
         Discriminated by the key: this carries `locales`, the single-locale document carries `locale`.
         """

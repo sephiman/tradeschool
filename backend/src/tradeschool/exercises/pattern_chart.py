@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Generic pattern-chart generator (Phase 2). Same contract as the frozen synthetic-chart generator
-(seed-deterministic, solution never in the pre-answer payload), but the planted feature comes from a
-pluggable injector selected by name, and the answer space is a generic set of string labels. The
-frozen divergence generator is untouched; this is a pure addition (§ freeze rule)."""
+"""Generic pattern-chart generator (Phase 2): the synthetic-chart contract with a pluggable injector.
+
+A pure addition — the frozen divergence generator is untouched (§ freeze rule).
+"""
 
 from __future__ import annotations
 

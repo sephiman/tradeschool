@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Pure generator + formula tests: determinism, grading, tolerance, Decimal correctness, and the
-non-negotiable that the pre-answer payload never contains the solution (§8)."""
+"""Generator + formula tests: determinism, grading, Decimal, and no solution in the payload (§8)."""
 
 from __future__ import annotations
 

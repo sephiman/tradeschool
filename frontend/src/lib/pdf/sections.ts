@@ -3,15 +3,9 @@ import type { LayoutNode } from "@/lib/pdf/pagination";
 /**
  * Which top-level section a page belongs to, for the running footer.
  *
- * pdfmake hands the footer callback a page number and nothing else — no notion of what is printed on
- * the page — and the page a block starts on is not known until the document has been laid out. So the
- * two halves are split: the document *declares* its sections while it is being built, the layout
- * *observes* where each one landed, and the footer *asks* which section a page falls in.
- *
- * The observation rides on the `pageBreakBefore` hook, which pdfmake calls once per node with its
- * final position. That is complete only once a whole render has finished, which is why the export
- * renders twice — see `generate.ts`. Until then `at()` simply answers nothing, and the footer prints
- * what it always printed.
+ * pdfmake hands the footer callback only a page number, so the document declares its sections, the
+ * `pageBreakBefore` hook observes where they landed, and the footer asks. That observation is complete
+ * only after a full render, which is why the export renders TWICE — see `generate.ts`.
  */
 
 /** Id prefix for a section heading, in the `<kind>-<source>-<ordinal>` scheme the print ids use. */
@@ -29,7 +23,7 @@ export interface SectionTracker {
   declare(id: string, title: string): void;
   /** Called during layout for every node; records where a declared section landed. */
   observe(node: LayoutNode): void;
-  /** The section a page belongs to, or undefined for the pages before the first one (cover, contents). */
+  /** The section a page belongs to, or undefined before the first one (cover, contents). */
   at(page: number): string | undefined;
   /** Every section that has been located, in page order. Empty before the first render completes. */
   resolved(): ResolvedSection[];

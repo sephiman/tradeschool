@@ -8,18 +8,15 @@ import { installPrintFonts, PRINT_FONT_FILES, type PdfMakeLike } from "@/lib/pdf
 import { contentCharacters, printFontBytes, printFontPaths } from "@/test/courseContent";
 
 /**
- * The print font has to be able to draw the course. pdfmake's bundled Roboto has no `→`, which the prose
- * uses in over a hundred places, where it printed as an empty box — and a missing glyph is invisible to
- * every other assertion here: the PDF renders, the page count is right, the text is "there".
+ * The print font has to be able to draw the course. A missing glyph is invisible to every other
+ * assertion — the PDF renders, the page count is right, the text is "there".
  *
  * If this goes red, the fix is a font that covers the new character, not a character the font covers.
  */
 
 const paths = printFontPaths();
 
-/** The chrome the PDF adds: contents, cover line, page numbers, and everything the exercises and the
- *  answer key print — the pattern names, marker names and zone names come out of the app's catalogs
- *  rather than out of `content/`, so `contentCharacters()` cannot see them. */
+/** The chrome the PDF adds. Comes from the app's catalogs, so `contentCharacters()` cannot see it. */
 function pdfChrome(): string {
   const catalogs = [en, es] as unknown as Record<string, Record<string, string>>[];
   const namespaces = ["course", "exercise", "divergence", "chartLabel", "chartMarker", "band", "level"];
@@ -30,9 +27,7 @@ function pdfChrome(): string {
     .join("");
 }
 
-/** Characters the generators produce that are authored nowhere: a formatted price, a printed date, an
- *  option letter. Every one of them has to draw, and none of them is in the content tree. The author's
- *  name is in the same position — printed on the cover, but a code constant rather than content. */
+/** Characters the generators produce that are authored nowhere — a price, a date, an option letter. */
 const GENERATED = `0123456789abcdefghijklmnopqrstuvwxyz.,-+/()%×…·—${COURSE_AUTHOR}`;
 
 describe("the print font", () => {

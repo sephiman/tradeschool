@@ -1,22 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Swing-structure injector (module m08-l1): the labelled staircase, and the swing that breaks it.
+"""Swing-structure injector (m08-l1): the labelled staircase, and the swing that breaks it.
 
-m08-l1 walks a ladder in prose — low 100, high 110, pullback 104, high 118, pullback 109, high 126 —
-and then defines a change of character as the first lower low. This injector plants that ladder with
-its pivots MARKED, which is the one thing prose cannot do: a swing sequence is legible as a sequence
-only when each turn carries its name.
+Plants m08-l1's prose ladder with its pivots MARKED, as log offsets so the shape is the lesson's while
+the absolute prices come from the seed. A CLASSIFICATION injector, so no last-candle leak test.
 
-* ``uptrend_ladder``       — higher highs and higher lows, every pivot labelled HH / HL.
-* ``choch_after_uptrend``  — the same ladder whose final swing fails: price falls back through the last
-  higher low to print the first LOWER low, marked CHoCH.
-
-The lesson's own ratios are planted as log offsets, so the shape IS the staircase the text walks while
-the absolute prices come from the seed (the figure never claims to be those numbers). This is a
-CLASSIFICATION injector — the label is the visible structure, there is no hidden future — so the
-last-candle leak test does not apply; the ambient tail keeps the ending spike-free.
-
-Pivot markers are anchored to the rendered candles (`resolve_candle_pivot`), not to the close path: a
-label that says "this is the higher high" has to sit on the bar whose wick a learner would measure.
+Pivot markers are anchored to the rendered candles (`resolve_candle_pivot`), not the close path: a
+label saying "this is the higher high" has to sit on the bar whose wick a learner would measure.
 """
 
 from __future__ import annotations
@@ -113,16 +102,11 @@ class MarketStructureInjector(PatternInjector):
         fracs = [f for f, _r, _l in pivots]
 
         def swing_window(i: int, frac: float) -> tuple[int, int]:
-            """The segment a pivot OWNS: from the midpoint before it to the midpoint after it — the
-            stretch of chart whose high (or low) that pivot is. Marking the extreme of this rather than
-            of a few bars around the designed index is what puts the label on the visibly highest bar:
-            the plateau planted at each pivot is flat, so among its bars the highest wick is a random
-            draw.
+            """The segment a pivot OWNS: midpoint before it to midpoint after it.
 
-            The LAST pivot's segment stops where the AMBIENT TAIL begins. The tail is signal-free noise
-            generated identically for every label, so it is not part of the designed structure and no
-            marker belongs in it; without that bound a tail wick below the CHoCH low would drag the
-            CHoCH label onto a noise candle."""
+            The LAST pivot's segment stops where the AMBIENT TAIL begins — without that bound a tail
+            wick below the CHoCH low would drag the CHoCH label onto a noise candle.
+            """
             lo = ((fracs[i - 1] + frac) / 2) if i > 0 else 0.0
             if i + 1 == len(fracs):
                 return WARMUP + int(lo * n), WARMUP + n - TAIL

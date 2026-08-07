@@ -1,12 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Pattern injectors (§3.3). An injector forces a didactic feature onto a base price path and
-**knows where it planted it**, so the exercise's solution is exact and comes for free.
+"""Pattern injectors (§3.3): force a didactic feature onto a base path and know where it was planted.
 
-`RsiDivergenceInjector` plants a regular or hidden divergence on RSI or the MACD line. It builds a
-control-point *shape* that encodes the divergence by construction (a higher high reached on a
-shallower rally reads a lower oscillator, etc.), adds a drift-free Brownian bridge of noise for
-realism, then verifies the relationship actually holds at the swing points — retrying with less
-noise until it does. The result is a chart a human would label the same way the injector labeled it.
+`RsiDivergenceInjector` builds a control-point shape encoding the divergence by construction, adds
+drift-free noise, then verifies the relationship holds at the swings — retrying with less noise.
 """
 
 from __future__ import annotations
@@ -86,12 +82,7 @@ class PatternInjector(ABC):
     def build(
         self, rng: np.random.Generator, n: int, target: DivergenceType, indicator: str
     ) -> tuple[Floats, int, int | None, int | None]:
-        """Return (close_full, warmup, swing1, swing2).
-
-        `close_full` has `warmup + n` candles: the first `warmup` are indicator warm-up (the caller
-        drops them from the rendered `n`-candle window). Swing indices are in `close_full` coords
-        (i.e. within the visible region), or None for the no-pattern case.
-        """
+        """Return (close_full, warmup, swing1, swing2) — swings in `close_full` coords, or None."""
 
 
 def _indicator_series(close: Floats, indicator: str) -> Floats:
@@ -120,8 +111,7 @@ def _resolve_swing(close: Floats, idx: int, kind: str, w: int = 3) -> int:
 
 
 def _with_warmup(rng: np.random.Generator, close_visible: Floats) -> Floats:
-    """Prepend WARMUP gentle candles that connect into the visible series, purely to converge the
-    oscillators. Dropped from what the learner sees."""
+    """Prepend WARMUP hidden candles to converge the oscillators."""
     walk = np.cumsum(rng.normal(0.0, 0.008, WARMUP + 1))
     walk = walk - walk[-1]  # end the warm-up at ~close_visible[0]
     warm = close_visible[0] * np.exp(walk[:WARMUP])
@@ -129,9 +119,7 @@ def _with_warmup(rng: np.random.Generator, close_visible: Floats) -> Floats:
 
 
 def _apply_ambient_tail(rng: np.random.Generator, close: Floats) -> None:
-    """Overwrite the last TAIL candles (in place) with drift-free noise at the series' ambient
-    volatility, for EVERY label. No resolution or confirmation move is shown, and the last candles
-    carry no directional signal that could betray the label."""
+    """Overwrite the last TAIL candles in place with signal-free noise, identical for every label."""
     n = len(close)
     core = n - TAIL
     if core < 20:

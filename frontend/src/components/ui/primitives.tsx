@@ -105,10 +105,8 @@ export function Label({ className, ...props }: LabelHTMLAttributes<HTMLLabelElem
 }
 
 /**
- * The card is where "no elevation on pure black" bites hardest: it is a gray-900 panel on a gray-950
- * page today — a step of background contrast plus `shadow-sm` — and both of those vanish when page
- * and card are the same #000. The border is not decoration there, it is the only thing left saying
- * where the card ends, so it steps up from gray-800 to the (lighter) `line` token.
+ * On OLED the card's background step and `shadow-sm` both vanish, so its border is the only thing left
+ * saying where it ends — it steps up to the lighter `line` token there.
  */
 export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
@@ -123,11 +121,10 @@ export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 }
 
 /**
- * A count-of-total rendered pre-attentively, next to the same figure in text.
+ * A count-of-total rendered pre-attentively, beside the same figure in text.
  *
- * Deliberately monochrome: emerald/red would turn a half-finished module into a grade, and indigo
- * is this app's interactive accent — a filled indigo bar reads as an award. Progress is a fact.
- * `aria-hidden` because the fraction beside it already announces the value to a screen reader.
+ * Deliberately monochrome — emerald/red would make a half-finished module a grade, and indigo is the
+ * interactive accent. `aria-hidden`, since the fraction beside it already announces the value.
  */
 export function MiniBar({ value, total, className }: { value: number; total: number; className?: string }) {
   const filled = total > 0 ? Math.min(100, Math.max(0, (value / total) * 100)) : 0;

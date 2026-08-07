@@ -4,9 +4,8 @@ import { PRINT_FONT } from "@/lib/pdf/page";
 /**
  * The embedded print face, installed into pdfmake's virtual file system.
  *
- * A PDF carries its own font. pdfmake's bundled Roboto has no U+2192, and `→` appears in the lesson prose
- * over a hundred times, where it printed as an empty box; Liberation Sans is metric-compatible with the
- * app's Helvetica/Arial stack, and `fonts.test.ts` asserts it covers every character the course uses.
+ * Not pdfmake's bundled Roboto: it has no U+2192, and `→` appears in the prose over a hundred times,
+ * printing as an empty box. `fonts.test.ts` asserts Liberation Sans covers every character used.
  */
 
 export type PdfMakeLike = {

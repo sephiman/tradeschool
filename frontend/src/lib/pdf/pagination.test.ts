@@ -5,15 +5,14 @@ import { MIN_BODY_HEIGHT, keepTogether, type OversizedBlock } from "@/lib/pdf/pa
 /**
  * The pagination rules, against the node shapes pdfmake actually hands the callback.
  *
- * Three of these cases are regressions from building this: each one produced a visibly wrong page in
- * the real book while the rule looked right in the abstract, and each is a property of pdfmake's node
- * model rather than of the document — the footer that follows every page's content, the container
- * that claims a page its ink never reached, and the callout whose paragraphs leave with it.
+ * Three cases are regressions, each a property of pdfmake's node model rather than the document: the
+ * footer following every page, the container claiming a page its ink never reached, and the callout
+ * whose paragraphs leave with it.
  */
 
 const PAGE_HEIGHT = 726;
 
-/** A laid-out node, with only what the rules read. `verticalRatio` is how far down the page it starts. */
+/** A laid-out node, with only what the rules read. */
 function node(props: Partial<Node> & { page?: number; at?: number }): Node {
   const { page = 1, at = 0, ...rest } = props;
   return {

@@ -1,18 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Derivatives-data injector (module m17): open interest read against price.
+"""Derivatives-data injector (m17): open interest read against price.
 
-Price rises the SAME way for every label — so price can never betray the answer — and the tell is
-what OPEN INTEREST (shown in the lower pane) does underneath that rally:
-
-* ``rising_oi`` — OI climbs with price: new money is entering, the move is backed (healthy trend).
-* ``falling_oi`` — OI falls while price rises: the rally is shorts covering, not fresh buying — no
-  conviction, prone to stall.
-* ``flat_oi`` — OI barely moves: thin participation, a low-conviction drift.
-
-Since the price path is identical across labels, the last-candle price distribution is identical
-(the anti-leak test passes trivially) and the resolution — whether the rally holds — is off screen.
-The learner must read the OI line, not the candles. (Funding and liquidation clusters are taught in
-m17's lesson and quizzes; this injector isolates the OI-vs-price reading.)
+Price rises the SAME way for every label, so the candles can never betray the answer and the learner
+must read the OI line in the lower pane.
 """
 
 from __future__ import annotations

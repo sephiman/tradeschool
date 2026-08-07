@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageControl, ThemeControl, ThemeCycleButton } from "@/components/layout/controls";
 import { Card } from "@/components/ui/primitives";
 
-/** Centered card used by the login and register screens. Above the card is only the logo + tagline;
- * language/theme preferences live in the card footer (below the sign-in/up link), muted. */
+/** Centered card for the login and register screens. */
 export function AuthCard({ title, children }: { title: string; children: ReactNode }) {
   const { t } = useTranslation();
   return (

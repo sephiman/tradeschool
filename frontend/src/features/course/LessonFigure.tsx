@@ -19,9 +19,7 @@ function toMarkers(annotations: FigurePanel["annotations"]): SwingMarker[] {
   }));
 }
 
-/** A didactic figure embedded in a lesson via `::figure{id=...}`. Deterministic (frozen seed) and
- * non-interactive; shows the pattern's resolution. Responsive: fills the container width, and
- * multi-panel comparisons stack vertically on phones (single column) and go side-by-side from `sm`. */
+/** A figure embedded via `::figure{id=...}`: frozen seed, non-interactive, shows the resolution. */
 export function LessonFigure({ id }: { id: string }) {
   const { i18n } = useTranslation();
   const { data } = useQuery({ queryKey: ["figure", id, i18n.resolvedLanguage], queryFn: () => getFigure(id) });

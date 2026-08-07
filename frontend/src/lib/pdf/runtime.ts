@@ -11,8 +11,7 @@ export interface PdfMakeRuntime {
 
 let runtime: Promise<PdfMakeRuntime> | null = null;
 
-/** The prebuilt browser bundle is imported dynamically, so a reader who never exports never downloads
- *  a megabyte of typesetting engine. Loaded once per session, with its font. */
+/** Imported dynamically, so a reader who never exports never downloads the typesetting engine. */
 export function loadPdfMake(): Promise<PdfMakeRuntime> {
   runtime ??= (async () => {
     const loaded = (await import("pdfmake/build/pdfmake")) as unknown as {

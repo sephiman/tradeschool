@@ -5,16 +5,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
 
 /**
- * What a multi-lesson module page owes the reader (m09-shaped: two lessons, the first already read).
+ * What a multi-lesson module page owes the reader: EACH ROW carries its own full estimate, not just the
+ * module's aggregate — otherwise a reader cannot tell a 4-minute lesson from a 20-minute one.
  *
- * The module's own figure is an aggregate — time LEFT — but a lesson inside it is atomic, so **each row
- * carries its own full estimate**, the same number the lesson's own page prints. Showing only the module
- * total is the defect this file exists to prevent: on a two-lesson module that told you "~11 min left"
- * and nothing else, you could not tell whether the lesson you were about to open was a 4-minute read or
- * a 20-minute one, which is the entire question the estimate is there to answer.
- *
- * Rendered rather than computed, because the arithmetic is already covered in `readingTime.test.ts` and
- * what was missing was the *wiring*: the page had the per-lesson seconds in hand and did not print them.
+ * Rendered rather than computed; the arithmetic is `readingTime.test.ts`'s, the WIRING was what broke.
  */
 
 const MODULE = {

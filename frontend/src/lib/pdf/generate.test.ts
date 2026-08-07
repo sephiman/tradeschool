@@ -3,9 +3,8 @@ import type { FigureData } from "@/api/course";
 import { downloadPdf, pdfFilename } from "@/lib/pdf/generate";
 
 /**
- * What the export does when a figure will not come out: it stops, naming the figure. A lesson's prose
- * quotes the numbers its figure draws ("the shelf near 25,900"), so a PDF that dropped the chart would
- * argue about something the reader cannot see — worse than no PDF at all.
+ * What the export does when a figure will not come out: it stops, naming the figure — the prose quotes
+ * the numbers that figure draws.
  */
 
 const getFigure = vi.fn<(id: string) => Promise<FigureData>>();
@@ -13,8 +12,7 @@ vi.mock("@/api/course", () => ({ getFigure: (id: string) => getFigure(id) }));
 
 const { captureFigures } = await import("@/lib/pdf/figures");
 
-/** Read at module scope on purpose: a capture that leaks the print ratio leaks it for the whole page, so
- *  reading this inside a test would compare a contaminated value against itself. */
+/** Read at module scope on purpose: reading it inside a test would compare a leaked ratio to itself. */
 const PRISTINE_PIXEL_RATIO = window.devicePixelRatio;
 
 beforeEach(() => {

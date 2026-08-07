@@ -12,16 +12,14 @@ import {
 import { testPdfLabels } from "@/test/printLabels";
 
 /**
- * How one printed exercise reads, per kind — and, for each, how the answer at the back points back at
- * it. The join is the subject: the key cites the letter the page gave an option, not the option's
- * internal id, and quotes the price the chart plots at the bar it names.
+ * How one printed exercise reads, per kind, and how its answer points back at it. The JOIN is the
+ * subject: the key cites the page's letter, not the option's internal id.
  */
 
 const labels = testPdfLabels("en");
 const chart = () => "PNG";
 
-/** Just the typeset text: the `text` (or `image`) of every node, in order — never a style name. A
- *  markdown-rendered prompt's `text` is a list of styled runs, which joins back into its sentence. */
+/** Just the typeset text: every node's `text` (or `image`) in order, never a style name. */
 function texts(node: unknown, found: string[] = []): string[] {
   if (Array.isArray(node)) node.forEach((child) => texts(child, found));
   else if (typeof node === "object" && node !== null) {

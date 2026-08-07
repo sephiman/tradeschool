@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Shared slowapi limiter. Keyed by the real client IP (X-Forwarded-For first hop when
-behind nginx). `create_app` toggles `.enabled` from settings."""
+"""Shared slowapi limiter, keyed by the real client IP (X-Forwarded-For's first hop behind nginx)."""
 
 from __future__ import annotations
 

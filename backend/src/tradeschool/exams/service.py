@@ -1,12 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Exam lifecycle: a sampled, deferred-graded run over the existing exercise bank.
+"""Exam lifecycle: one exercise per module, no feedback until submission, then graded in bulk.
 
-An exam samples one exercise per module (fresh seed), presents them in canonical course order with
-**no feedback until submission**, then grades everything at once and reveals the worked solutions in
-bulk. Exam attempts live in their own lane (``exam_session_id`` set) and never touch practice stats.
-
-Reuses the practice generators verbatim, so chart questions get the exercise-mode series (cut before
-resolution) — the figure continuation branch is unreachable from ``generate()``.
+Exam attempts live in their own lane (``exam_session_id`` set) and never touch practice stats. The
+practice generators are reused verbatim, so charts get the exercise-mode series, cut before resolution.
 """
 
 from __future__ import annotations

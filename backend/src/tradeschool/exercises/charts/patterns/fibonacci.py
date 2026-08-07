@@ -1,17 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Fibonacci-retracement injector (module m13).
+"""Fibonacci-retracement injector (m13): which grid level the pullback reached.
 
-A CLASSIFICATION pattern: an impulse leg is followed by a pullback, and the learner reads WHICH
-Fibonacci retracement level the pullback reached before the trend resumed:
-
-* ``retrace_382`` — a shallow pullback to the 0.382 level.
-* ``retrace_500`` — a pullback to the midpoint (0.5).
-* ``retrace_618`` — a deep pullback to the "golden" 0.618 level.
-
-The retracement grid (0.382 / 0.5 / 0.618 of the impulse) is drawn on the price as horizontal
-levels; the tell is where the pullback extreme sits against that grid. Fibonacci arithmetic is done
-in PRICE space (retracements are linear in price, not log). The label is the visible state, so the
-last-candle leak test does not apply; the ambient tail keeps the ending spike-free.
+Fibonacci arithmetic is done in PRICE space — retracements are linear in price, not log. A
+CLASSIFICATION pattern, so no last-candle leak test.
 """
 
 from __future__ import annotations

@@ -5,17 +5,12 @@ import type { AttemptPayload, OptionView } from "@/api/exercises";
 import { CONTENT_DIR, manifestModules, type Locale } from "@/test/courseContent";
 
 /**
- * The print document as `/course/print/exercises?lang=…` serves it — every id, type and order read
- * off `content/`, so the PDF's completeness tests are driven by the real course rather than by a
- * committed snapshot that quietly ages.
+ * The print document as `/course/print/exercises?lang=…` serves it, with every id, type and order read
+ * off `content/` so the completeness tests cannot age.
  *
- * The INSTANCES are stand-ins, and deliberately so: instantiating one means running the Python
- * generators (a seeded RNG, numpy candle paths, Wilder's RSI), and a second implementation of that
- * in TypeScript is exactly the drift this codebase refuses everywhere else. What the frontend is
- * responsible for is the join — every exercise printed once, after its own lesson, in course order,
- * with exactly one answer key entry apiece that cites the options the page actually laid out — and
- * that is fully exercised by instances of the right SHAPE. Whether the numbers are the ones the
- * generator would produce is the backend's `test_print_exercises.py`, where the generators live.
+ * The INSTANCES are stand-ins deliberately: reimplementing the Python generators in TypeScript is the
+ * drift this codebase refuses. The frontend owns the JOIN, which instances of the right SHAPE exercise
+ * fully; whether the numbers are right is `test_print_exercises.py`'s job.
  */
 
 interface RawOption {
@@ -65,8 +60,7 @@ function config(exerciseId: string): RawConfig {
   return raw;
 }
 
-/** A small stable hash, so every choice below is a function of the id — no clock, no randomness: two
- *  runs of the suite build the same document, which is itself one of the things under test. */
+/** A small stable hash, so every choice below is a function of the id — no clock, no randomness. */
 function digest(value: string): number {
   let hash = 2166136261;
   for (let i = 0; i < value.length; i++) {
@@ -175,8 +169,7 @@ function calculation(id: string, raw: RawConfig, locale: Locale): Omit<PrintExer
 
 const BARS = 40;
 
-/** A candle series of the right shape: what the print renderer needs is a chart to capture and prices
- *  to quote, not a credible market — the credibility of the real ones is tested where they are made. */
+/** A candle series of the right shape — the print renderer needs prices, not a credible market. */
 function series(id: string): NonNullable<AttemptPayload["series"]> {
   const time: number[] = [];
   const open: number[] = [];
@@ -258,8 +251,7 @@ export function printExerciseFromContent(
   };
 }
 
-/** The whole print document for one locale, in manifest order. `exclude` drops exercises the way the
- *  server would when they cannot be printed, so the "named, never silent" path has something to say. */
+/** The whole print document for one locale, in manifest order; `exclude` drops one as the server would. */
 export function printExercisesFromContent(
   locale: Locale,
   exclude: Record<string, string> = {},
