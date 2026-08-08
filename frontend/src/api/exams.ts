@@ -1,4 +1,4 @@
-import { apiClient } from "@/api/client";
+import { apiClient, COURSE_PATH } from "@/api/client";
 import type { ExerciseType } from "@/api/course";
 import type { Answer, AttemptPayload } from "@/api/exercises";
 
@@ -75,39 +75,39 @@ export interface ExamHistoryItem {
 }
 
 export async function startExam(scope: ExamScope, blockId?: string): Promise<ExamSession> {
-  const { data } = await apiClient.post<ExamSession>("/exams", { scope, blockId: blockId ?? null });
+  const { data } = await apiClient.post<ExamSession>(`${COURSE_PATH}/exams`, { scope, blockId: blockId ?? null });
   return data;
 }
 
 export async function getCurrentExam(): Promise<ExamSession | null> {
-  const { data } = await apiClient.get<ExamSession | null>("/exams/current");
+  const { data } = await apiClient.get<ExamSession | null>(`${COURSE_PATH}/exams/current`);
   return data;
 }
 
 export async function getExam(examId: string): Promise<ExamSession> {
-  const { data } = await apiClient.get<ExamSession>(`/exams/${examId}`);
+  const { data } = await apiClient.get<ExamSession>(`${COURSE_PATH}/exams/${examId}`);
   return data;
 }
 
 export async function answerExamQuestion(examId: string, attemptId: string, answer: Answer): Promise<void> {
-  await apiClient.post(`/exams/${examId}/questions/${attemptId}/answer`, { answer });
+  await apiClient.post(`${COURSE_PATH}/exams/${examId}/questions/${attemptId}/answer`, { answer });
 }
 
 export async function submitExam(examId: string): Promise<ExamSession> {
-  const { data } = await apiClient.post<ExamSession>(`/exams/${examId}/submit`, {});
+  const { data } = await apiClient.post<ExamSession>(`${COURSE_PATH}/exams/${examId}/submit`, {});
   return data;
 }
 
 export async function reviewExam(examId: string): Promise<ExamSession> {
-  const { data } = await apiClient.get<ExamSession>(`/exams/${examId}/review`);
+  const { data } = await apiClient.get<ExamSession>(`${COURSE_PATH}/exams/${examId}/review`);
   return data;
 }
 
 export async function abandonExam(examId: string): Promise<void> {
-  await apiClient.post(`/exams/${examId}/abandon`, {});
+  await apiClient.post(`${COURSE_PATH}/exams/${examId}/abandon`, {});
 }
 
 export async function examHistory(): Promise<ExamHistoryItem[]> {
-  const { data } = await apiClient.get<ExamHistoryItem[]>("/exams");
+  const { data } = await apiClient.get<ExamHistoryItem[]>(`${COURSE_PATH}/exams`);
   return data;
 }

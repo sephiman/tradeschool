@@ -37,3 +37,13 @@ export function apiErrorMessage(err: unknown, t: (key: string, fallback: string)
   const api = asApiError(err);
   return t(`errors.${api.code}`, api.message);
 }
+
+/**
+ * The course every course-owned URL hangs off.
+ *
+ * One course exists today, and its slug is a permanent identifier (see content/README.md) — the same
+ * id the manifest and the PDF filename already use. The unscoped URLs still work as deprecated
+ * aliases for clients we do not control; ours never use them.
+ */
+export const COURSE_SLUG = "crypto-futures";
+export const COURSE_PATH = `/courses/${COURSE_SLUG}`;

@@ -11,7 +11,26 @@ es/lessons/*.md       lesson prose (Spanish)      — one file per lesson id
 exercises/*.yaml      generator config per exercise id (server-generated + server-graded)
 figures/*.yaml        lesson figure specs embedded via ::figure{id=…}
 figure-coupling.yaml  which lesson numbers are approximations of which figure's generated values
+glossary.yaml         the bilingual term list: one or two sentences per term, plus its origin lesson
 ```
+
+## The glossary
+
+`glossary.yaml` **refers, it does not teach.** Every entry distils the lesson that teaches the term
+into one or two sentences and points back at it; anything longer belongs in the lesson. Glossary ids
+join the same permanent, globally-unique namespace as everything above (`g-funding`, `g-premium`), and
+the loader rejects a collision.
+
+Three shapes: a plain `definition`; `senses` for a term the course genuinely uses in more than one
+sense (`premium` has three), optionally under a lead `definition` for the "one mechanic, several
+instruments" case (`absorption`); and `alias_of` for a second name the course uses for something it
+already defines (`CHoCH` → `change of character`, `order block` → `origin zone`), which defers the
+definition rather than repeating it.
+
+The hard rule is that **the glossary never coins**: startup fails if a term does not appear in the
+prose of its own locale. So a term is added to the glossary only after the prose uses it — and where
+the two locales disagreed on a term, the prose was unified first (see the canonical forms in
+`GLOSSARY-PROPOSAL.md` at the repo root).
 
 The manifest's root is a single **course** (`course: { id, title, description }`); its blocks follow at
 the top level. There is one course today — `crypto-futures` — and the structure is ready for more.
@@ -39,9 +58,39 @@ Rules:
   renders them side by side (`m17-ex-4` sits out of numeric sequence inside its lesson, with the reason
   on file in the manifest). `block-g` (one module, `m30`) is the first block added under this rule.
 
-There is intentionally **no course catalog, switcher, or `/courses/{id}` routing yet** — the UI stays
-single-course until a second course actually exists. This document plus the root `course` entity and
-the `courses` table are the structural groundwork so that day is additive, not a migration of ids.
+### Ids are globally unique — confirmed, and permanent
+
+The rule above is the decision, restated because course-scoped URLs are an obvious moment to reopen
+it: **content ids are unique across the whole repository, not per course.** A second course
+self-namespaces (`spot-m01`, `g-spot-funding`) rather than relying on its directory to disambiguate.
+
+The reason it cannot change now: `attempts.exercise_id` and `lesson_completions.lesson_id` store the
+bare id. Per-course uniqueness would mean adding a course column to every id reference and migrating
+existing learner progress — for no gain, since the namespace has room for every course we will write.
+
+The one place a course id IS stored alongside is `exam_sessions.course_id`, which exists so a
+course-scoped by-id route can answer "does this exam belong to this course?" as a field comparison
+rather than by joining through the exam's attempts.
+
+### What a second course would touch
+
+The API is already course-scoped (`/api/courses/{course}/…`, see the root README), so URLs are not in
+the way. What is still single-course:
+
+- **This directory.** Today `course.yaml`, `glossary.yaml` and `es/`/`en/` sit at the top; a second
+  course means `content/courses/{slug}/…` with today's tree moving under `crypto-futures/`.
+- **`load_registry(dir) -> CourseRegistry`** becomes `load_registries(dir) -> dict[slug, CourseRegistry]`.
+- **Three spots in app state**: `app.state.registry` (→ keyed by slug), the print cache keyed by
+  locale (→ by course + locale), and `reconcile(app.state.registry.manifest, …)` (→ per course).
+- **`current_course`** stops resolving an absent slug to "the only course", which is the moment the
+  deprecated unscoped aliases must be removed rather than merely discouraged.
+
+Both the API and the SPA are already course-scoped (`/api/courses/{course}/…` and
+`/courses/{course}/…`), so a bookmarked lesson survives the arrival of a second course. What is
+deliberately **not** built yet is a course catalog or switcher, and the SPA declares its routes with
+the literal slug rather than a `:course` param — the UI stays single-course until a second course
+actually exists. This document plus the root `course` entity and the `courses` table are
+the structural groundwork so that day is additive, not a migration of ids.
 
 ## Worked numbers next to a figure
 

@@ -1,0 +1,1991 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# The course glossary.
+#
+# The glossary REFERS, it does not teach. Every entry is one or two sentences distilled from the
+# lesson that teaches the term, plus the pointer back to that lesson. If an entry starts explaining
+# the mechanic, it belongs in the lesson instead.
+#
+# Rules baked into the loader (backend/src/tradeschool/content/glossary.py):
+#   - ids are permanent and globally unique across the whole repo (see content/README.md);
+#     never renumber or reuse one.
+#   - `origin` must name a lesson that exists in the manifest.
+#   - an entry carries `definition` (one sense) and/or `senses` (a homonym, numbered in order); an
+#     entry with a lead `definition` AND `senses` is the "one mechanic, several instruments" shape.
+#     `alias_of` (a second name for another entry, which owns the definition) excludes both.
+#   - the glossary never coins: every term must actually appear in the prose of its own locale.
+#
+# File order is by origin lesson, which is how it is maintained. Render order is alphabetical, per
+# locale, and the two locales are deliberately allowed to sort differently.
+
+terms:
+
+# --- Block A · Foundations -------------------------------------------------------------------
+
+- id: g-blockchain
+  en: blockchain
+  es: blockchain
+  origin: m01-l1
+  definition:
+    en: >-
+      A shared ledger that no single company operates: thousands of nodes hold the same database and
+      agree on it by rule, so no operator can be called and asked to change a balance.
+    es: >-
+      Un libro de cuentas compartido que ninguna empresa opera: miles de nodos guardan la misma base
+      de datos y se ponen de acuerdo por regla, así que no hay a quién llamar para cambiar un saldo.
+
+- id: g-altcoin
+  en: altcoin
+  es: altcoin
+  origin: m01-l1
+  definition:
+    en: >-
+      Any crypto asset that is not Bitcoin. The label says nothing about quality — it groups a
+      settlement network and a memecoin under one word.
+    es: >-
+      Cualquier activo cripto que no sea Bitcoin. La etiqueta no dice nada sobre la calidad: mete en
+      la misma palabra una red de liquidación y una memecoin.
+
+- id: g-stablecoin
+  en: stablecoin
+  es: stablecoin
+  origin: m01-l1
+  definition:
+    en: >-
+      A token designed to hold a fixed value, almost always one US dollar, so it can be used as cash
+      inside crypto. What backs the peg is the whole question.
+    es: >-
+      Un token diseñado para mantener un valor fijo, casi siempre un dólar, para que sirva de efectivo
+      dentro de cripto. Qué respalda esa paridad es toda la cuestión.
+
+- id: g-market-cap
+  en: market cap
+  es: market cap
+  origin: m01-l1
+  definition:
+    en: >-
+      Price multiplied by circulating supply. It measures what the circulating part is worth, not
+      what it would cost to buy the asset out, and m18 contrasts it with FDV.
+    es: >-
+      El precio multiplicado por la oferta circulante. Mide lo que vale la parte en circulación, no
+      lo que costaría comprar el activo entero; m18 la contrasta con la FDV.
+
+- id: g-narrative
+  en: narrative
+  es: narrativa
+  origin: m01-l1
+  definition:
+    en: >-
+      The story that explains why a token should be worth something. It moves price for as long as
+      people believe it, which is not the same as the token doing what the story says.
+    es: >-
+      El relato que explica por qué un token debería valer algo. Mueve el precio mientras la gente se
+      lo crea, que no es lo mismo que el token haga lo que el relato dice.
+
+- id: g-cex
+  en: CEX
+  es: CEX
+  origin: m02-l1
+  definition:
+    en: >-
+      A centralised exchange: a company that holds your coins and matches orders on its own internal
+      order book. Fast and convenient, and your balance is its IOU.
+    es: >-
+      Un exchange centralizado: una empresa que guarda tus monedas y casa las órdenes en su propio
+      libro interno. Rápido y cómodo, y tu saldo es un pagaré suyo.
+
+- id: g-dex
+  en: DEX
+  es: DEX
+  origin: m02-l1
+  definition:
+    en: >-
+      A decentralised exchange: trades settle on-chain from your own wallet, so nobody holds your
+      coins and nobody can freeze them — or recover them for you.
+    es: >-
+      Un exchange descentralizado: las operaciones se liquidan on-chain desde tu propia cartera, así
+      que nadie guarda tus monedas ni puede congelarlas, ni recuperártelas.
+
+- id: g-spot
+  en: spot
+  es: spot
+  origin: m02-l1
+  definition:
+    en: >-
+      Buying the asset itself, settled immediately: you own the coin and it cannot be liquidated away
+      from you. The thing perpetual futures are priced against.
+    es: >-
+      Comprar el activo en sí, con liquidación inmediata: posees la moneda y no te la pueden liquidar.
+      Es la referencia contra la que se cotizan los futuros perpetuos.
+
+- id: g-market-order
+  en: market order
+  es: orden de mercado
+  origin: m02-l1
+  definition:
+    en: >-
+      An order that takes whatever price the book offers right now. It buys certainty of execution
+      and gives up certainty of price.
+    es: >-
+      Una orden que toma el precio que el libro ofrezca ahora mismo. Compra certeza de ejecución y
+      renuncia a la certeza de precio.
+
+- id: g-limit-order
+  en: limit order
+  es: orden limitada
+  origin: m02-l1
+  definition:
+    en: >-
+      An order that executes only at your price or better. It buys certainty of price and gives up
+      certainty of execution — it may never fill.
+    es: >-
+      Una orden que solo se ejecuta a tu precio o mejor. Compra certeza de precio y renuncia a la
+      de ejecución: puede que no se complete nunca.
+
+- id: g-order-book
+  en: order book
+  es: libro de órdenes
+  origin: m02-l1
+  definition:
+    en: >-
+      The live list of resting buy and sell orders at each price. It shows what people are willing
+      to do, which m27 separates carefully from what they have done.
+    es: >-
+      La lista viva de órdenes de compra y venta en reposo a cada precio. Muestra lo que la gente está
+      dispuesta a hacer, que m27 distingue con cuidado de lo que ya ha hecho.
+
+- id: g-bid
+  en: bid
+  es: bid
+  origin: m02-l1
+  definition:
+    en: >-
+      The highest resting buy order — what you get filled against if you sell at market. The bid side
+      of the book is the demand sitting under price.
+    es: >-
+      La orden de compra en reposo más alta: contra ella te ejecutas si vendes a mercado. El lado bid
+      del libro es la demanda que aguarda bajo el precio.
+
+- id: g-ask
+  en: ask
+  es: ask
+  origin: m02-l1
+  definition:
+    en: >-
+      The lowest resting sell order — what you get filled against if you buy at market. The ask side
+      is the supply sitting above price.
+    es: >-
+      La orden de venta en reposo más baja: contra ella te ejecutas si compras a mercado. El lado ask
+      es la oferta que aguarda por encima del precio.
+
+- id: g-spread
+  en: spread
+  es: spread
+  origin: m02-l1
+  definition:
+    en: >-
+      The gap between the best bid and the best ask — the immediate cost of crossing the book. It
+      widens exactly when liquidity thins.
+    es: >-
+      La distancia entre el mejor bid y el mejor ask: el coste inmediato de cruzar el libro. Se
+      ensancha justo cuando la liquidez se adelgaza.
+
+- id: g-depth
+  en: depth
+  es: profundidad
+  origin: m02-l1
+  definition:
+    en: >-
+      How much size rests at each price away from the top of the book. Thin depth is why a modest
+      order can move price a long way; m27 reads it properly.
+    es: >-
+      Cuánto volumen descansa a cada precio según te alejas de la cima del libro. La poca profundidad
+      es la razón de que una orden modesta mueva mucho el precio; m27 la lee a fondo.
+
+- id: g-custody
+  en: custody
+  es: custodia
+  origin: m02-l1
+  definition:
+    en: >-
+      Who actually holds the private keys to your coins. On an exchange it is the exchange, which is
+      the whole content of "not your keys, not your coins".
+    es: >-
+      Quién guarda de verdad las claves privadas de tus monedas. En un exchange, el exchange, que es
+      todo el contenido de "not your keys, not your coins".
+
+- id: g-finality
+  en: finality
+  es: irreversibilidad
+  origin: m02-l1
+  definition:
+    en: >-
+      Once an on-chain transaction confirms, no operator can reverse it. Crypto's hard edge: a
+      mistake you signed is a mistake you keep.
+    es: >-
+      Una vez que una transacción on-chain se confirma, ningún operador puede revertirla. La arista
+      dura del cripto: un error que firmaste es un error que te quedas.
+
+- id: g-candle
+  en: candle
+  es: vela
+  origin: m03-l1
+  definition:
+    en: >-
+      One bar summarising a period of trading as four numbers — open, high, low, close — plus the
+      volume behind them. m25 is the reminder that it is an aggregate, not a record.
+    es: >-
+      Una barra que resume un periodo de negociación en cuatro números —apertura, máximo, mínimo,
+      cierre— más el volumen detrás. m25 recuerda que es un agregado, no un registro.
+
+- id: g-ohlc
+  en: OHLC
+  es: OHLC
+  origin: m03-l1
+  definition:
+    en: >-
+      Open, high, low, close: the four prices every candle in this course is built from.
+    es: >-
+      Apertura, máximo, mínimo y cierre: los cuatro precios con los que se construye cada vela de
+      este curso.
+
+- id: g-body
+  en: body
+  es: cuerpo
+  origin: m03-l1
+  definition:
+    en: >-
+      The thick part of a candle, between open and close — the ground price actually held. m08-l2
+      reads a long body as one side overrunning the other.
+    es: >-
+      La parte gruesa de una vela, entre apertura y cierre: el terreno que el precio de verdad
+      conservó. m08-l2 lee un cuerpo largo como un lado arrollando al otro.
+
+- id: g-wick
+  en: wick
+  es: mecha
+  origin: m03-l1
+  definition:
+    en: >-
+      The thin line above or below the body — price that was reached and then given back. m08-l2
+      reads a long wick as a battle lost at that level.
+    es: >-
+      La línea fina por encima o por debajo del cuerpo: precio que se alcanzó y se devolvió. m08-l2
+      lee una mecha larga como una batalla perdida en ese nivel.
+
+- id: g-timeframe
+  en: timeframe
+  es: temporalidad
+  origin: m03-l1
+  definition:
+    en: >-
+      How much time one candle covers. The same price action tells a different story on each, which
+      is why m24 fixes which chart decides what before anything else.
+    es: >-
+      Cuánto tiempo abarca una vela. La misma acción del precio cuenta una historia distinta en cada
+      una, por eso m24 fija qué gráfico decide qué antes que nada.
+
+- id: g-volume
+  en: volume
+  es: volumen
+  origin: m03-l1
+  definition:
+    en: >-
+      How much traded in a period. It measures participation, not direction — m14 is the lesson that
+      makes that distinction pay.
+    es: >-
+      Cuánto se negoció en un periodo. Mide participación, no dirección; m14 es la lección que saca
+      partido de esa distinción.
+
+- id: g-trend
+  en: trend
+  es: tendencia
+  origin: m03-l2
+  definition:
+    en: >-
+      Not "price went up" but a sequence of turning points stepping the same way: higher highs and
+      higher lows, or lower highs and lower lows.
+    es: >-
+      No "el precio subió", sino una secuencia de puntos de giro que escalan en la misma dirección:
+      máximos y mínimos más altos, o máximos y mínimos más bajos.
+
+- id: g-range
+  en: range
+  es: rango
+  origin: m03-l2
+  definition:
+    en: >-
+      Price rotating between a floor and a ceiling with no sequence to it. m09 is the lesson that
+      treats a range as a process rather than a pause.
+    es: >-
+      El precio rotando entre un suelo y un techo sin secuencia que lo ordene. m09 es la lección que
+      trata el rango como un proceso y no como una pausa.
+
+- id: g-support
+  en: support
+  es: soporte
+  origin: m03-l2
+  definition:
+    en: >-
+      A zone below price where buyers have stepped in before, drawn as a band and not a line. It
+      holds because people act on it, and it fails when enough of them stop.
+    es: >-
+      Una zona por debajo del precio donde los compradores ya entraron antes, dibujada como banda y
+      no como línea. Aguanta porque la gente actúa sobre ella, y falla cuando dejan de hacerlo.
+
+- id: g-resistance
+  en: resistance
+  es: resistencia
+  origin: m03-l2
+  definition:
+    en: >-
+      The mirror of support: a zone above price where sellers have stepped in before. Also a band,
+      for the same reason.
+    es: >-
+      El espejo del soporte: una zona por encima del precio donde los vendedores ya entraron antes.
+      También una banda, por la misma razón.
+
+- id: g-swing-high
+  en: swing high
+  es: máximo de giro
+  origin: m03-l2
+  definition:
+    en: >-
+      A peak with lower candles on either side of it — one of the turning points a trend is a
+      sequence of.
+    es: >-
+      Un pico con velas más bajas a ambos lados: uno de los puntos de giro cuya secuencia forma una
+      tendencia.
+
+- id: g-swing-low
+  en: swing low
+  es: mínimo de giro
+  origin: m03-l2
+  definition:
+    en: >-
+      A trough with higher candles on either side of it — the mirror of a swing high.
+    es: >-
+      Un valle con velas más altas a ambos lados: el espejo de un máximo de giro.
+
+- id: g-role-reversal
+  en: role reversal
+  es: inversión de roles
+  origin: m03-l2
+  definition:
+    en: >-
+      When price breaks convincingly through a zone, that zone tends to flip: broken resistance
+      becomes support, broken support becomes resistance. The why is human, not mechanical.
+    es: >-
+      Cuando el precio rompe de forma convincente una zona, esa zona suele darse la vuelta: la
+      resistencia rota pasa a soporte y el soporte roto a resistencia. El porqué es humano.
+
+# --- Block B · The instrument ----------------------------------------------------------------
+
+- id: g-perpetual-future
+  en: perpetual future
+  es: futuro perpetuo
+  origin: m04-l1
+  definition:
+    en: >-
+      A derivative contract on a coin's price with no expiry date, held near spot by the funding
+      mechanism. You never own the coin.
+    es: >-
+      Un contrato derivado sobre el precio de una moneda, sin fecha de vencimiento, anclado al spot
+      por el mecanismo de funding. Nunca posees la moneda.
+
+- id: g-contract
+  en: contract
+  es: contrato
+  origin: m04-l1
+  definition:
+    en: >-
+      What you actually trade on a perp: an agreement whose value tracks a price, symmetric between
+      the two sides, and settled in a stablecoin.
+    es: >-
+      Lo que de verdad negocias en un perpetuo: un acuerdo cuyo valor sigue a un precio, simétrico
+      entre las dos partes y liquidado en una stablecoin.
+
+- id: g-long
+  en: long
+  es: largo
+  origin: m04-l1
+  definition:
+    en: >-
+      A position that gains if price rises and loses if it falls.
+    es: >-
+      Una posición que gana si el precio sube y pierde si baja.
+
+- id: g-short
+  en: short
+  es: corto
+  origin: m04-l1
+  definition:
+    en: >-
+      A position that gains if price falls and loses if it rises. Nothing is borrowed or sold: the
+      contract is symmetric, so a short is as native as a long.
+    es: >-
+      Una posición que gana si el precio baja y pierde si sube. No se pide prestado ni se vende nada:
+      el contrato es simétrico, así que un corto es tan nativo como un largo.
+
+- id: g-mark-price
+  en: mark price
+  es: precio de marca
+  origin: m04-l1
+  definition:
+    en: >-
+      The reference price an exchange uses to value your position and trigger liquidation, drawn from
+      a broader index rather than its own last trade. It exists so one wick cannot liquidate you.
+    es: >-
+      El precio de referencia con el que el exchange valora tu posición y dispara la liquidación,
+      tomado de un índice amplio y no de su última operación. Existe para que una mecha no te liquide.
+
+- id: g-last-price
+  en: last price
+  es: último precio
+  origin: m04-l1
+  definition:
+    en: >-
+      The price of the most recent trade on that venue. It is what you get filled at, and it is not
+      what your liquidation is measured against.
+    es: >-
+      El precio de la operación más reciente en esa plataforma. Es a lo que te ejecutas, y no es
+      contra lo que se mide tu liquidación.
+
+- id: g-funding
+  en: funding
+  es: funding
+  origin: m04-l1
+  definition:
+    en: >-
+      A periodic payment between longs and shorts that keeps a perpetual near spot: whichever side is
+      crowded pays the other. m17-l1 reads it as positioning.
+    es: >-
+      Un pago periódico entre largos y cortos que mantiene el perpetuo cerca del spot: el lado
+      concurrido paga al otro. m17-l1 lo lee como posicionamiento.
+
+- id: g-funding-rate
+  en: funding rate
+  es: tasa de funding
+  origin: m17-l1
+  definition:
+    en: >-
+      The size of that payment, per interval. Read as a crowding gauge rather than a direction: an
+      extreme says which side is packed, not which way price goes next.
+    es: >-
+      El tamaño de ese pago, por intervalo. Se lee como medidor de saturación, no de dirección: un
+      extremo dice qué lado está abarrotado, no hacia dónde irá el precio.
+
+- id: g-basis
+  en: basis
+  es: base
+  origin: m17-l1
+  definition:
+    en: >-
+      The gap between the perpetual's price and spot, read as a percentage of spot. Compare a perp
+      against its own venue's spot; a gap between two exchanges is operational friction, not
+      positioning.
+    es: >-
+      La distancia entre el precio del perpetuo y el spot, leída como porcentaje del spot. Compara el
+      perpetuo con el spot de su propia plataforma; un hueco entre dos exchanges es fricción
+      operativa, no posicionamiento.
+
+- id: g-notional
+  en: notional
+  es: nocional
+  origin: m05-l1
+  definition:
+    en: >-
+      The full size of the position you control — position size times price. What you control, as
+      opposed to the margin you paid for it.
+    es: >-
+      El tamaño completo de la posición que controlas: tamaño por precio. Lo que controlas, frente
+      al margen que pagaste por ello.
+
+- id: g-margin
+  en: margin
+  es: margen
+  origin: m05-l1
+  definition:
+    en: >-
+      The money actually posted to open and hold a position. Small next to the notional, and the part
+      that can be taken from you.
+    es: >-
+      El dinero que de verdad depositas para abrir y mantener una posición. Pequeño al lado del
+      nocional, y la parte que te pueden quitar.
+
+- id: g-initial-margin
+  en: initial margin
+  es: margen inicial
+  origin: m05-l1
+  definition:
+    en: >-
+      The margin required to open the position in the first place.
+    es: >-
+      El margen que se exige para abrir la posición.
+
+- id: g-maintenance-margin
+  en: maintenance margin
+  es: margen de mantenimiento
+  origin: m05-l1
+  definition:
+    en: >-
+      The minimum margin required to keep the position open. Fall below it and the exchange
+      liquidates.
+    es: >-
+      El margen mínimo exigido para mantener la posición abierta. Si caes por debajo, el exchange
+      liquida.
+
+- id: g-cross-margin
+  en: cross margin
+  es: margen cruzado
+  origin: m05-l1
+  definition:
+    en: >-
+      Margin mode where the whole account balance backs the position. Your losses stop when the
+      account does.
+    es: >-
+      Modo de margen en el que todo el saldo de la cuenta respalda la posición. Tus pérdidas paran
+      cuando para la cuenta.
+
+- id: g-isolated-margin
+  en: isolated margin
+  es: margen aislado
+  origin: m05-l1
+  definition:
+    en: >-
+      Margin mode where only the margin assigned to that position is at risk. The loss is walled off
+      at what you allocated.
+    es: >-
+      Modo de margen en el que solo arriesgas el margen asignado a esa posición. La pérdida queda
+      amurallada en lo que le asignaste.
+
+- id: g-leverage
+  en: leverage
+  es: apalancamiento
+  origin: m05-l1
+  definition:
+    en: >-
+      The ratio of notional to margin. It does not change your risk by itself — it changes how close
+      your liquidation price sits; m19-l1 is emphatic that the stop, not the leverage, sets risk.
+    es: >-
+      La razón entre nocional y margen. Por sí solo no cambia tu riesgo: cambia lo cerca que queda tu
+      precio de liquidación; m19-l1 insiste en que el riesgo lo fija el stop, no el apalancamiento.
+
+- id: g-liquidation
+  en: liquidation
+  es: liquidación
+  origin: m06-l1
+  definition:
+    en: >-
+      The exchange force-closing your position when margin falls below maintenance. Not a choice and
+      not a stop-loss: it is the venue protecting itself.
+    es: >-
+      El exchange cerrando tu posición a la fuerza cuando el margen cae por debajo del de
+      mantenimiento. Ni es una decisión tuya ni es un stop: es la plataforma protegiéndose.
+
+- id: g-liquidation-price
+  en: liquidation price
+  es: precio de liquidación
+  origin: m06-l1
+  definition:
+    en: >-
+      The price at which that force-close triggers, computed from your margin and maintenance
+      requirement. m19-l1's rule is to keep it comfortably beyond the stop you already placed.
+    es: >-
+      El precio al que se dispara ese cierre forzoso, calculado a partir de tu margen y del
+      requisito de mantenimiento. La regla de m19-l1 es dejarlo cómodamente más allá de tu stop.
+
+- id: g-cascade
+  en: cascade
+  es: cascada
+  origin: m06-l1
+  definition:
+    en: >-
+      Liquidations feeding the move that causes the next ones: forced selling pushes price into more
+      liquidation prices. m17-l2 is where this becomes a thing you can anticipate.
+    es: >-
+      Liquidaciones que alimentan el movimiento que provoca las siguientes: la venta forzada empuja
+      el precio hacia más precios de liquidación. m17-l2 la convierte en algo previsible.
+
+- id: g-pnl
+  en: PnL
+  es: PnL
+  origin: m07-l1
+  definition:
+    en: >-
+      Profit and loss. The number worth watching is the net one, after fees and funding.
+    es: >-
+      Pérdidas y ganancias. El número que importa es el neto, después de comisiones y funding.
+
+- id: g-realized-pnl
+  en: realized PnL
+  es: PnL realizado
+  origin: m07-l1
+  definition:
+    en: >-
+      The result of a position you have actually closed. Money in the account, not an estimate.
+    es: >-
+      El resultado de una posición que ya has cerrado. Dinero en la cuenta, no una estimación.
+
+- id: g-unrealized-pnl
+  en: unrealized PnL
+  es: PnL no realizado
+  origin: m07-l1
+  definition:
+    en: >-
+      The gain or loss on a position still open — a mark-to-market estimate that is not yours until
+      you close.
+    es: >-
+      La ganancia o pérdida de una posición todavía abierta: una estimación a precio de mercado que
+      no es tuya hasta que cierras.
+
+- id: g-maker
+  en: maker
+  es: maker
+  origin: m07-l1
+  definition:
+    en: >-
+      An order that rests in the book and waits to be filled, adding liquidity — usually the cheaper
+      fee. m25 reads the maker as the passive side of every trade.
+    es: >-
+      Una orden que descansa en el libro esperando a que la ejecuten, aportando liquidez; suele
+      pagar menos comisión. m25 lee al maker como el lado pasivo de cada operación.
+
+- id: g-taker
+  en: taker
+  es: taker
+  origin: m07-l1
+  definition:
+    en: >-
+      An order that crosses the spread and executes immediately, removing liquidity — usually the
+      dearer fee. The aggressor whose direction m25 and m26 count.
+    es: >-
+      Una orden que cruza el spread y se ejecuta al momento, retirando liquidez; suele pagar más
+      comisión. El agresor cuya dirección cuentan m25 y m26.
+
+- id: g-fee
+  en: fee
+  es: comisión
+  origin: m07-l1
+  definition:
+    en: >-
+      What the venue charges per trade, maker or taker. Small per trade and decisive across a
+      strategy — m20 prices the same move under three styles.
+    es: >-
+      Lo que la plataforma cobra por operación, sea maker o taker. Pequeña por operación y decisiva a
+      lo largo de una estrategia; m20 tarifa el mismo movimiento en tres estilos.
+
+# --- Block C · anchors referenced by the SMC dialect ------------------------------------------
+
+- id: g-change-of-character
+  en: change of character
+  es: cambio de carácter
+  origin: m08-l1
+  definition:
+    en: >-
+      The first break in a trend's sequence — the point where higher lows stop being made. A broken
+      pattern, not a magic reversal signal.
+    es: >-
+      La primera rotura de la secuencia de una tendencia: el punto en que dejan de imprimirse mínimos
+      más altos. Un patrón roto, no una señal mágica de giro.
+
+- id: g-absorption
+  en: absorption
+  es: absorción
+  origin: m14-l1
+  definition:
+    en: >-
+      One mechanic seen through three instruments: heavy participation meeting a resting order that
+      swallows it, so effort produces no movement.
+    es: >-
+      Una misma mecánica vista con tres instrumentos: mucha participación chocando con una orden en
+      reposo que se la traga, de modo que el esfuerzo no produce movimiento.
+  senses:
+  - origin: m14-l1
+    definition:
+      en: >-
+        On the chart — big volume, little movement.
+      es: >-
+        En el gráfico: mucho volumen, poco movimiento.
+  - origin: m09-l1
+    definition:
+      en: >-
+        In a Wyckoff range — the buyer taking everything offered inside the range, which is what
+        builds the cause for the markup.
+      es: >-
+        En un rango de Wyckoff: el comprador quedándose con todo lo que se ofrece dentro del rango,
+        que es lo que construye la causa del markup.
+  - origin: m26-l1
+    definition:
+      en: >-
+        In order flow — CVD divergence, its sharpest form: aggression rising while price does not.
+      es: >-
+        En el flujo de órdenes: la divergencia del CVD, su forma más nítida, con la agresión subiendo
+        mientras el precio no.
+
+# --- Block G · The dialect -------------------------------------------------------------------
+
+- id: g-smc
+  en: SMC
+  es: SMC
+  origin: m30-l1
+  definition:
+    en: >-
+      "Smart Money Concepts", the retail dialect that repackages mechanics this course already
+      teaches under other names. Worth understanding because the crowd speaks it, not because it
+      predicts.
+    es: >-
+      "Smart Money Concepts", el dialecto minorista que reempaqueta mecánicas que este curso ya
+      enseña con otros nombres. Merece entenderse porque la masa lo habla, no porque prediga.
+
+- id: g-smart-money
+  en: smart money
+  es: smart money
+  origin: m30-l1
+  definition:
+    en: >-
+      The claim inside the name: that an identifiable class of institutional participants moves price
+      deliberately against everyone else, and that these patterns are its footprints. m30 keeps the
+      mechanics and drops the claim.
+    es: >-
+      La afirmación que encierra el nombre: que existe una clase identificable de participantes
+      institucionales que mueve el precio deliberadamente contra los demás, y que estos patrones son
+      sus huellas. m30 se queda la mecánica y descarta la afirmación.
+
+- id: g-origin-zone
+  en: origin zone
+  es: zona de origen
+  origin: m30-l1
+  definition:
+    en: >-
+      The last opposing candles an impulse set off from, where size was likely still working and
+      unfilled. Only meaningful once the break came first.
+    es: >-
+      Las últimas velas contrarias desde las que arrancó un impulso, donde probablemente quedó
+      volumen trabajando sin completar. Solo significa algo si la rotura vino antes.
+
+- id: g-order-block
+  en: order block
+  es: order block
+  origin: m30-l1
+  alias_of: g-origin-zone
+
+- id: g-fair-value-gap
+  en: fair value gap (FVG)
+  es: fair value gap (FVG)
+  origin: m30-l1
+  definition:
+    en: >-
+      The dialect's name for an imbalance left by a move so fast that a price band was skipped rather
+      than traded. m08-l2's liquidity void, relabelled.
+    es: >-
+      El nombre que el dialecto da a un desequilibrio dejado por un movimiento tan rápido que se
+      saltó una banda de precio en vez de negociarla. El vacío de liquidez de m08-l2, reetiquetado.
+
+- id: g-bos
+  en: BOS
+  es: BOS
+  origin: m30-l1
+  definition:
+    en: >-
+      "Break of structure": price closing beyond the swing point the market had been respecting, in
+      the direction of the trend. The twin of a change of character, continuing rather than breaking.
+    es: >-
+      "Break of structure": el precio cerrando más allá del punto de giro que el mercado venía
+      respetando, en la dirección de la tendencia. El gemelo del cambio de carácter, que continúa en
+      vez de romper.
+
+- id: g-choch
+  en: CHoCH
+  es: CHoCH
+  origin: m30-l1
+  alias_of: g-change-of-character
+
+- id: g-sweep
+  en: sweep
+  es: barrido
+  origin: m17-l2
+  definition:
+    en: >-
+      Price pushing just past a level where stops rest, tripping them, and closing back on the right
+      side within a candle or two. A hold sits beyond the level; a sweep pierces it and recovers.
+    es: >-
+      El precio empujando justo más allá de un nivel donde descansan stops, activándolos y cerrando
+      de vuelta en una o dos velas. Un nivel que aguanta se queda más allá; un barrido lo perfora y
+      lo recupera.
+
+- id: g-liquidity-grab
+  en: liquidity grab
+  es: liquidity grab
+  origin: m30-l1
+  alias_of: g-sweep
+
+- id: g-premium
+  en: premium
+  es: prima
+  senses:
+  - origin: m17-l1
+    definition:
+      en: >-
+        A perpetual trading above spot — leveraged longs paying up for exposure, with a funding bill
+        to match.
+      es: >-
+        Un perpetuo cotizando por encima del spot: largos apalancados pagando de más por la
+        exposición, con su correspondiente factura de funding.
+  - origin: m28-l1
+    definition:
+      en: >-
+        The inter-venue premium — the same coin priced higher on one exchange than another, which
+        arbitrage narrows but does not close instantly.
+      es: >-
+        La prima entre exchanges: la misma moneda con un precio más alto en una plataforma que en
+        otra, que el arbitraje estrecha pero no cierra al instante.
+  - origin: m30-l1
+    definition:
+      en: >-
+        In the SMC dialect — the half of a range above its midpoint. A level you drew yourself, with
+        no mechanism behind it.
+      es: >-
+        En el dialecto SMC: la mitad de un rango por encima de su punto medio. Un nivel que dibujaste
+        tú, sin mecanismo detrás.
+
+- id: g-discount
+  en: discount
+  es: descuento
+  senses:
+  - origin: m17-l1
+    definition:
+      en: >-
+        A perpetual trading below spot — the mirror of a premium: leveraged shorts pressing, or longs
+        deleveraging.
+      es: >-
+        Un perpetuo cotizando por debajo del spot, el espejo de la prima: cortos apalancados
+        apretando, o largos desapalancándose.
+  - origin: m30-l1
+    definition:
+      en: >-
+        In the SMC dialect — the half of a range below its midpoint, and self-drawn in the same way.
+      es: >-
+        En el dialecto SMC: la mitad de un rango por debajo de su punto medio, dibujada por ti del
+        mismo modo.
+
+# --- Block C · Technical analysis --------------------------------------------------------------
+
+- id: g-breakout
+  en: breakout
+  es: ruptura
+  origin: m08-l1
+  definition:
+    en: >-
+      Price closing beyond a level the market had been respecting, with participation behind it.
+      The close and the volume are the whole test — without them it is a fakeout; m14 supplies the
+      volume half.
+    es: >-
+      El precio cerrando más allá de un nivel que el mercado venía respetando, con participación
+      detrás. El cierre y el volumen son toda la prueba: sin ellos es un fakeout; m14 aporta la mitad
+      del volumen.
+
+- id: g-fakeout
+  en: fakeout
+  es: fakeout
+  origin: m08-l1
+  definition:
+    en: >-
+      A break that poked beyond the level, often on a long wick, and then closed back inside, leaving
+      whoever entered on it trapped. Also called a false break, and m09 turns the same mechanic into
+      the spring and the upthrust.
+    es: >-
+      Una ruptura que asomó más allá del nivel, a menudo con una mecha larga, y luego cerró de vuelta
+      dentro, dejando atrapado a quien entró con ella. También llamada falsa ruptura, y m09 convierte
+      la misma mecánica en el spring y el upthrust.
+
+- id: g-false-break
+  en: false break
+  es: falsa ruptura
+  origin: m03-l2
+  alias_of: g-fakeout
+
+- id: g-higher-high-hh
+  en: higher high (HH)
+  es: máximo más alto (HH)
+  origin: m08-l1
+  definition:
+    en: >-
+      A swing high above the previous one — half of the sequence that defines an uptrend.
+    es: >-
+      Un máximo de giro por encima del anterior: la mitad de la secuencia que define una tendencia
+      alcista.
+
+- id: g-higher-low-hl
+  en: higher low (HL)
+  es: mínimo más alto (HL)
+  origin: m08-l1
+  definition:
+    en: >-
+      A swing low above the previous one: buyers stepping in earlier each time. It is the half that
+      breaks first, which is what a change of character reads.
+    es: >-
+      Un mínimo de giro por encima del anterior: compradores entrando antes cada vez. Es la mitad que
+      se rompe primero, que es justo lo que lee un cambio de carácter.
+
+- id: g-lower-high-lh
+  en: lower high (LH)
+  es: máximo más bajo (LH)
+  origin: m08-l1
+  definition:
+    en: >-
+      A swing high below the previous one — half of the sequence that defines a downtrend.
+    es: >-
+      Un máximo de giro por debajo del anterior: la mitad de la secuencia que define una tendencia
+      bajista.
+
+- id: g-lower-low-ll
+  en: lower low (LL)
+  es: mínimo más bajo (LL)
+  origin: m08-l1
+  definition:
+    en: >-
+      A swing low below the previous one: sellers pressing further each time, and the mirror of the
+      higher low.
+    es: >-
+      Un mínimo de giro por debajo del anterior: vendedores apretando más cada vez, y el espejo del
+      mínimo más alto.
+
+- id: g-pullback
+  en: pullback
+  es: retroceso
+  origin: m08-l1
+  definition:
+    en: >-
+      A move against the trend that does not break its sequence. Every trend is full of them, which
+      is why m13 measures them and m12 reads the momentum inside them.
+    es: >-
+      Un movimiento en contra de la tendencia que no rompe su secuencia. Toda tendencia está llena de
+      ellos, por eso m13 los mide y m12 lee el momentum que hay dentro.
+
+- id: g-retest
+  en: retest
+  es: retest
+  origin: m08-l1
+  definition:
+    en: >-
+      Price returning to a level it just broke, to see whether the level now holds from the other
+      side. Where role reversal is confirmed or refused, and m08-l2 is how you read the reaction.
+    es: >-
+      El precio volviendo a un nivel que acaba de romper, para ver si ahora aguanta desde el otro
+      lado. Ahí se confirma o se niega la inversión de roles, y m08-l2 es cómo se lee la reacción.
+
+- id: g-rejection
+  en: rejection
+  es: rechazo
+  origin: m08-l2
+  definition:
+    en: >-
+      A candle that reached into a level and gave the ground back, leaving a long wick. The wick is
+      the record of a battle lost there.
+    es: >-
+      Una vela que se adentró en un nivel y devolvió el terreno, dejando una mecha larga. La mecha es
+      el registro de una batalla perdida ahí.
+
+- id: g-overrun
+  en: overrun
+  es: overrun
+  origin: m08-l2
+  definition:
+    en: >-
+      A candle that closed with a long body through a level: one side steamrolled the other rather
+      than being turned back. The opposite reading to a rejection.
+    es: >-
+      Una vela que cerró con un cuerpo largo atravesando un nivel: un lado arrolló al otro en vez de
+      ser rechazado. La lectura contraria a un rechazo.
+
+- id: g-engulfing
+  en: engulfing
+  es: envolvente
+  origin: m08-l2
+  definition:
+    en: >-
+      A candle whose body covers the previous one's entirely. A named pattern, and m08-l2's point is
+      that the name is worth nothing away from a level.
+    es: >-
+      Una vela cuyo cuerpo cubre por completo al de la anterior. Un patrón con nombre, y lo que dice
+      m08-l2 es que el nombre no vale nada lejos de un nivel.
+
+- id: g-liquidity-void
+  en: liquidity void
+  es: vacío de liquidez
+  origin: m08-l2
+  definition:
+    en: >-
+      A price band a move crossed so fast that it was skipped rather than traded. m30 relabels the
+      same thing a fair value gap.
+    es: >-
+      Una banda de precio que un movimiento cruzó tan rápido que se saltó en vez de negociarla. m30
+      reetiqueta lo mismo como fair value gap.
+
+- id: g-wyckoff
+  en: Wyckoff
+  es: Wyckoff
+  origin: m09-l1
+  definition:
+    en: >-
+      A way of reading a range as a process with phases rather than a pause: size accumulating or
+      distributing before the move that follows. m09-l2 walks one range phase by phase.
+    es: >-
+      Una forma de leer un rango como un proceso con fases y no como una pausa: volumen acumulándose
+      o distribuyéndose antes del movimiento que viene. m09-l2 recorre un rango fase por fase.
+
+- id: g-accumulation
+  en: accumulation
+  es: acumulación
+  origin: m09-l1
+  definition:
+    en: >-
+      A range after a downtrend in which large participants absorb what is being sold to them. It
+      precedes a markup, and the spring is its clearest tell.
+    es: >-
+      Un rango tras una tendencia bajista en el que grandes participantes absorben lo que se les
+      vende. Precede a un markup, y el spring es su señal más clara.
+
+- id: g-distribution
+  en: distribution
+  es: distribución
+  origin: m09-l1
+  definition:
+    en: >-
+      The mirror of accumulation: a range after an uptrend in which size is handed out to eager
+      buyers. It precedes a markdown, and the upthrust is its tell.
+    es: >-
+      El espejo de la acumulación: un rango tras una tendencia alcista en el que el volumen se coloca
+      a compradores ansiosos. Precede a un markdown, y el upthrust es su señal.
+
+- id: g-spring
+  en: spring
+  es: spring
+  origin: m09-l1
+  definition:
+    en: >-
+      A false break below a range's support that recovers quickly back inside, tripping stops and
+      tempting shorts on the way. m26 shows the same event in the order flow.
+    es: >-
+      Una falsa ruptura por debajo del soporte de un rango que se recupera rápido hacia dentro,
+      activando stops y tentando cortos de paso. m26 enseña el mismo suceso en el flujo de órdenes.
+
+- id: g-upthrust
+  en: upthrust
+  es: upthrust
+  origin: m09-l1
+  definition:
+    en: >-
+      The mirror of a spring: a false break above a range's resistance that fails back inside,
+      warning of a markdown.
+    es: >-
+      El espejo del spring: una falsa ruptura por encima de la resistencia de un rango que falla y
+      vuelve dentro, avisando de un markdown.
+
+- id: g-utad
+  en: UTAD
+  es: UTAD
+  origin: m09-l1
+  definition:
+    en: >-
+      "Upthrust After Distribution": the upthrust that comes late in a distribution range, once the
+      handing-out is largely done.
+    es: >-
+      "Upthrust After Distribution": el upthrust que llega tarde en un rango de distribución, cuando
+      la colocación ya está casi hecha.
+
+- id: g-markup
+  en: markup
+  es: markup
+  origin: m09-l1
+  definition:
+    en: >-
+      The trending advance that leaves an accumulation range once the supply inside it is gone.
+    es: >-
+      El avance con tendencia que abandona un rango de acumulación cuando la oferta de dentro se ha
+      agotado.
+
+- id: g-markdown
+  en: markdown
+  es: markdown
+  origin: m09-l1
+  definition:
+    en: >-
+      The trending decline that leaves a distribution range — the markup upside down.
+    es: >-
+      La caída con tendencia que abandona un rango de distribución: el markup del revés.
+
+- id: g-sma
+  en: SMA
+  es: SMA
+  origin: m10-l1
+  definition:
+    en: >-
+      "Simple Moving Average": the plain average of the last N closes, every one weighted the same.
+      Smoother than an EMA and slower to turn.
+    es: >-
+      "Simple Moving Average": la media llana de los últimos N cierres, todos con el mismo peso. Más
+      suave que una EMA y más lenta en girar.
+
+- id: g-ema
+  en: EMA
+  es: EMA
+  origin: m10-l1
+  definition:
+    en: >-
+      "Exponential Moving Average": a moving average that weights recent closes more heavily, so it
+      turns sooner than an SMA and whipsaws more.
+    es: >-
+      "Exponential Moving Average": una media móvil que pondera más los cierres recientes, así que
+      gira antes que una SMA y da más latigazos.
+
+- id: g-moving-average
+  en: moving average
+  es: media móvil
+  origin: m10-l1
+  definition:
+    en: >-
+      A running average of price that turns a noisy line into a slope you can read. It confirms a
+      regime already under way and never calls the turn — it lags by construction.
+    es: >-
+      Una media corrida del precio que convierte una línea ruidosa en una pendiente legible. Confirma
+      un régimen que ya está en marcha y nunca canta el giro: va con retraso por construcción.
+
+- id: g-golden-cross
+  en: golden cross
+  es: cruce dorado
+  origin: m10-l1
+  definition:
+    en: >-
+      A fast moving average crossing above a slow one, read as a bullish regime change. Famous,
+      late, and only worth anything with the trend already visible.
+    es: >-
+      Una media móvil rápida cruzando por encima de una lenta, leído como cambio de régimen alcista.
+      Famoso, tardío, y solo vale algo con la tendencia ya visible.
+
+- id: g-death-cross
+  en: death cross
+  es: cruce de la muerte
+  origin: m10-l1
+  definition:
+    en: >-
+      The same crossing downward, read as a bearish regime change, and just as late.
+    es: >-
+      El mismo cruce hacia abajo, leído como cambio de régimen bajista, y igual de tardío.
+
+- id: g-whipsaw
+  en: whipsaw
+  es: whipsaw
+  origin: m10-l1
+  definition:
+    en: >-
+      Repeated crosses inside a range, each a false signal, as flat averages tangle around price.
+      In Spanish, latigazo; m11 finds exactly the same failure in the MACD.
+    es: >-
+      Cruces repetidos dentro de un rango, cada uno una señal falsa, con las medias planas enredadas
+      alrededor del precio. En español, latigazo; m11 encuentra el mismo fallo en el MACD.
+
+- id: g-rsi
+  en: RSI
+  es: RSI
+  origin: m11-l1
+  definition:
+    en: >-
+      "Relative Strength Index": a 0-100 oscillator comparing the size of recent gains to recent
+      losses. It measures speed, not direction, which is why the overbought reflex costs money.
+    es: >-
+      "Relative Strength Index": un oscilador de 0 a 100 que compara el tamaño de las subidas
+      recientes con el de las bajadas. Mide velocidad, no dirección, por eso el reflejo de
+      sobrecompra cuesta dinero.
+
+- id: g-macd
+  en: MACD
+  es: MACD
+  origin: m11-l1
+  definition:
+    en: >-
+      "Moving Average Convergence Divergence": the gap between a 12- and a 26-period EMA, plus a
+      signal line over it. Two moving averages in a trench coat, so it inherits m10's whipsaw.
+    es: >-
+      "Moving Average Convergence Divergence": la distancia entre una EMA de 12 y una de 26, más una
+      línea de señal encima. Son dos medias móviles disfrazadas, así que hereda el whipsaw de m10.
+
+- id: g-oscillator
+  en: oscillator
+  es: oscilador
+  origin: m11-l1
+  definition:
+    en: >-
+      An indicator bounded in a range that measures momentum rather than price. Useful as
+      confirmation of a thesis you already hold, never as a standalone signal.
+    es: >-
+      Un indicador acotado en un rango que mide momentum en vez de precio. Sirve como confirmación de
+      una tesis que ya tienes, nunca como señal por sí sola.
+
+- id: g-signal-line
+  en: signal line
+  es: línea de señal
+  origin: m11-l1
+  definition:
+    en: >-
+      The smoothed average of the MACD line itself; a cross between the two is a momentum wobble,
+      not a regime change.
+    es: >-
+      La media suavizada de la propia línea MACD; un cruce entre ambas es un bache de momentum, no un
+      cambio de régimen.
+
+- id: g-histogram
+  en: histogram
+  es: histograma
+  origin: m11-l1
+  definition:
+    en: >-
+      The bars showing the distance between the MACD line and its signal line. It shrinking is the
+      cross arriving — a clue, not a command.
+    es: >-
+      Las barras que muestran la distancia entre la línea MACD y su línea de señal. Que encoja es el
+      cruce acercándose: una pista, no una orden.
+
+- id: g-overbought
+  en: overbought
+  es: sobrecompra
+  origin: m11-l1
+  definition:
+    en: >-
+      An oscillator reading at its upper extreme, conventionally RSI above 70. It means fast, not
+      finished: in a strong trend it can pin there for weeks.
+    es: >-
+      Una lectura del oscilador en su extremo superior, por convención un RSI por encima de 70.
+      Significa rápido, no terminado: en una tendencia fuerte puede quedarse clavado ahí semanas.
+
+- id: g-oversold
+  en: oversold
+  es: sobreventa
+  origin: m11-l1
+  definition:
+    en: >-
+      The same reading at the lower extreme, conventionally below 30, and the same warning applies.
+    es: >-
+      La misma lectura en el extremo inferior, por convención por debajo de 30, y con la misma
+      advertencia.
+
+- id: g-divergence
+  en: divergence
+  es: divergencia
+  origin: m12-l1
+  definition:
+    en: >-
+      Price and an oscillator disagreeing about a move: one makes a new extreme, the other does not.
+      m26 reads the same disagreement in the CVD, where it is sharper.
+    es: >-
+      El precio y un oscilador en desacuerdo sobre un movimiento: uno marca un nuevo extremo y el
+      otro no. m26 lee el mismo desacuerdo en el CVD, donde es más nítido.
+
+- id: g-regular-divergence
+  en: regular divergence
+  es: divergencia regular
+  origin: m12-l1
+  definition:
+    en: >-
+      Price makes a higher high while momentum makes a lower one — the reversal warning. A warning,
+      and in a strong trend it can repeat for a long time before anything turns.
+    es: >-
+      El precio marca un máximo más alto y el momentum uno más bajo: el aviso de giro. Un aviso, y en
+      una tendencia fuerte puede repetirse mucho tiempo antes de que nada gire.
+
+- id: g-hidden-divergence
+  en: hidden divergence
+  es: divergencia oculta
+  origin: m12-l1
+  definition:
+    en: >-
+      The inverse reading: price makes a higher low while momentum makes a lower one, which argues
+      for continuation rather than reversal.
+    es: >-
+      La lectura inversa: el precio marca un mínimo más alto y el momentum uno más bajo, lo que
+      apunta a continuación y no a giro.
+
+- id: g-fibonacci
+  en: Fibonacci
+  es: Fibonacci
+  origin: m13-l1
+  definition:
+    en: >-
+      A set of retracement levels drawn between a swing low and a swing high, 0.5 and 0.618 the ones
+      that matter. It works to the extent that enough people watch it, and m30 says the same of SMC.
+    es: >-
+      Un conjunto de niveles de retroceso trazados entre un mínimo y un máximo de giro, con 0,5 y
+      0,618 como los que importan. Funciona en la medida en que mucha gente lo mira, y m30 dice lo
+      mismo del SMC.
+
+- id: g-golden-zone
+  en: golden zone
+  es: zona dorada
+  origin: m13-l1
+  definition:
+    en: >-
+      The band between the 0.5 and 0.618 retracements, where a pullback most often turns. A zone to
+      wait in, not a price to buy at.
+    es: >-
+      La banda entre los retrocesos 0,5 y 0,618, donde un retroceso gira más a menudo. Una zona en la
+      que esperar, no un precio al que comprar.
+
+- id: g-confluence
+  en: confluence
+  es: confluencia
+  origin: m14-l1
+  definition:
+    en: >-
+      Several independent reasons pointing at the same price. The whole method of m24: structure,
+      level and reaction agreeing before anything is risked.
+    es: >-
+      Varias razones independientes apuntando al mismo precio. Todo el método de m24: estructura,
+      nivel y reacción de acuerdo antes de arriesgar nada.
+
+# --- Block D · Market context ------------------------------------------------------------------
+
+- id: g-dominance
+  en: dominance
+  es: dominancia
+  origin: m15-l1
+  definition:
+    en: >-
+      Bitcoin's share of total crypto market cap. It is a ratio, so it can rise while Bitcoin itself
+      falls — which is the reading that matters, not the number.
+    es: >-
+      La parte de la capitalización total de cripto que es Bitcoin. Es un cociente, así que puede
+      subir mientras el propio Bitcoin cae, y esa lectura es la que importa, no el número.
+
+- id: g-rotation
+  en: rotation
+  es: rotación
+  origin: m15-l1
+  definition:
+    en: >-
+      Capital moving down the risk curve as confidence grows — Bitcoin, then Ether, then smaller
+      alts — and back up it when fear returns.
+    es: >-
+      El capital bajando por la curva de riesgo según crece la confianza —Bitcoin, luego Ether, luego
+      alts más pequeñas— y volviendo a subirla cuando vuelve el miedo.
+
+- id: g-risk-on
+  en: risk-on
+  es: risk-on
+  origin: m15-l1
+  definition:
+    en: >-
+      A market mood in which capital seeks return over safety. Crypto trades as the far end of that
+      appetite, which is why it moves with the wider macro.
+    es: >-
+      Un humor de mercado en el que el capital busca rentabilidad antes que seguridad. Cripto cotiza
+      como el extremo de ese apetito, por eso se mueve con el macro más amplio.
+
+- id: g-risk-off
+  en: risk-off
+  es: risk-off
+  origin: m15-l1
+  definition:
+    en: >-
+      The reverse: capital retreating to safety, which reaches the smallest and least liquid tokens
+      first and worst.
+    es: >-
+      Lo contrario: el capital replegándose a la seguridad, que alcanza primero y peor a los tokens
+      más pequeños y menos líquidos.
+
+- id: g-fear-greed
+  en: Fear & Greed
+  es: miedo y codicia
+  origin: m16-l1
+  definition:
+    en: >-
+      An index scoring crowd mood from 0 to 100 out of volatility, volume and social signals. A zone
+      for caution, never a trigger — m16 is emphatic that extremes are not timing.
+    es: >-
+      Un índice que puntúa el humor de la masa de 0 a 100 a partir de volatilidad, volumen y señales
+      sociales. Una zona de cautela, nunca un gatillo: m16 insiste en que los extremos no dan timing.
+
+- id: g-capitulation
+  en: capitulation
+  es: capitulación
+  origin: m16-l1
+  definition:
+    en: >-
+      The point where holders give up and sell into the fear, usually alongside forced selling. A
+      zone of opportunity, and the first extreme reading is rarely the last.
+    es: >-
+      El punto en que los tenedores se rinden y venden dentro del miedo, normalmente junto a ventas
+      forzadas. Una zona de oportunidad, y la primera lectura extrema rara vez es la última.
+
+- id: g-euphoria
+  en: euphoria
+  es: euforia
+  origin: m16-l1
+  definition:
+    en: >-
+      The mirror at the top: broad conviction that price only goes up, which is a zone for caution
+      rather than a signal to short.
+    es: >-
+      El espejo en el techo: la convicción general de que el precio solo sube, que es zona de cautela
+      y no señal para ponerse corto.
+
+- id: g-open-interest-oi
+  en: open interest (OI)
+  es: open interest (OI)
+  origin: m17-l1
+  definition:
+    en: >-
+      The total number of derivative contracts currently open. Read it with price: rising OI means
+      fresh positions, falling OI means positions being closed.
+    es: >-
+      El número total de contratos de derivados abiertos en este momento. Léelo con el precio: un OI
+      que sube significa posiciones nuevas, uno que baja, posiciones que se cierran.
+
+- id: g-squeeze
+  en: squeeze
+  es: squeeze
+  origin: m17-l2
+  definition:
+    en: >-
+      A sweep that catches a crowded, leveraged side, so liquidations feed the move that causes the
+      next ones. The forced buying shows in the perpetual, not in spot, which is m17-l1's basis tell.
+    es: >-
+      Un barrido que pilla a un lado concurrido y apalancado, de modo que las liquidaciones alimentan
+      el movimiento que provoca las siguientes. La compra forzada aparece en el perpetuo y no en el
+      spot, que es la señal de la base de m17-l1.
+
+- id: g-liquidity-map
+  en: liquidity map
+  es: mapa de liquidez
+  origin: m17-l2
+  definition:
+    en: >-
+      A heatmap estimating where stops and liquidation prices are stacked. An estimate of where fuel
+      sits, so trade around the map rather than at it.
+    es: >-
+      Un mapa de calor que estima dónde se apilan los stops y los precios de liquidación. Una
+      estimación de dónde está el combustible: se opera alrededor del mapa, no en él.
+
+- id: g-tokenomics
+  en: tokenomics
+  es: tokenómica
+  origin: m18-l1
+  definition:
+    en: >-
+      How a token's supply is issued, distributed and unlocked over time. It decides what a price
+      chart cannot show you, and the unlock calendar is public.
+    es: >-
+      Cómo se emite, reparte y desbloquea la oferta de un token a lo largo del tiempo. Decide lo que
+      un gráfico de precio no puede enseñarte, y el calendario de desbloqueos es público.
+
+- id: g-circulating-supply
+  en: circulating supply
+  es: oferta circulante
+  origin: m18-l1
+  definition:
+    en: >-
+      The tokens actually in the market today. The number market cap is built from, and often a small
+      fraction of what will eventually exist.
+    es: >-
+      Los tokens que hoy están de verdad en el mercado. El número con el que se construye el market
+      cap, y a menudo una fracción pequeña de lo que acabará existiendo.
+
+- id: g-max-supply
+  en: max supply
+  es: oferta máxima
+  origin: m18-l1
+  definition:
+    en: >-
+      The ceiling a token's issuance can ever reach. The gap between it and circulating supply is
+      what FDV prices in.
+    es: >-
+      El techo que la emisión de un token puede alcanzar. La distancia entre ella y la oferta
+      circulante es lo que la FDV pone en precio.
+
+- id: g-fdv
+  en: FDV
+  es: FDV
+  origin: m18-l1
+  definition:
+    en: >-
+      "Fully Diluted Valuation": price times total eventual supply — what the project would be worth
+      if every token existed today. A high FDV on a small float is the trap m18 is built around.
+    es: >-
+      "Fully Diluted Valuation": el precio por la oferta total futura, lo que valdría el proyecto si
+      todos los tokens existieran hoy. Una FDV alta sobre un float pequeño es la trampa sobre la que
+      se construye m18.
+
+- id: g-emission
+  en: emission
+  es: emisión
+  origin: m18-l1
+  definition:
+    en: >-
+      The schedule at which new tokens enter circulation. Steady selling pressure the chart does not
+      announce.
+    es: >-
+      El ritmo al que entran tokens nuevos en circulación. Una presión vendedora constante que el
+      gráfico no anuncia.
+
+- id: g-inflation
+  en: inflation
+  es: inflación
+  origin: m18-l1
+  definition:
+    en: >-
+      Emission expressed as a rate against circulating supply — how much the market must absorb each
+      year just to hold price still.
+    es: >-
+      La emisión expresada como tasa sobre la oferta circulante: cuánto tiene que absorber el mercado
+      cada año solo para mantener el precio quieto.
+
+- id: g-unlock
+  en: unlock
+  es: desbloqueo
+  origin: m18-l1
+  definition:
+    en: >-
+      A scheduled date on which locked tokens become sellable. A cliff behaves like a supply shock, a
+      gradual vest like a slow drip, and both are on a public calendar.
+    es: >-
+      Una fecha programada en la que tokens bloqueados pasan a poder venderse. Un cliff se comporta
+      como un shock de oferta y un vesting gradual como un goteo lento, y ambos están en un
+      calendario público.
+
+# --- Block E · The craft -----------------------------------------------------------------------
+
+- id: g-position-size
+  en: position size
+  es: tamaño de posición
+  origin: m19-l1
+  definition:
+    en: >-
+      How much of the asset a trade holds, derived from the stop distance and the risk budget — never
+      chosen first. Size follows the stop; leverage is a consequence, not an input.
+    es: >-
+      Cuánto activo lleva una operación, derivado de la distancia al stop y del presupuesto de
+      riesgo, nunca elegido primero. El tamaño sigue al stop; el apalancamiento es consecuencia, no
+      dato de partida.
+
+- id: g-r-multiple
+  en: R-multiple
+  es: múltiplos R
+  origin: m19-l1
+  definition:
+    en: >-
+      A result measured in units of the risk taken: 1R is the amount the stop was worth. Portable
+      across account sizes, which is what lets m22 compute expectancy at all.
+    es: >-
+      Un resultado medido en unidades del riesgo asumido: 1R es lo que valía el stop. Portable entre
+      tamaños de cuenta, que es lo que permite a m22 calcular la esperanza.
+
+- id: g-drawdown
+  en: drawdown
+  es: drawdown
+  origin: m19-l1
+  definition:
+    en: >-
+      The fall from an equity peak to the trough after it. Recovery is asymmetric — a 50% drawdown
+      needs a 100% gain back — which is the whole argument for small fixed risk.
+    es: >-
+      La caída desde un máximo de la cuenta hasta el mínimo posterior. La recuperación es asimétrica
+      —un drawdown del 50% exige recuperar un 100%— y ese es todo el argumento del riesgo fijo y
+      pequeño.
+
+- id: g-risk-budget
+  en: risk budget
+  es: presupuesto de riesgo
+  origin: m19-l1
+  definition:
+    en: >-
+      The fixed, small fraction of the account a single trade may lose, typically 1%. Fixed as a
+      percentage, so it sizes you down automatically in a drawdown.
+    es: >-
+      La fracción fija y pequeña de la cuenta que una sola operación puede perder, típicamente el 1%.
+      Fija en porcentaje, así que te reduce el tamaño sola cuando vas en drawdown.
+
+- id: g-correlation
+  en: correlation
+  es: correlación
+  origin: m19-l2
+  definition:
+    en: >-
+      How far two positions move together. In crypto alts track BTC closely, so several correlated
+      longs are one larger bet wearing three tickers.
+    es: >-
+      Cuánto se mueven dos posiciones juntas. En cripto las alts siguen de cerca a BTC, así que
+      varios largos correlacionados son una apuesta mayor disfrazada de tres tickers.
+
+- id: g-portfolio-risk
+  en: portfolio risk
+  es: riesgo de cartera
+  origin: m19-l2
+  definition:
+    en: >-
+      The aggregate directional exposure of everything open at once, not the sum of its parts. Size
+      the cluster, not the ticker.
+    es: >-
+      La exposición direccional agregada de todo lo que tienes abierto a la vez, no la suma de las
+      partes. Dimensiona el racimo, no el ticker.
+
+- id: g-scalping
+  en: scalping
+  es: scalping
+  origin: m20-l1
+  definition:
+    en: >-
+      Trading on holding periods of seconds to minutes. Fees dominate, and m23 notes it is the style
+      most exposed to revenge and FOMO because the speed removes the pause.
+    es: >-
+      Operar con horizontes de segundos a minutos. Las comisiones mandan, y m23 señala que es el
+      estilo más expuesto a la venganza y al FOMO porque la velocidad elimina la pausa.
+
+- id: g-day-trading
+  en: day trading
+  es: day trading
+  origin: m20-l1
+  definition:
+    en: >-
+      Trading within the session and finishing flat, so no position is carried overnight. Fees still
+      matter; funding largely does not.
+    es: >-
+      Operar dentro de la sesión y terminar plano, sin llevarse posiciones a la noche. Las comisiones
+      siguen importando; el funding, casi nada.
+
+- id: g-swing-trading
+  en: swing trading
+  es: swing trading
+  origin: m20-l1
+  definition:
+    en: >-
+      Holding for days to weeks. Fees fade and funding becomes the dominant cost, which m07 prices in
+      full.
+    es: >-
+      Mantener de días a semanas. Las comisiones se diluyen y el funding pasa a ser el coste
+      dominante, que m07 tarifa por completo.
+
+- id: g-slippage
+  en: slippage
+  es: slippage
+  origin: m21-l1
+  definition:
+    en: >-
+      The gap between the price you expected and the price you were filled at. It grows as depth
+      thins, which is why m27 reads the book before size goes in.
+    es: >-
+      La diferencia entre el precio que esperabas y aquel al que te ejecutaron. Crece según se
+      adelgaza la profundidad, por eso m27 lee el libro antes de meter tamaño.
+
+- id: g-stop-market
+  en: stop-market
+  es: stop-market
+  origin: m21-l1
+  definition:
+    en: >-
+      A stop that fires a market order once triggered: it gets you out, at whatever price is there.
+      Certainty of exit, not of price.
+    es: >-
+      Un stop que lanza una orden de mercado al activarse: te saca, al precio que haya. Certeza de
+      salida, no de precio.
+
+- id: g-stop-limit
+  en: stop-limit
+  es: stop-limit
+  origin: m21-l1
+  definition:
+    en: >-
+      A stop that fires a limit order instead. It protects your price and can fail to fill in exactly
+      the fast move you needed it for.
+    es: >-
+      Un stop que lanza una orden limitada en su lugar. Protege tu precio y puede no ejecutarse justo
+      en el movimiento rápido para el que lo pusiste.
+
+- id: g-take-profit
+  en: take-profit
+  es: take-profit
+  origin: m21-l1
+  definition:
+    en: >-
+      A resting order that closes the position at a target price. Label it reduce-only, or a badly
+      sized one opens a position the other way.
+    es: >-
+      Una orden en reposo que cierra la posición a un precio objetivo. Márcala como reduce-only, o
+      una mal dimensionada te abre posición del lado contrario.
+
+- id: g-stop-loss
+  en: stop-loss
+  es: stop-loss
+  origin: m21-l1
+  definition:
+    en: >-
+      The order that closes a position when the idea is wrong. Where it goes decides the size (m19-l1)
+      and moving it is the classic mistake m23 is about.
+    es: >-
+      La orden que cierra una posición cuando la idea es errónea. Dónde va decide el tamaño (m19-l1),
+      y moverla es el error clásico del que trata m23.
+
+- id: g-reduce-only
+  en: reduce-only
+  es: reduce-only
+  origin: m21-l1
+  definition:
+    en: >-
+      A flag guaranteeing an order can only shrink or close a position, never open one. A perpetuals
+      safeguard: on a perp, selling past zero opens a short.
+    es: >-
+      Una marca que garantiza que una orden solo pueda reducir o cerrar una posición, nunca abrirla.
+      Una salvaguarda propia de los perpetuos: en un perpetuo, vender más allá de cero abre un corto.
+
+- id: g-win-rate
+  en: win rate
+  es: win rate
+  origin: m22-l1
+  definition:
+    en: >-
+      The share of trades that end profitable. Meaningless on its own — a 40% win rate is fine if the
+      payoff is large enough, which is what expectancy settles.
+    es: >-
+      La proporción de operaciones que acaban en ganancia. No dice nada por sí sola: un win rate del
+      40% está bien si el payoff es suficiente, que es lo que resuelve la esperanza.
+
+- id: g-payoff
+  en: payoff
+  es: payoff
+  origin: m22-l1
+  definition:
+    en: >-
+      The size of the average win divided by the size of the average loss, measured in R. The other
+      half of the pair the win rate cannot be judged without.
+    es: >-
+      El tamaño de la ganancia media dividido por el de la pérdida media, medido en R. La otra mitad
+      del par sin la que no se puede juzgar el win rate.
+
+- id: g-expectancy
+  en: expectancy
+  es: esperanza
+  origin: m22-l1
+  definition:
+    en: >-
+      What a trade is worth on average, win rate and payoff combined. The number that actually
+      decides whether a system makes money, and it is computed, not felt.
+    es: >-
+      Lo que vale una operación en promedio, combinando win rate y payoff. El número que de verdad
+      decide si un sistema gana dinero, y se calcula, no se intuye.
+
+- id: g-variance
+  en: variance
+  es: varianza
+  origin: m22-l1
+  definition:
+    en: >-
+      The spread of results around that average. It is why a positive-expectancy system still has
+      long losing streaks, and why sample size decides what a result means.
+    es: >-
+      La dispersión de los resultados alrededor de esa media. Es la razón de que un sistema con
+      esperanza positiva encadene rachas de pérdidas, y de que el tamaño de la muestra decida qué
+      significa un resultado.
+
+- id: g-break-even-win-rate
+  en: break-even win rate
+  es: win rate de equilibrio
+  origin: m22-l1
+  definition:
+    en: >-
+      The win rate a given payoff needs just to stop losing money. It turns "is this good enough?"
+      into arithmetic.
+    es: >-
+      El win rate que un payoff dado necesita solo para dejar de perder dinero. Convierte "¿es
+      suficiente?" en una cuenta.
+
+- id: g-revenge-trading
+  en: revenge trading
+  es: venganza
+  origin: m23-l1
+  definition:
+    en: >-
+      Re-entering to win back a loss rather than because the setup is there. The daily stop exists to
+      end the session before this does.
+    es: >-
+      Volver a entrar para recuperar una pérdida y no porque esté el setup. El freno diario existe
+      para cerrar la sesión antes de que esto lo haga.
+
+- id: g-fomo
+  en: FOMO
+  es: FOMO
+  origin: m23-l1
+  definition:
+    en: >-
+      "Fear Of Missing Out": chasing a move already under way, entering late and far from any level.
+      The stop ends up wherever the entry left it, which is the real damage.
+    es: >-
+      "Fear Of Missing Out": perseguir un movimiento ya en marcha, entrando tarde y lejos de
+      cualquier nivel. El stop acaba donde lo deje la entrada, y ahí está el daño real.
+
+- id: g-daily-stop
+  en: daily stop
+  es: freno diario
+  origin: m24-l1
+  definition:
+    en: >-
+      A fixed daily loss limit that closes the session when hit. A rule decided in advance, because
+      the moment it triggers is the moment you least want to obey it.
+    es: >-
+      Un límite fijo de pérdida diaria que cierra la sesión al alcanzarse. Una regla decidida de
+      antemano, porque el momento en que salta es aquel en que menos ganas tienes de cumplirla.
+
+- id: g-setup
+  en: setup
+  es: setup
+  origin: m24-l1
+  definition:
+    en: >-
+      The conditions that have to be present before a trade is considered: structure and confluence
+      agreeing. It is not the entry — the trigger is.
+    es: >-
+      Las condiciones que tienen que estar antes de plantearse una operación: estructura y
+      confluencia de acuerdo. No es la entrada: eso es el trigger.
+
+- id: g-trigger
+  en: trigger
+  es: trigger
+  origin: m24-l1
+  definition:
+    en: >-
+      The reaction at the level that turns a setup into an entry, read from the candles (m08-l2). No
+      reaction, no trade, however good the level looked.
+    es: >-
+      La reacción en el nivel que convierte un setup en una entrada, leída en las velas (m08-l2). Sin
+      reacción no hay operación, por bueno que pareciera el nivel.
+
+- id: g-journal
+  en: journal
+  es: diario
+  origin: m24-l2
+  definition:
+    en: >-
+      The record of what you planned, did and got, in R. The only instrument that can tell you
+      whether the system or the discipline is what is failing.
+    es: >-
+      El registro de lo que planeaste, hiciste y obtuviste, en R. El único instrumento capaz de
+      decirte si lo que falla es el sistema o la disciplina.
+
+# --- Block F · Order flow and microstructure ---------------------------------------------------
+
+- id: g-order-flow
+  en: order flow
+  es: flujo de órdenes
+  origin: m25-l1
+  definition:
+    en: >-
+      The record of individual trades and resting orders behind a candle. A finer instrument on the
+      ideas m08 and m09 already teach, not a new system.
+    es: >-
+      El registro de las operaciones individuales y las órdenes en reposo que hay detrás de una vela.
+      Un instrumento más fino sobre las ideas que ya enseñan m08 y m09, no un sistema nuevo.
+
+- id: g-aggressor
+  en: aggressor
+  es: agresor
+  origin: m25-l1
+  definition:
+    en: >-
+      The side that crossed the spread to get filled — the taker. Counting aggressors by direction is
+      what delta and the CVD are built on.
+    es: >-
+      El lado que cruzó el spread para ejecutarse: el taker. Contar agresores por dirección es la
+      base del delta y del CVD.
+
+- id: g-delta
+  en: delta
+  es: delta
+  origin: m25-l1
+  definition:
+    en: >-
+      Taker buy volume minus taker sell volume in a period: the aggression a candle hides. Two
+      identical candles can carry opposite deltas.
+    es: >-
+      Volumen comprador taker menos volumen vendedor taker en un periodo: la agresión que esconde una
+      vela. Dos velas idénticas pueden llevar deltas opuestos.
+
+- id: g-cvd
+  en: CVD
+  es: CVD
+  origin: m26-l1
+  definition:
+    en: >-
+      "Cumulative Volume Delta": a running total of delta, read for its shape rather than its level.
+      Its divergence from price is the sharpest form of absorption.
+    es: >-
+      "Cumulative Volume Delta": un total acumulado del delta, que se lee por su forma y no por su
+      nivel. Su divergencia con el precio es la forma más nítida de absorción.
+
+- id: g-dom
+  en: DOM
+  es: DOM
+  origin: m27-l1
+  definition:
+    en: >-
+      "Depth of Market": the ladder of resting orders at each price. It shows intent, which can be
+      pulled the instant it is tested.
+    es: >-
+      "Depth of Market": la escalera de órdenes en reposo a cada precio. Muestra intención, que puede
+      retirarse en el instante en que se pone a prueba.
+
+- id: g-wall
+  en: wall
+  es: muro
+  origin: m27-l1
+  definition:
+    en: >-
+      An unusually large resting order at one price. It can absorb real size or vanish before it is
+      touched — a wall you can see is a wall someone chose to show you.
+    es: >-
+      Una orden en reposo inusualmente grande a un precio. Puede absorber tamaño real o desaparecer
+      antes de que la toquen: un muro que ves es un muro que alguien ha decidido enseñarte.
+
+- id: g-imbalance
+  en: imbalance
+  es: desequilibrio
+  origin: m27-l1
+  definition:
+    en: >-
+      Markedly more resting size on one side of the book than the other. A crowding read, and m30
+      borrows the same word for the gap a fast move leaves behind.
+    es: >-
+      Bastante más volumen en reposo en un lado del libro que en el otro. Una lectura de saturación, y
+      m30 toma la misma palabra para el hueco que deja un movimiento rápido.
+
+- id: g-footprint
+  en: footprint
+  es: footprint
+  origin: m29-l1
+  definition:
+    en: >-
+      A chart showing what traded at each price inside a single candle, bid against ask. Specialist
+      data; this course does not generate it.
+    es: >-
+      Un gráfico que muestra qué se negoció a cada precio dentro de una sola vela, bid contra ask.
+      Datos de especialista; este curso no los genera.
+
+- id: g-volume-profile
+  en: volume profile
+  es: perfil de volumen
+  origin: m29-l1
+  definition:
+    en: >-
+      Volume distributed by price rather than by time, showing where a session actually traded.
+      Levels earned by participation, which is m03-l2's zone drawn from different evidence.
+    es: >-
+      El volumen repartido por precio en vez de por tiempo, que enseña dónde se negoció de verdad una
+      sesión. Niveles ganados por participación: la zona de m03-l2 dibujada con otra evidencia.
+
+- id: g-poc
+  en: POC
+  es: POC
+  origin: m29-l1
+  definition:
+    en: >-
+      "Point of Control": the price with the most traded volume in a profile. A level like any other,
+      and treating it as a magnet price must return to is the first mistake m29 names.
+    es: >-
+      "Point of Control": el precio con más volumen negociado de un perfil. Un nivel como cualquier
+      otro, y tratarlo como un imán al que el precio debe volver es el primer error que nombra m29.

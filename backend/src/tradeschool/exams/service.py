@@ -104,17 +104,27 @@ def _scope_modules(registry: CourseRegistry, scope: Scope, block_id: str | None)
     return out
 
 
-async def _load_owned(session: AsyncSession, user_id: uuid.UUID, exam_id: uuid.UUID) -> ExamSession:
+async def _load_owned(
+    session: AsyncSession, user_id: uuid.UUID, exam_id: uuid.UUID, course_id: str
+) -> ExamSession:
+    """The user's exam, IN this course. A course-scoped URL naming another course's exam is a miss,
+    not a leak: it 404s exactly as an unknown id does, so the URL can never lie about what it holds."""
     exam = await session.get(ExamSession, exam_id)
-    if exam is None or exam.user_id != user_id:
+    if exam is None or exam.user_id != user_id or exam.course_id != course_id:
         raise AppError("EXAM_NOT_FOUND", "No such exam session.", status_code=404)
     return exam
 
 
-async def _open_sessions(session: AsyncSession, user_id: uuid.UUID) -> list[ExamSession]:
+async def _open_sessions(
+    session: AsyncSession, user_id: uuid.UUID, course_id: str
+) -> list[ExamSession]:
     rows = await session.scalars(
         select(ExamSession)
-        .where(ExamSession.user_id == user_id, ExamSession.finished_at.is_(None))
+        .where(
+            ExamSession.user_id == user_id,
+            ExamSession.course_id == course_id,
+            ExamSession.finished_at.is_(None),
+        )
         .order_by(ExamSession.created_at.desc())
     )
     return [s for s in rows.all() if s.rules.get("status") == "open"]
@@ -210,6 +220,7 @@ async def start_exam(
     session: AsyncSession,
     registry: CourseRegistry,
     user_id: uuid.UUID,
+    course_id: str,
     scope: Scope,
     block_id: str | None,
     locale: str,
@@ -227,11 +238,15 @@ async def start_exam(
         raise AppError("EXAM_EMPTY", "No playable modules for this exam scope.", status_code=409)
 
     # Starting a new exam of the same scope closes any open one of that scope.
-    for existing in await _open_sessions(session, user_id):
+    for existing in await _open_sessions(session, user_id, course_id):
         if existing.rules.get("scope") == scope and existing.rules.get("blockId") == block_id:
             await _abandon(session, existing)
 
-    exam = ExamSession(user_id=user_id, rules={"scope": scope, "blockId": block_id, "status": "open"})
+    exam = ExamSession(
+        user_id=user_id,
+        course_id=course_id,
+        rules={"scope": scope, "blockId": block_id, "status": "open"},
+    )
     session.add(exam)
     await session.flush()  # assign exam.id for the attempt FK
 
@@ -262,10 +277,10 @@ async def start_exam(
 
 
 async def current_exam(
-    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, locale: str
+    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, course_id: str, locale: str
 ) -> ExamView | None:
     """The single most-recent open session (resume), if any."""
-    open_sessions = await _open_sessions(session, user_id)
+    open_sessions = await _open_sessions(session, user_id, course_id)
     if not open_sessions:
         return None
     exam = open_sessions[0]
@@ -273,9 +288,14 @@ async def current_exam(
 
 
 async def render_exam(
-    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, exam_id: uuid.UUID, locale: str
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    exam_id: uuid.UUID,
+    course_id: str,
+    locale: str,
 ) -> ExamView:
-    exam = await _load_owned(session, user_id, exam_id)
+    exam = await _load_owned(session, user_id, exam_id, course_id)
     if exam.rules.get("status") != "open":
         raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
     return _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
@@ -285,11 +305,12 @@ async def answer_question(
     session: AsyncSession,
     user_id: uuid.UUID,
     exam_id: uuid.UUID,
+    course_id: str,
     attempt_id: uuid.UUID,
     answer: Mapping[str, object],
 ) -> None:
     """Store (or replace) an answer. No grading, no reveal — feedback comes only at submission."""
-    exam = await _load_owned(session, user_id, exam_id)
+    exam = await _load_owned(session, user_id, exam_id, course_id)
     if exam.rules.get("status") != "open":
         raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
     attempt = await session.get(Attempt, attempt_id)
@@ -300,9 +321,14 @@ async def answer_question(
 
 
 async def submit_exam(
-    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, exam_id: uuid.UUID, locale: str
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    exam_id: uuid.UUID,
+    course_id: str,
+    locale: str,
 ) -> ExamView:
-    exam = await _load_owned(session, user_id, exam_id)
+    exam = await _load_owned(session, user_id, exam_id, course_id)
     if exam.rules.get("status") != "open":
         raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
 
@@ -380,27 +406,40 @@ async def submit_exam(
     return _build_view(exam, registry, await _attempts_of(session, exam_id), locale, reveal=True)
 
 
-async def abandon_exam(session: AsyncSession, user_id: uuid.UUID, exam_id: uuid.UUID) -> None:
-    exam = await _load_owned(session, user_id, exam_id)
+async def abandon_exam(
+    session: AsyncSession, user_id: uuid.UUID, exam_id: uuid.UUID, course_id: str
+) -> None:
+    exam = await _load_owned(session, user_id, exam_id, course_id)
     if exam.rules.get("status") == "open":
         await _abandon(session, exam)
         await session.commit()
 
 
 async def review_exam(
-    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, exam_id: uuid.UUID, locale: str
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    exam_id: uuid.UUID,
+    course_id: str,
+    locale: str,
 ) -> ExamView:
-    exam = await _load_owned(session, user_id, exam_id)
+    exam = await _load_owned(session, user_id, exam_id, course_id)
     if exam.rules.get("status") != "submitted":
         raise AppError("EXAM_NOT_SUBMITTED", "This exam has no results to review.", status_code=409)
     return _build_view(exam, registry, await _attempts_of(session, exam_id), locale, reveal=True)
 
 
-async def exam_history(session: AsyncSession, user_id: uuid.UUID) -> list[ExamSession]:
+async def exam_history(
+    session: AsyncSession, user_id: uuid.UUID, course_id: str
+) -> list[ExamSession]:
     """Submitted sessions, newest first (abandoned/open excluded — they count toward nothing)."""
     rows = await session.scalars(
         select(ExamSession)
-        .where(ExamSession.user_id == user_id, ExamSession.finished_at.is_not(None))
+        .where(
+            ExamSession.user_id == user_id,
+            ExamSession.course_id == course_id,
+            ExamSession.finished_at.is_not(None),
+        )
         .order_by(ExamSession.finished_at.desc())
     )
     return [s for s in rows.all() if s.rules.get("status") == "submitted"]

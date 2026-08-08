@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
+import { coursePath } from "@/components/layout/nav";
 
 /**
  * What a multi-lesson module page owes the reader: EACH ROW carries its own full estimate, not just the
@@ -57,7 +58,7 @@ function mount(node: ReactElement): void {
 }
 
 function rowText(): string[] {
-  return [...host.querySelectorAll("a[href^='/lessons/']")].map((row) =>
+  return [...host.querySelectorAll(`a[href^='${coursePath("/lessons/")}']`)].map((row) =>
     (row.textContent ?? "").replace(/\s+/g, " ").trim(),
   );
 }
@@ -65,9 +66,9 @@ function rowText(): string[] {
 beforeEach(() => {
   document.body.innerHTML = "";
   mount(
-    <MemoryRouter initialEntries={["/modules/m09"]}>
+    <MemoryRouter initialEntries={[coursePath("/modules/m09")]}>
       <Routes>
-        <Route path="/modules/:moduleId" element={<ModulePage />} />
+        <Route path={coursePath("/modules/:moduleId")} element={<ModulePage />} />
       </Routes>
     </MemoryRouter>,
   );

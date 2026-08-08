@@ -9,6 +9,7 @@ import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
+import { coursePath } from "@/components/layout/nav";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -75,7 +76,7 @@ export function ExamReview() {
     return (
       <div className="py-16 text-center text-gray-500">
         <p>{t("exam.notFound")}</p>
-        <Link to="/exams" className="text-sm text-primary hover:underline">
+        <Link to={coursePath("/exams")} className="text-sm text-primary hover:underline">
           ← {t("nav.exams")}
         </Link>
       </div>
@@ -88,7 +89,7 @@ export function ExamReview() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <Link to="/exams" className="text-sm text-primary hover:underline">
+        <Link to={coursePath("/exams")} className="text-sm text-primary hover:underline">
           ← {t("nav.exams")}
         </Link>
         <h1 className="mt-2 text-2xl font-bold">{scopeName}</h1>

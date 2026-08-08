@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createMemoryRouter, Outlet, RouterProvider } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
-import { HOME_PATH } from "@/components/layout/nav";
+import { coursePath, HOME_PATH } from "@/components/layout/nav";
 
 /**
  * The header wordmark as the way back to the course from any depth.
@@ -59,8 +59,8 @@ function mountAt(entry: string): ReturnType<typeof createMemoryRouter> {
           </AppShell>
         ),
         children: [
-          { path: "course", element: <CoursePageProbe /> },
-          { path: "lessons/:lessonId", element: <p>lesson page</p> },
+          { path: HOME_PATH.slice(1), element: <CoursePageProbe /> },
+          { path: `${coursePath("/lessons")}/:lessonId`.slice(1), element: <p>lesson page</p> },
         ],
       },
     ],
@@ -100,7 +100,7 @@ beforeEach(() => {
 
 describe("the header wordmark", () => {
   it("takes a reader from a deep page back to the start of the course", () => {
-    const router = mountAt("/lessons/m09-l2");
+    const router = mountAt(coursePath("/lessons/m09-l2"));
     expect(host.textContent).toContain("lesson page");
 
     click(logo());
@@ -110,12 +110,12 @@ describe("the header wordmark", () => {
   });
 
   it("navigates client-side, without handing the click to the browser", () => {
-    mountAt("/lessons/m09-l2");
+    mountAt(coursePath("/lessons/m09-l2"));
     expect(click(logo()).defaultPrevented).toBe(true);
   });
 
   it("leaves the lesson on the stack, so Back returns to it", () => {
-    const router = mountAt("/lessons/m09-l2");
+    const router = mountAt(coursePath("/lessons/m09-l2"));
     click(logo());
     expect(router.state.historyAction).toBe("PUSH");
   });

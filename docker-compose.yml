@@ -5,6 +5,11 @@ services:
       # Repo root context so the image can bake in ./content alongside the backend.
       context: .
       dockerfile: backend/Dockerfile
+      # Stamped into the image so /api/version can answer "which build is this?" in one curl.
+      # Defaults keep a bare `docker compose build` working; see README "Which build am I running?".
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:-unknown}
+        BUILD_TIME: ${BUILD_TIME:-unknown}
     image: tradeschool-backend:latest
     container_name: tradeschool-backend
     env_file: .env

@@ -28,7 +28,8 @@ frontend/   React SPA served by nginx, /api proxied to the backend
             (course PDF export lives in frontend/src/lib/pdf/ — see "Printing the course")
 content/    course.yaml manifest (course → blocks → modules → lessons → exercises) + es/ and en/
             content trees + figures + figure-coupling.yaml (the lesson numbers that are rounded
-            values of a figure's generated output); see content/README.md for the stable-ID /
+            values of a figure's generated output) + glossary.yaml (the bilingual term list, which
+            refers into the lessons and never coins); see content/README.md for the stable-ID /
             namespacing convention and the worked-numbers-follow-the-figure rule
 docker-compose.yml  .env.example  LICENSE
 ```
@@ -243,6 +244,94 @@ Open <http://localhost:5173>, register an account, and review the full course:
   ground-truth **zone**, which the exercise itself withholds; CSV export per seed on each
   card.
 
+## API URLs are course-scoped
+
+Everything whose data belongs to a course hangs off the course:
+
+```
+/api/courses/{course}                      the course tree
+/api/courses/{course}/export               whole-course theory (see below)
+/api/courses/{course}/print/exercises      the printed exercises + answer key
+/api/courses/{course}/glossary             the glossary
+/api/courses/{course}/lessons/{id}         …/complete, /modules/{id}, /figures/{id}
+/api/courses/{course}/exams                …/current, /{exam_id}, /{exam_id}/submit, …
+/api/courses/{course}/attempts             …/{attempt_id}, /exercises/{id}/attempts
+/api/courses/{course}/stats/me             …/stats/global (anonymous aggregate, within the course)
+```
+
+`{course}` is a permanent slug — today `crypto-futures`, the same id the manifest and the PDF
+filename already use. It joins the stable-identifier namespace in `content/README.md`: chosen once,
+never renamed. An unknown slug is a clean `404 COURSE_NOT_FOUND`, resolved *before* the resource is
+looked up, so a wrong course plus a wrong lesson reports the course miss.
+
+Genuinely global endpoints stay unscoped: `/api/auth/*` (an account is not per-course), `/api/health`,
+`/api/version`, and the dev-gated `/api/dev/*`.
+
+**Deprecated aliases.** Every pre-scoping URL still works — `/api/course`, `/api/course/export`,
+`/api/glossary`, `/api/lessons/{id}`, `/api/exams`, `/api/stats/me`, … — and **serves directly rather
+than redirecting**, so payloads are byte-identical and a POST is not at the mercy of a client's
+redirect handling. Alias responses carry RFC 8594 headers naming the successor:
+
+```
+Deprecation: true
+Link: </api/courses/crypto-futures/glossary>; rel="successor-version"
+```
+
+They are hidden from `/api/docs`, so the schema teaches only canonical URLs. They exist for clients
+we do not control; **our own frontend and PDF pipeline use the scoped URLs exclusively**, enforced by
+`frontend/src/api/urls.test.ts`. Removal point is the day a second course lands, which is when an
+unscoped URL stops having an unambiguous answer.
+
+One router serves both mounts: `current_course` reads the slug off `request.path_params`, returning
+the single course when the segment is absent. That is also why the alias is marked in middleware
+rather than with `deprecated=True` — the two mounts share one route object, so per-mount metadata has
+nowhere to live on it.
+
+### Page URLs carry the course too
+
+The SPA mirrors the API, so the address bar always says which course you are in:
+
+```
+/courses/{course}                    the course page (home)
+/courses/{course}/lessons/{id}       …/modules/{id}, /glossary, /stats
+/courses/{course}/exams              …/{examId}, /{examId}/review
+```
+
+Routes are declared with the **literal** slug via `coursePath()` in `components/layout/nav.ts`, not a
+`:course` param. The API client targets one course, so a route matching any slug would render
+`/courses/anything/glossary` full of this course's content — a URL that lies. The param arrives with
+the threading, the day a second course does.
+
+Pre-scoping page URLs redirect (`/glossary` → `/courses/crypto-futures/glossary`, query string kept),
+so old bookmarks land and the address bar corrects itself. `App.routes.test.tsx` pins that table.
+nginx needs no change: `try_files $uri /index.html` already serves any depth.
+
+## Which build am I running?
+
+The stack builds from the **working tree**, not from a commit, so "is this container running my
+changes?" is a real question. One unauthenticated curl answers it:
+
+```
+curl -s localhost:8092/api/version
+{"commit":"9a72932-dirty","builtAt":"2026-08-08T19:47:32Z","routes":31}
+```
+
+`commit` and `builtAt` are baked in as build args; `routes` is the registered API path count, a cheap
+tell that the image carries the endpoints you expect. Stamp them by exporting the two variables:
+
+```fish
+env GIT_COMMIT=(git rev-parse --short HEAD)(git diff --quiet; or echo -dirty) \
+    BUILD_TIME=(date -u +%Y-%m-%dT%H:%M:%SZ) \
+    docker compose up -d --build
+```
+
+Both default to `unknown` in a bare `docker compose up --build`, which is itself the answer: an image
+that cannot say what it was built from was not built by the command above.
+
+A 404 on an endpoint you just added is usually one of two things — a stale image, which `/api/version`
+now settles, or the path itself. Course-owned endpoints live under `/api/courses/{course}/…`; see
+"API URLs are course-scoped" above.
+
 ## Exporting the course theory
 
 A logged-in user can pull the entire course as one JSON document — every block → module → lesson
@@ -251,10 +340,10 @@ is authored in ES + EN and every content change touches both, so an archive of o
 archive; `lang` is how you ask for less.
 
 ```
-GET /api/course/export                  # both languages (the default) — see the shape below
-GET /api/course/export?lang=all         # the same document, asked for explicitly
-GET /api/course/export?lang=es          # one language (en|es), as plain strings
-GET /api/course/export?download=true    # file attachment (tradeschool-course-all.json, or -es/-en)
+GET /api/courses/{course}/export                  # both languages (the default) — see the shape below
+GET /api/courses/{course}/export?lang=all         # the same document, asked for explicitly
+GET /api/courses/{course}/export?lang=es          # one language (en|es), as plain strings
+GET /api/courses/{course}/export?download=true    # attachment (tradeschool-course-all.json, or -es/-en)
 ```
 
 The two shapes are discriminated by their top-level key, so a consumer never has to guess:
@@ -274,13 +363,46 @@ Both shapes come from one walk of the manifest, so they can never carry differen
 `::figure{id=…}` markers are **kept** in the exported prose (only `::exercise` directives are stripped),
 so you can see where each generated chart belongs.
 
+Both shapes also carry a `glossary` — a flat list under `lang=…`, and `{"en": […], "es": […]}` in the
+bilingual document, matching how the localized fields pair.
+
+### The glossary
+
+```
+GET /api/courses/{course}/glossary            # alphabetical in your account's locale
+GET /api/courses/{course}/glossary?lang=es    # …or the locale you name (en|es)
+```
+
+The glossary **refers, it does not teach**: every entry is one or two sentences distilled from the
+lesson that teaches the term, plus the pointer back to it. It is authored in `content/glossary.yaml`
+and validated at startup — origins must be real lesson ids, ids share the one permanent id namespace,
+and **no term may enter the glossary that does not appear in that locale's prose** (the glossary never
+coins). Three entry shapes:
+
+```jsonc
+{"id": "g-funding", "term": "funding", "origin": "m04-l1", "originTitle": "Futuros perpetuos",
+ "definition": "Un pago periódico entre largos y cortos…"}
+
+// a homonym: one entry, numbered senses, each with its own origin
+{"id": "g-premium", "term": "prima",
+ "senses": [{"origin": "m17-l1", "definition": "…"}, {"origin": "m28-l1", "definition": "…"}]}
+
+// an alias: a second name the course uses, deferring to the canonical entry
+{"id": "g-choch", "term": "CHoCH", "origin": "m30-l1",
+ "aliasOf": {"id": "g-change-of-character", "term": "cambio de carácter"}}
+```
+
+Ordering is alphabetical **per locale**, accent-insensitive, and the two locales deliberately sort
+differently — an entry is looked up by the word the reader actually met, and roughly a third of the ES
+terms are English pass-throughs (`funding`, `spot`, `spring`, `order block`).
+
 Auth (session cookie) is required, like the rest of the content API. The registry is built **once at
 startup**, so newly authored content needs a backend restart before it appears in an export.
 
 ### The printed exercises, and the one endpoint that reveals solutions
 
 ```
-GET /api/course/print/exercises?lang=es   # one frozen instance per exercise, WITH its answer
+GET /api/courses/{course}/print/exercises?lang=es   # one frozen instance per exercise, WITH its answer
 ```
 
 This is what the PDF's exercises and its answer key are made of, and it is the **only** endpoint that
@@ -374,8 +496,9 @@ component in that harness (mocking only lightweight-charts, as the other chart t
 honest; `figures.test.tsx` covers the capture mechanics around it.
 
 The document is assembled from **two** server documents, joined by id: the lesson tree from
-`GET /api/course/export?lang=…` (prose only — `registry._theory_only` strips the `::exercise`
-directives server-side) and the exercises from `GET /api/course/print/exercises?lang=…`. Both are one
+`GET /api/courses/{course}/export?lang=…` (prose only — `registry._theory_only` strips the
+`::exercise` directives server-side) and the exercises from
+`GET /api/courses/{course}/print/exercises?lang=…`. Both are one
 walk of the manifest, which is why the printed book cannot carry a different set of lessons — or a
 different set of questions — from the app.
 

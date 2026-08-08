@@ -1,4 +1,4 @@
-import { apiClient } from "@/api/client";
+import { apiClient, COURSE_PATH } from "@/api/client";
 import type { ExerciseType } from "@/api/course";
 
 export type AttemptState = "open" | "answered" | "abandoned";
@@ -104,21 +104,21 @@ export type Answer =
 export type Deferred = { value: Answer | null; onChange: (answer: Answer) => void };
 
 export async function createAttempt(exerciseId: string): Promise<AttemptInstance> {
-  const { data } = await apiClient.post<AttemptInstance>(`/exercises/${exerciseId}/attempts`);
+  const { data } = await apiClient.post<AttemptInstance>(`${COURSE_PATH}/exercises/${exerciseId}/attempts`);
   return data;
 }
 
 export async function answerAttempt(attemptId: string, answer: Answer): Promise<GradeResponse> {
-  const { data } = await apiClient.post<GradeResponse>(`/attempts/${attemptId}/answer`, { answer });
+  const { data } = await apiClient.post<GradeResponse>(`${COURSE_PATH}/attempts/${attemptId}/answer`, { answer });
   return data;
 }
 
 export async function getAttempt(attemptId: string): Promise<AttemptReview> {
-  const { data } = await apiClient.get<AttemptReview>(`/attempts/${attemptId}`);
+  const { data } = await apiClient.get<AttemptReview>(`${COURSE_PATH}/attempts/${attemptId}`);
   return data;
 }
 
 export async function listAttempts(exerciseId: string): Promise<AttemptSummary[]> {
-  const { data } = await apiClient.get<AttemptSummary[]>(`/attempts`, { params: { exercise_id: exerciseId } });
+  const { data } = await apiClient.get<AttemptSummary[]>(`${COURSE_PATH}/attempts`, { params: { exercise_id: exerciseId } });
   return data;
 }

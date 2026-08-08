@@ -21,7 +21,8 @@
     "course": "Course",
     "exams": "Exams",
     "progress": "Progress",
-    "homeLabel": "{{name}} — home"
+    "homeLabel": "{{name}} — home",
+    "glossary": "Glossary"
   },
   "exam": {
     "intro": "A sampled, graded run over the exercise bank — one question per module, revealed all at once at the end.",
@@ -110,6 +111,23 @@
     "pdfOrderingHint": "Put these in the right order.",
     "pdfMatchingHint": "Match each numbered item with one lettered option.",
     "pdfAuthor": "Author: {{name}}"
+  },
+  "glossary": {
+    "title": "Glossary",
+    "subtitle": "Every term the course defines, with the lesson that teaches it. The glossary refers; the lesson explains.",
+    "pdfIntro": "Every term the course defines, in alphabetical order, each with the lesson that teaches it. The glossary refers; the lesson explains.",
+    "search": "Filter terms",
+    "searchPlaceholder": "Type a term…",
+    "empty": "No term matches that.",
+    "clear": "Clear",
+    "count_one": "{{count}} term",
+    "count_other": "{{count}} terms",
+    "alias": "→ {{term}}",
+    "aliasHint": "Another name for",
+    "origin": "{{lesson}}",
+    "originLabel": "Taught in",
+    "sense": "{{index}}. ",
+    "loadFailed": "The glossary could not be loaded."
   },
   "exercise": {
     "comingSoon": "Interactive exercise — arrives in the next increment.",

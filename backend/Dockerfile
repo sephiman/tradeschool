@@ -32,9 +32,17 @@ COPY --from=build --chown=app:app /app /app
 # Course content is baked into the image; CONTENT_DIR points here.
 COPY --chown=app:app content /app/content
 
+# Baked at build time so "what is this container actually running?" is one curl against /api/version
+# rather than an investigation. Unset in a plain `docker build` — the endpoint then says "unknown",
+# which is itself the answer.
+ARG GIT_COMMIT=unknown
+ARG BUILD_TIME=unknown
+
 ENV PATH="/app/.venv/bin:$PATH" \
     CONTENT_DIR=/app/content \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    GIT_COMMIT=${GIT_COMMIT} \
+    BUILD_TIME=${BUILD_TIME}
 USER app:app
 
 EXPOSE 8000

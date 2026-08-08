@@ -18,6 +18,9 @@ class ExamSession(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id", ondelete="cascade"), index=True)
+    # An exam is taken IN a course. Stored rather than derived so a course-scoped by-id route can
+    # answer "does this exam belong to this course?" without joining through its attempts.
+    course_id: Mapped[str] = mapped_column(ForeignKey("courses.id"), index=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )

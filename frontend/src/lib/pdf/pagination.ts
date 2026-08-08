@@ -12,10 +12,12 @@ import { DEFAULT_STYLE } from "@/lib/pdf/page";
  *  survives from the document definition. */
 export type LayoutNode = Node;
 
-/** Ids of the blocks that must print whole: a `:::note` box and an answer-key entry. */
+/** Ids of the blocks that must print whole: a `:::note` box, an answer-key entry, a glossary entry. */
 export const CALLOUT_ID = "note";
 export const ANSWER_ID = "answer";
-const KEEP_WHOLE = [CALLOUT_ID, ANSWER_ID];
+/** A glossary entry is a term and its definition; splitting one across a page orphans the term. */
+export const GLOSSARY_ENTRY_ID = "glossaryterm";
+const KEEP_WHOLE = [CALLOUT_ID, ANSWER_ID, GLOSSARY_ENTRY_ID];
 /** Ids that mark a figure block. Only used to make the "never split from its caption" rule checkable. */
 export const FIGURE_ID = "figure";
 

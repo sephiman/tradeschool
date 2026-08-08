@@ -11,6 +11,7 @@ import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
+import { coursePath } from "@/components/layout/nav";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -42,7 +43,7 @@ export function ExamRunner() {
 
   // A closed/unknown session can't be run — send the learner back to the landing.
   useEffect(() => {
-    if (isError) navigate("/exams", { replace: true });
+    if (isError) navigate(coursePath("/exams"), { replace: true });
   }, [isError, navigate]);
 
   const answerMut = useMutation({
@@ -54,14 +55,14 @@ export function ExamRunner() {
     mutationFn: () => submitExam(examId),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["exam"] });
-      navigate(`/exams/${examId}/review`, { replace: true });
+      navigate(coursePath(`/exams/${examId}/review`), { replace: true });
     },
   });
   const abandon = useMutation({
     mutationFn: () => abandonExam(examId),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["exam"] });
-      navigate("/exams", { replace: true });
+      navigate(coursePath("/exams"), { replace: true });
     },
   });
 

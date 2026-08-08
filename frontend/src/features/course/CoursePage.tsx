@@ -14,6 +14,7 @@ import {
 } from "@/features/course/readingTime";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
+import { coursePath } from "@/components/layout/nav";
 
 function isComplete(m: CourseModule): boolean {
   return m.hasContent && m.lessonsTotal > 0 && m.lessonsCompleted >= m.lessonsTotal;
@@ -180,7 +181,7 @@ export function CoursePage() {
         </div>
       </div>
       {course.started && resume && (
-        <Link to={`/lessons/${resume.lessonId}`} className="block">
+        <Link to={coursePath(`/lessons/${resume.lessonId}`)} className="block">
           <Card className="flex items-center justify-between gap-3 border-primary bg-primary/5 p-4 transition-colors hover:bg-primary/10 dark:bg-primary/10 dark:hover:bg-primary/20">
             <span className="font-medium text-primary">{t("course.continue", { step: stepLabel(resume) })}</span>
             <span aria-hidden className="text-primary">→</span>

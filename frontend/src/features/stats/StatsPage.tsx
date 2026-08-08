@@ -6,6 +6,7 @@ import type { TFunction } from "i18next";
 import { getGlobalStats, getMeStats, type ModuleStat, type ReviewTarget } from "@/api/stats";
 import { Card, MiniBar, Spinner } from "@/components/ui/primitives";
 import { MIN_N_FOR_PERCENT, partitionModules, rate, rateShort } from "@/features/stats/format";
+import { coursePath } from "@/components/layout/nav";
 
 /** A census over a known total (lessons marked, exercises passed) — exact, so never a fraction. */
 function censusPct(value: number | null): string {
@@ -59,7 +60,7 @@ function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewT
         </Link>
       ))}
       {extra > 0 && (
-        <Link to={`/modules/${moduleId}`} className="text-xs text-primary hover:underline">
+        <Link to={coursePath(`/modules/${moduleId}`)} className="text-xs text-primary hover:underline">
           {t("stats.reviewMore", { extra })}
         </Link>
       )}

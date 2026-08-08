@@ -325,9 +325,11 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
     const { sections, doc } = await laid;
     const course = readManifest().course;
     const found = sections.resolved();
-    // Every block, plus the answer key, in the order the book prints them.
+    // Every block, then the glossary, then the answer key, in the order the book prints them: a
+    // reference you consult while reading comes before the solutions you consult after.
     expect(found.map((s) => s.title)).toEqual([
       ...readManifest().blocks.map((block) => block.title[locale]),
+      testPdfLabels(locale).glossary,
       testPdfLabels(locale).answerKey,
     ]);
 
@@ -384,6 +386,7 @@ describe("pagination in the produced file", () => {
   /** Six one-line lessons: short enough that the page count can only be page breaks. */
   const tiny: CourseExport = {
     locale: "en",
+    glossary: [],
     blocks: [
       {
         id: "b",

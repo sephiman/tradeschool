@@ -21,7 +21,8 @@
     "course": "Curso",
     "exams": "Exámenes",
     "progress": "Progreso",
-    "homeLabel": "{{name}} — inicio"
+    "homeLabel": "{{name}} — inicio",
+    "glossary": "Glosario"
   },
   "exam": {
     "intro": "Un examen muestreado y calificado sobre el banco de ejercicios: una pregunta por módulo, revelado todo junto al final.",
@@ -110,6 +111,23 @@
     "pdfOrderingHint": "Coloca estas en el orden correcto.",
     "pdfMatchingHint": "Empareja cada elemento numerado con una opción con letra.",
     "pdfAuthor": "Autor: {{name}}"
+  },
+  "glossary": {
+    "title": "Glosario",
+    "subtitle": "Todos los términos que el curso define, con la lección que los enseña. El glosario remite; la lección explica.",
+    "pdfIntro": "Todos los términos que el curso define, por orden alfabético, cada uno con la lección que lo enseña. El glosario remite; la lección explica.",
+    "search": "Filtrar términos",
+    "searchPlaceholder": "Escribe un término…",
+    "empty": "Ningún término coincide.",
+    "clear": "Limpiar",
+    "count_one": "{{count}} término",
+    "count_other": "{{count}} términos",
+    "alias": "→ {{term}}",
+    "aliasHint": "Otro nombre para",
+    "origin": "{{lesson}}",
+    "originLabel": "Se enseña en",
+    "sense": "{{index}}. ",
+    "loadFailed": "No se ha podido cargar el glosario."
   },
   "exercise": {
     "comingSoon": "Ejercicio interactivo — llega en el siguiente incremento.",

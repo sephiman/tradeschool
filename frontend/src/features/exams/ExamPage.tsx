@@ -10,6 +10,7 @@ import {
   type ExamSession,
 } from "@/api/exams";
 import { Badge, Button, Card, Spinner } from "@/components/ui/primitives";
+import { coursePath } from "@/components/layout/nav";
 
 function pct(score: number | null): string {
   return score == null ? "—" : `${Math.round(score * 100)}%`;
@@ -29,7 +30,7 @@ export function ExamPage() {
     mutationFn: ({ scope, blockId }: { scope: ExamScope; blockId?: string }) => startExam(scope, blockId),
     onSuccess: (s: ExamSession) => {
       void qc.invalidateQueries({ queryKey: ["exam"] });
-      navigate(`/exams/${s.id}`);
+      navigate(coursePath(`/exams/${s.id}`));
     },
   });
 
@@ -51,7 +52,7 @@ export function ExamPage() {
               {scopeName(current.scope, current.blockTitle)}
             </p>
           </div>
-          <Button onClick={() => navigate(`/exams/${current.id}`)}>{t("exam.resume")}</Button>
+          <Button onClick={() => navigate(coursePath(`/exams/${current.id}`))}>{t("exam.resume")}</Button>
         </Card>
       )}
 
@@ -98,7 +99,7 @@ export function ExamPage() {
         ) : (
           <div className="space-y-2">
             {history.map((h) => (
-              <Link key={h.id} to={`/exams/${h.id}/review`} className="block">
+              <Link key={h.id} to={coursePath(`/exams/${h.id}/review`)} className="block">
                 <Card className="flex items-center justify-between gap-3 p-3 hover:border-primary">
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">{scopeName(h.scope, h.blockTitle)}</p>

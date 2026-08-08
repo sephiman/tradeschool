@@ -27,6 +27,10 @@ from tradeschool.errors import AppError
 from tradeschool.exercises.figures import build_figure
 
 router = APIRouter(tags=["content"])
+# The course itself and its whole-document exports. Split out because these are the routes whose path
+# DIFFERS between the two mounts: canonically they hang off the course (/courses/{course}/export),
+# while the deprecated alias restores today's /api/course/export by mounting this router at /course.
+course_router = APIRouter(tags=["content"])
 
 LangQuery = Annotated[str | None, Query(pattern="^(en|es)$")]
 # The export alone also takes `all`, and treats an absent `lang` as `all`: it is the one endpoint whose
@@ -85,7 +89,7 @@ class CompleteResponse(BaseModel):
     completed: bool
 
 
-@router.get("/course")
+@course_router.get("")
 async def get_course(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
@@ -105,7 +109,21 @@ async def get_course(
     }
 
 
-@router.get("/course/export")
+@router.get("/glossary")
+async def get_glossary(
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    lang: LangQuery = None,
+) -> dict[str, object]:
+    """Every glossary entry, alphabetical in the resolved locale.
+
+    The two locales sort differently on purpose — an entry is looked up by the word the reader met.
+    """
+    locale = _resolve_locale(lang, user)
+    return {"locale": locale, "terms": registry.glossary_entries(locale)}
+
+
+@course_router.get("/export")
 async def export_course(
     user: Annotated[User, Depends(current_active_user)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
@@ -127,7 +145,7 @@ async def export_course(
     return JSONResponse(content=data, headers=headers)
 
 
-@router.get("/course/print/exercises")
+@course_router.get("/print/exercises")
 async def export_print_exercises(
     request: Request,
     user: Annotated[User, Depends(current_active_user)],

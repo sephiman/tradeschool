@@ -7,6 +7,7 @@ import {
   type ExerciseChartLookup,
   type ExerciseLabels,
 } from "@/lib/pdf/exercises";
+import { glossarySection, type GlossaryLabels } from "@/lib/pdf/glossary";
 import { lessonToContent, type MarkdownRenderers } from "@/lib/pdf/markdown";
 import { keepTogether, printedId, withId, type OversizedBlock } from "@/lib/pdf/pagination";
 import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf/sections";
@@ -30,7 +31,7 @@ export interface CapturedFigure {
   panels: string[];
 }
 
-export interface PdfLabels extends ExerciseLabels {
+export interface PdfLabels extends ExerciseLabels, GlossaryLabels {
   contents: string;
   /** Cover line crediting the author, label localized around `COURSE_AUTHOR`. */
   author: string;
@@ -255,6 +256,13 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
       keyGroups.push({ title: moduleTitle, exercises: moduleExercises });
     }
   }
+
+  // The glossary sits between the course and the answer key: a reference you consult while reading,
+  // ahead of the solutions you consult after.
+  const glossaryId = printedId(SECTION_ID, "glossary", 0);
+  sections.declare(glossaryId, o.labels.glossary);
+  const glossary = glossarySection(o.export.glossary, o.export.locale, o.labels, glossaryId);
+  if (glossary) content.push(glossary);
 
   const answerKeyId = printedId(SECTION_ID, "answer-key", 0);
   sections.declare(answerKeyId, o.labels.answerKey);

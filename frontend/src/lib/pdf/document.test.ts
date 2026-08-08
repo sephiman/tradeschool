@@ -188,10 +188,11 @@ describe.each(LOCALES)("course PDF document (%s)", (locale) => {
     // `tocItem` entries that follow it.
     expect(content[1]).toMatchObject({ toc: { title: { text: localized.contents } } });
 
-    // Three levels, in order: blocks -> modules -> lessons, then the answer key at the same level as
-    // a block — one entry, with a page number, for the back of the book.
+    // Three levels, in order: blocks -> modules -> lessons, then the glossary and the answer key at
+    // the same level as a block — an entry each, with a page number, for the back of the book.
     expect(tocTexts(doc, "tocBlock")).toEqual([
       ...readManifest().blocks.map((block) => block.title[locale]),
+      localized.glossary,
       localized.answerKey,
     ]);
     expect(tocTexts(doc, "tocModule")).toEqual(
@@ -223,6 +224,7 @@ describe("figure layout", () => {
       courseDescription: "D",
       export: {
         locale: "en",
+        glossary: [],
         blocks: [
           {
             id: "b",

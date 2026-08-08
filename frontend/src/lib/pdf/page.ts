@@ -75,6 +75,15 @@ export const PRINT_STYLES: StyleDictionary = {
   exercisePrompt: { margin: [0, 0, 0, 4] },
   exerciseHint: { fontSize: 9.5, italics: true, color: PRINT.muted, margin: [8, 0, 0, 4] },
   exerciseNote: { fontSize: 9.5, italics: true, color: PRINT.muted, margin: [0, 4, 0, 6] },
+  // The glossary. A reference section, so it reads denser than the prose: the term carries the
+  // weight and the pointer back to the lesson is deliberately quiet.
+  glossaryTerm: { fontSize: 11, bold: true, color: PRINT.heading, margin: [0, 0, 0, 2] },
+  glossaryDefinition: { margin: [0, 0, 0, 2] },
+  glossaryAlias: { color: PRINT.primary, margin: [0, 0, 0, 2] },
+  glossaryOrigin: { fontSize: 9, color: PRINT.muted },
+  glossarySense: { margin: [10, 2, 0, 1] },
+  glossarySenseNumber: { bold: true, color: PRINT.primary },
+  glossarySenseOrigin: { fontSize: 9, color: PRINT.muted, margin: [10, 0, 0, 2] },
   answerGroup: { fontSize: 11.5, bold: true, color: PRINT.heading, margin: [0, 12, 0, 6] },
   answerNumber: { bold: true, color: PRINT.primary },
   answerAside: { fontSize: 9.5, color: PRINT.muted, margin: [46, 2, 0, 0], lineHeight: 1.3 },

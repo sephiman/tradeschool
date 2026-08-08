@@ -14,6 +14,7 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, ValidationError
 
+from tradeschool.content.glossary import Glossary, GlossaryTerm, load_glossary
 from tradeschool.content.reading import estimate_seconds
 from tradeschool.content.schema import (
     LOCALES,
@@ -61,6 +62,8 @@ class CourseRegistry:
     exercise_configs: dict[str, tuple[ExerciseType, BaseModel]] = field(default_factory=dict)
     # figure_id -> spec (lesson figures embedded via ::figure{id=...}).
     figures: dict[str, FigureSpec] = field(default_factory=dict)
+    # The glossary, loaded once; sorted per locale on the way out.
+    glossary: Glossary = field(default_factory=lambda: Glossary(terms=[]))
     # reading_seconds[locale][lesson_id] -> estimated reading time. Derived from the markdown once
     # here, so every surface that shows time is summing the same per-lesson numbers.
     reading_seconds: dict[str, dict[str, int]] = field(default_factory=dict)
@@ -241,6 +244,7 @@ class CourseRegistry:
                 lambda text: text.get(locale),
                 lambda lesson_id: _theory_only(self.markdown[locale][lesson_id]),
             ),
+            "glossary": self.glossary_entries(locale),
         }
 
     def course_export_bilingual(self) -> dict[str, object]:
@@ -256,7 +260,40 @@ class CourseRegistry:
                     loc: _theory_only(self.markdown[loc][lesson_id]) for loc in LOCALES
                 },
             ),
+            "glossary": {loc: self.glossary_entries(loc) for loc in LOCALES},
         }
+
+    # --- glossary ---
+    def _lesson_title(self, lesson_id: str | None, locale: str) -> str | None:
+        loc = self._lessons.get(lesson_id) if lesson_id else None
+        return loc.lesson.title.get(locale) if loc else None
+
+    def _glossary_entry(self, term: GlossaryTerm, locale: str) -> dict[str, object]:
+        entry: dict[str, object] = {
+            "id": term.id,
+            "term": term.term(locale),
+            "origin": term.origin,
+            "originTitle": self._lesson_title(term.origin, locale),
+        }
+        if term.alias_of is not None:
+            target = next(t for t in self.glossary.terms if t.id == term.alias_of)
+            entry["aliasOf"] = {"id": target.id, "term": target.term(locale)}
+        if term.definition is not None:
+            entry["definition"] = term.definition.get(locale)
+        if term.senses:
+            entry["senses"] = [
+                {
+                    "origin": sense.origin,
+                    "originTitle": self._lesson_title(sense.origin, locale),
+                    "definition": sense.definition.get(locale),
+                }
+                for sense in term.senses
+            ]
+        return entry
+
+    def glossary_entries(self, locale: str) -> list[dict[str, object]]:
+        """Every entry, alphabetical in `locale`. Aliases render in place, pointing at the canonical."""
+        return [self._glossary_entry(t, locale) for t in self.glossary.sorted_terms(locale)]
 
     def lesson_detail(
         self, lesson_id: str, locale: str, completed_lesson_ids: set[str]
@@ -360,6 +397,49 @@ def load_registry(content_dir: Path) -> CourseRegistry:
 
     exercise_configs = _load_exercise_configs(content_dir, manifest)
     figures = load_figures(content_dir)
-    return CourseRegistry(
-        manifest=manifest, markdown=markdown, exercise_configs=exercise_configs, figures=figures
+
+    lesson_ids = {lesson.id for _, lesson in manifest.iter_lessons()}
+    taken_ids = (
+        {manifest.course.id}
+        | {b.id for b in manifest.blocks}
+        | manifest.module_ids()
+        | lesson_ids
+        | {ex.id for _, _, ex in manifest.iter_exercises()}
+        | set(figures)
     )
+    glossary = load_glossary(content_dir, lesson_ids, taken_ids)
+    _check_glossary_never_coins(glossary, markdown)
+
+    return CourseRegistry(
+        manifest=manifest,
+        markdown=markdown,
+        exercise_configs=exercise_configs,
+        figures=figures,
+        glossary=glossary,
+    )
+
+
+def _check_glossary_never_coins(glossary: Glossary, markdown: dict[str, dict[str, str]]) -> None:
+    """Every term must actually appear in the prose of its own locale — the glossary never coins.
+
+    Prose is hard-wrapped, so a multi-word term is routinely split across lines; match against
+    whitespace-flattened text or every such term reads as absent.
+    """
+    flattened = {
+        locale: " ".join(" ".join(body.split()) for body in lessons.values())
+        for locale, lessons in markdown.items()
+    }
+    missing: list[str] = []
+    for term in glossary.terms:
+        for locale in LOCALES:
+            needle = " ".join(term.term(locale).split()).casefold()
+            # Parenthetical glosses in the term itself ("open interest (OI)") are display sugar;
+            # match on the head, which is what the prose actually writes.
+            needle = needle.split(" (")[0]
+            if needle not in flattened[locale].casefold():
+                missing.append(f"{term.id} ({locale}: {needle!r})")
+    if missing:
+        raise ContentError(
+            "glossary terms that never appear in that locale's prose (the glossary never coins): "
+            + ", ".join(missing)
+        )

@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import yaml from "js-yaml";
-import type { CourseExport } from "@/api/course";
+import type { CourseExport, GlossaryEntry } from "@/api/course";
 import type { CapturedFigure } from "@/lib/pdf/document";
 import { FONT_DIR, PRINT_FONT_FILES } from "@/lib/pdf/fonts";
 import { testPng } from "@/test/png";
@@ -110,9 +110,49 @@ export function manifestExerciseIds(): string[] {
  * The course as `/course/export?lang=…` serves it, but with the markdown deliberately RAW where the real
  * endpoint pre-strips it — so "no exercise reached the PDF" holds even with the upstream stripping gone.
  */
+/** The real `glossary.yaml`, shaped as the export serves it, so the PDF tests print the real terms. */
+export function glossaryFromContent(locale: Locale): GlossaryEntry[] {
+  const path = resolve(CONTENT, "glossary.yaml");
+  if (!existsSync(path)) return [];
+  const raw = yaml.load(readFileSync(path, "utf8")) as {
+    terms: {
+      id: string;
+      en: string;
+      es: string;
+      origin?: string;
+      definition?: LocalizedText;
+      senses?: { origin: string; definition: LocalizedText }[];
+      alias_of?: string;
+    }[];
+  };
+  const byId = new Map(raw.terms.map((term) => [term.id, term]));
+  const titles = new Map(manifestLessons().map((lesson) => [lesson.id, lesson.title[locale]]));
+  return raw.terms.map((term) => {
+    const target = term.alias_of ? byId.get(term.alias_of) : undefined;
+    return {
+      id: term.id,
+      term: term[locale],
+      origin: term.origin ?? null,
+      originTitle: term.origin ? (titles.get(term.origin) ?? null) : null,
+      ...(term.definition ? { definition: term.definition[locale] } : {}),
+      ...(term.senses?.length
+        ? {
+            senses: term.senses.map((sense) => ({
+              origin: sense.origin,
+              originTitle: titles.get(sense.origin) ?? null,
+              definition: sense.definition[locale],
+            })),
+          }
+        : {}),
+      ...(target ? { aliasOf: { id: target.id, term: target[locale] } } : {}),
+    };
+  });
+}
+
 export function courseExportFromContent(locale: Locale): CourseExport {
   return {
     locale,
+    glossary: glossaryFromContent(locale),
     blocks: readManifest().blocks.map((block) => ({
       id: block.id,
       title: block.title[locale],

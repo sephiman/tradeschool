@@ -1,4 +1,4 @@
-import { apiClient } from "@/api/client";
+import { apiClient, COURSE_PATH } from "@/api/client";
 // Type-only, so the pair `exercises.ts` -> `course.ts` -> `exercises.ts` never becomes a runtime cycle:
 // a printed exercise carries exactly the payload an attempt would, and describing it twice would let
 // the page and the screen drift apart.
@@ -90,25 +90,25 @@ export interface ModuleDetail {
 }
 
 export async function getCourse(): Promise<Course> {
-  const { data } = await apiClient.get<Course>("/course");
+  const { data } = await apiClient.get<Course>(COURSE_PATH);
   return data;
 }
 
 export async function getLesson(lessonId: string): Promise<LessonDetail> {
-  const { data } = await apiClient.get<LessonDetail>(`/lessons/${lessonId}`);
+  const { data } = await apiClient.get<LessonDetail>(`${COURSE_PATH}/lessons/${lessonId}`);
   return data;
 }
 
 export async function completeLesson(lessonId: string): Promise<void> {
-  await apiClient.post(`/lessons/${lessonId}/complete`);
+  await apiClient.post(`${COURSE_PATH}/lessons/${lessonId}/complete`);
 }
 
 export async function getModule(moduleId: string): Promise<ModuleDetail> {
-  const { data } = await apiClient.get<ModuleDetail>(`/modules/${moduleId}`);
+  const { data } = await apiClient.get<ModuleDetail>(`${COURSE_PATH}/modules/${moduleId}`);
   return data;
 }
 
-/** The shape `/course/export?lang=…` serves: theory only, `::exercise` stripped server-side. */
+/** The shape `…/{course}/export?lang=…` serves: theory only, `::exercise` stripped server-side. */
 export interface CourseExportLesson {
   id: string;
   title: string;
@@ -128,19 +128,50 @@ export interface CourseExportBlock {
   modules: CourseExportModule[];
 }
 
+/** One meaning of a term the course genuinely uses in more than one sense (`premium` has three). */
+export interface GlossarySense {
+  origin: string;
+  originTitle: string | null;
+  definition: string;
+}
+
+export interface GlossaryEntry {
+  id: string;
+  term: string;
+  /** The lesson that teaches it. Absent only on a pure homonym, where each sense carries its own. */
+  origin: string | null;
+  originTitle: string | null;
+  definition?: string;
+  senses?: GlossarySense[];
+  /** A second name the course uses: renders as a pointer, never as a repeated definition. */
+  aliasOf?: { id: string; term: string };
+}
+
+export interface Glossary {
+  locale: string;
+  terms: GlossaryEntry[];
+}
+
+export async function getGlossary(locale: string): Promise<Glossary> {
+  const { data } = await apiClient.get<Glossary>(`${COURSE_PATH}/glossary`, { params: { lang: locale } });
+  return data;
+}
+
 export interface CourseExport {
   locale: string;
   blocks: CourseExportBlock[];
+  /** Carried in the export so the PDF builds from one document, with no second request. */
+  glossary: GlossaryEntry[];
 }
 
 /** The single-locale export document. `lang` must be explicit — omitting it returns the bilingual one. */
 export async function getCourseExport(locale: string): Promise<CourseExport> {
-  const { data } = await apiClient.get<CourseExport>("/course/export", { params: { lang: locale } });
+  const { data } = await apiClient.get<CourseExport>(`${COURSE_PATH}/export`, { params: { lang: locale } });
   return data;
 }
 
 /**
- * The shape `/course/print/exercises?lang=…` serves: one frozen instance per exercise plus its answer.
+ * The shape `…/{course}/print/exercises?lang=…` serves: one frozen instance per exercise plus its answer.
  *
  * The one endpoint that hands over solutions — see its server-side docstring.
  */
@@ -215,7 +246,7 @@ export interface PrintExercises {
 }
 
 export async function getPrintExercises(locale: string): Promise<PrintExercises> {
-  const { data } = await apiClient.get<PrintExercises>("/course/print/exercises", {
+  const { data } = await apiClient.get<PrintExercises>(`${COURSE_PATH}/print/exercises`, {
     params: { lang: locale },
   });
   return data;
@@ -244,6 +275,6 @@ export interface FigureData {
 }
 
 export async function getFigure(figureId: string): Promise<FigureData> {
-  const { data } = await apiClient.get<FigureData>(`/figures/${figureId}`);
+  const { data } = await apiClient.get<FigureData>(`${COURSE_PATH}/figures/${figureId}`);
   return data;
 }

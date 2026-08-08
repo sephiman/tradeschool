@@ -219,3 +219,34 @@ async def test_module_detail_prereqs(content_client: AsyncClient) -> None:
     assert detail["id"] == "m06"
     assert [a["id"] for a in detail["assumes"]] == ["m05"]
     assert [p["id"] for p in detail["unmetPrereqs"]] == ["m05"]
+
+
+async def test_glossary_endpoint_serves_entries_at_its_real_path(
+    content_client: AsyncClient,
+) -> None:
+    """Hits the ROUTE, not the registry.
+
+    The first cut of the glossary page called `/api/content/glossary`, which 404s: the content router
+    is mounted at `/api` with no prefix of its own. Nothing caught it because the backend tests called
+    `glossary_entries()` directly and the frontend test mocked the client — so the URL itself was the
+    one thing never exercised. This asserts the path.
+    """
+    assert (await content_client.get("/api/glossary")).status_code == 401
+    # The mis-remembered path must stay a 404, so a future rename cannot quietly resurrect it.
+    assert (await content_client.get("/api/content/glossary")).status_code == 404
+    await _auth(content_client)
+
+    response = await content_client.get("/api/glossary?lang=es")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["locale"] == "es"
+    assert len(data["terms"]) > 0
+
+    registry = load_registry(get_settings().content_dir)
+    assert [t["term"] for t in data["terms"]] == [
+        e["term"] for e in registry.glossary_entries("es")
+    ]
+    # The three shapes the page renders, all reachable over HTTP.
+    assert any(t.get("aliasOf") for t in data["terms"])
+    assert any(t.get("senses") for t in data["terms"])
+    assert any(t.get("definition") for t in data["terms"])

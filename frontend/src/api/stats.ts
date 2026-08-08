@@ -1,4 +1,4 @@
-import { apiClient } from "@/api/client";
+import { apiClient, COURSE_PATH } from "@/api/client";
 
 export interface Coverage {
   publishedModules: number;
@@ -109,11 +109,11 @@ export interface GlobalStats {
 }
 
 export async function getMeStats(): Promise<MeStats> {
-  const { data } = await apiClient.get<MeStats>("/stats/me");
+  const { data } = await apiClient.get<MeStats>(`${COURSE_PATH}/stats/me`);
   return data;
 }
 
 export async function getGlobalStats(): Promise<GlobalStats> {
-  const { data } = await apiClient.get<GlobalStats>("/stats/global");
+  const { data } = await apiClient.get<GlobalStats>(`${COURSE_PATH}/stats/global`);
   return data;
 }
