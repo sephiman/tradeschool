@@ -18,6 +18,9 @@
 #   level:<label>        the drawn level's price
 #   band_low|band_high:<label>  one edge of a shaded zone (m30's origin zone / imbalance). A zone has two
 #                        prices and the prose quotes both, so each edge is its own anchor.
+#   diagonal_start|diagonal_end:<label>   an anchor price of a sloped line (m31)
+#   diagonal_at:<label>@<i>               ...or its PROJECTION at bar i, which is what a break is
+#                        judged against and therefore the number m31-l1 actually prints
 #   open|high|low|close:<i>   an OHLC value at bar i
 #   rsi|oi|cvd:<i>       a value in the indicator pane at bar i
 #   volume_ratio:<a>-<b> median volume over bars [a,b) divided by the median over `volume_baseline`
@@ -195,6 +198,48 @@ figures:
       # number the lesson prints still rounds to the number the figure draws.
       - {what: "low:170",             prose: 27320}
 
+  fig-m31-trendline:
+    lessons: [m31-l1]
+    # m31-l1 walks this chart the way m30-l1 walks its origin zone: four visits to the line, the line
+    # itself, the body that closed through the projection, and where the resolution ended up. Every
+    # step of that walk is pinned, registered with the figure rather than after it.
+    anchors:
+      - {what: "close:8",                    prose: 9550}   # the four visits that validate the line...
+      - {what: "close:46",                   prose: 9935}
+      - {what: "close:77",                   prose: 10300}
+      - {what: "close:106",                  prose: 10570}
+      - {what: "diagonal_start:trendline",   prose: 9510}   # ...the line drawn through them...
+      - {what: "diagonal_end:trendline",     prose: 11270}  # ...and where it reaches at the right edge
+      # The decision, quoted as a PAIR. Neither number carries the claim alone: the close alone says
+      # nothing about the line it broke, and the projection alone says nothing about what price did to
+      # it. Together they are "a body 1.5% through the projected line", which is the lesson's own test.
+      - {what: "close:123",                  prose: 10575}
+      - {what: "diagonal_at:trendline@123",  prose: 10740}
+      - {what: "close:173",                  prose: 9290}   # where the continuation the figure shows ends
+
+  fig-m31-channel:
+    lessons: [m31-l1]
+    # Nothing is quoted from this one. It is the bidirectional figure and the prose treats it as such —
+    # "the same construction, mirrored" — so it carries a claim about SHAPE rather than about prices,
+    # and inventing numbers for it would put six four-digit figures in the lesson to teach nothing.
+    # It stays in this manifest with an empty anchor list so that the "every declared figure is embedded
+    # by the lessons it names" check still covers it.
+    anchors: []
+
+  fig-m32-squeeze:
+    lessons: [m32-l1]
+    anchors:
+      - {what: "close:0",   prose: 2014}  # the busy opening, with the Bollinger band outside Keltner
+      - {what: "close:121", prose: 1902}  # ...the compression, going nowhere...
+      - {what: "close:173", prose: 1589}  # ...and where the expansion out of it ended up
+
+  fig-m32-squeeze-momentum:
+    lessons: [m32-l1]
+    anchors:
+      - {what: "close:0",   prose: 10361}
+      - {what: "close:121", prose: 10551}
+      - {what: "close:173", prose: 12272}
+
 exceptions:
 
   fig-m21-stop-limit-gap:
@@ -233,3 +278,21 @@ exceptions:
       onto a panel would trade a clean ratio for an arbitrary pair. One lead-in covers all four of the
       lesson's figures.
     guard_phrase: {en: "generated instance", es: "instancia generada"}
+
+
+  fig-m31-wedge:
+    lessons: [m31-l2]
+    why: >-
+      m31-l2 teaches the coil as a SHAPE — how the convergence is split between the two lines, and how
+      much of the opening width survives — never as a location. No number in that lesson is a price, and
+      rounding the panel's own prices into it would replace a proportion anybody can carry in their head
+      with four arbitrary five-digit figures. One lead-in covers both of the lesson's figures.
+    guard_phrase: {en: "generated instances", es: "instancias generadas"}
+
+  fig-m31-triangle:
+    lessons: [m31-l2]
+    why: >-
+      The same reason as `fig-m31-wedge` above, and the same lead-in sentence: the two are read side by
+      side precisely so the reader compares their shapes, and a price quoted from either would be a
+      number about the instance rather than about the pattern.
+    guard_phrase: {en: "generated instances", es: "instancias generadas"}

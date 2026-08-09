@@ -66,8 +66,10 @@ export function ChartExercise({
           macd={payload.macd}
           oi={payload.oi}
           cvd={payload.cvd}
+          momentum={payload.momentum ? { values: payload.momentum, state: payload.momentum_state } : undefined}
           overlays={payload.overlays}
           levels={payload.levels}
+          diagonals={payload.diagonals}
           bands={bands}
           indicator={payload.indicator ?? "rsi"}
           markers={markers}

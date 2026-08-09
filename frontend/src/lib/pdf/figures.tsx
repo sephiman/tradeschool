@@ -129,8 +129,10 @@ async function capturePanel(panel: FigurePanel, figureId: string): Promise<strin
         macd={panel.macd}
         oi={panel.oi}
         cvd={panel.cvd}
+        momentum={panel.momentum ? { values: panel.momentum, state: panel.momentum_state } : undefined}
         overlays={panel.overlays}
         levels={panel.levels}
+        diagonals={panel.diagonals}
         bands={panel.bands}
         indicator={panel.indicator}
         markers={toMarkers(panel.annotations)}

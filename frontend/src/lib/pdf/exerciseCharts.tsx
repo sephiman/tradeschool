@@ -41,8 +41,12 @@ async function captureOne(exercise: PrintExercise): Promise<string> {
         macd={payload.macd}
         oi={payload.oi}
         cvd={payload.cvd}
+        momentum={payload.momentum ? { values: payload.momentum, state: payload.momentum_state } : undefined}
         overlays={payload.overlays}
         levels={payload.levels}
+        // Present, unlike `bands`: the sloped line is what m31's question is asked AGAINST, so a
+        // printed chart without it is a question with nothing to answer.
+        diagonals={payload.diagonals}
         // Deliberately absent: `markers` and `bands` are the answer.
         indicator={payload.indicator ?? "rsi"}
         height={STAGE_HEIGHT}

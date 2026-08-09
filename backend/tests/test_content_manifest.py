@@ -37,9 +37,14 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     # The single course today owns all existing content under a stable id.
     assert registry.manifest.course.id == "crypto-futures"
     assert registry.manifest.course.title.en and registry.manifest.course.description.es
-    # 30 modules across 7 blocks — block G is the trailing single-module block (m30, the SMC dialect).
+    # 32 modules across 7 blocks. Block G is still the trailing single-module block (m30, the SMC
+    # dialect); m31 and m32 are the two most recent, and they APPEND TO BLOCK C rather than open an
+    # eighth — the id says when they were written, the position says where they belong, and
+    # content/README.md allows the two to disagree exactly where nothing renders them side by side.
     assert len(registry.manifest.blocks) == 7
-    assert len(registry.manifest.iter_modules()) == 30
+    assert len(registry.manifest.iter_modules()) == 32
+    block_c = next(b for b in registry.manifest.blocks if b.id == "block-c")
+    assert [m.id for m in block_c.modules][-3:] == ["m14", "m31", "m32"]
     # Every authored lesson exists in both languages (load_registry enforces it).
     for locale in ("en", "es"):
         assert "m06-l1" in registry.markdown[locale]

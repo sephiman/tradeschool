@@ -132,6 +132,44 @@ GOLDEN = {
     "origin_zone:1": "35837b9f3863204a",
     "origin_zone:2": "4fd664189c2442f1",
     "origin_zone:3": "c0a82bfb26bf6e5f",
+    # Captured when the m31/m32 injectors were ADDED (`trend_channel`, `converging_lines`,
+    # `volatility_bands`) — the first three to draw a sloped `Diagonal`, and the first to drive the
+    # zero-centred momentum pane. One group, one event, same as the two above.
+    #
+    # Every hash above stayed byte-identical in the same commit, and that is the load-bearing part:
+    # this batch touched shared code in four places, and none of them may reach an existing generator.
+    # `PatternResult` gained `diagonals`, `momentum_full` and `momentum_state_full`; `_instantiate`
+    # gained three CONDITIONAL payload keys for them (the `oi`/`cvd` precedent, so an injector that
+    # plants none keeps exactly the keys it had); `figures._panel_payload` gained the diagonal
+    # projection and the two optional recompute hooks, which is the figure path and cannot reach these
+    # at all; and `indicators.py` gained the volatility family, which is pure addition.
+    "converging_lines:0": "2aad4ba7ce23ebbe",
+    "converging_lines:1": "f1526a221283fccd",
+    "converging_lines:2": "b32114aa2874bae5",
+    "converging_lines:3": "fc88a3de517091a4",
+    # RE-CAPTURED, deliberately, when `trend_channel` gained the `channel_failed` label.
+    #
+    # Why it was added: a channel has two endings — it can ACCELERATE out through the parallel, or the
+    # rhythm can GIVE OUT through the line it was built on — and `channel_broken` is defined as
+    # `osc > 1`, i.e. beyond the parallel, so the generator could only ever plant the first. Both panels
+    # of `fig-m31-channel` therefore resolved with their own slope, and the first reader took the pair
+    # to mean "channels break in their own direction". Re-seeding could not have fixed that: the blind
+    # spot was in the injector, not in the two seeds.
+    #
+    # Why these four hashes moved, and why that is not a geometry change: the fingerprint config passes
+    # EVERY label as `targets`, so `_full` draws one with `rng.integers(0, len(targets))` — a sixth
+    # label changes which label each seed lands on. Verified rather than assumed: fingerprinting each of
+    # the five pre-existing labels under a SINGLE-target config (where the draw is deterministic and
+    # independent of the list length) gives 30 hashes that are byte-identical with and without
+    # `channel_failed`. So no existing label's candles moved; only the lottery did.
+    "trend_channel:0": "d99a5e15786f9297",  # now channel_failed
+    "trend_channel:1": "4cb612598724bfa4",  # line_fakeout
+    "trend_channel:2": "c329d9c0f36ea6cd",  # channel_failed
+    "trend_channel:3": "b888c8f29f68d39f",  # channel_broken
+    "volatility_bands:0": "552e7bfc04ca55c7",
+    "volatility_bands:1": "8a0947912ea43f12",
+    "volatility_bands:2": "8435e061dad165e4",
+    "volatility_bands:3": "d076b8f4fe0e9050",
 }
 
 _SEEDS = range(4)

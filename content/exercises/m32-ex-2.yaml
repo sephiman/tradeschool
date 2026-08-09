@@ -1,0 +1,124 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: two-rulers
+    prompt:
+      en: "Bollinger bands and a Keltner channel are drawn around the same moving average. What is different about them?"
+      es: "Las bandas de Bollinger y un canal de Keltner se trazan alrededor de la misma media móvil. ¿En qué se diferencian?"
+    options:
+      - id: a
+        text:
+          en: "The period: Keltner uses a much longer window than Bollinger does."
+          es: "El periodo: Keltner usa una ventana mucho más larga que Bollinger."
+      - id: b
+        text:
+          en: "Bollinger uses closes and Keltner uses volume-weighted prices instead."
+          es: "Bollinger usa cierres y Keltner usa en su lugar precios ponderados por volumen."
+      - id: c
+        correct: true
+        text:
+          en: "The ruler: closes scattering for one, how far a bar travels for the other."
+          es: "La regla: la dispersión de los cierres en una, cuánto recorre una barra en la otra."
+      - id: d
+        text:
+          en: "Nothing meaningful — they are two names for the same construction."
+          es: "Nada relevante: son dos nombres para la misma construcción."
+    explanation:
+      en: "Bollinger is the mean plus and minus a number of standard deviations of the CLOSE, so its width is how spread out the closes have been. Keltner is the same mean plus and minus a multiple of the ATR, which is how far a BAR travels from high to low. Same centre, two different questions — and that is exactly why they can come apart far enough for one to sit inside the other."
+      es: "Bollinger es la media más y menos un número de desviaciones típicas del CIERRE, así que su anchura es lo dispersos que han estado los cierres. Keltner es esa misma media más y menos un múltiplo del ATR, que es cuánto recorre una BARRA de máximo a mínimo. El mismo centro, dos preguntas distintas; y por eso justamente pueden separarse lo bastante como para que una quede dentro de la otra."
+  - id: why-they-diverge
+    prompt:
+      en: "Every bar swings a long way and closes back near where it opened. What do the two envelopes do?"
+      es: "Cada barra oscila mucho y cierra cerca de donde abrió. ¿Qué hacen las dos envolventes?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Keltner is wide and Bollinger is narrow, which is the squeeze condition."
+          es: "Keltner es ancho y Bollinger estrecha, que es la condición de squeeze."
+      - id: b
+        text:
+          en: "Bollinger is wide and Keltner is narrow, since the range is what scatters."
+          es: "Bollinger es ancha y Keltner estrecho, ya que el rango es lo que se dispersa."
+      - id: c
+        text:
+          en: "Both widen together, because both are measures of the same volatility."
+          es: "Se ensanchan las dos, porque ambas miden la misma volatilidad."
+      - id: d
+        text:
+          en: "Both narrow together, because neither one sees intrabar movement at all."
+          es: "Se estrechan las dos, porque ninguna ve el movimiento dentro de la barra."
+    explanation:
+      en: "The bars are travelling, so the ATR — and with it the Keltner channel — is wide. The closes are all in a heap, so the standard deviation, and with it the Bollinger band, is small. That is what puts the Bollinger band inside the Keltner channel, and it is why a squeeze is not the same thing as an ordinary quiet market: ordinary quiet shrinks both of them."
+      es: "Las barras recorren distancia, así que el ATR —y con él el canal de Keltner— es ancho. Los cierres están todos amontonados, así que la desviación típica, y con ella la banda de Bollinger, es pequeña. Eso es lo que mete la banda de Bollinger dentro del canal de Keltner, y es la razón de que un squeeze no sea lo mismo que un mercado tranquilo cualquiera: la calma corriente encoge las dos."
+  - id: upper-band
+    prompt:
+      en: "Price is riding the upper Bollinger band in a strong uptrend. What is that?"
+      es: "El precio va pegado a la banda superior de Bollinger en una tendencia alcista fuerte. ¿Qué es eso?"
+    options:
+      - id: a
+        text:
+          en: "A sell signal: two standard deviations is by definition an extreme."
+          es: "Una señal de venta: dos desviaciones típicas es por definición un extremo."
+      - id: b
+        text:
+          en: "A guarantee the band will contain price on the way back down as well."
+          es: "Una garantía de que la banda contendrá el precio también en la vuelta."
+      - id: c
+        correct: true
+        text:
+          en: "Where price lives in a trend — the m11 overbought error in an envelope."
+          es: "Donde vive el precio en tendencia: el error de sobrecompra de m11 en envolvente."
+      - id: d
+        text:
+          en: "Evidence the band's period is wrong and should be shortened until it fits."
+          es: "Prueba de que el periodo de la banda está mal y hay que acortarlo hasta que encaje."
+    explanation:
+      en: "The band says price is two standard deviations above its own recent mean, which is precisely where a trending market spends its time. Reading that as 'too high' is the same mistake m11 named for an overbought RSI, wearing a different envelope: a strong reading means the thing is strong, and only context tells you whether it is exhausted."
+      es: "La banda dice que el precio está dos desviaciones típicas por encima de su propia media reciente, que es justo donde pasa el tiempo un mercado en tendencia. Leer eso como «demasiado alto» es el mismo error que nombró m11 para un RSI sobrecomprado, con otra envolvente encima: una lectura fuerte significa que la cosa es fuerte, y solo el contexto te dice si está agotada."
+  - id: measure-map
+    kind: matching
+    prompt:
+      en: "Match each measurement to what it is actually made of."
+      es: "Empareja cada medición con lo que realmente la compone."
+    pairs:
+      - id: bb
+        left:
+          en: "Bollinger band width"
+          es: "Anchura de la banda de Bollinger"
+        right:
+          en: "Standard deviation of the closes over the window."
+          es: "Desviación típica de los cierres en la ventana."
+      - id: atr
+        left:
+          en: "ATR"
+          es: "ATR"
+        right:
+          en: "Average distance a bar travels, counting gaps between bars."
+          es: "Distancia media que recorre una barra, contando huecos entre barras."
+      - id: sq
+        left:
+          en: "Squeeze"
+          es: "Squeeze"
+        right:
+          en: "One envelope sitting entirely inside the other one."
+          es: "Una envolvente enteramente dentro de la otra."
+      - id: hist
+        left:
+          en: "The oscillator's histogram"
+          es: "El histograma del oscilador"
+        right:
+          en: "Where price sits against its own recent range, signed."
+          es: "Dónde está el precio respecto a su propio rango reciente, con signo."
+    explanation:
+      en: "Every one of them is arithmetic over the bars already on the chart. None is a forecast, and the last two are repackagings of the first two — which is the reason the lesson insists the pane adds no information the price panel does not already carry."
+      es: "Todas ellas son aritmética sobre las barras que ya están en el gráfico. Ninguna es un pronóstico, y las dos últimas son reempaquetados de las dos primeras, que es la razón por la que la lección insiste en que el panel no añade información que el panel de precio no lleve ya."
+  - id: clustering
+    kind: true_false
+    prompt:
+      en: "'The market has been calm for three weeks' is genuine information about what is coming."
+      es: "«El mercado lleva tres semanas en calma» es información de verdad sobre lo que viene."
+    answer: true
+    explanation:
+      en: "True, and unusually so — volatility clustering is one of the most robust regularities in any traded market, which is why a quiet stretch really does raise the odds of a violent one. What it is not is a direction, or a date. A quiet market is not a safe market; it is a market that has not moved yet."
+      es: "Cierto, y de forma poco habitual: la agrupación de la volatilidad es una de las regularidades más robustas de cualquier mercado negociado, y por eso un tramo tranquilo sí eleva las probabilidades de uno violento. Lo que no es es una dirección ni una fecha. Un mercado tranquilo no es un mercado seguro: es un mercado que todavía no se ha movido."

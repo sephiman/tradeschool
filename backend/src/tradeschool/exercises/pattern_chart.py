@@ -34,7 +34,7 @@ class PatternChartConfig(BaseModel):
     prompt: LocalizedText
     injector: str
     n: int = 160
-    indicator: Literal["rsi", "macd", "none", "oi", "cvd"] | None = None
+    indicator: Literal["rsi", "macd", "none", "oi", "cvd", "momentum"] | None = None
     targets: list[str]
     choices: list[str]
     explanation: LocalizedText | None = None
@@ -72,12 +72,22 @@ class FullPatternChart:
     macd_hist: list[float]
     overlays: dict[str, list[float]]  # full-length lines over the close series
     levels: list[dict[str, object]]
+    #: sloped lines (m31), bar indices already converted to VISIBLE coords like `annotations`.
+    diagonals: list[dict[str, object]]
     annotations: list[dict[str, object]]  # visible coords
     #: shaded price zones (m30). Ground truth: `_instantiate` drops them from the pre-answer payload and
     #: `grade` reveals them. Price-space, so unlike `annotations` there is no warm-up coord to convert.
     bands: list[dict[str, object]]
     oi: list[float]  # full-length open-interest series (empty unless the injector supplies it)
     cvd: list[float]  # full-length cumulative-volume-delta series (empty unless supplied)
+    #: full-length zero-centred pane series and its optional state row (empty unless supplied).
+    momentum: list[float]
+    momentum_state: list[float]
+
+
+def _pane(values: np.ndarray | None) -> list[float]:
+    """An optional pane series, rounded — absent injectors get `[]` and no payload key."""
+    return [round(float(x), 4) for x in values.tolist()] if values is not None else []
 
 
 def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
@@ -109,7 +119,17 @@ def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
         overlays={k: [round(float(x), 2) for x in v] for k, v in result.overlays.items()},
         oi=([round(float(x), 2) for x in result.oi_full.tolist()] if result.oi_full is not None else []),
         cvd=([round(float(x), 2) for x in result.cvd_full.tolist()] if result.cvd_full is not None else []),
+        momentum=_pane(result.momentum_full),
+        momentum_state=_pane(result.momentum_state_full),
         levels=[{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels],
+        diagonals=[
+            {
+                "start": d.start - w, "end": d.end - w,
+                "start_price": d.start_price, "end_price": d.end_price,
+                "label": d.label, "kind": d.kind,
+            }
+            for d in result.diagonals
+        ],
         bands=[
             {"low": b.low, "high": b.high, "label": b.label, "kind": b.kind} for b in result.bands
         ],
@@ -147,6 +167,15 @@ def _instantiate(
         payload["oi"] = f.oi[w:]
     if f.cvd:
         payload["cvd"] = f.cvd[w:]
+    if f.momentum:
+        payload["momentum"] = f.momentum[w:]
+    if f.momentum_state:
+        payload["momentum_state"] = f.momentum_state[w:]
+    if f.diagonals:
+        # PUBLIC, unlike `bands`: a diagonal is the line the question is asked against, so withholding
+        # it would leave nothing on the chart to judge. Conditional like `oi`/`cvd` so an injector that
+        # draws none keeps exactly the payload keys it always had.
+        payload["diagonals"] = f.diagonals
     return f.label, f.annotations, payload
 
 

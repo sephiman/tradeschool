@@ -250,7 +250,7 @@
     "retrace_382": "38.2% retracement",
     "retrace_500": "50% retracement",
     "retrace_618": "61.8% retracement",
-    "confirmed_breakout": "Confirmed (volume)",
+    "confirmed_breakout": "Confirmed (strong volume)",
     "unconfirmed_breakout": "Unconfirmed (weak volume)",
     "rising_oi": "Rising OI",
     "falling_oi": "Falling OI",
@@ -267,7 +267,24 @@
     "no_zone": "No zone — nothing broke structure",
     "imbalance_unfilled": "Imbalance still open",
     "imbalance_filled": "Imbalance already filled",
-    "no_imbalance": "No imbalance — the candles overlap"
+    "no_imbalance": "No imbalance — the candles overlap",
+    "line_holds": "The line held",
+    "line_break": "Broken (close beyond, strong volume)",
+    "line_fakeout": "False break (close beyond, weak volume)",
+    "channel_intact": "Channel intact",
+    "channel_broken": "Channel broken",
+    "rising_wedge": "Rising wedge",
+    "falling_wedge": "Falling wedge",
+    "symmetric_triangle": "Symmetric triangle",
+    "ascending_triangle": "Ascending triangle",
+    "descending_triangle": "Descending triangle",
+    "parallel_channel": "Parallel channel (no convergence)",
+    "break_confirmed": "Break confirmed (body and volume)",
+    "break_unconfirmed": "Break unconfirmed (weak volume)",
+    "compression_holding": "Still compressing",
+    "compression": "Compression",
+    "expansion": "Expansion",
+    "channel_failed": "Channel failed (out through its own line)"
   },
   "chartMarker": {
     "hammer": "Hammer",
@@ -292,7 +309,10 @@
     "failed_break": "Failed break",
     "imbalance": "Imbalance",
     "revisit": "Revisit",
-    "traded_through": "Traded through"
+    "traded_through": "Traded through",
+    "touch": "touch",
+    "compression": "compression",
+    "expansion": "expansion"
   },
   "level": {
     "support": "Support",
@@ -316,5 +336,18 @@
     "close": "Close",
     "body": "Body",
     "wick": "Wick"
+  },
+  "diagonal": {
+    "trendline": "Trendline",
+    "channel": "Channel",
+    "channel_parallel": "Parallel",
+    "upper": "Upper line",
+    "lower": "Lower line"
+  },
+  "overlay": {
+    "bb_upper": "Bollinger",
+    "bb_lower": "Bollinger",
+    "kc_upper": "Keltner",
+    "kc_lower": "Keltner"
   }
 }

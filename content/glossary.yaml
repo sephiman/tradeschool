@@ -330,7 +330,9 @@ terms:
     es: >-
       El precio rotando entre un suelo y un techo sin secuencia que lo ordene. m09 es la lección que
       trata el rango como un proceso y no como una pausa.
-  link_except: [m01-l1]  # "the quality range" / "el rango de calidad"
+  # m31-l2 and m32-l1 mean a CANDLE's range and the ATR's ("average true range"), never a market
+  # rotating between a floor and a ceiling.
+  link_except: [m01-l1, m31-l2, m32-l1]  # "the quality range" / "el rango de calidad"
 
 - id: g-support
   en: support
@@ -514,6 +516,10 @@ terms:
       La distancia entre el precio del perpetuo y el spot, leída como porcentaje del spot. Compara el
       perpetuo con el spot de su propia plataforma; un hueco entre dos exchanges es fricción
       operativa, no posicionamiento.
+  # m32-l1 calls a Bollinger band's midline "the basis", which is the conventional name for it and has
+  # nothing to do with the perp/spot gap. ES is unaffected: that lesson says "la base", and this entry
+  # is already unlinked in Spanish.
+  link_except: {en: [m32-l1]}
   # ES `base` is "base de datos", "hizo base", "sobre la base de" everywhere but its own lesson.
   link:
     es: false
@@ -1051,6 +1057,9 @@ terms:
     es: >-
       Una vela cuyo cuerpo cubre por completo al de la anterior. Un patrón con nombre, y lo que dice
       m08-l2 es que el nombre no vale nada lejos de un nivel.
+  # ES only: m32-l1's "envolvente" is the band drawn around a moving average, not the candle pattern.
+  # English has two words for those and needs no exclusion.
+  link_except: {es: [m32-l1]}
 
 - id: g-liquidity-void
   en: liquidity void
@@ -1390,6 +1399,98 @@ terms:
       Varias razones independientes apuntando al mismo precio. Todo el método de m24: estructura,
       nivel y reacción de acuerdo antes de arriesgar nada.
 
+# --- Block C · m31/m32, at the end of the block ------------------------------------------------
+
+- id: g-trendline
+  en: trendline
+  es: línea de tendencia
+  origin: m31-l1
+  definition:
+    en: >-
+      A sloped line through consistent extremes, claiming a constant rate of advance rather than a
+      price. The weakest tool in the course: no order can rest at a price that moves.
+    es: >-
+      Una línea inclinada por extremos consistentes, que afirma un ritmo constante de avance en vez de
+      un precio. La herramienta más débil del curso: ninguna orden descansa en un precio que se mueve.
+
+- id: g-channel
+  en: channel
+  es: canal
+  origin: m31-l1
+  definition:
+    en: >-
+      A trendline plus a parallel projected from the opposite extreme. It describes a regularity that
+      has held; trading it assumes the regularity persists, and that assumption is the bet.
+    es: >-
+      Una línea de tendencia más una paralela proyectada desde el extremo opuesto. Describe una
+      regularidad que se ha cumplido; operarlo supone que continúa, y esa suposición es la apuesta.
+
+- id: g-wedge
+  en: wedge
+  es: cuña
+  origin: m31-l2
+  definition:
+    en: >-
+      Two converging lines going the same way, one steeper than the other. m08-l2's compression candle
+      at the scale of a pattern; the direction the canon attaches to it is a separate claim.
+    es: >-
+      Dos líneas convergentes en el mismo sentido, una más inclinada que la otra. La vela de compresión
+      de m08-l2 a escala de patrón; la dirección que le asocia el canon es otra afirmación distinta.
+
+- id: g-triangle
+  en: triangle
+  es: triángulo
+  origin: m31-l2
+  definition:
+    en: >-
+      The same convergence as a wedge with the work split differently: symmetric when both lines move,
+      ascending or descending when one of them is flat.
+    es: >-
+      La misma convergencia que una cuña con el trabajo repartido de otro modo: simétrico cuando se
+      mueven las dos líneas, ascendente o descendente cuando una está plana.
+
+- id: g-bollinger
+  en: Bollinger band
+  es: banda de Bollinger
+  origin: m32-l1
+  match:
+    en: [Bollinger band, Bollinger bands, Bollinger]
+    es: [banda de Bollinger, bandas de Bollinger, Bollinger]
+  definition:
+    en: >-
+      A moving average plus and minus a number of standard deviations of the close. Its width is a read
+      of how far the closes have scattered — realized volatility, never a signal.
+    es: >-
+      Una media móvil más y menos un número de desviaciones típicas del cierre. Su anchura es una
+      lectura de cuánto se han dispersado los cierres: volatilidad realizada, nunca una señal.
+
+- id: g-keltner
+  en: Keltner channel
+  es: canal de Keltner
+  origin: m32-l1
+  match:
+    en: [Keltner channel, Keltner channels, Keltner]
+    es: [canal de Keltner, canales de Keltner, Keltner]
+  definition:
+    en: >-
+      The same moving average plus and minus a multiple of the ATR. Same centre as a Bollinger band, a
+      different ruler: how far a bar travels rather than how far the closes scatter.
+    es: >-
+      La misma media móvil más y menos un múltiplo del ATR. El mismo centro que una banda de Bollinger
+      y otra regla: cuánto recorre una barra en vez de cuánto se dispersan los cierres.
+
+- id: g-atr
+  en: ATR
+  es: ATR
+  origin: m32-l1
+  definition:
+    en: >-
+      Average true range — how far a typical bar travels from high to low, counting any gap from the
+      previous close. What a Keltner channel is drawn from.
+    es: >-
+      Rango verdadero medio: cuánto recorre una barra típica de máximo a mínimo, contando cualquier
+      hueco desde el cierre anterior. Aquello con lo que se traza un canal de Keltner.
+
 # --- Block D · Market context ------------------------------------------------------------------
 
 - id: g-dominance
@@ -1491,15 +1592,27 @@ terms:
 - id: g-squeeze
   en: squeeze
   es: squeeze
-  origin: m17-l2
-  definition:
-    en: >-
-      A sweep that catches a crowded, leveraged side, so liquidations feed the move that causes the
-      next ones. The forced buying shows in the perpetual, not in spot, which is m17-l1's basis tell.
-    es: >-
-      Un barrido que pilla a un lado concurrido y apalancado, de modo que las liquidaciones alimentan
-      el movimiento que provoca las siguientes. La compra forzada aparece en el perpetuo y no en el
-      spot, que es la señal de la base de m17-l1.
+  # A genuine HOMONYM, not one mechanic seen through several instruments: the two senses below share a
+  # word and nothing else, and m32-l1 spends a section saying so. Hence no lead `definition` — there is
+  # no common mechanic for one to describe.
+  senses:
+  - origin: m17-l2
+    definition:
+      en: >-
+        A market event — a sweep that catches a crowded, leveraged side, so liquidations feed the move
+        that causes the next ones. The forced buying shows in the perpetual, not in spot.
+      es: >-
+        Un suceso de mercado: un barrido que pilla a un lado concurrido y apalancado, de modo que las
+        liquidaciones alimentan el movimiento que provoca las siguientes. La compra forzada aparece en
+        el perpetuo, no en el spot.
+  - origin: m32-l1
+    definition:
+      en: >-
+        A measurement — the Bollinger band sitting entirely inside the Keltner channel. Nobody is
+        forced to do anything; it says an expansion is coming and not which way.
+      es: >-
+        Una medición: la banda de Bollinger enteramente dentro del canal de Keltner. Aquí no hay nadie
+        forzado a nada; dice que viene una expansión y no hacia dónde.
   link_except: [m11-l1]  # "squeezes the result onto a scale"
 
 - id: g-liquidity-map

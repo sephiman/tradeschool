@@ -67,6 +67,28 @@ export interface PriceBand {
 }
 
 /**
+ * A SLOPED line — m31's trendlines, channel edges and wedge boundaries. Two anchors, because a diagonal
+ * is a rate rather than a price, and the backend hands over the bar indices it was drawn between.
+ *
+ * Unlike a `PriceBand` this is PUBLIC on an exercise chart: the zone is m30's answer, the line is m31's
+ * question, and a question you cannot see is not one.
+ */
+export interface PriceDiagonal {
+  start: number;
+  end: number;
+  start_price: number;
+  end_price: number;
+  label: string;
+  kind: string;
+}
+
+/** The zero-centred pane (m32): a signed histogram, plus an optional per-bar on/off state row. */
+export interface MomentumData {
+  values: number[];
+  state?: number[];
+}
+
+/**
  * The drawing palette. OLED is the dark palette plus a delta, never a third branch, so the two shipped
  * themes cannot drift while the third is tuned.
  *
@@ -108,6 +130,14 @@ export const palette = (theme: ResolvedTheme) => {
     // fill is that neutral at low alpha — enough to read as an area, not enough to tint the candles.
     band: dark ? "#e5e7eb" : "#111827",
     bandFill: dark ? "rgba(229,231,235,0.10)" : "rgba(17,24,39,0.08)",
+    // A DIAGONAL follows the level palette rather than the band one, because that is what it is: a
+    // support/resistance that moves. Same green/red pair a horizontal level gets, so a reader does not
+    // have to learn a second colour language for the same claim (m31-l1's whole framing).
+    // The compression row under the momentum pane is the marker neutral: a state flag is not a
+    // direction, and colouring it green or red would say the squeeze points somewhere — the one thing
+    // m32-l1 spends its closing section refusing to say.
+    squeezeOn: dark ? "#e5e7eb" : "#111827",
+    squeezeOff: dark ? "#4b5563" : "#9ca3af",
     // Distinct thin-line colors for price-pane overlays (e.g. moving averages), cycled by order.
     overlays: dark ? ["#60a5fa", "#c084fc", "#22d3ee", "#facc15"] : ["#2563eb", "#9333ea", "#0891b2", "#ca8a04"],
     // No crosshair override: the library's own default, in both shipped themes.
@@ -134,10 +164,12 @@ export function CandleChart({
   macd,
   oi,
   cvd,
+  momentum,
   indicator,
   markers = [],
   overlays,
   levels,
+  diagonals,
   bands,
   height = 420,
   rightOffset = 4,
@@ -149,10 +181,13 @@ export function CandleChart({
   macd?: MacdData;
   oi?: number[];
   cvd?: number[];
-  indicator: "rsi" | "macd" | "oi" | "cvd" | "none";
+  momentum?: MomentumData;
+  indicator: "rsi" | "macd" | "oi" | "cvd" | "momentum" | "none";
   markers?: SwingMarker[];
   overlays?: Record<string, number[]>;
   levels?: PriceLevel[];
+  // Sloped lines (m31). Public, unlike `bands` — see `PriceDiagonal`.
+  diagonals?: PriceDiagonal[];
   // Shaded zones. Ground truth on the backend, so an exercise chart only ever receives these AFTER
   // grading — drawing the zone on the question would be the answer (m30).
   bands?: PriceBand[];
@@ -183,6 +218,13 @@ export function CandleChart({
   // Same own-label-first rule as levels, in the `band.*` namespace.
   const bandText = (band: PriceBand): string =>
     t(`band.${band.label}`, { defaultValue: t(`band.${band.kind}`, { defaultValue: band.label }) });
+  // ...and again for a sloped line, in `diagonal.*`. A trendline and a channel's parallel are different
+  // things to a reader even when both are drawn as a rising support, so the LABEL leads here too.
+  const diagonalText = (d: PriceDiagonal): string =>
+    t(`diagonal.${d.label}`, { defaultValue: t(`diagonal.${d.kind}`, { defaultValue: d.label }) });
+  // Overlay titles: `ema20` and `ema50` are display-ready and fall through, m32's envelope edges are
+  // named in the catalog. Defined out here with the others because the effect shadows `t`.
+  const overlayText = (name: string): string => t(`overlay.${name}`, { defaultValue: name });
 
   useEffect(() => {
     const el = containerRef.current;
@@ -302,21 +344,62 @@ export function CandleChart({
     // Price-pane overlays (e.g. ema50/ema200): thin lines, cycled distinct colors, small title.
     // Values align 1:1 with the visible series; non-finite entries render as gaps (whitespace).
     if (overlays) {
-      Object.keys(overlays).forEach((name, idx) => {
+      // Colour is keyed to the part of the name BEFORE any underscore, not to insertion order, so an
+      // envelope's two edges share one colour (m32 draws `bb_upper`/`bb_lower` and `kc_upper`/
+      // `kc_lower`, and four unrelated colours would read as four unrelated lines rather than two
+      // bands). Names without an underscore — `ema20`, `ema50` — are their own family, so the moving
+      // averages keep exactly the colours they had.
+      const families: string[] = [];
+      for (const name of Object.keys(overlays)) {
+        const family = name.split("_")[0];
+        if (!families.includes(family)) families.push(family);
+      }
+      Object.keys(overlays).forEach((name) => {
         const values = overlays[name];
+        const idx = families.indexOf(name.split("_")[0]);
         const line = chart.addSeries(
           LineSeries,
           {
             color: c.overlays[idx % c.overlays.length],
             lineWidth: 1,
             priceLineVisible: false,
-            lastValueVisible: true,
-            title: name,
+            // One name per envelope: the lower edge repeats a label the reader already has.
+            lastValueVisible: !name.endsWith("_lower"),
+            title: overlayText(name),
           },
           0,
         );
         line.setData(values.map((v, i) => (Number.isFinite(v) ? { time: t(i), value: v } : { time: t(i) })));
       });
+    }
+
+    // Sloped lines on the price pane (m31). A LineSeries with exactly two points — lightweight-charts
+    // draws the straight segment between them, which is precisely what a diagonal is, and matches the
+    // backend's own linear-in-price projection bar for bar.
+    //
+    // Deliberately NOT whitespace-padded to the full series: leaving the other bars out is what keeps
+    // the line ending where the backend anchored it, so a figure's projected line visibly runs past the
+    // rhythm that drew it while an exercise's stops at its own right edge.
+    if (diagonals) {
+      for (const d of diagonals) {
+        const line = chart.addSeries(
+          LineSeries,
+          {
+            color: levelColor(c, d.kind),
+            lineWidth: 1,
+            lineStyle: 2, // dashed, like a horizontal level: a line somebody drew, not a price
+            priceLineVisible: false,
+            crosshairMarkerVisible: false,
+            lastValueVisible: true,
+            title: diagonalText(d),
+          },
+          0,
+        );
+        line.setData([
+          { time: t(d.start), value: d.start_price },
+          { time: t(d.end), value: d.end_price },
+        ]);
+      }
     }
 
     // Horizontal reference levels on the price pane: dashed price lines with an axis label.
@@ -391,6 +474,38 @@ export function CandleChart({
       );
       line.setData(cvd.map((v, i) => ({ time: t(i), value: v })));
       line.createPriceLine({ price: 0, color: c.border, lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: "" });
+    } else if (indicator === "momentum" && momentum) {
+      // A ZERO-CENTRED pane: a signed histogram read against zero, plus an optional per-bar state row.
+      // Generic on purpose — the backend calls the series `momentum` and any injector may supply one;
+      // m32's squeeze indicator is the first, not the definition.
+      const hist = chart.addSeries(
+        HistogramSeries,
+        { priceLineVisible: false, lastValueVisible: false },
+        2,
+      );
+      hist.setData(
+        momentum.values.map((v, i) => ({ time: t(i), value: v, color: v >= 0 ? c.upVol : c.downVol })),
+      );
+      // The row of state dots sits ON the zero line, drawn as its own histogram of near-zero bars
+      // rather than as markers: markers attach to a series' bars and would be clipped by the pane, and
+      // a second real histogram would read as a second quantity. These are flags — the only thing that
+      // varies between them is colour, which is what "on / off" means.
+      if (momentum.state) {
+        const span = Math.max(...momentum.values.map((v) => Math.abs(v)), 1e-9);
+        const dot = chart.addSeries(
+          HistogramSeries,
+          { priceLineVisible: false, lastValueVisible: false, base: -span * 0.02 },
+          2,
+        );
+        dot.setData(
+          momentum.state.map((s, i) => ({
+            time: t(i),
+            value: span * 0.02,
+            color: s > 0.5 ? c.squeezeOn : c.squeezeOff,
+          })),
+        );
+      }
+      hist.createPriceLine({ price: 0, color: c.border, lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: "" });
     }
 
     if (markers.length > 0) {
@@ -423,7 +538,7 @@ export function CandleChart({
     onReady?.(chart);
 
     return () => chart.remove();
-  }, [series, rsi, macd, oi, cvd, indicator, markers, overlays, levels, bands, resolvedTheme, locale, rightOffset, t, onReady]);
+  }, [series, rsi, macd, oi, cvd, momentum, indicator, markers, overlays, levels, diagonals, bands, resolvedTheme, locale, rightOffset, t, onReady]);
 
   return <div ref={containerRef} style={{ height }} className="w-full" />;
 }

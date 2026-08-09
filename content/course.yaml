@@ -379,6 +379,76 @@ blocks:
         type: quiz
       - id: m14-ex-4
         type: quiz
+  # m31 and m32 close block C, after M14. The ids are 31 and 32 because ids are never renumbered and new
+  # content appends (content/README.md); the POSITION is here because display order is list position and
+  # this is where the material belongs — everything both modules lean on is already behind them. m31
+  # needs levels and role reversal (m03-l2, m08-l1), the body-close discipline (m08-l1) and volume
+  # confirmation (m14); m32 needs m08-l2's compression candle and m17's liquidity squeeze, which it has to
+  # tell its own squeeze apart from. So the badges on the course page read M14 -> M31 -> M32, which is
+  # the one place an id and a position are allowed to disagree: nothing renders them as a sequence.
+  #
+  # A general reordering of the course by position is deliberately postponed — it is a separate change
+  # with its own review, and nothing here depends on it.
+  - id: m31
+    title:
+      en: 'Diagonal geometry: trendlines, channels and wedges'
+      es: 'Geometría diagonal: líneas de tendencia, canales y cuñas'
+    summary:
+      en: 'The most subjective tool in the classic canon, taught with that said out loud: what a sloped line actually claims, how to draw one without drawing what you want to see, and how to read a break of it with the same close-and-volume discipline a horizontal level gets.'
+      es: 'La herramienta más subjetiva del canon clásico, enseñada diciéndolo en voz alta: qué afirma de verdad una línea inclinada, cómo trazarla sin dibujar lo que quieres ver, y cómo leer su ruptura con la misma disciplina de cierre y volumen que se le exige a un nivel horizontal.'
+    assumes:
+    - m03
+    - m08
+    - m13
+    - m14
+    lessons:
+    - id: m31-l1
+      title:
+        en: Trendlines and channels
+        es: Líneas de tendencia y canales
+      exercises:
+      - id: m31-ex-1
+        type: pattern_chart
+      - id: m31-ex-2
+        type: pattern_chart
+      - id: m31-ex-3
+        type: quiz
+      - id: m31-ex-4
+        type: quiz
+    - id: m31-l2
+      title:
+        en: Wedges and directional compression
+        es: Cuñas y compresión direccional
+      exercises:
+      - id: m31-ex-5
+        type: pattern_chart
+      - id: m31-ex-6
+        type: pattern_chart
+      - id: m31-ex-7
+        type: quiz
+  - id: m32
+    title:
+      en: 'Volatility cycles: compression, expansion and the squeeze'
+      es: 'Ciclos de volatilidad: compresión, expansión y el squeeze'
+    summary:
+      en: 'Quiet periods precede violent ones and vice versa. Bollinger and Keltner as two different rulers for the same thing, the squeeze between them, and the word ''squeeze'' pulling double duty: this one and m17''s liquidity squeeze are unrelated mechanisms sharing a name.'
+      es: 'Los periodos tranquilos preceden a los violentos y al revés. Bollinger y Keltner como dos reglas distintas para lo mismo, el squeeze entre ambas y la palabra «squeeze» haciendo doble turno: este y el squeeze de liquidez de m17 son mecanismos sin relación que comparten nombre.'
+    assumes:
+    - m11
+    - m13
+    - m17
+    lessons:
+    - id: m32-l1
+      title:
+        en: 'Volatility cycles: compression, expansion and the squeeze'
+        es: 'Ciclos de volatilidad: compresión, expansión y el squeeze'
+      exercises:
+      - id: m32-ex-1
+        type: pattern_chart
+      - id: m32-ex-2
+        type: quiz
+      - id: m32-ex-3
+        type: quiz
 - id: block-d
   title:
     en: Market context

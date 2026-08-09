@@ -13,7 +13,12 @@ import { divergenceMarkers, patternBands, patternMarkers } from "@/components/ch
 import { Badge, Button, Card, Input, Select, Spinner } from "@/components/ui/primitives";
 import { LessonFigure } from "@/features/course/LessonFigure";
 
-const EXERCISES = ["m12-ex-1", "m12-ex-2", "m26-ex-1", "m30-ex-1", "m30-ex-2"];
+// One per render primitive the gallery exists to eyeball: divergence panes, the CVD pane, m30's
+// shaded zones, m31's sloped lines (single and channel) and m32's envelopes + momentum pane.
+const EXERCISES = [
+  "m12-ex-1", "m12-ex-2", "m26-ex-1", "m30-ex-1", "m30-ex-2",
+  "m31-ex-1", "m31-ex-2", "m31-ex-5", "m32-ex-1",
+];
 
 /** Divergence ground truth carries a `divergence` string; pattern_chart carries a `label`. */
 function isDivergence(gt: GroundTruth): gt is DivergenceGroundTruth {
@@ -150,10 +155,17 @@ export function ChartGallery() {
                     rsi={item.payload.rsi}
                     macd={item.payload.macd}
                     oi={item.payload.oi}
+                    cvd={item.payload.cvd}
+                    momentum={
+                      item.payload.momentum
+                        ? { values: item.payload.momentum, state: item.payload.momentum_state }
+                        : undefined
+                    }
                     indicator={item.payload.indicator ?? "rsi"}
                     markers={markers}
                     overlays={item.payload.overlays}
                     levels={item.payload.levels}
+                    diagonals={item.payload.diagonals}
                     // The gallery shows ground truth by design, so the zone IS drawn here — which is
                     // what makes it reviewable against the candles it claims to be read from.
                     bands={isDivergence(gt) ? [] : patternBands(gt)}

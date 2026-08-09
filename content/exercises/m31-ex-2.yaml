@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: trend_channel
+n: 130
+indicator: none
+targets: [channel_intact, channel_broken]
+choices: [channel_intact, channel_broken]
+prompt:
+  en: "This chart carries a channel: a trendline and a parallel projected from the opposite extreme. Price has just visited the far edge. Is the channel still intact — price turned back inside it — or has it been broken, with a body closing beyond that edge and staying there?"
+  es: "Este gráfico lleva un canal: una línea de tendencia y una paralela proyectada desde el extremo opuesto. El precio acaba de visitar el borde lejano. ¿Sigue intacto el canal —el precio se giró hacia dentro— o se ha roto, con un cuerpo cerrando al otro lado de ese borde y quedándose ahí?"
+explanation:
+  en: "An intact channel is one where the visit to the far edge ended the way every earlier visit did: price touched it and turned back toward the other side. A broken channel closed beyond that edge and settled outside — the rhythm the two parallel lines described has ended. Both charts end the same distance from the edge; the only difference is which SIDE of it price finished on."
+  es: "Un canal intacto es aquel en el que la visita al borde lejano acabó como todas las anteriores: el precio lo tocó y se giró hacia el otro lado. Un canal roto cerró más allá de ese borde y se asentó fuera: el ritmo que describían las dos paralelas se ha terminado. Los dos gráficos acaban a la misma distancia del borde; la única diferencia es en qué LADO quedó el precio."

@@ -32,6 +32,16 @@ export interface PriceLevelPayload {
   kind: string;
 }
 
+/** A sloped line (m31). Public on the question, unlike a band — see `PriceDiagonal`. */
+export interface PriceDiagonalPayload {
+  start: number;
+  end: number;
+  start_price: number;
+  end_price: number;
+  label: string;
+  kind: string;
+}
+
 export interface AttemptPayload {
   // quiz — every quiz payload carries `kind`; calculation carries "multiple_choice".
   kind?: QuizKind | "multiple_choice";
@@ -48,11 +58,16 @@ export interface AttemptPayload {
   macd?: { line: number[]; signal: number[]; hist: number[] };
   oi?: number[];
   cvd?: number[];
-  indicator?: "rsi" | "macd" | "oi" | "cvd" | "none";
+  // The zero-centred pane (m32): a signed series and its optional per-bar state row.
+  momentum?: number[];
+  momentum_state?: number[];
+  indicator?: "rsi" | "macd" | "oi" | "cvd" | "momentum" | "none";
   choices?: string[];
-  // pattern_chart: price-pane overlays (name -> values aligned 1:1 with the series) and levels.
+  // pattern_chart: price-pane overlays (name -> values aligned 1:1 with the series), levels and the
+  // sloped lines m31 asks its questions against.
   overlays?: Record<string, number[]>;
   levels?: PriceLevelPayload[];
+  diagonals?: PriceDiagonalPayload[];
 }
 
 export interface AttemptInstance {

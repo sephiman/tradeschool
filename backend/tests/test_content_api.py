@@ -37,11 +37,15 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
     assert data["locale"] == "en"
     assert len(data["blocks"]) == 7
     modules = [m for b in data["blocks"] for m in b["modules"]]
-    assert len(modules) == 30
+    assert len(modules) == 32
     lessons = [lesson for m in modules for lesson in m["lessons"]]
-    # 30 modules, six of which carry a second lesson -> 36 in total.
-    assert len(lessons) == 36
-    assert [m["id"] for m in modules if len(m["lessons"]) == 2] == ["m03", "m08", "m09", "m17", "m19", "m24"]
+    # 32 modules, seven of which carry a second lesson -> 39 in total.
+    assert len(lessons) == 39
+    # In DISPLAY order, which is why m31 lands between m09 and m17: it appends to block C, so its
+    # position precedes block D even though its id is the highest in the course.
+    assert [m["id"] for m in modules if len(m["lessons"]) == 2] == [
+        "m03", "m08", "m09", "m31", "m17", "m19", "m24",
+    ]
 
     for m in modules:
         assert m["summary"]  # module theory blurb present
@@ -75,7 +79,7 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
     lessons = [lesson for m in modules for lesson in m["lessons"]]
     # The same walk of the manifest as the single-locale export, so the two cannot carry different
     # modules — for a document whose job is to be a faithful copy, that is the defect that matters.
-    assert len(default["blocks"]) == 7 and len(modules) == 30 and len(lessons) == 36
+    assert len(default["blocks"]) == 7 and len(modules) == 32 and len(lessons) == 39
 
     # Every localized field is paired, and each side matches the single-locale document exactly.
     for locale in ("en", "es"):
@@ -99,7 +103,7 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
 async def test_export_is_complete_against_the_manifest(content_client: AsyncClient) -> None:
     """Every manifest id, in canonical ORDER, in every document the export serves.
 
-    Driven off `content/course.yaml` with no counts or id literals, so a hardcoded `== 30` cannot pass
+    Driven off `content/course.yaml` with no counts or id literals, so a hardcoded `== 32` cannot pass
     while the thirty-first module goes missing. Exercise ids are deliberately absent — this endpoint is
     theory — and that absence is asserted, so wanting them later announces itself here.
     """

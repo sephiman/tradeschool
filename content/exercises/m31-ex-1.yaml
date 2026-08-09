@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: trend_channel
+n: 130
+indicator: none
+targets: [line_holds, line_break, line_fakeout]
+choices: [line_holds, line_break, line_fakeout]
+prompt:
+  en: "A trendline is drawn on this chart and price has come back to it. The line may rise or fall — read it either way. Judge the decision by the same two things a horizontal level asks for: did a CANDLE BODY close beyond the projected line, and was there participation behind it? Choose what happened."
+  es: "En este gráfico hay trazada una línea de tendencia y el precio ha vuelto a ella. La línea puede subir o bajar: léela en cualquiera de los dos sentidos. Juzga la decisión por las mismas dos cosas que pide un nivel horizontal: ¿cerró un CUERPO de vela al otro lado de la línea proyectada, y había participación detrás? Elige qué ocurrió."
+explanation:
+  en: "The line held: price came back to it and turned, without a body ever closing through. The line broke: a body closed clearly beyond it on a clear surge of volume, and price stayed there. The false break: a body closed beyond it too — but on thin volume, and price reclaimed the line and settled back inside. Note what decides nothing here: how far the last candle sits from the line is the same in all three, and a wick through the line is not a break at all."
+  es: "La línea aguantó: el precio volvió a ella y giró, sin que ningún cuerpo llegara a cerrar al otro lado. La línea se rompió: un cuerpo cerró claramente más allá con un repunte claro de volumen, y el precio se quedó ahí. La ruptura falsa: también cerró un cuerpo al otro lado, pero con volumen fino, y el precio recuperó la línea y se asentó otra vez dentro. Fíjate en lo que aquí no decide nada: lo lejos que queda la última vela de la línea es igual en los tres casos, y una mecha que atraviesa la línea no es ninguna ruptura."

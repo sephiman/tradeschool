@@ -74,7 +74,7 @@ cd frontend && npm install && npm run dev
 
 Open <http://localhost:5173>, register an account, and review the full course:
 
-- **30 modules across 7 blocks, 36 lessons** (six modules carry a second lesson), through a
+- **32 modules across 7 blocks, 39 lessons** (seven modules carry a second lesson), through a
   capstone (m24) that assembles everything into a **complete trading plan** — one worked trade end to
   end (top-down protocol, sizing from the stop, live management, and the **daily stop** that closes a
   losing day), then the journal, the risk tiers that only a journal can earn, validation and the step
@@ -91,6 +91,21 @@ Open <http://localhost:5173>, register an account, and review the full course:
   depth ladder and a footprint are an instant snapshot and a distribution-inside-a-bar, not the time
   series this engine builds — the lesson **says so and names the real tools** instead of faking a
   chart, the same honest-frontier stance as m08's candle-pattern dictionary.
+- **The rest of the classic canon, with its weak spots named** (block C, m31–m32): the two modules that
+  close the technical-analysis block. **m31** is diagonal geometry — trendlines, channels, wedges and
+  triangles — and it is taught with the honest problem stated in the prose rather than in a footnote:
+  no order can rest at a price that moves, so a diagonal is *the weakest instrument in the course*, and
+  two competent traders will draw two different ones on the same chart. That does not exclude it; it
+  obliges the drawing discipline (two touches propose, the third validates; declare wicks or bodies and
+  keep it), and it obliges reading a break with m08-l1's body-close and m14's participation, which
+  matter **more** here than at a horizontal level. On the wedge's textbook directional bias, the lesson
+  splits the sentence: the exhaustion half has a mechanism, the "therefore it breaks down" half is
+  statistics without one. **m32** takes m08-l2's compression candle up to a market regime — volatility
+  clustering, Bollinger (how far the closes scatter) against Keltner (how far a bar travels), and the
+  squeeze between them, with the squeeze-momentum oscillator presented as *a repackaging of the two
+  envelopes above it* rather than as a signal. It also carries a **mandatory disambiguation**: the
+  volatility squeeze here and m17-l2's liquidity squeeze are unrelated mechanisms sharing a word, and
+  the glossary entry for `squeeze` is a homonym with numbered senses because of it.
 - **The SMC dialect, mapped onto mechanics** (block G, m30): learners arrive from fintwit knowing *order
   block*, *FVG*, *BOS*, *liquidity grab*, *premium/discount* — vocabulary the course never named though
   it already taught most of the substance. This closing module does for that lexicon what m08-l2's candle
@@ -464,10 +479,10 @@ Three properties make it a *book* rather than a dump:
   `(config, seed)` and then **re-graded as a submitted answer, which must come back correct** before it
   is published. Every number the answer quotes is read out of the payload being published — a chart
   answer's prices are indexed out of the very series the reader sees — so a key cannot drift from its
-  question. `tests/test_print_exercises.py` re-grades all 126.
+  question. `tests/test_print_exercises.py` re-grades all 136.
 * **Nothing dropped quietly.** An exercise that cannot be printed is listed in `excluded` with a reason
   and logged; the export console names it, and the lesson in the PDF prints *"N interactive exercises
-  not included"*. Today the whole course prints: 126 of 126, nothing excluded.
+  not included"*. Today the whole course prints: 136 of 136, nothing excluded.
 
 ## Printing the course (PDF)
 
@@ -475,8 +490,8 @@ Three properties make it a *book* rather than a dump:
 in the language being browsed — cover, table of contents with page numbers, block and module headings
 with their summaries, every lesson's prose, callouts and figures, **the lesson's exercises after its
 prose, and an answer key at the back**, and it is **navigable**: bookmarks, a clickable contents, term
-links into the glossary and exercise ↔ answer cross-links (see below). ~203 pages (EN) / ~215 (ES):
-36 lessons, 29 figures, 126 exercises, 23 of which print a chart. Every lesson starts on a new page,
+links into the glossary and exercise ↔ answer cross-links (see below). ~236 pages (EN) / ~253 (ES):
+39 lessons, 33 figures, 136 exercises, 28 of which print a chart. Every lesson starts on a new page,
 and the answer key is a table-of-contents entry with a resolved page number. The running footer carries the course title, the
 **top-level section the page belongs to** (the block, or the answer key) and the page number, so a page
 found loose still says where it came from; the cover and the contents precede the first block and name
@@ -574,7 +589,7 @@ walk of the manifest, which is why the printed book cannot carry a different set
 different set of questions — from the app.
 
 Exercise charts are captured the same way figures are, on the same off-screen stage, and are the reason
-generation now takes noticeably longer: 29 figures plus 23 exercise charts. The button counts **both**
+generation now takes noticeably longer: 33 figures plus 28 exercise charts. The button counts **both**
 capture phases (`Drawing figures 12/29…`, then `Drawing exercise charts 8/23…`) rather than spinning.
 
 ```

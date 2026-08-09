@@ -265,11 +265,16 @@ export interface FigurePanel {
   macd?: { line: number[]; signal: number[]; hist: number[] };
   oi?: number[];
   cvd?: number[];
+  /** The zero-centred pane (m32): a signed series and its optional per-bar state row. */
+  momentum?: number[];
+  momentum_state?: number[];
   overlays?: Record<string, number[]>;
   levels?: { price: number; label: string; kind: string }[];
+  /** Sloped lines (m31), projected to the figure's own right edge so the break is judged against them. */
+  diagonals?: { start: number; end: number; start_price: number; end_price: number; label: string; kind: string }[];
   /** Shaded zones. A figure draws them; an exercise payload never carries them (m30). */
   bands?: { low: number; high: number; label: string; kind: string }[];
-  indicator: "rsi" | "macd" | "oi" | "cvd" | "none";
+  indicator: "rsi" | "macd" | "oi" | "cvd" | "momentum" | "none";
   annotations: { index: number; kind: string; label: string }[];
 }
 

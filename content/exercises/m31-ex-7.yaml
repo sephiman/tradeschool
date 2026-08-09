@@ -1,0 +1,124 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: dogma-split
+    prompt:
+      en: "'Rising wedges break down.' m31-l2 splits that into a part with a mechanism and a part without. Which part has one?"
+      es: "«Las cuñas ascendentes rompen a la baja.» m31-l2 divide eso en una parte con mecanismo y otra sin él. ¿Cuál tiene mecanismo?"
+    options:
+      - id: a
+        text:
+          en: "Neither: the shape is drawn by hand, so nothing about it can be mechanical."
+          es: "Ninguna: la figura se traza a mano, así que nada en ella puede ser mecánico."
+      - id: b
+        text:
+          en: "The downward break, because a converging shape has to leave through its floor."
+          es: "La ruptura bajista, porque una figura convergente tiene que irse por su suelo."
+      - id: c
+        correct: true
+        text:
+          en: "The exhaustion: each new high is a smaller step against a stingier ceiling."
+          es: "El agotamiento: cada nuevo máximo es un paso menor contra un techo más tacaño."
+      - id: d
+        text:
+          en: "Both, since the exhaustion is what makes the downward resolution follow."
+          es: "Las dos, ya que el agotamiento es lo que hace que siga la resolución bajista."
+    explanation:
+      en: "The observable half is that buyers are making progress and it is costing them more each time — the same reading a price/volume divergence gives you in m14, and it says the rhythm is running down. The 'therefore it breaks down' half is textbook statistics with no mechanism under it: convergence tells you the rhythm is ending, not who is standing when it does. Use the first, hold the second loosely."
+      es: "La mitad observable es que los compradores avanzan y les cuesta más cada vez, la misma lectura que da una divergencia precio/volumen en m14, y dice que el ritmo se está apagando. La mitad del «por lo tanto rompe a la baja» es estadística de manual sin mecanismo debajo: la convergencia te dice que el ritmo se acaba, no quién queda en pie cuando ocurra. Usa la primera y tómate la segunda con reservas."
+  - id: measured-target
+    prompt:
+      en: "A triangle breaks and you project the base height from the break point. What kind of thing is that target?"
+      es: "Un triángulo rompe y proyectas la altura de la base desde el punto de ruptura. ¿Qué clase de cosa es ese objetivo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A convention, worth something mostly because others use the same one."
+          es: "Una convención, que vale algo sobre todo porque otros usan la misma."
+      - id: b
+        text:
+          en: "A measurement, since the base height is the energy stored by the compression."
+          es: "Una medición, ya que la altura de la base es la energía que almacenó la compresión."
+      - id: c
+        text:
+          en: "A minimum, which the move has to reach before any pullback is possible."
+          es: "Un mínimo, que el movimiento tiene que alcanzar antes de cualquier retroceso."
+      - id: d
+        text:
+          en: "A stop distance, because it is the widest the pattern ever got."
+          es: "Una distancia de stop, porque es lo más ancho que llegó a estar el patrón."
+    explanation:
+      en: "Nothing about a coil's opening width obliges the move that follows to be that size — there is no stored energy, and the metaphor is doing the work the mechanism cannot. It is a reasonable place to put a first target for the same self-fulfilling reason m13 gives for the 0.618: enough people use it that orders collect there. That is the whole of the effect, and its expiry date."
+      es: "Nada en la anchura inicial de una figura obliga al movimiento posterior a medir eso: no hay energía almacenada, y la metáfora está haciendo el trabajo que el mecanismo no puede. Es un sitio razonable para un primer objetivo por la misma razón autocumplida que da m13 para el 0,618: bastante gente lo usa como para que se acumulen órdenes ahí. Ese es todo el efecto, y también su caducidad."
+  - id: same-mechanic
+    kind: true_false
+    prompt:
+      en: "A wedge and m08-l2's compression candle are the same phenomenon at different scales."
+      es: "Una cuña y la vela de compresión de m08-l2 son el mismo fenómeno a distinta escala."
+    answer: true
+    explanation:
+      en: "True. m08-l2's candle is one bar whose range collapses; a wedge is twenty bars each a little narrower than the last, held between two converging lines. Both say disagreement is running out of energy, and both make the same limited claim about what comes next: expansion, at some point, in a direction neither of them names."
+      es: "Cierto. La vela de m08-l2 es una barra cuyo rango se desploma; una cuña son veinte barras cada una un poco más estrecha que la anterior, sujetas entre dos líneas que convergen. Las dos dicen que el desacuerdo se está quedando sin energía, y las dos hacen la misma afirmación limitada sobre lo que viene: expansión, en algún momento, en una dirección que ninguna de las dos nombra."
+  - id: not-yet
+    prompt:
+      en: "A symmetric triangle has been narrowing for thirty bars and has not resolved. What does that state justify?"
+      es: "Un triángulo simétrico lleva treinta barras estrechándose y no se ha resuelto. ¿Qué justifica ese estado?"
+    options:
+      - id: a
+        text:
+          en: "A position in the direction the shape entered from, sized down for the wait."
+          es: "Una posición en el sentido por el que entró la figura, con tamaño reducido."
+      - id: b
+        text:
+          en: "Two orders, one each side, so whichever line goes you are already in."
+          es: "Dos órdenes, una por lado, para que se vaya por donde se vaya ya estés dentro."
+      - id: c
+        text:
+          en: "A short, because a triangle that has not broken up is failing to break up."
+          es: "Un corto, porque un triángulo que no ha roto al alza está fallando al alza."
+      - id: d
+        correct: true
+        text:
+          en: "Nothing yet: until it resolves, the shape names no side for you to be on."
+          es: "Nada todavía: hasta que no se resuelva, la figura no nombra ningún lado."
+    explanation:
+      en: "A narrowing shape can keep narrowing for a long time and can leave through either line. Entering because 'it is about to break' is entering on a drawing, which is m31-l1's thesis-before-line error with an extra line on it. What the compression earns you is attention, not a position — the direction comes from the break, on the body and the volume."
+      es: "Una figura que se estrecha puede seguir estrechándose mucho tiempo y puede irse por cualquiera de las dos líneas. Entrar porque «está a punto de romper» es entrar por un dibujo, que es el error de m31-l1 —la tesis antes que la línea— con una línea más encima. Lo que te gana la compresión es atención, no una posición: la dirección viene de la ruptura, por el cuerpo y por el volumen."
+  - id: shape-map
+    kind: matching
+    prompt:
+      en: "Match each converging shape to how its two lines divide the work."
+      es: "Empareja cada figura convergente con cómo reparten el trabajo sus dos líneas."
+    pairs:
+      - id: sym
+        left:
+          en: "Symmetric triangle"
+          es: "Triángulo simétrico"
+        right:
+          en: "The ceiling comes down as fast as the floor goes up."
+          es: "El techo baja tan rápido como sube el suelo."
+      - id: asc
+        left:
+          en: "Ascending triangle"
+          es: "Triángulo ascendente"
+        right:
+          en: "A flat ceiling; the floor does all of the closing."
+          es: "Techo plano; el suelo hace todo el cierre."
+      - id: rise
+        left:
+          en: "Rising wedge"
+          es: "Cuña ascendente"
+        right:
+          en: "Both lines go up, and the lower one goes up faster."
+          es: "Las dos líneas suben, y la de abajo sube más rápido."
+      - id: par
+        left:
+          en: "Parallel channel"
+          es: "Canal paralelo"
+        right:
+          en: "Neither line moves toward the other at all."
+          es: "Ninguna línea se acerca a la otra en absoluto."
+    explanation:
+      en: "One object, four ways of dividing the same convergence — which is the point of learning them together rather than as four patterns with four names. And the fourth is the control: if the space between the lines does not close, none of the compression reading applies at all."
+      es: "Un solo objeto, cuatro formas de repartir la misma convergencia, que es el sentido de aprenderlas juntas y no como cuatro patrones con cuatro nombres. Y la cuarta es el control: si el espacio entre las líneas no se cierra, no aplica nada de la lectura de compresión."

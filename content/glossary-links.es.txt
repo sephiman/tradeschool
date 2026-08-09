@@ -4,7 +4,7 @@
 # content change that moves a link shows up here as a diff. Do not hand-edit — fix the prose or
 # the entry's `match` / `link` / `link_except` in glossary.yaml and regenerate.
 #
-# 468 web marks · 51 of them also a PDF link · 108 linkable terms the book never links
+# 499 web marks · 54 of them also a PDF link · 112 linkable terms the book never links
 #
 # lesson   policy  term id                      context, with the marked words in «»
 m01-l1   WP      g-emission                   …"llamar a Bitcoin" y pedir que se duplique la «emisión»; cambiar una regla básica exige convencer a t…
@@ -93,6 +93,7 @@ m08-l1   W       g-role-reversal              «inversión de roles»
 m08-l1   W       g-short                      …ncia han sido arrollados y muchos cierran sus «cortos» en el retroceso hacia el nivel, convirtiendo …
 m08-l1   W       g-trend                      «tendencia» alcista
 m08-l1   WP      g-bos                        ruptura de estructura («BOS»)
+m08-l1   WP      g-channel                    —líneas de tendencia y «canales»— y
 m08-l1   WP      g-premium                    . El mercado paga una «prima» a quien está dispuesto a llegar una o dos vel…
 m08-l1   W       g-order-book                 …nales cierran; el cripto nunca lo hace, y ese «libro de órdenes» siempre activo cambia cómo se comporta la est…
 m08-l1   W       g-leverage                   El «apalancamiento» concentra los stops y los precios de liquidac…
@@ -108,6 +109,8 @@ m08-l2   W       g-candle                     El truco es dejar de pensar en las
 m08-l2   W       g-order-flow                 huella del «flujo de órdenes»
 m08-l2   W       g-wick                       Un rechazo es una «mecha» larga con un cuerpo pequeño: el clásico
 m08-l2   W       g-body                       Un rechazo es una mecha larga con un «cuerpo» pequeño: el clásico
+m08-l2   WP      g-wedge                      … una: a lo largo de una serie de barras es la «cuña» y el triángulo de
+m08-l2   WP      g-triangle                   … largo de una serie de barras es la cuña y el «triángulo» de
 m08-l2   W       g-leverage                   …n nivel defendido en horas activas. Y como el «apalancamiento» amontona stops y liquidaciones justo pasados …
 m08-l2   W       g-depth                      …icción orgánica. Pondera cada reacción por la «profundidad» del libro en que ocurrió y por el nivel en qu…
 m09-l1   W       g-range                      …silencio, a lo largo del tiempo, dentro de un «rango» lateral. Esa compra o venta paciente deja una…
@@ -215,6 +218,33 @@ m14-l1   W       g-trend                      …ntes coincidan. La estructura (
 m14-l1   W       g-rsi                        … tendencia real y ya testeada), un indicador («RSI» o MACD) y el volumen son tres lentes distinta…
 m14-l1   W       g-macd                       …ncia real y ya testeada), un indicador (RSI o «MACD») y el volumen son tres lentes distintas. Una …
 m14-l1   W       g-order-flow                 …ficción. Prefiere el volumen de exchanges con «flujo de órdenes» real, y apóyate en medidas agregadas u on-cha…
+m31-l1   W       g-order-book                 …qué eso funciona: un precio es un sitio en el «libro de órdenes», y las órdenes descansan en precios. El stop …
+m31-l1   W       g-trend                      …fico a diez personas y saldrán diez líneas de «tendencia», porque la línea depende de qué mínimos decid…
+m31-l1   W       g-wick                       …imos decides que cuentan y de si te anclas en «mechas» o en cuerpos. Esa subjetividad no es razón pa…
+m31-l1   W       g-body                       … que cuentan y de si te anclas en mechas o en «cuerpos». Esa subjetividad no es razón para saltarse l…
+m31-l1   W       g-breakout                   … con lo que la sección siguiente hace con una «ruptura».
+m31-l1   W       g-candle                     Si cada «vela» nueva te mueve el anclaje, lo que tienes es u…
+m31-l1   W       g-volume                     —un cuerpo claramente al otro lado— con un «volumen» de más del triple de la referencia tranquila …
+m31-l1   W       g-support                    …mente por obvia. Si todo el mundo ve el mismo «soporte» ascendente, todo el mundo pone su stop justo …
+m31-l1   W       g-range                      Un «rango» (
+m31-l2   W       g-candle                     te enseñó una sola «vela» cuyo rango se desploma: cuerpo pequeño, mecha…
+m31-l2   W       g-body                       … enseñó una sola vela cuyo rango se desploma: «cuerpo» pequeño, mechas pequeñas, una barra en la que…
+m31-l2   W       g-wick                       … vela cuyo rango se desploma: cuerpo pequeño, «mechas» pequeñas, una barra en la que casi no pasó na…
+m31-l2   W       g-channel                    Coge el «canal» de
+m31-l2   W       g-divergence                 , la misma lectura que te da la «divergencia» precio/volumen de
+m31-l2   W       g-volume                     …misma lectura que te da la divergencia precio/«volumen» de
+m31-l2   W       g-fibonacci                  de una proporción de «Fibonacci» y
+m31-l2   W       g-breakout                   …uantifica ni el permiso para adelantarse a la «ruptura».
+m32-l1   W       g-candle                     te dio una sola «vela» de compresión y
+m32-l1   W       g-moving-average             una «media móvil» del cierre, la
+m32-l1   W       g-trend                      …u propia media reciente, que en un mercado en «tendencia» es donde vive el precio: el mismo error que
+m32-l1   W       g-rsi                        nombró para un «RSI» sobrecomprado, con otra envolvente encima.
+m32-l1   W       g-histogram                  «histograma» con signo
+m32-l1   W       g-liquidation                …. No hay ningún participante forzado, ninguna «liquidación», nadie en el lado equivocado.
+m32-l1   W       g-short                      …ecio sube hasta una bolsa de liquidaciones de «cortos», esos cortos se recompran a la fuerza, esa co…
+m32-l1   W       g-funding                    …ne la misma forma que el interés abierto y el «funding» de
+m32-l1   W       g-breakout                   …ibe una condición; la dirección la lees de la «ruptura», con la misma disciplina de cierre de cuerpo …
+m32-l1   W       g-body                       …ruptura, con la misma disciplina de cierre de «cuerpo» y participación que
 m15-l1   W       g-altcoin                    …ente al activo de reserva. Y como Ether es la «altcoin» más grande y líquida, ese único par sirve de …
 m15-l1   W       g-bid                        …a, y a menudo no hay ninguna orden de compra («bid») a la que vender.
 m15-l1   W       g-trend                      «tendencia», no un calendario
@@ -256,6 +286,7 @@ m17-l2   W       g-long                       stop-loss de «largos»
 m17-l2   W       g-short                      stop-loss de «cortos»
 m17-l2   W       g-candle                     una sola «vela»
 m17-l2   W       g-breakout                   y se da la vuelta. El exceso no es una «ruptura» fallida: es la bolsa siendo tomada. La pista …
+m17-l2   W       g-engulfing                  , una «envolvente» trazada en un gráfico que queda dentro de otr…
 m17-l2   W       g-accumulation               «Acumulación».
 m17-l2   W       g-leverage                   Un lado se amontona con «apalancamiento». El funding se vuelve unilateral (de la lecci…
 m17-l2   W       g-spot                       Una ráfaga de compra en «spot» lleva a ETH a 3.000 y asoma por encima. Los p…
@@ -482,9 +513,11 @@ m30-l1   W       g-footprint                  con el «footprint»: decir qué h
 #   g-aggressor
 #   g-altcoin
 #   g-ask
+#   g-atr
 #   g-bid
 #   g-blockchain
 #   g-body
+#   g-bollinger
 #   g-break-even-win-rate
 #   g-candle
 #   g-capitulation
@@ -520,6 +553,7 @@ m30-l1   W       g-footprint                  con el «footprint»: decir qué h
 #   g-histogram
 #   g-initial-margin
 #   g-isolated-margin
+#   g-keltner
 #   g-last-price
 #   g-limit-order
 #   g-liquidity-grab
@@ -579,6 +613,7 @@ m30-l1   W       g-footprint                  con el «footprint»: decir qué h
 #   g-taker
 #   g-timeframe
 #   g-tokenomics
+#   g-trendline
 #   g-unlock
 #   g-upthrust
 #   g-utad

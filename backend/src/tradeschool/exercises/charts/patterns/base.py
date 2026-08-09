@@ -54,6 +54,29 @@ class Band:
 
 
 @dataclass
+class Diagonal:
+    """A SLOPED line the learner SEES: a trendline, a channel edge, a wedge boundary (m31). Public.
+
+    Two anchors in FULL-series coords, and the price at each. The renderer draws the straight segment
+    between them; `diagonals.price_at` projects it anywhere, including past `end`. LINEAR in price,
+    because that is what a straight line on a linear price scale is.
+
+    Unlike a `Level`, a diagonal has NO `LevelGuard` equivalent and never moves a candle. A horizontal
+    level is a price the book remembers, so a wick through it is a defect worth repairing; a diagonal is
+    a rate of advance nobody is obliged to maintain, so a wick through it is the ordinary case m31-l1
+    teaches you to ignore. Its contract is therefore ASSERTED on the CLOSES, in
+    `tests/test_chart_diagonals.py` — see `diagonals.respect`.
+    """
+
+    start: int
+    end: int
+    start_price: float
+    end_price: float
+    label: str = ""
+    kind: str = "support"  # "support" | "resistance" — which side of the line is INSIDE the shape
+
+
+@dataclass
 class LevelGuard:
     """A drawn `Level`'s contract with the CANDLES, applied by `apply_level_guards`.
 
@@ -78,6 +101,9 @@ class PatternResult:
     annotations: list[Annotation] = field(default_factory=list)
     overlays: dict[str, list[float]] = field(default_factory=dict)
     levels: list[Level] = field(default_factory=list)
+    #: sloped lines the learner sees (m31). Public like `levels` — a trendline the question is about
+    #: has to be on the chart, or there is nothing to judge a break against.
+    diagonals: list[Diagonal] = field(default_factory=list)
     #: shaded price zones (m30). GROUND TRUTH like `annotations` — see `Band`.
     bands: list[Band] = field(default_factory=list)
     #: candle-space contracts for the `levels` above — see `LevelGuard`.
@@ -89,6 +115,14 @@ class PatternResult:
     #: LINEAR, unlike every other pane series, and legitimately negative — continue it with
     #: ``append_linear_continuation``, never the log-space version.
     cvd_full: Floats | None = None
+    #: signed series for the ZERO-CENTRED oscillator pane. Used when ``indicator == "momentum"``.
+    #: A generic pane, not m32's indicator: any injector may hand it a series read against zero and get
+    #: a histogram coloured by sign. Linear, like ``cvd_full`` and for the same reason.
+    momentum_full: Floats | None = None
+    #: optional per-bar STATE row for that pane, 1.0 where the state is on (m32: Bollinger inside
+    #: Keltner). Drawn as dots along the zero line, never as a second histogram — it is a flag, not a
+    #: quantity. Ignored unless ``momentum_full`` is present.
+    momentum_state_full: Floats | None = None
     #: OHLC override for injectors shaping individual candles (m08). Used verbatim instead of
     #: ``build_series``; its ``close`` must match ``close_full`` so indicators stay consistent.
     candles_full: Series | None = None
@@ -104,7 +138,7 @@ class PatternInjector(ABC):
     #: True  -> resolution must stay off screen; the statistical anti-leak test is BLOCKING.
     #: False -> the label IS the visible state; ships the credibility test instead.
     hides_resolution: ClassVar[bool] = True
-    #: oscillator pane to render: "rsi" | "macd" | "none"
+    #: oscillator pane to render: "rsi" | "macd" | "momentum" | "none"
     indicator: ClassVar[str] = "rsi"
 
     @abstractmethod

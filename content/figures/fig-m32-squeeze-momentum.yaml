@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m32-squeeze-momentum
+kind: chart
+caption:
+  en: 'The same two envelopes with the squeeze oscillator underneath. The pane adds no
+    information the bands above do not already carry: the row of dots along zero is the
+    compression flag — bright while the Bollinger band sits inside the Keltner channel,
+    dim once it does not — and the histogram is the direction and force of the move, read
+    against zero. It is a packaging of what the price pane already shows, which is the only
+    honest way to read it: when the dots go dim, the bands have already told you.'
+  es: 'Las mismas dos envolventes con el oscilador de squeeze debajo. El panel no añade
+    información que las bandas de arriba no lleven ya: la fila de puntos sobre el cero es la
+    marca de compresión —encendida mientras la banda de Bollinger está dentro del canal de
+    Keltner, apagada cuando deja de estarlo— y el histograma es la dirección y la fuerza del
+    movimiento, leído contra el cero. Es un empaquetado de lo que el panel de precio ya
+    muestra, que es la única forma honesta de leerlo: cuando los puntos se apagan, las bandas
+    ya te lo habían dicho.'
+panels:
+- generator: pattern_chart
+  injector: volatility_bands
+  target: compression
+  # The 9,500 tier — a different instance from `fig-m32-squeeze`, not the same chart with a pane
+  # bolted on, so the reader sees the reading hold on a second sample.
+  seed: 12
+  n: 150
+  indicator: momentum
+  resolution:
+    # Up this time, deliberately: two expansion figures both resolving downward would teach a
+    # direction just as firmly as two resolving up.
+    direction: up
+    strength: 0.16

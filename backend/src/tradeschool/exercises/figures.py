@@ -19,12 +19,13 @@ from tradeschool.content.schema import LocalizedText
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import ema, macd, rsi
 from tradeschool.exercises.charts.injectors import RsiDivergenceInjector
-from tradeschool.exercises.charts.patterns.base import LevelGuard
+from tradeschool.exercises.charts.patterns.base import Diagonal, LevelGuard
 from tradeschool.exercises.charts.patterns.common import (
     append_linear_continuation,
     append_resolution,
     apply_level_guards,
 )
+from tradeschool.exercises.charts.patterns.diagonals import extended as extend_diagonal
 from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
 from tradeschool.exercises.charts.types import DivergenceType, Series
 
@@ -64,7 +65,7 @@ class FigurePanel(BaseModel):
     target: str  # the specific label / divergence this figure plants
     seed: int  # frozen, hand-picked
     n: int = 160
-    indicator: Literal["rsi", "macd", "none", "oi", "cvd"] | None = None
+    indicator: Literal["rsi", "macd", "none", "oi", "cvd", "momentum"] | None = None
     show_resolution: bool = True
     resolution: FigureResolution | None = None  # explicit direction; else a per-generator default
 
@@ -114,9 +115,13 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     annotations: list[dict[str, object]] = []
     oi_full: np.ndarray | None = None
     cvd_full: np.ndarray | None = None
+    momentum_full: np.ndarray | None = None
+    momentum_state_full: np.ndarray | None = None
     volume_full: np.ndarray | None = None
     candles_override: Series | None = None
     resolution_hint: float | None = None
+    diagonals_raw: list[Diagonal] = []
+    injector_obj: object = None
 
     if panel.generator == "synthetic_chart":
         target = DivergenceType(panel.target)
@@ -149,8 +154,11 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         ]
         oi_full, volume_full = result.oi_full, result.volume_full
         cvd_full = result.cvd_full
+        momentum_full, momentum_state_full = result.momentum_full, result.momentum_state_full
         candles_override = result.candles_full
         resolution_hint = result.resolution_hint
+        diagonals_raw = list(result.diagonals)
+        injector_obj = injector
         default_dir = _PATTERN_DIR.get(panel.injector or "", {}).get(panel.target, 0.0)
 
     reaction_len = len(close_full)  # the pre-resolution region (an injector's planted candles)
@@ -209,6 +217,30 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     for name in overlays_raw:  # recompute EMA overlays over the extended close (keys like "ema20")
         m = re.search(r"(\d+)$", name)
         overlays[name] = _round(ema(close_full, int(m.group(1))), 2) if m else overlays_raw[name]
+    # Overlays an EMA period cannot express — m32's Bollinger/Keltner envelopes, which need the derived
+    # OHLC, not just the close. Same optional-method precedent as `figure_annotations` above: the
+    # injector recomputes them over the EXTENDED series, so the envelopes run to the right edge instead
+    # of stopping where the exercise window did. Without it a squeeze figure would draw its bands over
+    # the compression and then nothing over the expansion, which is the half the figure exists for.
+    recompute = getattr(injector_obj, "figure_overlays", None)
+    if callable(recompute):
+        overlays.update({k: _round(v, 2) for k, v in recompute(close_full, series).items()})
+    if momentum_full is not None:
+        # Same reason, same shape: the pane series is a function of the price, so it is recomputed over
+        # the extended one rather than continued by a synthetic leg the way OI and CVD are.
+        pane = getattr(injector_obj, "figure_momentum", None)
+        if callable(pane):
+            momentum_full, momentum_state_full = pane(close_full, series)
+    # The projection is the whole point of a diagonal: a break is only visible against the line carried
+    # PAST the bars that drew it, so a figure re-anchors every diagonal to its own right edge.
+    diagonals = [
+        {
+            "start": d.start - w, "end": d.end - w,
+            "start_price": d.start_price, "end_price": d.end_price,
+            "label": d.label, "kind": d.kind,
+        }
+        for d in (extend_diagonal(raw, len(series.close) - 1) for raw in diagonals_raw)
+    ]
 
     payload: dict[str, object] = {
         "series": {
@@ -220,6 +252,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         "indicator": indicator,
         "overlays": {k: v[w:] for k, v in overlays.items()},
         "levels": levels,
+        "diagonals": diagonals,
         "bands": bands,
         "annotations": annotations,
     }
@@ -227,6 +260,10 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         payload["oi"] = _round(oi_full, 2)[w:]
     if cvd_full is not None:
         payload["cvd"] = _round(cvd_full, 2)[w:]
+    if momentum_full is not None:
+        payload["momentum"] = _round(momentum_full, 4)[w:]
+    if momentum_state_full is not None:
+        payload["momentum_state"] = _round(momentum_state_full, 4)[w:]
     return payload
 
 

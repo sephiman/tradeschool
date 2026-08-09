@@ -31,6 +31,10 @@ const LIGHT = {
   marker: "#111827",
   band: "#111827",
   bandFill: "rgba(17,24,39,0.08)",
+  // m32's compression row. Two neutrals, never the up/down pair: a squeeze says expansion is coming
+  // and not which way, so a green flag would be the lesson's own error painted onto its figure.
+  squeezeOn: "#111827",
+  squeezeOff: "#9ca3af",
   overlays: ["#2563eb", "#9333ea", "#0891b2", "#ca8a04"],
   crosshair: undefined,
 };
@@ -45,6 +49,8 @@ const DARK = {
   marker: "#e5e7eb",
   band: "#e5e7eb",
   bandFill: "rgba(229,231,235,0.10)",
+  squeezeOn: "#e5e7eb",
+  squeezeOff: "#4b5563",
   overlays: ["#60a5fa", "#c084fc", "#22d3ee", "#facc15"],
 };
 

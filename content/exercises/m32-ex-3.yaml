@@ -1,0 +1,114 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: not-a-direction
+    prompt:
+      en: "The Bollinger band has been inside the Keltner channel for three weeks and has just pushed back outside. What does that tell you?"
+      es: "La banda de Bollinger lleva tres semanas dentro del canal de Keltner y acaba de salir. ¿Qué te dice eso?"
+    options:
+      - id: a
+        text:
+          en: "That a rally is starting, since compression resolves upward more often."
+          es: "Que empieza un rally, ya que la compresión se resuelve al alza más a menudo."
+      - id: b
+        correct: true
+        text:
+          en: "That an expansion is under way, and nothing at all about its direction."
+          es: "Que hay una expansión en marcha, y nada en absoluto sobre su dirección."
+      - id: c
+        text:
+          en: "That the trend before the compression is now confirmed to be resuming."
+          es: "Que la tendencia previa a la compresión queda confirmada como reanudada."
+      - id: d
+        text:
+          en: "Nothing: the exit is a lagging artefact of the two moving averages."
+          es: "Nada: la salida es un artefacto con retardo de las dos medias móviles."
+    explanation:
+      en: "The squeeze is a statement about the SIZE of the next move, never its direction — the same mould as m17's open interest, which tells you positions are being added without saying by whom, and funding, which tells you who is paying without saying who is right. The direction you read from the break, with the body-close and participation discipline m08-l1 and m14 ask for everywhere else."
+      es: "El squeeze es una afirmación sobre el TAMAÑO del próximo movimiento, nunca sobre su dirección: el mismo molde que el interés abierto de m17, que te dice que se están añadiendo posiciones sin decirte de quién, y el funding, que te dice quién paga sin decirte quién tiene razón. La dirección la lees de la ruptura, con la disciplina de cierre de cuerpo y participación que m08-l1 y m14 piden en todas partes."
+  - id: homonym
+    prompt:
+      en: "Someone says 'there's a squeeze building'. What are the two unrelated things they could mean?"
+      es: "Alguien dice «se está formando un squeeze». ¿Cuáles son las dos cosas sin relación que puede querer decir?"
+    options:
+      - id: a
+        text:
+          en: "A squeeze on the spot side and the same squeeze on the perpetual side."
+          es: "Un squeeze en el spot y ese mismo squeeze en el perpetuo."
+      - id: b
+        text:
+          en: "A narrow Bollinger band and a narrow Keltner channel, which differ by period."
+          es: "Una banda de Bollinger estrecha y un canal de Keltner estrecho, que difieren en periodo."
+      - id: c
+        correct: true
+        text:
+          en: "Compressed bands on a chart, or shorts being forcibly bought back into a rally."
+          es: "Bandas comprimidas en un gráfico, o cortos recomprados a la fuerza en un rally."
+      - id: d
+        text:
+          en: "A widening spread, or a market maker pulling quotes from the book."
+          es: "Un spread ensanchándose, o un creador de mercado retirando cotizaciones."
+    explanation:
+      en: "One is a measurement artefact: the Bollinger band inside the Keltner channel, describing how compressed price has been, with nobody forced to do anything. The other is m17-l2's liquidity squeeze, a market event with real forced orders in it — shorts liquidated into a rising price, whose forced buying raises it further. They share a word and nothing else, and the two possible meanings differ on whether anything is happening at all."
+      es: "Uno es un artefacto de medición: la banda de Bollinger dentro del canal de Keltner, que describe lo comprimido que ha estado el precio, sin nadie forzado a hacer nada. El otro es el squeeze de liquidez de m17-l2, un suceso de mercado con órdenes forzadas de verdad dentro: cortos liquidados contra un precio que sube, cuya compra forzada lo sube más. Comparten una palabra y nada más, y los dos significados posibles difieren en si está pasando algo siquiera."
+  - id: oracle
+    kind: true_false
+    prompt:
+      en: "The squeeze momentum pane tells you things the Bollinger and Keltner lines above it do not."
+      es: "El panel de squeeze momentum te dice cosas que las líneas de Bollinger y Keltner de arriba no."
+    answer: false
+    explanation:
+      en: "The dots ARE the Bollinger-inside-Keltner condition and the histogram is a smoothed measure of where price sits against its own recent range. The pane is a convenience — one panel instead of four lines — and reading it as an oracle is reading a repackaging of two averages as though it knew something. When the dots go dim, the bands had already told you."
+      es: "Los puntos SON la condición de Bollinger-dentro-de-Keltner y el histograma es una medida suavizada de dónde está el precio respecto a su propio rango reciente. El panel es una comodidad —uno en vez de cuatro líneas— y leerlo como un oráculo es leer el reempaquetado de dos medias como si supiera algo. Cuando los puntos se apagan, las bandas ya te lo habían dicho."
+  - id: sizing
+    prompt:
+      en: "You want to trade the expansion out of a squeeze. What does the squeeze itself contribute to the position's size?"
+      es: "Quieres operar la expansión que sale de un squeeze. ¿Qué aporta el propio squeeze al tamaño de la posición?"
+    options:
+      - id: a
+        text:
+          en: "A larger size, since a coiled market pays more when it finally moves."
+          es: "Un tamaño mayor, ya que un mercado comprimido paga más cuando por fin se mueve."
+      - id: b
+        text:
+          en: "A wider stop, because the expansion needs room to work through the noise."
+          es: "Un stop más ancho, porque la expansión necesita margen para atravesar el ruido."
+      - id: c
+        text:
+          en: "A smaller size, because a squeeze makes any entry statistically worse."
+          es: "Un tamaño menor, porque un squeeze empeora estadísticamente cualquier entrada."
+      - id: d
+        correct: true
+        text:
+          en: "Nothing at all: size comes from the distance to the stop, as it always has."
+          es: "Nada en absoluto: el tamaño sale de la distancia al stop, como siempre."
+    explanation:
+      en: "m19 is unchanged by any of this — size comes from the distance to the stop and the stop comes from the structure. What the squeeze does change is that the expansion out of one is often violent, so a trade on the wrong side of it loses quickly. 'The squeeze is about to fire' is not a direction, and a position sized as though it were is sized on nothing, which is m23."
+      es: "m19 no cambia por nada de esto: el tamaño sale de la distancia al stop y el stop sale de la estructura. Lo que sí cambia el squeeze es que la expansión que sale de uno suele ser violenta, así que una operación en el lado equivocado pierde rápido. «El squeeze está a punto de dispararse» no es una dirección, y una posición dimensionada como si lo fuera está dimensionada a partir de nada, que es m23."
+  - id: which-squeeze
+    kind: multi_select
+    prompt:
+      en: "Select ALL the statements that are true of the LIQUIDITY squeeze (m17-l2) and not of the volatility one."
+      es: "Selecciona TODAS las afirmaciones ciertas del squeeze de LIQUIDEZ (m17-l2) y no del de volatilidad."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Somebody is being forced to trade, in a known direction."
+          es: "Alguien está siendo obligado a operar, en una dirección conocida."
+      - id: b
+        correct: true
+        text:
+          en: "It is a feedback loop: the forced orders cause more forced orders."
+          es: "Es un bucle: las órdenes forzadas provocan más órdenes forzadas."
+      - id: c
+        text:
+          en: "It is read off two envelopes drawn around a moving average."
+          es: "Se lee a partir de dos envolventes trazadas alrededor de una media móvil."
+      - id: d
+        text:
+          en: "It says a large move is coming without naming its direction."
+          es: "Dice que viene un movimiento grande sin nombrar su dirección."
+    explanation:
+      en: "The liquidity squeeze is a market event with participants in it: shorts liquidated into a rising price, whose forced buying pushes price higher and liquidates more of them. It has a direction by construction. The last two describe the volatility squeeze instead — a measurement over the chart, which names a size and refuses to name a side."
+      es: "El squeeze de liquidez es un suceso de mercado con participantes dentro: cortos liquidados contra un precio que sube, cuya compra forzada empuja el precio más arriba y liquida a más. Tiene dirección por construcción. Las dos últimas describen en cambio el squeeze de volatilidad: una medición sobre el gráfico, que nombra un tamaño y se niega a nombrar un lado."

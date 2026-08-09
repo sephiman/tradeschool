@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: volatility_bands
+n: 130
+indicator: momentum
+targets: [compression, expansion]
+choices: [compression, expansion]
+prompt:
+  en: "This chart carries both envelopes: Bollinger (mean ± standard deviations of the close) and Keltner (mean ± ATR). Read the RIGHT-HAND edge. Which phase of the volatility cycle is the market in there — compression, with the Bollinger band inside the Keltner channel, or expansion, with it back outside?"
+  es: "Este gráfico lleva las dos envolventes: Bollinger (media ± desviaciones típicas del cierre) y Keltner (media ± ATR). Lee el borde DERECHO. ¿En qué fase del ciclo de volatilidad está ahí el mercado: compresión, con la banda de Bollinger dentro del canal de Keltner, o expansión, con ella otra vez por fuera?"
+explanation:
+  en: "The reading is the relationship between the two envelopes, never the width of either one alone. In compression the closes have bunched relative to how far the bars still travel, so the Bollinger band sits inside the Keltner channel and the dots on the pane below are lit. In expansion the closes are scattering and the Bollinger band pushes back outside. Each chart opens in the other phase, because that is what a cycle is — and note that neither phase says which WAY the next move goes."
+  es: "La lectura es la relación entre las dos envolventes, nunca la anchura de una sola. En compresión los cierres se han apiñado en relación con lo que todavía recorren las barras, así que la banda de Bollinger queda dentro del canal de Keltner y los puntos del panel de abajo están encendidos. En expansión los cierres se dispersan y la banda de Bollinger vuelve a salir. Cada gráfico empieza en la otra fase, porque eso es un ciclo; y fíjate en que ninguna de las dos fases dice hacia DÓNDE va el próximo movimiento."

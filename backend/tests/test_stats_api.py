@@ -82,8 +82,8 @@ async def test_me_stats_reading_and_mastery_are_separate(
 
     # Reading (completion) dimension — computed over published content only. Every module in the
     # manifest is authored, so published == total.
-    assert stats["coverage"]["publishedModules"] == 30
-    assert stats["coverage"]["totalModules"] == 30
+    assert stats["coverage"]["publishedModules"] == 32
+    assert stats["coverage"]["totalModules"] == 32
     assert stats["reading"]["lessonsCompleted"] == 1
 
     m01 = next(m for m in stats["modules"] if m["id"] == "m01")
@@ -195,6 +195,6 @@ async def test_me_stats_empty_for_new_user(content_client: AsyncClient) -> None:
     assert stats["exercise"]["accuracy"] is None
     assert stats["reading"]["lessonsCompleted"] == 0
     assert stats["reading"]["courseCompletion"] == 0.0  # nothing read yet
-    assert stats["coverage"]["publishedModules"] == 30
-    assert stats["coverage"]["totalModules"] == 30
+    assert stats["coverage"]["publishedModules"] == 32
+    assert stats["coverage"]["totalModules"] == 32
     assert stats["costliestSections"] == []

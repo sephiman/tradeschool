@@ -47,8 +47,10 @@ export function LessonFigure({ id }: { id: string }) {
               macd={p.macd}
               oi={p.oi}
               cvd={p.cvd}
+              momentum={p.momentum ? { values: p.momentum, state: p.momentum_state } : undefined}
               overlays={p.overlays}
               levels={p.levels}
+              diagonals={p.diagonals}
               bands={p.bands}
               indicator={p.indicator}
               markers={toMarkers(p.annotations)}

@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: converging_lines
+n: 130
+indicator: none
+targets: [break_confirmed, break_unconfirmed, compression_holding]
+choices: [break_confirmed, break_unconfirmed, compression_holding]
+prompt:
+  en: "A converging shape has run its course on this chart. Judge only the resolution, by the same discipline a horizontal level gets: has a candle BODY closed beyond one of the two lines, and did volume come with it? Or is the compression still holding?"
+  es: "En este gráfico una figura convergente ha llegado a su final. Juzga solo la resolución, con la misma disciplina que se le exige a un nivel horizontal: ¿ha cerrado un CUERPO de vela al otro lado de alguna de las dos líneas, y vino volumen con él? ¿O sigue aguantando la compresión?"
+explanation:
+  en: "A coil is quiet by construction, so volume fades through it — which makes both readings easy once you look for them. A confirmed break is a body clean beyond a line with a clear surge behind it, and price stays out there. An unconfirmed one is a body beyond the line on volume that never showed up, followed by price coming back inside: the compression is not over. And a compression still holding never closed beyond either line at all. Note that a shape not yet resolved is not a signal in either direction."
+  es: "Una compresión es silenciosa por construcción, así que el volumen se apaga a lo largo de ella, lo que hace fáciles las dos lecturas en cuanto las buscas. Una ruptura confirmada es un cuerpo limpiamente al otro lado de una línea con un repunte claro detrás, y el precio se queda fuera. Una sin confirmar es un cuerpo al otro lado con un volumen que nunca apareció, seguido del precio volviendo adentro: la compresión no ha terminado. Y una compresión que aguanta no cerró más allá de ninguna de las dos líneas. Fíjate en que una figura sin resolver no es una señal en ninguna dirección."

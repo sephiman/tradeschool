@@ -250,7 +250,7 @@
     "retrace_382": "Retroceso 38,2 %",
     "retrace_500": "Retroceso 50 %",
     "retrace_618": "Retroceso 61,8 %",
-    "confirmed_breakout": "Confirmada (volumen)",
+    "confirmed_breakout": "Confirmada (volumen fuerte)",
     "unconfirmed_breakout": "Sin confirmar (volumen débil)",
     "rising_oi": "OI creciente",
     "falling_oi": "OI decreciente",
@@ -267,7 +267,24 @@
     "no_zone": "Sin zona: nada rompió la estructura",
     "imbalance_unfilled": "Desequilibrio todavía abierto",
     "imbalance_filled": "Desequilibrio ya rellenado",
-    "no_imbalance": "Sin desequilibrio: las velas se solapan"
+    "no_imbalance": "Sin desequilibrio: las velas se solapan",
+    "line_holds": "La línea aguantó",
+    "line_break": "Rota (cierre al otro lado, volumen fuerte)",
+    "line_fakeout": "Ruptura falsa (cierre al otro lado, volumen débil)",
+    "channel_intact": "Canal intacto",
+    "channel_broken": "Canal roto",
+    "rising_wedge": "Cuña ascendente",
+    "falling_wedge": "Cuña descendente",
+    "symmetric_triangle": "Triángulo simétrico",
+    "ascending_triangle": "Triángulo ascendente",
+    "descending_triangle": "Triángulo descendente",
+    "parallel_channel": "Canal paralelo (sin convergencia)",
+    "break_confirmed": "Ruptura confirmada (cuerpo y volumen)",
+    "break_unconfirmed": "Ruptura sin confirmar (volumen débil)",
+    "compression_holding": "Sigue comprimiendo",
+    "compression": "Compresión",
+    "expansion": "Expansión",
+    "channel_failed": "Canal fallido (por su propia línea)"
   },
   "chartMarker": {
     "hammer": "Martillo",
@@ -292,7 +309,10 @@
     "failed_break": "Ruptura fallida",
     "imbalance": "Desequilibrio",
     "revisit": "Revisita",
-    "traded_through": "Negociado del todo"
+    "traded_through": "Negociado del todo",
+    "touch": "toque",
+    "compression": "compresión",
+    "expansion": "expansión"
   },
   "level": {
     "support": "Soporte",
@@ -316,5 +336,18 @@
     "close": "Cierre",
     "body": "Cuerpo",
     "wick": "Mecha"
+  },
+  "diagonal": {
+    "trendline": "Línea de tendencia",
+    "channel": "Canal",
+    "channel_parallel": "Paralela",
+    "upper": "Línea superior",
+    "lower": "Línea inferior"
+  },
+  "overlay": {
+    "bb_upper": "Bollinger",
+    "bb_lower": "Bollinger",
+    "kc_upper": "Keltner",
+    "kc_lower": "Keltner"
   }
 }

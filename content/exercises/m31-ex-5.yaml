@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: converging_lines
+n: 130
+indicator: none
+targets: [rising_wedge, falling_wedge, symmetric_triangle, parallel_channel]
+choices: [rising_wedge, falling_wedge, symmetric_triangle, parallel_channel]
+prompt:
+  en: "Two lines are drawn on this chart. Read what happens to the space between them across the window, and where the shape as a whole is drifting. Which is it?"
+  es: "En este gráfico hay dos líneas trazadas. Lee qué le pasa al espacio entre ellas a lo largo de la ventana, y hacia dónde va la figura en conjunto. ¿Cuál es?"
+explanation:
+  en: "Two questions tell them apart, in this order. First: do the lines converge at all? If the space between them stays the same, it is a parallel channel and none of the rest applies. If they converge, ask how the convergence is shared: a symmetric triangle brings the ceiling down as fast as it lifts the floor, so the shape points nowhere; a wedge has both lines going the SAME way with one of them steeper — rising if the whole shape drifts up, falling if it drifts down. Six named patterns, one object with the work divided differently."
+  es: "Dos preguntas las distinguen, en este orden. Primera: ¿convergen las líneas? Si el espacio entre ellas se mantiene, es un canal paralelo y no aplica nada más. Si convergen, pregunta cómo se reparte la convergencia: un triángulo simétrico baja el techo tan rápido como sube el suelo, así que la figura no apunta a ningún sitio; una cuña tiene las dos líneas en el MISMO sentido con una de ellas más inclinada, ascendente si la figura entera deriva hacia arriba y descendente si deriva hacia abajo. Seis patrones con nombre, un solo objeto con el trabajo repartido de otra forma."
