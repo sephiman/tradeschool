@@ -13,19 +13,19 @@ variants:
           es: "Acumulación, luego markup, luego distribución, luego markdown."
       - id: b
         text:
-          en: "Accumulation, then markdown, then distribution, then markup."
-          es: "Acumulación, luego markdown, luego distribución, luego markup."
-      - id: c
-        text:
           en: "Distribution, then markup, then accumulation, then markdown."
           es: "Distribución, luego markup, luego acumulación, luego markdown."
+      - id: c
+        text:
+          en: "Accumulation, then markdown, then distribution, then markup."
+          es: "Acumulación, luego markdown, luego distribución, luego markup."
       - id: d
         text:
           en: "Markup, then markdown, then accumulation, then distribution."
           es: "Markup, luego markdown, luego acumulación, luego distribución."
     explanation:
-      en: "Large players build longs during accumulation, which resolves upward into the markup. After the markup they unload during distribution, which resolves downward into the markdown. So accumulation is followed by markup and distribution by markdown — not the other way round."
-      es: "Los grandes participantes construyen largos durante la acumulación, que se resuelve al alza en el markup. Tras el markup sueltan durante la distribución, que se resuelve a la baja en el markdown. Por eso la acumulación va seguida del markup y la distribución del markdown, no al revés."
+      en: "Large players build longs during accumulation, which resolves upward into the markup. After the markup they unload during distribution, which resolves downward into the markdown. Each range is followed by the trend it was preparing, so accumulation cannot precede a markdown and distribution cannot precede a markup — and the cycle always starts from the range, not from the trend it produces."
+      es: "Los grandes participantes construyen largos durante la acumulación, que se resuelve al alza en el markup. Tras el markup sueltan durante la distribución, que se resuelve a la baja en el markdown. Cada rango va seguido de la tendencia que preparaba, así que la acumulación no puede preceder a un markdown ni la distribución a un markup, y el ciclo arranca siempre en el rango, no en la tendencia que produce."
   - id: range-meaning
     prompt:
       en: "In Wyckoff's reading, what is actually happening during a sideways trading range?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Large players are quietly building or unloading positions, needing many sessions to fill a big order without moving price against themselves."
-          es: "Los grandes participantes construyen o sueltan posiciones en silencio, necesitando muchas sesiones para llenar una orden grande sin mover el precio en su contra."
+          en: "Large players are quietly building or unloading, a slice at a time."
+          es: "Los grandes participantes construyen o sueltan en silencio, porción a porción."
       - id: b
         text:
-          en: "Nothing meaningful — the market is just idle, waiting for the next piece of news."
-          es: "Nada relevante: el mercado está parado, esperando la próxima noticia."
+          en: "Nothing meaningful — the market idles until the next piece of news lands."
+          es: "Nada relevante: el mercado se para hasta que llegue la próxima noticia."
       - id: c
         text:
           en: "Institutions have left the market entirely and only retail traders remain."
-          es: "Las instituciones han abandonado por completo el mercado y solo queda el retail."
+          es: "Las instituciones han abandonado el mercado y solo queda el retail."
       - id: d
         text:
-          en: "It is always accumulation, because sideways price means buyers are absorbing supply."
-          es: "Siempre es acumulación, porque un precio lateral significa que los compradores absorben la oferta."
+          en: "Accumulation, always — sideways price means buyers are absorbing supply."
+          es: "Acumulación, siempre: un precio lateral significa que los compradores absorben."
     explanation:
-      en: "The whole point of Wyckoff is that a quiet range is where the big, invisible work happens: a large order has to be worked over many sessions of two-way churn. A range can be accumulation OR distribution — the prior trend and the false break tell you which; sideways price alone does not mean buyers are winning."
-      es: "Todo el sentido de Wyckoff es que un rango tranquilo es donde ocurre el trabajo grande e invisible: una orden grande hay que trabajarla en muchas sesiones de ir y venir. Un rango puede ser acumulación O distribución; la tendencia previa y la ruptura falsa te dicen cuál, y un precio lateral por sí solo no significa que ganen los compradores."
+      en: "The whole point of Wyckoff is that a quiet range is where the big, invisible work happens: a large order has to be worked over many sessions of two-way churn, because filling it at once would move price against itself. That work is anything but idle, and the institutions are the ones doing it. A range can be accumulation OR distribution — the prior trend and the false break tell you which; sideways price alone does not mean buyers are winning."
+      es: "Todo el sentido de Wyckoff es que un rango tranquilo es donde ocurre el trabajo grande e invisible: una orden grande hay que trabajarla en muchas sesiones de ir y venir, porque llenarla de golpe movería el precio en su contra. Ese trabajo es cualquier cosa menos parálisis, y quienes lo hacen son las instituciones. Un rango puede ser acumulación O distribución; la tendencia previa y la ruptura falsa te dicen cuál, y un precio lateral por sí solo no significa que ganen los compradores."
   - id: cycle-sequence
     kind: ordering
     prompt:
@@ -132,71 +132,75 @@ variants:
       es: "La acumulación es un rango que llega después de un(a) ___ y se resuelve en un ___."
     options:
       - id: a
+        text:
+          en: "after an uptrend; resolves into a markdown"
+          es: "después de una tendencia alcista; se resuelve en un markdown"
+      - id: b
+        text:
+          en: "after an uptrend; resolves into a markup"
+          es: "después de una tendencia alcista; se resuelve en un markup"
+      - id: c
+        text:
+          en: "after a downtrend; resolves into a markdown"
+          es: "después de una tendencia bajista; se resuelve en un markdown"
+      - id: d
         correct: true
         text:
           en: "after a downtrend; resolves into a markup"
           es: "después de una tendencia bajista; se resuelve en un markup"
-      - id: b
-        text:
-          en: "after an uptrend; resolves into a markdown"
-          es: "después de una tendencia alcista; se resuelve en un markdown"
-      - id: c
-        text:
-          en: "after an uptrend; resolves into a markup"
-          es: "después de una tendencia alcista; se resuelve en un markup"
-      - id: d
-        text:
-          en: "after a downtrend; resolves into a markdown"
-          es: "después de una tendencia bajista; se resuelve en un markdown"
     explanation:
-      en: "Accumulation is where large players buy from sellers who have given up — so it follows a downtrend and, once the buying is done, resolves upward into a markup. Option b describes distribution (its mirror image); the others mix the two up, which is the most common Wyckoff mistake."
-      es: "La acumulación es donde los grandes participantes compran a los vendedores que se han rendido, así que sigue a una tendencia bajista y, terminada la compra, se resuelve al alza en un markup. La opción b describe la distribución (su imagen espejo); las demás mezclan ambas, que es el error más común en Wyckoff."
+      en: "Accumulation is where large players buy from sellers who have given up — so it follows a downtrend and, once the buying is done, resolves upward into a markup. The first option describes distribution, its exact mirror image; the other two mix the two ranges up, which is the most common Wyckoff mistake there is."
+      es: "La acumulación es donde los grandes participantes compran a los vendedores que se han rendido, así que sigue a una tendencia bajista y, terminada la compra, se resuelve al alza en un markup. La primera opción describe la distribución, su imagen espejo exacta; las otras dos mezclan ambos rangos, que es el error más común que existe en Wyckoff."
   - id: why-size-hides
     prompt:
       en: "A desk wants 2,000 contracts but the visible order book only offers 150 near the current price. Why does it feed 100–200 at a time over days instead of buying it all now?"
       es: "Una mesa quiere 2.000 contratos pero el libro visible solo ofrece 150 cerca del precio actual. ¿Por qué introduce 100-200 a la vez durante días en vez de comprarlo todo ahora?"
     options:
       - id: a
+        text:
+          en: "Exchanges cap the maximum order size on futures contracts."
+          es: "Los exchanges limitan el tamaño máximo de orden en los futuros."
+      - id: b
         correct: true
         text:
-          en: "Paying up through every offer above would move price 8–10% against itself and announce its intent to the whole market."
-          es: "Pagar a través de todas las ofertas de arriba movería el precio un 8-10% en su contra y anunciaría su intención a todo el mercado."
-      - id: b
-        text: { en: "Exchanges cap order size on futures contracts.", es: "Los exchanges limitan el tamaño de orden en los contratos de futuros." }
+          en: "Paying up through every offer would move price 8–10% against itself."
+          es: "Pagar a través de todas las ofertas movería el precio un 8-10% en su contra."
       - id: c
-        text: { en: "Smaller orders qualify for lower maker fees.", es: "Las órdenes más pequeñas acceden a comisiones maker más bajas." }
+        text:
+          en: "Smaller orders qualify the desk for a lower maker fee tier."
+          es: "Las órdenes pequeñas dan acceso a un tramo de comisión maker menor."
       - id: d
         text:
-          en: "It is waiting for a technical signal before committing."
-          es: "Está esperando una señal técnica antes de comprometerse."
+          en: "It is waiting for a technical signal before committing the full size."
+          es: "Espera una señal técnica antes de comprometer todo el tamaño."
     explanation:
-      en: "That constraint is why a range forms at all. The sideways chop is not indecision — it is a large order being worked in slices, and each slice needs a willing counterparty on the other side."
-      es: "Esa restricción es la razón de que se forme un rango. El movimiento lateral no es indecisión: es una orden grande ejecutada en porciones, y cada porción necesita una contraparte dispuesta al otro lado."
+      en: "It would also announce its intent to the whole market. That constraint is why a range forms at all: the sideways chop is not indecision, it is a large order being worked in slices, and each slice needs a willing counterparty on the other side. Nothing forces the split from outside — no size cap, no fee tier, and the desk has already decided to buy."
+      es: "También anunciaría su intención a todo el mercado. Esa restricción es la razón de que se forme un rango: el movimiento lateral no es indecisión, es una orden grande ejecutada en porciones, y cada porción necesita una contraparte dispuesta al otro lado. Nada impone el troceo desde fuera: ni un límite de tamaño, ni un tramo de comisión, y la mesa ya ha decidido comprar."
   - id: absorbing-question
     prompt:
       en: "Support at 100 has held for two weeks: every sag toward 100 gets bought, every push toward resistance fades. What is the question Wyckoff says to ask?"
       es: "Un soporte en 100 ha aguantado dos semanas: cada caída hacia 100 se compra, cada empuje hacia la resistencia se desvanece. ¿Cuál es la pregunta que dice Wyckoff que hay que hacerse?"
     options:
       - id: a
-        correct: true
         text:
-          en: "\"Who is doing the absorbing, and on which side?\" — not \"is it going sideways?\""
-          es: "\"¿Quién está absorbiendo, y en qué lado?\", no \"¿está yendo de lado?\""
+          en: "\"How many days remain until the range is forced to break?\""
+          es: "\"¿Cuántos días quedan hasta que el rango tenga que romperse?\""
       - id: b
         text:
-          en: "\"How many days until the range must break?\""
-          es: "\"¿Cuántos días faltan para que el rango tenga que romperse?\""
+          en: "\"Which indicator confirms that this really is a range?\""
+          es: "\"¿Qué indicador confirma que esto es de verdad un rango?\""
       - id: c
+        correct: true
         text:
-          en: "\"Which indicator confirms the range?\""
-          es: "\"¿Qué indicador confirma el rango?\""
+          en: "\"Who is doing the absorbing, and on which side?\""
+          es: "\"¿Quién está absorbiendo, y en qué lado?\""
       - id: d
         text:
-          en: "\"Is the range wide enough to trade profitably?\""
-          es: "\"¿Es el rango lo bastante ancho para operarlo con beneficio?\""
+          en: "\"Is the range wide enough to trade edge to edge profitably?\""
+          es: "\"¿Es el rango bastante ancho para operarlo de extremo a extremo?\""
     explanation:
-      en: "To a chart watcher two weeks at 100 is dead money. To Wyckoff it is a buyer sitting on the bid, absorbing everything offered, session after session, until the sellers are used up."
-      es: "Para quien solo mira el gráfico, dos semanas en 100 es dinero muerto. Para Wyckoff es un comprador sentado en la demanda, absorbiendo todo lo que se ofrece, sesión tras sesión, hasta agotar a los vendedores."
+      en: "To a chart watcher two weeks at 100 is dead money. To Wyckoff it is a buyer sitting on the bid, absorbing everything offered, session after session, until the sellers are used up — so the question is who, and on which side, never 'is it going sideways?'. Ranges have no expiry date, no indicator declares them, and their width is a separate question from what is being built inside."
+      es: "Para quien solo mira el gráfico, dos semanas en 100 es dinero muerto. Para Wyckoff es un comprador sentado en la demanda, absorbiendo todo lo que se ofrece, sesión tras sesión, hasta agotar a los vendedores: por eso la pregunta es quién y en qué lado, nunca '¿está yendo de lado?'. Los rangos no tienen fecha de caducidad, ningún indicador los declara, y su anchura es una pregunta aparte de lo que se está construyendo dentro."
   - id: stages-vs-phases
     kind: multi_select
     prompt:
@@ -206,8 +210,8 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Stages — accumulation, markup, distribution, markdown — name the cycle the whole market moves through."
-          es: "Las etapas (acumulación, markup, distribución, markdown) nombran el ciclo por el que pasa todo el mercado."
+          en: "Stages name the cycle the whole market moves through."
+          es: "Las etapas nombran el ciclo por el que pasa todo el mercado."
       - id: b
         correct: true
         text:
@@ -220,12 +224,12 @@ variants:
           es: "La acumulación sigue a una tendencia bajista; la distribución, a una alcista."
       - id: d
         text:
-          en: "Stages and phases are two names for the same five-step sequence."
-          es: "Etapas y fases son dos nombres para la misma secuencia de cinco pasos."
+          en: "Stages and phases are two names for one five-step sequence."
+          es: "Etapas y fases son dos nombres para una misma secuencia de cinco pasos."
       - id: e
         text:
-          en: "You must be able to name the live phase before you can trade a range."
-          es: "Debes poder nombrar la fase en vivo antes de poder operar un rango."
+          en: "You must name the live phase before you can trade a range."
+          es: "Debes nombrar la fase en vivo antes de poder operar un rango."
     explanation:
-      en: "Keep the two apart: the cycle is the market's long arc, the phases are one range's story. And you do not need to name phases live — the vocabulary is for reading the shape, not a checklist to complete."
-      es: "Mantén ambos separados: el ciclo es el arco largo del mercado, las fases son la historia de un rango. Y no necesitas nombrar las fases en vivo: el vocabulario sirve para leer la forma, no es una lista que completar."
+      en: "Keep the two apart: the cycle is the market's long arc — accumulation, markup, distribution, markdown — while the phases are one range's story from A to E. They are different scales, not synonyms. And you do not need to name phases live: the vocabulary is for reading the shape, not a checklist to complete before acting."
+      es: "Mantén ambos separados: el ciclo es el arco largo del mercado —acumulación, markup, distribución, markdown— mientras que las fases son la historia de un solo rango de la A a la E. Son escalas distintas, no sinónimos. Y no necesitas nombrar las fases en vivo: el vocabulario sirve para leer la forma, no es una lista que completar antes de actuar."

@@ -9,62 +9,82 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Coins held on an exchange are an IOU from it; you don't control them directly."
-          es: "Las monedas en un exchange son un pagaré suyo; no las controlas directamente."
+          en: "Coins held on an exchange are an IOU from it, not coins you control directly."
+          es: "Las monedas en un exchange son un pagaré suyo, no monedas que controles."
       - id: b
-        text: { en: "You must memorize your keys or lose access.", es: "Debes memorizar tus claves o pierdes el acceso." }
+        text:
+          en: "You must memorise the seed phrase; writing it down voids its security."
+          es: "Debes memorizar la frase semilla; apuntarla anula su seguridad."
       - id: c
-        text: { en: "Only miners truly own coins.", es: "Solo los mineros poseen de verdad las monedas." }
+        text:
+          en: "Only miners truly own coins; everyone else rents them between blocks."
+          es: "Solo los mineros poseen de verdad las monedas; los demás las alquilan."
       - id: d
-        text: { en: "Keys are optional on modern exchanges.", es: "Las claves son opcionales en los exchanges modernos." }
+        text:
+          en: "Keys are optional on a modern exchange, which custodies by account."
+          es: "Las claves son opcionales en un exchange moderno, que custodia por cuenta."
     explanation:
-      en: "If your coins sit on an exchange you hold a claim against it, not the coins — which matters the day withdrawals freeze."
-      es: "Si tus monedas están en un exchange tienes un derecho frente a él, no las monedas: eso importa el día que se congelan los retiros."
+      en: "If your coins sit on an exchange you hold a claim against a company, not the coins — which matters the day withdrawals freeze. The key is not a password to remember or an optional extra: whoever holds it holds the coins."
+      es: "Si tus monedas están en un exchange tienes un derecho frente a una empresa, no las monedas: eso importa el día que se congelan los retiros. La clave no es una contraseña que recordar ni un extra opcional: quien la tiene, tiene las monedas."
   - id: finality
     prompt:
       en: "A confirmed transaction, buried under enough later blocks, is…"
       es: "Una transacción confirmada, enterrada bajo suficientes bloques posteriores, es…"
     options:
       - id: a
-        correct: true
-        text: { en: "Effectively irreversible — there is no chargeback.", es: "Prácticamente irreversible: no hay contracargo." }
+        text:
+          en: "Reversible within 24 hours if support opens a ticket with the miner."
+          es: "Reversible en 24 horas si el soporte abre un ticket con el minero."
       - id: b
-        text: { en: "Reversible within 24 hours by support.", es: "Reversible en 24 horas por soporte." }
+        correct: true
+        text:
+          en: "Effectively irreversible — there is no chargeback and nobody to appeal to."
+          es: "Prácticamente irreversible: no hay contracargo ni nadie a quien reclamar."
       - id: c
-        text: { en: "Reversible by the sender at any time.", es: "Reversible por el emisor en cualquier momento." }
+        text:
+          en: "Reversible by the sender until the next block confirms on top of it."
+          es: "Reversible por el emisor hasta que el siguiente bloque confirme encima."
       - id: d
-        text: { en: "Automatically refunded if the price moves.", es: "Reembolsada automáticamente si el precio se mueve." }
+        text:
+          en: "Automatically refunded if price moves more than the fee you paid."
+          es: "Reembolsada automáticamente si el precio se mueve más que la comisión pagada."
     explanation:
-      en: "Settlement is final: once buried under enough blocks, reversing a transaction is, in practice, impossible."
-      es: "Las transacciones son irreversibles: una vez enterrada bajo suficientes bloques, revertir una transacción es, en la práctica, imposible."
+      en: "Settlement is final: once buried under enough blocks, reversing a transaction would mean out-running the whole honest network. No sender, miner or support desk has that power, and none of them has a window in which to use it."
+      es: "Las transacciones son irreversibles: una vez enterrada bajo suficientes bloques, revertirla exigiría adelantar a toda la red honesta. Ni el emisor, ni un minero, ni un soporte tienen ese poder, ni una ventana en la que ejercerlo."
   - id: no-operator
     prompt:
       en: "Which best describes who runs a blockchain like Bitcoin?"
       es: "¿Qué describe mejor quién opera una blockchain como Bitcoin?"
     options:
       - id: a
+        text:
+          en: "A single company whose database is the ledger every other node just copies."
+          es: "Una única empresa cuya base de datos es el libro que los demás nodos copian."
+      - id: b
+        text:
+          en: "A committee of the largest exchanges, which votes protocol changes through."
+          es: "Un comité de los mayores exchanges, que vota y aprueba los cambios de protocolo."
+      - id: c
         correct: true
         text:
-          en: "Thousands of independent nodes that keep the same history and reject rule-breaking."
-          es: "Miles de nodos independientes que guardan la misma historia y rechazan lo que rompe las reglas."
-      - id: b
-        text: { en: "A single company whose database is the ledger.", es: "Una única empresa cuya base de datos es el libro contable." }
-      - id: c
-        text: { en: "A committee of exchanges.", es: "Un comité de exchanges." }
+          en: "Thousands of independent nodes holding the same history and the same rules."
+          es: "Miles de nodos independientes que guardan la misma historia y las mismas reglas."
       - id: d
-        text: { en: "A central bank consortium.", es: "Un consorcio de bancos centrales." }
+        text:
+          en: "A consortium of central banks that clears settlement between them overnight."
+          es: "Un consorcio de bancos centrales que compensa la liquidación entre ellos de noche."
     explanation:
-      en: "There is no central operator: many nodes hold the same history and reject anything that breaks the rules."
-      es: "No hay operador central: muchos nodos guardan la misma historia y rechazan cualquier cosa que rompa las reglas."
+      en: "There is no central operator to run it, vote on it or clear it. Many nodes hold the same history and reject anything that breaks the rules — which is why no single party can print extra coins, freeze a balance or reverse a payment to please anyone."
+      es: "No hay operador central que lo dirija, lo vote ni lo compense. Muchos nodos guardan la misma historia y rechazan cualquier cosa que rompa las reglas: por eso ninguna parte puede emitir monedas extra, congelar un saldo ni revertir un pago para complacer a nadie."
   - id: reversal-myth
     kind: true_false
     prompt:
-      en: "If you send Bitcoin to the wrong address and the transaction confirms, exchange support can reverse it for you."
-      es: "Si envías Bitcoin a la dirección equivocada y la transacción se confirma, el soporte del exchange puede revertirla por ti."
-    answer: false
+      en: "If you send Bitcoin to the wrong address and the transaction confirms, no support desk anywhere can reverse it for you."
+      es: "Si envías Bitcoin a la dirección equivocada y la transacción se confirma, ningún soporte del mundo puede revertirla por ti."
+    answer: true
     explanation:
-      en: "Settlement is final. Once a transaction is confirmed and buried under later blocks, there is no chargeback and no support desk that can undo it."
-      es: "Las transacciones son irreversibles. Una vez confirmada y enterrada bajo bloques posteriores, no hay contracargo ni un soporte que pueda deshacerla."
+      en: "True. Settlement is final: once a transaction is confirmed and buried under later blocks there is no chargeback, and no company sits above the network with the power to undo one."
+      es: "Cierto. Las transacciones son irreversibles: una vez confirmada y enterrada bajo bloques posteriores no hay contracargo, y ninguna empresa está por encima de la red con poder para deshacerla."
   - id: keys-consequence-match
     kind: matching
     prompt:
@@ -95,19 +115,25 @@ variants:
       es: "Guardas tú mismo la clave privada de algunas de tus monedas. ¿Qué significa eso en la práctica?"
     options:
       - id: a
+        text:
+          en: "Support can reset the key like a password, once you prove who you are."
+          es: "El soporte puede restablecer la clave como una contraseña, si demuestras quién eres."
+      - id: b
+        text:
+          en: "The exchange keeps a backup of the key, which is what its cold storage is."
+          es: "El exchange guarda una copia de la clave: en eso consiste su almacenamiento en frío."
+      - id: c
+        text:
+          en: "Your coins are insured by the network against a key you can no longer use."
+          es: "La red asegura tus monedas frente a una clave que ya no puedas usar."
+      - id: d
         correct: true
         text:
-          en: "Full control and full responsibility — if you lose the key, no one can restore access."
-          es: "Control total y responsabilidad total: si pierdes la clave, nadie puede restaurar el acceso."
-      - id: b
-        text: { en: "Support can reset your key like a forgotten password.", es: "El soporte puede restablecer tu clave como una contraseña olvidada." }
-      - id: c
-        text: { en: "The exchange keeps a backup of your key.", es: "El exchange guarda una copia de seguridad de tu clave." }
-      - id: d
-        text: { en: "Your coins are insured by the network.", es: "La red asegura tus monedas." }
+          en: "Full control, and full responsibility if you lose the key."
+          es: "Control total, y responsabilidad total si pierdes la clave."
     explanation:
-      en: "Whoever controls the key controls the coins. That is the point of self-custody and also the danger: lose the key and there is no reset."
-      es: "Quien controla la clave controla las monedas. Ese es el sentido de la autocustodia y también el peligro: si pierdes la clave, no hay forma de restablecerla."
+      en: "Whoever controls the key controls the coins — that is the point of self-custody and also the danger. The chain only knows which key authorised a transfer, so there is no reset, no backup held on your behalf and no insurer standing behind it."
+      es: "Quien controla la clave controla las monedas: ese es el sentido de la autocustodia y también el peligro. La cadena solo sabe qué clave autorizó una transferencia, así que no hay restablecimiento, ni copia guardada por ti, ni aseguradora detrás."
   - id: exchange-balance
     kind: multi_select
     prompt:
@@ -130,12 +156,16 @@ variants:
           en: "If the exchange goes bankrupt, your balance can go with it."
           es: "Si el exchange quiebra, tu saldo puede irse con él."
       - id: d
-        text: { en: "The network insures your balance.", es: "La red asegura tu saldo." }
+        text:
+          en: "The network insures your balance against the exchange failing."
+          es: "La red asegura tu saldo frente a la quiebra del exchange."
       - id: e
-        text: { en: "You control the private key to those coins.", es: "Controlas la clave privada de esas monedas." }
+        text:
+          en: "You control the private key to those coins, held in your account."
+          es: "Controlas la clave privada de esas monedas, guardada en tu cuenta."
     explanation:
-      en: "\"Not your keys, not your coins\": a balance on an exchange is a claim against a company. Several exchanges have frozen withdrawals or gone bankrupt taking customer balances with them."
-      es: "\"Not your keys, not your coins\": un saldo en un exchange es un derecho frente a una empresa. Varios exchanges han congelado retiros o han quebrado llevándose los saldos de sus clientes."
+      en: "\"Not your keys, not your coins\": a balance on an exchange is a claim against a company, and the company holds the key. Several exchanges have frozen withdrawals or gone bankrupt taking customer balances with them, and no network-level insurer made anyone whole."
+      es: "\"Not your keys, not your coins\": un saldo en un exchange es un derecho frente a una empresa, y la empresa tiene la clave. Varios exchanges han congelado retiros o han quebrado llevándose los saldos de sus clientes, y ninguna aseguradora de red repuso a nadie."
   - id: lost-key
     kind: true_false
     prompt:
@@ -185,16 +215,22 @@ variants:
       es: "¿Por qué un gran holder o un regulador amistoso no puede simplemente subir el límite de 21 millones de Bitcoin?"
     options:
       - id: a
+        text:
+          en: "Financial law in most countries forbids changing a published token supply."
+          es: "La ley financiera de la mayoría de países prohíbe cambiar un suministro publicado."
+      - id: b
         correct: true
         text:
-          en: "There is nobody to ask — changing a core rule means convincing the whole network of nodes, which is slow and rare by design."
-          es: "No hay a quién pedírselo: cambiar una regla central exige convencer a toda la red de nodos, algo lento y raro por diseño."
-      - id: b
-        text: { en: "It is forbidden by financial law in most countries.", es: "Lo prohíbe la ley financiera en la mayoría de países." }
+          en: "There is nobody to ask: a core rule changes only if the whole network of nodes adopts it."
+          es: "No hay a quién pedírselo: una regla central cambia solo si toda la red de nodos la adopta."
       - id: c
-        text: { en: "The cap can be raised, but only once every four years.", es: "El límite puede subirse, pero solo una vez cada cuatro años." }
+        text:
+          en: "The cap can be raised, but only at a halving, once every four years."
+          es: "El límite puede subirse, pero solo en un halving, una vez cada cuatro años."
       - id: d
-        text: { en: "Only the largest mining pool may approve it, and it refuses.", es: "Solo el mayor pool de minería puede aprobarlo, y se niega." }
+        text:
+          en: "Only the largest mining pool may approve it, and it has always refused."
+          es: "Solo el mayor pool de minería puede aprobarlo, y siempre se ha negado."
     explanation:
-      en: "No central operator means no single party can print extra coins, freeze a balance or reverse a payment to please anyone. The rules are enforced by thousands of nodes at once."
-      es: "Que no haya operador central significa que ninguna parte puede emitir monedas extra, congelar un saldo ni revertir un pago para complacer a nadie. Las reglas las hacen cumplir miles de nodos a la vez."
+      en: "No central operator means no desk that takes the request — not a legislature, not a schedule, not the biggest miner. A rule that thousands of independent nodes enforce changes only when they overwhelmingly choose to run different software, which is slow and rare by design."
+      es: "Que no haya operador central significa que no hay ventanilla que reciba la petición: ni un legislador, ni un calendario, ni el mayor minero. Una regla que hacen cumplir miles de nodos independientes cambia solo cuando ellos deciden masivamente ejecutar otro software, algo lento y raro por diseño."

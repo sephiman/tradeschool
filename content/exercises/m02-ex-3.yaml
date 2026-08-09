@@ -7,50 +7,50 @@ variants:
       es: "¿Qué significa \"not your keys, not your coins\" en la práctica?"
     options:
       - id: a
+        text:
+          en: "You should never write the keys down, since paper can be photographed or lost."
+          es: "Nunca deberías apuntar las claves, porque el papel se puede fotografiar o perder."
+      - id: b
         correct: true
         text:
-          en: "Coins held on an exchange are an IOU from that company; only coins in a wallet whose keys you hold are truly yours."
-          es: "Las monedas en un exchange son un pagaré de esa empresa; solo son de verdad tuyas las monedas en una cartera cuyas claves controlas."
-      - id: b
-        text:
-          en: "You should never write your keys down, or someone will steal your coins."
-          es: "Nunca deberías apuntar tus claves, o alguien te robará las monedas."
+          en: "Coins on an exchange are an IOU; only coins whose keys you hold are yours."
+          es: "Las monedas en un exchange son un pagaré; solo son tuyas aquellas cuyas claves tienes."
       - id: c
         text:
-          en: "Every exchange is a scam and will eventually steal your coins."
-          es: "Todo exchange es una estafa y acabará robándote las monedas."
+          en: "Every exchange is a scam and will eventually steal the coins you leave there."
+          es: "Todo exchange es una estafa y acabará robándote las monedas que dejes allí."
       - id: d
         text:
-          en: "You need a different private key for every coin you own."
-          es: "Necesitas una clave privada distinta para cada moneda que tengas."
+          en: "You need a different private key for every coin you own, one per asset."
+          es: "Necesitas una clave privada distinta para cada moneda, una por activo."
     explanation:
-      en: "The phrase is about custody: coins on an exchange are a claim on the company, while coins in a wallet you control are yours. It is not a claim that every exchange is a scam."
-      es: "La frase va de custodia: las monedas en un exchange son un derecho de cobro sobre la empresa, mientras que las de una cartera que controlas son tuyas. No afirma que todo exchange sea una estafa."
+      en: "The phrase is about custody, not paranoia and not bookkeeping: coins on an exchange are a claim on the company, while coins in a wallet you control are yours. It is not a claim that every exchange is a scam, and one key can control many assets."
+      es: "La frase va de custodia, no de paranoia ni de contabilidad: las monedas en un exchange son un derecho de cobro sobre la empresa, mientras que las de una cartera que controlas son tuyas. No afirma que todo exchange sea una estafa, y una sola clave puede controlar muchos activos."
   - id: custody-risk
     prompt:
       en: "Which is a genuine risk of keeping your long-term savings on a custodial exchange?"
       es: "¿Cuál es un riesgo real de guardar tus ahorros a largo plazo en un exchange custodial?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The exchange could freeze withdrawals, be hacked, or become insolvent, leaving you with a claim instead of your coins."
-          es: "El exchange podría congelar los retiros, sufrir un hackeo o quebrar, dejándote con un derecho de cobro en vez de tus monedas."
+          en: "The coins lose value slowly because the exchange charges a fee on idle balances."
+          es: "Las monedas pierden valor poco a poco porque el exchange cobra por saldos inactivos."
       - id: b
         text:
-          en: "The coins slowly lose value because the exchange charges storage fees on idle balances."
-          es: "Las monedas pierden valor poco a poco porque el exchange cobra comisiones de almacenamiento por los saldos inactivos."
+          en: "The blockchain deletes coins that have not moved for a year, freeing the supply."
+          es: "La blockchain borra las monedas que no se mueven en un año y libera el suministro."
       - id: c
         text:
-          en: "The blockchain deletes any coins that have not moved for a year."
-          es: "La blockchain borra las monedas que no se mueven durante un año."
+          en: "Self-custody is illegal, so everything has to stay on a licensed exchange."
+          es: "La autocustodia es ilegal, así que todo debe quedarse en un exchange con licencia."
       - id: d
+        correct: true
         text:
-          en: "Self-custody is illegal, so you are forced to keep everything on the exchange."
-          es: "La autocustodia es ilegal, así que estás obligado a tenerlo todo en el exchange."
+          en: "Freezes, hacks or insolvency leave you with a claim instead of coins."
+          es: "Congelaciones, hackeos o quiebra te dejan con un derecho, no con monedas."
     explanation:
-      en: "The real exposure is counterparty risk: freezes, hacks, or insolvency turn your balance into a claim on the company. Blockchains do not expire coins, and self-custody is not illegal."
-      es: "La exposición real es el riesgo de contraparte: congelaciones, hackeos o quiebras convierten tu saldo en un derecho de cobro sobre la empresa. Las blockchains no caducan las monedas y la autocustodia no es ilegal."
+      en: "The real exposure is counterparty risk: a freeze, a hack or an insolvency turns your balance into a claim on the company. Blockchains do not expire coins, no venue bills you for holding still, and self-custody is not illegal — the danger is the company, not the chain."
+      es: "La exposición real es el riesgo de contraparte: una congelación, un hackeo o una quiebra convierten tu saldo en un derecho de cobro sobre la empresa. Las blockchains no caducan las monedas, ningún venue te cobra por estarte quieto y la autocustodia no es ilegal: el peligro es la empresa, no la cadena."
   - id: custody-tradeoff-match
     kind: matching
     prompt:
@@ -83,12 +83,12 @@ variants:
   - id: exchange-coins-tf
     kind: true_false
     prompt:
-      en: "Coins sitting in your exchange account are legally the same thing as coins in a wallet whose keys you hold."
-      es: "Las monedas que están en tu cuenta del exchange son legalmente lo mismo que las monedas en una cartera cuyas claves controlas."
-    answer: false
+      en: "Coins in your exchange account are a claim on the company, while coins in a wallet whose keys you hold are the coins themselves."
+      es: "Las monedas de tu cuenta en el exchange son un derecho de cobro sobre la empresa, mientras que las de una cartera cuyas claves controlas son las monedas en sí."
+    answer: true
     explanation:
-      en: "Coins on an exchange are a claim on the company — an IOU. Only coins in a wallet you control are truly yours. That difference is the whole point of 'not your keys, not your coins'."
-      es: "Las monedas en un exchange son un derecho de cobro sobre la empresa: un pagaré. Solo las monedas en una cartera que controlas son de verdad tuyas. Esa diferencia es todo el sentido de 'not your keys, not your coins'."
+      en: "True, and it is the whole point of 'not your keys, not your coins'. The screen shows the same number either way; what differs is whether anyone has to honour it."
+      es: "Cierto, y es todo el sentido de 'not your keys, not your coins'. La pantalla muestra el mismo número en ambos casos; lo que cambia es si alguien tiene que responder por él."
   - id: self-custody-facts
     kind: multi_select
     prompt:
@@ -98,24 +98,24 @@ variants:
       - id: a
         correct: true
         text:
-          en: "No company can freeze or seize your coins."
-          es: "Ninguna empresa puede congelar ni confiscar tus monedas."
+          en: "No company can freeze or seize the coins."
+          es: "Ninguna empresa puede congelar ni confiscar las monedas."
       - id: b
         correct: true
         text:
-          en: "If you lose the keys, the coins are gone — no one can restore them."
-          es: "Si pierdes las claves, las monedas se pierden: nadie puede restaurarlas."
+          en: "If you lose the keys the coins are gone — nobody can restore them."
+          es: "Si pierdes las claves, las monedas se pierden: nadie las restaura."
       - id: c
         text:
-          en: "A support desk can reset your access if you forget your keys."
-          es: "Una atención al cliente puede restablecer tu acceso si olvidas las claves."
+          en: "A support desk can reset your access if you forget the keys."
+          es: "Una atención al cliente puede restablecer el acceso si olvidas las claves."
       - id: d
         text:
-          en: "A regulator insures your coins against loss or theft."
-          es: "Un regulador asegura tus monedas contra pérdida o robo."
+          en: "A regulator insures the coins against loss or theft."
+          es: "Un regulador asegura las monedas contra pérdida o robo."
     explanation:
-      en: "Self-custody means no one can freeze your coins — and no one can bail you out either. The responsibility for keys and signed transactions is entirely yours."
-      es: "La autocustodia significa que nadie puede congelar tus monedas, y que tampoco nadie puede rescatarte. La responsabilidad de las claves y de las transacciones firmadas es enteramente tuya."
+      en: "Self-custody means no one can freeze your coins — and, by the same token, no one can bail you out. Removing the company removes the support desk and the insurer with it: keys and signed transactions are entirely your responsibility."
+      es: "La autocustodia significa que nadie puede congelar tus monedas y, por lo mismo, que nadie puede rescatarte. Quitar la empresa quita también la atención al cliente y la aseguradora: las claves y las transacciones firmadas son responsabilidad enteramente tuya."
   - id: savings-vs-trading
     prompt:
       en: "Based on the custody trade-off, what is the sensible default for most beginners?"
@@ -124,23 +124,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Keep trading funds on the exchange, but don't store long-term savings there."
-          es: "Mantén los fondos para operar en el exchange, pero no guardes ahí tus ahorros a largo plazo."
+          en: "Keep the funds you actively trade on the exchange, but not long-term savings."
+          es: "Mantén en el exchange los fondos con los que operas, pero no tus ahorros a largo plazo."
       - id: b
         text:
-          en: "Keep everything on the exchange; it's insured like a bank."
-          es: "Guarda todo en el exchange; está asegurado como un banco."
+          en: "Keep everything there; it is insured like a bank deposit."
+          es: "Guárdalo todo allí; está asegurado como un depósito bancario."
       - id: c
         text:
           en: "Never use an exchange at all — always trade peer-to-peer."
-          es: "No uses nunca un exchange; opera siempre de persona a persona."
+          es: "No uses nunca un exchange: opera siempre de persona a persona."
       - id: d
         text:
           en: "Move every coin to self-custody the instant a trade fills."
-          es: "Mueve cada moneda a autocustodia en el instante en que se ejecute una operación."
+          es: "Mueve cada moneda a autocustodia en cuanto se ejecute una operación."
     explanation:
-      en: "Keeping funds on an exchange to trade is a reasonable trade-off; parking your savings there quietly makes the company your bank. Exchanges are generally not insured like bank deposits."
-      es: "Mantener fondos en un exchange para operar es un compromiso razonable; aparcar ahí tus ahorros convierte, sin darte cuenta, a la empresa en tu banco. Los exchanges no suelen estar asegurados como los depósitos bancarios."
+      en: "Keeping working capital on an exchange is a reasonable trade-off; parking your savings there quietly makes the company your bank, and exchanges are generally not insured the way bank deposits are. The opposite extremes cost you too: peer-to-peer only is impractical, and shuttling every fill on-chain burns fees and multiplies the chances of a final mistake."
+      es: "Mantener el capital de trabajo en un exchange es un compromiso razonable; aparcar ahí tus ahorros convierte, sin decirlo, a la empresa en tu banco, y los exchanges no suelen estar asegurados como los depósitos bancarios. Los extremos contrarios también cuestan: operar solo de persona a persona es poco práctico, y mover cada ejecución on-chain quema comisiones y multiplica las ocasiones de cometer un error definitivo."
   - id: keys-lost-tf
     kind: true_false
     prompt:
@@ -158,17 +158,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "An unsecured creditor — you queue with the rest and may get cents on the dollar, years later."
-          es: "Acreedor sin garantía: haces cola con el resto y puedes recibir céntimos por euro, años después."
+          en: "An unsecured creditor — you queue with the rest for cents on the dollar."
+          es: "Acreedor sin garantía: haces cola con el resto por céntimos por euro."
       - id: b
-        text: { en: "A protected depositor, like a bank customer.", es: "Depositante protegido, como el cliente de un banco." }
+        text:
+          en: "The legal owner of specific coins segregated and held in your name."
+          es: "Propietario legal de monedas concretas, segregadas y guardadas a tu nombre."
       - id: c
-        text: { en: "The legal owner of specific coins held for you.", es: "Propietario legal de monedas concretas guardadas para ti." }
+        text:
+          en: "A protected depositor, like a bank customer under a national deposit guarantee."
+          es: "Depositante protegido, como el cliente de un banco con garantía de depósitos."
       - id: d
-        text: { en: "Fully covered by the exchange's insurance by law.", es: "Cubierto por completo por el seguro del exchange por ley." }
+        text:
+          en: "Fully covered by the exchange's insurance fund, which the law requires."
+          es: "Cubierto del todo por el fondo de seguros del exchange, que exige la ley."
     explanation:
-      en: "Your balance was a liability on the exchange's books, pooled with everyone else's coins. Keeping savings there is quietly making that company your bank — an unregulated one, with none of a bank's guarantees."
-      es: "Tu saldo era un pasivo en la contabilidad del exchange, mezclado con las monedas de todos. Guardar ahí tus ahorros es convertir a esa empresa en tu banco sin decirlo: un banco no regulado y sin ninguna de sus garantías."
+      en: "Your balance was a liability on the exchange's books, pooled with everyone else's coins — not segregated, not guaranteed, not insured by statute. You queue with the other creditors and may get cents on the dollar years later. Keeping savings there is quietly making that company your bank, an unregulated one with none of a bank's guarantees."
+      es: "Tu saldo era un pasivo en la contabilidad del exchange, mezclado con las monedas de todos: ni segregado, ni garantizado, ni asegurado por ley. Haces cola con los demás acreedores y puedes cobrar céntimos por euro años después. Guardar ahí tus ahorros es convertir a esa empresa en tu banco sin decirlo: un banco no regulado y sin ninguna de sus garantías."
   - id: failure-sequence
     kind: ordering
     prompt:
@@ -205,16 +211,22 @@ variants:
       es: "Retiras monedas de un exchange a tu propia wallet, pero eliges la red equivocada. ¿Qué ocurre?"
     options:
       - id: a
+        text:
+          en: "The transfer bounces back automatically after a few blocks confirm."
+          es: "La transferencia rebota automáticamente tras confirmarse unos bloques."
+      - id: b
+        text:
+          en: "The exchange reverses it once you open a ticket with the transaction hash."
+          es: "El exchange la revierte en cuanto abres un ticket con el hash."
+      - id: c
+        text:
+          en: "The network holds the funds until you claim them."
+          es: "La red retiene los fondos hasta que los reclames."
+      - id: d
         correct: true
         text:
-          en: "The coins are, in practice, simply gone — on-chain settlement is final; there is no chargeback and no support ticket that brings them back."
-          es: "En la práctica las monedas simplemente se pierden: la liquidación on-chain es definitiva; no hay contracargo ni ticket de soporte que las recupere."
-      - id: b
-        text: { en: "The transfer bounces back automatically after a few blocks.", es: "La transferencia rebota automáticamente tras unos bloques." }
-      - id: c
-        text: { en: "The exchange reverses it once you open a ticket.", es: "El exchange la revierte en cuanto abres un ticket." }
-      - id: d
-        text: { en: "The network holds the funds until you claim them.", es: "La red retiene los fondos hasta que los reclames." }
+          en: "In practice they are simply gone: on-chain settlement is final."
+          es: "En la práctica se pierden: la liquidación on-chain es definitiva."
     explanation:
-      en: "Finality is the entire design of on-chain settlement, and it does not care that you made a mistake. Withdrawing is the one moment where a careless click is irreversible — check the network and the address twice."
-      es: "La irreversibilidad es todo el diseño de la liquidación on-chain, y le da igual que te hayas equivocado. Retirar es el momento en que un clic descuidado no tiene vuelta atrás: revisa la red y la dirección dos veces."
+      en: "Finality is the entire design of on-chain settlement, and it does not care that you made a mistake — there is no bounce, no ticket and no escrow waiting for you to notice. Withdrawing is the one moment where a careless click is irreversible: check the network and the address twice."
+      es: "La irreversibilidad es todo el diseño de la liquidación on-chain, y le da igual que te hayas equivocado: no hay rebote, ni ticket, ni depósito esperando a que te des cuenta. Retirar es el momento en que un clic descuidado no tiene vuelta atrás: revisa la red y la dirección dos veces."

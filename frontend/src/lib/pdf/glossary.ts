@@ -1,7 +1,8 @@
 import type { Content } from "pdfmake/interfaces";
 import type { GlossaryEntry } from "@/api/course";
 import { sortGlossary } from "@/lib/glossary";
-import { GLOSSARY_ENTRY_ID, printedId, withId } from "@/lib/pdf/pagination";
+import { DEST, GLOSSARY_ENTRY_ID, printedId, withId } from "@/lib/pdf/pagination";
+import { CROSS_REF } from "@/lib/pdf/page";
 
 /**
  * The glossary as a printed section: alphabetical in the document's locale, one entry per block.
@@ -21,19 +22,41 @@ export interface GlossaryLabels {
   sense: (index: number) => string;
 }
 
-/** `M17-L1 · The basis` — the pointer back, which is what makes the glossary a reference. */
-function originLabel(entry: { origin: string | null; originTitle: string | null }): string | null {
+/**
+ * `M17-L1 · The basis` — the pointer back, which is what makes the glossary a reference, and a
+ * link to that lesson, because every other pointer in the book is one.
+ */
+function originContent(
+  entry: { origin: string | null; originTitle: string | null },
+  labels: GlossaryLabels,
+  style: string,
+): Content | null {
   if (!entry.origin) return null;
   const id = entry.origin.toUpperCase();
-  return entry.originTitle ? `${id} · ${entry.originTitle}` : id;
+  return {
+    text: labels.origin(entry.originTitle ? `${id} · ${entry.originTitle}` : id),
+    style,
+    linkToDestination: DEST.outline(entry.origin),
+    ...CROSS_REF,
+  };
 }
 
 function entryContent(entry: GlossaryEntry, index: number, labels: GlossaryLabels): Content {
-  const body: Content[] = [{ text: entry.term, style: "glossaryTerm" }];
+  // The destination every marked term in the prose jumps to. It sits on the TERM's text node, not on
+  // the stack around it: pdfmake only writes a destination where a line of text carries the id.
+  const body: Content[] = [
+    withId({ text: entry.term, style: "glossaryTerm" }, DEST.term(entry.id)),
+  ];
 
   if (entry.aliasOf) {
-    // A pointer, never a second copy of the definition — the canonical entry owns the words.
-    body.push({ text: labels.alias(entry.aliasOf.term), style: "glossaryAlias" });
+    // A pointer, never a second copy of the definition — the canonical entry owns the words, and
+    // the pointer is a link to them rather than an instruction to go and look.
+    body.push({
+      text: labels.alias(entry.aliasOf.term),
+      style: "glossaryAlias",
+      linkToDestination: DEST.term(entry.aliasOf.id),
+      ...CROSS_REF,
+    });
   } else if (entry.definition) {
     body.push({ text: entry.definition, style: "glossaryDefinition" });
   }
@@ -46,15 +69,15 @@ function entryContent(entry: GlossaryEntry, index: number, labels: GlossaryLabel
       ],
       style: "glossarySense",
     });
-    const origin = originLabel(sense);
-    if (origin) body.push({ text: labels.origin(origin), style: "glossarySenseOrigin" });
+    const origin = originContent(sense, labels, "glossarySenseOrigin");
+    if (origin) body.push(origin);
   }
 
   // A homonym's origins are per-sense and already printed above; only a single-sense entry
   // (or an alias, which points into the lesson that uses the second name) prints one here.
   if (!entry.senses?.length) {
-    const origin = originLabel(entry);
-    if (origin) body.push({ text: labels.origin(origin), style: "glossaryOrigin" });
+    const origin = originContent(entry, labels, "glossaryOrigin");
+    if (origin) body.push(origin);
   }
 
   return withId(
@@ -81,6 +104,9 @@ export function glossarySection(
           headlineLevel: 1,
           tocItem: true,
           tocStyle: "tocBlock",
+          // A top-level bookmark, beside the blocks. Its 161 entries stay out of the outline: a
+          // bookmark pane listing every term is a second glossary, not a way around the book.
+          outline: true,
         },
         sectionId,
       ),

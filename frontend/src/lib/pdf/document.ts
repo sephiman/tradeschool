@@ -1,5 +1,8 @@
 import type { Content, ContentStack, TDocumentDefinitions } from "pdfmake/interfaces";
-import type { CourseExport, PrintExercise, PrintExercises } from "@/api/course";
+import type { Root } from "mdast";
+import type { CourseExport, GlossaryEntry, PrintExercise, PrintExercises } from "@/api/course";
+import { annotateLesson } from "@/lib/glossary/annotate";
+import { buildTermIndex } from "@/lib/glossary/terms";
 import {
   answerKeySection,
   lessonExercises,
@@ -9,7 +12,7 @@ import {
 } from "@/lib/pdf/exercises";
 import { glossarySection, type GlossaryLabels } from "@/lib/pdf/glossary";
 import { lessonToContent, type MarkdownRenderers } from "@/lib/pdf/markdown";
-import { keepTogether, printedId, withId, type OversizedBlock } from "@/lib/pdf/pagination";
+import { DEST, keepTogether, printedId, withId, type OversizedBlock } from "@/lib/pdf/pagination";
 import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf/sections";
 import { DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, panelWidth } from "@/lib/pdf/page";
 
@@ -161,10 +164,27 @@ function exerciseChart(charts: Map<string, string>): ExerciseChartLookup {
   };
 }
 
+/**
+ * The book's glossary links: one pass over the course in reading order, one shared `marked` set.
+ *
+ * That shared set IS the PDF's policy — the first occurrence of a term in the whole book claims its
+ * slot. Returns null when there is no glossary section to link into, so the book never carries a
+ * link to a page it does not print.
+ */
+function termAnnotator(glossary: GlossaryEntry[], locale: string) {
+  if (glossary.length === 0) return null;
+  const terms = buildTermIndex(glossary, locale);
+  const marked = new Set<string>();
+  return (lessonId: string) => (tree: Root) => {
+    annotateLesson(tree, { lessonId, terms, marked });
+  };
+}
+
 export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDefinitions {
   const sections = o.sections ?? createSectionTracker();
   const keepPagesTogether = keepTogether({ onOversizedBlock: o.onOversizedBlock });
   const render = renderers(o.figures);
+  const annotator = termAnnotator(o.export.glossary, o.export.locale);
   const chart = exerciseChart(o.exerciseCharts);
   const byLesson = new Map(o.exercises.lessons.map((lesson) => [lesson.lessonId, lesson.exercises]));
   const excludedByLesson = new Map<string, number>();
@@ -182,10 +202,12 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
       // mostly empty page of their own: the lesson still begins on a fresh page.
       const opening: Content[] = [];
       const moduleTitle = `${module.id.toUpperCase()} · ${module.title}`;
+      // The outline nests exactly as the manifest does — block › module › lesson — and each level
+      // parents the next by id, so a reader's bookmark pane is the course tree.
+      const blockOutlineId = printedId(SECTION_ID, block.id, 0);
       if (!blockOpened) {
         // The block heading opens a top-level section, and the footer names it from here on.
-        const sectionId = printedId(SECTION_ID, block.id, 0);
-        sections.declare(sectionId, block.title);
+        sections.declare(blockOutlineId, block.title);
         opening.push(
           withId(
             {
@@ -194,21 +216,28 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
               headlineLevel: 1,
               tocItem: true,
               tocStyle: "tocBlock",
+              outline: true,
+              outlineExpanded: true,
             },
-            sectionId,
+            blockOutlineId,
           ),
         );
         blockOpened = true;
       }
       opening.push(
-        {
-          text: moduleTitle,
-          style: "moduleTitle",
-          headlineLevel: 2,
-          tocItem: true,
-          tocStyle: "tocModule",
-          tocMargin: [12, 0, 0, 0],
-        },
+        withId(
+          {
+            text: moduleTitle,
+            style: "moduleTitle",
+            headlineLevel: 2,
+            tocItem: true,
+            tocStyle: "tocModule",
+            tocMargin: [12, 0, 0, 0],
+            outline: true,
+            outlineParentId: blockOutlineId,
+          },
+          DEST.outline(module.id),
+        ),
         { text: module.summary, style: "moduleSummary" },
       );
 
@@ -221,24 +250,29 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
       const moduleExercises: PrintExercise[] = [];
 
       module.lessons.forEach((lesson, index) => {
-        const body = lessonToContent(lesson.markdown, render, lesson.id);
+        const body = lessonToContent(lesson.markdown, render, lesson.id, annotator?.(lesson.id));
         const exercises = byLesson.get(lesson.id) ?? [];
         moduleExercises.push(...exercises);
         // A lesson's prose opens with its own `# title` — the string the manifest carries and the app
         // shows. Promote it to the TOC entry rather than printing the title twice; a body without one
         // falls back to the manifest title, so the TOC is never short an entry.
+        //
+        // `outlineText` is not optional here: the parsed title is an ARRAY of styled runs, and
+        // pdfmake would hand that array to the bookmark as its label.
+        const nav = {
+          tocItem: true,
+          tocStyle: "tocLesson",
+          tocMargin: [24, 0, 0, 0],
+          outline: true,
+          outlineText: lesson.title,
+          outlineParentId: DEST.outline(module.id),
+          id: DEST.outline(lesson.id),
+        };
         const first = body[0] as { style?: string } | undefined;
         if (first?.style === "lessonTitle") {
-          Object.assign(first, { tocItem: true, tocStyle: "tocLesson", tocMargin: [24, 0, 0, 0] });
+          Object.assign(first, nav);
         } else {
-          body.unshift({
-            text: lesson.title,
-            style: "lessonTitle",
-            headlineLevel: 1,
-            tocItem: true,
-            tocStyle: "tocLesson",
-            tocMargin: [24, 0, 0, 0],
-          });
+          body.unshift({ text: lesson.title, style: "lessonTitle", headlineLevel: 1, ...nav });
         }
         const section: LessonSection = {
           stack: [

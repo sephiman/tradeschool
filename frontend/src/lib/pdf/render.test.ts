@@ -162,6 +162,21 @@ describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
     expect(manifestExerciseIds().filter((id) => text.includes(id))).toEqual([]);
   }, 300_000);
 
+  it("ships a real outline and real link annotations, not just a definition that asks for them", async () => {
+    // `navigation.test.ts` proves the document ASKS for these; only the bytes prove pdfmake wrote
+    // them. Outline dictionaries and link annotations are objects, so they survive stream compression.
+    const { bytes } = await generateOnce(locale);
+    const text = new TextDecoder("latin1").decode(bytes);
+    expect(text, "no document outline in the file").toContain("/Outlines");
+    const bookmarks = [...text.matchAll(/\/Title/g)].length - 1; // the info dictionary carries one too
+    const lessons = manifestLessons().length;
+    const modules = readManifest().blocks.flatMap((block) => block.modules).length;
+    const blocks = readManifest().blocks.length;
+    expect(bookmarks).toBeGreaterThanOrEqual(blocks + modules + lessons + 2);
+    // The contents alone accounted for ~440 before this batch; terms and the exercise pair add more.
+    expect([...text.matchAll(/\/GoTo/g)].length).toBeGreaterThan(600);
+  }, 300_000);
+
   it("grows by the exercises: more pages than the same book without them", async () => {
     const { bytes } = await generateOnce(locale);
     const withoutExercises = await generate(locale, undefined, {

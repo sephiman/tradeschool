@@ -26,6 +26,26 @@ export function printedId(kind: string, source: string, ordinal: number): string
   return `${kind}-${source}-${ordinal}`;
 }
 
+/**
+ * Where an internal link can land. Its own id space, kept clear of the keep-whole prefixes above.
+ *
+ * A destination only exists where the id sits on a TEXT node: pdfmake writes one from `line.id` as it
+ * renders a line, so the same id on a wrapping stack anchors nothing.
+ */
+export const DEST = {
+  /** A glossary entry, addressed by its permanent content id. */
+  term: (glossaryId: string) => `gdest-${glossaryId}`,
+  /**
+   * A printed exercise, and the answer that answers it — addressed by the PRINTED NUMBER, never the
+   * exercise id. A destination name is written into the file's name tree, so an id there would put a
+   * database key in the document; the number is already on the page (`render.test.ts` guards this).
+   */
+  exercise: (printedNumber: string) => `xdest-${printedNumber}`,
+  answer: (printedNumber: string) => `adest-${printedNumber}`,
+  /** A heading that appears in the document outline. */
+  outline: (contentId: string) => `odest-${contentId}`,
+} as const;
+
 /** pdfmake accepts `id` on any node, but `@types/pdfmake` declares it only on the table of contents.
  *  The gap is cast here once rather than at every call site. */
 export function withId<T extends object>(content: T, id: string): T & { id: string } {

@@ -7,22 +7,22 @@ variants:
       es: "BTC está a 60.000 en el exchange A y a 60.900 en el B. Aparte, una moneda más pequeña está a 6.000 en A y a 6.900 en B. Los dos huecos son 900: ¿son comparables las dos primas?"
     options:
       - id: a
-        correct: true
         text:
-          en: "No — 900 on 60,000 is a 1.5% premium while 900 on 6,000 is 15%. The absolute gap means nothing until you express it as a percentage of the reference price."
-          es: "No: 900 sobre 60.000 es una prima del 1,5 % mientras 900 sobre 6.000 es del 15 %. El hueco absoluto no significa nada hasta que lo expresas como porcentaje del precio de referencia."
+          en: "Yes — an equal absolute gap is an equal arbitrage opportunity in both."
+          es: "Sí: un hueco absoluto igual es la misma oportunidad en los dos casos."
       - id: b
         text:
-          en: "Yes — an equal absolute gap represents an equal arbitrage opportunity in both cases."
-          es: "Sí: un hueco absoluto igual representa una oportunidad de arbitraje igual en los dos casos."
+          en: "Yes, provided both are quoted in the same currency, which they are."
+          es: "Sí, siempre que las dos coticen en la misma moneda, como es el caso."
       - id: c
         text:
-          en: "Yes, provided both are quoted in the same currency, which they are."
-          es: "Sí, siempre que las dos estén cotizadas en la misma moneda, como es el caso."
+          en: "No, because premiums compare only between venues, never between coins."
+          es: "No, porque las primas solo se comparan entre exchanges, no entre monedas."
       - id: d
+        correct: true
         text:
-          en: "No, because premiums can only ever be compared between venues, never between coins."
-          es: "No, porque las primas solo se pueden comparar entre exchanges, nunca entre monedas."
+          en: "No — 900 on 60,000 is a 1.5% premium, but 900 on 6,000 is a 15% one."
+          es: "No: 900 sobre 60.000 es una prima del 1,5 %, pero sobre 6.000 es del 15 %."
     explanation:
       en: "The percentage is the figure worth quoting, and this is why. A 15% premium is an extraordinary dislocation; a 1.5% one is notable but ordinary in a market with real transfer friction. The absolute number cannot distinguish them, which is also why the percentage is what lets you compare a premium today against a premium two years ago."
       es: "El porcentaje es la cifra que merece citarse, y esta es la razón. Una prima del 15 % es una dislocación extraordinaria; una del 1,5 % es llamativa pero corriente en un mercado con fricción de transferencia real. El número absoluto no puede distinguirlas, y por eso también el porcentaje es lo que te permite comparar una prima de hoy con una de hace dos años."
@@ -32,25 +32,25 @@ variants:
       es: "Un exchange de un país con controles de capital estrictos lleva ocho meses cotizando de forma continua con una prima del 3-4 %. ¿Cuál es la explicación más probable?"
     options:
       - id: a
+        text:
+          en: "Sustained regional demand — locals more eager than the market for months."
+          es: "Demanda regional sostenida: locales con más ganas durante meses."
+      - id: b
         correct: true
         text:
-          en: "Transfer friction — the premium is roughly the price of the barrier to moving value in and out, not a reading on local enthusiasm."
-          es: "Fricción de transferencia: la prima es aproximadamente el precio de la barrera para mover valor hacia dentro y hacia fuera, no una lectura del entusiasmo local."
-      - id: b
-        text:
-          en: "Sustained regional demand — local buyers have been more eager than the rest of the market for eight straight months."
-          es: "Demanda regional sostenida: los compradores locales han tenido más ganas que el resto del mercado durante ocho meses seguidos."
+          en: "Transfer friction — the premium prices the barrier, not enthusiasm."
+          es: "Fricción: la prima pone precio a la barrera, no al entusiasmo."
       - id: c
         text:
-          en: "Arbitrageurs have not noticed the gap yet."
-          es: "Los arbitrajistas todavía no se han dado cuenta del hueco."
+          en: "Arbitrageurs have not noticed a gap on such a small venue yet."
+          es: "Los arbitrajistas aún no han visto el hueco en un sitio pequeño."
       - id: d
         text:
-          en: "The venue is reporting false prices, since a real premium cannot persist for months."
-          es: "El exchange está reportando precios falsos, ya que una prima real no puede persistir durante meses."
+          en: "The venue reports false prices; a real premium cannot last months."
+          es: "El exchange reporta precios falsos; una prima real no dura meses."
     explanation:
-      en: "Duration is the tell. A demand-driven premium is a flow reading and changes as flow changes; a premium that sits at the same level for months is closer to a structural constant — the cost of the barrier. Arbitrage is certainly aware of it, but the fiat leg is restricted, so the gap can only be capped at the cost of getting around the restriction. Reading a friction premium as bullish enthusiasm is a straightforward mistake."
-      es: "La duración es la pista. Una prima impulsada por demanda es una lectura de flujo y cambia cuando cambia el flujo; una prima que se queda en el mismo nivel durante meses está más cerca de ser una constante estructural: el coste de la barrera. El arbitraje sin duda la conoce, pero la pata fiat está restringida, así que el hueco solo puede toparse en el coste de sortear la restricción. Leer una prima de fricción como entusiasmo alcista es un error de manual."
+      en: "Duration is the tell. A demand-driven premium is a flow reading and changes as flow changes; a premium that sits at the same level for months is closer to a structural constant — roughly the price of the barrier to moving value in and out. Arbitrage is certainly aware of it, but the fiat leg is restricted, so the gap can only be capped at the cost of getting around the restriction. Reading a friction premium as bullish enthusiasm is a straightforward mistake."
+      es: "La duración es la pista. Una prima impulsada por demanda es una lectura de flujo y cambia cuando cambia el flujo; una prima que se queda en el mismo nivel durante meses está más cerca de ser una constante estructural: aproximadamente el precio de la barrera para mover valor hacia dentro y hacia fuera. El arbitraje sin duda la conoce, pero la pata fiat está restringida, así que el hueco solo puede toparse en el coste de sortear la restricción. Leer una prima de fricción como entusiasmo alcista es un error de manual."
   - id: premium-not-a-buy-signal
     kind: true_false
     prompt:
@@ -69,25 +69,25 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Moving coin between venues needs blockchain confirmations, and price can move against you the whole time"
-          es: "Mover moneda entre exchanges necesita confirmaciones de blockchain, y el precio puede moverse en tu contra todo ese tiempo"
+          en: "Moving coin between venues needs blockchain confirmations"
+          es: "Mover moneda entre exchanges necesita confirmaciones en cadena"
       - id: b
         correct: true
         text:
-          en: "Withdrawal fees, trading fees on both sides and currency conversion set a floor below which the trade isn't worth doing"
-          es: "Las comisiones de retirada, las de trading en los dos lados y la conversión de divisa ponen un suelo por debajo del cual la operación no merece la pena"
+          en: "Withdrawal fees, trading fees and conversion set a floor"
+          es: "Las comisiones de retirada, de trading y de conversión ponen un suelo"
       - id: c
         correct: true
         text:
-          en: "Capital controls and banking limits can make the fiat leg slow, capped or effectively impossible"
-          es: "Los controles de capital y los límites bancarios pueden hacer la pata fiat lenta, topada o efectivamente imposible"
+          en: "Capital controls can make the fiat leg slow or impossible"
+          es: "Los controles de capital hacen la pata fiat lenta o imposible"
       - id: d
         text:
-          en: "Exchanges are contractually forbidden from letting their prices converge with competitors'"
-          es: "Los exchanges tienen contractualmente prohibido dejar que sus precios converjan con los de la competencia"
+          en: "Exchanges are contractually forbidden from converging prices"
+          es: "Los exchanges tienen prohibido por contrato converger precios"
     explanation:
-      en: "The first three are the real frictions, and together they explain the honest picture: arbitrage does not eliminate premiums, it caps them at the cost of doing it — so where that cost is high, the cap is high. The fourth is invented; nothing prevents convergence except the cost of achieving it. Worth adding that the efficient version of the trade needs capital already sitting on both venues, which means accepting both exchanges' counterparty risk in advance."
-      es: "Las tres primeras son las fricciones reales y, juntas, explican el cuadro honesto: el arbitraje no elimina las primas, las topa en el coste de hacerlo; así que donde ese coste es alto, el tope es alto. La cuarta está inventada: nada impide la convergencia salvo el coste de lograrla. Merece añadir que la versión eficiente de la operación necesita capital ya sentado en los dos sitios, lo que significa aceptar por adelantado el riesgo de contraparte de los dos exchanges."
+      en: "The first three are the real frictions: confirmations leave price free to move against you, fees set a floor below which the trade is not worth doing, and banking limits can cap the fiat leg outright. Together they explain the honest picture — arbitrage does not eliminate premiums, it caps them at the cost of doing it, so where that cost is high the cap is high. The fourth is invented. Worth adding that the efficient version of the trade needs capital already sitting on both venues, which means accepting both exchanges' counterparty risk in advance."
+      es: "Las tres primeras son las fricciones reales: las confirmaciones dejan al precio libre de moverse en tu contra, las comisiones ponen un suelo por debajo del cual la operación no merece la pena, y los límites bancarios pueden topar la pata fiat del todo. Juntas explican el cuadro honesto: el arbitraje no elimina las primas, las topa en el coste de hacerlo; así que donde ese coste es alto, el tope es alto. La cuarta está inventada. Merece añadir que la versión eficiente de la operación necesita capital ya sentado en los dos sitios, lo que significa aceptar por adelantado el riesgo de contraparte de los dos exchanges."
   - id: widening-vs-level
     prompt:
       en: "A venue's premium has gone from 0.4% to 2.1% over three days. Another venue has sat flat at 2.0% for months. Which is telling you more, and what?"
@@ -96,45 +96,45 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The widening one — buying pressure is arriving through that venue first. The flat one is closer to a structural cost and carries little fresh information."
-          es: "El que se ensancha: la presión compradora está llegando primero por ese exchange. El plano está más cerca de un coste estructural y aporta poca información nueva."
+          en: "The widening one — buying pressure is arriving through that venue."
+          es: "El que se ensancha: la presión compradora llega por ese exchange."
       - id: b
         text:
-          en: "The flat one — a premium sustained for months is far stronger evidence than a three-day move."
-          es: "El plano: una prima sostenida durante meses es una prueba mucho más fuerte que un movimiento de tres días."
+          en: "The flat one — months of premium beats a three-day move as evidence."
+          es: "El plano: meses de prima son más prueba que tres días de movimiento."
       - id: c
         text:
-          en: "Neither — at 2% they are effectively the same reading."
-          es: "Ninguno: al 2 % son efectivamente la misma lectura."
+          en: "Neither — at about 2% the two are effectively the same reading."
+          es: "Ninguno: al 2 % los dos son efectivamente la misma lectura."
       - id: d
         text:
-          en: "The flat one, because a stable premium is a reliable arbitrage income."
-          es: "El plano, porque una prima estable es un ingreso de arbitraje fiable."
+          en: "The flat one, because a stable premium is reliable arbitrage income."
+          es: "El plano, porque una prima estable es un ingreso fiable de arbitraje."
     explanation:
-      en: "This is why the premium's *change* matters more than its level. Both venues currently read about 2%, and they mean completely different things: one is a flow event in progress, the other is the standing price of a barrier. The same venue can even show both at once — a structural base with demand-driven spikes on top — which is exactly why you track the change."
-      es: "Por esto el *cambio* de la prima importa más que su nivel. Los dos exchanges marcan ahora en torno al 2 % y significan cosas completamente distintas: uno es un suceso de flujo en marcha, el otro es el precio permanente de una barrera. El mismo sitio puede incluso mostrar las dos a la vez —una base estructural con picos de demanda encima—, y justo por eso sigues el cambio."
+      en: "This is why the premium's *change* matters more than its level. Both venues currently read about 2%, and they mean completely different things: one is a flow event in progress, the other is the standing price of a barrier, carrying little fresh information. The same venue can even show both at once — a structural base with demand-driven spikes on top — which is exactly why you track the change."
+      es: "Por esto el *cambio* de la prima importa más que su nivel. Los dos exchanges marcan ahora en torno al 2 % y significan cosas completamente distintas: uno es un suceso de flujo en marcha, el otro es el precio permanente de una barrera y aporta poca información nueva. El mismo sitio puede incluso mostrar las dos a la vez —una base estructural con picos de demanda encima—, y justo por eso sigues el cambio."
   - id: collapsing-premium
     prompt:
       en: "A premium that spent weeks at 3% falls to 0.2% in two days. What are the two readings worth considering?"
       es: "Una prima que pasó semanas al 3 % cae al 0,2 % en dos días. ¿Cuáles son las dos lecturas que merece considerar?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Either the eager local buyer is finished, or the barrier that sustained the gap has just opened."
-          es: "O el comprador local ansioso ha terminado, o la barrera que sostenía el hueco acaba de abrirse."
-      - id: b
         text:
           en: "Either price is about to crash, or the venue is about to be delisted."
-          es: "O el precio está a punto de desplomarse, o el exchange está a punto de ser deslistado."
+          es: "O el precio va a desplomarse, o el exchange va a ser deslistado."
+      - id: b
+        text:
+          en: "Either the arbitrageurs have left, or the coin's supply has changed."
+          es: "O los arbitrajistas se han ido, o la oferta de la moneda cambió."
       - id: c
         text:
-          en: "Either arbitrageurs have all left, or the coin's supply has changed."
-          es: "O los arbitrajistas se han ido todos, o la oferta de la moneda ha cambiado."
+          en: "Only one: a collapsing premium always means local demand turned to selling."
+          es: "Solo una: una prima que cae siempre significa que la demanda vende."
       - id: d
+        correct: true
         text:
-          en: "Only one reading is possible: a collapsing premium always means local demand has reversed to selling."
-          es: "Solo hay una lectura posible: una prima que se derrumba siempre significa que la demanda local se ha dado la vuelta a venta."
+          en: "Either the eager local buyer is finished, or the barrier has opened."
+          es: "O el comprador local ansioso ha terminado, o la barrera se abrió."
     explanation:
       en: "A collapsing premium is the mirror of a widening one, and it has the same two candidate causes as the premium itself — demand or friction. Either the flow that was arriving through that venue has exhausted, or the withdrawal queue reopened, the banking rail cleared, the control loosened. Which one it is changes what you should expect next, so the reading is not complete until you know."
       es: "Una prima que se derrumba es el espejo de una que se ensancha, y tiene las mismas dos causas candidatas que la prima en sí: demanda o fricción. O el flujo que llegaba por ese sitio se ha agotado, o la cola de retiradas se reabrió, la vía bancaria se despejó, el control se relajó. Cuál de las dos sea cambia lo que deberías esperar después, así que la lectura no está completa hasta que lo sepas."
@@ -176,21 +176,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The conversion you used — in exactly the stressed conditions where premiums blow out, the local exchange rate and the stablecoin's own peg are the things most likely to be wobbling."
-          es: "La conversión que usaste: precisamente en las condiciones de estrés en que las primas se disparan, el tipo de cambio local y la propia paridad de la stablecoin son lo más probable que esté tambaleándose."
+          en: "The conversion you used — the local rate and the peg can wobble."
+          es: "La conversión que usaste: el tipo local y la paridad pueden bailar."
       - id: b
         text:
-          en: "Nothing — a premium computed from two live feeds is exact by construction."
-          es: "Nada: una prima calculada con dos feeds en vivo es exacta por construcción."
+          en: "Nothing — a premium from two live feeds is exact by construction."
+          es: "Nada: una prima de dos feeds en vivo es exacta por construcción."
       - id: c
-        text: { en: "Only the withdrawal fees on both venues.", es: "Solo las comisiones de retiro de ambos venues." }
+        text:
+          en: "Only the withdrawal fees charged by each of the two venues."
+          es: "Solo las comisiones de retiro que cobra cada uno de los dos venues."
       - id: d
         text:
           en: "Whether both venues use the same maker/taker fee schedule."
-          es: "Si ambos venues usan la misma tabla de comisiones maker/taker."
+          es: "Si los dos venues usan la misma tabla de comisiones maker/taker."
     explanation:
-      en: "Check what you are actually comparing before you believe a big number. A premium quoted across two different quote currencies inherits every error in the rate between them."
-      es: "Comprueba qué estás comparando de verdad antes de creerte una cifra grande. Una prima cotizada entre dos monedas de cotización distintas hereda todos los errores del tipo de cambio entre ellas."
+      en: "Check what you are actually comparing before you believe a big number: a premium quoted across two different quote currencies inherits every error in the rate between them. And in exactly the stressed conditions where premiums blow out, the local exchange rate and the stablecoin's own peg are the things most likely to be wobbling."
+      es: "Comprueba qué estás comparando de verdad antes de creerte una cifra grande: una prima cotizada entre dos monedas de cotización distintas hereda todos los errores del tipo de cambio entre ellas. Y precisamente en las condiciones de estrés en que las primas se disparan, el tipo de cambio local y la propia paridad de la stablecoin son lo más probable que esté tambaleándose."
   - id: manual-arb-steps
     kind: ordering
     prompt:

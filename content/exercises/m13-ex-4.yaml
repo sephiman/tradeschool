@@ -7,50 +7,50 @@ variants:
       es: "¿Por qué tienen los niveles de retroceso de Fibonacci algún valor predictivo en los mercados?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Largely because so many traders watch the same levels and place orders there (self-fulfilling), and because they add confluence with real structure like prior support."
-          es: "En gran parte porque muchísimos traders vigilan los mismos niveles y colocan órdenes ahí (autocumplido), y porque aportan confluencia con estructura real como un soporte previo."
-      - id: b
         text:
           en: "Because the golden ratio governs natural growth, so it must govern price too."
-          es: "Porque el número áureo rige el crecimiento natural, así que debe regir también el precio."
+          es: "Porque el número áureo rige el crecimiento natural, así que debe regir el precio."
+      - id: b
+        correct: true
+        text:
+          en: "Because a crowd watches them, and they can overlap real structure."
+          es: "Porque una multitud los vigila y pueden solaparse con estructura real."
       - id: c
         text:
           en: "Because price is mathematically forced to respect 61.8% of any move."
-          es: "Porque el precio está obligado matemáticamente a respetar el 61,8 % de cualquier movimiento."
+          es: "Porque el precio está obligado matemáticamente a respetar el 61,8 % de un movimiento."
       - id: d
         text:
-          en: "Because exchanges program the levels into the matching engine."
-          es: "Porque los exchanges programan los niveles en el motor de emparejamiento."
+          en: "Because the exchanges program the levels into the matching engine itself."
+          es: "Porque los exchanges programan los niveles en el propio motor de emparejamiento."
     explanation:
-      en: "There is no mechanism forcing a market to respect a ratio. The levels do something because a crowd watches them (self-fulfilling) and because they can coincide with structure that already mattered — never because a spiral in a sunflower controls order flow."
-      es: "No hay ningún mecanismo que obligue a un mercado a respetar una ratio. Los niveles hacen algo porque una multitud los vigila (autocumplido) y porque pueden coincidir con estructura que ya importaba, nunca porque una espiral en un girasol controle el flujo de órdenes."
+      en: "There is no mechanism forcing a market to respect a ratio: prices are set by orders. The levels do something because so many traders watch them and rest orders there — making them briefly self-fulfilling — and because they add confluence with real structure like prior support. Never because a spiral in a sunflower, or a line of exchange code, controls order flow."
+      es: "No hay ningún mecanismo que obligue a un mercado a respetar una ratio: los precios los fijan las órdenes. Los niveles hacen algo porque muchísimos traders los vigilan y dejan órdenes ahí —lo que los vuelve autocumplidos por un momento— y porque aportan confluencia con estructura real como un soporte previo. Nunca porque una espiral en un girasol, o una línea de código del exchange, controle el flujo de órdenes."
   - id: golden-pullback
     prompt:
       en: "Which statement about the 0.618 'golden' pullback is correct?"
       es: "¿Qué afirmación sobre el retroceso 'dorado' del 0,618 es correcta?"
     options:
       - id: a
-        correct: true
         text:
-          en: "It marks a zone where a reversal becomes more likely; treat it as confluence and wait for price to react, since it often overshoots or falls short."
-          es: "Marca una zona donde un giro se vuelve más probable; trátalo como confluencia y espera a que el precio reaccione, ya que suele pasarse o quedarse corto."
+          en: "Price has to reverse exactly at the 0.618 level when it reaches it."
+          es: "El precio tiene que girar exactamente en el nivel 0,618 al llegar a él."
       - id: b
-        text:
-          en: "Price must reverse exactly at the 0.618 level."
-          es: "El precio tiene que girar exactamente en el nivel 0,618."
-      - id: c
         text:
           en: "In an uptrend the 0.618 always holds; a break through it never happens."
           es: "En una tendencia alcista el 0,618 siempre aguanta; nunca se rompe."
+      - id: c
+        correct: true
+        text:
+          en: "It marks a zone where a reversal is likelier; wait for a reaction."
+          es: "Marca una zona donde el giro es más probable; espera una reacción."
       - id: d
         text:
-          en: "The 0.618 is only valid if no other support or resistance is nearby."
-          es: "El 0,618 solo es válido si no hay ningún otro soporte o resistencia cerca."
+          en: "The 0.618 is only valid when no other support or resistance is nearby."
+          es: "El 0,618 solo vale cuando no hay ningún otro soporte o resistencia cerca."
     explanation:
-      en: "0.618 is a zone, not a laser line: price routinely wicks past it or stops short. It is strongest as confluence with other structure, and it should be confirmed by a real reaction — not traded as a point where a turn is guaranteed."
-      es: "El 0,618 es una zona, no una línea de láser: el precio suele mechar más allá o quedarse corto. Es más fuerte como confluencia con otra estructura y debe confirmarse con una reacción real, no operarse como un punto donde el giro esté garantizado."
+      en: "0.618 is a zone, not a laser line: price routinely wicks past it or stops short, and plenty of pullbacks slice straight through. It is strongest, not weakest, as confluence with other structure — a fib that lands on an old support shelf is three reasons stacked in one spot. Treat it as a place to watch and confirm, never as a point where a turn is guaranteed."
+      es: "El 0,618 es una zona, no una línea de láser: el precio suele mechar más allá o quedarse corto, y muchos retrocesos lo atraviesan de largo. Es más fuerte, no más débil, como confluencia con otra estructura: un fib que cae sobre un soporte antiguo son tres razones apiladas en un punto. Trátalo como un sitio donde mirar y confirmar, nunca como un punto donde el giro esté garantizado."
   - id: exact-reversal
     kind: true_false
     prompt:
@@ -69,24 +69,24 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A crowd of traders and algos watch the same level and rest orders there (self-fulfilling)."
-          es: "Una multitud de traders y algoritmos vigilan el mismo nivel y dejan órdenes ahí (autocumplido)."
+          en: "A crowd of traders and algos rest orders at the same level."
+          es: "Una multitud de traders y algoritmos deja órdenes en el mismo nivel."
       - id: b
         correct: true
         text:
-          en: "It coincides with structure that already mattered, like prior support or a round number (confluence)."
-          es: "Coincide con estructura que ya importaba, como un soporte previo o un número redondo (confluencia)."
+          en: "It coincides with structure that already mattered, like old support."
+          es: "Coincide con estructura que ya importaba, como un soporte antiguo."
       - id: c
         text:
-          en: "The golden ratio governs natural growth, so it must govern order flow too."
-          es: "El número áureo rige el crecimiento natural, así que debe regir también el flujo de órdenes."
+          en: "The golden ratio governs natural growth, so it governs order flow too."
+          es: "El número áureo rige el crecimiento natural, luego rige el flujo de órdenes."
       - id: d
         text:
-          en: "Exchanges program the levels into the matching engine."
-          es: "Los exchanges programan los niveles en el motor de emparejamiento."
+          en: "Exchanges program the ratios directly into the matching engine."
+          es: "Los exchanges programan las ratios en el motor de emparejamiento."
     explanation:
-      en: "Fib levels do something for two honest reasons: a watching crowd makes them briefly self-fulfilling, and they gain weight when they overlap real structure. No sunflower spiral and no exchange code forces price to a ratio."
-      es: "Los niveles de fib hacen algo por dos razones honestas: una multitud que los vigila los vuelve autocumplidos por un momento, y ganan peso cuando se solapan con estructura real. Ninguna espiral de girasol ni código de exchange obliga al precio a una ratio."
+      en: "Fib levels do something for two honest reasons: a watching crowd makes them briefly self-fulfilling, and they gain weight when they overlap real structure. No sunflower spiral and no exchange code forces price to a ratio — the level has no power of its own, only borrowed power from the people looking at it."
+      es: "Los niveles de fib hacen algo por dos razones honestas: una multitud que los vigila los vuelve autocumplidos por un momento, y ganan peso cuando se solapan con estructura real. Ninguna espiral de girasol ni código de exchange obliga al precio a una ratio: el nivel no tiene poder propio, solo el prestado por quienes lo miran."
   - id: no-guarantee
     kind: true_false
     prompt:
@@ -102,25 +102,25 @@ variants:
       es: "Detectas un nivel 0,618 en espacio abierto, sin ningún soporte previo, número redondo ni media móvil cerca. ¿Cuánto peso debería tener?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Little on its own — a lone fib is a guess; it becomes a setup only when it lines up with real structure and price reacts."
-          es: "Poco por sí solo: un fib aislado es una conjetura; se convierte en setup solo cuando coincide con estructura real y el precio reacciona."
-      - id: b
         text:
           en: "Full weight — 0.618 is the golden level, so it works wherever it lands."
           es: "Todo el peso: el 0,618 es el nivel dorado, así que funciona caiga donde caiga."
-      - id: c
+      - id: b
         text:
-          en: "None ever — fib levels are useless unless an indicator confirms them."
-          es: "Ninguno nunca: los niveles de fib son inútiles salvo que un indicador los confirme."
+          en: "None at all — fib levels are useless unless an indicator confirms them."
+          es: "Ninguno: los niveles de fib son inútiles salvo que un indicador los confirme."
+      - id: c
+        correct: true
+        text:
+          en: "Little on its own — a lone fib is a guess with a decimal attached."
+          es: "Poco por sí solo: un fib aislado es una conjetura con un decimal pegado."
       - id: d
         text:
-          en: "It guarantees a bounce as long as the trend is up."
-          es: "Garantiza un rebote mientras la tendencia sea alcista."
+          en: "It guarantees a bounce for as long as the wider trend is still up."
+          es: "Garantiza un rebote mientras la tendencia general siga siendo alcista."
     explanation:
-      en: "A fib in empty space is just a line; it did not create anything. Its value comes from confluence — sitting on a level that already mattered — plus a real reaction from price. Alone, treat it as a low-confidence guess."
-      es: "Un fib en espacio vacío es solo una línea; no creó nada. Su valor viene de la confluencia —caer sobre un nivel que ya importaba— más una reacción real del precio. Solo, trátalo como una conjetura de baja confianza."
+      en: "A fib in empty space is just a line; it did not create anything, and the golden ratio confers no authority by itself. Its value comes from confluence — sitting on a level that already mattered — plus a real reaction from price. That is a much lower bar than 'an indicator must confirm it', and a much higher one than 'the trend is up'."
+      es: "Un fib en espacio vacío es solo una línea; no creó nada, y el número áureo no le da autoridad por sí mismo. Su valor viene de la confluencia —caer sobre un nivel que ya importaba— más una reacción real del precio. Eso es un listón mucho más bajo que 'un indicador debe confirmarlo' y mucho más alto que 'la tendencia es alcista'."
   - id: stop-at-618
     prompt:
       en: "You expect a bounce near the 0.618 pullback and want to act sensibly. What is the best approach?"
@@ -129,23 +129,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Treat the level as an alert: wait for price to react there before committing, and give the zone room instead of a one-tick stop."
-          es: "Trata el nivel como un aviso: espera a que el precio reaccione ahí antes de comprometerte y da margen a la zona en vez de un stop de un tick."
+          en: "Treat the level as an alert: wait for a reaction and give the zone room."
+          es: "Trata el nivel como un aviso: espera una reacción y da margen a la zona."
       - id: b
         text:
-          en: "Put a limit buy exactly at 0.618 with a stop one tick below it."
-          es: "Pon una orden de compra límite exactamente en el 0,618 con un stop un tick por debajo."
+          en: "Put a limit buy exactly at 0.618 with a stop placed one tick below it."
+          es: "Pon una compra límite exactamente en 0,618 con el stop un tick por debajo."
       - id: c
         text:
-          en: "Go all-in the instant price touches 0.618."
-          es: "Entra con todo en el instante en que el precio toca el 0,618."
+          en: "Go all-in at the instant price first touches the 0.618 line."
+          es: "Entra con todo en el instante en que el precio toque por primera vez el 0,618."
       - id: d
         text:
-          en: "Ignore the level unless price is sitting exactly on it to the cent."
-          es: "Ignora el nivel salvo que el precio esté exactamente encima al céntimo."
+          en: "Ignore the level entirely unless price sits exactly on it, to the cent."
+          es: "Ignora el nivel del todo salvo que el precio esté encima, al céntimo."
     explanation:
-      en: "0.618 is a zone and price wicks around it, so a one-tick stop gets taken out by normal noise. Use the level as an alert, wait for a reaction, and size and stop with room for the overshoot the level almost always produces."
-      es: "El 0,618 es una zona y el precio mecha a su alrededor, así que un stop de un tick lo saca el ruido normal. Usa el nivel como un aviso, espera una reacción y dimensiona y coloca el stop con margen para el exceso que el nivel casi siempre produce."
+      en: "0.618 is a zone and price wicks around it, so a one-tick stop gets taken out by normal noise and an instant full-size entry has no confirmation behind it at all. Use the level as an alert, wait for a reaction, and size and stop with room for the overshoot the level almost always produces — the slack is the point, not a failure of the level."
+      es: "El 0,618 es una zona y el precio mecha a su alrededor, así que un stop de un tick lo saca el ruido normal y una entrada completa e instantánea no tiene ninguna confirmación detrás. Usa el nivel como aviso, espera una reacción y dimensiona y coloca el stop con margen para el exceso que el nivel casi siempre produce: la holgura es el punto, no un fallo del nivel."
   - id: use-without-trusting
     kind: ordering
     prompt:
@@ -209,22 +209,22 @@ variants:
       es: "¿Cómo cambia un mercado 24/7 lo que deberías esperar de un nivel de Fibonacci?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Expect the level to be wicked through and reclaimed a few times rather than respected once cleanly — and expect larger overshoots in thin off-hours liquidity."
-          es: "Espera que el nivel sea atravesado por mechas y recuperado varias veces en lugar de respetado limpiamente una vez, y espera excesos mayores en la escasa liquidez de horas muertas."
-      - id: b
         text:
           en: "Expect one clean test per day, since the daily close resets the level."
           es: "Espera una prueba limpia al día, ya que el cierre diario reinicia el nivel."
+      - id: b
+        correct: true
+        text:
+          en: "Expect it wicked through and reclaimed several times, not respected once."
+          es: "Espera que lo atraviesen y recuperen varias veces, no que se respete una vez."
       - id: c
         text:
-          en: "Expect the level to hold more precisely, because more participants are watching at all hours."
-          es: "Espera que el nivel aguante con más precisión, porque hay más participantes mirando a todas horas."
+          en: "Expect the level to hold more precisely, with more eyes on it at all hours."
+          es: "Espera que aguante con más precisión, con más ojos encima a todas horas."
       - id: d
         text:
-          en: "Expect fib levels to stop working entirely outside weekday hours."
-          es: "Espera que los niveles de Fibonacci dejen de funcionar por completo fuera del horario laboral."
+          en: "Expect fib levels to stop working entirely outside weekday trading hours."
+          es: "Espera que los niveles dejen de funcionar fuera del horario laboral."
     explanation:
-      en: "Stocks get one shot at a level per session, then the close resets everything. Crypto never closes, so a single level can be probed over and over — one more reason to treat 0.618 as a zone with slack, not a line."
-      es: "Las acciones tienen un intento por sesión y luego el cierre lo reinicia todo. El cripto nunca cierra, así que un mismo nivel puede ser sondeado una y otra vez: una razón más para tratar 0,618 como una zona con holgura, no como una línea."
+      en: "Stocks get one shot at a level per session, then the close resets everything. Crypto never closes, so a single level can be probed over and over, and the overshoots are larger in thin off-hours liquidity rather than tighter. That is one more reason to treat 0.618 as a zone with slack, not a line — the level keeps working, it just gets tested more sloppily."
+      es: "Las acciones tienen un intento por sesión y luego el cierre lo reinicia todo. El cripto nunca cierra, así que un mismo nivel puede ser sondeado una y otra vez, y los excesos son mayores en la liquidez escasa de horas muertas, no menores. Es una razón más para tratar el 0,618 como una zona con holgura y no como una línea: el nivel sigue funcionando, solo que se pone a prueba de forma más sucia."

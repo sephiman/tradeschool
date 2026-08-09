@@ -7,50 +7,50 @@ variants:
       es: "El precio de tu long se movió +2 % de la entrada a la salida. Pagaste comisión taker en ambas ejecuciones más algo de funding mientras estuvo abierta. Comparado con ese movimiento bruto de +2 %, tu PnL neto en la operación es:"
     options:
       - id: a
+        text:
+          en: "Exactly +2% — the price move is what lands in your balance."
+          es: "Exactamente +2 %: el movimiento del precio es lo que llega a tu saldo."
+      - id: b
         correct: true
         text:
-          en: "Smaller — the two fees and the funding are subtracted from the gross move."
-          es: "Menor: las dos comisiones y el funding se restan del movimiento bruto."
-      - id: b
-        text:
-          en: "Equal to +2% — the price move is exactly your PnL."
-          es: "Igual a +2 %: el movimiento del precio es exactamente tu PnL."
+          en: "Smaller — both fees and the funding come out of the gross move."
+          es: "Menor: las dos comisiones y el funding salen del movimiento bruto."
       - id: c
         text:
-          en: "Larger, because funding always pays you for holding a long."
-          es: "Mayor, porque el funding siempre te paga por mantener un long."
+          en: "Larger, because funding pays you for carrying a long position."
+          es: "Mayor, porque el funding te paga por llevar una posición larga."
       - id: d
         text:
-          en: "Impossible to say without knowing your win rate."
-          es: "Imposible de saber sin conocer tu tasa de acierto."
+          en: "Impossible to say without knowing your win rate over the period."
+          es: "Imposible de decir sin conocer tu tasa de acierto en el periodo."
     explanation:
-      en: "The +2% is the gross price move. Net keeps that move minus the open fee, minus the close fee, minus any funding. It is normally below the gross, and on a small move fees alone can turn a winner into a loser. Funding can be positive or negative — it does not 'always' pay longs."
-      es: "El +2 % es el movimiento bruto del precio. El neto conserva ese movimiento menos la comisión de apertura, menos la de cierre, menos cualquier funding. Normalmente queda por debajo del bruto, y en un movimiento pequeño las comisiones por sí solas pueden convertir una ganadora en perdedora. El funding puede ser positivo o negativo: no 'siempre' paga a los longs."
+      en: "The +2% is the gross price move. Net keeps that move minus the open fee, minus the close fee, minus any funding — normally below the gross, and on a small move the fees alone can turn a winner into a loser. Funding can be positive or negative, so it does not 'always' pay longs, and none of this depends on your record across other trades."
+      es: "El +2 % es el movimiento bruto del precio. El neto conserva ese movimiento menos la comisión de apertura, menos la de cierre, menos cualquier funding: normalmente por debajo del bruto, y en un movimiento pequeño las comisiones por sí solas pueden convertir una ganadora en perdedora. El funding puede ser positivo o negativo, así que no 'siempre' paga a los longs, y nada de esto depende de tu historial en otras operaciones."
   - id: maker-vs-taker
     prompt:
       en: "You want to minimise trading fees on a position you're in no hurry to open. Which statement about maker vs taker fees is correct?"
       es: "Quieres minimizar comisiones en una posición que no tienes prisa por abrir. ¿Qué afirmación sobre las comisiones maker vs taker es correcta?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A resting limit order (maker) adds liquidity and is charged the lower rate; a market order (taker) removes liquidity and pays more."
-          es: "Una orden límite en espera (maker) aporta liquidez y paga la tarifa más baja; una orden a mercado (taker) retira liquidez y paga más."
+          en: "Taker orders are cheaper, because they execute instantly."
+          es: "Las órdenes taker son más baratas, porque se ejecutan al instante."
       - id: b
         text:
-          en: "Taker orders are cheaper because they execute instantly."
-          es: "Las órdenes taker son más baratas porque se ejecutan al instante."
+          en: "The two rates are identical; the label only affects execution speed."
+          es: "Las dos tarifas son idénticas; la etiqueta solo afecta a la velocidad."
       - id: c
         text:
-          en: "Maker and taker fees are identical; the label only affects execution speed."
-          es: "Las comisiones maker y taker son idénticas; la etiqueta solo afecta a la velocidad de ejecución."
+          en: "Fees come out of your margin, so low leverage keeps them small."
+          es: "Las comisiones salen de tu margen, así que poco apalancamiento las reduce."
       - id: d
+        correct: true
         text:
-          en: "Fees are charged on your margin, so using low leverage keeps them low."
-          es: "Las comisiones se cobran sobre tu margen, así que usar poco apalancamiento las mantiene bajas."
+          en: "A resting limit order adds liquidity and pays the lower maker rate."
+          es: "Una orden límite en espera aporta liquidez y paga la tarifa maker, más baja."
     explanation:
-      en: "Maker orders (resting limit orders) add liquidity and get the lower rate; takers (market orders) remove it and pay more. Fees are charged on notional, not on margin — so leverage increases them; it doesn't dodge them."
-      es: "Las órdenes maker (límites en espera) aportan liquidez y consiguen la tarifa más baja; las taker (a mercado) la retiran y pagan más. Las comisiones se cobran sobre el nocional, no sobre el margen: el apalancamiento las aumenta, no las esquiva."
+      en: "Maker orders rest in the book and add liquidity, so they get the lower rate; takers cross the spread, remove liquidity and pay more — speed is what you are paying for, not what makes it cheap. Fees are charged on notional, not on margin, so leverage multiplies them rather than dodging them."
+      es: "Las órdenes maker descansan en el libro y aportan liquidez, así que consiguen la tarifa más baja; las taker cruzan el spread, retiran liquidez y pagan más: la velocidad es lo que pagas, no lo que la abarata. Las comisiones se cobran sobre el nocional, no sobre el margen, así que el apalancamiento las multiplica en vez de esquivarlas."
   - id: two-pct-is-not-pnl
     kind: true_false
     prompt:
@@ -106,63 +106,63 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The fee paid to open the position."
-          es: "La comisión pagada al abrir la posición."
+          en: "The fee paid on the fill that opened the position."
+          es: "La comisión pagada en la ejecución que abrió la posición."
       - id: b
         correct: true
         text:
-          en: "The fee paid to close the position."
-          es: "La comisión pagada al cerrar la posición."
+          en: "The fee paid again on the fill that closed it."
+          es: "La comisión pagada otra vez en la ejecución que la cerró."
       - id: c
         correct: true
         text:
-          en: "Funding you paid while the position was open."
-          es: "El funding que pagaste mientras la posición estuvo abierta."
+          en: "Funding you paid over the windows it stayed open."
+          es: "El funding que pagaste en las ventanas que estuvo abierta."
       - id: d
         text:
-          en: "The gross upward move in the price."
-          es: "El movimiento bruto al alza del precio."
+          en: "The gross upward move in the price itself."
+          es: "El propio movimiento bruto al alza del precio."
       - id: e
         text:
           en: "A take-profit order you placed that never filled."
-          es: "Una orden de take-profit que colocaste y que nunca se ejecutó."
+          es: "Una orden de take-profit que colocaste y nunca se ejecutó."
     explanation:
-      en: "Net = gross move − open fee − close fee − funding paid. The gross move is the source of the profit, not a deduction, and an unfilled order costs nothing. Fees (paid twice) and funding are the real drags."
-      es: "Neto = movimiento bruto − comisión de apertura − comisión de cierre − funding pagado. El movimiento bruto es la fuente de la ganancia, no un descuento, y una orden que no se ejecuta no cuesta nada. Las comisiones (pagadas dos veces) y el funding son el lastre real."
+      en: "Net = gross move − open fee − close fee − funding paid. The gross move is the source of the profit, not a deduction from it, and an order that never filled cost nothing at all. The real drags are the fee you pay twice and the funding that accrues for as long as you hold."
+      es: "Neto = movimiento bruto − comisión de apertura − comisión de cierre − funding pagado. El movimiento bruto es la fuente de la ganancia, no un descuento sobre ella, y una orden que nunca se ejecutó no costó nada. El lastre real son la comisión que pagas dos veces y el funding que se acumula mientras mantienes."
   - id: paid-twice
     prompt:
       en: "Your taker fee is 0.05%, charged on notional. You open and later close a position with 10,000 USDT of notional on each fill. Ignoring the price change, roughly how much do you pay in fees over the round trip?"
       es: "Tu comisión taker es del 0,05 %, cobrada sobre el nocional. Abres y más tarde cierras una posición con 10 000 USDT de nocional en cada ejecución. Ignorando el cambio de precio, ¿cuánto pagas aproximadamente en comisiones en el ida y vuelta?"
     options:
       - id: a
+        text:
+          en: "About 5 USDT — the fee is charged once per position, on the open."
+          es: "Unos 5 USDT: la comisión se cobra una vez por posición, al abrir."
+      - id: b
         correct: true
         text:
-          en: "About 10 USDT — 5 to open and 5 to close, because the fee is charged on both fills."
-          es: "Unos 10 USDT: 5 al abrir y 5 al cerrar, porque la comisión se cobra en ambas ejecuciones."
-      - id: b
-        text:
-          en: "About 5 USDT — you pay the fee once per position."
-          es: "Unos 5 USDT: pagas la comisión una vez por posición."
+          en: "About 10 USDT — 5 to open the position and 5 more to close it again."
+          es: "Unos 10 USDT: 5 al abrir y 5 al cerrar."
       - id: c
         text:
-          en: "Nothing until you close, and only if the trade is profitable."
-          es: "Nada hasta que cierras, y solo si la operación es rentable."
+          en: "Nothing until you close, and only if the trade ends in profit."
+          es: "Nada hasta cerrar, y solo si la operación acaba en ganancia."
       - id: d
         text:
-          en: "It depends on your leverage — higher leverage means lower fees."
-          es: "Depende de tu apalancamiento: más apalancamiento significa comisiones más bajas."
+          en: "It depends on leverage — more leverage means a lower fee bill."
+          es: "Depende del apalancamiento: más apalancamiento, menos comisiones."
     explanation:
-      en: "0.05% of 10,000 is 5 USDT per fill, and you pay it on both the open and the close, so about 10 USDT round trip. The fee is on notional regardless of profit, and leverage raises fees (bigger notional); it doesn't lower them."
-      es: "El 0,05 % de 10 000 son 5 USDT por ejecución, y lo pagas tanto al abrir como al cerrar, así que unos 10 USDT en el ida y vuelta. La comisión es sobre el nocional independientemente de la ganancia, y el apalancamiento sube las comisiones (más nocional); no las baja."
+      en: "0.05% of 10,000 is 5 USDT per fill, and the fee lands on both the open and the close, so about 10 USDT round trip. It is charged on notional whether the trade wins or loses, and leverage raises the bill by letting you carry a bigger notional — it never lowers it."
+      es: "El 0,05 % de 10 000 son 5 USDT por ejecución, y la comisión cae tanto en la apertura como en el cierre, así que unos 10 USDT en el ida y vuelta. Se cobra sobre el nocional gane o pierda la operación, y el apalancamiento sube la factura al permitirte llevar más nocional: nunca la baja."
   - id: funding-not-always-longs
     kind: true_false
     prompt:
-      en: "Funding always pays you for holding a long position."
-      es: "El funding siempre te paga por mantener una posición long."
-    answer: false
+      en: "Whether funding costs you or pays you depends on which side the market is crowding into, not on whether you are long."
+      es: "Que el funding te cueste o te pague depende de hacia qué lado se amontona el mercado, no de si estás largo."
+    answer: true
     explanation:
-      en: "Funding can be positive or negative. When the rate is positive, longs pay shorts; when it's negative, longs receive. It is not a reward for being long — it depends on which side the market is crowding into."
-      es: "El funding puede ser positivo o negativo. Cuando la tasa es positiva, los longs pagan a los shorts; cuando es negativa, los longs cobran. No es una recompensa por ir long: depende de hacia qué lado se amontona el mercado."
+      en: "True. A positive rate means the perp is above spot and longs pay shorts; a negative rate means the reverse and longs receive. Being long is not a reward or a penalty in itself — being on the crowded side is."
+      es: "Cierto. Una tasa positiva significa que el perp está por encima del spot y los longs pagan a los shorts; una negativa significa lo contrario y los longs cobran. Ir largo no es en sí una recompensa ni un castigo: lo es estar en el lado saturado."
   - id: net-settlement-steps
     kind: ordering
     prompt:
@@ -198,46 +198,50 @@ variants:
       es: "Te pones largo 1 BTC en 20.000 con 5× de apalancamiento (4.000 de margen), lo mantienes tres días y cierras en 20.400. Las comisiones son 22,22 USDT y el funding costó 18 USDT. ¿Qué conjunto de números describe la operación?"
     options:
       - id: a
+        text:
+          en: "+2% gross and +2% net, since fees and funding come out of margin instead."
+          es: "+2% bruto y +2% neto, ya que comisiones y funding salen del margen aparte."
+      - id: b
         correct: true
         text:
-          en: "+2% gross on notional, +1.80% net on notional (359.78 USDT), and +9.0% net on margin — only the last is the change in your account."
-          es: "+2% bruto sobre nocional, +1,80% neto sobre nocional (359,78 USDT) y +9,0% neto sobre margen: solo el último es el cambio en tu cuenta."
-      - id: b
-        text:
-          en: "+2% gross and +2% net, since fees and funding come out of the margin instead."
-          es: "+2% bruto y +2% neto, ya que las comisiones y el funding salen del margen en su lugar."
+          en: "+2% gross on notional, +1.80% net on notional, +9.0% net on margin."
+          es: "+2% bruto sobre nocional, +1,80% neto sobre nocional, +9,0% neto sobre margen."
       - id: c
         text:
-          en: "+2% gross, +1.80% net on notional, and +1.80% on margin — leverage does not change the percentage."
-          es: "+2% bruto, +1,80% neto sobre nocional y +1,80% sobre margen: el apalancamiento no cambia el porcentaje."
+          en: "+2% gross, +1.80% net on notional and on margin — leverage changes nothing."
+          es: "+2% bruto, +1,80% neto sobre nocional y sobre margen: el apalancamiento no cambia nada."
       - id: d
         text:
-          en: "+10% gross on margin and +9.0% net, with fees charged on margin."
+          en: "+10% gross on margin and +9.0% net, with the fees charged on margin."
           es: "+10% bruto sobre margen y +9,0% neto, con las comisiones cobradas sobre el margen."
     explanation:
-      en: "Gross PnL is 400; net is 400 − 22.22 − 18 = 359.78. That is 1.80% of the 20,000 notional and 9.0% of the 4,000 margin. Three different percentages for one trade, and only net-on-margin is what your balance did."
-      es: "El PnL bruto es 400; el neto es 400 − 22,22 − 18 = 359,78. Eso es el 1,80% del nocional de 20.000 y el 9,0% del margen de 4.000. Tres porcentajes distintos para una operación, y solo el neto sobre margen es lo que hizo tu saldo."
+      en: "Gross PnL is 400; net is 400 − 22.22 − 18 = 359.78. That is 1.80% of the 20,000 notional and 9.0% of the 4,000 margin — three different percentages for one trade, and only net-on-margin is what your balance actually did. Costs are charged against notional, which is exactly why leverage magnifies them alongside the gain."
+      es: "El PnL bruto es 400; el neto es 400 − 22,22 − 18 = 359,78. Eso es el 1,80% del nocional de 20.000 y el 9,0% del margen de 4.000: tres porcentajes distintos para una operación, y solo el neto sobre margen es lo que hizo de verdad tu saldo. Los costes se cobran contra el nocional, y por eso el apalancamiento los amplifica junto a la ganancia."
   - id: small-move-loss
     prompt:
       en: "Same 20,000 USDT notional position and same three-day hold, but the move is only +0.15% (+30 USDT gross). Fees are ~22 USDT and funding ~18 USDT. What is the result?"
       es: "La misma posición de 20.000 USDT de nocional y los mismos tres días, pero el movimiento es solo +0,15% (+30 USDT brutos). Las comisiones son ~22 USDT y el funding ~18 USDT. ¿Cuál es el resultado?"
     options:
       - id: a
+        text:
+          en: "A small profit of about 30 USDT, matching the gross move."
+          es: "Un beneficio pequeño de unos 30 USDT, igual al movimiento bruto."
+      - id: b
+        text:
+          en: "Break-even, because the costs scale down with the smaller move."
+          es: "Empate, porque los costes bajan con el movimiento más pequeño."
+      - id: c
         correct: true
         text:
-          en: "A loss of about 10 USDT — a green gross number and a red balance."
-          es: "Una pérdida de unos 10 USDT: número bruto en verde y saldo en rojo."
-      - id: b
-        text: { en: "A small profit of about 30 USDT.", es: "Un beneficio pequeño de unos 30 USDT." }
-      - id: c
-        text: { en: "Break-even, since costs scale with the move.", es: "Empate, ya que los costes escalan con el movimiento." }
+          en: "A loss of about 10 USDT — green gross number, red balance."
+          es: "Una pérdida de unos 10 USDT: número bruto verde, saldo rojo."
       - id: d
         text:
-          en: "A profit, because funding is refunded on winning trades."
-          es: "Un beneficio, porque el funding se devuelve en las operaciones ganadoras."
+          en: "A profit, since funding is refunded on trades that close green."
+          es: "Un beneficio, ya que el funding se devuelve en operaciones en verde."
     explanation:
-      en: "30 − 22 − 18 = −10. Costs do not scale with how right you were: they are fixed against notional and time held, so they turn thin winners into real losers."
-      es: "30 − 22 − 18 = −10. Los costes no escalan con lo acertado que estuviste: son fijos contra el nocional y el tiempo mantenido, así que convierten ganancias finas en pérdidas reales."
+      en: "30 − 22 − 18 = −10. Costs do not scale with how right you were: they are fixed against notional and time held, so an identical position with a thinner move keeps the same bill and turns a winner into a real loser. Nothing is refunded for closing in profit."
+      es: "30 − 22 − 18 = −10. Los costes no escalan con lo acertado que estuviste: son fijos contra el nocional y el tiempo mantenido, así que una posición idéntica con un movimiento más fino conserva la misma factura y convierte una ganadora en perdedora real. No se devuelve nada por cerrar en positivo."
   - id: breakeven-round-trip
     kind: true_false
     prompt:

@@ -65,26 +65,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Volume Profile organizes trading volume by price levels rather than by time intervals."
-          es: "El Perfil de Volumen organiza el volumen por niveles de precio en lugar de por intervalos de tiempo."
+          en: "Volume Profile organises volume by price level, not by time."
+          es: "El Perfil de Volumen ordena el volumen por precio, no por tiempo."
       - id: b
         correct: true
         text:
-          en: "High Volume Nodes (HVNs) represent fair value acceptance and consolidation zones."
-          es: "Los Nodos de Alto Volumen (HVN) representan zonas de aceptación de valor justo y consolidación."
+          en: "High Volume Nodes are fair-value acceptance and consolidation zones."
+          es: "Los Nodos de Alto Volumen son zonas de valor justo y consolidación."
       - id: c
         correct: false
         text:
-          en: "Price is guaranteed to turn around immediately whenever it touches the Point of Control."
-          es: "Se garantiza que el precio dé la vuelta inmediatamente cada vez que toca el Punto de Control."
+          en: "Price is guaranteed to turn around whenever it touches the POC."
+          es: "Se garantiza que el precio gire cada vez que toca el POC."
       - id: d
         correct: true
         text:
-          en: "Low Volume Nodes (LVNs) act as rejection points or rapid movement zones."
-          es: "Los Nodos de Bajo Volumen (LVN) actúan como puntos de rechazo o zonas de movimiento rápido."
+          en: "Low Volume Nodes act as rejection points or fast-movement zones."
+          es: "Los Nodos de Bajo Volumen son puntos de rechazo o de paso rápido."
     explanation:
-      en: "Volume profile structures show where heavy trading agreement occurred (HVN) versus price levels passed through rapidly (LVN)."
-      es: "Las estructuras del perfil de volumen muestran dónde ocurrió un fuerte acuerdo de negociación (HVN) frente a precios cruzados rápidamente (LVN)."
+      en: "Volume profile structures show where heavy trading agreement occurred (HVN) versus price levels passed through rapidly (LVN). A POC marks past fair value, which makes a reaction there more likely than at a random price — never a guaranteed turn."
+      es: "Las estructuras del perfil de volumen muestran dónde ocurrió un fuerte acuerdo de negociación (HVN) frente a precios cruzados rápidamente (LVN). Un POC marca el valor justo pasado, lo que hace una reacción ahí más probable que en un precio al azar, nunca un giro garantizado."
 
   - id: poc-magnet-myth
     kind: true_false
@@ -105,23 +105,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Because there is minimal historical resting limit order liquidity to slow price down in that zone."
-          es: "Porque hay una liquidez de órdenes límite pasivas mínima para frenar el precio en esa zona."
+          en: "There is little resting liquidity at those prices to slow price down."
+          es: "Hay poca liquidez en reposo a esos precios que frene al precio."
       - id: b
         text:
-          en: "Because the exchange disables limit orders inside LVN zones."
-          es: "Porque el exchange desactiva las órdenes límite dentro de zonas LVN."
+          en: "The exchange disables limit orders inside a low-volume band entirely."
+          es: "El exchange desactiva las órdenes límite dentro de esa banda."
       - id: c
         text:
-          en: "Because LVN levels automatically double leverage for all market participants."
-          es: "Porque los niveles LVN duplican automáticamente el apalancamiento de todos los participantes."
+          en: "An LVN doubles the available leverage, so moves through it accelerate."
+          es: "Un LVN duplica el apalancamiento y los movimientos se aceleran."
       - id: d
         text:
-          en: "Because LVNs only occur when the market is closed."
-          es: "Porque los LVN solo ocurren cuando el mercado está cerrado."
+          en: "LVNs only form while the market is closed, so price gaps across them."
+          es: "Los LVN solo se forman con el mercado cerrado y el precio salta."
     explanation:
-      en: "LVNs represent prices where little trading previously occurred; thin order books at those prices offer little friction against aggressive price moves."
-      es: "Los LVN representan precios donde previamente ocurrió poca negociación; libros poco profundos a esos precios ofrecen poca fricción frente a movimientos bruscos."
+      en: "LVNs represent prices where little trading previously occurred, so the book at those prices is thin and offers little friction against an aggressive move. Nothing about the venue's rules changes there — it is simply an absence of history and of resting orders."
+      es: "Los LVN representan precios donde antes se negoció poco, así que el libro a esos precios es fino y ofrece poca fricción frente a un movimiento agresivo. Nada cambia en las reglas del exchange ahí: es sencillamente una ausencia de historial y de órdenes en reposo."
 
   - id: volume-profile-vah-val-meaning
     kind: single_choice
@@ -130,25 +130,25 @@ variants:
       es: "¿Qué significa que el precio cotice dentro del Área de Valor (entre VAH y VAL)?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The market is in a balanced consolidation state where buyers and sellers agree on fair value."
-          es: "El mercado está en consolidación equilibrada donde compradores y vendedores acuerdan un valor justo."
+          en: "An immediate trend reversal is guaranteed once price re-enters it."
+          es: "Se garantiza una inversión de tendencia en cuanto vuelva a entrar."
       - id: b
         text:
-          en: "An immediate trend reversal is guaranteed."
-          es: "Se garantiza una inversión de tendencia inmediata."
+          en: "The 70% band marks the prices the market rejected most quickly."
+          es: "La banda del 70 % marca los precios que el mercado rechazó antes."
       - id: c
         text:
-          en: "Trading fees have been removed."
-          es: "Se han eliminado las comisiones de trading."
+          en: "Spot and perp prices have disconnected across that band of prices."
+          es: "Los precios de spot y perpetuos se han desconectado en esa banda."
       - id: d
+        correct: true
         text:
-          en: "Spot and perp prices have disconnected."
-          es: "Los precios de spot y perpetuos se han desconectado."
+          en: "Balance: buyers and sellers currently agree this price is fair."
+          es: "Equilibrio: compradores y vendedores aceptan ese precio como justo."
     explanation:
-      en: "The Value Area contains ~70% of traded volume, marking the range where market participants accept current prices as fair."
-      es: "El Área de Valor contiene ~70% del volumen negociado, marcando el rango donde los participantes aceptan los precios actuales como justos."
+      en: "The Value Area contains about 70% of traded volume, marking the range where participants accept current prices as fair — a balanced consolidation state, and the opposite of a rejected band. It describes where the market has been comfortable; it promises nothing about the next move."
+      es: "El Área de Valor contiene en torno al 70 % del volumen negociado y marca el rango donde los participantes aceptan los precios actuales como justos: un estado de consolidación equilibrada, lo contrario de una banda rechazada. Describe dónde el mercado ha estado cómodo; no promete nada sobre el siguiente movimiento."
 
   - id: footprint-delta-imbalance
     kind: single_choice
@@ -157,25 +157,25 @@ variants:
       es: "¿Qué es un desequilibrio comprador diagonal en un gráfico de footprint?"
     options:
       - id: a
+        text:
+          en: "A rendering error in the chart, since the two sides cannot differ."
+          es: "Un error de dibujo del gráfico, ya que los dos lados no difieren."
+      - id: b
         correct: true
         text:
-          en: "Aggressive buyers at one ask price significantly outnumber passive limit sellers at the adjacent bid price."
-          es: "Compradores agresivos en un precio de venta superan significativamente a vendedores pasivos en el precio de compra adyacente."
-      - id: b
-        text:
-          en: "A technical error in chart candle rendering."
-          es: "Un error técnico en la representación de las velas del gráfico."
+          en: "Aggressive buys at one ask far outnumber the bid diagonally below."
+          es: "Las compras agresivas en un ask superan al bid diagonal de abajo."
       - id: c
         text:
-          en: "A signal that funding rate will decrease."
-          es: "Una señal de que la tasa de funding bajará."
+          en: "A signal the funding rate will fall on the next settlement interval."
+          es: "Una señal de que el funding bajará en el siguiente intervalo."
       - id: d
         text:
-          en: "A order placed on a weekend."
-          es: "Una orden colocada en fin de semana."
+          en: "An order placed at the weekend, when the two sides are counted apart."
+          es: "Una orden puesta en fin de semana, cuando los lados se cuentan aparte."
     explanation:
-      en: "Footprints display trades diagonally (Ask vs Bid); a buying imbalance shows aggressive market orders sweeping a specific price level with force."
-      es: "Los footprints muestran operaciones en diagonal (Venta vs Compra); un desequilibrio comprador muestra órdenes a mercado barriendo ese nivel con fuerza."
+      en: "Footprints display trades diagonally, ask against the bid one level below, precisely because the two sides genuinely differ: a buying imbalance shows aggressive market orders sweeping that level with force. The comparison is the whole point of the display, not an artefact of it."
+      es: "Los footprints muestran las operaciones en diagonal, el ask contra el bid del nivel inferior, justamente porque los dos lados sí difieren: un desequilibrio comprador muestra órdenes a mercado barriendo ese nivel con fuerza. La comparación es el sentido de la pantalla, no un artefacto suyo."
 
   - id: hvn-support-resistance-nature
     kind: single_choice
@@ -184,22 +184,22 @@ variants:
       es: "¿Por qué los Nodos de Alto Volumen (HVN) actúan con frecuencia como soporte o resistencia al retestar el precio?"
     options:
       - id: a
-        correct: true
         text:
-          en: "High historical trading activity leaves abundant resting order interest and institutional memory at that price."
-          es: "La alta actividad histórica deja abundante interés de órdenes pasivas y memoria institucional a ese precio."
+          en: "Exchanges freeze price movement whenever price returns to an HVN."
+          es: "Los exchanges congelan el precio cada vez que vuelve a un HVN."
       - id: b
         text:
-          en: "Exchanges freeze price movements whenever price hits an HVN."
-          es: "Los exchanges congelan los movimientos de precio cada vez que el precio toca un HVN."
+          en: "An HVN automatically triggers liquidations, which stalls the move."
+          es: "Un HVN dispara liquidaciones automáticas y eso frena el movimiento."
       - id: c
         text:
-          en: "HVNs automatically trigger liquidations for all traders."
-          es: "Los HVN activan automáticamente liquidaciones para todos los traders."
+          en: "HVN levels only exist on very low timeframes, so retests stall there."
+          es: "Los HVN solo existen en temporalidades muy bajas y ahí se frena."
       - id: d
+        correct: true
         text:
-          en: "HVN levels only exist on 1-second charts."
-          es: "Los niveles HVN solo existen en gráficos de 1 segundo."
+          en: "Heavy past trade leaves standing interest and memory at that price."
+          es: "Mucha negociación pasada deja interés y memoria en ese precio."
     explanation:
-      en: "HVNs mark prices where high volume previously transacted; market participants perceive them as fair value anchors where liquidity is deep."
-      es: "Los HVN marcan precios donde se negoció alto volumen previamente; los participantes los perciben como anclas de valor justo con liquidez profunda."
+      en: "HVNs mark prices where high volume previously transacted, so participants perceive them as fair-value anchors and liquidity tends to be deep there. The effect comes from the participants' own behaviour, not from any exchange mechanism — and, as ever, it makes a reaction more likely rather than certain."
+      es: "Los HVN marcan precios donde antes se negoció mucho volumen, así que los participantes los perciben como anclas de valor justo y la liquidez suele ser profunda ahí. El efecto viene del comportamiento de los propios participantes, no de ningún mecanismo del exchange; y, como siempre, hace una reacción más probable, no segura."

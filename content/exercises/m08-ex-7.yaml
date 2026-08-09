@@ -7,42 +7,42 @@ variants:
       es: "En esta lección, ¿qué significa \"la ubicación es el 90 % de la señal\"?"
     options:
       - id: a
+        text:
+          en: "That 90% of named candle patterns are reliable if you draw them correctly."
+          es: "Que el 90 % de los patrones de vela son fiables si los dibujas bien."
+      - id: b
         correct: true
         text:
-          en: "The level the reaction lands on carries most of the information; the candle shape is the smaller part."
-          es: "El nivel sobre el que cae la reacción lleva la mayor parte de la información; la forma de la vela es la parte menor."
-      - id: b
-        text:
-          en: "90% of candle patterns are reliable if drawn correctly."
-          es: "El 90 % de los patrones de vela son fiables si se dibujan bien."
+          en: "The level carries most of the information; the candle shape is the smaller part."
+          es: "El nivel lleva casi toda la información; la forma de la vela es la parte menor."
       - id: c
         text:
-          en: "You should only trade in the last 10% of the chart."
-          es: "Solo deberías operar en el último 10 % del gráfico."
+          en: "That you should only take trades in the last 10% of the visible chart."
+          es: "Que solo deberías operar en el último 10 % del gráfico visible."
     explanation:
-      en: "A reaction earns its meaning from where it happens. The same wick at a demonstrated level is information; in open space it is noise. The level does the work — as with the fib in m13, the shape doesn't create the level."
-      es: "Una reacción gana su significado por dónde ocurre. La misma mecha en un nivel demostrado es información; en espacio abierto es ruido. El nivel hace el trabajo: como con el fib en m13, la forma no crea el nivel."
+      en: "A reaction earns its meaning from where it happens. The same wick at a demonstrated level is information; in open space it is noise. The level does the work — as with the fib in m13, the shape doesn't create the level, it only reports what happened at one."
+      es: "Una reacción gana su significado por dónde ocurre. La misma mecha en un nivel demostrado es información; en espacio abierto es ruido. El nivel hace el trabajo: como con el fib en m13, la forma no crea el nivel, solo informa de lo que pasó en uno."
   - id: hammer-no-level
     prompt:
       en: "You spot a picture-perfect hammer, but there is no level — no support, no fib, no prior structure — anywhere near it. Best read?"
       es: "Detectas un martillo de manual, pero no hay ningún nivel —ni soporte, ni fib, ni estructura previa— cerca de él. ¿Mejor lectura?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Noise with a wick — wait for a reaction at a level that matters."
-          es: "Ruido con una mecha: espera una reacción en un nivel que importe."
+          en: "A strong buy — a clean hammer is a buy signal all on its own."
+          es: "Una compra fuerte: un martillo limpio es una señal de compra por sí solo."
       - id: b
         text:
-          en: "A strong buy — a clean hammer is a buy signal by itself."
-          es: "Una compra fuerte: un martillo limpio es una señal de compra por sí solo."
+          en: "A sell — an isolated hammer with no context means exhaustion."
+          es: "Una venta: un martillo aislado y sin contexto significa agotamiento."
       - id: c
+        correct: true
         text:
-          en: "A sell — an isolated hammer means exhaustion."
-          es: "Una venta: un martillo aislado significa agotamiento."
+          en: "Noise with a wick — wait for the same form at a level that matters."
+          es: "Ruido con mecha: espera la misma forma en un nivel que importe."
     explanation:
-      en: "A rejection in open space rejected nothing that matters. With no level under it, the wick is just a wick. Discipline is waiting for the same form to land where the chart already respects a price."
-      es: "Un rechazo en espacio abierto no rechazó nada que importe. Sin un nivel debajo, la mecha es solo una mecha. La disciplina es esperar a que la misma forma caiga donde el gráfico ya respeta un precio."
+      en: "A rejection in open space rejected nothing that matters — with no level under it, the wick is just a wick, and it is neither a buy nor a sell. Discipline is waiting for the identical form to land where the chart already respects a price."
+      es: "Un rechazo en espacio abierto no rechazó nada que importe: sin un nivel debajo, la mecha es solo una mecha, y no es ni compra ni venta. La disciplina es esperar a que la forma idéntica caiga donde el gráfico ya respeta un precio."
   - id: doji-either-way
     prompt:
       en: "The exact same doji prints once at a major resistance and once mid-range. How do the two reads compare?"
@@ -51,19 +51,19 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A doji is indecision either way — it is not a signal on its own, level or no level."
-          es: "Un doji es indecisión en ambos casos: no es una señal por sí solo, con nivel o sin él."
+          en: "A doji is indecision either way — not a signal on its own."
+          es: "Un doji es indecisión en ambos casos: no es señal por sí solo."
       - id: b
         text:
-          en: "At resistance it is a guaranteed reversal; mid-range it is nothing."
-          es: "En resistencia es un giro garantizado; a media altura no es nada."
+          en: "Mid-range it signals continuation; at resistance it is just noise."
+          es: "A media altura señala continuación; en resistencia es solo ruido."
       - id: c
         text:
-          en: "Mid-range it is a continuation signal; at resistance it is noise."
-          es: "A media altura es una señal de continuación; en resistencia es ruido."
+          en: "At resistance it is a guaranteed reversal; mid-range it is worth nothing."
+          es: "En resistencia es un giro garantizado; a media altura no vale nada."
     explanation:
-      en: "Location amplifies rejection and overrun, but a doji records that nobody won — there is no battle to weight by location. At a level it can flag that a move is stalling and tell you to watch, but it is never the trigger by itself."
-      es: "La ubicación amplifica el rechazo y el overrun, pero un doji registra que nadie ganó: no hay batalla que ponderar por ubicación. En un nivel puede avisar de que un movimiento se estanca y decirte que vigiles, pero nunca es el disparador por sí solo."
+      en: "Location amplifies rejection and overrun, but a doji records that nobody won — there is no battle to weight by location. At a level it can flag that a move is stalling and tell you to watch, but it is never the trigger by itself, and it certainly never guarantees a turn."
+      es: "La ubicación amplifica el rechazo y el overrun, pero un doji registra que nadie ganó: no hay batalla que ponderar por ubicación. En un nivel puede avisar de que un movimiento se estanca y decirte que vigiles, pero nunca es el disparador por sí solo, y desde luego nunca garantiza un giro."
   - id: small-range-myth
     kind: true_false
     prompt:
@@ -82,71 +82,71 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A doji (open and close almost equal)."
-          es: "Un doji (apertura y cierre casi iguales)."
+          en: "A doji, whose open and close finish almost equal."
+          es: "Un doji, cuya apertura y cierre acaban casi iguales."
       - id: b
         correct: true
         text:
-          en: "A small-range candle after movement."
-          es: "Una vela de rango pequeño tras el movimiento."
+          en: "A small-range candle printed after movement."
+          es: "Una vela de rango pequeño impresa tras el movimiento."
       - id: c
         correct: true
         text:
-          en: "A long-wick pin bar mid-range, at no level."
-          es: "Un pin bar de mecha larga a media altura, en ningún nivel."
+          en: "A long-wick pin bar mid-range, leaning on no level."
+          es: "Un pin bar de mecha larga a media altura, sin apoyo en ningún nivel."
       - id: d
         text:
-          en: "An engulfing candle that overruns a resistance the chart has respected twice."
-          es: "Una vela envolvente que arrolla una resistencia que el gráfico ha respetado dos veces."
+          en: "An engulfing candle overrunning a resistance respected twice."
+          es: "Una envolvente que arrolla una resistencia respetada dos veces."
     explanation:
-      en: "Doji and small-range are indecision and compression — no winner. A pin bar in open space is a rejection of nothing that matters. Only the overrun at a demonstrated level carries information."
-      es: "El doji y el rango pequeño son indecisión y compresión: sin ganador. Un pin bar en espacio abierto es un rechazo de nada que importe. Solo el overrun en un nivel demostrado lleva información."
+      en: "Doji and small-range are indecision and compression — no winner, so nothing to act on. A pin bar in open space is a real rejection of nothing that matters. Only the overrun at a demonstrated level carries information, because only there did the candle beat something somebody was defending."
+      es: "El doji y el rango pequeño son indecisión y compresión: sin ganador, así que no hay nada sobre lo que actuar. Un pin bar en espacio abierto es un rechazo real de nada que importe. Solo el overrun en un nivel demostrado lleva información, porque solo ahí la vela venció algo que alguien defendía."
   - id: same-form-diff-place
     prompt:
       en: "Two charts show the identical bullish engulfing candle. On chart A it engulfs the prior range right at a support that has held three times; on chart B it happens in the middle of a drift. What differs?"
       es: "Dos gráficos muestran la misma vela envolvente alcista. En el A engulle el rango anterior justo en un soporte que ha aguantado tres veces; en el B ocurre en mitad de una deriva. ¿Qué cambia?"
     options:
       - id: a
+        text:
+          en: "B is stronger, because open space lets price move away freely."
+          es: "El B es más fuerte, porque el espacio abierto deja al precio irse libre."
+      - id: b
         correct: true
         text:
-          en: "The mechanic is identical; only A carries information, because only A overran a level that mattered."
-          es: "La mecánica es idéntica; solo el A lleva información, porque solo el A arrolló un nivel que importaba."
-      - id: b
-        text:
-          en: "B is stronger, because open space lets price move freely."
-          es: "El B es más fuerte, porque el espacio abierto deja moverse al precio con libertad."
+          en: "Same mechanic, but only A overran a level that mattered."
+          es: "La misma mecánica, pero solo el A arrolló un nivel que importaba."
       - id: c
         text:
-          en: "They are identical in meaning — same candle, same signal."
-          es: "Son idénticos en significado: la misma vela, la misma señal."
+          en: "They are identical in meaning — the same candle, so the same signal."
+          es: "Son idénticos en significado: la misma vela, luego la misma señal."
     explanation:
-      en: "Same form, same overrun — but B overran nothing anyone was defending. The engulfing at a demonstrated support is a battle won at a price that matters; in open space it is a body with no context."
-      es: "La misma forma, el mismo overrun, pero el B no arrolló nada que nadie defendiera. La envolvente en un soporte demostrado es una batalla ganada en un precio que importa; en espacio abierto es un cuerpo sin contexto."
+      en: "Same form, same overrun — but B overran nothing anyone was defending, and open space is the absence of information, not a boost to it. The engulfing at a demonstrated support is a battle won at a price that matters; in open space it is a body with no context."
+      es: "La misma forma, el mismo overrun, pero el B no arrolló nada que nadie defendiera, y el espacio abierto es ausencia de información, no un refuerzo. La envolvente en un soporte demostrado es una batalla ganada en un precio que importa; en espacio abierto es un cuerpo sin contexto."
   - id: weekend-hammer
     prompt:
       en: "The same hammer prints twice: once on a quiet Sunday at a low-liquidity level, once at a defended level during active hours. How do they compare?"
       es: "El mismo martillo aparece dos veces: un domingo tranquilo en un nivel de poca liquidez y en horas activas en un nivel defendido. ¿Cómo se comparan?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "The Sunday one is a much weaker tell — in a thin book a handful of orders can print a dramatic wick that is really a liquidity vacuum."
-          es: "El martillo del domingo es un indicio mucho más débil: en un libro con escasa liquidez, un puñado de órdenes puede dejar una mecha muy larga que en realidad solo refleja una falta de liquidez."
-      - id: b
         text:
           en: "They are equivalent — the form is identical, so the information is identical."
           es: "Son equivalentes: la forma es idéntica, así que la información es idéntica."
-      - id: c
+      - id: b
         text:
-          en: "The Sunday one is stronger, because fewer sellers were able to stop the bounce."
-          es: "El martillo del domingo es más fuerte, porque menos vendedores pudieron frenar el rebote."
+          en: "The Sunday one is stronger, since fewer sellers could stop the bounce."
+          es: "El del domingo es más fuerte, ya que menos vendedores frenaron el rebote."
+      - id: c
+        correct: true
+        text:
+          en: "The Sunday one is far weaker — a thin book prints dramatic wicks cheaply."
+          es: "El del domingo es mucho más débil: un libro fino imprime mechas largas barato."
       - id: d
         text:
-          en: "Neither carries information; hammers are non-information by definition."
-          es: "Ninguno aporta información; los martillos son no-información por definición."
+          en: "Neither carries information, because hammers are non-information by definition."
+          es: "Ninguno aporta información, porque los martillos son no-información por definición."
     explanation:
-      en: "Crypto runs 24/7, so a great many candles form in thin weekend and overnight books. Weight every reaction by the depth of the book it happened in and the level it happened at."
-      es: "El cripto funciona 24/7, así que muchísimas velas se forman en libros poco profundos de fin de semana y de madrugada. Pondera cada reacción por la profundidad del libro en que ocurrió y por el nivel en que ocurrió."
+      en: "In a thin book a handful of orders can leave a dramatic wick that really only reflects a liquidity vacuum, so fewer participants makes the tell weaker, not stronger. Crypto runs 24/7, so a great many candles form in thin weekend and overnight books: weight every reaction by the depth of the book it happened in and the level it happened at. A hammer at a defended level in active hours is genuine information."
+      es: "En un libro fino, un puñado de órdenes puede dejar una mecha espectacular que en realidad solo refleja un vacío de liquidez, así que menos participantes debilita el indicio, no lo refuerza. El cripto funciona 24/7, así que muchísimas velas se forman en libros poco profundos de fin de semana y de madrugada: pondera cada reacción por la profundidad del libro en que ocurrió y por el nivel en que ocurrió. Un martillo en un nivel defendido y en horas activas sí es información."
   - id: location-weight-match
     kind: matching
     prompt:

@@ -7,25 +7,25 @@ variants:
       es: "¿Cuál es el orden clásico de la rotación de capital en un ciclo cripto?"
     options:
       - id: a
-        correct: true
         text:
-          en: "BTC → ETH → large-cap alts → small-cap alts."
-          es: "BTC → ETH → alts de gran capitalización → alts de pequeña capitalización."
+          en: "Small-cap alts → large-cap alts → ETH → BTC, climbing toward safety."
+          es: "Alts pequeñas → alts grandes → ETH → BTC, subiendo hacia la seguridad."
       - id: b
         text:
-          en: "Small-cap alts → large-cap alts → ETH → BTC."
-          es: "Alts de pequeña capitalización → alts de gran capitalización → ETH → BTC."
+          en: "Stablecoins → small-cap alts → BTC → ETH, ending in the majors."
+          es: "Stablecoins → alts pequeñas → BTC → ETH, acabando en los grandes."
       - id: c
         text:
-          en: "Stablecoins → small-cap alts → BTC → ETH."
-          es: "Stablecoins → alts de pequeña capitalización → BTC → ETH."
-      - id: d
-        text:
           en: "Everything rises together at the same time, in no particular order."
-          es: "Todo sube a la vez, sin ningún orden concreto."
+          es: "Todo sube a la vez, al mismo tiempo y sin ningún orden concreto."
+      - id: d
+        correct: true
+        text:
+          en: "BTC → ETH → large-cap alts → small-cap alts, outward along the risk curve."
+          es: "BTC → ETH → alts de gran capitalización → alts de pequeña capitalización."
     explanation:
-      en: "New money tends to arrive through Bitcoin, then rotate into Ether, then the large alts, and finally the small speculative ones — a tendency, never a timetable."
-      es: "El dinero nuevo suele entrar por Bitcoin, luego rota hacia Ether, después a las alts grandes y por último a las pequeñas especulativas: una tendencia, nunca un calendario."
+      en: "New money tends to arrive through Bitcoin, then rotate into Ether, then the large alts, and finally the small speculative ones — appetite for risk builds gradually, which is why capital travels in that order rather than all at once. The reverse sequence is what happens when fear returns, and it is a tendency, never a timetable."
+      es: "El dinero nuevo suele entrar por Bitcoin, luego rota hacia Ether, después a las alts grandes y por último a las pequeñas especulativas: el apetito por el riesgo se construye poco a poco, y por eso el capital viaja en ese orden y no todo de golpe. La secuencia inversa es lo que ocurre cuando vuelve el miedo, y es una tendencia, nunca un calendario."
   - id: last-stage
     prompt:
       en: "In the classic rotation, which assets tend to receive money last, in the most euphoric and riskiest phase?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Small-cap, speculative altcoins."
-          es: "Altcoins pequeñas y especulativas."
+          en: "Small-cap, speculative altcoins, which are the last stop of the sequence."
+          es: "Altcoins pequeñas y especulativas, la última parada del ciclo."
       - id: b
         text:
-          en: "Bitcoin, as the safe reserve asset."
-          es: "Bitcoin, como activo de reserva seguro."
+          en: "Bitcoin, in its role as the safe reserve asset of the space."
+          es: "Bitcoin, en su papel de activo de reserva seguro del espacio."
       - id: c
         text:
-          en: "Ether, the first alt in the sequence."
-          es: "Ether, la primera alt de la secuencia."
+          en: "Ether, which is the first alt in the rotation sequence."
+          es: "Ether, que es la primera alt de la secuencia de rotación."
       - id: d
         text:
-          en: "Stablecoins, where everyone parks cash."
-          es: "Stablecoins, donde todo el mundo aparca el efectivo."
+          en: "Stablecoins, where everybody parks their cash between trades."
+          es: "Las stablecoins, donde todos aparcan el efectivo entre operaciones."
     explanation:
-      en: "The smallest, most speculative tokens tend to move last, exactly when the crowd feels most certain and risk is highest. When fear returns they bleed first and worst."
-      es: "Los tokens más pequeños y especulativos suelen moverse los últimos, justo cuando la multitud se siente más segura y el riesgo es más alto. Cuando vuelve el miedo, sangran primero y peor."
+      en: "The smallest, most speculative tokens tend to move last, exactly when the crowd feels most certain and risk is highest. Bitcoin and Ether are the early stops in the sequence, not the late ones, and when fear returns the small caps bleed first and worst."
+      es: "Los tokens más pequeños y especulativos suelen moverse los últimos, justo cuando la multitud se siente más segura y el riesgo es más alto. Bitcoin y Ether son las paradas tempranas de la secuencia, no las tardías, y cuando vuelve el miedo los small caps sangran primero y peor."
   - id: rotation-order
     kind: ordering
     prompt:
@@ -86,50 +86,50 @@ variants:
       es: "Según la rotación, ¿hacia dónde tiende a ir primero el dinero nuevo que entra en el mercado?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Into Bitcoin — and dominance rises."
-          es: "Hacia Bitcoin, y la dominancia sube."
+          en: "Into the small-cap alts, where the very biggest gains are found."
+          es: "Hacia las alts pequeñas, donde están las mayores ganancias posibles."
       - id: b
         text:
-          en: "Into small-cap alts, where the biggest gains are."
-          es: "Hacia las alts pequeñas, donde están las mayores ganancias."
+          en: "Into Ether, which is the first stop for all incoming capital."
+          es: "Hacia Ether, que es la primera parada de todo el capital entrante."
       - id: c
+        correct: true
         text:
-          en: "Into Ether, the first stop for all new capital."
-          es: "Hacia Ether, la primera parada de todo el capital nuevo."
+          en: "Into Bitcoin first, which is why dominance rises early in a fresh cycle."
+          es: "Hacia Bitcoin primero, y por eso la dominancia sube al principio."
       - id: d
         text:
-          en: "Spread evenly across every coin at the same time."
-          es: "Repartido por igual entre todas las monedas a la vez."
+          en: "Spread evenly across every coin in the market at the same time."
+          es: "Repartido por igual entre todas las monedas del mercado a la vez."
     explanation:
-      en: "New money tends to arrive through Bitcoin first, pushing dominance up; only as confidence grows does it rotate outward into ETH, then the large alts, then the small ones."
-      es: "El dinero nuevo suele entrar primero por Bitcoin, empujando la dominancia al alza; solo a medida que crece la confianza rota hacia fuera, hacia ETH, luego las alts grandes y luego las pequeñas."
+      en: "New money tends to arrive through Bitcoin first, pushing dominance up; only as confidence grows does it rotate outward into ETH, then the large alts, then the small ones. The small caps are the last stop, not the first, and the whole point of the rotation is that capital does not arrive everywhere at once."
+      es: "El dinero nuevo suele entrar primero por Bitcoin, empujando la dominancia al alza; solo a medida que crece la confianza rota hacia fuera, hacia ETH, luego las alts grandes y luego las pequeñas. Los small caps son la última parada, no la primera, y todo el sentido de la rotación es que el capital no llega a todas partes a la vez."
   - id: reverse-rotation
     prompt:
       en: "When fear returns and the rotation runs in reverse, which tokens tend to bleed first and worst?"
       es: "Cuando vuelve el miedo y la rotación funciona a la inversa, ¿qué tokens tienden a sangrar primero y peor?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The smallest, least liquid tokens."
-          es: "Los tokens más pequeños y menos líquidos."
+          en: "Bitcoin, because it is the biggest position anyone has to exit."
+          es: "Bitcoin, porque es la posición más grande de la que hay que salir."
       - id: b
         text:
-          en: "Bitcoin, because it is the biggest position to exit."
-          es: "Bitcoin, porque es la posición más grande de la que salir."
+          en: "Every coin falls by exactly the same percentage as every other."
+          es: "Todas las monedas caen exactamente el mismo porcentaje que las demás."
       - id: c
+        correct: true
         text:
-          en: "Every coin falls by exactly the same percentage."
-          es: "Todas las monedas caen exactamente el mismo porcentaje."
+          en: "The smallest, least liquid tokens, which were the last ones to be bought."
+          es: "Los tokens más pequeños y menos líquidos, los últimos en comprarse."
       - id: d
         text:
-          en: "Stablecoins, which lose their peg first."
-          es: "Las stablecoins, que pierden su paridad primero."
+          en: "Stablecoins, which are the first thing to lose their dollar peg."
+          es: "Las stablecoins, lo primero que pierde su paridad con el dólar."
     explanation:
-      en: "In reverse, money climbs back up the curve toward Bitcoin, and the smallest, least liquid tokens — the last to be bought — are the first and hardest hit."
-      es: "A la inversa, el dinero sube de nuevo por la curva hacia Bitcoin, y los tokens más pequeños y menos líquidos —los últimos en comprarse— son los primeros y más golpeados."
+      en: "In reverse, money climbs back up the curve toward Bitcoin, and the smallest, least liquid tokens — the last to be bought — are the first and hardest hit. Bitcoin is where the money is heading, not what it is fleeing, and the whole point is that the fall is not evenly distributed."
+      es: "A la inversa, el dinero sube de nuevo por la curva hacia Bitcoin, y los tokens más pequeños y menos líquidos —los últimos en comprarse— son los primeros y más golpeados. Bitcoin es a donde va el dinero, no de lo que huye, y todo el sentido es que la caída no se reparte por igual."
   - id: tendency-not-timetable
     kind: true_false
     prompt:
@@ -145,25 +145,25 @@ variants:
       es: "¿Por qué el último tramo de la rotación, hacia tokens pequeños y especulativos, es tan violento?"
     options:
       - id: a
+        text:
+          en: "Because small caps are granted higher leverage limits than the majors."
+          es: "Porque los small caps tienen límites de apalancamiento mayores que los grandes."
+      - id: b
         correct: true
         text:
-          en: "Their books are thin: a small-cap has little capital sitting in it, so the same inflow that nudges Bitcoin a few percent can double a micro-cap."
-          es: "Sus libros son poco profundos: un small-cap tiene poco capital dentro, así que el mismo flujo que mueve a Bitcoin unos puntos porcentuales puede duplicar un micro-cap."
-      - id: b
-        text:
-          en: "Small caps have higher leverage limits than majors."
-          es: "Los small caps tienen límites de apalancamiento más altos que los grandes."
+          en: "Their books are thin, so a modest inflow can double a micro-cap."
+          es: "Sus libros son finos, así que un flujo modesto puede duplicar un micro-cap."
       - id: c
         text:
-          en: "Their fundamentals improve fastest late in a cycle."
-          es: "Sus fundamentales mejoran más rápido al final de un ciclo."
+          en: "Because their fundamentals improve fastest late in the market cycle."
+          es: "Porque sus fundamentales mejoran más rápido al final del ciclo."
       - id: d
         text:
-          en: "Market makers are required to quote them more aggressively."
-          es: "Los creadores de mercado están obligados a cotizarlos más agresivamente."
+          en: "Because market makers are obliged to quote them more aggressively."
+          es: "Porque los creadores de mercado deben cotizarlos más agresivamente."
     explanation:
-      en: "That is exactly why small tokens moon last, hardest, and most seductively — and why they bleed first and worst in reverse: the thin book that amplified the rise amplifies the fall, and there is often no bid to sell into."
-      es: "Por eso los tokens pequeños suben al final, con más fuerza y de forma más seductora, y por eso sangran primero y peor a la inversa: el libro poco profundo que amplificó la subida amplifica la caída, y a menudo no hay demanda a la que vender."
+      en: "A small-cap has little capital sitting in it, so the same inflow that nudges Bitcoin a few percent can double it. That is exactly why small tokens moon last, hardest, and most seductively — and why they bleed first and worst in reverse: the thin book that amplified the rise amplifies the fall, and there is often no bid to sell into. Nothing about it is a fundamental improvement or a rule imposed by the venue."
+      es: "Un small-cap tiene poco capital dentro, así que el mismo flujo que mueve a Bitcoin unos puntos porcentuales puede duplicarlo. Por eso los tokens pequeños suben al final, con más fuerza y de forma más seductora, y por eso sangran primero y peor a la inversa: el libro fino que amplificó la subida amplifica la caída, y a menudo no hay demanda a la que vender. Nada de esto es una mejora fundamental ni una regla impuesta por el venue."
   - id: stylised-cycle-match
     kind: matching
     prompt:
@@ -199,24 +199,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is a tendency, not a timetable — it does not complete on every cycle."
+          en: "It is a tendency, not a timetable — it does not complete every cycle."
           es: "Es una tendencia, no un calendario: no se completa en cada ciclo."
       - id: b
         correct: true
-        text: { en: "The stages overlap.", es: "Las etapas se solapan." }
+        text:
+          en: "The stages overlap with one another rather than running cleanly."
+          es: "Las etapas se solapan entre sí en vez de sucederse limpiamente."
       - id: c
         correct: true
         text:
-          en: "Appetite for risk builds gradually, which is why capital travels in this order rather than all at once."
-          es: "El apetito por el riesgo se construye poco a poco, y por eso el capital viaja en este orden y no todo de golpe."
+          en: "Risk appetite builds gradually, so capital travels in this order."
+          es: "El apetito por el riesgo crece poco a poco: por eso el capital va en ese orden."
       - id: d
         text:
-          en: "Once stage N happens, stage N+1 follows on schedule."
-          es: "Una vez ocurre la etapa N, la N+1 llega según el calendario."
+          en: "Once stage N has happened, stage N+1 duly follows on schedule."
+          es: "Una vez ocurrida la etapa N, la N+1 llega puntualmente según el calendario."
       - id: e
         text:
-          en: "Buying illiquid small caps early is safe because the rotation says they are next."
-          es: "Comprar small caps ilíquidos temprano es seguro porque la rotación dice que son los siguientes."
+          en: "Buying illiquid small caps early is safe, since they are next in line."
+          es: "Comprar small caps ilíquidos pronto es seguro, ya que son los siguientes."
     explanation:
-      en: "Plenty of 'alt seasons' have been called that never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding a thin, bleeding book for years."
-      es: "Se han anunciado muchas 'alt seasons' que nunca llegaron. Los traders que compraron alts pequeñas porque 'la rotación dice que son las siguientes' se han quedado años con un libro poco profundo y sangrando."
+      en: "Plenty of 'alt seasons' have been called that never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding a thin, bleeding book for years — the sequence describes how appetite tends to build, and it promises nobody a turn."
+      es: "Se han anunciado muchas 'alt seasons' que nunca llegaron. Los traders que compraron alts pequeñas porque 'la rotación dice que son las siguientes' se han quedado años con un libro poco profundo y sangrando: la secuencia describe cómo suele construirse el apetito, y no le promete el turno a nadie."

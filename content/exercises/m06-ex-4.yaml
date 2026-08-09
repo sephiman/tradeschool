@@ -10,26 +10,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Higher leverage choice (reduces initial and maintenance margin buffer)."
-          es: "Elección de mayor apalancamiento (reduce el colchón de margen inicial y de mantenimiento)."
+          en: "Choosing higher leverage, which thins the margin buffer."
+          es: "Elegir más apalancamiento, que adelgaza el colchón de margen."
       - id: b
         correct: true
         text:
-          en: "Negative funding payments deducted directly from margin in long positions."
-          es: "Pagos de funding negativos deducidos directamente del margen en posiciones largas."
+          en: "Funding payments deducted from the margin backing the position."
+          es: "Pagos de funding deducidos del margen que respalda la posición."
       - id: c
         correct: false
         text:
-          en: "Increasing your account's unrealized profit on unrelated trades."
-          es: "Aumentar el beneficio no realizado de tu cuenta en operaciones no relacionadas."
+          en: "Unrealized profit accruing on an unrelated position elsewhere."
+          es: "Beneficio no realizado acumulándose en otra posición no relacionada."
       - id: d
         correct: true
         text:
-          en: "High exchange maintenance margin rate requirement for the specific pair."
-          es: "Alto requerimiento de tasa de margen de mantenimiento del exchange para el par específico."
+          en: "A high maintenance-margin rate set for that particular pair."
+          es: "Una tasa de mantenimiento alta fijada para ese par concreto."
     explanation:
-      en: "Higher leverage, funding rate deductions, and strict maintenance margin requirements move your liquidation price closer to entry."
-      es: "Un mayor apalancamiento, las deducciones por funding y los requerimientos estrictos de margen de mantenimiento acercan el precio de liquidación a tu entrada."
+      en: "Three things move the line toward you: less collateral per unit of position, collateral drained by funding, and a venue that demands a fatter buffer for that pair. Profit on an unrelated trade does the opposite where it counts at all — under cross it adds free collateral, and under isolated it does not reach this position."
+      es: "Tres cosas mueven la línea hacia ti: menos colateral por unidad de posición, colateral drenado por el funding, y un venue que exige un colchón mayor para ese par. El beneficio de una operación no relacionada hace lo contrario allí donde cuenta: en cruzado añade colateral libre, y en aislado no llega a esta posición."
 
   - id: mark-vs-last-liquidation
     kind: true_false
@@ -103,25 +103,25 @@ variants:
       es: "¿Cómo protege el Precio Mark a las posiciones largas durante un flash crash en el libro de un solo exchange?"
     options:
       - id: a
+        text:
+          en: "It refunds the margin lost by every trader caught in the wick."
+          es: "Reembolsa el margen perdido por cada trader atrapado en la mecha."
+      - id: b
         correct: true
         text:
-          en: "Because Mark Price tracks multi-exchange spot index, single-venue order book spikes do not trigger liquidations."
-          es: "Dado que el Precio Mark sigue el índice spot de múltiples exchanges, los picos en un solo libro no activan liquidaciones."
-      - id: b
-        text:
-          en: "It automatically refunds lost margin to all affected traders."
-          es: "Reembolsa automáticamente el margen perdido a todos los traders afectados."
+          en: "It tracks a multi-venue spot index, so one book's spike does not reach it."
+          es: "Sigue un índice spot de varios venues, así que el pico de un libro no lo alcanza."
       - id: c
         text:
-          en: "It pauses trading on the exchange for 24 hours."
-          es: "Pausa las operaciones en el exchange durante 24 horas."
+          en: "It halts trading on the pair until the book has been rebuilt."
+          es: "Detiene la negociación del par hasta que el libro se haya reconstruido."
       - id: d
         text:
-          en: "It converts all futures contracts into spot holdings."
-          es: "Convierte todos los contratos de futuros en activos spot."
+          en: "It converts the affected futures contracts into spot holdings."
+          es: "Convierte los contratos de futuros afectados en posiciones spot."
     explanation:
-      en: "Mark price relies on broad spot index prices, making it immune to localized order book manipulation or isolated liquidity crashes."
-      es: "El precio mark se basa en índices spot amplios, haciéndolo inmune a la manipulación localizada del libro o a caídas de liquidez aisladas."
+      en: "Mark price is computed from broad spot index prices, which makes it immune to localised order-book manipulation or an isolated liquidity crash: the wick prints on the last price and the mark barely moves, so no liquidation fires. It is a defence by construction — nothing is paused, converted, or paid back afterwards."
+      es: "El precio mark se calcula a partir de índices spot amplios, lo que lo hace inmune a la manipulación localizada del libro o a una caída de liquidez aislada: la mecha se imprime en el último precio y el mark apenas se mueve, así que no salta ninguna liquidación. Es una defensa por construcción: no se pausa, ni se convierte, ni se devuelve nada después."
 
   - id: insurance-fund-role
     kind: single_choice
@@ -130,25 +130,25 @@ variants:
       es: "¿Cuál es la función principal del Fondo de Seguro de un exchange de criptomonedas?"
     options:
       - id: a
-        correct: true
         text:
-          en: "To absorb deficit losses when liquidated positions are closed at prices worse than bankruptcy price."
-          es: "Absorber pérdidas de déficit cuando las posiciones liquidadas se cierran a precios peores que el precio de bancarrota."
+          en: "To pay daily interest on spot balances that carry no leverage."
+          es: "Pagar intereses diarios sobre saldos spot que no llevan apalancamiento."
       - id: b
         text:
-          en: "To guarantee 100% winning trades for premium users."
-          es: "Garantizar operaciones ganadoras al 100% para usuarios premium."
+          en: "To cover the blockchain gas fees on customer withdrawals."
+          es: "Cubrir las comisiones de gas de los retiros de los clientes."
       - id: c
+        correct: true
         text:
-          en: "To pay daily interest on un-leveraged spot balances."
-          es: "Pagar intereses diarios sobre saldos spot sin apalancamiento."
+          en: "To absorb the deficit when a liquidation closes past bankruptcy price."
+          es: "Absorber el déficit cuando una liquidación cierra más allá del precio de bancarrota."
       - id: d
         text:
-          en: "To cover gas fees for blockchain transactions."
-          es: "Cubrir comisiones de gas para transacciones en blockchain."
+          en: "To guarantee that premium-tier accounts never close a losing trade."
+          es: "Garantizar que las cuentas premium nunca cierren una operación en pérdida."
     explanation:
-      en: "If a position is liquidated and closed at a price worse than its bankruptcy price, the negative balance is paid by the insurance fund so winning counterparties get paid in full."
-      es: "Si una posición se liquida y cierra a un precio peor que su precio de bancarrota, el saldo negativo lo paga el fondo de seguro para que la contraparte ganadora cobre íntegramente."
+      en: "If a position is liquidated and closed at a price worse than its bankruptcy price, the shortfall has to come from somewhere, or the winning counterparty would not be paid in full. The insurance fund is that buffer — it exists to keep the exchange's books whole, not to subsidise any trader's outcome."
+      es: "Si una posición se liquida y cierra a un precio peor que su precio de bancarrota, el déficit tiene que salir de algún sitio, o la contraparte ganadora no cobraría íntegramente. El fondo de seguro es ese colchón: existe para que cuadren las cuentas del exchange, no para subvencionar el resultado de ningún trader."
 
   - id: adl-priority-queue
     kind: single_choice
@@ -157,25 +157,25 @@ variants:
       es: "¿Qué posiciones están más arriba en la cola de prioridad de ADL cuando falla el fondo de seguro?"
     options:
       - id: a
+        text:
+          en: "Whichever positions have been open on the venue for the longest."
+          es: "Las posiciones que llevan más tiempo abiertas en el venue."
+      - id: b
         correct: true
         text:
-          en: "Positions with the highest profitability and highest effective leverage."
-          es: "Posiciones con la mayor rentabilidad y el mayor apalancamiento efectivo."
-      - id: b
-        text:
-          en: "Positions that have been open for the longest duration."
-          es: "Posiciones que han estado abiertas durante más tiempo."
+          en: "The most profitable ones, ranked by profit and effective leverage."
+          es: "Las más rentables, ordenadas por beneficio y apalancamiento efectivo."
       - id: c
         text:
-          en: "Accounts with the smallest total USD balance."
-          es: "Cuentas con el menor saldo total en USD."
+          en: "The accounts holding the smallest total balance in USD terms."
+          es: "Las cuentas con el saldo total más pequeño en términos de USD."
       - id: d
         text:
-          en: "Positions using isolated margin mode exclusively."
-          es: "Posiciones que usan exclusivamente el modo de margen aislado."
+          en: "Positions margined in isolated mode rather than cross mode."
+          es: "Las posiciones marginadas en modo aislado en vez de en cruzado."
     explanation:
-      en: "ADL ranks opposing profitable positions by profit percentage and leverage; the highest-ranked traders are deleveraged first to cover systemic exchange deficits."
-      es: "El ADL ordena las posiciones rentables opuestas por porcentaje de beneficio y apalancamiento; los traders con mayor rango son desapalancados primero para cubrir déficits sistémicos."
+      en: "ADL closes out the opposing side of a bankrupt position, so it ranks profitable traders by profit percentage and leverage and takes from the top. That is the uncomfortable part: being right and heavily levered is exactly what puts you first in the queue — not how long you have been there, how large your account is, or which margin mode you chose."
+      es: "El ADL cierra el lado contrario de una posición en quiebra, así que ordena a los traders rentables por porcentaje de beneficio y apalancamiento y va tomando desde arriba. Ahí está lo incómodo: acertar y estar muy apalancado es justo lo que te pone el primero de la cola, no cuánto llevas ahí, ni el tamaño de tu cuenta, ni el modo de margen que elegiste."
 
   - id: cross-margin-liquidation-risk
     kind: single_choice
@@ -186,20 +186,20 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It drains available balance from the whole account, potentially liquidating all open positions."
-          es: "Drena el saldo disponible de toda la cuenta, pudiendo liquidar todas las posiciones abiertas."
+          en: "It drains the whole account's free balance, and can take every position with it."
+          es: "Drena el saldo libre de toda la cuenta y puede llevarse todas las posiciones."
       - id: b
         text:
-          en: "It automatically isolates the loss to $100 maximum."
-          es: "Aísla automáticamente la pérdida a $100 como máximo."
+          en: "The loss is automatically capped at the margin that trade was opened with."
+          es: "La pérdida se limita automáticamente al margen con el que se abrió."
       - id: c
         text:
-          en: "The exchange freezes the losing trade while keeping other trades profitable."
-          es: "El exchange congela la operación perdedora mientras mantiene las demás rentables."
+          en: "The venue freezes the losing trade and lets the others keep running."
+          es: "El venue congela la operación perdedora y deja correr las demás."
       - id: d
         text:
-          en: "The position is converted to a spot holding at zero fee."
-          es: "La posición se convierte en un activo spot sin comisiones."
+          en: "The position is converted into a spot holding with no fee charged."
+          es: "La posición se convierte en una posición spot sin cobrar comisión."
     explanation:
-      en: "Cross margin uses all free collateral to prevent liquidation on one trade, risking a total wipeout of your entire account balance if price continues moving against you."
-      es: "El margen cruzado usa todo el colateral libre para evitar la liquidación de una operación, arriesgando el barrido total de tu saldo si el precio sigue en contra."
+      en: "Cross margin reaches for all free collateral to keep one trade alive, which is exactly why the damage is not contained: if price keeps going, it can wipe the entire balance and every position resting on it. Capping the loss at the allocated margin is what *isolated* mode does — nothing freezes a position or converts it away for you."
+      es: "El margen cruzado echa mano de todo el colateral libre para mantener viva una operación, y por eso el daño no queda contenido: si el precio sigue, puede barrer el saldo entero y todas las posiciones que se apoyan en él. Limitar la pérdida al margen asignado es lo que hace el modo *aislado*: nada congela una posición ni te la convierte en otra cosa."

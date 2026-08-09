@@ -275,6 +275,14 @@ class CourseRegistry:
             "origin": term.origin,
             "originTitle": self._lesson_title(term.origin, locale),
         }
+        # The annotator's inputs, carried on the entry so both surfaces read one description of what
+        # may be linked. Absent keys mean "the default", which the annotator derives.
+        if not term.links(locale):
+            entry["link"] = False
+        if term.match is not None and term.match.get(locale) is not None:
+            entry["match"] = term.match.get(locale)
+        if term.excluded_lessons(locale):
+            entry["linkExcept"] = list(term.excluded_lessons(locale))
         if term.alias_of is not None:
             target = next(t for t in self.glossary.terms if t.id == term.alias_of)
             entry["aliasOf"] = {"id": target.id, "term": target.term(locale)}

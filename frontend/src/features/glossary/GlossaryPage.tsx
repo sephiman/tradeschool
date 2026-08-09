@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { getGlossary, type GlossaryEntry } from "@/api/course";
@@ -87,6 +87,7 @@ function Entry({ entry }: { entry: GlossaryEntry }) {
 export function GlossaryPage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage ?? "en";
+  const { hash } = useLocation();
   const [query, setQuery] = useState("");
 
   const { data, isPending, isError } = useQuery({
@@ -101,6 +102,15 @@ export function GlossaryPage() {
     [data, locale],
   );
   const shown = useMemo(() => entries.filter((e) => matches(e, query)), [entries, query]);
+
+  // A tooltip's "full entry" link arrives as /glossary#g-funding through the router, which — unlike
+  // the in-page alias anchors — does no scrolling of its own, and on a cold load the entry does not
+  // exist yet anyway. So the scroll happens here, once the entries are on the page. (`scroll-mt-24`
+  // on the card is what keeps the term clear of the sticky header.)
+  useEffect(() => {
+    if (!hash || shown.length === 0) return;
+    document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+  }, [hash, shown.length]);
 
   if (isPending) {
     return (

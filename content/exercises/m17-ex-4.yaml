@@ -7,109 +7,109 @@ variants:
       es: "Un clúster de liquidaciones está justo debajo del precio actual. En la práctica, ¿qué suele significar eso?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Price is often drawn toward the cluster, and the move can accelerate as the forced closes there trigger — a magnet and an accelerant, not a certainty."
-          es: "El precio suele verse atraído hacia el clúster, y el movimiento puede acelerarse cuando se disparan los cierres forzosos de ahí: un imán y un acelerador, no una certeza."
+          en: "Price reliably avoids it, since the exchange protects positions parked there."
+          es: "El precio lo evita, ya que el exchange protege las posiciones de ahí."
       - id: b
         text:
-          en: "Price will reliably avoid the cluster, because the exchange protects the positions parked there."
-          es: "El precio evitará el clúster de forma fiable, porque el exchange protege las posiciones aparcadas ahí."
+          en: "It marks a zone of high trading volume with no effect on where price goes."
+          es: "Marca una zona de mucho volumen sin efecto sobre adónde va el precio."
       - id: c
         text:
-          en: "It just marks a zone of high trading volume and has no effect on where price goes."
-          es: "Solo marca una zona de alto volumen de operaciones y no tiene ningún efecto sobre a dónde va el precio."
+          en: "The market has run out of liquidity there, so price will stop moving."
+          es: "El mercado se ha quedado sin liquidez ahí y el precio dejará de moverse."
       - id: d
+        correct: true
         text:
-          en: "It means the market has run out of liquidity there and price will stop moving."
-          es: "Significa que el mercado se ha quedado sin liquidez ahí y el precio dejará de moverse."
+          en: "Price is often drawn toward it, and can accelerate through it."
+          es: "El precio suele verse atraído hacia él, y puede acelerarse al atravesarlo."
     explanation:
-      en: "Liquidation clusters act like magnets: reaching one triggers forced closes whose orders pull price the last stretch in and can accelerate the move through it. It is a probability and a source of volatility, not a guaranteed target — and it is a forced-close zone, not a comment on 'liquidity.'"
-      es: "Los clústeres de liquidación actúan como imanes: alcanzar uno dispara cierres forzosos cuyas órdenes arrastran el precio el último tramo y pueden acelerar el movimiento a través de él. Es una probabilidad y una fuente de volatilidad, no un objetivo garantizado, y es una zona de cierres forzosos, no un comentario sobre la 'liquidez'."
+      en: "Liquidation clusters act like magnets: reaching one triggers forced closes whose orders pull price the last stretch in and can accelerate the move through it. It is a probability and a source of volatility, not a guarantee — the exchange protects nobody — and it is a forced-close zone, not a comment on 'liquidity' running out."
+      es: "Los clústeres de liquidación actúan como imanes: alcanzar uno dispara cierres forzosos cuyas órdenes arrastran el precio el último tramo y pueden acelerar el movimiento a través de él. Es una probabilidad y una fuente de volatilidad, no una garantía —el exchange no protege a nadie— y es una zona de cierres forzosos, no un comentario sobre que se acabe la 'liquidez'."
   - id: short-squeeze
     prompt:
       en: "In a short squeeze, why does price accelerate upward?"
       es: "En un short squeeze, ¿por qué se acelera el precio hacia arriba?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Shorts being force-closed have to buy to close, and that forced buying pushes price higher, liquidating still more shorts — a cascade up."
-          es: "Los cortos que se cierran por la fuerza tienen que comprar para cerrar, y esa compra forzada empuja el precio más arriba, liquidando aún más cortos: una cascada hacia arriba."
+          en: "The short sellers sell even more aggressively, which drives the price up."
+          es: "Los vendedores en corto venden aún más fuerte, lo que sube el precio."
       - id: b
         text:
-          en: "The short sellers start selling even more aggressively, which somehow drives the price up."
-          es: "Los vendedores en corto empiezan a vender aún más agresivamente, lo que de algún modo empuja el precio hacia arriba."
+          en: "The exchange raises the price to punish traders betting against the market."
+          es: "El exchange sube el precio para castigar a quien apuesta contra el mercado."
       - id: c
+        correct: true
         text:
-          en: "The exchange raises the price to punish traders who bet against the market."
-          es: "El exchange sube el precio para castigar a los traders que apuestan contra el mercado."
+          en: "Shorts must buy to close, and that forced buying lifts price further."
+          es: "Los cortos deben comprar para cerrar, y esa compra forzada sube más el precio."
       - id: d
         text:
-          en: "New buyers calmly step in once the shorts have quietly finished closing."
-          es: "Compradores nuevos entran con calma una vez que los cortos han terminado de cerrarse tranquilamente."
+          en: "New buyers step in calmly once the shorts have quietly finished closing."
+          es: "Compradores nuevos entran con calma cuando los cortos ya han cerrado."
     explanation:
-      en: "A liquidation is a forced close. Closing a short means buying back, so a wave of short liquidations is a wave of forced buying — which lifts price, liquidates more shorts, and cascades upward. A long squeeze is the mirror image: forced selling cascading down."
-      es: "Una liquidación es un cierre forzoso. Cerrar un corto significa recomprar, así que una oleada de liquidaciones de cortos es una oleada de compra forzada, que sube el precio, liquida más cortos y forma una cascada hacia arriba. Un long squeeze es la imagen especular: venta forzada en cascada hacia abajo."
+      en: "A liquidation is a forced close, and closing a short means buying back — so a wave of short liquidations is a wave of forced buying, which lifts price, liquidates more shorts, and cascades upward. The shorts are not choosing to sell more, nobody is being punished, and the buying is anything but calm. A long squeeze is the mirror image: forced selling cascading down."
+      es: "Una liquidación es un cierre forzoso, y cerrar un corto significa recomprar: así que una oleada de liquidaciones de cortos es una oleada de compra forzada, que sube el precio, liquida más cortos y forma una cascada hacia arriba. Los cortos no eligen vender más, nadie está siendo castigado, y esa compra es de todo menos tranquila. Un long squeeze es la imagen especular: venta forzada en cascada hacia abajo."
   - id: liquidation-def
     prompt:
       en: "Which of these best describes a liquidation on a futures exchange?"
       es: "¿Cuál de estas opciones describe mejor una liquidación en un exchange de futuros?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The exchange forcibly closing a leveraged position once its margin can no longer cover the loss."
-          es: "El cierre forzoso de una posición apalancada por parte del exchange cuando su margen ya no puede cubrir la pérdida."
+          en: "Any large wave of selling that pushes the price down sharply on the day."
+          es: "Cualquier gran oleada de ventas que hunde bruscamente el precio del día."
       - id: b
         text:
-          en: "Any large wave of selling that pushes the price down sharply."
-          es: "Cualquier oleada grande de ventas que empuja el precio bruscamente hacia abajo."
-      - id: c
-        text:
-          en: "A trader choosing to sell their position to lock in a profit."
+          en: "A trader choosing to sell their position in order to lock in a profit."
           es: "Un trader que decide vender su posición para asegurar una ganancia."
+      - id: c
+        correct: true
+        text:
+          en: "The exchange force-closing a position whose margin cannot cover the loss."
+          es: "El exchange cerrando a la fuerza una posición cuyo margen no cubre la pérdida."
       - id: d
         text:
-          en: "The market running out of buyers so that orders can no longer fill."
-          es: "El mercado que se queda sin compradores, de modo que las órdenes ya no se pueden ejecutar."
+          en: "The market running out of buyers, so that orders can no longer be filled."
+          es: "El mercado quedándose sin compradores, de modo que no se ejecutan órdenes."
     explanation:
-      en: "A liquidation is strictly a forced close: the exchange shuts a leveraged position when its margin can't cover the loss. It is not ordinary selling, not a voluntary profit-take, and not 'liquidity' — those are separate things that get muddled with the word."
-      es: "Una liquidación es estrictamente un cierre forzoso: el exchange cierra una posición apalancada cuando su margen no puede cubrir la pérdida. No es una venta corriente, ni una toma de ganancias voluntaria, ni la 'liquidez': son cosas distintas que se confunden con la palabra."
+      en: "A liquidation is strictly a forced close of a leveraged position. It is not ordinary selling however large, not a voluntary profit-take, and not 'liquidity' drying up — those are three separate things that routinely get muddled with the word."
+      es: "Una liquidación es estrictamente el cierre forzoso de una posición apalancada. No es una venta corriente por grande que sea, ni una toma de ganancias voluntaria, ni que se seque la 'liquidez': son tres cosas distintas que se confunden con la palabra continuamente."
   - id: repel-myth
     kind: true_false
     prompt:
-      en: "A liquidation cluster repels price, pushing it away from that level."
-      es: "Un clúster de liquidaciones repele el precio, empujándolo lejos de ese nivel."
-    answer: false
+      en: "A liquidation cluster acts like a magnet: reaching it triggers forced closes whose orders can accelerate the move through it."
+      es: "Un clúster de liquidaciones actúa como un imán: alcanzarlo dispara cierres forzosos cuyas órdenes pueden acelerar el movimiento a través de él."
+    answer: true
     explanation:
-      en: "It's the opposite: a cluster acts like a magnet. Reaching it triggers forced closes whose orders pull price the last stretch in and can accelerate the move through it. Clusters attract price and add volatility — they don't repel it."
-      es: "Es al revés: un clúster actúa como un imán. Alcanzarlo dispara cierres forzosos cuyas órdenes arrastran el precio el último tramo hacia dentro y pueden acelerar el movimiento a través de él. Los clústeres atraen el precio y añaden volatilidad; no lo repelen."
+      en: "True — clusters attract price and add volatility; they do not repel it. That is why a map of them is a map of where the market tends to get violent, not a set of levels that hold price back."
+      es: "Cierto: los clústeres atraen el precio y añaden volatilidad, no lo repelen. Por eso un mapa de clústeres es un mapa de dónde el mercado suele volverse violento, no un conjunto de niveles que contengan el precio."
   - id: cluster-tiers
     prompt:
       en: "Longs opened at 60,000 at 100×, 50× and 20×, with a 0.5% maintenance margin, have liquidation prices of 59,700, 59,100 and 57,300 respectively. Price wicks down to 59,000 and recovers. Which clusters did that wick harvest?"
       es: "Largos abiertos en 60.000 a 100×, 50× y 20×, con un margen de mantenimiento del 0,5%, tienen precios de liquidación de 59.700, 59.100 y 57.300 respectivamente. El precio hace una mecha hasta 59.000 y se recupera. ¿Qué clústeres cosechó esa mecha?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "The 100× and 50× clusters, but not the 20× one — and the forced selling from the first two is exactly what can carry price down toward the third."
-          es: "Los clústeres de 100× y 50×, pero no el de 20×, y la venta forzosa de los dos primeros es precisamente lo que puede llevar el precio hacia el tercero."
-      - id: b
         text:
           en: "All three — a cascade force-closes every leveraged position at once."
-          es: "Los tres: una cascada cierra por la fuerza todas las posiciones apalancadas a la vez."
-      - id: c
+          es: "Los tres: una cascada cierra a la fuerza todas las posiciones a la vez."
+      - id: b
         text:
           en: "Only the 100× cluster; the 50× liquidation sits at 58,800, below the wick."
-          es: "Solo el de 100×; la liquidación del 50× está en 58.800, por debajo de la mecha."
-      - id: d
+          es: "Solo el de 100×; la liquidación del 50× está en 58.800, bajo la mecha."
+      - id: c
         text:
-          en: "None — a 1.7% move cannot liquidate anything, because liquidation needs the full 1/leverage distance."
-          es: "Ninguno: un movimiento del 1,7% no puede liquidar nada, porque la liquidación exige la distancia completa de 1/apalancamiento."
+          en: "None — a 1.7% move cannot liquidate anything at any leverage at all."
+          es: "Ninguno: un movimiento del 1,7% no puede liquidar nada a ningún apalancamiento."
+      - id: d
+        correct: true
+        text:
+          en: "The 100× and 50× clusters, but not the 20× one, which sits much further down."
+          es: "Los clústeres de 100× y 50×, pero no el de 20×."
     explanation:
-      en: "This is why clusters stack densest right under price and go off on tiny moves: the higher the leverage, the closer liquidation sits to entry. Option C is the classic slip of dropping the maintenance-margin term (60,000 × (1 − 0.02) = 58,800 instead of 59,100), which moves the level further from price than it really is."
-      es: "Por esto los clústeres se acumulan más densos justo debajo del precio y se disparan con movimientos mínimos: cuanto mayor es el apalancamiento, más cerca de la entrada queda la liquidación. La opción C es el desliz clásico de olvidar el término de margen de mantenimiento (60.000 × (1 − 0,02) = 58.800 en vez de 59.100), que aleja el nivel del precio más de lo que está en realidad."
+      en: "The wick reached 59,000, which is past 59,700 and 59,100 but nowhere near 57,300 — and the forced selling from the first two is exactly what can carry price down toward the third. This is why clusters stack densest right under price and go off on tiny moves: the higher the leverage, the closer liquidation sits to entry. The 58,800 figure is the classic slip of dropping the maintenance-margin term, which puts the level further from price than it really is."
+      es: "La mecha llegó a 59.000, que está pasado 59.700 y 59.100 pero muy lejos de 57.300, y la venta forzosa de los dos primeros es precisamente lo que puede llevar el precio hacia el tercero. Por esto los clústeres se acumulan más densos justo debajo del precio y se disparan con movimientos mínimos: cuanto mayor el apalancamiento, más cerca de la entrada queda la liquidación. La cifra de 58.800 es el desliz clásico de olvidar el término de margen de mantenimiento, que aleja el nivel del precio más de lo que está."
   - id: terms-match
     kind: matching
     prompt:
@@ -149,18 +149,18 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Funding has gone clearly one-sided, so the crowded side is paying to hold."
-          es: "El funding se ha vuelto claramente unilateral, así que el lado saturado paga por mantener."
+          en: "Funding has gone clearly one-sided, so the crowded side pays to hold."
+          es: "El funding se ha vuelto unilateral: el lado saturado paga por mantener."
       - id: b
         correct: true
         text:
-          en: "Open interest has climbed on that same crowded side."
-          es: "El interés abierto ha subido en ese mismo lado saturado."
+          en: "Open interest has climbed on that same crowded side of the book."
+          es: "El interés abierto ha subido en ese mismo lado saturado del libro."
       - id: c
         correct: true
         text:
           en: "A fat cluster of stops and liquidation prices sits on the crowded side."
-          es: "Un grupo denso de stops y precios de liquidación se sitúa en el lado saturado."
+          es: "Un grupo denso de stops y liquidaciones está en el lado saturado."
       - id: d
         text:
           en: "The data tells you when the spark will arrive."
@@ -170,55 +170,55 @@ variants:
           en: "The cluster tells you which direction the day will end."
           es: "El grupo te dice en qué dirección terminará el día."
     explanation:
-      en: "One-sided funding plus a fat cluster on the crowded side is loaded fuel. The data still does not predict the spark; it shows you a market primed to burn."
-      es: "Un funding unilateral más un grupo denso en el lado saturado es combustible cargado. Los datos siguen sin predecir la chispa: te muestran un mercado listo para arder."
+      en: "One-sided funding, rising open interest on that side, and a fat cluster below it are three views of the same loaded fuel. What none of them does is predict the spark or the outcome: the data shows you a market primed to burn, never when it lights or which way it runs."
+      es: "Un funding unilateral, un interés abierto creciente en ese lado y un grupo denso debajo son tres vistas del mismo combustible cargado. Lo que ninguno hace es predecir la chispa ni el resultado: los datos te muestran un mercado listo para arder, nunca cuándo prende ni hacia dónde corre."
   - id: cluster-not-target
     prompt:
       en: "How should a liquidation map be used?"
       es: "¿Cómo debería usarse un mapa de liquidaciones?"
     options:
       - id: a
-        correct: true
         text:
-          en: "As zones of volatility and likely sweeps — a cluster tells you where it may get violent, not which way the day ends."
-          es: "Como zonas de volatilidad y probables barridos: un grupo te dice dónde puede volverse violento, no en qué dirección termina el día."
+          en: "As price targets to trade toward, since price is drawn to the clusters."
+          es: "Como objetivos a los que operar, ya que el precio se siente atraído por ellos."
       - id: b
         text:
-          en: "As price targets to trade toward, since price is drawn to clusters."
-          es: "Como objetivos de precio hacia los que operar, ya que el precio se siente atraído por los grupos."
+          en: "As support and resistance levels that reliably hold price back."
+          es: "Como niveles de soporte y resistencia que contienen el precio de forma fiable."
       - id: c
+        correct: true
         text:
-          en: "As support and resistance levels that hold price back."
-          es: "Como niveles de soporte y resistencia que contienen el precio."
+          en: "As zones of volatility and likely sweeps, never as a direction."
+          es: "Como zonas de volatilidad y probables barridos, nunca como una dirección."
       - id: d
         text:
-          en: "As a place to park your own stop, where liquidity is deepest."
-          es: "Como lugar donde colocar tu propio stop, donde la liquidez es mayor."
+          en: "As the place to park your own stop, where the liquidity is deepest."
+          es: "Como el sitio donde poner tu propio stop, donde la liquidez es mayor."
     explanation:
-      en: "None of this predicts direction — it maps the fuel and shows you where the market tends to burn it. And keep your own stops outside the obvious pool, beyond the level rather than one tick inside it."
-      es: "Nada de esto predice la dirección: cartografía el combustible y te muestra dónde suele quemarlo el mercado. Y mantén tus propios stops fuera del grupo obvio, más allá del nivel y no un tick por dentro."
+      en: "A cluster tells you where it may get violent, not which way the day ends: none of this predicts direction — it maps the fuel and shows you where the market tends to burn it. Clusters attract rather than repel, so they are the opposite of levels that hold. And keep your own stops outside the obvious pool, beyond the level rather than one tick inside it."
+      es: "Un grupo te dice dónde puede volverse violento, no en qué dirección termina el día: nada de esto predice la dirección, cartografía el combustible y te muestra dónde suele quemarlo el mercado. Los grupos atraen en vez de repeler, así que son lo contrario de niveles que contienen. Y mantén tus propios stops fuera del grupo obvio, más allá del nivel y no un tick por dentro."
   - id: leverage-density
     prompt:
       en: "Why do liquidation clusters in crypto go off on such small moves?"
       es: "¿Por qué los grupos de liquidación en cripto se disparan con movimientos tan pequeños?"
     options:
       - id: a
+        text:
+          en: "Because exchanges deliberately trigger the clusters at fixed times of day."
+          es: "Porque los exchanges disparan los grupos a horas fijas del día a propósito."
+      - id: b
         correct: true
         text:
-          en: "Perps allow 50–100×+, so liquidation prices sit right next to entry — a roughly 1% wick can liquidate a 100× position, so the trigger needs almost nothing."
-          es: "Los perps permiten 50-100× o más, así que los precios de liquidación quedan justo al lado de la entrada: una mecha de en torno al 1% puede liquidar una posición a 100×, así que el disparador casi no necesita nada."
-      - id: b
-        text:
-          en: "Exchanges deliberately trigger clusters at fixed times of day."
-          es: "Los exchanges disparan los grupos deliberadamente a horas fijas del día."
+          en: "Perps allow 50–100×, so liquidation sits right next to entry."
+          es: "Los perps permiten 50-100×, así que la liquidación queda pegada a la entrada."
       - id: c
         text:
-          en: "Because maintenance margin is larger in crypto than in other markets."
+          en: "Because the maintenance margin is larger in crypto than in other markets."
           es: "Porque el margen de mantenimiento es mayor en cripto que en otros mercados."
       - id: d
         text:
-          en: "Because funding is charged three times a day, which moves price."
+          en: "Because funding is charged three times a day, and that moves the price."
           es: "Porque el funding se cobra tres veces al día, y eso mueve el precio."
     explanation:
-      en: "Dense clusters plus no closing bell plus thin books is the whole reason cascades are worse here: they fire at 3am, run unopposed, and overshoot because there was nothing there to absorb them."
-      es: "Grupos densos, sin campana de cierre y libros poco profundos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."
+      en: "A roughly 1% wick can liquidate a 100× position, so the trigger needs almost nothing — and the higher the leverage on offer, the denser the shelf sitting immediately under price. Dense clusters plus no closing bell plus thin books is the whole reason cascades are worse here: they fire at 3am, run unopposed, and overshoot because there was nothing there to absorb them."
+      es: "Una mecha de en torno al 1% puede liquidar una posición a 100×, así que el disparador casi no necesita nada, y cuanto mayor es el apalancamiento ofrecido, más densa es la repisa que queda justo debajo del precio. Grupos densos, sin campana de cierre y libros finos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."

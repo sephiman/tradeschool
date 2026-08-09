@@ -7,25 +7,25 @@ variants:
       es: "Quieres conectar un tracker de cartera que solo necesita leer tus saldos. ¿Qué tipo de API key deberías darle?"
     options:
       - id: a
+        text:
+          en: "A full-access key — simpler, and the app has good reviews."
+          es: "Una clave de acceso total: más simple, y la app tiene buenas reseñas."
+      - id: b
+        text:
+          en: "A key with withdrawals enabled, so it can rebalance the portfolio for you."
+          es: "Una clave con retiros activados, para que rebalancee la cartera por ti."
+      - id: c
         correct: true
         text:
           en: "A read-only key, with trading and withdrawals disabled."
-          es: "Una clave de solo lectura, con el trading y los retiros desactivados."
-      - id: b
-        text:
-          en: "A full-access key — it is simpler, and you can just trust the app."
-          es: "Una clave de acceso total: es más simple y basta con confiar en la app."
-      - id: c
-        text:
-          en: "A key with withdrawals enabled, so it can move funds around for you."
-          es: "Una clave con los retiros activados, para que pueda mover fondos por ti."
+          es: "Una clave de solo lectura, con trading y retiros desactivados."
       - id: d
         text:
-          en: "Your account password, since API keys are less secure than a password."
-          es: "La contraseña de tu cuenta, ya que las API keys son menos seguras que una contraseña."
+          en: "Your account password, since an API key is weaker than a login."
+          es: "La contraseña de tu cuenta, porque una API key es más débil que un login."
     explanation:
-      en: "Grant the least access the tool needs: read-only is enough to show balances. A key that can trade or withdraw is a spare key to your funds, and you never share your account password."
-      es: "Concede el mínimo acceso que necesita la herramienta: solo lectura basta para mostrar saldos. Una clave que puede operar o retirar es una copia de la clave de tus fondos, y la contraseña de la cuenta no se comparte nunca."
+      en: "Grant the least access the tool needs: read-only is enough to show balances. A key that can trade or withdraw is a spare key to your funds, however good the reviews are, and your account password is not a credential you hand to software at all."
+      es: "Concede el mínimo acceso que necesita la herramienta: solo lectura basta para mostrar saldos. Una clave que puede operar o retirar es una copia de la clave de tus fondos, por buenas que sean las reseñas, y la contraseña de la cuenta no es una credencial que se entregue a ningún software."
   - id: 2fa-whitelist
     prompt:
       en: "Which pair of measures best protects a CEX account?"
@@ -34,32 +34,32 @@ variants:
       - id: a
         correct: true
         text:
-          en: "App-based 2FA together with a withdrawal address whitelist."
-          es: "2FA con app de autenticación junto con una lista blanca de direcciones de retiro."
+          en: "App-based 2FA together with a whitelist of approved withdrawal addresses."
+          es: "2FA con app junto con una lista blanca de direcciones de retiro aprobadas."
       - id: b
         text:
-          en: "SMS-based 2FA plus a very long password."
-          es: "2FA por SMS más una contraseña muy larga."
+          en: "SMS-based 2FA plus a password long enough to resist guessing."
+          es: "2FA por SMS más una contraseña lo bastante larga para resistir intentos."
       - id: c
         text:
-          en: "A full-access API key plus email alerts on every login."
-          es: "Una API key de acceso total más alertas por correo en cada inicio de sesión."
+          en: "A full-access API key plus an email alert on every login."
+          es: "Una API key de acceso total más una alerta por correo en cada inicio."
       - id: d
         text:
-          en: "Reusing a strong password that already protects your email."
-          es: "Reutilizar una contraseña fuerte que ya protege tu correo."
+          en: "Reusing the strong password that already protects your email."
+          es: "Reutilizar la contraseña fuerte que ya protege tu correo."
     explanation:
-      en: "App-based 2FA resists SIM-swap attacks (which defeat SMS), and a withdrawal whitelist stops an intruder sending coins to a new address. Reused passwords and full-access keys add exposure, not protection."
-      es: "El 2FA con app resiste los ataques de SIM-swap (que vencen al SMS), y una lista blanca de retiros impide que un intruso envíe monedas a una dirección nueva. Reutilizar contraseñas y las claves de acceso total añaden exposición, no protección."
+      en: "App-based 2FA resists the SIM-swap attacks that defeat SMS, and a withdrawal whitelist stops an intruder sending coins to a new address. Password length is irrelevant once the second factor is stolen, an alert tells you after the fact, and a reused password means one breached site unlocks the exchange."
+      es: "El 2FA con app resiste los ataques de SIM-swap que vencen al SMS, y una lista blanca de retiros impide que un intruso envíe monedas a una dirección nueva. La longitud de la contraseña da igual una vez robado el segundo factor, una alerta te avisa cuando ya ha pasado, y una contraseña reutilizada hace que un sitio filtrado abra el exchange."
   - id: sms-2fa-myth
     kind: true_false
     prompt:
-      en: "SMS text-message 2FA is the strongest form of two-factor authentication you can use on a CEX."
-      es: "El 2FA por SMS es la forma más fuerte de autenticación de dos factores que puedes usar en un CEX."
-    answer: false
+      en: "SMS 2FA is the weakest of the common second factors, because a SIM-swap hands your codes to the attacker."
+      es: "El 2FA por SMS es el más débil de los segundos factores habituales, porque un SIM-swap entrega tus códigos al atacante."
+    answer: true
     explanation:
-      en: "SMS is the weakest common option: SIM-swap attacks let someone hijack your number and receive the codes. An authenticator app is the stronger default."
-      es: "El SMS es la opción común más débil: los ataques de SIM-swap permiten a alguien secuestrar tu número y recibir los códigos. Una app de autenticación es el criterio por defecto más fuerte."
+      en: "True. The code is delivered to a phone number, and a phone number is something a carrier can be talked into moving. An authenticator app has no number to steal, which is why it is the stronger default."
+      es: "Cierto. El código se entrega a un número de teléfono, y a una operadora se la puede convencer de mover un número. Una app de autenticación no tiene número que robar, y por eso es el criterio por defecto más fuerte."
   - id: security-practices
     kind: multi_select
     prompt:
@@ -69,29 +69,29 @@ variants:
       - id: a
         correct: true
         text:
-          en: "App-based (authenticator) 2FA."
-          es: "2FA con app de autenticación."
+          en: "Two-factor codes from an authenticator app, not SMS."
+          es: "Códigos de dos factores desde una app de autenticación, no por SMS."
       - id: b
         correct: true
         text:
-          en: "A withdrawal address whitelist."
-          es: "Una lista blanca de direcciones de retiro."
+          en: "A whitelist of approved withdrawal addresses."
+          es: "Una lista blanca de direcciones de retiro aprobadas."
       - id: c
         correct: true
         text:
-          en: "A read-only API key for a portfolio tracker."
-          es: "Una API key de solo lectura para un tracker de cartera."
+          en: "A read-only API key for the portfolio tracker."
+          es: "Una API key de solo lectura para el tracker de cartera."
       - id: d
         text:
-          en: "Reusing your email password so it's easy to remember."
-          es: "Reutilizar la contraseña de tu correo para acordarte fácil."
+          en: "Reusing your email password so it is easy to remember."
+          es: "Reutilizar la contraseña del correo para acordarte fácil."
       - id: e
         text:
           en: "An API key with withdrawals enabled, for convenience."
           es: "Una API key con los retiros activados, por comodidad."
     explanation:
-      en: "App 2FA, a withdrawal whitelist and least-privilege (read-only) API keys all limit the damage from a single failure. Reused passwords and withdrawal-capable keys add exposure, not protection."
-      es: "El 2FA con app, una lista blanca de retiros y las API keys de mínimo privilegio (solo lectura) limitan el daño de un solo fallo. Reutilizar contraseñas y las claves con retiros activados añaden exposición, no protección."
+      en: "App 2FA, a withdrawal whitelist and least-privilege API keys each limit the damage from a single failure. The other two do the opposite: a reused password turns any breached site into a way in, and a withdrawal-capable key is a spare key to the funds."
+      es: "El 2FA con app, una lista blanca de retiros y las API keys de mínimo privilegio limitan cada una el daño de un solo fallo. Las otras dos hacen lo contrario: una contraseña reutilizada convierte cualquier sitio filtrado en una puerta, y una clave con retiros es una copia de la llave de los fondos."
   - id: measure-threat-match
     kind: matching
     prompt:
@@ -127,25 +127,25 @@ variants:
       es: "¿De qué te protege en realidad una lista blanca de direcciones de retiro?"
     options:
       - id: a
+        text:
+          en: "It hides your balance from the other users trading on the exchange."
+          es: "Oculta tu saldo a los demás usuarios que operan en el exchange."
+      - id: b
         correct: true
         text:
-          en: "An attacker who gets into your account still can't send coins to a new, unapproved address."
-          es: "Un atacante que entre en tu cuenta aún no puede enviar monedas a una dirección nueva y no aprobada."
-      - id: b
-        text:
-          en: "It hides your balance from other users on the exchange."
-          es: "Oculta tu saldo a los demás usuarios del exchange."
+          en: "An intruder still cannot send coins to an unapproved address."
+          es: "Un intruso sigue sin poder enviar monedas a una dirección nueva."
       - id: c
         text:
-          en: "It lowers the fees you pay when you withdraw."
-          es: "Reduce las comisiones que pagas al retirar."
+          en: "It lowers the fee you pay each time you withdraw to a saved address."
+          es: "Reduce la comisión que pagas al retirar a una dirección guardada."
       - id: d
         text:
-          en: "It automatically reverses any withdrawal you regret."
-          es: "Revierte automáticamente cualquier retiro del que te arrepientas."
+          en: "It automatically reverses any withdrawal you later regret making."
+          es: "Revierte automáticamente cualquier retiro del que luego te arrepientas."
     explanation:
-      en: "A whitelist locks withdrawals to addresses you pre-approved, ideally with a delay on new ones. Even an intruder in your account can't route coins somewhere new."
-      es: "Una lista blanca limita los retiros a direcciones que aprobaste de antemano, idealmente con un retardo para las nuevas. Ni siquiera un intruso en tu cuenta puede desviar monedas a un sitio nuevo."
+      en: "A whitelist locks withdrawals to addresses you pre-approved, ideally with a delay before a new one becomes usable. It changes nothing about privacy, fees, or the finality of a withdrawal once it is on-chain — it just means an intruder in your account has nowhere to send the coins."
+      es: "Una lista blanca limita los retiros a direcciones que aprobaste de antemano, idealmente con un retardo antes de que una nueva sea utilizable. No cambia nada sobre la privacidad, las comisiones ni la irreversibilidad de un retiro ya on-chain: solo hace que un intruso en tu cuenta no tenga adónde enviar las monedas."
   - id: api-withdraw-tf
     kind: true_false
     prompt:
@@ -161,19 +161,25 @@ variants:
       es: "¿Por qué una app de autenticación es más fuerte que los códigos por SMS, aunque tu contraseña sea excelente?"
     options:
       - id: a
+        text:
+          en: "App codes are longer, so they cannot realistically be guessed."
+          es: "Los códigos de la app son más largos y no se pueden adivinar."
+      - id: b
+        text:
+          en: "SMS codes get reused across logins, while app codes are unique."
+          es: "Los códigos SMS se reutilizan entre inicios y los de la app son únicos."
+      - id: c
+        text:
+          en: "The app also encrypts the password you store on the exchange."
+          es: "La app además cifra la contraseña que guardas en el exchange."
+      - id: d
         correct: true
         text:
-          en: "SMS codes ride on your phone number, and an attacker who social-engineers your carrier into porting it receives every code. An app has no number to steal."
-          es: "Los códigos por SMS dependen de tu número de teléfono, y un atacante que engañe a tu operadora para portarlo recibe todos los códigos. Una app no tiene número que robar."
-      - id: b
-        text: { en: "App codes are longer, so they cannot be guessed.", es: "Los códigos de la app son más largos, así que no se pueden adivinar." }
-      - id: c
-        text: { en: "SMS codes are reused, while app codes are unique.", es: "Los códigos SMS se reutilizan y los de la app son únicos." }
-      - id: d
-        text: { en: "An app also encrypts your password on the exchange.", es: "La app además cifra tu contraseña en el exchange." }
+          en: "SMS codes ride on your phone number, and whoever takes the number takes the codes."
+          es: "Los códigos SMS dependen de tu número, y quien se lleva el número se lleva los códigos."
     explanation:
-      en: "This is the SIM-swap: people with strong passwords have been cleaned out overnight because the second factor was a phone number an attacker could take. Use a rotating six-digit code from an app."
-      es: "Es el SIM-swap: gente con contraseñas fuertes ha sido vaciada de la noche a la mañana porque el segundo factor era un número que el atacante podía tomar. Usa un código rotatorio de seis dígitos de una app."
+      en: "This is the SIM-swap: an attacker social-engineers your carrier into porting the number, and every code follows it. People with excellent passwords have been cleaned out overnight this way, because the second factor was something a phone shop could reassign. Code length and uniqueness are not the difference — having no number to steal is."
+      es: "Es el SIM-swap: un atacante engaña a tu operadora para portar el número, y todos los códigos se van con él. Gente con contraseñas excelentes ha sido vaciada de la noche a la mañana así, porque el segundo factor era algo que una tienda de móviles podía reasignar. La diferencia no es la longitud ni la unicidad del código: es no tener número que robar."
   - id: takeover-steps
     kind: ordering
     prompt:
@@ -210,16 +216,22 @@ variants:
       es: "¿Cuál es el objetivo que comparten el 2FA, las API keys con permisos limitados y la lista blanca de retiros?"
     options:
       - id: a
+        text:
+          en: "Being un-hackable, once all three are configured together."
+          es: "Ser inhackeable, una vez configuradas las tres juntas."
+      - id: b
+        text:
+          en: "Making withdrawals faster and cheaper by pre-approving each address."
+          es: "Hacer los retiros más rápidos y baratos aprobando antes cada dirección."
+      - id: c
         correct: true
         text:
-          en: "Bounded loss — making sure a single failure cannot empty the account."
-          es: "Pérdida acotada: asegurar que un solo fallo no pueda vaciar la cuenta."
-      - id: b
-        text: { en: "Being un-hackable, if you configure all three.", es: "Ser inhackeable, si configuras las tres." }
-      - id: c
-        text: { en: "Making withdrawals faster and cheaper.", es: "Hacer los retiros más rápidos y baratos." }
+          en: "Bounded loss — making sure one failure cannot empty the account."
+          es: "Pérdida acotada: que un solo fallo no pueda vaciar la cuenta."
       - id: d
-        text: { en: "Proving your identity to regulators.", es: "Probar tu identidad ante los reguladores." }
+        text:
+          en: "Proving your identity to the regulators supervising the venue."
+          es: "Probar tu identidad ante los reguladores que supervisan el venue."
     explanation:
-      en: "Security isn't about being un-hackable — that is not on the menu. Every control here exists to limit the blast radius, turning a total loss into a survivable one."
-      es: "La seguridad no consiste en ser inhackeable: eso no está en el menú. Cada control existe para limitar el radio de daño, convirtiendo una pérdida total en una soportable."
+      en: "Security isn't about being un-hackable — that is not on the menu, and no combination of three controls puts it there. Every control here exists to limit the blast radius, turning a total loss into a survivable one. Speed and compliance are somebody else's goals."
+      es: "La seguridad no consiste en ser inhackeable: eso no está en el menú, y ninguna combinación de tres controles lo consigue. Cada control existe para limitar el radio de daño, convirtiendo una pérdida total en una soportable. La velocidad y el cumplimiento son objetivos de otros."

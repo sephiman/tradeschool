@@ -113,6 +113,24 @@ beforeEach(() => {
   );
 });
 
+describe("arriving from a term's tooltip", () => {
+  it("scrolls to the entry named in the fragment, which the router does not do by itself", () => {
+    // `/glossary#g-premium` is what a lesson tooltip's "full entry" link navigates to. React Router
+    // performs no fragment scrolling, and on a cold load the entry is not on the page yet.
+    const scrolled: string[] = [];
+    Element.prototype.scrollIntoView = function scrollIntoView(this: Element) {
+      scrolled.push(this.id);
+    };
+    document.body.innerHTML = "";
+    mount(
+      <MemoryRouter initialEntries={[`${coursePath("/glossary")}#g-premium`]}>
+        <GlossaryPage />
+      </MemoryRouter>,
+    );
+    expect(scrolled).toEqual(["g-premium"]);
+  });
+});
+
 describe("the glossary page", () => {
   it("lists entries alphabetically in the reader's locale", () => {
     expect(terms()).toEqual(["cambio de carácter", "CHoCH", "emisión", "prima"]);

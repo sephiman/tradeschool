@@ -7,25 +7,25 @@ variants:
       es: "El índice marca una lectura extrema de 8 (miedo extremo). ¿Cuál es la forma correcta de usarla?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Treat it as a contrarian zone of interest and wait for your own confirmation (structure, a level) before entering — extremes can persist."
-          es: "Tratarla como una zona contraria de interés y esperar tu propia confirmación (estructura, un nivel) antes de entrar: los extremos pueden persistir."
-      - id: b
         text:
           en: "Buy immediately with size — an extreme reading is a precise entry trigger."
-          es: "Comprar de inmediato y con tamaño: una lectura extrema es un trigger preciso de entrada."
-      - id: c
+          es: "Comprar de inmediato y con tamaño: una lectura extrema es un trigger preciso."
+      - id: b
         text:
           en: "Short immediately, since fear means price will keep falling from here."
-          es: "Cortar de inmediato, ya que el miedo significa que el precio seguirá cayendo desde aquí."
+          es: "Cortar de inmediato, ya que el miedo significa que el precio seguirá cayendo."
+      - id: c
+        correct: true
+        text:
+          en: "Treat it as a contrarian zone and wait for your own confirmation."
+          es: "Tratarla como zona contraria y esperar tu propia confirmación."
       - id: d
         text:
-          en: "Ignore it — sentiment is never useful for anything."
-          es: "Ignorarla: el sentimiento nunca sirve para nada."
+          en: "Ignore it entirely — sentiment is never useful for anything at all."
+          es: "Ignorarla del todo: el sentimiento no sirve nunca para nada."
     explanation:
-      en: "An extreme reading marks a contrarian zone, not a moment. Extremes can stay extreme for weeks, so buying on the number alone (b) gets you run over. The number frames which side is dangerous; the entry still comes from your own confirmation."
-      es: "Una lectura extrema marca una zona contraria, no un momento. Los extremos pueden seguir siendo extremos durante semanas, así que comprar solo por el número (b) te arrolla. El número enmarca qué lado es peligroso; la entrada sigue viniendo de tu propia confirmación."
+      en: "An extreme reading marks a contrarian zone, not a moment. Extremes can stay extreme for weeks, so buying on the number alone gets you run over — and it is certainly not an instruction to short with the crowd either. The number frames which side is dangerous; the entry still comes from structure, a level, your own confirmation."
+      es: "Una lectura extrema marca una zona contraria, no un momento. Los extremos pueden seguir extremos durante semanas, así que comprar solo por el número te arrolla, y desde luego tampoco es una orden de cortar con la masa. El número enmarca qué lado es peligroso; la entrada sigue viniendo de la estructura, de un nivel, de tu propia confirmación."
   - id: zone-not-timing
     prompt:
       en: "Why is an extreme sentiment reading a zone rather than a timing trigger?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Because extremes can persist for weeks or months while price keeps trending; sentiment shows which side is crowded, not when it will turn."
-          es: "Porque los extremos pueden persistir semanas o meses mientras el precio sigue en tendencia; el sentimiento muestra qué lado está saturado, no cuándo girará."
+          en: "Extremes can persist for months while price keeps trending."
+          es: "Los extremos pueden persistir meses mientras el precio sigue en tendencia."
       - id: b
         text:
-          en: "Because the exact value (for example 90) pinpoints the top or bottom to the day."
-          es: "Porque el valor exacto (por ejemplo 90) señala el techo o el suelo al día concreto."
+          en: "Because the exact value, such as 90, pinpoints the top to the very day."
+          es: "Porque el valor exacto, como 90, señala el techo al día concreto."
       - id: c
         text:
-          en: "Because the index updates too slowly to trade, yet the number still marks the precise reversal."
-          es: "Porque el índice se actualiza demasiado despacio para operar, aunque el número marca igualmente el giro preciso."
+          en: "Because the index updates too slowly, though it still marks the turn."
+          es: "Porque el índice se actualiza muy despacio, aunque marque igual el giro."
       - id: d
         text:
-          en: "Because sentiment only matters in stock markets, not in crypto."
-          es: "Porque el sentimiento solo importa en los mercados de acciones, no en cripto."
+          en: "Because sentiment matters only in stock markets and never in crypto."
+          es: "Porque el sentimiento solo importa en las bolsas y nunca en cripto."
     explanation:
-      en: "Extreme greed has lasted through entire bull runs and extreme fear through long bear markets. The reading tells you the crowd is lopsided and one side is dangerous — it says nothing about the exact moment of the turn, so the timing must come from your own tools."
-      es: "La codicia extrema ha durado rallies alcistas enteros y el miedo extremo, mercados bajistas largos. La lectura te dice que la masa está desequilibrada y que un lado es peligroso; no dice nada sobre el momento exacto del giro, así que el timing debe venir de tus propias herramientas."
+      en: "Extreme greed has lasted through entire bull runs and extreme fear through long bear markets. The reading tells you the crowd is lopsided and one side is dangerous — it says nothing about the exact moment of the turn, whatever value it prints, so the timing must come from your own tools."
+      es: "La codicia extrema ha durado rallies alcistas enteros y el miedo extremo, mercados bajistas largos. La lectura te dice que la masa está desequilibrada y que un lado es peligroso; no dice nada sobre el momento exacto del giro, marque el valor que marque, así que el timing debe venir de tus propias herramientas."
   - id: precise-trigger-myth
     kind: true_false
     prompt:
@@ -66,50 +66,50 @@ variants:
       es: "Te pones corto en la primera lectura de \"codicia extrema\" en 90, pero el precio sube otro 40 % en dos meses mientras la codicia sigue extrema. ¿Cuál es la lección?"
     options:
       - id: a
+        text:
+          en: "The index lied about the state of the market and should be thrown away."
+          es: "El índice mintió sobre el estado del mercado y hay que tirarlo."
+      - id: b
         correct: true
         text:
-          en: "Extremes can persist; sentiment marks which side is crowded, not the moment it turns, so wait for your own confirmation."
-          es: "Los extremos pueden persistir; el sentimiento marca qué lado está saturado, no el momento en que gira, así que espera tu propia confirmación."
-      - id: b
-        text:
-          en: "The index lied and should be thrown away."
-          es: "El índice mintió y hay que tirarlo."
+          en: "Extremes persist: sentiment marks the crowded side, not the moment."
+          es: "Los extremos persisten: el sentimiento marca el lado, no el momento."
       - id: c
         text:
-          en: "You simply needed more leverage to survive the move."
-          es: "Solo necesitabas más apalancamiento para sobrevivir al movimiento."
+          en: "You simply needed more leverage in order to survive the move against you."
+          es: "Solo necesitabas más apalancamiento para sobrevivir al movimiento en contra."
       - id: d
         text:
-          en: "Extreme greed always means the top arrives that same day."
+          en: "Extreme greed always means the top arrives on that very same day."
           es: "La codicia extrema siempre significa que el techo llega ese mismo día."
     explanation:
-      en: "Greed stayed extreme through entire bull runs. Shorting the first extreme print treats a zone as a moment — the exact mistake that gets contrarians run over. The reading was fine; the timing has to come from elsewhere."
-      es: "La codicia se ha mantenido extrema durante rallies alcistas enteros. Cortar en la primera lectura extrema trata una zona como un momento: justo el error que arrolla a los contrarios. La lectura estaba bien; el timing tiene que venir de otro sitio."
+      en: "Greed stayed extreme through entire bull runs. Shorting the first extreme print treats a zone as a moment — the exact mistake that gets contrarians run over. The reading itself was fine and the index was working; the timing has to come from elsewhere, and more leverage against a persisting extreme only shortens how long you survive."
+      es: "La codicia se mantuvo extrema durante rallies alcistas enteros. Cortar en la primera lectura extrema trata una zona como un momento: justo el error que arrolla a los contrarios. La lectura estaba bien y el índice funcionaba; el timing tiene que venir de otro sitio, y más apalancamiento contra un extremo que persiste solo acorta lo que aguantas."
   - id: where-trigger-comes-from
     prompt:
       en: "If sentiment only tells you which side is dangerous, where does the actual entry trigger come from?"
       es: "Si el sentimiento solo te dice qué lado es peligroso, ¿de dónde viene el detonante real de entrada?"
     options:
       - id: a
+        text:
+          en: "From the index number crossing a round value such as 90 or 10."
+          es: "De que el número del índice cruce un valor redondo como 90 o 10."
+      - id: b
+        text:
+          en: "From whatever the loudest consensus on social media says that day."
+          es: "De lo que diga ese día el consenso más ruidoso de las redes sociales."
+      - id: c
         correct: true
         text:
           en: "From your own tools — structure, a level, confirmation."
           es: "De tus propias herramientas: estructura, un nivel, confirmación."
-      - id: b
-        text:
-          en: "From the exact index number crossing a round value like 90 or 10."
-          es: "De que el número exacto del índice cruce un valor redondo como 90 o 10."
-      - id: c
-        text:
-          en: "From the loudest consensus on social media that day."
-          es: "Del consenso más ruidoso de las redes sociales ese día."
       - id: d
         text:
-          en: "From the index crossing back through 50."
-          es: "De que el índice vuelva a cruzar el 50."
+          en: "From the index crossing back through the midpoint at 50."
+          es: "De que el índice vuelva a cruzar el punto medio en 50."
     explanation:
-      en: "Sentiment is context, not a signal generator. It frames which side is crowded and risky; the decision to actually enter still has to be confirmed by your own analysis of price and structure."
-      es: "El sentimiento es contexto, no un generador de señales. Enmarca qué lado está saturado y es arriesgado; la decisión de entrar de verdad todavía tiene que confirmarla tu propio análisis del precio y la estructura."
+      en: "Sentiment is context, not a signal generator. It frames which side is crowded and risky; the decision to actually enter still has to be confirmed by your own analysis of price and structure. No threshold on the index — 90, 10 or 50 — converts a mood reading into a moment, and the loudest consensus is the crowd the reading is measuring."
+      es: "El sentimiento es contexto, no un generador de señales. Enmarca qué lado está saturado y es arriesgado; la decisión de entrar de verdad todavía tiene que confirmarla tu propio análisis del precio y la estructura. Ningún umbral del índice —90, 10 o 50— convierte una lectura de ánimo en un momento, y el consenso más ruidoso es justamente la masa que la lectura está midiendo."
   - id: correct-use-of-extreme
     kind: multi_select
     prompt:
@@ -152,25 +152,25 @@ variants:
       es: "Un trader confirma una ruptura alcista del precio señalando una lectura de codicia al alza. ¿Qué falla en eso?"
     options:
       - id: a
+        text:
+          en: "Nothing at all — sentiment is a genuine second witness to what price says."
+          es: "Nada: el sentimiento es un segundo testigo genuino de lo que dice el precio."
+      - id: b
         correct: true
         text:
-          en: "Half the index is price in disguise, so they think they have two independent reasons when they really have one reason counted twice."
-          es: "La mitad del índice es precio disfrazado, así que creen tener dos razones independientes cuando en realidad tienen una razón contada dos veces."
-      - id: b
-        text:
-          en: "Nothing — sentiment is a genuine second witness to price."
-          es: "Nada: el sentimiento es un segundo testigo genuino del precio."
+          en: "Half the index is price in disguise: it is one reason counted twice."
+          es: "Media puntuación es precio disfrazado: es una razón contada dos veces."
       - id: c
         text:
-          en: "Greed readings are always contrarian, so the breakout must fail."
-          es: "Las lecturas de codicia siempre son contrarias, así que la ruptura debe fallar."
+          en: "Greed readings are always contrarian, so the breakout is bound to fail."
+          es: "Las lecturas de codicia son siempre contrarias: la ruptura fallará seguro."
       - id: d
         text:
           en: "The index lags, so it should be read as bearish confirmation instead."
-          es: "El índice va con retardo, así que debería leerse como confirmación bajista."
+          es: "El índice va con retardo, así que debe leerse como confirmación bajista."
     explanation:
-      en: "Volatility and momentum — both computed from price — are together about half the score. The index is not a second witness to what price is already telling you."
-      es: "La volatilidad y el momentum, ambos calculados a partir del precio, son juntos la mitad de la puntuación. El índice no es un segundo testigo de lo que el precio ya te está diciendo."
+      en: "Volatility and momentum — both computed from price — are together about half the score, so they think they have two independent reasons when they really have one. The index is not a second witness to what price is already telling you. That does not make it a reversed signal either: it simply is not independent evidence."
+      es: "La volatilidad y el momentum, ambos calculados a partir del precio, son juntos la mitad de la puntuación, así que creen tener dos razones independientes cuando solo tienen una. El índice no es un segundo testigo de lo que el precio ya te dice. Eso tampoco lo convierte en una señal invertida: sencillamente no es evidencia independiente."
   - id: sentiment-role-match
     kind: matching
     prompt:

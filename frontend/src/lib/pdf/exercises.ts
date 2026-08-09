@@ -2,8 +2,8 @@ import type { Content, ContentStack, TableCell } from "pdfmake/interfaces";
 import type { OptionView } from "@/api/exercises";
 import type { PrintAnchor, PrintExercise, PrintZone } from "@/api/course";
 import { lessonToContent } from "@/lib/pdf/markdown";
-import { ANSWER_ID, printedId, withId } from "@/lib/pdf/pagination";
-import { PRINT, contentWidth } from "@/lib/pdf/page";
+import { ANSWER_ID, DEST, printedId, withId } from "@/lib/pdf/pagination";
+import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
 
 /**
  * Printed exercises and the answer key, as pure pdfmake content.
@@ -191,8 +191,18 @@ export function exerciseBlock(
 ): ExerciseBlock {
   return {
     stack: [
-      // A heading: it must not be printed at the foot of a page with its question overleaf.
-      { text: labels.exercise(exercise.number), style: "exerciseNumber", headlineLevel: 3 },
+      // A heading: it must not be printed at the foot of a page with its question overleaf. It is
+      // also one half of the navigable pair — the number jumps to its answer, and back.
+      withId(
+        {
+          text: labels.exercise(exercise.number),
+          style: "exerciseNumber",
+          headlineLevel: 3,
+          linkToDestination: DEST.answer(exercise.number),
+          ...CROSS_REF,
+        },
+        DEST.exercise(exercise.number),
+      ),
       ...question(exercise, labels, chart),
     ],
     margin: [0, 0, 0, 12],
@@ -293,7 +303,17 @@ export function answerEntry(exercise: PrintExercise, labels: ExerciseLabels): An
   const stack: Content[] = [
     {
       columns: [
-        { text: exercise.number, width: 42, style: "answerNumber" },
+        // The other half of the pair: the answer's number jumps back to the question it answers.
+        withId(
+          {
+            text: exercise.number,
+            width: 42,
+            style: "answerNumber",
+            linkToDestination: DEST.exercise(exercise.number),
+            ...CROSS_REF,
+          },
+          DEST.answer(exercise.number),
+        ),
         { stack: answerLines(exercise, labels).map((text) => ({ text })), width: "*" },
       ],
       columnGap: 4,
@@ -348,6 +368,8 @@ export function answerKeySection(
         headlineLevel: 1,
         tocItem: true,
         tocStyle: "tocBlock",
+        outline: true,
+        outlineExpanded: true,
       },
       sectionId,
     ),
@@ -355,7 +377,18 @@ export function answerKeySection(
   ];
   for (const group of groups) {
     if (group.exercises.length === 0) continue;
-    body.push({ text: group.title, style: "answerGroup", headlineLevel: 2 });
+    body.push(
+      withId(
+        {
+          text: group.title,
+          style: "answerGroup",
+          headlineLevel: 2,
+          outline: true,
+          outlineParentId: sectionId,
+        },
+        DEST.outline(`key-${group.exercises[0].number}`),
+      ),
+    );
     body.push(...group.exercises.map((exercise) => answerEntry(exercise, labels)));
   }
   return { stack: body, pageBreak: "before" };

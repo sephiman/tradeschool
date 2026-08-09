@@ -7,50 +7,50 @@ variants:
       es: "Cripto opera 24/7. ¿Qué implica eso para la posición abierta de un swing trader durante la noche?"
     options:
       - id: a
-        correct: true
         text:
-          en: "It stays live while they sleep, so the stop and position size have to do the watching."
-          es: "Sigue viva mientras duerme, así que el stop y el tamaño de posición tienen que hacer la vigilancia."
+          en: "The exchange closes it automatically at midnight and reopens it in the morning."
+          es: "El exchange la cierra automáticamente a medianoche y la reabre por la mañana."
       - id: b
         text:
-          en: "The exchange automatically closes it at midnight and reopens it in the morning."
-          es: "El exchange la cierra automáticamente a medianoche y la reabre por la mañana."
+          en: "Nothing at all — prices barely move outside normal business hours."
+          es: "Nada: los precios apenas se mueven fuera del horario laboral normal."
       - id: c
         text:
-          en: "Nothing — prices barely move outside normal business hours."
-          es: "Nada: los precios apenas se mueven fuera del horario laboral normal."
+          en: "Funding is paused overnight, so the overnight risk is effectively lower."
+          es: "El funding se pausa de noche, así que el riesgo nocturno es menor."
       - id: d
+        correct: true
         text:
-          en: "Funding is paused overnight, so overnight risk is effectively lower."
-          es: "El funding se pausa por la noche, así que el riesgo nocturno es efectivamente menor."
+          en: "It stays live while they sleep, so the stop has to do the watching."
+          es: "Sigue viva mientras duerme: el stop tiene que hacer la vigilancia."
     explanation:
-      en: "There is no close and no session: the market runs while you sleep and the decisive move can land at 3 a.m. Since you cannot watch, the stop and the position size carry the risk for you."
-      es: "No hay cierre ni sesión: el mercado corre mientras duermes y el movimiento decisivo puede caer a las 3 de la madrugada. Como no puedes vigilar, el stop y el tamaño de posición cargan con el riesgo por ti."
+      en: "There is no close and no session: the market runs while you sleep and the decisive move can land at 3 a.m. — the quiet hours are thinner, not calmer, and funding keeps ticking through them. Since you cannot watch, the stop and the position size carry the risk for you."
+      es: "No hay cierre ni sesión: el mercado corre mientras duermes y el movimiento decisivo puede caer a las 3 de la madrugada; las horas tranquilas son más finas, no más calmadas, y el funding sigue corriendo en ellas. Como no puedes vigilar, el stop y el tamaño de posición cargan con el riesgo por ti."
   - id: attention-scalping
     prompt:
       en: "Which style demands continuous, intense screen focus for the whole session?"
       es: "¿Qué estilo exige concentración intensa y continua frente a la pantalla durante toda la sesión?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Scalping."
-          es: "Scalping."
+          en: "Swing trading, whose positions run for days at a time."
+          es: "El swing trading, cuyas posiciones duran días seguidos."
       - id: b
-        text:
-          en: "Swing trading."
-          es: "Swing trading."
-      - id: c
         text:
           en: "None — all three need only a quick check once a day."
           es: "Ninguno: los tres solo necesitan un vistazo rápido una vez al día."
-      - id: d
+      - id: c
         text:
-          en: "All three demand exactly the same amount of attention."
-          es: "Los tres exigen exactamente la misma atención."
+          en: "All three of them demand exactly the same amount of attention."
+          es: "Los tres exigen exactamente la misma cantidad de atención."
+      - id: d
+        correct: true
+        text:
+          en: "Scalping, whose fast and frequent decisions run for the whole session."
+          es: "El scalping, cuyas decisiones rápidas ocupan toda la sesión."
     explanation:
-      en: "Scalping means fast, frequent decisions and unbroken focus for the session. Swing trading takes only minutes a day to manage; its hard part is patience, not continuous attention."
-      es: "El scalping son decisiones rápidas y frecuentes y foco ininterrumpido durante la sesión. El swing trading solo ocupa unos minutos al día de gestión; su parte difícil es la paciencia, no la atención continua."
+      en: "Scalping means fast, frequent decisions and unbroken focus for the session. Swing trading takes only minutes a day to manage; its hard part is patience, not continuous attention — which is exactly why the three styles ask for different slices of your life rather than the same one."
+      es: "El scalping son decisiones rápidas y frecuentes y foco ininterrumpido durante la sesión. El swing trading solo ocupa unos minutos al día de gestión; su parte difícil es la paciencia, no la atención continua, y por eso los tres estilos piden porciones distintas de tu vida y no la misma."
   - id: style-attention-match
     kind: matching
     prompt:
@@ -78,37 +78,37 @@ variants:
   - id: rely-on-watching-overnight
     kind: true_false
     prompt:
-      en: "True or false: because crypto trades 24/7, a swing trader can count on being awake to react to every important move."
-      es: "Verdadero o falso: como cripto opera 24/7, un swing trader puede contar con estar despierto para reaccionar a cada movimiento importante."
-    answer: false
+      en: "Because the move that matters can land at 3 a.m. in your timezone, a swing trader cannot rely on being awake to react to it."
+      es: "Como el movimiento que importa puede caer a las 3 de la madrugada en tu zona horaria, un swing trader no puede confiar en estar despierto para reaccionar."
+    answer: true
     explanation:
-      en: "False. The 24/7 clock cuts the other way: the move that matters can happen at 3 a.m. in your timezone, when you cannot watch. That is exactly why the stop and the position size have to do the watching for you."
-      es: "Falso. El reloj 24/7 corta en sentido contrario: el movimiento que importa puede ocurrir a las 3 de la madrugada en tu zona horaria, cuando no puedes vigilar. Por eso justamente el stop y el tamaño de posición tienen que vigilar por ti."
+      en: "True — the 24/7 clock cuts against you here rather than for you. That is exactly why the stop and the position size have to do the watching in your place."
+      es: "Cierto: el reloj 24/7 juega en tu contra aquí, no a favor. Por eso justamente el stop y el tamaño de posición tienen que vigilar en tu lugar."
   - id: day-trader-invent-session
     prompt:
       en: "Crypto never closes. What does the lesson say a day trader must do about their session?"
       es: "Cripto nunca cierra. ¿Qué dice la lección que un day trader debe hacer con su sesión?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Invent their own session and stop when it ends, instead of drifting into a marathon."
-          es: "Inventarse su propia sesión y parar cuando termina, en vez de derivar en un maratón."
+          en: "Wait for the official market open and close, as on a stock exchange."
+          es: "Esperar la apertura y el cierre oficiales, como en una bolsa de valores."
       - id: b
         text:
-          en: "Wait for the official market open and close, like on a stock exchange."
-          es: "Esperar la apertura y el cierre oficiales del mercado, como en una bolsa de valores."
+          en: "Trade around the clock so that they never miss a single move."
+          es: "Operar las 24 horas para no perderse ni un solo movimiento."
       - id: c
         text:
-          en: "Trade around the clock so they never miss a move."
-          es: "Operar las 24 horas para no perderse ningún movimiento."
-      - id: d
-        text:
           en: "Only trade during the hours the New York stock market is open."
-          es: "Operar solo durante las horas en que está abierta la bolsa de Nueva York."
+          es: "Operar solo durante las horas en que abre la bolsa de Nueva York."
+      - id: d
+        correct: true
+        text:
+          en: "Invent their own session, and stop when it ends."
+          es: "Inventarse su propia sesión, y parar cuando termina."
     explanation:
-      en: "Because there is no closing bell, a day trader has to invent their own session and, crucially, stop when it ends — not wait for an open that never comes, and not slide into a 14-hour screen marathon."
-      es: "Como no hay campana de cierre, un day trader tiene que inventarse su propia sesión y, sobre todo, parar cuando termina; no esperar una apertura que nunca llega, ni derivar en un maratón de 14 horas frente a la pantalla."
+      en: "Because there is no closing bell, a day trader has to invent a session and, crucially, stop when it ends — instead of waiting for an open that never comes, borrowing someone else's hours, or sliding into a 14-hour screen marathon."
+      es: "Como no hay campana de cierre, un day trader tiene que inventarse una sesión y, sobre todo, parar cuando termina, en vez de esperar una apertura que nunca llega, tomar prestado el horario de otros o derivar en un maratón de 14 horas frente a la pantalla."
   - id: always-can-overtrade
     prompt:
       en: "The lesson calls the 24/7 clock 'freedom and trap in one.' What is the trap?"
@@ -121,69 +121,69 @@ variants:
           es: "Como siempre puedes operar, siempre puedes sobreoperar."
       - id: b
         text:
-          en: "Fees are charged at a higher rate during the night hours."
-          es: "Las comisiones se cobran a una tasa más alta durante las horas nocturnas."
+          en: "Fees are charged at a higher rate during the night-time hours."
+          es: "Las comisiones se cobran a una tasa mayor durante las horas nocturnas."
       - id: c
         text:
           en: "The exchange forces you to keep at least one position open at all times."
-          es: "El exchange te obliga a mantener al menos una posición abierta en todo momento."
+          es: "El exchange te obliga a tener siempre al menos una posición abierta."
       - id: d
         text:
-          en: "Prices only make their big moves while you are asleep."
+          en: "Prices only ever make their big moves while you happen to be asleep."
           es: "Los precios solo hacen sus grandes movimientos mientras duermes."
     explanation:
-      en: "A market with no close means opportunity is always 'on' — and so is the temptation. The freedom to trade at any hour is the same thing as the freedom to over-trade at any hour."
-      es: "Un mercado sin cierre significa que la oportunidad siempre está 'encendida', y también la tentación. La libertad de operar a cualquier hora es lo mismo que la libertad de sobreoperar a cualquier hora."
+      en: "A market with no close means opportunity is always 'on' — and so is the temptation. The freedom to trade at any hour is the same thing as the freedom to over-trade at any hour. Nothing about the venue changes overnight, and nobody forces a position on you: the trap is entirely one of appetite."
+      es: "Un mercado sin cierre significa que la oportunidad siempre está 'encendida', y también la tentación. La libertad de operar a cualquier hora es lo mismo que la libertad de sobreoperar a cualquier hora. Nada cambia en el venue de noche y nadie te impone una posición: la trampa es enteramente de apetito."
   - id: deepest-session
     prompt:
       en: "Crypto never closes, but its liquidity is not spread evenly. When is the book typically deepest?"
       es: "El cripto nunca cierra, pero su liquidez no está repartida por igual. ¿Cuándo es más profundo el libro habitualmente?"
     options:
       - id: a
-        correct: true
         text:
-          en: "During the London/New York overlap, roughly 13:00–16:00 UTC, when both sets of desks are staffed."
-          es: "Durante el solapamiento Londres/Nueva York, más o menos de 13:00 a 16:00 UTC, cuando las mesas de ambos lados están con gente."
+          en: "Over the weekend, when retail traders finally have some free time."
+          es: "El fin de semana, cuando los minoristas tienen por fin tiempo libre."
       - id: b
         text:
-          en: "Over the weekend, when retail traders finally have free time."
-          es: "El fin de semana, cuando los traders minoristas tienen por fin tiempo libre."
+          en: "It is identical at every hour — that is exactly what 24/7 means."
+          es: "Es idéntico a cualquier hora: eso es justo lo que significa 24/7."
       - id: c
         text:
-          en: "It is identical at every hour — that is what 24/7 means."
-          es: "Es idéntico a cualquier hora: eso es lo que significa 24/7."
+          en: "In the small hours of the Asian session, with algorithms unopposed."
+          es: "En la madrugada asiática, con los algoritmos sin oposición."
       - id: d
+        correct: true
         text:
-          en: "In the small hours of the Asian session, when algorithms trade unopposed."
-          es: "En la madrugada de la sesión asiática, cuando los algoritmos operan sin oposición."
+          en: "During the London/New York overlap, roughly 13:00–16:00 UTC."
+          es: "En el solapamiento Londres/Nueva York, más o menos de 13:00 a 16:00 UTC."
     explanation:
-      en: "Liquidity is people and their machines, and both keep office hours. London (~07:00–16:00 UTC) and New York (~13:00–21:00 UTC) carry the size, and their overlap is the deepest book of the day. The Asian session runs thinner and weekends thinner still — 'always open' is not 'always the same'."
-      es: "La liquidez son personas y sus máquinas, y ambas tienen horario de oficina. Londres (~07:00–16:00 UTC) y Nueva York (~13:00–21:00 UTC) llevan el volumen, y su solapamiento es el libro más profundo del día. La sesión asiática va más fina y los fines de semana aún más: \"siempre abierto\" no es \"siempre igual\"."
+      en: "Liquidity is people and their machines, and both keep office hours. London (~07:00–16:00 UTC) and New York (~13:00–21:00 UTC) carry the size, and their overlap is the deepest book of the day, when both sets of desks are staffed. The Asian session runs thinner and weekends thinner still — 'always open' is not 'always the same'."
+      es: "La liquidez son personas y sus máquinas, y ambas tienen horario de oficina. Londres (~07:00–16:00 UTC) y Nueva York (~13:00–21:00 UTC) llevan el volumen, y su solapamiento es el libro más profundo del día, cuando las mesas de ambos lados están con gente. La sesión asiática va más fina y los fines de semana aún más: \"siempre abierto\" no es \"siempre igual\"."
   - id: weekend-range-monday
     prompt:
       en: "BTC ranges quietly between 59,400 and 60,600 all weekend. On Monday morning price wicks to 59,100 and closes back inside the range. What most likely happened?"
       es: "BTC se mueve tranquilo en un rango entre 59.400 y 60.600 todo el fin de semana. El lunes por la mañana el precio hace una mecha hasta 59.100 y cierra de vuelta dentro del rango. ¿Qué ocurrió con mayor probabilidad?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Real size returned to the book and swept the stops that had piled up just beyond the weekend range low."
-          es: "El volumen real volvió al libro y barrió los stops que se habían acumulado justo más allá del mínimo del rango del fin de semana."
+          en: "A genuine trend change: the range low broke, so a downtrend is confirmed."
+          es: "Un cambio de tendencia real: el mínimo se rompió y la bajista queda confirmada."
       - id: b
         text:
-          en: "A genuine trend change — the range low broke, so the downtrend is confirmed."
-          es: "Un cambio de tendencia genuino: el mínimo del rango se rompió, así que la tendencia bajista queda confirmada."
+          en: "Nothing meaningful; Monday is just another hour in a 24/7 market."
+          es: "Nada relevante; el lunes es una hora más en un mercado 24/7."
       - id: c
         text:
-          en: "Nothing meaningful; Monday behaves like any other hour in a 24/7 market."
-          es: "Nada significativo; el lunes se comporta como cualquier otra hora en un mercado 24/7."
+          en: "The exchange re-opened after its scheduled weekend maintenance window."
+          es: "El exchange reabrió tras su ventana de mantenimiento del fin de semana."
       - id: d
+        correct: true
         text:
-          en: "The exchange re-opened after its weekend maintenance window."
-          es: "El exchange reabrió tras su ventana de mantenimiento de fin de semana."
+          en: "Real size returned and swept the stops beyond the weekend low."
+          es: "Volvió el volumen real y barrió los stops bajo el mínimo del fin de semana."
     explanation:
-      en: "A quiet weekend builds a low-volume range whose obvious high and low collect stops. The Monday institutional reopen is the predictable hour at which something large enough to take that liquidity arrives — m17-l2's liquidity pocket, scheduled by the clock. The poke-and-reclaim is the sweep signature, not a trend change."
-      es: "Un fin de semana tranquilo construye un rango de poco volumen cuyos máximo y mínimo obvios acumulan stops. La reapertura institucional del lunes es la hora previsible a la que llega algo lo bastante grande para tomar esa liquidez: la bolsa de liquidez de m17-l2, programada por el reloj. El perforar y recuperar es la firma del barrido, no un cambio de tendencia."
+      en: "A quiet weekend builds a low-volume range whose obvious high and low collect stops. The Monday institutional reopen is the predictable hour at which something large enough to take that liquidity arrives — a liquidity pocket scheduled by the clock, in a market that never actually closed for maintenance. The poke-and-reclaim is the sweep signature, not a trend change."
+      es: "Un fin de semana tranquilo construye un rango de poco volumen cuyos máximo y mínimo obvios acumulan stops. La reapertura institucional del lunes es la hora previsible a la que llega algo lo bastante grande para tomar esa liquidez: una bolsa de liquidez programada por el reloj, en un mercado que nunca cerró por mantenimiento. El perforar y recuperar es la firma del barrido, no un cambio de tendencia."
   - id: weight-signal-by-session
     kind: true_false
     prompt:
@@ -191,5 +191,5 @@ variants:
       es: "Una ruptura que se imprime a las 04:00 UTC de un domingo merece el mismo peso que la ruptura idéntica durante el solapamiento Londres/Nueva York."
     answer: false
     explanation:
-      en: "Same shape, different evidence. A level broken against a deep book means real buyers overcame real sellers; a level broken in a thin session may only mean nobody was there to defend it. m08-l2 makes this point about a single candle; it generalises to every signal — a thin-session break usually needs confirmation from an active session before you act on it."
-      es: "Misma forma, pruebas distintas. Un nivel roto contra un libro profundo significa que compradores reales superaron a vendedores reales; un nivel roto en una sesión fina puede significar solo que no había nadie para defenderlo. m08-l2 hace esta observación sobre una vela suelta; se generaliza a toda señal: una ruptura en sesión fina suele necesitar la confirmación de una sesión activa antes de que actúes."
+      en: "Same shape, different evidence. A level broken against a deep book means real buyers overcame real sellers; a level broken in a thin session may only mean nobody was there to defend it. A thin-session break usually needs confirmation from an active session before you act on it."
+      es: "Misma forma, pruebas distintas. Un nivel roto contra un libro profundo significa que compradores reales superaron a vendedores reales; un nivel roto en una sesión fina puede significar solo que no había nadie para defenderlo. Una ruptura en sesión fina suele necesitar la confirmación de una sesión activa antes de que actúes."

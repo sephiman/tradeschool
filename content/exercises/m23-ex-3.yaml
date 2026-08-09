@@ -7,50 +7,50 @@ variants:
       es: "Llevas una racha de cinco operaciones ganadoras y sientes que estás leyendo el mercado a la perfección. Quieres subir tu apalancamiento y tu tamaño en la siguiente operación. ¿En qué debería basarse el tamaño?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A fixed percentage of account risk per trade, unchanged by your recent results or your mood."
-          es: "Un porcentaje fijo del riesgo de la cuenta por operación, sin que lo cambien tus resultados recientes ni tu estado de ánimo."
+          en: "A larger size — press your edge while you are clearly in the zone."
+          es: "Un tamaño mayor: aprieta tu ventaja mientras estás claramente en racha."
       - id: b
         text:
-          en: "A larger size — you should press your edge while you're clearly in the zone."
-          es: "Un tamaño mayor: hay que apretar tu ventaja mientras estás claramente en racha."
+          en: "A larger size, since the streak proves conditions suit your strategy."
+          es: "Un tamaño mayor, ya que la racha prueba que las condiciones te van bien."
       - id: c
+        correct: true
         text:
-          en: "A larger size, since the winning streak proves the current conditions suit your strategy."
-          es: "Un tamaño mayor, ya que la racha ganadora demuestra que las condiciones actuales le van bien a tu estrategia."
+          en: "A fixed percentage of account risk, unchanged by results or mood."
+          es: "Un porcentaje fijo del riesgo de la cuenta, ajeno a resultados y ánimo."
       - id: d
         text:
-          en: "Whatever size keeps the streak's compounding on track."
-          es: "El tamaño que sea para mantener el interés compuesto de la racha en marcha."
+          en: "Whatever size keeps the streak's compounding on track for the month."
+          es: "El tamaño que mantenga en marcha el interés compuesto de la racha."
     explanation:
-      en: "A short streak is mostly variance, and overconfidence feels exactly like competence from the inside. Size must be a fixed function of risk, not of recent results — otherwise one perfectly ordinary loss at the inflated size erases the streak and then some."
-      es: "Una racha corta es sobre todo varianza, y el exceso de confianza se siente exactamente igual que la competencia desde dentro. El tamaño debe ser una función fija del riesgo, no de los resultados recientes; de lo contrario, una sola pérdida perfectamente normal con el tamaño inflado borra la racha y algo más."
+      en: "A short streak is mostly variance, and overconfidence feels exactly like competence from the inside — which is why none of the other three notice anything is wrong. Size must be a fixed function of risk, not of recent results; otherwise one perfectly ordinary loss at the inflated size erases the streak and then some."
+      es: "Una racha corta es sobre todo varianza, y el exceso de confianza se siente exactamente igual que la competencia desde dentro, por eso ninguna de las otras tres nota que algo va mal. El tamaño debe ser una función fija del riesgo, no de los resultados recientes; de lo contrario, una sola pérdida perfectamente normal con el tamaño inflado borra la racha y algo más."
   - id: why-dangerous
     prompt:
       en: "Why is a winning streak a dangerous moment for many traders?"
       es: "¿Por qué una racha ganadora es un momento peligroso para muchos traders?"
     options:
       - id: a
+        text:
+          en: "A streak proves your edge grew, so bigger size is now justified."
+          es: "Una racha prueba que tu ventaja creció: ya se justifica más tamaño."
+      - id: b
         correct: true
         text:
-          en: "It feels like skill and tempts you to size up, so one normal loss at the inflated size wipes out the streak."
-          es: "Se siente como habilidad y te tienta a subir el tamaño, así que una pérdida normal con el tamaño inflado borra la racha."
-      - id: b
-        text:
-          en: "A streak proves your edge has grown, so a bigger size is now mathematically justified."
-          es: "Una racha demuestra que tu ventaja ha crecido, así que un tamaño mayor ya está justificado matemáticamente."
+          en: "It feels like skill and tempts you into sizing up on noise."
+          es: "Se siente como habilidad y te tienta a subir el tamaño sobre ruido."
       - id: c
         text:
-          en: "Winning streaks always end in a crash, so you must stop trading entirely after three wins."
-          es: "Las rachas ganadoras siempre acaban en un desplome, así que hay que dejar de operar del todo tras tres ganancias."
+          en: "Winning streaks always end in a crash, so stop entirely after three wins."
+          es: "Las rachas siempre acaban en desplome: para del todo tras tres ganancias."
       - id: d
         text:
           en: "Exchanges quietly raise your fees after several consecutive wins."
-          es: "Los exchanges suben discretamente tus comisiones tras varias ganancias seguidas."
+          es: "Los exchanges suben en silencio tus comisiones tras varias ganancias."
     explanation:
-      en: "The danger is psychological: a hot streak feels like proof of skill and pulls you into oversizing. It does not prove your edge grew (b), it isn't a superstition about crashes (c), and exchanges don't penalize wins (d). Keep size fixed and let confidence, not position size, absorb the good run."
-      es: "El peligro es psicológico: una racha caliente se siente como prueba de habilidad y te arrastra a sobredimensionar. No demuestra que tu ventaja creciera (b), no es una superstición sobre desplomes (c) y los exchanges no penalizan las ganancias (d). Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
+      en: "The danger is psychological: a hot streak feels like proof of skill, so one normal loss at the inflated size wipes out the streak. It does not prove your edge grew, it is not a superstition about crashes, and exchanges do not penalise wins. Keep size fixed and let confidence, not position size, absorb the good run."
+      es: "El peligro es psicológico: una racha caliente se siente como prueba de habilidad, así que una pérdida normal con el tamaño inflado borra la racha. No demuestra que tu ventaja creciera, no es una superstición sobre desplomes y los exchanges no penalizan las ganancias. Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
   - id: edge-grew-myth
     kind: true_false
     prompt:
@@ -74,28 +74,28 @@ variants:
       - id: b
         correct: true
         text:
-          en: "Keeping leverage unchanged whether you're winning or losing."
+          en: "Keeping leverage unchanged whether you are winning or losing."
           es: "Mantener el apalancamiento igual tanto si ganas como si pierdes."
       - id: c
         correct: true
         text:
-          en: "Letting good results change your confidence but not your position size."
-          es: "Dejar que los buenos resultados cambien tu confianza pero no el tamaño de tu posición."
+          en: "Letting good results change your confidence but not your size."
+          es: "Dejar que los buenos resultados cambien tu confianza y no tu tamaño."
       - id: d
         text:
-          en: "Pressing your edge with bigger size while you're 'in the zone'."
+          en: "Pressing your edge with bigger size while you are 'in the zone'."
           es: "Apretar tu ventaja con más tamaño mientras estás 'en racha'."
       - id: e
         text:
           en: "Sizing up to keep the streak's compounding on track."
-          es: "Subir el tamaño para mantener el interés compuesto de la racha en marcha."
+          es: "Subir el tamaño para mantener el interés compuesto de la racha."
       - id: f
         text:
-          en: "Raising leverage because conditions clearly suit your strategy right now."
-          es: "Subir el apalancamiento porque las condiciones le van bien a tu estrategia ahora mismo."
+          en: "Raising leverage because conditions clearly suit your strategy now."
+          es: "Subir el apalancamiento porque las condiciones te van bien ahora."
     explanation:
-      en: "The fix is to keep your mood out of your sizing entirely: a fixed percentage of account risk and unchanged leverage, on a five-win streak or a five-loss one. Options d, e and f are overconfidence talking — one ordinary loss at the inflated size erases the streak and then some."
-      es: "La solución es mantener tu estado de ánimo completamente fuera de tu tamaño: un porcentaje fijo del riesgo de la cuenta y el mismo apalancamiento, tanto en una racha de cinco ganancias como de cinco pérdidas. Las opciones d, e y f son el exceso de confianza hablando: una pérdida normal con el tamaño inflado borra la racha y algo más."
+      en: "The fix is to keep your mood out of your sizing entirely: a fixed percentage of account risk and unchanged leverage, on a five-win streak or a five-loss one. The last three are overconfidence talking — one ordinary loss at the inflated size erases the streak and then some."
+      es: "La solución es mantener tu estado de ánimo completamente fuera de tu tamaño: un porcentaje fijo del riesgo de la cuenta y el mismo apalancamiento, tanto en una racha de cinco ganancias como de cinco pérdidas. Las tres últimas son el exceso de confianza hablando: una pérdida normal con el tamaño inflado borra la racha y algo más."
   - id: variance-vs-skill
     prompt:
       en: "Why does a run of wins feel like skill even when it isn't a reason to size up?"
@@ -104,71 +104,73 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A short run is mostly variance, and overconfidence is dangerous precisely because it feels like competence."
-          es: "Una serie corta es sobre todo varianza, y el exceso de confianza es peligroso justo porque se siente como competencia."
+          en: "A short run is mostly variance, and overconfidence mimics competence."
+          es: "Una serie corta es sobre todo varianza, y el exceso de confianza imita a la competencia."
       - id: b
         text:
-          en: "Wins in a row mathematically prove your win rate has permanently increased."
-          es: "Ganancias seguidas demuestran matemáticamente que tu tasa de acierto ha subido de forma permanente."
+          en: "The market rewards confidence, so acting bigger helps a streak continue."
+          es: "El mercado premia la confianza: actuar con más tamaño alarga la racha."
       - id: c
         text:
-          en: "The market rewards confidence, so acting bigger helps the streak continue."
-          es: "El mercado premia la confianza, así que actuar con más tamaño ayuda a que la racha continúe."
+          en: "Wins in a row mathematically prove your win rate has permanently risen."
+          es: "Ganar seguidas prueba matemáticamente que tu acierto ha subido para siempre."
       - id: d
         text:
-          en: "A streak means you've temporarily removed risk, so larger size is safe."
-          es: "Una racha significa que has eliminado el riesgo temporalmente, así que un tamaño mayor es seguro."
+          en: "A streak means you have temporarily removed risk, so more size is safe."
+          es: "Una racha significa que quitaste el riesgo un tiempo: más tamaño es seguro."
     explanation:
-      en: "From the inside, a hot streak feels like you've finally 'got it', but a handful of results is dominated by variance. It doesn't change your win rate (b), the market doesn't reward mood (c), and no streak removes risk (d). Keep size fixed and let confidence, not position size, absorb the good run."
-      es: "Desde dentro, una racha caliente parece que por fin 'lo has pillado', pero un puñado de resultados está dominado por la varianza. No cambia tu tasa de acierto (b), el mercado no premia el estado de ánimo (c) y ninguna racha elimina el riesgo (d). Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
+      en: "From the inside, a hot streak feels like you have finally 'got it', but a handful of results is dominated by variance. It does not change your win rate, the market does not reward mood, and no streak removes risk. Keep size fixed and let confidence, not position size, absorb the good run."
+      es: "Desde dentro, una racha caliente parece que por fin 'lo has pillado', pero un puñado de resultados está dominado por la varianza. No cambia tu tasa de acierto, el mercado no premia el estado de ánimo y ninguna racha elimina el riesgo. Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
   - id: swing-oversize
     prompt:
       en: "You swing trade and just had your best month ever. You're tempted to put on a much larger position for the next swing. What does the module say?"
       es: "Haces swing trading y acabas de tener tu mejor mes. Te tienta abrir una posición mucho mayor en el siguiente swing. ¿Qué dice el módulo?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Keep size a fixed function of account risk; a good month may change your confidence, not your size."
-          es: "Mantén el tamaño como una función fija del riesgo de la cuenta; un buen mes puede cambiar tu confianza, no tu tamaño."
+          en: "A great month proves the strategy works, so scaling size up is logical."
+          es: "Un gran mes prueba que la estrategia funciona: subir tamaño es lógico."
       - id: b
         text:
-          en: "A great month proves the strategy works, so scaling up size is the logical next step."
-          es: "Un gran mes demuestra que la estrategia funciona, así que subir el tamaño es el siguiente paso lógico."
-      - id: c
-        text:
           en: "Bigger swings deserve bigger size to make the long wait worthwhile."
-          es: "Los swings grandes merecen más tamaño para que valga la pena la larga espera."
+          es: "Los swings grandes merecen más tamaño para que valga la larga espera."
+      - id: c
+        correct: true
+        text:
+          en: "Size stays a fixed function of account risk; only confidence may change."
+          es: "El tamaño sigue siendo una función fija del riesgo; solo cambia la confianza."
       - id: d
         text:
-          en: "Because swing trades are slower, oversizing is safer than it would be day trading."
-          es: "Como los swings son más lentos, sobredimensionar es más seguro que en el day trading."
+          en: "Since swing trades are slower, oversizing is safer than in day trading."
+          es: "Como el swing es más lento, sobredimensionar es más seguro que en intradía."
     explanation:
-      en: "Over-leverage after a good run is the same mistake in slow motion. A great month is still mostly the market's mood plus some variance; more time doesn't protect you, it just gives you more room to rationalize. Size stays a fixed function of risk regardless of how the last month went."
-      es: "Sobreapalancarse tras una buena racha es el mismo error a cámara lenta. Un gran mes sigue siendo sobre todo el humor del mercado más algo de varianza; más tiempo no te protege, solo te da más margen para racionalizar. El tamaño sigue siendo una función fija del riesgo, al margen de cómo fuera el último mes."
+      en: "Over-leverage after a good run is the same mistake in slow motion. A great month is still mostly the market's mood plus some variance, so it proves less than it feels like it does; more time does not protect you, it just gives you more room to rationalise. Size stays a fixed function of risk regardless of how the last month went."
+      es: "Sobreapalancarse tras una buena racha es el mismo error a cámara lenta. Un gran mes sigue siendo sobre todo el humor del mercado más algo de varianza, así que demuestra menos de lo que parece; más tiempo no te protege, solo te da más margen para racionalizar. El tamaño sigue siendo una función fija del riesgo, al margen de cómo fuera el último mes."
   - id: sixth-trade-numbers
     prompt:
       en: "After five green trades at 1% risk you jump from 5× to 20× leverage and triple your size. The sixth trade is an ordinary loser. What does it cost?"
       es: "Tras cinco operaciones verdes al 1% de riesgo, saltas de 5× a 20× de apalancamiento y triplicas el tamaño. La sexta es una perdedora normal. ¿Qué cuesta?"
     options:
       - id: a
+        text:
+          en: "1R, since the risk percentage per trade did not actually change."
+          es: "1R, ya que el porcentaje de riesgo por operación no cambió."
+      - id: b
+        text:
+          en: "Nothing at all — the five previous wins comfortably cover it."
+          es: "Nada en absoluto: las cinco ganancias anteriores lo cubren de sobra."
+      - id: c
         correct: true
         text:
-          en: "3R in one go — and the higher leverage puts the liquidation price inside routine noise, so a move that used to be a small planned loss can force you out entirely."
-          es: "3R de golpe, y el mayor apalancamiento sitúa el precio de liquidación dentro del ruido normal, así que un movimiento que antes era una pequeña pérdida planificada puede sacarte del todo."
-      - id: b
-        text: { en: "1R, since the risk percentage per trade did not change.", es: "1R, ya que el porcentaje de riesgo por operación no cambió." }
-      - id: c
-        text:
-          en: "Nothing — the five previous wins cover it."
-          es: "Nada: las cinco ganancias anteriores lo cubren."
+          en: "3R in one go — and liquidation now sits inside routine noise."
+          es: "3R de golpe, y la liquidación queda ahora dentro del ruido normal."
       - id: d
         text:
-          en: "4R, because leverage multiplies the loss by the leverage ratio."
-          es: "4R, porque el apalancamiento multiplica la pérdida por el ratio de apalancamiento."
+          en: "4R, because leverage multiplies the loss by the leverage ratio itself."
+          es: "4R, porque el apalancamiento multiplica la pérdida por su propio ratio."
     explanation:
-      en: "One unremarkable trade, taken at the wrong size, gives back the whole streak. Good results are allowed to change your confidence; they are not allowed to change your size."
-      es: "Una operación anodina, tomada con el tamaño equivocado, devuelve toda la racha. Los buenos resultados pueden cambiar tu confianza; no pueden cambiar tu tamaño."
+      en: "Tripling the size triples the loss: the risk percentage was abandoned the moment you sized on mood. The higher leverage does not multiply the loss by four — it puts the liquidation price inside routine noise, so a move that used to be a small planned loss can force you out entirely. One unremarkable trade, taken at the wrong size, gives back the whole streak."
+      es: "Triplicar el tamaño triplica la pérdida: el porcentaje de riesgo se abandonó en cuanto dimensionaste por estado de ánimo. El mayor apalancamiento no multiplica la pérdida por cuatro: sitúa el precio de liquidación dentro del ruido normal, así que un movimiento que antes era una pequeña pérdida planificada puede sacarte del todo. Una operación anodina, tomada con el tamaño equivocado, devuelve toda la racha."
   - id: confidence-not-size
     kind: matching
     prompt:
@@ -202,18 +204,18 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A handful of results is dominated by variance, but the mind refuses to see it that way."
-          es: "Un puñado de resultados está dominado por la varianza, pero la mente se niega a verlo así."
+          en: "A handful of results is dominated by variance, but the mind refuses to see it."
+          es: "Un puñado de resultados está dominado por la varianza, y la mente no lo ve."
       - id: b
         correct: true
         text:
-          en: "Overconfidence feels identical to competence from the inside, so no internal alarm goes off."
-          es: "El exceso de confianza se siente idéntico a la competencia desde dentro, así que no salta ninguna alarma interna."
+          en: "Overconfidence feels identical to competence, so no alarm goes off."
+          es: "El exceso de confianza se siente idéntico a la competencia: no salta alarma."
       - id: c
         correct: true
         text:
-          en: "The last five trades feel far more real than the thousands-of-trades truth that short streaks mean almost nothing."
-          es: "Las últimas cinco operaciones se sienten mucho más reales que la verdad de las miles de operaciones: que las rachas cortas no significan casi nada."
+          en: "The last five trades feel far more real than the thousands-of-trades truth."
+          es: "Las últimas cinco se sienten más reales que la verdad de las miles."
       - id: d
         text:
           en: "Winning streaks genuinely indicate that your edge has grown."
@@ -223,5 +225,5 @@ variants:
           en: "Exchanges raise your fee tier after consecutive wins."
           es: "Los exchanges suben tu nivel de comisiones tras ganancias consecutivas."
     explanation:
-      en: "Because the feeling is indistinguishable from competence, the defence cannot be self-awareness in the moment — it has to be a size rule fixed in advance."
-      es: "Como la sensación es indistinguible de la competencia, la defensa no puede ser la autoconciencia del momento: tiene que ser una regla de tamaño fijada por adelantado."
+      en: "Because the feeling is indistinguishable from competence, the defence cannot be self-awareness in the moment — it has to be a size rule fixed in advance. A short streak is evidence about variance, not about your edge, and no venue prices your results."
+      es: "Como la sensación es indistinguible de la competencia, la defensa no puede ser la autoconciencia del momento: tiene que ser una regla de tamaño fijada por adelantado. Una racha corta es prueba sobre la varianza, no sobre tu ventaja, y ningún venue tarifa tus resultados."

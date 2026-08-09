@@ -12,6 +12,7 @@ exercises/*.yaml      generator config per exercise id (server-generated + serve
 figures/*.yaml        lesson figure specs embedded via ::figure{id=…}
 figure-coupling.yaml  which lesson numbers are approximations of which figure's generated values
 glossary.yaml         the bilingual term list: one or two sentences per term, plus its origin lesson
+glossary-links.*.txt  GENERATED, reviewed, frozen: every term occurrence the annotator marks, per locale
 ```
 
 ## The glossary
@@ -31,6 +32,39 @@ The hard rule is that **the glossary never coins**: startup fails if a term does
 prose of its own locale. So a term is added to the glossary only after the prose uses it — and where
 the two locales disagreed on a term, the prose was unified first (see the canonical forms in
 `GLOSSARY-PROPOSAL.md` at the repo root).
+
+### Linking the prose into the glossary
+
+An entry may carry three optional keys that decide which occurrences of the term in lesson prose
+become a link (a tooltip in the app, an internal jump in the PDF). All three take either one value
+for both locales or one per locale, because the two languages meet different homonyms:
+
+```yaml
+  match:                     # the surface forms to look for. Default: the term + a naive plural.
+    en: [longs, go long]     # "a lo largo de" and "a long wick" are not the position.
+    es: [largos, en largo]
+  link: {es: false}          # this term is never linked in ES ("base" is "base de datos" everywhere)
+  link_except: [m02-l1]      # …or only in these lessons ("smart contracts" is not the contract)
+```
+
+**The two exclusions are not the same thing.** A term is never marked in its own **origin** lesson —
+and that occurrence still *spends* the term's one slot in the book, which is why a term the course
+first uses inside the lesson that teaches it carries no PDF link anywhere (correct: the reader met it
+where it is explained). A `link_except` lesson is the opposite: there the word is a **false friend**,
+so it is not an occurrence at all and the next real one is still linked.
+
+`glossary-links.<locale>.txt` is the record of every decision that produces — one line per marked
+occurrence, in course reading order, with `W` for a web tooltip and `WP` for one the book links too.
+**It is generated, reviewed by hand, and then frozen**: any content change that moves, adds or drops
+a link shows up as a diff there, which is where a false positive gets caught before a reader sees it.
+Regenerate with:
+
+```
+cd frontend && UPDATE_GLOSSARY_LINKS=1 npx vitest run src/lib/glossary/report.test.ts
+```
+
+and read the diff. Never hand-edit the file: fix the prose, or the entry's `match`/`link`/
+`link_except`, and regenerate.
 
 The manifest's root is a single **course** (`course: { id, title, description }`); its blocks follow at
 the top level. There is one course today — `crypto-futures` — and the structure is ready for more.

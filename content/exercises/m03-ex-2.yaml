@@ -7,50 +7,50 @@ variants:
       es: "En un gráfico de 4 horas, ¿qué representa una sola vela?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Four hours of trading — its open, high, low and close measured over that 4-hour window."
-          es: "Cuatro horas de operativa: su apertura, máximo, mínimo y cierre medidos sobre esa ventana de 4 horas."
+          en: "The price exactly four hours ago, sampled on the hour by the venue's clock."
+          es: "El precio exactamente hace cuatro horas, tomado en punto por el venue."
       - id: b
         text:
-          en: "The price exactly four hours ago."
-          es: "El precio exactamente hace cuatro horas."
+          en: "Four individual trades, one for each hour it covers."
+          es: "Cuatro operaciones individuales, una por cada hora que cubre."
       - id: c
+        correct: true
         text:
-          en: "Four individual trades."
-          es: "Cuatro operaciones individuales."
+          en: "Four hours of trading: its open, high, low and close over that window."
+          es: "Cuatro horas de operativa: su apertura, máximo, mínimo y cierre en esa ventana."
       - id: d
         text:
-          en: "A forecast of where price will be in four hours."
+          en: "A forecast of where price will be four hours from now."
           es: "Una previsión de dónde estará el precio dentro de cuatro horas."
     explanation:
-      en: "A candle summarises one slice of time equal to its timeframe. On a 4-hour chart that slice is four hours; its four values are all measured within that window, and it forecasts nothing."
-      es: "Una vela resume una porción de tiempo igual a su temporalidad. En un gráfico de 4 horas esa porción son cuatro horas; sus cuatro valores se miden dentro de esa ventana y no predice nada."
+      en: "A candle summarises one slice of time equal to its timeframe. On a 4-hour chart that slice is four hours; all four of its values are measured inside that window, not sampled at its edges, and however many trades happen in it, they collapse into those four numbers. It forecasts nothing."
+      es: "Una vela resume una porción de tiempo igual a su temporalidad. En un gráfico de 4 horas esa porción son cuatro horas; sus cuatro valores se miden dentro de la ventana, no en sus bordes, y por muchas operaciones que ocurran, se resumen en esos cuatro números. No predice nada."
   - id: timeframe-weight
     prompt:
       en: "Why treat a signal on a 1-minute candle more cautiously than the same signal on a daily candle?"
       es: "¿Por qué tratar con más cautela una señal en una vela de 1 minuto que la misma señal en una vela diaria?"
     options:
       - id: a
+        text:
+          en: "Lower timeframes show more candles, so they give more reliable information."
+          es: "Las temporalidades bajas muestran más velas, así que dan información más fiable."
+      - id: b
         correct: true
         text:
-          en: "A daily candle is formed by far more participants and volume, so its levels carry more weight; 1-minute bars are mostly noise."
-          es: "Una vela diaria la forman muchos más participantes y volumen, así que sus niveles tienen más peso; las velas de 1 minuto son sobre todo ruido."
-      - id: b
-        text:
-          en: "Lower timeframes show more candles, so they always give more reliable information."
-          es: "Las temporalidades bajas muestran más velas, así que siempre dan información más fiable."
+          en: "A daily candle is formed by far more participants and volume."
+          es: "Una vela diaria la forman muchos más participantes y volumen."
       - id: c
         text:
-          en: "One-minute candles are calculated with a different formula than daily ones."
-          es: "Las velas de 1 minuto se calculan con una fórmula distinta a las diarias."
+          en: "One-minute candles are calculated with a different formula."
+          es: "Las velas de 1 minuto se calculan con una fórmula distinta."
       - id: d
         text:
-          en: "Daily candles cannot have wicks, so they are cleaner."
-          es: "Las velas diarias no pueden tener mechas, por eso son más limpias."
+          en: "Daily candles cannot have wicks, which is what makes them cleaner."
+          es: "Las velas diarias no pueden tener mechas, y por eso son más limpias."
     explanation:
-      en: "Higher timeframes concentrate more participation into each bar, so their levels matter more. The intuition that a lower timeframe gives 'more information' usually just means more noise — the candle formula is identical at every timeframe."
-      es: "Las temporalidades altas concentran más participación en cada vela, por eso sus niveles importan más. La intuición de que una temporalidad baja da 'más información' suele significar solo más ruido: la fórmula de la vela es idéntica en todas las temporalidades."
+      en: "Higher timeframes concentrate more participation into each bar, so their levels matter more. The intuition that a lower timeframe gives 'more information' usually just means more noise — the candle formula is identical at every timeframe, wicks and all."
+      es: "Las temporalidades altas concentran más participación en cada vela, por eso sus niveles importan más. La intuición de que una temporalidad baja da 'más información' suele significar solo más ruido: la fórmula de la vela es idéntica en todas las temporalidades, mechas incluidas."
   - id: tf-window-order
     kind: ordering
     prompt:
@@ -78,37 +78,37 @@ variants:
   - id: tf-noise-myth
     kind: true_false
     prompt:
-      en: "A lower timeframe always gives more reliable information because it shows more candles."
-      es: "Una temporalidad baja siempre da información más fiable porque muestra más velas."
-    answer: false
+      en: "More candles on a lower timeframe mostly means more noise, not more reliable information."
+      es: "Más velas en una temporalidad baja significa sobre todo más ruido, no información más fiable."
+    answer: true
     explanation:
-      en: "More candles is mostly more noise, not more reliability. Higher timeframes concentrate more participation into each bar, so their levels matter more."
-      es: "Más velas es sobre todo más ruido, no más fiabilidad. Las temporalidades altas concentran más participación en cada vela, así que sus niveles importan más."
+      en: "True. The extra bars subdivide the same tape without adding participation, and each one is formed by fewer people. Higher timeframes concentrate more participation into each bar, which is why their levels matter more."
+      es: "Cierto. Las velas extra subdividen la misma cinta sin añadir participación, y cada una la forma menos gente. Las temporalidades altas concentran más participación en cada vela, y por eso sus niveles importan más."
   - id: same-day-zoom
     prompt:
       en: "A trading day shows up as one modest red candle on the daily chart. On the 5-minute chart of that same day, what will you see?"
       es: "Una jornada aparece como una modesta vela roja en el gráfico diario. En el gráfico de 5 minutos de esa misma jornada, ¿qué verás?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Hundreds of candles — rallies, dips, panic and recovery — the same data at a finer zoom."
-          es: "Cientos de velas —subidas, caídas, pánico y recuperación—, los mismos datos con un zoom más fino."
+          en: "One red candle, identical in every respect to the daily one."
+          es: "Una vela roja, idéntica en todo a la diaria."
       - id: b
         text:
-          en: "One red candle, identical to the daily one."
-          es: "Una vela roja, idéntica a la diaria."
+          en: "A confirmed downtrend, since the daily candle closed red."
+          es: "Una tendencia bajista confirmada, ya que la diaria cerró en rojo."
       - id: c
         text:
-          en: "A confirmed downtrend, since the daily candle was red."
-          es: "Una tendencia bajista confirmada, ya que la vela diaria era roja."
-      - id: d
-        text:
           en: "The 'true' version of the day that the daily chart was hiding."
-          es: "La versión 'verdadera' de la jornada que el gráfico diario ocultaba."
+          es: "La versión 'verdadera' de la jornada que el diario ocultaba."
+      - id: d
+        correct: true
+        text:
+          en: "Hundreds of candles: the same data at a finer zoom."
+          es: "Cientos de velas: los mismos datos con un zoom más fino."
     explanation:
-      en: "Timeframes are zoom levels of the same data; neither is 'the truth'. One daily candle is hundreds of 5-minute candles, and a single red daily candle is not by itself a downtrend."
-      es: "Las temporalidades son niveles de zoom sobre los mismos datos; ninguno es 'la verdad'. Una vela diaria son cientos de velas de 5 minutos, y una sola vela diaria roja no es por sí sola una tendencia bajista."
+      en: "Timeframes are zoom levels of the same data; neither is 'the truth' and neither hides anything. One daily candle is hundreds of 5-minute candles — rallies, dips, panic and recovery, all of which the daily bar summarises into four numbers. And a single red daily candle is not by itself a downtrend."
+      es: "Las temporalidades son niveles de zoom sobre los mismos datos; ninguno es 'la verdad' ni oculta nada. Una vela diaria son cientos de velas de 5 minutos —subidas, caídas, pánico y recuperación—, que la barra diaria resume en cuatro números. Y una sola vela diaria roja no es por sí sola una tendencia bajista."
   - id: tf-multi
     kind: multi_select
     prompt:
@@ -118,24 +118,24 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The same market can look calm or violent depending on the timeframe you choose."
-          es: "El mismo mercado puede parecer tranquilo o violento según la temporalidad que elijas."
+          en: "The same market can look calm or violent depending on the timeframe."
+          es: "El mismo mercado puede parecer tranquilo o violento según la temporalidad."
       - id: b
         correct: true
         text:
-          en: "Higher-timeframe levels carry more weight because more participation formed them."
-          es: "Los niveles de temporalidad alta tienen más peso porque los formó más participación."
+          en: "Higher-timeframe levels weigh more because more participation formed them."
+          es: "Los niveles de temporalidad alta pesan más porque los formó más participación."
       - id: c
         text:
-          en: "The OHLC values are computed with a different formula on lower timeframes."
-          es: "Los valores OHLC se calculan con una fórmula distinta en las temporalidades bajas."
+          en: "The OHLC values use a different formula on the lower timeframes."
+          es: "Los valores OHLC usan una fórmula distinta en las temporalidades bajas."
       - id: d
         text:
-          en: "A lower timeframe is objectively more informative because it has more bars."
-          es: "Una temporalidad baja es objetivamente más informativa porque tiene más velas."
+          en: "A lower timeframe is objectively more informative, since it has more bars."
+          es: "Una temporalidad baja es objetivamente más informativa, porque tiene más velas."
     explanation:
-      en: "The formula is identical at every timeframe; only the window changes. Higher timeframes carry more weight, and a lower timeframe mostly adds noise, not information."
-      es: "La fórmula es idéntica en todas las temporalidades; solo cambia la ventana. Las altas tienen más peso, y una baja añade sobre todo ruido, no información."
+      en: "The formula is identical at every timeframe; only the width of the window changes. Higher timeframes carry more weight because more people formed them, and a lower timeframe mostly adds noise rather than information."
+      es: "La fórmula es idéntica en todas las temporalidades; solo cambia la anchura de la ventana. Las altas pesan más porque las formó más gente, y una baja añade sobre todo ruido en vez de información."
   - id: crypto-daily-close
     prompt:
       en: "In crypto, what is the 'daily close' that traders talk about?"
@@ -144,19 +144,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A convention — the price at a fixed clock cutoff, usually 00:00 UTC. It is a genuine price, but nothing special happens at it."
-          es: "Una convención: el precio en un corte fijo de reloj, normalmente 00:00 UTC. Es un precio real, pero ahí no ocurre nada especial."
+          en: "A convention — the price at a fixed clock cutoff, usually 00:00 UTC."
+          es: "Una convención: el precio en un corte fijo de reloj, normalmente 00:00 UTC."
       - id: b
         text:
-          en: "A closing auction, like a stock exchange's bell."
-          es: "Una subasta de cierre, como la campana de una bolsa."
+          en: "A closing auction, the way a stock exchange rings its bell."
+          es: "Una subasta de cierre, como cuando una bolsa toca la campana."
       - id: c
-        text: { en: "The moment daily settlement is paid out.", es: "El momento en que se paga la liquidación diaria." }
+        text:
+          en: "The moment the venue pays out that day's settlement."
+          es: "El momento en que el venue paga la liquidación de ese día."
       - id: d
-        text: { en: "The last trade before the weekend break.", es: "La última operación antes del parón del fin de semana." }
+        text:
+          en: "The last trade before the market's weekend break."
+          es: "La última operación antes del parón del fin de semana."
     explanation:
-      en: "Crypto never closes: a 'daily' candle simply spans a fixed 24-hour window. There is no bell, no settlement and no overnight gap — the daily close is a convention, not an event."
-      es: "El cripto nunca cierra: una vela 'diaria' solo cubre una ventana fija de 24 horas. No hay campana, ni liquidación, ni gap nocturno: el cierre diario es una convención, no un evento."
+      en: "Crypto never closes: a 'daily' candle simply spans a fixed 24-hour window. There is no bell, no auction, no settlement moment and no weekend break — the price at the cutoff is a genuine price, but nothing whatsoever happens at it."
+      es: "El cripto nunca cierra: una vela 'diaria' solo cubre una ventana fija de 24 horas. No hay campana, ni subasta, ni momento de liquidación, ni parón de fin de semana: el precio en el corte es un precio real, pero ahí no ocurre absolutamente nada."
   - id: tz-shift
     kind: true_false
     prompt:
@@ -172,21 +176,25 @@ variants:
       es: "¿Por qué deberías leer con más cautela una vela de fin de semana de aspecto muy pronunciado?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Participation sags at weekends, so a thinner book lets the same order push price further — the move represents fewer participants than a weekday move of the same size."
-          es: "La participación cae los fines de semana, así que un libro más fino permite que la misma orden empuje más el precio: el movimiento representa menos participantes que uno igual en día laborable."
+          en: "Weekend candles cover a shorter window than weekday candles do."
+          es: "Las velas de fin de semana cubren una ventana más corta."
       - id: b
         text:
-          en: "Weekend candles cover a shorter window than weekday candles."
-          es: "Las velas de fin de semana cubren una ventana más corta que las de días laborables."
+          en: "Exchanges pause matching at weekends."
+          es: "Los exchanges pausan el matching los fines de semana."
       - id: c
-        text: { en: "Exchanges pause matching at weekends.", es: "Los exchanges pausan el matching los fines de semana." }
+        correct: true
+        text:
+          en: "A thinner weekend book lets the same order push price further."
+          es: "Un libro más fino de fin de semana deja que la misma orden empuje más el precio."
       - id: d
-        text: { en: "Weekend prices are excluded from the daily candle.", es: "Los precios del fin de semana se excluyen de la vela diaria." }
+        text:
+          en: "Weekend prices are excluded from the daily candle entirely."
+          es: "Los precios del fin de semana se excluyen de la vela diaria."
     explanation:
-      en: "Much professional and institutional flow steps back on Saturdays and Sundays. Same candle size, far fewer people behind it — read it with the volume caveat firmly in mind."
-      es: "Buena parte del flujo profesional e institucional se retira sábados y domingos. Misma vela, mucha menos gente detrás: léela teniendo muy presente la advertencia del volumen."
+      en: "Much professional and institutional flow steps back on Saturdays and Sundays. Nothing about the candle changes — same window, same formula, same inclusion in the daily bar — but far fewer people stand behind a move of the same size. Read it with the volume caveat firmly in mind."
+      es: "Buena parte del flujo profesional e institucional se retira sábados y domingos. Nada cambia en la vela —misma ventana, misma fórmula, se incluye igual en la diaria—, pero hay mucha menos gente detrás de un movimiento del mismo tamaño. Léela teniendo muy presente la advertencia del volumen."
   - id: tf-participants-match
     kind: matching
     prompt:

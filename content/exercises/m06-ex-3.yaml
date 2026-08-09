@@ -29,7 +29,7 @@ variants:
           es: "La posición se cierra en el libro de órdenes y se deducen las comisiones de liquidación."
     explanation:
       en: "Liquidation triggers when remaining margin drops below the maintenance margin requirement. The engine takes over to execute liquidations before equity goes negative."
-      es: "La liquidación se activa cuando el margen restante cae por debajo del requerimiento de mantenimiento. El motor interviene para ejecutar la liquidación antes de que la equidad sea negativa."
+      es: "La liquidación se activa cuando el margen restante cae por debajo del requerimiento de mantenimiento. El motor interviene para ejecutar la liquidación antes de que el capital sea negativo."
 
   - id: margin-modes-match
     kind: matching
@@ -41,7 +41,7 @@ variants:
         left: { en: "Isolated Margin", es: "Margen Aislado" }
         right:
           en: "Liquidation risk is restricted strictly to the allocated collateral of that specific trade."
-          es: "El riesgo de liquidación se limita strictly al colateral asignado a esa operación específica."
+          es: "El riesgo de liquidación se limita estrictamente al colateral asignado a esa operación específica."
       - id: cross
         left: { en: "Cross Margin", es: "Margen Cruzado" }
         right:
@@ -51,7 +51,7 @@ variants:
         left: { en: "Maintenance Margin", es: "Margen de Mantenimiento" }
         right:
           en: "The absolute minimum equity needed to keep a position open without engine takeover."
-          es: "La equidad mínima absoluta necesaria para mantener una posición abierta sin intervención del motor."
+          es: "El capital mínimo absoluto necesario para mantener una posición abierta sin intervención del motor."
     explanation:
       en: "Isolated margin caps loss to the allocated margin, whereas cross margin puts your entire account balance on the line."
       es: "El margen aislado limita la pérdida al margen asignado, mientras que el margen cruzado pone en juego todo el saldo de tu cuenta."
@@ -75,16 +75,16 @@ variants:
       - id: c
         correct: false
         text:
-          en: "Increasing leverage while keeping the same position size."
-          es: "Aumentar el apalancamiento manteniendo el mismo tamaño de posición."
+          en: "Raising the leverage setting on the same position size."
+          es: "Subir el apalancamiento sobre el mismo tamaño de posición."
       - id: d
         correct: false
         text:
-          en: "Holding long positions when funding rate is strongly negative (longs pay shorts)."
-          es: "Mantener posiciones largas cuando la tasa de funding es muy negativa (los longs pagan a los cortos)."
+          en: "Sitting on the paying side of a strongly negative funding rate."
+          es: "Estar en el lado que paga con una tasa de funding muy negativa."
     explanation:
-      en: "Adding collateral or reducing position size lowers risk and moves the liquidation price further away."
-      es: "Añadir colateral o reducir el tamaño de la posición disminuye el riesgo y aleja el precio de liquidación."
+      en: "Only two levers move the liquidation price away: more collateral behind the same position, or less position behind the same collateral. Raising leverage does the exact opposite — it thins the cushion and drags the line toward the market. Funding bleeds equity over time rather than moving the line, and on a negative rate it is the shorts who pay."
+      es: "Solo dos palancas alejan el precio de liquidación: más colateral detrás de la misma posición, o menos posición detrás del mismo colateral. Subir el apalancamiento hace justo lo contrario: adelgaza el colchón y arrastra la línea hacia el mercado. El funding desgasta el capital con el tiempo en vez de mover la línea, y con una tasa negativa quienes pagan son los cortos."
 
   - id: auto-deleveraging-truth
     kind: true_false
@@ -103,25 +103,25 @@ variants:
       es: "¿Por qué la tasa de margen de mantenimiento suele ser mayor para tamaños de posición más grandes?"
     options:
       - id: a
+        text:
+          en: "Exchanges charge large accounts more in order to discourage size."
+          es: "Los exchanges cobran más a las cuentas grandes para desincentivar el tamaño."
+      - id: b
         correct: true
         text:
-          en: "Larger positions carry higher order book market impact if liquidated, requiring a bigger buffer."
-          es: "Las posiciones más grandes tienen un mayor impacto en el libro de órdenes si se liquidan, requiriendo un mayor colchón."
-      - id: b
-        text:
-          en: "Exchanges charge higher fees to large accounts to discourage trading."
-          es: "Los exchanges cobran comisiones más altas a cuentas grandes para desincentivar el trading."
+          en: "A large position hits the book harder when liquidated, so it needs a bigger buffer."
+          es: "Una posición grande golpea más el libro al liquidarse, así que necesita más colchón."
       - id: c
         text:
-          en: "It is required by fiat central banking regulations."
-          es: "Es requerido por las regulaciones bancarias de moneda fiat."
+          en: "Banking regulations impose a tiered schedule on derivatives venues."
+          es: "La regulación bancaria impone un esquema escalonado a los venues de derivados."
       - id: d
         text:
-          en: "It guarantees that large traders never suffer slippage."
-          es: "Garantiza que los grandes traders nunca sufran slippage."
+          en: "The tiers guarantee that large traders never suffer slippage on exit."
+          es: "Los tramos garantizan que los grandes traders nunca sufran slippage al salir."
     explanation:
-      en: "Tiered margin schedules scale maintenance margin with position size to protect the exchange against market impact during large liquidations."
-      es: "Los esquemas de margen escalonado aumentan el margen de mantenimiento con el tamaño de la posición para proteger al exchange del impacto de mercado durante grandes liquidaciones."
+      en: "Tiered margin schedules scale maintenance margin with position size to protect the exchange against market impact: a position big enough to sweep several levels of the book has to be closed earlier, while there is still collateral to absorb the damage. It is a risk buffer, not a penalty, not a regulatory requirement, and certainly not a promise of a clean exit."
+      es: "Los esquemas de margen escalonado aumentan el margen de mantenimiento con el tamaño de la posición para proteger al exchange del impacto de mercado: una posición lo bastante grande como para barrer varios niveles del libro hay que cerrarla antes, mientras aún queda colateral para absorber el daño. Es un colchón de riesgo, no un castigo, ni una exigencia regulatoria, ni desde luego la promesa de una salida limpia."
 
   - id: forced-liquidation-slippage
     kind: single_choice
@@ -132,23 +132,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The liquidation engine executes forced market orders that sweep multiple price levels in thin order book liquidity."
-          es: "El motor de liquidación ejecuta órdenes a mercado forzosas que barren múltiples niveles de precio en un libro poco profundo."
+          en: "The engine sends forced market orders that sweep a thin book level by level."
+          es: "El motor lanza órdenes a mercado forzosas que barren un libro fino nivel a nivel."
       - id: b
         text:
-          en: "The trader manually cancels their stop loss order during a flash crash."
-          es: "El trader cancela manualmente su orden de stop loss durante un flash crash."
+          en: "The trader cancels their own stop-loss order during the flash crash."
+          es: "El trader cancela su propia orden de stop-loss durante el flash crash."
       - id: c
         text:
-          en: "The funding rate drops to zero across all exchanges."
-          es: "La tasa de funding cae a cero en todos los exchanges."
+          en: "The funding rate drops to zero simultaneously across every venue."
+          es: "La tasa de funding cae a cero a la vez en todos los venues."
       - id: d
         text:
-          en: "The exchange charges an additional 10% Maker fee."
-          es: "El exchange cobra una comisión Maker adicional del 10%."
+          en: "The exchange applies an additional maker fee to the closing trade."
+          es: "El exchange aplica una comisión maker adicional a la operación de cierre."
     explanation:
-      en: "Forced market orders generated by the liquidation engine take any available bid liquidity, sweeping down the book and experiencing heavy slippage."
-      es: "Las órdenes a mercado forzosas generadas por el motor de liquidación toman cualquier liquidez de compra disponible, barriendo el libro y sufriendo un gran slippage."
+      en: "Forced market orders generated by the liquidation engine take whatever bid liquidity exists, sweeping down the book and getting worse fills at every level. It is the mechanics of a market order in a thin book, not a fee and not anything the trader did — which is exactly why it is worst in the moments when liquidity has already fled."
+      es: "Las órdenes a mercado forzosas que genera el motor de liquidación toman la liquidez de compra que haya, barriendo el libro y ejecutando peor en cada nivel. Es la mecánica de una orden de mercado en un libro fino, no una comisión ni nada que haya hecho el trader, y por eso es peor justo en los momentos en que la liquidez ya ha huido."
 
   - id: partial-liquidation-purpose
     kind: single_choice
@@ -157,25 +157,25 @@ variants:
       es: "¿Cuál es el objetivo principal de un exchange al implementar un mecanismo de liquidación parcial para traders institucionales?"
     options:
       - id: a
-        correct: true
         text:
-          en: "To reduce position size incrementally so margin requirement drops without dumping the entire position at once."
-          es: "Reducir el tamaño de la posición de forma incremental para que baje el margen requerido sin tirar toda la posición de golpe."
+          en: "To raise the account's leverage automatically while the market is stressed."
+          es: "Subir automáticamente el apalancamiento de la cuenta mientras el mercado sufre."
       - id: b
         text:
-          en: "To double the account's leverage automatically during market stress."
-          es: "Duplicar automáticamente el apalancamiento de la cuenta durante el estrés del mercado."
-      - id: c
-        text:
-          en: "To convert futures contracts into physical spot deliverables immediately."
+          en: "To convert the futures contracts into physical spot deliverables at once."
           es: "Convertir los contratos de futuros en entregables spot físicos de inmediato."
+      - id: c
+        correct: true
+        text:
+          en: "To cut size in steps, so margin needs fall without dumping the whole position."
+          es: "Recortar tamaño por pasos, para que baje el margen sin tirar toda la posición."
       - id: d
         text:
-          en: "To prevent the trader from ever using stop loss orders."
-          es: "Evitar que el trader vuelva a usar órdenes de stop loss."
+          en: "To stop the trader from placing stop-loss orders on that contract again."
+          es: "Impedir que el trader vuelva a poner stop-loss en ese contrato."
     explanation:
-      en: "Partial liquidations reduce position size in steps to bring remaining equity back above maintenance margin while minimizing order book disruption."
-      es: "Las liquidaciones parciales reducen el tamaño de la posición por pasos para devolver la equidad restante por encima del margen de mantenimiento reduciendo el impacto en el libro."
+      en: "Partial liquidations reduce position size incrementally to bring remaining equity back above the maintenance requirement while minimising order-book disruption — the smaller position needs less margin, so the account can survive without the engine having to sweep the whole size through a thin book at once."
+      es: "Las liquidaciones parciales reducen el tamaño de la posición de forma incremental para devolver el capital restante por encima del requisito de mantenimiento reduciendo el impacto en el libro: la posición menor necesita menos margen, así que la cuenta puede sobrevivir sin que el motor tenga que barrer todo el tamaño de golpe por un libro fino."
 
   - id: bankruptcy-price-difference
     kind: single_choice
@@ -184,22 +184,22 @@ variants:
       es: "¿Cuál es la diferencia entre el Precio de Liquidación de una posición y su Precio de Bancarrota?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Liquidation Price occurs when equity equals maintenance margin; Bankruptcy Price occurs when equity reaches zero."
-          es: "El Precio de Liquidación ocurre cuando la equidad es igual al margen de mantenimiento; el Precio de Bancarrota ocurre cuando la equidad llega a cero."
+          en: "The trader sets the liquidation price; the venue's risk desk sets bankruptcy."
+          es: "El trader fija el precio de liquidación; la mesa de riesgos fija el de bancarrota."
       - id: b
         text:
-          en: "Liquidation Price is set by the trader; Bankruptcy Price is set by the central bank."
-          es: "El Precio de Liquidación lo fija el trader; el Precio de Bancarrota lo fija el banco central."
+          en: "There is no difference at all; the two terms mean the same thing."
+          es: "No hay ninguna diferencia; los dos términos significan lo mismo."
       - id: c
         text:
-          en: "There is no difference; both terms mean the exact same thing."
-          es: "No hay diferencia; ambos términos significan exactamente lo mismo."
+          en: "Bankruptcy price applies to spot trading and liquidation price to futures."
+          es: "El precio de bancarrota es para spot y el de liquidación para futuros."
       - id: d
+        correct: true
         text:
-          en: "Bankruptcy Price is only used for spot trading, while Liquidation Price is for futures."
-          es: "El Precio de Bancarrota solo se usa para trading spot, mientras que el Precio de Liquidación es para futuros."
+          en: "Liquidation is where equity equals maintenance margin; bankruptcy is where it hits zero."
+          es: "En liquidación el capital iguala al margen de mantenimiento; en bancarrota llega a cero."
     explanation:
-      en: "The liquidation engine triggers at the liquidation price to close the position before mark price reaches the bankruptcy price (where account loss exceeds deposited margin)."
-      es: "El motor de liquidación se activa en el precio de liquidación para cerrar la posición antes de que el precio mark alcance el precio de bancarrota (donde la pérdida supera el margen)."
+      en: "The liquidation engine triggers at the liquidation price so the position can be closed before mark price reaches the bankruptcy price, where the loss would exceed the margin you deposited. Both are computed from your position and the venue's margin schedule — neither is a setting anybody chooses, and both are futures concepts."
+      es: "El motor de liquidación se activa en el precio de liquidación para poder cerrar la posición antes de que el precio mark alcance el precio de bancarrota, donde la pérdida superaría el margen depositado. Ambos se calculan a partir de tu posición y del esquema de márgenes del venue: ninguno es un ajuste que alguien elija, y los dos son conceptos de futuros."

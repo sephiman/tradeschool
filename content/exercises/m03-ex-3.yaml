@@ -9,23 +9,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A sequence of higher highs and higher lows."
+          en: "A sequence of higher highs and higher lows together."
           es: "Una secuencia de máximos más altos y mínimos más altos."
       - id: b
         text:
-          en: "A sequence of higher highs and lower lows."
-          es: "Una secuencia de máximos más altos y mínimos más bajos."
+          en: "Price bouncing between a fixed ceiling and a fixed floor."
+          es: "El precio rebotando entre un techo fijo y un suelo fijo."
       - id: c
         text:
-          en: "Price bouncing between a fixed ceiling and floor."
-          es: "El precio rebotando entre un techo y un suelo fijos."
+          en: "A sequence of higher highs paired with lower lows."
+          es: "Una secuencia de máximos más altos junto con mínimos más bajos."
       - id: d
         text:
-          en: "A single large green candle."
-          es: "Una sola vela verde grande."
+          en: "A single large green candle that closes near its high."
+          es: "Una sola vela verde grande que cierra cerca de su máximo."
     explanation:
-      en: "An uptrend makes net upward progress: each peak above the last and each dip bottoming above the previous one. Higher highs with lower lows is an expanding, directionless structure, and one big candle is not a trend."
-      es: "Una tendencia alcista avanza de forma neta hacia arriba: cada pico por encima del anterior y cada caída con un fondo por encima del previo. Máximos más altos con mínimos más bajos es una estructura que se expande sin dirección, y una sola vela grande no es una tendencia."
+      en: "An uptrend makes net upward progress: each peak above the last and each dip bottoming above the previous one — both halves, not one. Higher highs with lower lows is an expanding, directionless structure, a fixed band is a range, and one big candle is not a trend at all."
+      es: "Una tendencia alcista avanza de forma neta hacia arriba: cada pico por encima del anterior y cada caída con un fondo por encima del previo, ambas mitades y no solo una. Máximos más altos con mínimos más bajos es una estructura que se expande sin dirección, una banda fija es un rango, y una sola vela grande no es una tendencia."
   - id: range-recognition
     prompt:
       en: "Price has spent two weeks bouncing between roughly 100 and 110 with no net progress. What is it doing, and what follows?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is ranging; trend-following tactics tend to fail here because there is no directional progress."
-          es: "Está en rango; las tácticas de seguimiento de tendencia tienden a fallar aquí porque no hay avance direccional."
+          en: "It is ranging: trend tactics tend to fail here."
+          es: "Está en rango: las tácticas de tendencia tienden a fallar aquí."
       - id: b
         text:
-          en: "It is in an uptrend, because it keeps bouncing up from 100."
-          es: "Está en tendencia alcista, porque sigue rebotando al alza desde 100."
+          en: "An uptrend, because it keeps bouncing up from the 100 floor."
+          es: "Tendencia alcista, porque sigue rebotando al alza desde el suelo de 100."
       - id: c
         text:
-          en: "It is in a downtrend, because it keeps falling back from 110."
-          es: "Está en tendencia bajista, porque sigue cayendo desde 110."
+          en: "A downtrend, because it keeps falling back from the 110 ceiling."
+          es: "Tendencia bajista, porque sigue cayendo desde el techo de 110."
       - id: d
         text:
-          en: "Nothing — price is always trending, so a range cannot last two weeks."
-          es: "Nada: el precio siempre está en tendencia, así que un rango no puede durar dos semanas."
+          en: "Nothing — price always trends, so a range cannot last two weeks."
+          es: "Nada: el precio siempre tiene tendencia, así que un rango no dura dos semanas."
     explanation:
-      en: "Similar highs and similar lows with no net progress is a range. Reading each bounce off 100 as an 'uptrend' is the classic mistake — the bounces cancel out, and markets range most of the time."
-      es: "Máximos parecidos y mínimos parecidos sin avance neto es un rango. Leer cada rebote en 100 como una 'tendencia alcista' es el error clásico: los rebotes se cancelan, y los mercados están en rango la mayor parte del tiempo."
+      en: "Similar highs and similar lows with no net progress is a range. Reading each bounce off 100 as an 'uptrend' — or each rejection at 110 as a downtrend — is the classic mistake: the moves cancel out. Markets range most of the time, and a two-week one is entirely ordinary."
+      es: "Máximos parecidos y mínimos parecidos sin avance neto es un rango. Leer cada rebote en 100 como una 'tendencia alcista' —o cada rechazo en 110 como bajista— es el error clásico: los movimientos se cancelan. Los mercados están en rango la mayor parte del tiempo, y uno de dos semanas es de lo más corriente."
   - id: structure-match
     kind: matching
     prompt:
@@ -81,34 +81,34 @@ variants:
       es: "¿Qué patrón define una tendencia bajista?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A sequence of lower highs and lower lows."
-          es: "Una secuencia de máximos más bajos y mínimos más bajos."
+          en: "A sequence of lower highs paired with higher lows."
+          es: "Una secuencia de máximos más bajos junto con mínimos más altos."
       - id: b
         text:
-          en: "A sequence of lower highs and higher lows."
-          es: "Una secuencia de máximos más bajos y mínimos más altos."
+          en: "A single large red candle that closes near its low."
+          es: "Una sola vela roja grande que cierra cerca de su mínimo."
       - id: c
         text:
-          en: "A single large red candle."
-          es: "Una sola vela roja grande."
+          en: "Price bouncing between a fixed ceiling and a fixed floor."
+          es: "El precio rebotando entre un techo fijo y un suelo fijo."
       - id: d
+        correct: true
         text:
-          en: "Price bouncing between a fixed ceiling and floor."
-          es: "El precio rebotando entre un techo y un suelo fijos."
+          en: "A sequence of lower highs and lower lows, one after the other."
+          es: "Una secuencia de máximos más bajos y mínimos más bajos, uno tras otro."
     explanation:
-      en: "A downtrend makes net downward progress: each peak below the last and each bounce topping out below the previous one. Lower highs with higher lows is a contracting, directionless structure, and one big candle is not a trend."
-      es: "Una tendencia bajista avanza de forma neta hacia abajo: cada pico por debajo del anterior y cada rebote con un techo por debajo del previo. Máximos más bajos con mínimos más altos es una estructura que se contrae sin dirección, y una sola vela grande no es una tendencia."
+      en: "A downtrend makes net downward progress: each peak below the last and each bounce topping out below the previous one. Lower highs with higher lows is a contracting, directionless structure, a fixed band is a range, and one big candle is not a trend."
+      es: "Una tendencia bajista avanza de forma neta hacia abajo: cada pico por debajo del anterior y cada rebote con un techo por debajo del previo. Máximos más bajos con mínimos más altos es una estructura que se contrae sin dirección, una banda fija es un rango, y una sola vela grande no es una tendencia."
   - id: trend-rarity-myth
     kind: true_false
     prompt:
-      en: "Most of the time, markets are trending rather than ranging."
-      es: "La mayor parte del tiempo, los mercados están en tendencia en lugar de en rango."
-    answer: false
+      en: "Markets spend most of their time ranging, and trends are the exception."
+      es: "Los mercados pasan la mayor parte del tiempo en rango, y las tendencias son la excepción."
+    answer: true
     explanation:
-      en: "Markets range most of the time; trends are the exception, which is exactly why identifying a real trend is worth the effort."
-      es: "Los mercados están en rango la mayor parte del tiempo; las tendencias son la excepción, y por eso precisamente vale la pena identificar una tendencia real."
+      en: "True, and that is exactly why identifying a real trend is worth the effort — and why trend tactics applied to the default state get shredded."
+      es: "Cierto, y por eso precisamente vale la pena identificar una tendencia real, y por eso las tácticas de tendencia aplicadas al estado por defecto acaban destrozadas."
   - id: trend-range-multi
     kind: multi_select
     prompt:
@@ -119,65 +119,73 @@ variants:
         correct: true
         text:
           en: "Tactics that work in a trend can get shredded in a range, and vice versa."
-          es: "Las tácticas que funcionan en tendencia pueden destrozarse en un rango, y al revés."
+          es: "Las tácticas que funcionan en tendencia se destrozan en rango, y al revés."
       - id: b
         correct: true
         text:
-          en: "An uptrend requires both higher highs and higher lows."
-          es: "Una tendencia alcista requiere tanto máximos más altos como mínimos más altos."
+          en: "An uptrend requires higher highs and higher lows together."
+          es: "Una tendencia alcista requiere máximos y mínimos más altos a la vez."
       - id: c
         text:
-          en: "One big green candle is enough to establish an uptrend."
-          es: "Una sola vela verde grande basta para establecer una tendencia alcista."
+          en: "One big green candle is enough to establish an uptrend on its own."
+          es: "Una sola vela verde grande basta por sí sola para establecer una tendencia alcista."
       - id: d
         text:
-          en: "A range cannot last two weeks because price is always trending."
-          es: "Un rango no puede durar dos semanas porque el precio siempre está en tendencia."
+          en: "A range cannot last two weeks, because price is always trending."
+          es: "Un rango no puede durar dos semanas, porque el precio siempre tiene tendencia."
     explanation:
-      en: "An uptrend needs higher highs and higher lows together, and matching your tactics to the regime matters. A single candle is not a trend, and ranges routinely last a long time."
-      es: "Una tendencia alcista necesita máximos más altos y mínimos más altos a la vez, y ajustar las tácticas al régimen importa. Una sola vela no es una tendencia, y los rangos duran mucho tiempo con frecuencia."
+      en: "An uptrend needs both halves of the pattern at once, and matching your tactics to the regime is most of the job. A single candle is not a structure, and ranges routinely last weeks — they are the market's default, not an anomaly."
+      es: "Una tendencia alcista necesita las dos mitades del patrón a la vez, y ajustar las tácticas al régimen es buena parte del trabajo. Una sola vela no es una estructura, y los rangos duran semanas con frecuencia: son el estado por defecto del mercado, no una anomalía."
   - id: downtrend-example
     prompt:
       en: "Over three swings, price makes highs at 100, 95 and 91, and lows at 88, 84 and 80. What is this?"
       es: "En tres oscilaciones, el precio marca máximos en 100, 95 y 91, y mínimos en 88, 84 y 80. ¿Qué es esto?"
     options:
       - id: a
+        text:
+          en: "A range, because price keeps oscillating between highs and lows."
+          es: "Un rango, porque el precio oscila entre máximos y mínimos."
+      - id: b
         correct: true
         text:
-          en: "A downtrend — each high is lower than the last and each low is lower than the last."
-          es: "Una tendencia bajista: cada máximo es más bajo que el anterior y cada mínimo también."
-      - id: b
-        text: { en: "A range, because price is oscillating between highs and lows.", es: "Un rango, porque el precio oscila entre máximos y mínimos." }
+          en: "A downtrend: every high and every low is below the one before."
+          es: "Una tendencia bajista: cada máximo y cada mínimo está por debajo del anterior."
       - id: c
-        text: { en: "An uptrend, because the lows keep being defended.", es: "Una tendencia alcista, porque los mínimos se siguen defendiendo." }
+        text:
+          en: "An uptrend, because the lows keep being defended each time."
+          es: "Una tendencia alcista, porque los mínimos se defienden cada vez."
       - id: d
-        text: { en: "Nothing readable without volume data.", es: "Nada legible sin datos de volumen." }
+        text:
+          en: "Nothing readable, since there is no volume data attached."
+          es: "Nada legible, ya que no hay datos de volumen adjuntos."
     explanation:
-      en: "Lower highs plus lower lows is the definition of a downtrend. Structure is read off the sequence of swings, not off any single candle."
-      es: "Máximos decrecientes más mínimos decrecientes es la definición de tendencia bajista. La estructura se lee de la secuencia de oscilaciones, no de una vela aislada."
+      en: "Lower highs plus lower lows is the definition of a downtrend. Oscillation alone does not make a range — a range needs *similar* highs and lows, and these step steadily down. Structure is read off the sequence of swings, and it needs no volume series to be legible."
+      es: "Máximos decrecientes más mínimos decrecientes es la definición de tendencia bajista. Oscilar por sí solo no hace un rango: un rango necesita máximos y mínimos *parecidos*, y estos bajan de forma sostenida. La estructura se lee de la secuencia de oscilaciones y no necesita ninguna serie de volumen para ser legible."
   - id: why-range-default
     prompt:
       en: "Why is ranging the market's default state, with trends the exception?"
       es: "¿Por qué el rango es el estado por defecto del mercado y las tendencias la excepción?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A range is balance — neither side can force a breakout. A sustained one-sided imbalance is expensive to maintain and therefore rare."
-          es: "Un rango es equilibrio: ningún lado puede forzar la ruptura. Un desequilibrio sostenido hacia un solo lado es caro de mantener y por eso raro."
+          en: "Exchanges cap how far price can move per day, forcing sideways action."
+          es: "Los exchanges limitan cuánto puede moverse el precio al día y fuerzan el lateral."
       - id: b
         text:
-          en: "Exchanges cap how far price can move per day, which forces sideways action."
-          es: "Los exchanges limitan cuánto puede moverse el precio al día, lo que fuerza el movimiento lateral."
+          en: "Ranges happen when volume is missing; trends need none."
+          es: "Los rangos ocurren cuando falta volumen; las tendencias no lo necesitan."
       - id: c
+        correct: true
         text:
-          en: "Ranges are what happens when volume is missing; trends need no participation."
-          es: "Los rangos ocurren cuando falta volumen; las tendencias no necesitan participación."
+          en: "A range is balance — neither side can force a breakout."
+          es: "Un rango es equilibrio: ningún lado puede forzar la ruptura."
       - id: d
-        text: { en: "Most traders trade ranges, so their orders create them.", es: "La mayoría de traders operan rangos, así que sus órdenes los crean." }
+        text:
+          en: "Most traders trade ranges, so their own orders keep creating them."
+          es: "La mayoría de traders operan rangos, así que sus órdenes los crean."
     explanation:
-      en: "Buyers defend the floor, sellers cap the ceiling, and the result is chop. That is exactly why a real trend is worth riding when you find one — and why identifying the regime is worth the effort."
-      es: "Los compradores defienden el suelo, los vendedores tapan el techo, y el resultado es serrucho. Precisamente por eso una tendencia real merece la pena cuando la encuentras, y por eso identificar el régimen vale el esfuerzo."
+      en: "Buyers defend the floor, sellers cap the ceiling, and the result is chop: a sustained one-sided imbalance is expensive to maintain and therefore rare. Nothing imposes it from outside — there is no daily cap, and a trend takes *more* participation than a range, not less. That is exactly why a real trend is worth riding when you find one."
+      es: "Los compradores defienden el suelo, los vendedores tapan el techo, y el resultado es serrucho: un desequilibrio sostenido hacia un solo lado es caro de mantener y por eso raro. Nada lo impone desde fuera: no hay límite diario, y una tendencia exige *más* participación que un rango, no menos. Precisamente por eso una tendencia real merece la pena cuando la encuentras."
   - id: mini-trend-tf
     kind: true_false
     prompt:

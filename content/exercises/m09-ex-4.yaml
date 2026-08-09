@@ -7,50 +7,50 @@ variants:
       es: "¿Qué afirmación describe mejor un spring?"
     options:
       - id: a
+        text:
+          en: "A false break above range resistance that fails, preceding a markdown."
+          es: "Una ruptura falsa sobre la resistencia que fracasa y precede a un markdown."
+      - id: b
         correct: true
         text:
-          en: "A false break below range support that recovers back inside; it appears in accumulation and precedes a markup."
-          es: "Una ruptura falsa por debajo del soporte del rango que se recupera hacia dentro; aparece en la acumulación y precede a un markup."
-      - id: b
-        text:
-          en: "A false break above range resistance that fails; it appears in distribution and precedes a markdown."
-          es: "Una ruptura falsa por encima de la resistencia del rango que fracasa; aparece en la distribución y precede a un markdown."
+          en: "A false break below range support that recovers back inside."
+          es: "Una ruptura falsa bajo el soporte del rango que se recupera hacia dentro."
       - id: c
         text:
-          en: "A genuine breakdown below support that keeps falling straight into a markdown."
-          es: "Una ruptura bajista real por debajo del soporte que sigue cayendo directa hacia un markdown."
+          en: "A genuine breakdown below support that falls straight into a markdown."
+          es: "Una ruptura bajista real del soporte que cae directa hacia un markdown."
       - id: d
         text:
-          en: "A strong breakout above resistance that confirms a markup is already under way."
-          es: "Una ruptura fuerte por encima de la resistencia que confirma que ya está en marcha un markup."
+          en: "A strong breakout above resistance confirming a markup already under way."
+          es: "Una ruptura fuerte sobre la resistencia que confirma un markup en marcha."
     explanation:
-      en: "A spring dips below support and snaps back inside, shaking out sellers' stops so large players can finish buying. It lives in accumulation, after a downtrend, and precedes a markup. Option b is the upthrust (its distribution mirror image); c mistakes it for a real breakdown, which is exactly the trap a spring sets."
-      es: "Un spring se hunde bajo el soporte y vuelve rápido hacia dentro, sacando los stops de los vendedores para que los grandes participantes terminen de comprar. Vive en la acumulación, tras una tendencia bajista, y precede a un markup. La opción b es el upthrust (su imagen espejo en distribución); la c lo confunde con una ruptura bajista real, que es justo la trampa que tiende el spring."
+      en: "A spring dips below support and snaps back inside, shaking out sellers' stops so large players can finish buying. It lives in accumulation, after a downtrend, and precedes a markup. The first option is the upthrust, its distribution mirror image; the third mistakes it for a real breakdown, which is exactly the trap a spring sets — the recovery is what separates them."
+      es: "Un spring se hunde bajo el soporte y vuelve rápido hacia dentro, sacando los stops de los vendedores para que los grandes participantes terminen de comprar. Vive en la acumulación, tras una tendencia bajista, y precede a un markup. La primera opción es el upthrust, su imagen espejo en distribución; la tercera lo confunde con una ruptura bajista real, que es justo la trampa que tiende el spring: la recuperación es lo que los separa."
   - id: upthrust-reads
     prompt:
       en: "After an uptrend, price ranges sideways, then briefly breaks above resistance and quickly drops back inside. In Wyckoff terms, what is this and what does it warn of?"
       es: "Tras una tendencia alcista, el precio lateraliza, luego rompe brevemente por encima de la resistencia y vuelve a caer rápido hacia dentro. En términos de Wyckoff, ¿qué es esto y de qué avisa?"
     options:
       - id: a
+        text:
+          en: "A spring — a sign of accumulation, warning of a possible markup ahead."
+          es: "Un spring: señal de acumulación, que avisa de un posible markup por delante."
+      - id: b
+        text:
+          en: "A confirmed breakout — buyers have control and a fresh markup is starting."
+          es: "Una ruptura confirmada: los compradores mandan y empieza un nuevo markup."
+      - id: c
         correct: true
         text:
           en: "An upthrust — a sign of distribution, warning of a possible markdown."
           es: "Un upthrust: señal de distribución, que avisa de un posible markdown."
-      - id: b
-        text:
-          en: "A spring — a sign of accumulation, warning of a possible markup."
-          es: "Un spring: señal de acumulación, que avisa de un posible markup."
-      - id: c
-        text:
-          en: "A confirmed breakout — buyers have taken control and a fresh markup is starting."
-          es: "Una ruptura confirmada: los compradores han tomado el control y empieza un nuevo markup."
       - id: d
         text:
-          en: "Proof the range will simply continue sideways indefinitely with no directional bias."
-          es: "Prueba de que el rango seguirá lateral indefinidamente sin sesgo direccional."
+          en: "Proof the range will continue sideways indefinitely with no directional bias."
+          es: "Prueba de que el rango seguirá lateral indefinidamente y sin sesgo direccional."
     explanation:
-      en: "A false break above resistance that fails back inside, following an uptrend, is an upthrust: large players unloading into the last eager demand — distribution, which precedes a markdown. Option c is the very misconception the upthrust exploits; the breakout buyers it traps are the liquidity being sold into. Remember Wyckoff is a lens, not a guarantee — the range can still resolve the other way."
-      es: "Una ruptura falsa por encima de la resistencia que fracasa y vuelve hacia dentro, tras una tendencia alcista, es un upthrust: grandes participantes soltando en la última demanda entusiasta —distribución, que precede a un markdown—. La opción c es justo el error que el upthrust explota; los compradores de ruptura a los que atrapa son la liquidez a la que se vende. Recuerda que Wyckoff es una lente, no una garantía: el rango aún puede resolverse en el otro sentido."
+      en: "A false break above resistance that fails back inside, following an uptrend, is an upthrust: large players unloading into the last eager demand — distribution, which precedes a markdown. Reading it as a confirmed breakout is the very misconception the upthrust exploits; the breakout buyers it traps are the liquidity being sold into. A spring is its mirror below support, and Wyckoff is a lens rather than a guarantee — the range can still resolve the other way."
+      es: "Una ruptura falsa por encima de la resistencia que fracasa y vuelve hacia dentro, tras una tendencia alcista, es un upthrust: grandes participantes soltando en la última demanda entusiasta —distribución, que precede a un markdown—. Leerlo como ruptura confirmada es justo el error que el upthrust explota; los compradores de ruptura a los que atrapa son la liquidez a la que se vende. Un spring es su espejo bajo el soporte, y Wyckoff es una lente, no una garantía: el rango aún puede resolverse en el otro sentido."
   - id: spring-upthrust-match
     kind: matching
     prompt:
@@ -81,37 +81,37 @@ variants:
   - id: upthrust-breakout-myth
     kind: true_false
     prompt:
-      en: "An upthrust is a confirmed breakout: buyers have taken control and a markup is starting."
-      es: "Un upthrust es una ruptura confirmada: los compradores han tomado el control y empieza un markup."
-    answer: false
+      en: "An upthrust only looks like a breakout: price pokes above resistance to trigger breakout buyers, then rolls back inside as large players sell into that demand."
+      es: "Un upthrust solo parece una ruptura: el precio asoma sobre la resistencia para activar a los compradores de ruptura y luego vuelve hacia dentro mientras los grandes participantes venden a esa demanda."
+    answer: true
     explanation:
-      en: "An upthrust only looks like a breakout — that is the trap. Price pokes above resistance to trigger breakout buyers, then rolls back inside as large players sell into that demand. It is a sign of distribution and warns of a markdown, not the start of a markup."
-      es: "Un upthrust solo parece una ruptura, y esa es la trampa. El precio asoma sobre la resistencia para activar a los compradores de ruptura y luego vuelve a caer hacia dentro mientras los grandes participantes venden a esa demanda. Es señal de distribución y avisa de un markdown, no del comienzo de un markup."
+      en: "True, and the resemblance is the whole trap. It is a sign of distribution and warns of a markdown, not the start of a markup — the traders it traps above the level are the liquidity being sold into."
+      es: "Cierto, y el parecido es toda la trampa. Es señal de distribución y avisa de un markdown, no del comienzo de un markup: los traders que quedan atrapados por encima del nivel son la liquidez a la que se está vendiendo."
   - id: spring-mechanism
     prompt:
       en: "Why does price dip below support during a spring before recovering?"
       es: "¿Por qué el precio se hunde bajo el soporte durante un spring antes de recuperarse?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The visible break triggers sellers' stops and tempts shorts, giving large players the last cheap supply they need to finish buying."
-          es: "La ruptura visible activa los stops de los vendedores y tienta a los cortos, dando a los grandes participantes la última oferta barata que necesitan para terminar de comprar."
+          en: "Sellers have overwhelmed buyers, so support genuinely broke and should keep falling."
+          es: "Los vendedores han superado a los compradores: el soporte se rompió de verdad."
       - id: b
         text:
-          en: "Sellers have overwhelmed buyers, so the support has genuinely broken and price should keep falling."
-          es: "Los vendedores han superado a los compradores, así que el soporte se ha roto de verdad y el precio debería seguir cayendo."
+          en: "Large players have run out of money and are being forced out of their positions."
+          es: "Los grandes se han quedado sin dinero y se les expulsa de sus posiciones."
       - id: c
         text:
-          en: "Large players have run out of money and are being forced out of their positions."
-          es: "Los grandes participantes se han quedado sin dinero y se les está expulsando de sus posiciones."
+          en: "It is random noise with no meaning at all; the support level is irrelevant here."
+          es: "Es ruido aleatorio sin significado; el nivel de soporte es irrelevante aquí."
       - id: d
+        correct: true
         text:
-          en: "It is random noise with no meaning; the level of support is irrelevant."
-          es: "Es ruido aleatorio sin significado; el nivel del soporte es irrelevante."
+          en: "The visible break trips sellers' stops and tempts shorts, supplying the last cheap sellers."
+          es: "La ruptura visible dispara stops y tienta a los cortos, sirviendo la última oferta barata."
     explanation:
-      en: "The trap is the point: a break everyone can see attracts orders — stops firing and fresh shorts — and those orders are exactly the liquidity a large buyer needs to complete a long position. Option b is the misconception the spring exploits; you only know it was a spring, not a real breakdown, once price recovers."
-      es: "La trampa es justo el objetivo: una ruptura que todos ven atrae órdenes —stops que saltan y cortos nuevos— y esas órdenes son justo la liquidez que un gran comprador necesita para completar una posición larga. La opción b es el error que el spring explota; solo sabes que fue un spring, y no una ruptura real, cuando el precio se recupera."
+      en: "The trap is the point: a break everyone can see attracts orders — stops firing and fresh shorts — and those orders are exactly the liquidity a large buyer needs to complete a long position. Reading it as a genuine breakdown is the misconception the spring exploits, and the level is precisely what makes it work: you only know it was a spring, not a real break, once price recovers."
+      es: "La trampa es justo el objetivo: una ruptura que todos ven atrae órdenes —stops que saltan y cortos nuevos— y esas órdenes son justo la liquidez que un gran comprador necesita para completar una posición larga. Leerlo como una ruptura genuina es el error que el spring explota, y el nivel es precisamente lo que lo hace funcionar: solo sabes que fue un spring, y no una ruptura real, cuando el precio se recupera."
   - id: spring-sequence
     kind: ordering
     prompt:
@@ -144,38 +144,48 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A spring — the last cheap supply changing hands, harvested from panicked sellers and fresh shorts, not a breakdown."
-          es: "Un spring: la última oferta barata cambiando de manos, cosechada de vendedores en pánico y cortos nuevos, no una ruptura a la baja."
+          en: "A spring — the last cheap supply changing hands, not a breakdown."
+          es: "Un spring: la última oferta barata cambiando de manos, no una ruptura."
       - id: b
         text:
-          en: "A confirmed breakdown of support that happened to bounce."
-          es: "Una ruptura confirmada del soporte que casualmente rebotó."
+          en: "A confirmed breakdown of support that then happened to bounce back."
+          es: "Una ruptura confirmada del soporte que luego resultó rebotar."
       - id: c
-        text: { en: "An upthrust, since price left the range.", es: "Un upthrust, ya que el precio salió del rango." }
+        text:
+          en: "An upthrust, since price did leave the boundaries of the range."
+          es: "Un upthrust, ya que el precio sí salió de los límites del rango."
       - id: d
-        text: { en: "Proof the range will keep holding indefinitely.", es: "La prueba de que el rango seguirá aguantando indefinidamente." }
+        text:
+          en: "Proof that this range will keep holding indefinitely from here."
+          es: "La prueba de que este rango seguirá aguantando indefinidamente."
     explanation:
-      en: "The break below is bait: a visible new low trips the stops resting under support and tempts fresh shorts, and those sell orders are exactly the last cheap supply a big buyer needs to finish. The recovery back inside is the tell it was absorbed."
-      es: "La ruptura a la baja es un cebo: un nuevo mínimo visible dispara los stops bajo el soporte y tienta a cortos nuevos, y esas órdenes de venta son exactamente la última oferta barata que un gran comprador necesita para terminar. La recuperación hacia dentro es la señal de que fue absorbida."
+      en: "The break below is bait: a visible new low trips the stops resting under support and tempts fresh shorts, and those sell orders are exactly the last cheap supply a big buyer needs to finish. The recovery back inside is the tell it was absorbed — a confirmed breakdown is one that keeps going, and an upthrust breaks the *ceiling*, not the floor."
+      es: "La ruptura a la baja es un cebo: un nuevo mínimo visible dispara los stops bajo el soporte y tienta a cortos nuevos, y esas órdenes de venta son exactamente la última oferta barata que un gran comprador necesita para terminar. La recuperación hacia dentro es la señal de que fue absorbida: una ruptura confirmada es la que sigue cayendo, y un upthrust rompe el *techo*, no el suelo."
   - id: utad-name
     prompt:
       en: "What does UTAD name, and why does it have its own label?"
       es: "¿Qué nombra el UTAD y por qué tiene su propia etiqueta?"
     options:
       - id: a
+        text:
+          en: "Any false break above resistance, in whichever phase it happens to occur."
+          es: "Cualquier ruptura falsa sobre la resistencia, en la fase que sea."
+      - id: b
+        text:
+          en: "The spring's direct counterpart inside an accumulation range."
+          es: "La contraparte directa del spring dentro de un rango de acumulación."
+      - id: c
         correct: true
         text:
-          en: "The decisive phase-C upthrust that marks the top of a distribution — named to set it apart from smaller, inconclusive upthrusts that can appear earlier in phase B."
-          es: "El upthrust decisivo de la fase C que marca el techo de una distribución, nombrado para distinguirlo de upthrusts menores e inconcluyentes que pueden aparecer antes, en la fase B."
-      - id: b
-        text: { en: "Any false break above resistance, at any phase.", es: "Cualquier ruptura falsa por encima de la resistencia, en cualquier fase." }
-      - id: c
-        text: { en: "The spring's counterpart inside an accumulation.", es: "La contraparte del spring dentro de una acumulación." }
+          en: "The decisive phase-C upthrust that marks the top of a distribution."
+          es: "El upthrust decisivo de la fase C que marca el techo de una distribución."
       - id: d
-        text: { en: "The markdown that follows a distribution range.", es: "El markdown que sigue a un rango de distribución." }
+        text:
+          en: "The markdown trend that follows a distribution range out of the box."
+          es: "La tendencia bajista que sigue a un rango de distribución al salir."
     explanation:
-      en: "Upthrust after distribution. A spring is a fake break below support hinting at a markup; an upthrust is a fake break above resistance warning of a markdown — and the UTAD is the one that marks the top."
-      es: "Upthrust after distribution. Un spring es una ruptura falsa bajo soporte que apunta a un markup; un upthrust es una ruptura falsa sobre resistencia que avisa de un markdown, y el UTAD es el que marca el techo."
+      en: "Upthrust after distribution. It gets its own label to set it apart from the smaller, inconclusive upthrusts that can appear earlier in phase B — the UTAD is the one that marks the top. A spring is the accumulation mirror, a fake break below support hinting at a markup; an upthrust is the fake break above resistance warning of a markdown; and the markdown itself is what follows, not the event."
+      es: "Upthrust after distribution. Recibe etiqueta propia para distinguirlo de los upthrusts menores e inconcluyentes que pueden aparecer antes, en la fase B: el UTAD es el que marca el techo. Un spring es el espejo en acumulación, una ruptura falsa bajo soporte que apunta a un markup; un upthrust es la ruptura falsa sobre resistencia que avisa de un markdown; y el markdown en sí es lo que viene después, no el evento."
   - id: crypto-false-break-facts
     kind: multi_select
     prompt:
@@ -185,26 +195,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "In a shallow alt book a comparatively small market sell can wick 5–8% through the boundary and reverse."
-          es: "En un libro poco profundo de alts, una venta a mercado relativamente pequeña puede hacer una mecha del 5-8% más allá del límite y revertir."
+          en: "In a shallow alt book a small market sell can wick 5–8% through the boundary."
+          es: "En un libro fino de alts, una venta pequeña puede hacer una mecha del 5-8%."
       - id: b
         correct: true
         text:
-          en: "The identical shape can be a deliberate stop-hunt: a whale manufacturing the flush to trigger forced selling, then buying it."
-          es: "La forma idéntica puede ser una caza de stops deliberada: una ballena provocando la caída para disparar ventas forzosas y luego comprarla."
+          en: "The identical shape can be a deliberate stop-hunt engineered by one whale."
+          es: "La forma idéntica puede ser una caza de stops provocada por una sola ballena."
       - id: c
         correct: true
         text:
-          en: "A 'markup' out of a spring can be nothing more than a short squeeze — crowded shorts being force-closed, not real demand."
-          es: "Un 'markup' saliendo de un spring puede no ser más que un short squeeze: cortos saturados cerrados por la fuerza, no demanda real."
+          en: "A 'markup' out of a spring can be a short squeeze rather than real demand."
+          es: "Un 'markup' saliendo de un spring puede ser un short squeeze, no demanda real."
       - id: d
         text:
           en: "Crypto ranges resolve on a fixed schedule, so the phase is always knowable."
-          es: "Los rangos cripto se resuelven en un calendario fijo, así que la fase siempre es conocible."
+          es: "Los rangos cripto se resuelven en un calendario fijo: la fase siempre se sabe."
       - id: e
         text:
-          en: "The deeper the wick, the more reliable the spring."
-          es: "Cuanto más profunda la mecha, más fiable el spring."
+          en: "The deeper the wick beyond the boundary, the more reliable the spring."
+          es: "Cuanto más profunda la mecha más allá del límite, más fiable es el spring."
     explanation:
-      en: "Weight a spring or upthrust by the depth of the book it happened in and the trend that led into it. Distrust a clean false break in an illiquid alt over a quiet weekend."
-      es: "Pondera un spring o un upthrust por la profundidad del libro en que ocurrió y la tendencia que llevó a él. Desconfía de una ruptura falsa limpia en una alt ilíquida durante un fin de semana tranquilo."
+      en: "Weight a spring or upthrust by the depth of the book it happened in and the trend that led into it. Distrust a clean false break in an illiquid alt over a quiet weekend — depth is cheap to manufacture there, which is exactly why a deeper wick proves less, not more. And nothing about a range is scheduled: the phase is only ever legible after the fact."
+      es: "Pondera un spring o un upthrust por la profundidad del libro en que ocurrió y la tendencia que llevó a él. Desconfía de una ruptura falsa limpia en una alt ilíquida durante un fin de semana tranquilo: allí la profundidad es barata de fabricar, y por eso una mecha más profunda demuestra menos, no más. Y nada en un rango está programado: la fase solo se lee después."

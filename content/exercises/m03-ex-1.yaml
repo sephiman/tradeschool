@@ -7,50 +7,50 @@ variants:
       es: "En una vela, ¿qué representa el cuerpo?"
     options:
       - id: a
+        text:
+          en: "The full range between the high and the low of the period."
+          es: "El rango completo entre el máximo y el mínimo del periodo."
+      - id: b
         correct: true
         text:
-          en: "The range between the open and the close."
-          es: "El rango entre la apertura y el cierre."
-      - id: b
-        text:
-          en: "The full range between the high and the low."
-          es: "El rango completo entre el máximo y el mínimo."
+          en: "The range between the price it opened at and the price it closed at."
+          es: "El rango entre el precio al que abrió y el precio al que cerró."
       - id: c
         text:
-          en: "The total volume traded during the period."
-          es: "El volumen total operado durante el periodo."
+          en: "The total volume that traded during the period."
+          es: "El volumen total que se operó durante el periodo."
       - id: d
         text:
           en: "The distance from the previous candle's close."
           es: "La distancia respecto al cierre de la vela anterior."
     explanation:
-      en: "The body spans open to close. The high-to-low span is the whole candle including its wicks, not the body — mixing the two up is the classic beginner error."
-      es: "El cuerpo va de la apertura al cierre. El recorrido de máximo a mínimo es la vela entera con sus mechas, no el cuerpo: confundir ambos es el error clásico de principiante."
+      en: "The body spans open to close. The high-to-low span is the whole candle including its wicks, not the body — mixing the two up is the classic beginner error. Volume is a separate series entirely, and a candle is measured against itself, not the one before it."
+      es: "El cuerpo va de la apertura al cierre. El recorrido de máximo a mínimo es la vela entera con sus mechas, no el cuerpo: confundir ambos es el error clásico de principiante. El volumen es una serie aparte, y una vela se mide contra sí misma, no contra la anterior."
   - id: wick-story
     prompt:
       en: "A candle opens at 95, falls to a low of 90, then recovers to close at 99, with a high of 101. Which statement is correct?"
       es: "Una vela abre en 95, cae a un mínimo de 90 y luego se recupera hasta cerrar en 99, con un máximo de 101. ¿Qué afirmación es correcta?"
     options:
       - id: a
-        correct: true
         text:
-          en: "It is bullish (close above open) with a lower wick — sellers pushed it to 90 but buyers closed it higher."
-          es: "Es alcista (cierre por encima de la apertura) con una mecha inferior: los vendedores la llevaron a 90 pero los compradores la cerraron más arriba."
+          en: "Bearish, because the price dropped all the way down to 90 during the period."
+          es: "Bajista, porque el precio cayó hasta 90 durante el periodo."
       - id: b
         text:
-          en: "It is bearish, because price dropped to 90 during the period."
-          es: "Es bajista, porque el precio cayó a 90 durante el periodo."
+          en: "Its body runs from 90 to 101, the full span it covered."
+          es: "Su cuerpo va de 90 a 101, todo el recorrido que cubrió."
       - id: c
         text:
-          en: "Its body runs from 90 to 101."
-          es: "Su cuerpo va de 90 a 101."
+          en: "Its colour depends on whether it closed above the previous candle."
+          es: "Su color depende de si cerró por encima de la vela anterior."
       - id: d
+        correct: true
         text:
-          en: "Its colour depends only on whether it closed above the previous candle."
-          es: "Su color depende solo de si cerró por encima de la vela anterior."
+          en: "Bullish, with a lower wick: sellers reached 90 and buyers closed it at 99."
+          es: "Alcista, con mecha inferior: los vendedores llegaron a 90 y los compradores cerraron en 99."
     explanation:
-      en: "Colour is close versus open: 99 closed above the 95 open, so it is bullish. The dip to 90 is the lower wick — price that was rejected — and the body runs 95 to 99, not 90 to 101."
-      es: "El color es cierre frente a apertura: 99 cerró por encima de la apertura en 95, así que es alcista. La caída a 90 es la mecha inferior —precio rechazado— y el cuerpo va de 95 a 99, no de 90 a 101."
+      en: "Colour is close versus open on the same candle: 99 closed above the 95 open, so it is bullish. The dip to 90 is the lower wick — price that was reached and then rejected — and the body runs 95 to 99, not 90 to 101."
+      es: "El color es cierre frente a apertura de la misma vela: 99 cerró por encima de la apertura en 95, así que es alcista. La caída a 90 es la mecha inferior —precio alcanzado y luego rechazado— y el cuerpo va de 95 a 99, no de 90 a 101."
   - id: candle-parts
     kind: matching
     prompt:
@@ -89,8 +89,8 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The price at which the period opened and the price at which it closed."
-          es: "El precio al que el periodo abrió y el precio al que cerró."
+          en: "The price the period opened at and the price it closed at."
+          es: "El precio al que abrió el periodo y aquel al que cerró."
       - id: b
         correct: true
         text:
@@ -98,24 +98,24 @@ variants:
           es: "Los precios máximo y mínimo alcanzados durante el periodo."
       - id: c
         text:
-          en: "How many units changed hands during the period."
-          es: "Cuántas unidades cambiaron de manos durante el periodo."
+          en: "How many units changed hands while the candle formed."
+          es: "Cuántas unidades cambiaron de manos mientras se formaba."
       - id: d
         text:
-          en: "Where price will move in the next period."
-          es: "Hacia dónde se moverá el precio en el próximo periodo."
+          en: "Where price is headed in the period that follows."
+          es: "Hacia dónde va el precio en el periodo siguiente."
     explanation:
-      en: "A candle carries only its four OHLC prices for its window. How many units changed hands is volume — a separate series — and nothing on a single candle forecasts the next one."
-      es: "Una vela solo lleva sus cuatro precios OHLC de su ventana. Cuántas unidades cambiaron de manos es el volumen —una serie aparte— y nada en una sola vela predice la siguiente."
+      en: "A candle carries only its four OHLC prices for its window. How many units changed hands is volume — a separate series drawn under the price, not read off the bar — and nothing on a single candle forecasts the next one."
+      es: "Una vela solo lleva sus cuatro precios OHLC de su ventana. Cuántas unidades cambiaron de manos es el volumen —una serie aparte que se dibuja bajo el precio, no algo que se lea en la barra— y nada en una sola vela predice la siguiente."
   - id: colour-myth
     kind: true_false
     prompt:
-      en: "A candle's colour tells you whether it closed above the previous candle's close."
-      es: "El color de una vela te dice si cerró por encima del cierre de la vela anterior."
-    answer: false
+      en: "A candle's colour compares its own close with its own open, not with the previous candle's close."
+      es: "El color de una vela compara su propio cierre con su propia apertura, no con el cierre de la vela anterior."
+    answer: true
     explanation:
-      en: "Colour is close-versus-open on the same candle, not versus the previous candle. A green candle can still close below the previous candle's close — read the actual levels, not the colour alone."
-      es: "El color es cierre frente a apertura de la misma vela, no frente a la vela anterior. Una vela verde puede cerrar aun así por debajo del cierre de la vela previa: lee los niveles reales, no solo el color."
+      en: "True, and it is why a green candle can still close below the previous candle's close. Colour is a one-bar fact; read the actual levels rather than the colour alone."
+      es: "Cierto, y por eso una vela verde puede cerrar aun así por debajo del cierre de la vela previa. El color es un hecho de una sola vela: lee los niveles reales, no solo el color."
   - id: close-weight
     prompt:
       en: "Why do most traders weight the close more heavily than the open, high or low?"
@@ -124,23 +124,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is the price both sides were willing to leave on the table when the period ended."
-          es: "Es el precio que ambos lados estuvieron dispuestos a dejar sobre la mesa cuando el periodo terminó."
+          en: "It is where both sides settled when the period ended."
+          es: "Es donde ambos lados quedaron cuando el periodo terminó."
       - id: b
         text:
           en: "It is always the highest price reached during the period."
           es: "Siempre es el precio más alto alcanzado durante el periodo."
       - id: c
         text:
-          en: "It predicts the open of the next candle."
-          es: "Predice la apertura de la próxima vela."
+          en: "It predicts where the next candle will open and close."
+          es: "Predice dónde abrirá y cerrará la próxima vela."
       - id: d
         text:
-          en: "It is the average of the high and the low."
-          es: "Es la media del máximo y el mínimo."
+          en: "It is the average of the period's high and its low."
+          es: "Es la media del máximo y el mínimo del periodo."
     explanation:
-      en: "The close is the price both sides settled on at the end of the period, which is why it is weighted most. It is not the high, not the mid-point, and it forecasts nothing."
-      es: "El cierre es el precio en el que ambos lados quedaron al final del periodo, y por eso se le da más peso. No es el máximo, ni el punto medio, y no predice nada."
+      en: "The close is the price both sides were willing to leave on the table at the end of the period, which is why it is weighted most. It is not the high, not the mid-point of the range, and it forecasts nothing about the bar that follows."
+      es: "El cierre es el precio que ambos lados estuvieron dispuestos a dejar sobre la mesa al final del periodo, y por eso se le da más peso. No es el máximo, ni el punto medio del rango, y no predice nada de la vela siguiente."
   - id: two-candles-story
     prompt:
       en: "Candle A opens at 100, runs up to 108, falls to 96 and closes at 101. Candle B opens at 108 and closes at 101 with no lower wick. Both end near 101 — what is the difference?"
@@ -149,23 +149,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Opposite stories: A shows price dumped to 96 and bought all the way back, B shows steady selling with nobody defending the lows."
-          es: "Historias opuestas: A muestra un precio tirado hasta 96 y recomprado del todo, B muestra venta sostenida sin nadie defendiendo los mínimos."
+          en: "Opposite stories: A was bought back from 96, B was not."
+          es: "Historias opuestas: A fue recomprada desde 96, B no."
       - id: b
-        text:
-          en: "None that matters — both closed at 101, so both say the same thing."
-          es: "Ninguna que importe: ambas cerraron en 101, así que dicen lo mismo."
-      - id: c
         text:
           en: "A is more bearish, because it reached the lower price of the two."
           es: "A es más bajista, porque alcanzó el precio más bajo de las dos."
+      - id: c
+        text:
+          en: "None that matters — both closed at 101, so both say the same thing."
+          es: "Ninguna que importe: ambas cerraron en 101, así que dicen lo mismo."
       - id: d
         text:
-          en: "B is more bullish, because its body is larger."
-          es: "B es más alcista, porque su cuerpo es más grande."
+          en: "B is more bullish, because its body is the larger of the two."
+          es: "B es más alcista, porque su cuerpo es el mayor de las dos."
     explanation:
-      en: "Reading only the close, or only the colour, would flatten these two into 'the same thing'. The long lower wick on A is buyers stepping in at 96; B's full body is selling with no defence."
-      es: "Leer solo el cierre, o solo el color, aplanaría estas dos en 'lo mismo'. La mecha inferior larga de A son compradores entrando en 96; el cuerpo entero de B es venta sin defensa."
+      en: "Reading only the close, or only the colour, would flatten these two into 'the same thing'. The long lower wick on A is buyers stepping in at 96 and lifting price all the way back; B's full body is steady selling with nobody defending the lows. Reaching a lower price is not itself bearish when the price was rejected, and a bigger body is not bullish when it points down."
+      es: "Leer solo el cierre, o solo el color, aplanaría estas dos en 'lo mismo'. La mecha inferior larga de A son compradores entrando en 96 y devolviendo el precio del todo; el cuerpo entero de B es venta sostenida sin nadie defendiendo los mínimos. Alcanzar un precio más bajo no es bajista si ese precio fue rechazado, y un cuerpo mayor no es alcista si apunta hacia abajo."
   - id: wick-against-you
     kind: true_false
     prompt:
@@ -181,23 +181,25 @@ variants:
       es: "Dos rupturas a un nuevo máximo se ven idénticas en el gráfico. La primera imprime tres veces el volumen medio reciente; la segunda, la mitad. ¿Qué te dice eso?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "The first has capital committed behind it and is harder to unwind; the second is a handful of trades in a quiet hour and is far easier to reverse."
-          es: "La primera tiene capital comprometido detrás y es más difícil de deshacer; la segunda son unas pocas operaciones en una hora tranquila y es mucho más fácil de revertir."
-      - id: b
         text:
           en: "Nothing — the candles are identical, so the breakouts are equivalent."
           es: "Nada: las velas son idénticas, así que las rupturas son equivalentes."
+      - id: b
+        correct: true
+        text:
+          en: "The first has capital committed behind it; the second is a few trades in a quiet hour."
+          es: "La primera tiene capital comprometido detrás; la segunda son unas pocas operaciones en una hora tranquila."
       - id: c
         text:
-          en: "The second is more bullish, since it took less volume to push price up."
-          es: "La segunda es más alcista, ya que hizo falta menos volumen para empujar el precio."
+          en: "The second is more bullish, since it took less volume to lift price."
+          es: "La segunda es más alcista, porque hizo falta menos volumen para subir."
       - id: d
-        text: { en: "High volume means the breakout is guaranteed to continue.", es: "Un volumen alto significa que la ruptura seguirá con seguridad." }
+        text:
+          en: "High volume means the breakout is guaranteed to continue upward."
+          es: "Un volumen alto significa que la ruptura seguirá subiendo con seguridad."
     explanation:
-      en: "'Price broke to a new high' and 'price broke to a new high on the strongest volume in weeks' are completely different statements. Volume is context, not a signal by itself — and never a guarantee."
-      es: "'El precio rompió a un nuevo máximo' y 'el precio rompió a un nuevo máximo con el mayor volumen en semanas' son afirmaciones completamente distintas. El volumen es contexto, no una señal por sí mismo, y nunca una garantía."
+      en: "'Price broke to a new high' and 'price broke to a new high on the strongest volume in weeks' are completely different statements. A move with many participants behind it is harder to unwind; a thin one is easy to reverse, and taking less volume to move price is a sign of an empty book, not of strength. Volume is context, never a signal by itself and never a guarantee."
+      es: "'El precio rompió a un nuevo máximo' y 'el precio rompió a un nuevo máximo con el mayor volumen en semanas' son afirmaciones completamente distintas. Un movimiento con mucha gente detrás cuesta más deshacerlo; uno fino se revierte fácil, y que haga falta menos volumen para mover el precio es señal de libro vacío, no de fuerza. El volumen es contexto, nunca una señal por sí mismo ni una garantía."
   - id: volume-facts
     kind: multi_select
     prompt:
@@ -207,22 +209,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It measures participation — how much changed hands during the candle."
-          es: "Mide la participación: cuánto cambió de manos durante la vela."
+          en: "It measures participation — how much changed hands in the candle."
+          es: "Mide la participación: cuánto cambió de manos en la vela."
       - id: b
         correct: true
         text:
-          en: "A move on high volume is harder to unwind, because many people now hold positions there."
-          es: "Un movimiento con volumen alto es más difícil de deshacer, porque mucha gente tiene ahora posiciones ahí."
+          en: "A high-volume move is harder to unwind, since many now hold there."
+          es: "Un movimiento con volumen alto cuesta más deshacerlo: muchos tienen posición ahí."
       - id: c
         correct: true
         text:
-          en: "A move on thin volume is easier to reverse — little conviction is behind it."
-          es: "Un movimiento con volumen fino es más fácil de revertir: hay poca convicción detrás."
+          en: "A thin-volume move is easier to reverse: little conviction behind it."
+          es: "Un movimiento con volumen fino se revierte fácil: hay poca convicción."
       - id: d
-        text: { en: "On its own it tells you the direction of the move.", es: "Por sí solo te dice la dirección del movimiento." }
+        text:
+          en: "On its own it tells you the direction the move is about to take."
+          es: "Por sí solo te dice la dirección que va a tomar el movimiento."
       - id: e
-        text: { en: "It is a complete trading signal without price context.", es: "Es una señal de trading completa sin contexto de precio." }
+        text:
+          en: "It is a complete trading signal, needing no price context at all."
+          es: "Es una señal de trading completa, sin necesidad de contexto de precio."
     explanation:
-      en: "Price tells you where trades happened; volume tells you how many people agreed. It is context for a move, never a direction or a signal on its own."
-      es: "El precio te dice dónde ocurrieron las operaciones; el volumen, cuánta gente estuvo de acuerdo. Es contexto para un movimiento, nunca una dirección ni una señal por sí solo."
+      en: "Price tells you where trades happened; volume tells you how many people agreed. It is context for a move — it has no direction of its own, and it is never a signal without the price action it sits under."
+      es: "El precio te dice dónde ocurrieron las operaciones; el volumen, cuánta gente estuvo de acuerdo. Es contexto para un movimiento: no tiene dirección propia y nunca es una señal sin la acción del precio sobre la que se apoya."

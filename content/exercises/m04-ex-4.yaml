@@ -7,25 +7,25 @@ variants:
       es: "La tasa de funding de un perpetuo es positiva. ¿Quién paga a quién?"
     options:
       - id: a
+        text:
+          en: "Shorts pay longs, since the shorts are underwater."
+          es: "Los cortos pagan a los largos, porque los cortos van perdiendo."
+      - id: b
         correct: true
         text:
-          en: "Longs pay shorts."
-          es: "Los largos pagan a los cortos."
-      - id: b
-        text:
-          en: "Shorts pay longs."
-          es: "Los cortos pagan a los largos."
+          en: "Longs pay shorts, because longs are the crowded side of the trade."
+          es: "Los largos pagan a los cortos, porque son el lado saturado."
       - id: c
         text:
-          en: "Both sides pay the exchange a holding fee."
-          es: "Ambos lados pagan al exchange una comisión por mantener la posición."
+          en: "Both sides pay the exchange a holding fee on the notional."
+          es: "Ambos lados pagan al exchange una comisión sobre el nocional."
       - id: d
         text:
           en: "The exchange pays whichever side is currently winning."
           es: "El exchange paga al lado que va ganando en ese momento."
     explanation:
-      en: "A positive rate appears when the perp trades above spot (longs are the crowded side), so longs pay shorts. The payment goes trader-to-trader; the exchange only moves it across, it does not collect it."
-      es: "Una tasa positiva aparece cuando el perp cotiza por encima del spot (los largos son el lado saturado), así que los largos pagan a los cortos. El pago va de trader a trader; el exchange solo lo transfiere, no se lo queda."
+      en: "A positive rate appears when the perp trades above spot, which means longs are the crowded side — so longs pay shorts. The sign follows crowding, not who is winning on price, and the payment goes trader-to-trader: the exchange only moves it across and keeps none of it."
+      es: "Una tasa positiva aparece cuando el perp cotiza por encima del spot, lo que significa que los largos son el lado saturado: así que los largos pagan a los cortos. El signo sigue a la saturación, no a quién gana con el precio, y el pago va de trader a trader: el exchange solo lo transfiere y no se queda nada."
   - id: why-it-exists
     prompt:
       en: "What is funding on a perpetual future for?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A periodic payment between longs and shorts that tethers the perp's price to spot, since a perp never expires to force them together."
-          es: "Un pago periódico entre largos y cortos que amarra el precio del perp al spot, ya que un perp nunca vence para forzar su convergencia."
+          en: "A payment between longs and shorts that tethers the perp to spot."
+          es: "Un pago entre largos y cortos que amarra el perp al spot."
       - id: b
-        text:
-          en: "A fee the exchange charges for holding a position overnight."
-          es: "Una comisión que cobra el exchange por mantener una posición de un día para otro."
-      - id: c
         text:
           en: "Interest you owe the exchange on the leverage it lent you."
           es: "Intereses que debes al exchange por el apalancamiento que te prestó."
+      - id: c
+        text:
+          en: "A fee the exchange charges for holding a position overnight."
+          es: "Una comisión que cobra el exchange por mantener la posición de un día a otro."
       - id: d
         text:
-          en: "A tax the exchange withholds on your realised profits."
-          es: "Un impuesto que el exchange retiene sobre tus beneficios realizados."
+          en: "A tax the exchange withholds on the profits you realise."
+          es: "Un impuesto que el exchange retiene sobre los beneficios que realizas."
     explanation:
-      en: "Because a perp has no expiry, nothing automatically pulls it back to spot — funding is that tether, paid between traders. It is not a fee the exchange charges, and it is not interest on leverage."
-      es: "Como un perp no tiene vencimiento, nada lo empuja automáticamente de vuelta al spot: el funding es ese amarre, pagado entre traders. No es una comisión que cobre el exchange ni son intereses por el apalancamiento."
+      en: "A dated future is pulled back to spot by its own expiry; a perp never expires, so nothing does that automatically and the anchor has to be manufactured. Funding is that tether, paid directly between traders — it is not an exchange fee, not interest on leverage, and nothing to do with tax."
+      es: "Un futuro con fecha vuelve al spot por su propio vencimiento; un perp nunca vence, así que nada lo hace automáticamente y el ancla hay que fabricarla. El funding es ese amarre, pagado directamente entre traders: no es una comisión del exchange, ni intereses por el apalancamiento, ni tiene nada que ver con impuestos."
   - id: funding-fee-myth
     kind: true_false
     prompt:
@@ -63,12 +63,12 @@ variants:
   - id: funding-is-interest-myth
     kind: true_false
     prompt:
-      en: "The funding rate is interest the exchange charges on the leverage it lent you."
-      es: "La tasa de funding son intereses que el exchange cobra por el apalancamiento que te prestó."
-    answer: false
+      en: "Funding is sized by your notional times the rate, so you can pay or receive it whether your leverage is high or low."
+      es: "El funding se dimensiona por tu nocional multiplicado por la tasa, así que puedes pagarlo o cobrarlo tanto con apalancamiento alto como bajo."
+    answer: true
     explanation:
-      en: "False. Funding has nothing to do with leverage or interest. It is a trader-to-trader transfer, sized by notional times the funding rate, that tethers the perp's price to spot. You can pay or receive it whether your leverage is high or low."
-      es: "Falso. El funding no tiene nada que ver con el apalancamiento ni con intereses. Es una transferencia de trader a trader, dimensionada por el nocional multiplicado por la tasa de funding, que amarra el precio del perp al spot. Puedes pagarlo o cobrarlo tanto con apalancamiento alto como bajo."
+      en: "True, and it is why funding is not interest on leverage. Leverage decides how much margin backs a given notional; funding is charged on the notional itself, so two traders with the same position size pay the same regardless of how they margined it."
+      es: "Cierto, y por eso el funding no son intereses del apalancamiento. El apalancamiento decide cuánto margen respalda un nocional dado; el funding se cobra sobre el nocional en sí, así que dos traders con el mismo tamaño de posición pagan lo mismo sin importar cómo la marginaron."
   - id: negative-rate
     prompt:
       en: "The funding rate on a perp is negative. What does that tell you, and who pays?"
@@ -77,23 +77,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The perp is trading below spot (shorts are the crowded side), so shorts pay longs."
-          es: "El perp cotiza por debajo del spot (los cortos son el lado saturado), así que los cortos pagan a los largos."
+          en: "The perp trades below spot, so the crowded shorts pay the longs."
+          es: "El perp cotiza por debajo del spot, así que los cortos saturados pagan a los largos."
       - id: b
         text:
-          en: "The perp is trading above spot, so longs pay shorts."
-          es: "El perp cotiza por encima del spot, así que los largos pagan a los cortos."
+          en: "The perp trades above spot, so the crowded longs pay the shorts."
+          es: "El perp cotiza por encima del spot, así que los largos saturados pagan a los cortos."
       - id: c
         text:
-          en: "The exchange is refunding part of your trading fees."
-          es: "El exchange te devuelve parte de tus comisiones de trading."
+          en: "The exchange is refunding part of the trading fees you paid."
+          es: "El exchange te devuelve parte de las comisiones de trading que pagaste."
       - id: d
         text:
-          en: "Everyone holding the perp is losing money right now."
-          es: "Todo el que tiene el perp está perdiendo dinero ahora mismo."
+          en: "Everyone holding the perp is losing money on it right now."
+          es: "Todo el que tiene el perp está perdiendo dinero con él ahora mismo."
     explanation:
-      en: "A negative rate means the perp trades below spot, so the shorts are the crowded side and pay the longs — the mirror image of a positive rate. The sign of funding is about which side is crowded, not about who is winning or losing on price."
-      es: "Una tasa negativa significa que el perp cotiza por debajo del spot, así que los cortos son el lado saturado y pagan a los largos: la imagen especular de una tasa positiva. El signo del funding indica qué lado está saturado, no quién gana o pierde con el precio."
+      en: "A negative rate is the mirror image of a positive one: the perp sits below spot, the shorts are the crowded side, and they pay the longs. The sign of funding is about which side is crowded, not about who is winning or losing on price, and it has nothing to do with fee rebates."
+      es: "Una tasa negativa es la imagen especular de una positiva: el perp está por debajo del spot, los cortos son el lado saturado y pagan a los largos. El signo del funding indica qué lado está saturado, no quién gana o pierde con el precio, y no tiene nada que ver con devoluciones de comisiones."
   - id: rate-sign-meanings
     kind: matching
     prompt:
@@ -130,48 +130,50 @@ variants:
       es: "Mantienes un largo en un perp durante varios días mientras la tasa de funding sigue claramente positiva. ¿Cuál es el efecto práctico para ti?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "A steady cost that quietly adds up — you are on the crowded side and pay funding at each interval."
-          es: "Un coste constante que se va acumulando en silencio: estás en el lado saturado y pagas funding en cada intervalo."
-      - id: b
         text:
           en: "A steady income — positive funding is always paid to whoever is long."
           es: "Un ingreso constante: el funding positivo siempre se le paga a quien está largo."
+      - id: b
+        text:
+          en: "Nothing, because funding only applies once you use high leverage."
+          es: "Nada, porque el funding solo se aplica cuando usas apalancamiento alto."
       - id: c
         text:
-          en: "Nothing, because funding only applies if you use high leverage."
-          es: "Nada, porque el funding solo se aplica si usas apalancamiento alto."
+          en: "Nothing, because funding is only charged when you close the position."
+          es: "Nada, porque el funding solo se cobra cuando cierras la posición."
       - id: d
+        correct: true
         text:
-          en: "Nothing, because funding is only charged when you finally close the position."
-          es: "Nada, porque el funding solo se cobra cuando por fin cierras la posición."
+          en: "A steady cost that quietly adds up at every interval."
+          es: "Un coste constante que se acumula en silencio en cada intervalo."
     explanation:
-      en: "Positive funding means longs pay shorts, so as a long you pay at every interval — a cost that compounds over days. It is charged each funding interval regardless of your leverage, and whether or not you have closed."
-      es: "Una tasa positiva significa que los largos pagan a los cortos, así que como largo pagas en cada intervalo: un coste que se acumula con los días. Se cobra en cada intervalo de funding sin importar tu apalancamiento, y hayas cerrado o no."
+      en: "Positive funding means longs pay shorts, so as a long you pay at every interval — a cost that compounds over days and is charged whether or not price moves your way. It is levied on your notional regardless of your leverage, and it does not wait for you to close."
+      es: "Una tasa positiva significa que los largos pagan a los cortos, así que como largo pagas en cada intervalo: un coste que se acumula con los días y que se cobra se mueva el precio a tu favor o no. Se aplica sobre tu nocional sin importar tu apalancamiento, y no espera a que cierres."
   - id: funding-math
     prompt:
       en: "You hold a long with 10,000 USDT of notional through a euphoric rally where funding runs at +0.1% per eight-hour window. What is that costing you?"
       es: "Mantienes un largo con 10.000 USDT de nocional durante un rally eufórico en el que el funding va al +0,1% por ventana de ocho horas. ¿Cuánto te cuesta?"
     options:
       - id: a
+        text:
+          en: "10 USDT once a day — about 70 USDT across the week."
+          es: "10 USDT una vez al día: unos 70 USDT a lo largo de la semana."
+      - id: b
         correct: true
         text:
-          en: "10 USDT every eight hours — about 30 USDT/day, 0.3% of notional per day, over 2% across a week, paid to the shorts whether or not price moves your way."
-          es: "10 USDT cada ocho horas: unos 30 USDT/día, un 0,3% del nocional diario, más del 2% en una semana, pagados a los cortos se mueva o no el precio a tu favor."
-      - id: b
-        text:
-          en: "10 USDT once a day — about 70 USDT across a week."
-          es: "10 USDT una vez al día: unos 70 USDT en una semana."
+          en: "10 USDT every eight hours — about 30 a day, over 2% of notional in a week."
+          es: "10 USDT cada ocho horas: unos 30 al día, más del 2% del nocional en una semana."
       - id: c
         text:
           en: "0.1% of your margin per window, which leverage makes negligible."
-          es: "El 0,1% de tu margen por ventana, algo que el apalancamiento vuelve insignificante."
+          es: "El 0,1% de tu margen por ventana, algo que el apalancamiento hace insignificante."
       - id: d
-        text: { en: "Nothing until you close the position.", es: "Nada hasta que cierres la posición." }
+        text:
+          en: "Nothing at all until the moment you close the position."
+          es: "Absolutamente nada hasta el momento en que cierres la posición."
     explanation:
-      en: "Funding is notional × rate, charged around the clock — commonly three windows a day. A rate that is noise at +0.01% (about 3 USDT/day here) becomes the largest cost of a multi-day position at +0.1%."
-      es: "El funding es nocional × tasa, cobrado a todas horas, normalmente tres ventanas al día. Una tasa que es ruido al +0,01% (unos 3 USDT/día aquí) se convierte en el mayor coste de una posición de varios días al +0,1%."
+      en: "Funding is notional × rate, charged around the clock — commonly three windows a day, so 0.1% becomes 0.3% of notional per day and over 2% across a week, paid to the shorts whether or not price moves your way. A rate that is noise at +0.01% (about 3 USDT/day here) becomes the largest single cost of a multi-day position at +0.1%."
+      es: "El funding es nocional × tasa, cobrado a todas horas, normalmente tres ventanas al día, así que el 0,1% son un 0,3% del nocional diario y más del 2% en una semana, pagados a los cortos se mueva o no el precio a tu favor. Una tasa que es ruido al +0,01% (unos 3 USDT/día aquí) se convierte en el mayor coste individual de una posición de varios días al +0,1%."
   - id: funding-arb-steps
     kind: ordering
     prompt:
@@ -210,24 +212,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is a transfer between traders — the exchange moves it from one side to the other and keeps none of it."
-          es: "Es una transferencia entre traders: el exchange lo mueve de un lado al otro y no se queda nada."
+          en: "It is a transfer between traders; the exchange keeps none of it."
+          es: "Es una transferencia entre traders; el exchange no se queda nada."
       - id: b
         correct: true
         text:
-          en: "On the unpopular side you receive it, which is a real if small income."
-          es: "En el lado impopular lo recibes, lo que supone un ingreso real aunque pequeño."
+          en: "On the unpopular side you receive it — a real if small income."
+          es: "En el lado impopular lo recibes: un ingreso real aunque pequeño."
       - id: c
         correct: true
         text:
-          en: "In crypto it is charged around the clock, typically every eight hours, with no weekend pause."
-          es: "En cripto se cobra a todas horas, normalmente cada ocho horas, sin pausa de fin de semana."
+          en: "In crypto it is charged around the clock, with no weekend pause."
+          es: "En cripto se cobra a todas horas, sin pausa de fin de semana."
       - id: d
         text:
           en: "It can be budgeted like a fixed commission, since the rate is stable."
           es: "Puede presupuestarse como una comisión fija, ya que la tasa es estable."
       - id: e
-        text: { en: "It is interest on the leverage the exchange lent you.", es: "Es el interés del apalancamiento que te prestó el exchange." }
+        text:
+          en: "It is interest on the leverage the exchange lent you to open."
+          es: "Es el interés del apalancamiento que el exchange te prestó para abrir."
     explanation:
-      en: "Never budget funding like a commission: a rate that is noise one week can quietly become the single largest cost of a multi-day position the next. And you are not always the payer."
-      es: "Nunca presupuestes el funding como una comisión: una tasa que es ruido una semana puede convertirse en el mayor coste de una posición de varios días la siguiente. Y no siempre eres tú quien paga."
+      en: "Never budget funding like a commission: a rate that is noise one week can quietly become the single largest cost of a multi-day position the next, and it is charged every eight hours or so, weekends included. You are also not always the payer — on the unpopular side it is income. And it is charged on notional, so it is not interest on anything the exchange lent you."
+      es: "Nunca presupuestes el funding como una comisión: una tasa que es ruido una semana puede convertirse en el mayor coste de una posición de varios días la siguiente, y se cobra cada ocho horas más o menos, fines de semana incluidos. Tampoco eres siempre tú quien paga: en el lado impopular es un ingreso. Y se cobra sobre el nocional, así que no son intereses de nada que te haya prestado el exchange."

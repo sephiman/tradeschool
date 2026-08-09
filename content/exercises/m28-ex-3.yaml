@@ -35,26 +35,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Buying spot asset while simultaneously shorting perpetual futures when funding is strongly positive."
-          es: "Comprar activo spot y simultáneamente vender futuros perpetuos cuando el funding es muy positivo."
+          en: "Buying spot while shorting the perp when funding is strongly positive."
+          es: "Comprar spot y vender el perp cuando el funding es muy positivo."
       - id: b
         correct: true
         text:
-          en: "Capturing market-neutral yield from positive funding payments paid by longs."
-          es: "Capturar rendimiento neutral al mercado a partir de pagos de funding positivos pagados por longs."
+          en: "Capturing market-neutral yield from the funding longs pay."
+          es: "Capturar rendimiento neutral del funding que pagan los largos."
       - id: c
         correct: false
         text:
           en: "Taking unhedged long directional exposure on high leverage."
-          es: "Tomar exposición direccional alcista sin cobertura con alto apalancamiento."
+          es: "Tomar exposición direccional alcista sin cobertura y apalancada."
       - id: d
         correct: true
         text:
-          en: "The yield narrows as arbitrageurs compete and drive futures price back to spot."
-          es: "El rendimiento se estrecha a medida que los arbitradores compiten y devuelven el precio de futuros al spot."
+          en: "The yield narrows as arbitrageurs compete and drive the perp back."
+          es: "El rendimiento se estrecha cuando los arbitrajistas devuelven el perp."
     explanation:
-      en: "Cash-and-carry arbitrage locks in market-neutral yield by going long spot and short futures when futures trade at a high premium."
-      es: "El arbitraje cash-and-carry bloquea un rendimiento neutral al mercado comprando spot y vendiendo futuros cuando cotizan con prima alta."
+      en: "Cash-and-carry locks in market-neutral yield by going long spot and short futures when futures trade at a high premium — the whole point is that the two legs cancel, so direction no longer matters. An unhedged leveraged long is the opposite trade: it keeps every bit of the direction risk the hedge exists to remove."
+      es: "El cash-and-carry asegura un rendimiento neutral al mercado comprando spot y vendiendo futuros cuando cotizan con prima alta: todo su sentido es que las dos patas se cancelan y la dirección deja de importar. Un largo apalancado sin cobertura es la operación contraria: conserva todo el riesgo direccional que la cobertura existe para eliminar."
 
   - id: basis-convergence-truth
     kind: true_false
@@ -73,25 +73,25 @@ variants:
       es: "¿Qué indica un ensanchamiento repentino de la Prima Kimchi (precio alto de BTC en exchanges coreanos vs spot global)?"
     options:
       - id: a
+        text:
+          en: "Bitcoin block times have lengthened, so transfers between venues stall."
+          es: "Los bloques de Bitcoin tardan más y las transferencias se atascan."
+      - id: b
         correct: true
         text:
-          en: "Strong local retail buying demand combined with capital withdrawal/fiat transfer friction."
-          es: "Fuerte demanda compradora minorista local combinada con fricción en retirada de capital/transferencia fiat."
-      - id: b
-        text:
-          en: "Bitcoin network block creation time has increased to 1 hour."
-          es: "El tiempo de creación de bloques de la red Bitcoin ha aumentado a 1 hora."
+          en: "Strong local retail demand plus fiat transfer and withdrawal friction."
+          es: "Demanda minorista local fuerte más fricción de fiat y de retirada."
       - id: c
         text:
-          en: "Global spot exchanges have permanently shut down."
-          es: "Los exchanges spot globales han cerrado permanentemente."
+          en: "Global spot venues are quoting stale prices while Korea quotes live ones."
+          es: "El spot global cotiza precios rancios mientras Corea cotiza en vivo."
       - id: d
         text:
-          en: "Short traders are receiving 100% interest per day."
-          es: "Los traders en corto están recibiendo un 100% de interés diario."
+          en: "Korean shorts are being paid an unusually large funding rate right now."
+          es: "A los cortos coreanos les pagan ahora un funding inusualmente alto."
     explanation:
-      en: "Cross-exchange premiums persist when capital flow friction prevents arbitrageurs from quickly moving fiat/crypto between venues."
-      es: "Las primas entre exchanges persisten cuando la fricción de flujo de capital impide que los arbitradores muevan rápidamente fiat/cripto entre exchanges."
+      en: "Cross-exchange premiums persist when capital flow friction prevents arbitrageurs from quickly moving fiat or crypto between venues — the demand is what opens the gap, the friction is what keeps it open. Block times affect everyone equally and no venue's feed is stale here; both readings would apply globally rather than to one country's exchanges."
+      es: "Las primas entre exchanges persisten cuando la fricción del flujo de capital impide que los arbitrajistas muevan rápido fiat o cripto entre sitios: la demanda abre el hueco, la fricción lo mantiene abierto. El tiempo de bloque afecta a todos por igual y aquí ningún feed está rancio; las dos lecturas valdrían globalmente, no para los exchanges de un solo país."
 
   - id: basis-arbitrage-sequence
     kind: ordering
@@ -130,25 +130,25 @@ variants:
       es: "¿Cuál es el riesgo principal en una operación de cash-and-carry delta-neutral (long spot, short perp)?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Funding rate flipping negative, turning expected yield into a recurring payment expense."
-          es: "Que la tasa de funding se vuelva negativa, convirtiendo la rentabilidad esperada en un gasto periódico."
+          en: "The asset price rising 50%, since the spot leg cannot cover the short."
+          es: "Que el precio suba un 50 %, ya que el spot no cubre el corto."
       - id: b
         text:
-          en: "Price of the asset increasing by 50%."
-          es: "Que el precio del activo suba un 50%."
+          en: "Liquidation of the spot position, which carries no margin buffer."
+          es: "La liquidación de la posición spot, que no tiene colchón de margen."
       - id: c
         text:
-          en: "Liquidation of the spot position."
-          es: "Liquidación de la posición spot."
+          en: "The order book deepening, which erodes the spread the trade earns."
+          es: "Que el libro gane profundidad y erosione el spread que gana la operación."
       - id: d
+        correct: true
         text:
-          en: "Order book depth becoming infinite."
-          es: "Que la profundidad del libro de órdenes sea infinita."
+          en: "Funding flipping negative, turning the yield into a recurring cost."
+          es: "Que el funding se vuelva negativo y el ingreso pase a ser gasto."
     explanation:
-      en: "While price moves are hedged, funding rate variability means positive yield can disappear or flip negative if market sentiment shifts."
-      es: "Aunque el precio esté cubierto, la variabilidad del funding implica que el rendimiento positivo puede desaparecer o volverse negativo si cambia el sentimiento."
+      en: "Price moves are hedged by construction — that is what delta-neutral means, so a 50% rally costs nothing net and an unleveraged spot holding cannot be liquidated. What is not hedged is the funding rate itself: if sentiment shifts, the yield can shrink to nothing or reverse into a payment you owe every interval."
+      es: "Los movimientos de precio están cubiertos por construcción —eso significa delta-neutral—, así que una subida del 50 % no cuesta nada en neto y una posición spot sin apalancar no se puede liquidar. Lo que no está cubierto es el propio funding: si cambia el sentimiento, el rendimiento puede reducirse a nada o invertirse en un pago que debes cada intervalo."
 
   - id: spot-perp-basis-expansion
     kind: single_choice
@@ -159,23 +159,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Aggressive buyers demand leveraged long contracts faster than spot liquidity can keep pace."
-          es: "Compradores agresivos demandan contratos largos apalancados más rápido de lo que la liquidez spot puede seguir."
+          en: "Leveraged long demand arrives faster than spot liquidity can keep up."
+          es: "La demanda de largos apalancados va más rápido que la liquidez spot."
       - id: b
         text:
-          en: "Exchanges charge higher Maker fees to long traders."
-          es: "Los exchanges cobran comisiones Maker más altas a los traders alcistas."
+          en: "Exchanges charge longs a higher maker fee, which lifts the perp price."
+          es: "Los exchanges cobran más comisión a los largos y eso sube el perp."
       - id: c
         text:
-          en: "The underlying blockchain halts transactions."
-          es: "La blockchain subyacente detiene las transacciones."
+          en: "The underlying chain congests, so the perp cannot track spot closely."
+          es: "La cadena se congestiona y el perp no puede seguir de cerca al spot."
       - id: d
         text:
-          en: "Short positions receive zero margin."
-          es: "Las posiciones cortas reciben cero margen."
+          en: "Shorts are given zero margin requirement, so nobody sells the premium."
+          es: "A los cortos no se les exige margen y nadie vende la prima."
     explanation:
-      en: "High leverage demand drives perpetual prices above spot, creating high positive basis and elevating funding payments to shorts."
-      es: "La alta demanda de apalancamiento empuja los perpetuos por encima del spot, creando un basis positivo alto y elevando los pagos por funding."
+      en: "High leverage demand drives perpetual prices above spot, creating high positive basis and elevating funding payments to shorts. The perp does not need the chain at all to track spot — funding is the mechanism that tethers it, and a fee schedule is far too small to open a basis of this size."
+      es: "La alta demanda de apalancamiento empuja los perpetuos por encima del spot, creando un basis positivo alto y elevando los pagos de funding a los cortos. El perp no necesita la cadena para seguir al spot: el funding es el mecanismo que lo ata, y una tabla de comisiones es demasiado pequeña para abrir un basis de este tamaño."
 
   - id: cross-venue-transfer-friction
     kind: single_choice
@@ -184,22 +184,22 @@ variants:
       es: "¿Por qué las primas de precio entre dos exchanges no se cierran inmediatamente cuando se suspenden las retiradas de wallet en uno de ellos?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Arbitrageurs cannot move assets to sell on the higher venue, breaking the arbitrage loop."
-          es: "Los arbitradores no pueden mover activos para vender en el exchange con precio más alto, rompiendo el bucle de arbitraje."
+          en: "The order books stop displaying bids until withdrawals are restored."
+          es: "Los libros dejan de mostrar bids hasta que vuelvan las retiradas."
       - id: b
         text:
-          en: "Order books automatically stop displaying bid prices."
-          es: "Los libros de órdenes dejan de mostrar precios de compra automáticamente."
+          en: "Global trading volume falls to zero, so no price can be discovered."
+          es: "El volumen global cae a cero y no se puede descubrir ningún precio."
       - id: c
         text:
-          en: "Trading volume drops to zero globally."
-          es: "El volumen de negociación cae a cero globalmente."
+          en: "Funding rates are forced to zero on every venue during a suspension."
+          es: "El funding se fuerza a cero en todos los exchanges durante la pausa."
       - id: d
+        correct: true
         text:
-          en: "Funding rates are set to zero across all exchanges."
-          es: "Las tasas de funding se fijan a cero en todos los exchanges."
+          en: "Arbitrageurs cannot move assets across to sell on the dearer venue."
+          es: "Los arbitrajistas no pueden llevar activos al exchange más caro."
     explanation:
-      en: "Arbitrage relies on physical transport of assets or fiat between exchanges; closing withdrawal rails traps capital and preserves price divergence."
-      es: "El arbitraje depende del transporte de activos o fiat entre exchanges; cerrar retiradas atrapa capital y mantiene la divergencia."
+      en: "Arbitrage relies on physically transporting assets or fiat between exchanges; closing the withdrawal rails traps capital and preserves the divergence. Trading itself continues normally on both venues — that is exactly why the two prices can stay apart while each book keeps quoting."
+      es: "El arbitraje depende de transportar físicamente activos o fiat entre exchanges; cerrar la vía de retiradas atrapa capital y mantiene la divergencia. La negociación sigue con normalidad en los dos sitios: por eso justamente los dos precios pueden quedarse separados mientras cada libro sigue cotizando."

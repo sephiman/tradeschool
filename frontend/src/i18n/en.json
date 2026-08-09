@@ -126,6 +126,8 @@
     "aliasHint": "Another name for",
     "origin": "{{lesson}}",
     "originLabel": "Taught in",
+    "fullEntry": "Full entry",
+    "closeDefinition": "Close the definition",
     "sense": "{{index}}. ",
     "loadFailed": "The glossary could not be loaded."
   },

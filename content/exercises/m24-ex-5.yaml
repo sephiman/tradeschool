@@ -7,134 +7,134 @@ variants:
       es: "El trading en papel valida mucho, pero hay algo que no puede probar. ¿Qué?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The psychology — demo has no real fear, because losing play money feels nothing like losing rent."
-          es: "La psicología: la demo no tiene miedo real, porque perder dinero de mentira no se parece a perder el alquiler."
+          en: "Whether you can find setups and size positions correctly from the stop."
+          es: "Si sabes encontrar setups y dimensionar posiciones desde el stop."
       - id: b
         text:
-          en: "Whether you can find setups and size correctly."
-          es: "Si sabes encontrar setups y dimensionar bien."
+          en: "Whether the plan's rules are internally consistent with one another."
+          es: "Si las reglas del plan son coherentes unas con otras."
       - id: c
         text:
-          en: "Whether the plan's rules are internally consistent."
-          es: "Si las reglas del plan son coherentes entre sí."
+          en: "Nothing — demo fills and demo emotions are identical to live trading."
+          es: "Nada: las ejecuciones y emociones de la demo son idénticas a las reales."
       - id: d
+        correct: true
         text:
-          en: "Nothing — demo is identical to live trading."
-          es: "Nada: la demo es idéntica al trading real."
+          en: "The psychology: demo has no real fear, because losing play money costs nothing."
+          es: "La psicología: la demo no tiene miedo real ni dinero de verdad."
     explanation:
-      en: "Demo validates the process — finding setups, sizing, following the plan — but not the trader. It has no real slippage and, crucially, no real fear. Only small real money starts testing the psychology."
-      es: "La demo valida el proceso —encontrar setups, dimensionar, seguir el plan— pero no al trader. No tiene slippage real y, sobre todo, no tiene miedo real. Solo el dinero real pequeño empieza a probar la psicología."
+      en: "Demo validates the process — finding setups, sizing, checking the rules hang together — but not the trader. It has no real slippage and, crucially, no real fear: losing play money feels nothing like losing rent. Only small real money starts testing the psychology."
+      es: "La demo valida el proceso —encontrar setups, dimensionar, comprobar que las reglas encajan— pero no al trader. No tiene slippage real y, sobre todo, no tiene miedo real: perder dinero de mentira no se parece a perder el alquiler. Solo el dinero real pequeño empieza a probar la psicología."
   - id: sample-size
     prompt:
       en: "You have taken 6 trades on a new system: 4 winners, 2 losers. What can you conclude about its edge?"
       es: "Has hecho 6 operaciones con un sistema nuevo: 4 ganadoras, 2 perdedoras. ¿Qué puedes concluir sobre su ventaja?"
     options:
       - id: a
+        text:
+          en: "It has a proven edge — two thirds winners is a reliable hit rate."
+          es: "Tiene ventaja probada: dos tercios de aciertos es una tasa fiable."
+      - id: b
         correct: true
         text:
-          en: "Almost nothing — 6 trades is noise; you need a real sample (dozens) before results mean anything (m22)."
-          es: "Casi nada: 6 operaciones son ruido; necesitas una muestra real (decenas) antes de que los resultados signifiquen algo (m22)."
-      - id: b
-        text:
-          en: "It has a proven, reliable edge — start sizing up."
-          es: "Tiene una ventaja probada y fiable: empieza a subir el tamaño."
+          en: "Almost nothing: 6 trades is noise, and judging an edge needs dozens of them."
+          es: "Casi nada: 6 operaciones son ruido y no una muestra que juzgar."
       - id: c
         text:
-          en: "The win rate is exactly 66,7% forever."
-          es: "El acierto es exactamente del 66,7% para siempre."
+          en: "The win rate is 66,7%, and that is the number to plan around."
+          es: "El acierto es del 66,7%, y ese es el número con el que planificar."
       - id: d
         text:
-          en: "It is broken and should be scrapped."
-          es: "Está roto y debería desecharse."
+          en: "It is broken: a system that loses a third of the time should be scrapped."
+          es: "Está roto: un sistema que pierde un tercio de las veces se desecha."
     explanation:
-      en: "A tiny sample is dominated by luck: a good system easily shows early losers and a bad one early winners. Judgement waits for dozens of trades, not a handful."
-      es: "Una muestra diminuta la domina la suerte: un buen sistema muestra perdedoras temprano con facilidad y uno malo, ganadoras. El juicio espera decenas de operaciones, no un puñado."
+      en: "A tiny sample is dominated by luck: a good system easily shows early losers and a bad one early winners, so neither the optimistic nor the pessimistic reading survives. Judgement waits for a real sample — dozens of trades (m22), not a handful — and until then 66,7% is an artefact of six coin flips."
+      es: "Una muestra diminuta la domina la suerte: un buen sistema muestra perdedoras temprano con facilidad y uno malo, ganadoras, así que no sobrevive ni la lectura optimista ni la pesimista. El juicio espera una muestra real —decenas de operaciones (m22), no un puñado— y hasta entonces el 66,7% es un artefacto de seis lanzamientos."
   - id: first-size
     prompt:
       en: "When you first move from demo to real money, how should you choose your position size?"
       es: "Cuando pasas por primera vez de la demo al dinero real, ¿cómo deberías elegir tu tamaño de posición?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Small enough that a full −1R loss feels genuinely trivial to you."
-          es: "Lo bastante pequeño para que una pérdida completa de −1R te resulte de verdad trivial."
+          en: "As large as your margin allows, so the validation is worth the time."
+          es: "Tan grande como permita tu margen, para que validar merezca el tiempo."
       - id: b
         text:
-          en: "As large as your margin allows, to make the validation worthwhile."
-          es: "Tan grande como permita tu margen, para que valga la pena validar."
+          en: "The same size a profitable trader you follow posts on their account."
+          es: "El mismo tamaño que publica en su cuenta un trader rentable que sigues."
       - id: c
+        correct: true
         text:
-          en: "The same size a profitable trader you follow uses."
-          es: "El mismo tamaño que usa un trader rentable al que sigues."
+          en: "Small enough that a full −1R loss feels genuinely trivial to you today."
+          es: "Tan pequeño que una pérdida de −1R te resulte trivial."
       - id: d
         text:
-          en: "Whatever size wins back your demo 'losses'."
-          es: "El tamaño que recupere tus «pérdidas» de la demo."
+          en: "Whatever size wins back what you 'lost' on demo while practising."
+          es: "El tamaño que recupere lo que «perdiste» en la demo practicando."
     explanation:
-      en: "The first job of real money is to expose you to real emotion while decisions still cost almost nothing. Start where losing is trivial; the profit comes later, after the edge is proven."
-      es: "El primer trabajo del dinero real es exponerte a emoción real mientras las decisiones aún cuestan casi nada. Empieza donde perder es trivial; el beneficio llega después, cuando la ventaja está probada."
+      en: "The first job of real money is to expose you to real emotion while decisions still cost almost nothing. Start where losing is trivial; the profit comes later, after the edge is proven. Copying someone else's size skips both the proof and the account it was sized for, and demo losses are not money owed."
+      es: "El primer trabajo del dinero real es exponerte a emoción real mientras las decisiones aún cuestan casi nada. Empieza donde perder es trivial; el beneficio llega después, cuando la ventaja está probada. Copiar el tamaño de otro se salta la prueba y la cuenta para la que se dimensionó, y las pérdidas de la demo no son una deuda."
   - id: scale-to-recover-tf
     kind: true_false
     prompt:
-      en: "After a losing streak, increasing your position size to win the losses back faster is a sound way to recover."
-      es: "Tras una racha perdedora, aumentar el tamaño de posición para recuperar las pérdidas más rápido es una forma sensata de recuperarse."
-    answer: false
+      en: "Increasing your position size after a losing streak, to win the losses back faster, inverts the rule that size follows proven edge."
+      es: "Aumentar el tamaño de posición tras una racha perdedora, para recuperar más rápido, invierte la regla de que el tamaño sigue a la ventaja probada."
+    answer: true
     explanation:
-      en: "Scaling to recover is the losing trader's reflex and the exact inversion of the rule: size follows proven edge, never the need to win back. It turns a manageable drawdown into a blown account."
-      es: "Escalar para recuperar es el reflejo del trader perdedor y la inversión exacta de la regla: el tamaño sigue a la ventaja probada, nunca a la necesidad de recuperar. Convierte una racha adversa manejable en una cuenta reventada."
+      en: "Scaling to recover is the losing trader's reflex: size should follow a proven edge, never the need to win back. It turns a manageable drawdown into a blown account."
+      es: "Escalar para recuperar es el reflejo del trader perdedor: el tamaño debe seguir a la ventaja probada, nunca a la necesidad de recuperar. Convierte una racha adversa manejable en una cuenta reventada."
   - id: when-scale-up
     prompt:
       en: "Under what condition is it appropriate to increase your trading size?"
       es: "¿Bajo qué condición es apropiado aumentar tu tamaño de operación?"
     options:
       - id: a
-        correct: true
         text:
-          en: "When the journal shows the edge holding over a real sample AND you are following the plan at the current size."
-          es: "Cuando el diario muestra que la ventaja se mantiene sobre una muestra real Y sigues el plan al tamaño actual."
+          en: "As soon as you have one big winning day, since momentum should be used."
+          es: "En cuanto tengas un gran día ganador, ya que el impulso hay que usarlo."
       - id: b
         text:
-          en: "As soon as you have one big winning day."
-          es: "En cuanto tengas un gran día ganador."
+          en: "Whenever you feel confident, because confidence reflects your reading."
+          es: "Siempre que te sientas seguro, porque la confianza refleja tu lectura."
       - id: c
         text:
-          en: "Whenever you feel confident."
-          es: "Siempre que te sientas seguro."
+          en: "Immediately after a loss, so the next winner recovers the drawdown."
+          es: "Inmediatamente tras una pérdida, para que la siguiente la recupere."
       - id: d
+        correct: true
         text:
-          en: "Immediately after a loss, to recover faster."
-          es: "Inmediatamente después de una pérdida, para recuperar más rápido."
+          en: "When the journal proves the edge and you follow the plan."
+          es: "Cuando el diario prueba la ventaja y sigues el plan."
     explanation:
-      en: "Scale in steps, only when the record keeps proving the edge and your discipline at the current size. Each step up re-tests the psychology, because bigger positions feel different."
-      es: "Escala por pasos, solo cuando el registro siga demostrando la ventaja y tu disciplina al tamaño actual. Cada escalón vuelve a probar la psicología, porque las posiciones más grandes se sienten distintas."
+      en: "Scale in steps, only when the record keeps proving the edge over a real sample AND you are still following the plan at the current size. Each step up re-tests the psychology, because bigger positions feel different — which is exactly why a single good day, a confident mood, or a drawdown are all the wrong triggers."
+      es: "Escala por pasos, solo cuando el registro siga demostrando la ventaja sobre una muestra real Y sigas el plan al tamaño actual. Cada escalón vuelve a probar la psicología, porque las posiciones más grandes se sienten distintas: por eso un solo buen día, un ánimo confiado o una racha adversa son todos detonantes equivocados."
   - id: why-validate
     prompt:
       en: "What is the point of validating a system on demo or tiny size before trading it for real?"
       es: "¿Cuál es el sentido de validar un sistema en demo o a tamaño diminuto antes de operarlo de verdad?"
     options:
       - id: a
+        text:
+          en: "It guarantees the system will be profitable once you take it live."
+          es: "Garantiza que el sistema será rentable en cuanto lo pases a real."
+      - id: b
         correct: true
         text:
-          en: "It moves the learning to where mistakes are cheap, instead of paying tuition with money you can't lose."
-          es: "Traslada el aprendizaje a donde los errores son baratos, en vez de pagar la matrícula con dinero que no puedes perder."
-      - id: b
-        text:
-          en: "It guarantees the system will be profitable live."
-          es: "Garantiza que el sistema será rentable en real."
+          en: "It moves the learning to where mistakes are cheap."
+          es: "Traslada el aprendizaje a donde los errores son baratos."
       - id: c
         text:
-          en: "It is a legal requirement on most exchanges."
-          es: "Es un requisito legal en la mayoría de exchanges."
+          en: "It is a legal requirement on most regulated derivatives exchanges."
+          es: "Es un requisito legal en casi todos los exchanges de derivados."
       - id: d
         text:
-          en: "There is no point; validation wastes time."
-          es: "No tiene sentido; validar es perder el tiempo."
+          en: "There is no point; validating just wastes the time an edge lasts."
+          es: "No tiene sentido; validar solo gasta el tiempo que dura una ventaja."
     explanation:
-      en: "The alternative to validation is discovering whether your system works with money you cannot afford to lose. Validation is how you learn the expensive lessons cheaply."
-      es: "La alternativa a validar es descubrir si tu sistema funciona con dinero que no puedes permitirte perder. Validar es como aprendes barato las lecciones caras."
+      en: "The alternative to validation is discovering whether your system works with money you cannot afford to lose. It guarantees nothing about the future — it just makes the expensive lessons cheap, which is worth far more than the weeks it costs."
+      es: "La alternativa a validar es descubrir si tu sistema funciona con dinero que no puedes permitirte perder. No garantiza nada sobre el futuro: solo abarata las lecciones caras, lo que vale mucho más que las semanas que cuesta."
   - id: validation-steps-multi
     kind: multi_select
     prompt:
@@ -143,43 +143,43 @@ variants:
     options:
       - id: a
         correct: true
-        text: { en: "Trade the plan on demo or minimum size until execution is automatic.", es: "Opera el plan en demo o tamaño mínimo hasta que la ejecución sea automática." }
+        text: { en: "Trade the plan on demo until execution is automatic.", es: "Opera el plan en demo hasta que la ejecución sea automática." }
       - id: b
         correct: true
         text: { en: "Wait for dozens of trades before judging the edge.", es: "Espera decenas de operaciones antes de juzgar la ventaja." }
       - id: c
         correct: true
-        text: { en: "Treat demo results as an optimistic ceiling (no real slippage or fear).", es: "Trata los resultados de la demo como un techo optimista (sin slippage ni miedo reales)." }
+        text: { en: "Treat demo results as an optimistic ceiling, not a forecast.", es: "Trata los resultados de la demo como un techo optimista, no un pronóstico." }
       - id: d
-        text: { en: "Skip straight to full size to make validation worthwhile.", es: "Saltar directo al tamaño completo para que valga la pena validar." }
+        text: { en: "Skip straight to full size, since validating wastes time.", es: "Saltar directo al tamaño completo, porque validar hace perder tiempo." }
     explanation:
-      en: "Validate on demo/small size, over a real sample, remembering demo flatters you. Skipping to full size is the opposite of validation — it is paying full tuition on an untested claim."
-      es: "Valida en demo/tamaño pequeño, sobre una muestra real, recordando que la demo te favorece. Saltar al tamaño completo es lo contrario de validar: es pagar la matrícula completa por una afirmación sin probar."
+      en: "Validate on demo or minimum size, over a real sample, remembering demo flatters you: no real slippage and no real fear. Skipping to full size is the opposite of validation — it is paying full tuition on an untested claim, and it makes the first losing streak the most expensive one."
+      es: "Valida en demo o tamaño mínimo, sobre una muestra real, recordando que la demo te favorece: sin slippage real ni miedo real. Saltar al tamaño completo es lo contrario de validar: es pagar la matrícula completa por una afirmación sin probar, y hace que la primera racha perdedora sea la más cara."
   - id: graded-sample-split
     prompt:
       en: "Your journal has 40 trades: 12 graded 'A' averaging +1,4R and 28 graded 'B' averaging +0,1R. Does this justify raising risk to 2% on A setups?"
       es: "Tu diario tiene 40 operaciones: 12 calificadas «A» con una media de +1,4R y 28 calificadas «B» con una media de +0,1R. ¿Justifica eso subir el riesgo al 2% en los setups A?"
     options:
       - id: a
-        correct: true
         text:
-          en: "No — 12 trades is far too small a sample, and grading splits your record into even smaller ones. Keep grading at flat 1% and let the sample grow."
-          es: "No: 12 operaciones son una muestra demasiado pequeña, y calificar parte tu registro en muestras aún menores. Sigue calificando con un 1% plano y deja crecer la muestra."
+          en: "Yes — a 14× gap in average R is far too large to have come from luck."
+          es: "Sí: una diferencia de 14× en la R media es demasiado grande para ser suerte."
       - id: b
         text:
-          en: "Yes — a 14× gap in average R is too large to be luck."
-          es: "Sí: una diferencia de 14× en la R media es demasiado grande para ser suerte."
-      - id: c
-        text:
-          en: "Yes, and you should also drop the B setups from the plan entirely."
+          en: "Yes, and you should drop the B setups from the plan entirely as well."
           es: "Sí, y además deberías eliminar del plan los setups B por completo."
+      - id: c
+        correct: true
+        text:
+          en: "No — 12 trades is far too small a sample, and grading splits it smaller."
+          es: "No: 12 operaciones son una muestra demasiado pequeña para probarlo."
       - id: d
         text:
-          en: "It does not matter — risk tiers are a matter of personal preference, not evidence."
-          es: "Da igual: los niveles de riesgo son una cuestión de preferencia personal, no de pruebas."
+          en: "It does not matter; risk tiers are personal preference, not evidence."
+          es: "Da igual: los niveles de riesgo son preferencia personal, no pruebas."
     explanation:
-      en: "This is m22's sample-size problem sharpened: a dozen trades can easily produce a +1,4R average by chance, and the temptation is to declare the tier ladder proven on exactly the lucky run that made you feel like a grader. Grade at a flat 1% until the per-grade samples are real."
-      es: "Es el problema del tamaño de muestra de m22 agudizado: una docena de operaciones puede dar una media de +1,4R por puro azar, y la tentación es declarar la escala probada justo con la racha de suerte que te hizo sentirte capaz de calificar. Califica con un 1% plano hasta que las muestras por calificación sean reales."
+      en: "This is m22's sample-size problem sharpened: grading splits an already small record into even smaller ones, and a dozen trades can easily average +1,4R by chance. The temptation is to declare the tier ladder proven on exactly the lucky run that made you feel like a grader. Keep grading at a flat 1% and let the per-grade samples grow."
+      es: "Es el problema del tamaño de muestra de m22 agudizado: calificar parte un registro ya pequeño en muestras aún menores, y una docena de operaciones puede dar una media de +1,4R por puro azar. La tentación es declarar la escala probada justo con la racha de suerte que te hizo sentirte capaz de calificar. Sigue calificando con un 1% plano y deja crecer las muestras."
   - id: validation-stages-match
     kind: matching
     prompt:

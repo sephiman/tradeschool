@@ -116,6 +116,8 @@ terms:
     es: >-
       Comprar el activo en sí, con liquidación inmediata: posees la moneda y no te la pueden liquidar.
       Es la referencia contra la que se cotizan los futuros perpetuos.
+  link_except:
+    en: [m08-l2, m09-l1, m13-l1, m25-l1]  # "a random spot", "obvious spots", "blind spot"
 
 - id: g-market-order
   en: market order
@@ -176,6 +178,9 @@ terms:
     es: >-
       La orden de venta en reposo más baja: contra ella te ejecutas si compras a mercado. El lado ask
       es la oferta que aguarda por encima del precio.
+  # EN `ask` is overwhelmingly the verb in this prose; only the book-side noun links.
+  match:
+    en: [best ask, the ask, bid/ask]
 
 - id: g-spread
   en: spread
@@ -188,6 +193,8 @@ terms:
     es: >-
       La distancia entre el mejor bid y el mejor ask: el coste inmediato de cruzar el libro. Se
       ensancha justo cuando la liquidez se adelgaza.
+  link_except:
+    en: [m03-l2, m15-l1, m17-l2, m19-l1, m19-l2, m22-l1]  # "spread across", "spread out", verb forms
 
 - id: g-depth
   en: depth
@@ -200,6 +207,8 @@ terms:
     es: >-
       Cuánto volumen descansa a cada precio según te alejas de la cima del libro. La poca profundidad
       es la razón de que una orden modesta mueva mucho el precio; m27 la lee a fondo.
+  link_except:
+    es: [m22-l1]  # "qué profundidad de racha perdedora"
 
 - id: g-custody
   en: custody
@@ -259,6 +268,7 @@ terms:
     es: >-
       La parte gruesa de una vela, entre apertura y cierre: el terreno que el precio de verdad
       conservó. m08-l2 lee un cuerpo largo como un lado arrollando al otro.
+  link_except: [m30-l1]  # "a body of knowledge" / "un cuerpo de conocimiento"
 
 - id: g-wick
   en: wick
@@ -307,6 +317,7 @@ terms:
     es: >-
       No "el precio subió", sino una secuencia de puntos de giro que escalan en la misma dirección:
       máximos y mínimos más altos, o máximos y mínimos más bajos.
+  link_except: [m16-l1]  # "Search trends" / "Tendencias de búsqueda"
 
 - id: g-range
   en: range
@@ -319,6 +330,7 @@ terms:
     es: >-
       El precio rotando entre un suelo y un techo sin secuencia que lo ordene. m09 es la lección que
       trata el rango como un proceso y no como una pausa.
+  link_except: [m01-l1]  # "the quality range" / "el rango de calidad"
 
 - id: g-support
   en: support
@@ -331,6 +343,7 @@ terms:
     es: >-
       Una zona por debajo del precio donde los compradores ya entraron antes, dibujada como banda y
       no como línea. Aguanta porque la gente actúa sobre ella, y falla cuando dejan de hacerlo.
+  link_except: [m01-l1, m02-l1]  # "support desk", not the level
 
 - id: g-resistance
   en: resistance
@@ -403,6 +416,7 @@ terms:
     es: >-
       Lo que de verdad negocias en un perpetuo: un acuerdo cuyo valor sigue a un precio, simétrico
       entre las dos partes y liquidado en una stablecoin.
+  link_except: [m02-l1]  # "smart contracts" / "contratos inteligentes"
 
 - id: g-long
   en: long
@@ -413,6 +427,10 @@ terms:
       A position that gains if price rises and loses if it falls.
     es: >-
       Una posición que gana si el precio sube y pierde si baja.
+  # `largo`/`long` are ordinary adjectives — "a lo largo de", "a long wick". Only the noun forms link.
+  match:
+    en: [longs, go long, long position, long positions]
+    es: [largos, en largo, un largo]
 
 - id: g-short
   en: short
@@ -425,6 +443,13 @@ terms:
     es: >-
       Una posición que gana si el precio baja y pierde si sube. No se pide prestado ni se vende nada:
       el contrato es simétrico, así que un corto es tan nativo como un largo.
+  # As `g-long`: "a corto plazo", "short-term", "stops short" are not the position.
+  match:
+    en: [shorts, go short, short position, short positions]
+    es: [cortos, un corto, en corto]
+  link_except:
+    en: [m11-l1]  # "a beginner following the rule shorts at 70" — the verb
+    es: [m10-l1]  # "los periodos son cortos"
 
 - id: g-mark-price
   en: mark price
@@ -437,6 +462,8 @@ terms:
     es: >-
       El precio de referencia con el que el exchange valora tu posición y dispara la liquidación,
       tomado de un índice amplio y no de su última operación. Existe para que una mecha no te liquide.
+  link_except:
+    en: [m03-l1]  # "they mark prices that were reached" — verb plus noun, not the mark price
 
 - id: g-last-price
   en: last price
@@ -487,6 +514,9 @@ terms:
       La distancia entre el precio del perpetuo y el spot, leída como porcentaje del spot. Compara el
       perpetuo con el spot de su propia plataforma; un hueco entre dos exchanges es fricción
       operativa, no posicionamiento.
+  # ES `base` is "base de datos", "hizo base", "sobre la base de" everywhere but its own lesson.
+  link:
+    es: false
 
 - id: g-notional
   en: notional
@@ -511,6 +541,9 @@ terms:
     es: >-
       El dinero que de verdad depositas para abrir y mantener una posición. Pequeño al lado del
       nocional, y la parte que te pueden quitar.
+  # ES `margen` is polysemous prose: "al margen de", "darle margen", "margen para reaccionar".
+  link_except:
+    es: [m01-l1, m12-l1, m19-l2, m23-l1, m27-l1, m30-l1]
 
 - id: g-initial-margin
   en: initial margin
@@ -581,6 +614,8 @@ terms:
     es: >-
       El exchange cerrando tu posición a la fuerza cuando el margen cae por debajo del de
       mantenimiento. Ni es una decisión tuya ni es un stop: es la plataforma protegiéndose.
+  link_except:
+    es: [m03-l1]  # "liquidación de sesión" is settlement, not a forced close
 
 - id: g-liquidation-price
   en: liquidation price
@@ -675,6 +710,7 @@ terms:
       lo largo de una estrategia; m20 tarifa el mismo movimiento en tres estilos.
 
 # --- Block C · anchors referenced by the SMC dialect ------------------------------------------
+  link_except: [m02-l1]  # "network fees" / "comisión de red", not the venue's trading fee
 
 - id: g-change-of-character
   en: change of character
@@ -812,6 +848,8 @@ terms:
       El precio empujando justo más allá de un nivel donde descansan stops, activándolos y cerrando
       de vuelta en una o dos velas. Un nivel que aguanta se queda más allá; un barrido lo perfora y
       lo recupera.
+  link_except:
+    en: [m03-l2, m06-l1, m09-l1, m21-l1]  # the verb "sweep a level"; the noun is m20 and m30
 
 - id: g-liquidity-grab
   en: liquidity grab
@@ -847,6 +885,8 @@ terms:
       es: >-
         En el dialecto SMC: la mitad de un rango por encima de su punto medio. Un nivel que dibujaste
         tú, sin mecanismo detrás.
+  link_except:
+    es: [m07-l1, m24-l1]  # "la materia prima"
 
 - id: g-discount
   en: discount
@@ -883,6 +923,8 @@ terms:
       El precio cerrando más allá de un nivel que el mercado venía respetando, con participación
       detrás. El cierre y el volumen son toda la prueba: sin ellos es un fakeout; m14 aporta la mitad
       del volumen.
+  link_except:
+    es: [m01-l1]  # "una ruptura de la paridad" is a de-peg
 
 - id: g-fakeout
   en: fakeout
@@ -1057,6 +1099,9 @@ terms:
     es: >-
       El espejo de la acumulación: un rango tras una tendencia alcista en el que el volumen se coloca
       a compradores ansiosos. Precede a un markdown, y el upthrust es su señal.
+  # Only m09's Wyckoff sense is this entry; the rest are "the widest distribution", a statistical
+  # distribution of trades, and the distribution of volume inside a bar.
+  link_except: [m01-l1, m24-l2, m25-l1, m29-l1]
 
 - id: g-spring
   en: spring
@@ -1069,6 +1114,8 @@ terms:
     es: >-
       Una falsa ruptura por debajo del soporte de un rango que se recupera rápido hacia dentro,
       activando stops y tentando cortos de paso. m26 enseña el mismo suceso en el flujo de órdenes.
+  link_except:
+    en: [m21-l1]  # "it springs" — the stop-limit verb
 
 - id: g-upthrust
   en: upthrust
@@ -1268,7 +1315,8 @@ terms:
     es: >-
       La misma lectura en el extremo inferior, por convención por debajo de 30, y con la misma
       advertencia.
-
+  link_except:
+    en: [m01-l1]  # "wildly oversold" is over-promoted, not the RSI reading
 - id: g-divergence
   en: divergence
   es: divergencia
@@ -1452,6 +1500,7 @@ terms:
       Un barrido que pilla a un lado concurrido y apalancado, de modo que las liquidaciones alimentan
       el movimiento que provoca las siguientes. La compra forzada aparece en el perpetuo y no en el
       spot, que es la señal de la base de m17-l1.
+  link_except: [m11-l1]  # "squeezes the result onto a scale"
 
 - id: g-liquidity-map
   en: liquidity map
@@ -1770,6 +1819,8 @@ terms:
     es: >-
       Lo que vale una operación en promedio, combinando win rate y payoff. El número que de verdad
       decide si un sistema gana dinero, y se calcula, no se intuye.
+  link_except:
+    es: [m23-l1]  # "se endurece calladamente en esperanza" is hope, not expectancy
 
 - id: g-variance
   en: variance
@@ -1855,6 +1906,9 @@ terms:
     es: >-
       La reacción en el nivel que convierte un setup en una entrada, leída en las velas (m08-l2). Sin
       reacción no hay operación, por bueno que pareciera el nivel.
+  # EN `trigger` is usually the verb ("can trigger a cascade"); the article marks the noun.
+  match:
+    en: [a trigger, the trigger]
 
 - id: g-journal
   en: journal
@@ -1869,6 +1923,9 @@ terms:
       decirte si lo que falla es el sistema o la disciplina.
 
 # --- Block F · Order flow and microstructure ---------------------------------------------------
+  # ES `diario` means "daily" in every lesson but its own — "el gráfico diario", "cierre diario".
+  link:
+    es: false
 
 - id: g-order-flow
   en: order flow
@@ -1941,6 +1998,7 @@ terms:
     es: >-
       Una orden en reposo inusualmente grande a un precio. Puede absorber tamaño real o desaparecer
       antes de que la toquen: un muro que ves es un muro que alguien ha decidido enseñarte.
+  link_except: [m15-l1, m16-l1]  # "Wall Street", "wall-to-wall price targets", "un muro de objetivos"
 
 - id: g-imbalance
   en: imbalance
@@ -1965,6 +2023,8 @@ terms:
     es: >-
       Un gráfico que muestra qué se negoció a cada precio dentro de una sola vela, bid contra ask.
       Datos de especialista; este curso no los genera.
+  link_except:
+    en: [m03-l1, m30-l1]  # "the summed footprints of people", "the footprints it leaves"
 
 - id: g-volume-profile
   en: volume profile

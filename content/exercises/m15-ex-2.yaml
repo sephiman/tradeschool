@@ -7,25 +7,25 @@ variants:
       es: "¿Cómo se usa más habitualmente el ratio ETH/BTC?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "As a rough thermometer for risk appetite across the altcoin complex."
-          es: "Como un termómetro aproximado del apetito por el riesgo en el conjunto de las altcoins."
-      - id: b
         text:
           en: "As a precise signal telling you the exact moment to buy or sell Ether."
-          es: "Como una señal precisa que indica el momento exacto de comprar o vender Ether."
+          es: "Como señal precisa que indica el momento exacto de comprar o vender Ether."
+      - id: b
+        correct: true
+        text:
+          en: "As a rough thermometer for risk appetite across the alts."
+          es: "Como termómetro aproximado del apetito por el riesgo en las alts."
       - id: c
         text:
-          en: "As a measure of Ethereum's price in US dollars."
-          es: "Como una medida del precio de Ethereum en dólares."
+          en: "As a measure of Ethereum's price in United States dollars."
+          es: "Como una medida del precio de Ethereum en dólares estadounidenses."
       - id: d
         text:
-          en: "As the amount of ETH that must be paid in fees per BTC transaction."
-          es: "Como la cantidad de ETH que hay que pagar en comisiones por cada transacción de BTC."
+          en: "As the ETH that must be paid in fees for each BTC transaction."
+          es: "Como el ETH que hay que pagar en comisiones por cada transacción de BTC."
     explanation:
-      en: "Because Ether is the largest, most liquid alt, its price measured in BTC works as a rough gauge of appetite for alts in general. It is a thermometer, not a trigger."
-      es: "Como Ether es la alt más grande y líquida, su precio medido en BTC sirve de indicador aproximado del apetito por las alts en general. Es un termómetro, no un detonante."
+      en: "Because Ether is the largest, most liquid alt, its price measured in BTC works as a rough gauge of appetite for alts in general. It is a thermometer, not a trigger — it reads the temperature of the environment rather than naming a moment to act, and it has nothing to do with dollar pricing or transaction fees."
+      es: "Como Ether es la alt más grande y líquida, su precio medido en BTC sirve de indicador aproximado del apetito por las alts en general. Es un termómetro, no un detonante: lee la temperatura del entorno en vez de señalar un momento para actuar, y no tiene nada que ver con precios en dólares ni con comisiones de transacción."
   - id: rising-means
     prompt:
       en: "A rising ETH/BTC ratio most likely suggests what?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Risk appetite is warming — money is stepping out of BTC toward the alts."
-          es: "El apetito por el riesgo se calienta: el dinero sale de BTC hacia las alts."
+          en: "Risk appetite is warming: money is stepping out toward the alts."
+          es: "El apetito por el riesgo se calienta: el dinero sale hacia las alts."
       - id: b
         text:
-          en: "Bitcoin is outperforming Ether right now."
-          es: "Bitcoin rinde mejor que Ether en este momento."
+          en: "That Ether's dollar price must therefore be falling right now."
+          es: "Que el precio de Ether en dólares tiene que estar cayendo ahora."
       - id: c
         text:
-          en: "Ether's dollar price must be falling."
-          es: "El precio de Ether en dólares tiene que estar cayendo."
+          en: "That Bitcoin is outperforming Ether over the period in question."
+          es: "Que Bitcoin rinde mejor que Ether durante el periodo en cuestión."
       - id: d
         text:
-          en: "An alt season is guaranteed to follow within days."
-          es: "Está garantizado que en unos días llegará una alt season."
+          en: "That an alt season is guaranteed to follow within a few days."
+          es: "Que está garantizada una alt season en unos pocos días."
     explanation:
-      en: "A rising ETH/BTC means Ether is outperforming Bitcoin, usually read as warming risk appetite. It reflects the current environment, not a guaranteed or dated outcome."
-      es: "Un ETH/BTC al alza significa que Ether rinde mejor que Bitcoin, algo que suele leerse como apetito por el riesgo que se calienta. Refleja el entorno actual, no un resultado garantizado ni con fecha."
+      en: "A rising ETH/BTC means Ether is outperforming Bitcoin, which is usually read as warming risk appetite. Because it is a ratio, it says nothing certain about either dollar price on its own, and it reflects the current environment rather than a guaranteed or dated outcome."
+      es: "Un ETH/BTC al alza significa que Ether rinde mejor que Bitcoin, algo que suele leerse como apetito por el riesgo que se calienta. Al ser un ratio, no dice nada seguro sobre ningún precio en dólares por separado, y refleja el entorno actual y no un resultado garantizado ni con fecha."
   - id: falling-means
     prompt:
       en: "A falling ETH/BTC ratio most likely suggests what?"
@@ -59,48 +59,48 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Bitcoin is outperforming Ether — capital retreating toward the safer end of the space."
-          es: "Bitcoin rinde mejor que Ether: capital que se repliega hacia la parte más segura del espacio."
+          en: "Bitcoin is outperforming Ether — capital retreating toward safety."
+          es: "Bitcoin rinde mejor que Ether: capital que se repliega hacia la seguridad."
       - id: b
         text:
-          en: "Ether's dollar price must be crashing."
-          es: "El precio de Ether en dólares tiene que estar desplomándose."
+          en: "That Ether's price in dollars must therefore be crashing hard."
+          es: "Que el precio de Ether en dólares tiene que estar desplomándose."
       - id: c
         text:
-          en: "Risk appetite is warming and the alts are about to lead."
-          es: "El apetito por el riesgo se calienta y las alts están a punto de liderar."
+          en: "That risk appetite is warming and the alts are about to lead."
+          es: "Que el apetito por el riesgo se calienta y las alts van a liderar."
       - id: d
         text:
-          en: "Ether is being delisted from the major exchanges."
-          es: "Ether está siendo retirado de los principales exchanges."
+          en: "That Ether is in the process of being delisted from major venues."
+          es: "Que Ether está siendo retirado de los principales venues."
     explanation:
-      en: "A falling ETH/BTC means Bitcoin is outperforming Ether, usually read as capital retreating toward the safer end. It is relative performance, not a statement about Ether's dollar price on its own."
-      es: "Un ETH/BTC a la baja significa que Bitcoin rinde mejor que Ether, algo que suele leerse como capital que se repliega hacia la parte más segura. Es rendimiento relativo, no una afirmación sobre el precio de Ether en dólares por sí solo."
+      en: "A falling ETH/BTC means Bitcoin is outperforming Ether, usually read as capital retreating toward the safer end of the space. It is relative performance: both could be rising in dollars with Bitcoin simply rising more, so it is not a statement about Ether's dollar price on its own — and it is the opposite of warming appetite."
+      es: "Un ETH/BTC a la baja significa que Bitcoin rinde mejor que Ether, algo que suele leerse como capital que se repliega hacia la parte más segura. Es rendimiento relativo: ambos podrían estar subiendo en dólares y Bitcoin simplemente subir más, así que no es una afirmación sobre el precio de Ether en dólares, y es lo contrario de un apetito que se calienta."
   - id: denominator
     prompt:
       en: "What is the ETH/BTC ratio actually measuring?"
       es: "¿Qué mide en realidad el ratio ETH/BTC?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The price of Ether expressed in Bitcoin rather than in dollars."
-          es: "El precio de Ether expresado en Bitcoin en lugar de en dólares."
+          en: "The price of one Ether quoted in United States dollars."
+          es: "El precio de un Ether cotizado en dólares estadounidenses."
       - id: b
         text:
-          en: "The price of Ether in US dollars."
-          es: "El precio de Ether en dólares."
+          en: "How many ETH exist for every BTC currently in circulation."
+          es: "Cuántos ETH existen por cada BTC actualmente en circulación."
       - id: c
+        correct: true
         text:
-          en: "How many ETH exist for every BTC in circulation."
-          es: "Cuántos ETH existen por cada BTC en circulación."
+          en: "The price of Ether expressed in Bitcoin rather than dollars."
+          es: "El precio de Ether expresado en Bitcoin y no en dólares."
       - id: d
         text:
-          en: "The fee, paid in ETH, to move one BTC between wallets."
-          es: "La comisión, pagada en ETH, para mover un BTC entre monederos."
+          en: "The fee, paid in ETH, to move a single BTC between wallets."
+          es: "La comisión, en ETH, para mover un solo BTC entre monederos."
     explanation:
-      en: "ETH/BTC is simply Ether's price measured in Bitcoin instead of dollars. Because Ether is the largest, most liquid alt, that one pair works as a thermometer for the whole alt complex."
-      es: "El ETH/BTC es sencillamente el precio de Ether medido en Bitcoin en lugar de en dólares. Como Ether es la alt más grande y líquida, ese único par sirve de termómetro para todo el conjunto de las alts."
+      en: "ETH/BTC is simply Ether's price measured in Bitcoin instead of dollars — a price ratio, not a supply count and not a fee. Because Ether is the largest, most liquid alt, that one pair works as a thermometer for the whole alt complex."
+      es: "El ETH/BTC es sencillamente el precio de Ether medido en Bitcoin en lugar de en dólares: un ratio de precios, no un recuento de suministro ni una comisión. Como Ether es la alt más grande y líquida, ese único par sirve de termómetro para todo el conjunto de las alts."
   - id: thermometer-not-trigger
     kind: true_false
     prompt:
@@ -153,34 +153,34 @@ variants:
       es: "Bitcoin sube a 50.000 (+25%) y Ether a 2.300 (+15%). Ether sube en dólares: ¿qué ha hecho ETH/BTC?"
     options:
       - id: a
-        correct: true
         text:
-          en: "It fell, to 2,300 / 50,000 = 0.046 — Bitcoin outperformed, so in BTC terms the alts lost ground."
-          es: "Cayó, a 2.300 / 50.000 = 0,046: Bitcoin rindió más, así que en relación con el BTC las alts perdieron terreno."
+          en: "It rose, because Ether's price in dollars rose over the period."
+          es: "Subió, porque el precio de Ether en dólares subió en el periodo."
       - id: b
         text:
-          en: "It rose, because Ether's dollar price rose."
-          es: "Subió, porque el precio en dólares de Ether subió."
-      - id: c
-        text:
-          en: "It was unchanged — both assets rose, so the ratio holds."
+          en: "It was unchanged — both assets rose, so the ratio holds steady."
           es: "No cambió: ambos activos subieron, así que el ratio se mantiene."
+      - id: c
+        correct: true
+        text:
+          en: "It fell, to 2,300 / 50,000 = 0.046 — Bitcoin outperformed."
+          es: "Cayó, a 2.300 / 50.000 = 0,046: Bitcoin rindió más."
       - id: d
         text:
-          en: "It cannot be computed without the total market cap."
+          en: "It cannot be computed at all without the total market cap."
           es: "No puede calcularse sin la capitalización total del mercado."
     explanation:
-      en: "Pricing Ether in BTC cancels the move the two share and leaves only Ether's relative performance. Had Ether run to 2,600 while Bitcoin only reached 44,000, the ratio would be 0.059 — clearly rising, appetite warming."
-      es: "Cotizar Ether en BTC cancela el movimiento que ambos comparten y deja solo el rendimiento relativo de Ether. Si Ether hubiera llegado a 2.600 mientras Bitcoin solo alcanzaba 44.000, el ratio sería 0,059: claramente al alza, con el apetito calentándose."
+      en: "Pricing Ether in BTC cancels the move the two share and leaves only Ether's relative performance, so in BTC terms the alts lost ground even though Ether rose in dollars. The ratio needs only the two prices. Had Ether run to 2,600 while Bitcoin only reached 44,000, the ratio would be 0.059 — clearly rising, appetite warming."
+      es: "Cotizar Ether en BTC cancela el movimiento que ambos comparten y deja solo el rendimiento relativo de Ether, así que frente al BTC las alts perdieron terreno aunque Ether subiera en dólares. El ratio solo necesita los dos precios. Si Ether hubiera llegado a 2.600 mientras Bitcoin solo alcanzaba 44.000, el ratio sería 0,059: claramente al alza, con el apetito calentándose."
   - id: dollar-direction-tf
     kind: true_false
     prompt:
-      en: "A rising ETH/BTC ratio always means Ether's dollar price is rising."
-      es: "Un ratio ETH/BTC creciente siempre significa que el precio en dólares de Ether está subiendo."
-    answer: false
+      en: "The ETH/BTC ratio can rise while both coins fall in dollars, and fall while both rise."
+      es: "El ratio ETH/BTC puede subir mientras ambas monedas caen en dólares, y bajar mientras ambas suben."
+    answer: true
     explanation:
-      en: "The ratio measures Ether *against Bitcoin*, so it can rise while both fall in dollars (Ether falling less) and fall while both rise (Bitcoin rising more). It is a statement about relative performance only."
-      es: "El ratio mide Ether *frente a Bitcoin*, así que puede subir mientras ambos caen en dólares (Ether cayendo menos) y bajar mientras ambos suben (Bitcoin subiendo más). Es solo una afirmación sobre rendimiento relativo."
+      en: "True, because the ratio measures Ether *against Bitcoin*: it rises whenever Ether falls less or rises more, whatever the dollar is doing. It is a statement about relative performance only."
+      es: "Cierto, porque el ratio mide Ether *frente a Bitcoin*: sube siempre que Ether caiga menos o suba más, haga lo que haga el dólar. Es solo una afirmación sobre rendimiento relativo."
   - id: ratio-facts
     kind: multi_select
     prompt:
@@ -190,26 +190,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It strips out the move Bitcoin and the alts share, leaving only Ether's relative performance."
-          es: "Elimina el movimiento que comparten Bitcoin y las alts, dejando solo el rendimiento relativo de Ether."
+          en: "It strips out the move BTC and the alts share, leaving relative performance."
+          es: "Quita el movimiento que comparten BTC y las alts y deja el rendimiento relativo."
       - id: b
         correct: true
         text:
-          en: "Because Ether is the largest and most liquid altcoin, it works as a rough thermometer for risk appetite across the alt complex."
-          es: "Como Ether es la altcoin mayor y más líquida, funciona como termómetro aproximado del apetito por el riesgo en todo el complejo alt."
+          en: "Ether is the largest, most liquid alt, so it gauges the whole complex."
+          es: "Ether es la alt mayor y más líquida, así que mide todo el complejo."
       - id: c
         correct: true
         text:
-          en: "'Warm' means the environment currently favours alts — and that environment can cool overnight."
-          es: "'Cálido' significa que el entorno favorece ahora a las alts, y ese entorno puede enfriarse de un día para otro."
+          en: "'Warm' means the environment favours alts — and it can cool overnight."
+          es: "'Cálido' significa que el entorno favorece a las alts, y puede enfriarse."
       - id: d
         text:
-          en: "It tells you the minute to rotate into altcoins."
-          es: "Te dice el minuto de rotar hacia altcoins."
+          en: "It tells you the minute at which to rotate into altcoins."
+          es: "Te dice el minuto exacto en el que rotar hacia altcoins."
       - id: e
         text:
-          en: "It moves in lockstep with Ether's dollar price."
-          es: "Se mueve al unísono con el precio en dólares de Ether."
+          en: "It moves in lockstep with Ether's price measured in dollars."
+          es: "Se mueve al unísono con el precio de Ether medido en dólares."
     explanation:
-      en: "It is a thermometer, not a trigger: it tells you the temperature of risk appetite, never the moment to act."
-      es: "Es un termómetro, no un detonante: te dice la temperatura del apetito por el riesgo, nunca el momento de actuar."
+      en: "It is a thermometer, not a trigger: it tells you the temperature of risk appetite, never the moment to act. And because it is a ratio, it can move in the opposite direction to Ether's dollar price whenever Bitcoin moves further in the same direction."
+      es: "Es un termómetro, no un detonante: te dice la temperatura del apetito por el riesgo, nunca el momento de actuar. Y al ser un ratio, puede moverse en dirección contraria al precio de Ether en dólares siempre que Bitcoin se mueva más en el mismo sentido."

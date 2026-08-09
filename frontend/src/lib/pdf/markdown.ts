@@ -6,8 +6,9 @@ import type { Content, ContentStack, ContentText, TableCell } from "pdfmake/inte
 import type { PhrasingContent, Root, RootContent, TableContent } from "mdast";
 // Type-only import: this is what teaches mdast about `containerDirective` / `leafDirective` nodes.
 import type {} from "mdast-util-directive";
-import { CALLOUT_ID, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
-import { PRINT, contentWidth } from "@/lib/pdf/page";
+import { GLOSSARY_TERM } from "@/lib/glossary/annotate";
+import { CALLOUT_ID, DEST, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
+import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
 
 /**
  * Lesson markdown -> pdfmake content: the print half of `lib/markdown.tsx`, over the same dialect.
@@ -29,7 +30,11 @@ interface Marks {
   color?: string;
   background?: string;
   decoration?: "underline" | "lineThrough";
+  decorationStyle?: "dashed" | "dotted" | "double" | "wavy";
+  decorationColor?: string;
   link?: string;
+  /** An internal jump, to an `id` on a text node somewhere else in the document. */
+  linkToDestination?: string;
 }
 
 /** A soft break is a space in markdown but a HARD break in pdfmake, so wrapped prose must be unwrapped. */
@@ -77,6 +82,16 @@ function runs(nodes: PhrasingContent[], marks: Marks = {}): ContentText[] {
         break;
       case "textDirective":
         out.push(...runs(node.children, marks)); // no print rule for one: drop it, keep its text
+        break;
+      case GLOSSARY_TERM:
+        // Planted by the one annotator, so the book links exactly what the web marks.
+        out.push(
+          ...runs(node.children, {
+            ...marks,
+            ...CROSS_REF,
+            linkToDestination: DEST.term(node.termId),
+          }),
+        );
         break;
       default:
         if ("children" in node) out.push(...runs(node.children as PhrasingContent[], marks));
@@ -229,7 +244,20 @@ export function figureIds(markdown: string): string[] {
   return ids;
 }
 
-/** `source` (a lesson or exercise id) only feeds the block ids, which must be document-unique. */
-export function lessonToContent(markdown: string, r: MarkdownRenderers, source: string): Content[] {
-  return blocks(parseLesson(markdown).children, r, new Ids(source));
+/**
+ * `source` (a lesson or exercise id) only feeds the block ids, which must be document-unique.
+ *
+ * `annotate` gets the parsed tree before it is rendered — that is where glossary term links are
+ * planted, by the same function the app calls. An exercise prompt passes none: the book links terms
+ * where the course teaches, not inside its questions.
+ */
+export function lessonToContent(
+  markdown: string,
+  r: MarkdownRenderers,
+  source: string,
+  annotate?: (tree: Root) => void,
+): Content[] {
+  const tree = parseLesson(markdown);
+  annotate?.(tree);
+  return blocks(tree.children, r, new Ids(source));
 }

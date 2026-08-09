@@ -7,22 +7,22 @@ variants:
       es: "Dos traders completan una operación: uno tenía una orden limitada en reposo en el libro, el otro envió una orden a mercado que la golpeó. ¿Quién es el agresor y qué te dice eso?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The one who sent the market order — the taker. They chose to trade now rather than wait for a better price, and order flow is the record of which side did that."
-          es: "El que envió la orden a mercado: el taker. Eligió operar ahora en vez de esperar un precio mejor, y el flujo de órdenes es el registro de qué lado hizo eso."
+          en: "The maker — they set the price the trade happened at, so they led it."
+          es: "El maker: fijó el precio al que ocurrió la operación, así que la dirigió."
       - id: b
         text:
-          en: "The one with the resting limit order — the maker — because they set the price the trade happened at."
-          es: "El que tenía la orden limitada en reposo, el maker, porque fijó el precio al que ocurrió la operación."
+          en: "Whichever of the two ends up in profit; the outcome defines the aggressor."
+          es: "El que de los dos acabe en ganancia; al agresor lo define el resultado."
       - id: c
         text:
-          en: "Whichever of the two ends up in profit; the aggressor is defined by the outcome."
-          es: "El que de los dos acabe en ganancia; al agresor lo define el resultado."
+          en: "Both equally, since every trade has two sides and one shared volume."
+          es: "Los dos por igual, ya que toda operación tiene dos lados y un volumen."
       - id: d
+        correct: true
         text:
-          en: "Both equally — every trade has two sides, so neither party is more aggressive than the other."
-          es: "Los dos por igual: toda operación tiene dos lados, así que ninguna parte es más agresiva que la otra."
+          en: "The taker: they chose to trade now rather than wait for a better price to come."
+          es: "El taker: eligió operar ahora mismo en vez de esperar un precio mejor."
     explanation:
       en: "The taker accepts an existing price and pays for immediacy; the maker offers a price and waits. That asymmetry is the whole basis of order flow: volume counts both sides of every trade equally, but exactly one party chose to be impatient. Note that being the aggressor is not a sign of being right — much taker flow is retail market orders, stops firing and forced liquidations."
       es: "El taker acepta un precio existente y paga por la inmediatez; el maker ofrece un precio y espera. Esa asimetría es la base entera del flujo de órdenes: el volumen cuenta por igual los dos lados de cada operación, pero exactamente una de las partes eligió ser impaciente. Ojo: ser el agresor no es señal de tener razón; buena parte del flujo taker son órdenes a mercado de minoristas, stops saltando y liquidaciones forzadas."
@@ -34,20 +34,20 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Period B — its delta is +500 against +200 for A, even though A traded eight times the volume. Volume adds the two sides; delta subtracts them."
-          es: "El periodo B: su delta es +500 frente al +200 de A, aunque A negoció ocho veces el volumen. El volumen suma los dos lados; el delta los resta."
+          en: "Period B — its delta is +500 against A's +200, on a fraction of the volume."
+          es: "El periodo B: su delta es +500 frente al +200 de A, con menos volumen."
       - id: b
         text:
-          en: "Period A — it traded 5,800 contracts against B's 700, so far more aggression passed through it."
-          es: "El periodo A: negoció 5.800 contratos frente a los 700 de B, así que pasó por él mucha más agresión."
+          en: "They are equally one-sided, since buyers outnumbered sellers in both."
+          es: "Son igual de unilaterales, ya que en ambos los compradores superaron."
       - id: c
         text:
-          en: "They are equally one-sided, since in both periods the buyers outnumbered the sellers."
-          es: "Son igual de unilaterales, ya que en los dos periodos los compradores superaron a los vendedores."
+          en: "Period A — it traded 5,800 contracts against B's 700, so far more aggression."
+          es: "El periodo A: negoció 5.800 contratos frente a los 700 de B, mucha más agresión."
       - id: d
         text:
-          en: "Neither — with both sides trading, aggression is balanced by definition in each period."
-          es: "Ninguno: al operar los dos lados, la agresión está equilibrada por definición en cada periodo."
+          en: "Neither — with both sides trading, aggression is balanced by definition."
+          es: "Ninguno: al operar los dos lados, la agresión se equilibra por definición."
     explanation:
       en: "A's delta is 3,000 − 2,800 = +200 on 5,800 volume: enormous activity, almost perfectly balanced aggression. B's is 600 − 100 = +500 on 700 volume: far less activity, far more one-sided. This is exactly what delta adds — volume answers how many showed up, delta answers which side was pressing and by how much."
       es: "El delta de A es 3.000 − 2.800 = +200 sobre 5.800 de volumen: actividad enorme y agresión casi perfectamente equilibrada. El de B es 600 − 100 = +500 sobre 700 de volumen: mucha menos actividad, mucho más unilateral. Esto es justo lo que añade el delta: el volumen responde cuántos aparecieron, el delta responde qué lado presionaba y cuánto."
@@ -100,34 +100,34 @@ variants:
   - id: delta-not-a-forecast
     kind: true_false
     prompt:
-      en: "A clearly positive delta over the last hour means price is likely to rise over the next hour."
-      es: "Un delta claramente positivo en la última hora significa que es probable que el precio suba en la hora siguiente."
-    answer: false
+      en: "A clearly positive delta over the last hour tells you aggressive buyers were pressing, but not that price is likely to rise."
+      es: "Un delta claramente positivo en la última hora te dice que los compradores agresivos presionaban, pero no que sea probable que el precio suba."
+    answer: true
     explanation:
-      en: "False. A positive delta says aggressive buyers were pressing — it says nothing about the result. Buyers can spend an hour lifting offers into a large resting seller who never yields, and price ends flat or lower: that is absorption, and it is one of the most useful things order flow shows. 'Buyers were aggressive' and 'price went up' are different claims, and the gap between them is where the information lives."
-      es: "Falso. Un delta positivo dice que los compradores agresivos estaban presionando; no dice nada del resultado. Los compradores pueden pasarse una hora barriendo la oferta contra un gran vendedor en reposo que no cede, y el precio acaba plano o más abajo: eso es absorción, y es una de las cosas más útiles que muestra el flujo de órdenes. 'Los compradores fueron agresivos' y 'el precio subió' son afirmaciones distintas, y en el hueco entre las dos está la información."
+      en: "Delta reports pressure, not result. Buyers can spend an hour lifting offers into a large resting seller who never yields, and price ends flat or lower: that is absorption, and it is one of the most useful things order flow shows. 'Buyers were aggressive' and 'price went up' are different claims, and the gap between them is where the information lives."
+      es: "El delta reporta presión, no resultado. Los compradores pueden pasarse una hora barriendo la oferta contra un gran vendedor en reposo que no cede, y el precio acaba plano o más abajo: eso es absorción, y es una de las cosas más útiles que muestra el flujo de órdenes. «Los compradores fueron agresivos» y «el precio subió» son afirmaciones distintas, y en el hueco entre las dos está la información."
   - id: aggressor-not-smart-money
     prompt:
       en: "A trader argues that following the taker side is following the informed money, since takers are the ones actually moving price. What's the honest correction?"
       es: "Un trader sostiene que seguir el lado taker es seguir al dinero informado, ya que los takers son quienes de verdad mueven el precio. ¿Cuál es la corrección honesta?"
     options:
       - id: a
+        text:
+          en: "It's correct — takers pay the higher fee and the spread, so only the confident bother."
+          es: "Es correcto: los takers pagan más comisión y el spread, así que solo van los seguros."
+      - id: b
         correct: true
         text:
-          en: "Impatience isn't insight: much taker flow is retail market orders, stops firing and forced liquidations, while patient size often sits on the maker side absorbing it."
-          es: "La impaciencia no es perspicacia: buena parte del flujo taker son órdenes a mercado de minoristas, stops saltando y liquidaciones forzadas, mientras el tamaño paciente suele estar en el lado maker absorbiéndolo."
-      - id: b
-        text:
-          en: "It's correct — takers pay the higher fee and the spread, so only confident, well-informed traders bother to be takers."
-          es: "Es correcto: los takers pagan la comisión más alta y el spread, así que solo los traders seguros y bien informados se molestan en ser takers."
+          en: "Impatience isn't insight: much taker flow is stops and liquidations."
+          es: "La impaciencia no es criterio: mucho flujo taker son stops y liquidados."
       - id: c
         text:
-          en: "It's correct for perpetuals but wrong for spot, where the maker is always the informed side."
-          es: "Es correcto para perpetuos pero falso en spot, donde el maker es siempre el lado informado."
+          en: "It's correct on perpetuals but wrong on spot, where the maker is the informed side."
+          es: "Es correcto en perpetuos pero falso en spot, donde el maker es el lado informado."
       - id: d
         text:
-          en: "Neither side carries information; taker and maker are purely administrative labels an exchange uses for fees."
-          es: "Ningún lado lleva información; taker y maker son etiquetas puramente administrativas que usa un exchange para las comisiones."
+          en: "Neither side carries information; taker and maker are just labels used for fees."
+          es: "Ningún lado lleva información; taker y maker son solo etiquetas para comisiones."
     explanation:
       en: "Being the aggressor means you paid for immediacy, not that you were right. A liquidated long is force-sold as a taker; a stop-loss fires as a taker. Meanwhile the participant quietly absorbing all of it with resting orders is frequently the one who knows what they are doing — that is precisely m14's absorption. Read delta as pressure, never as a verdict."
       es: "Ser el agresor significa que pagaste por la inmediatez, no que tuvieras razón. Un largo liquidado se vende a la fuerza como taker; un stop salta como taker. Mientras tanto, el participante que absorbe en silencio todo eso con órdenes en reposo es con frecuencia el que sabe lo que hace: eso es precisamente la absorción de m14. Lee el delta como presión, nunca como veredicto."
@@ -137,71 +137,75 @@ variants:
       es: "Estás mirando una cifra de delta agregada de una docena de exchanges. ¿Cuánto deberías fiarte del número exacto?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Use it for the shape — whether aggression is building or fading — but not to the contract: it stacks per-venue estimates of varying quality."
-          es: "Úsalo para la forma —si la agresión se acumula o se apaga— pero no al contrato: apila estimaciones por exchange de calidad variable."
+          en: "Completely — aggregating many venues averages the errors out, so it is exact."
+          es: "Completamente: agregar muchos venues promedia los errores, así que es exacta."
       - id: b
         text:
-          en: "Completely — aggregating many venues averages out the errors, so the combined figure is more exact than any single venue's."
-          es: "Completamente: agregar muchos exchanges promedia los errores, así que la cifra combinada es más exacta que la de cualquier sitio individual."
+          en: "Not at all — delta is a derived indicator like RSI, so no venue reports it."
+          es: "En absoluto: el delta es un indicador derivado como el RSI y nadie lo reporta."
       - id: c
         text:
-          en: "Not at all — delta is a derived indicator like RSI, so no venue reports anything real about the taker side."
-          es: "En absoluto: el delta es un indicador derivado como el RSI, así que ningún exchange reporta nada real sobre el lado taker."
+          en: "Exactly as much as one venue's figure; aggregation changes nothing at all."
+          es: "Igual que la cifra de un solo venue; agregar no cambia nada en la calidad."
       - id: d
+        correct: true
         text:
-          en: "Exactly as much as a single venue's figure; aggregation changes nothing about data quality."
-          es: "Exactamente igual que la cifra de un solo exchange; la agregación no cambia nada en la calidad del dato."
+          en: "Use it for the shape — whether aggression is building or fading — not to the contract."
+          es: "Úsalo para la forma —si la agresión crece o se apaga—, nunca al contrato."
     explanation:
-      en: "Delta is genuinely reported data, not a derived indicator — major venues label the taker side on their trade feeds. But elsewhere it is estimated (classically by the tick rule: a print at the ask counts as a taker buy), and aggregating stacks several such estimates while m14's wash-trading warning still applies to the volumes underneath. Treat one good venue as data and the aggregate as a well-informed approximation."
-      es: "El delta son datos reportados de verdad, no un indicador derivado: los exchanges grandes etiquetan el lado taker en su flujo de operaciones. Pero en otros se estima (clásicamente con la regla del tick: una impresión al precio de venta cuenta como compra taker), y agregar apila varias de esas estimaciones mientras la advertencia sobre el wash trading de m14 sigue valiendo para los volúmenes de debajo. Trata un buen sitio como dato y el agregado como una aproximación bien informada."
+      en: "Delta is genuinely reported data, not a derived indicator — major venues label the taker side on their trade feeds. But elsewhere it is estimated (classically by the tick rule: a print at the ask counts as a taker buy), and aggregating stacks several such estimates while m14's wash-trading warning still applies to the volumes underneath. Treat one good venue as data and the aggregate as a well-informed approximation: read whether aggression is building or fading, and never quote it to the contract."
+      es: "El delta son datos reportados de verdad, no un indicador derivado: los exchanges grandes etiquetan el lado taker en su flujo de operaciones. Pero en otros se estima (clásicamente con la regla del tick: una impresión al precio de venta cuenta como compra taker), y agregar apila varias de esas estimaciones mientras la advertencia sobre el wash trading de m14 sigue valiendo para los volúmenes de debajo. Trata un buen sitio como dato y el agregado como una aproximación bien informada: lee si la agresión crece o se apaga, y nunca lo cites al contrato."
   - id: delta-worked
     prompt:
       en: "Over one hour a perp trades 2,400 contracts on the taker-buy side and 1,750 on the taker-sell side. What does a volume bar show, and what does delta add?"
       es: "En una hora, un perp negocia 2.400 contratos en el lado taker-compra y 1.750 en el lado taker-venta. ¿Qué muestra una barra de volumen y qué añade el delta?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Volume shows 4,150. Delta is +650 — buyers were the aggressors on balance, by about 16% of the hour's total activity."
-          es: "El volumen muestra 4.150. El delta es +650: los compradores fueron los agresores en conjunto, por en torno al 16% de la actividad total de la hora."
+          en: "Volume shows 650 and delta shows 4,150 — delta is the larger, cumulative one."
+          es: "El volumen muestra 650 y el delta 4.150: el delta es la cifra mayor y acumulada."
       - id: b
         text:
-          en: "Volume shows 650 and delta shows 4,150 — delta is the larger, cumulative figure."
-          es: "El volumen muestra 650 y el delta 4.150: el delta es la cifra mayor y acumulada."
+          en: "Both show 4,150, because delta is just another name for the same total."
+          es: "Ambos muestran 4.150, porque el delta es otro nombre para el mismo total."
       - id: c
+        correct: true
         text:
-          en: "Both show 4,150 — delta is just another name for volume."
-          es: "Ambos muestran 4.150: el delta es solo otro nombre para el volumen."
+          en: "Volume shows 4,150; delta is +650, so buyers were the aggressors on balance."
+          es: "El volumen muestra 4.150; el delta es +650: presionaron los compradores."
       - id: d
         text:
-          en: "Volume shows 2,400, since only the buy side counts as volume."
+          en: "Volume shows 2,400, since only the buy side of a trade counts as volume."
           es: "El volumen muestra 2.400, ya que solo el lado comprador cuenta como volumen."
     explanation:
-      en: "Volume adds the two sides; delta subtracts them. Volume answers how many showed up; delta answers which side was pressing, and by how much."
-      es: "El volumen suma los dos lados; el delta los resta. El volumen responde cuántos aparecieron; el delta, qué lado presionaba y con cuánta fuerza."
+      en: "Volume adds the two sides (2,400 + 1,750 = 4,150); delta subtracts them (2,400 − 1,750 = +650), about 16% of the hour's activity. Volume answers how many showed up; delta answers which side was pressing, and by how much."
+      es: "El volumen suma los dos lados (2.400 + 1.750 = 4.150); el delta los resta (2.400 − 1.750 = +650), en torno al 16% de la actividad de la hora. El volumen responde cuántos aparecieron; el delta, qué lado presionaba y con cuánta fuerza."
   - id: taker-buy-terminology
     prompt:
       en: "What exactly does 'taker buy volume' mean?"
       es: "¿Qué significa exactamente 'volumen taker de compra'?"
     options:
       - id: a
+        text:
+          en: "All volume that ended in a purchase, which is in fact every single trade."
+          es: "Todo el volumen que acabó en una compra, es decir, absolutamente toda operación."
+      - id: b
         correct: true
         text:
-          en: "The taker was the buyer — someone lifted the offer. It does not mean 'volume that was bought', which would be all of it."
-          es: "El taker era el comprador: alguien levantó la oferta. No significa 'volumen que se compró', que sería todo."
-      - id: b
-        text:
-          en: "All volume that resulted in a purchase, which is every trade."
-          es: "Todo el volumen que resultó en una compra, es decir, cada operación."
+          en: "The taker was the buyer — someone lifted the offer."
+          es: "El taker era el comprador: alguien levantó la oferta."
       - id: c
-        text: { en: "Volume from limit buy orders resting in the book.", es: "Volumen de órdenes límite de compra en reposo en el libro." }
+        text:
+          en: "Volume from limit buy orders resting unfilled in the order book."
+          es: "Volumen de órdenes límite de compra en reposo sin llenar en el libro."
       - id: d
-        text: { en: "Buy volume from market makers only.", es: "Volumen de compra solo de creadores de mercado." }
+        text:
+          en: "Buy volume attributable to registered market makers only."
+          es: "Volumen de compra atribuible solo a creadores de mercado registrados."
     explanation:
-      en: "Every trade has a buyer and a seller, so volume can never be bullish or bearish by itself. The taker side is the asymmetric part: on any single trade, exactly one party paid for immediacy."
-      es: "Toda operación tiene comprador y vendedor, así que el volumen nunca puede ser alcista o bajista por sí mismo. El lado taker es la parte asimétrica: en cada operación, exactamente una parte pagó por la inmediatez."
+      en: "Every trade has a buyer and a seller, so 'volume that was bought' would be all of it — which is why volume can never be bullish or bearish by itself. The taker side is the asymmetric part: on any single trade, exactly one party paid for immediacy, and taker buy volume is the part where that party was the buyer."
+      es: "Toda operación tiene comprador y vendedor, así que 'volumen que se compró' sería todo, y por eso el volumen nunca puede ser alcista o bajista por sí mismo. El lado taker es la parte asimétrica: en cada operación, exactamente una parte pagó por la inmediatez, y el volumen taker de compra es la parte en que esa parte era el comprador."
   - id: delta-quality
     kind: multi_select
     prompt:
@@ -211,27 +215,27 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is real reported data, not a derived indicator — but it is venue-specific."
-          es: "Son datos reales reportados, no un indicador derivado, pero son específicos de cada venue."
+          en: "It is real reported data, not a derived indicator."
+          es: "Son datos reales reportados, no un indicador derivado."
       - id: b
         correct: true
         text:
-          en: "Major exchanges label the taker side on their trade feeds directly."
-          es: "Los grandes exchanges etiquetan el lado taker directamente en sus feeds de operaciones."
+          en: "Major exchanges label the taker side on their feeds."
+          es: "Los grandes exchanges etiquetan el lado taker en sus feeds."
       - id: c
         correct: true
         text:
-          en: "Elsewhere it is estimated with the tick rule — a trade at the ask is assumed taker-buy, at the bid taker-sell — which is decent but not exact."
-          es: "En otros exchanges se estima con la regla del tick (una operación en el ask se asume taker-compra y en el bid taker-venta), lo que es aceptable pero no exacto."
+          en: "Elsewhere it is estimated with the tick rule."
+          es: "En otros se estima con la regla del tick."
       - id: d
         correct: true
         text:
-          en: "Aggregating several venues stacks several such estimates, so cross-venue delta is an approximation."
-          es: "Agregar varios venues acumula varias de esas estimaciones, así que el delta entre venues es una aproximación."
+          en: "Aggregating venues stacks several such estimates."
+          es: "Agregar venues acumula varias de esas estimaciones."
       - id: e
         text:
-          en: "Cross-venue delta is the most precise figure available, since it covers the whole market."
-          es: "El delta entre venues es la cifra más precisa disponible, ya que cubre todo el mercado."
+          en: "Cross-venue delta is the most precise figure available."
+          es: "El delta entre venues es la cifra más precisa disponible."
     explanation:
-      en: "Treat delta from one good venue as data and cross-venue delta as a well-informed approximation: use it for the shape — is aggression building or fading — and never quote it to the contract."
-      es: "Trata el delta de un buen venue como dato y el delta entre venues como una aproximación bien informada: úsalo para la forma (¿la agresión crece o se apaga?) y nunca lo cites al contrato."
+      en: "The tick rule assumes a trade printed at the ask was a taker buy and one at the bid a taker sell — decent, but not exact. So coverage and precision pull in opposite directions: treat delta from one good venue as data and cross-venue delta as a well-informed approximation. Use it for the shape — is aggression building or fading — and never quote it to the contract."
+      es: "La regla del tick asume que una operación impresa en el ask fue compra taker y una en el bid, venta taker: aceptable, pero no exacto. Así que cobertura y precisión tiran en direcciones opuestas: trata el delta de un buen venue como dato y el delta entre venues como una aproximación bien informada. Úsalo para la forma (¿la agresión crece o se apaga?) y nunca lo cites al contrato."

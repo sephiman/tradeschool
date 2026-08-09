@@ -9,48 +9,48 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Skip it — if you can't state your entry, stop and invalidation before clicking, it's a chase, not a trade."
-          es: "Déjala pasar: si no puedes decir tu entrada, tu stop y tu invalidación antes de hacer clic, es una persecución, no una operación."
+          en: "Skip it — with no entry, stop and invalidation, it is a chase."
+          es: "Déjala pasar: sin entrada, stop e invalidación, es una persecución."
       - id: b
         text:
-          en: "Get in now at market; with a move this strong, missing it is the real risk."
-          es: "Entra ya a mercado; con un movimiento así de fuerte, perdértelo es el verdadero riesgo."
+          en: "Enter with a very wide stop, since a strong trend won't revisit a tight one."
+          es: "Entra con un stop muy amplio: una tendencia fuerte no vuelve a uno ajustado."
       - id: c
         text:
-          en: "Enter with a very wide or no stop, since a strong trend won't come back to a tight one."
-          es: "Entra con un stop muy amplio o sin stop, ya que una tendencia fuerte no volverá a uno ajustado."
+          en: "Get in now at market; with a move this strong, missing it is the real risk."
+          es: "Entra ya a mercado; con un movimiento así, perdértelo es el riesgo real."
       - id: d
         text:
-          en: "Buy a small amount now and 'average up' as it keeps running."
-          es: "Compra una cantidad pequeña ahora y 'promedia al alza' según siga subiendo."
+          en: "Buy a small amount now and 'average up' as it keeps on running."
+          es: "Compra un poco ahora y 'promedia al alza' mientras siga subiendo."
     explanation:
-      en: "A FOMO entry has no plan by definition — the reason is 'price went up,' not that a setup appeared — and you arrive at the worst price, exactly where earlier buyers are ready to sell to you. Widening the stop (c) or averaging up into the move (d) just compounds it. There is always another setup."
-      es: "Una entrada por FOMO no tiene plan por definición —el motivo es 'el precio subió', no que apareciera un setup— y llegas al peor precio, justo donde los compradores anteriores están listos para vendértelo. Ensanchar el stop (c) o promediar al alza dentro del movimiento (d) solo lo agrava. Siempre hay otra oportunidad."
+      en: "A FOMO entry has no plan by definition — the reason is 'price went up', not that a setup appeared — and you arrive at the worst price, exactly where earlier buyers are ready to sell to you. Widening the stop, or averaging up into the move so your largest size sits at your worst price, just compounds it. There is always another setup."
+      es: "Una entrada por FOMO no tiene plan por definición —el motivo es 'el precio subió', no que apareciera un setup— y llegas al peor precio, justo donde los compradores anteriores están listos para vendértelo. Ensanchar el stop, o promediar al alza dentro del movimiento de modo que tu mayor tamaño quede al peor precio, solo lo agrava. Siempre hay otra oportunidad."
   - id: fomo-rule
     prompt:
       en: "Which single rule most directly defuses FOMO entries?"
       es: "¿Qué regla, por sí sola, desactiva de forma más directa las entradas por FOMO?"
     options:
       - id: a
-        correct: true
         text:
-          en: "No entry unless you can state its entry, stop and invalidation in advance."
-          es: "No hay entrada salvo que puedas decir de antemano su entrada, su stop y su invalidación."
+          en: "Always enter the moment price breaks to a new high, so you never miss out."
+          es: "Entrar siempre al romper a un nuevo máximo, para no perderte nada."
       - id: b
         text:
-          en: "Always enter the moment price breaks to a new high, so you never miss a trend."
-          es: "Entrar siempre en el momento en que el precio rompe a un nuevo máximo, para no perderte nunca una tendencia."
+          en: "Increase your size on fast-moving coins to catch up on missed profit."
+          es: "Subir el tamaño en monedas rápidas para recuperar el beneficio perdido."
       - id: c
         text:
-          en: "Increase your size on fast-moving coins to catch up on the profit you missed."
-          es: "Aumentar tu tamaño en las monedas que se mueven rápido para recuperar el beneficio que te perdiste."
-      - id: d
-        text:
           en: "Trust that a big green candle confirms the move is safe to chase."
-          es: "Confiar en que una gran vela verde confirma que el movimiento es seguro de perseguir."
+          es: "Confiar en que una gran vela verde confirma que es seguro perseguir."
+      - id: d
+        correct: true
+        text:
+          en: "No entry unless you can state its entry, stop and invalidation first."
+          es: "Sin entrada salvo que puedas decir antes entrada, stop e invalidación."
     explanation:
-      en: "The cure for FOMO is a pre-commitment that a valid trade must be describable before you click. Options b, c and d are the chase disguised as strategy: entering on every breakout, sizing up to 'catch up,' and treating a green candle as confirmation are all ways of trading because price moved, not because a setup exists."
-      es: "La cura para el FOMO es un precompromiso: una operación válida tiene que poder describirse antes de hacer clic. Las opciones b, c y d son la persecución disfrazada de estrategia: entrar en cada ruptura, subir el tamaño para 'recuperar' y tratar una vela verde como confirmación son todas maneras de operar porque el precio se movió, no porque exista un setup."
+      en: "The cure for FOMO is a pre-commitment that a valid trade must be describable before you click. The other three are the chase disguised as strategy: entering on every breakout, sizing up to 'catch up', and treating a green candle as confirmation are all ways of trading because price moved, not because a setup exists."
+      es: "La cura para el FOMO es un precompromiso: una operación válida tiene que poder describirse antes de hacer clic. Las otras tres son la persecución disfrazada de estrategia: entrar en cada ruptura, subir el tamaño para 'recuperar' y tratar una vela verde como confirmación son todas maneras de operar porque el precio se movió, no porque exista un setup."
   - id: price-moving-myth
     kind: true_false
     prompt:
@@ -74,103 +74,103 @@ variants:
       - id: b
         correct: true
         text:
-          en: "Accepting that there's always another setup and letting the runner go."
+          en: "Accepting there is always another setup, and letting the runner go."
           es: "Aceptar que siempre hay otra oportunidad y dejar marchar el movimiento."
       - id: c
         correct: true
         text:
-          en: "Waiting for a setup you planned instead of reacting to a green candle."
-          es: "Esperar un setup que planificaste en lugar de reaccionar a una vela verde."
+          en: "Waiting for a setup you planned instead of reacting to a candle."
+          es: "Esperar un setup que planificaste en vez de reaccionar a una vela."
       - id: d
         text:
-          en: "Entering at market the moment you feel you're missing out."
-          es: "Entrar a mercado en el momento en que sientes que te lo estás perdiendo."
+          en: "Entering at market the moment you feel that you are missing out."
+          es: "Entrar a mercado en cuanto sientes que te lo estás perdiendo."
       - id: e
         text:
-          en: "Sizing up on fast-moving coins to catch up on missed profit."
-          es: "Subir el tamaño en monedas que se mueven rápido para recuperar el beneficio perdido."
+          en: "Sizing up on fast-moving coins to catch up on the missed profit."
+          es: "Subir el tamaño en monedas rápidas para recuperar lo que te perdiste."
       - id: f
         text:
-          en: "Treating a big green candle as confirmation it's safe to chase."
+          en: "Treating a big green candle as confirmation it is safe to chase."
           es: "Tratar una gran vela verde como confirmación de que es seguro perseguir."
     explanation:
-      en: "The cure for FOMO is pre-commitment: a valid trade must be describable — entry, stop, invalidation — before you click, and you accept there's always another setup. Options d, e and f are the chase disguised as strategy, all of them trading because price moved rather than because a setup exists."
-      es: "La cura para el FOMO es el precompromiso: una operación válida tiene que poder describirse —entrada, stop, invalidación— antes de hacer clic, y aceptas que siempre hay otra oportunidad. Las opciones d, e y f son la persecución disfrazada de estrategia, todas operando porque el precio se movió y no porque exista un setup."
+      en: "The cure for FOMO is pre-commitment: a valid trade must be describable — entry, stop, invalidation — before you click, and you accept there's always another setup. The last three are the chase disguised as strategy, all of them trading because price moved rather than because a setup exists."
+      es: "La cura para el FOMO es el precompromiso: una operación válida tiene que poder describirse —entrada, stop, invalidación— antes de hacer clic, y aceptas que siempre hay otra oportunidad. Las tres últimas son la persecución disfrazada de estrategia, todas operando porque el precio se movió y no porque exista un setup."
   - id: worst-price
     prompt:
       en: "Why is chasing a coin that has already run hard usually a poor entry?"
       es: "¿Por qué perseguir una moneda que ya se ha disparado suele ser una mala entrada?"
     options:
       - id: a
+        text:
+          en: "Late entries are fine, because a genuinely strong trend always keeps going."
+          es: "Las entradas tardías van bien, porque una tendencia fuerte siempre sigue."
+      - id: b
         correct: true
         text:
-          en: "You arrive at the worst price of the move, exactly where earlier buyers are getting ready to sell to you."
-          es: "Llegas al peor precio del movimiento, justo donde los compradores anteriores se preparan para vendértelo."
-      - id: b
-        text:
-          en: "Late entries are fine, because a strong trend always keeps going."
-          es: "Las entradas tardías están bien, porque una tendencia fuerte siempre sigue."
+          en: "You arrive at the worst price, where earlier buyers are ready to sell."
+          es: "Llegas al peor precio, donde los compradores previos ya quieren vender."
       - id: c
         text:
           en: "The only real downside is that fees are higher on fast-moving coins."
-          es: "El único inconveniente real es que las comisiones son más altas en monedas que se mueven rápido."
+          es: "El único inconveniente real es que las comisiones suben en monedas rápidas."
       - id: d
         text:
-          en: "It's safe as long as you use high leverage to make the late entry worthwhile."
-          es: "Es seguro mientras uses mucho apalancamiento para que la entrada tardía valga la pena."
+          en: "It is safe as long as you use high leverage to make the late entry pay."
+          es: "Es seguro mientras uses mucho apalancamiento para rentabilizarla."
     explanation:
-      en: "Chasing means buying late, with no entry logic and no invalidation, right where the earlier buyers are ready to sell to you. Trends don't 'always continue' (b), the problem isn't fees (c), and leverage makes a bad entry worse, not safer (d)."
-      es: "Perseguir es comprar tarde, sin lógica de entrada ni invalidación, justo donde los compradores anteriores están listos para vendértelo. Las tendencias no 'siempre siguen' (b), el problema no son las comisiones (c) y el apalancamiento empeora una mala entrada, no la hace más segura (d)."
+      en: "Chasing means buying late, with no entry logic and no invalidation, right where the earlier buyers are ready to sell to you. Trends do not 'always continue', the problem is not the fee schedule, and leverage makes a bad entry worse rather than safer."
+      es: "Perseguir es comprar tarde, sin lógica de entrada ni invalidación, justo donde los compradores anteriores están listos para vendértelo. Las tendencias no 'siempre siguen', el problema no es la tarifa de comisiones, y el apalancamiento empeora una mala entrada en vez de hacerla más segura."
   - id: trade-vs-chase
     prompt:
       en: "What is the defining difference between a trade and a chase?"
       es: "¿Cuál es la diferencia que define una operación frente a una persecución?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A trade has a stated entry, stop and invalidation before you click; a chase is entered only because price moved."
-          es: "Una operación tiene entrada, stop e invalidación dichos antes de hacer clic; una persecución se entra solo porque el precio se movió."
+          en: "A trade uses leverage, whereas a chase does not use any at all."
+          es: "Una operación usa apalancamiento y una persecución no usa ninguno."
       - id: b
         text:
-          en: "A trade uses leverage and a chase doesn't."
-          es: "Una operación usa apalancamiento y una persecución no."
+          en: "A trade is on Bitcoin, whereas a chase happens on the altcoins."
+          es: "Una operación es en Bitcoin y una persecución ocurre en altcoins."
       - id: c
+        correct: true
         text:
-          en: "A trade is on Bitcoin and a chase is on altcoins."
-          es: "Una operación es en Bitcoin y una persecución es en altcoins."
+          en: "A trade has entry, stop and invalidation stated before you click."
+          es: "Una operación tiene entrada, stop e invalidación dichos antes del clic."
       - id: d
         text:
-          en: "A trade ends in profit and a chase ends in a loss — you can only tell afterward."
-          es: "Una operación acaba en ganancia y una persecución en pérdida; solo lo sabes después."
+          en: "A trade ends in profit and a chase in a loss — you only know afterwards."
+          es: "Una acaba en ganancia y otra en pérdida: solo lo sabes después."
     explanation:
-      en: "The line isn't the instrument or the outcome — it's whether you could state the entry, stop and invalidation before clicking. If you can't, the reason for the trade is just that price went up, which is the definition of a chase, and you skip it."
-      es: "La línea no es el instrumento ni el resultado: es si podías decir la entrada, el stop y la invalidación antes de hacer clic. Si no puedes, el motivo de la operación es solo que el precio subió, que es la definición de una persecución, y la dejas pasar."
+      en: "The line is not the instrument, the leverage or the outcome — it is whether you could state the entry, stop and invalidation before clicking. If you cannot, the reason for the trade is just that price went up, which is the definition of a chase, and you skip it. A chase that happens to win was still a chase."
+      es: "La línea no es el instrumento, ni el apalancamiento, ni el resultado: es si podías decir la entrada, el stop y la invalidación antes de hacer clic. Si no puedes, el motivo de la operación es solo que el precio subió, que es la definición de una persecución, y la dejas pasar. Una persecución que casualmente gana seguía siendo una persecución."
   - id: fomo-numbers
     prompt:
       en: "A coin rips +40% in an hour. Three green candles in, you buy at the top with no stop and no plan, and minutes later it mean-reverts 15%. What is the worst part of the situation?"
       es: "Una moneda sube un 40% en una hora. Tres velas verdes después, compras en máximos sin stop y sin plan, y minutos más tarde revierte un 15%. ¿Qué es lo peor de la situación?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "You are underwater at the single worst price of the move and, because you never defined an invalidation, you have no idea whether to hold or fold."
-          es: "Estás en pérdidas al peor precio del movimiento y, como nunca definiste una invalidación, no tienes idea de si mantener o cerrar."
-      - id: b
         text:
           en: "The 15% loss itself, which a stop would have prevented entirely."
           es: "La pérdida del 15% en sí, que un stop habría evitado por completo."
+      - id: b
+        correct: true
+        text:
+          en: "With no invalidation defined, you cannot tell whether to hold or fold."
+          es: "Sin invalidación definida, no puedes saber si mantener o cerrar."
       - id: c
         text:
-          en: "That you only bought three candles in rather than at the start."
-          es: "Que compraste solo tres velas después en vez de al principio."
+          en: "That you only bought three candles in, rather than right at the start."
+          es: "Que compraste tres velas después y no justo al principio."
       - id: d
         text:
-          en: "The fees on the entry, which are higher during volatile moves."
-          es: "Las comisiones de la entrada, que son mayores en movimientos volátiles."
+          en: "The fees on the entry, which run higher during volatile moves."
+          es: "Las comisiones de la entrada, más altas en movimientos volátiles."
     explanation:
-      en: "You bought a feeling, not a setup, and arrived exactly where the earlier buyers are getting ready to sell to you. Without an invalidation there is no way to manage what follows."
-      es: "Compraste una sensación, no un setup, y llegaste exactamente donde los compradores anteriores se preparan para venderte. Sin invalidación no hay forma de gestionar lo que viene."
+      en: "You are underwater at the single worst price of the move, and because you never defined an invalidation there is no way to manage what follows — that is worse than the loss itself, which a stop would have bounded rather than prevented. You bought a feeling, not a setup, and buying earlier would have been the same mistake at a better price."
+      es: "Estás en pérdidas al peor precio del movimiento y, como nunca definiste una invalidación, no hay forma de gestionar lo que viene: eso es peor que la propia pérdida, que un stop habría acotado, no evitado. Compraste una sensación, no un setup, y comprar antes habría sido el mismo error a mejor precio."
   - id: fomo-drivers
     kind: multi_select
     prompt:
@@ -180,29 +180,29 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is really fear of future regret — the anticipated pain of watching it run on without you feels larger than the real risk in front of you."
-          es: "En realidad es miedo al arrepentimiento futuro: el dolor anticipado de verlo correr sin ti se siente mayor que el riesgo real que tienes delante."
+          en: "It is really fear of future regret, which feels larger than the real risk."
+          es: "Es miedo al arrepentimiento futuro, que se siente mayor que el riesgo real."
       - id: b
         correct: true
         text:
-          en: "The herd amplifies it: when price and everyone around you are moving, the move itself starts to feel like evidence."
-          es: "La manada lo amplifica: cuando el precio y todos a tu alrededor se mueven, el propio movimiento empieza a parecer una prueba."
+          en: "The herd amplifies it: the move itself starts to feel like evidence."
+          es: "La manada lo amplifica: el propio movimiento empieza a parecer una prueba."
       - id: c
         correct: true
         text:
-          en: "A feed of other people's screenshotted wins — and almost never their losses — turns it into constant social pressure."
-          es: "Un feed con capturas de las ganancias de otros, y casi nunca de sus pérdidas, lo convierte en presión social constante."
+          en: "A feed of other people's wins — almost never their losses — pressures you."
+          es: "Un feed con las ganancias ajenas, casi nunca sus pérdidas, te presiona."
       - id: d
         text:
-          en: "A fast move is genuine evidence that the next move will continue upward."
-          es: "Un movimiento rápido es prueba genuina de que el siguiente continuará al alza."
+          en: "A fast move is genuine evidence the next move will continue upward."
+          es: "Un movimiento rápido prueba de verdad que el siguiente seguirá al alza."
       - id: e
         text:
-          en: "Entering late reduces risk, because the trend is already confirmed."
+          en: "Entering late reduces the risk, because the trend is already confirmed."
           es: "Entrar tarde reduce el riesgo, porque la tendencia ya está confirmada."
     explanation:
-      en: "All a fast move proves is that price already went up. A timeline showing only winners is not evidence about the trade in front of you."
-      es: "Todo lo que prueba un movimiento rápido es que el precio ya subió. Un timeline que solo muestra ganadores no es prueba suficiente sobre la operación que tienes delante."
+      en: "The anticipated pain of watching it run on without you feels larger than the real risk in front of you, and when price and everyone around you are moving, the move starts to look like proof. But all a fast move proves is that price already went up, a timeline showing only winners is not evidence about the trade in front of you, and entering later means a worse price rather than a safer one."
+      es: "El dolor anticipado de verlo correr sin ti se siente mayor que el riesgo real que tienes delante, y cuando el precio y todos a tu alrededor se mueven, el movimiento empieza a parecer una prueba. Pero todo lo que prueba un movimiento rápido es que el precio ya subió, un timeline que solo muestra ganadores no es prueba sobre la operación que tienes delante, y entrar más tarde significa peor precio, no más seguridad."
   - id: averaging-up
     kind: true_false
     prompt:

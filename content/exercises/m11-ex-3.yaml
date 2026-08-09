@@ -7,25 +7,25 @@ variants:
       es: "¿Qué mide realmente el RSI?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The relative size of recent average gains versus recent average losses, scaled to 0–100."
-          es: "El tamaño relativo de las ganancias medias recientes frente a las pérdidas medias recientes, escalado de 0 a 100."
+          en: "How far price sits above or below its all-time high, as a percentage."
+          es: "Cuánto está el precio por encima o debajo de su máximo histórico, en porcentaje."
       - id: b
         text:
-          en: "How far the price is above or below its all-time high, as a percentage."
-          es: "Cuánto está el precio por encima o por debajo de su máximo histórico, en porcentaje."
+          en: "How overvalued or undervalued the asset is against its fair price."
+          es: "Lo sobrevalorado o infravalorado que está el activo frente a su precio justo."
       - id: c
+        correct: true
         text:
-          en: "How overvalued or undervalued an asset is versus its fair price."
-          es: "Lo sobrevalorado o infravalorado que está un activo respecto a su precio justo."
+          en: "Recent average gains against recent average losses, scaled to 0–100."
+          es: "Las ganancias medias recientes frente a las pérdidas medias, de 0 a 100."
       - id: d
         text:
-          en: "The total volume traded over the last 14 bars."
-          es: "El volumen total negociado en las últimas 14 velas."
+          en: "The total volume that has traded over the last fourteen bars."
+          es: "El volumen total negociado en las últimas catorce velas."
     explanation:
-      en: "RSI compares average up-moves to average down-moves over a lookback (default 14) and maps that onto 0–100. It says nothing about fair value or how far price is from any high — only how one-sided the recent bars have been."
-      es: "El RSI compara las subidas medias con las bajadas medias en un periodo (por defecto 14) y lo lleva a una escala de 0 a 100. No dice nada sobre el valor justo ni sobre lo lejos que está el precio de ningún máximo: solo cómo de unilaterales han sido las velas recientes."
+      en: "RSI compares average up-moves to average down-moves over a lookback (default 14) and maps that onto 0–100. It says nothing about fair value, nothing about how far price is from any high, and nothing about volume — only how one-sided the recent bars have been."
+      es: "El RSI compara las subidas medias con las bajadas medias en un periodo (por defecto 14) y lo lleva a una escala de 0 a 100. No dice nada sobre el valor justo, ni sobre lo lejos que está el precio de ningún máximo, ni sobre el volumen: solo cómo de unilaterales han sido las velas recientes."
   - id: macd-is
     prompt:
       en: "Which of these correctly describes the MACD?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The difference between a fast and a slow EMA of price, plus a signal line (an EMA of that difference) and a histogram of the gap between them."
-          es: "La diferencia entre una EMA rápida y una lenta del precio, más una línea de señal (una EMA de esa diferencia) y un histograma de la distancia entre ambas."
+          en: "A fast EMA minus a slow one, plus a signal line and a histogram."
+          es: "Una EMA rápida menos una lenta, con línea de señal e histograma."
       - id: b
         text:
           en: "A single moving average that turns green above price and red below it."
-          es: "Una única media móvil que se pone verde por encima del precio y roja por debajo."
+          es: "Una única media móvil que se pone verde sobre el precio y roja debajo."
       - id: c
         text:
-          en: "An oscillator bounded between 0 and 100, just like the RSI."
-          es: "Un oscilador acotado entre 0 y 100, igual que el RSI."
+          en: "An oscillator bounded between 0 and 100, exactly like the RSI is."
+          es: "Un oscilador acotado entre 0 y 100, exactamente igual que el RSI."
       - id: d
         text:
-          en: "The ratio of buy orders to sell orders in the order book."
-          es: "La proporción entre órdenes de compra y de venta en el libro de órdenes."
+          en: "The ratio of buy orders to sell orders resting in the order book."
+          es: "La proporción entre órdenes de compra y de venta que hay en el libro."
     explanation:
-      en: "MACD is built from two EMAs (fast 12, slow 26): their difference is the MACD line, a 9-period EMA of that line is the signal, and the histogram is the gap between the two. It is unbounded — unlike RSI it has no fixed 0–100 range."
-      es: "El MACD se construye con dos EMAs (rápida 12, lenta 26): su diferencia es la línea MACD, una EMA de 9 periodos de esa línea es la señal, y el histograma es la distancia entre ambas. No está acotado: a diferencia del RSI, no tiene un rango fijo de 0 a 100."
+      en: "MACD is built from two EMAs (fast 12, slow 26): their difference is the MACD line, a 9-period EMA of that line is the signal, and the histogram is the gap between the two. It is three plotted series, not one line, it is derived from price rather than from the book, and it is unbounded — unlike RSI it has no fixed 0–100 range."
+      es: "El MACD se construye con dos EMAs (rápida 12, lenta 26): su diferencia es la línea MACD, una EMA de 9 periodos de esa línea es la señal, y el histograma es la distancia entre ambas. Son tres series dibujadas, no una línea, se deriva del precio y no del libro, y no está acotado: a diferencia del RSI, no tiene un rango fijo de 0 a 100."
   - id: macd-parts
     kind: matching
     prompt:
@@ -95,25 +95,25 @@ variants:
       es: "El RSI de un gráfico está cerca de 100. ¿Qué te dice realmente esa lectura?"
     options:
       - id: a
+        text:
+          en: "That the price has reached its all-time high on this instrument."
+          es: "Que el precio ha alcanzado su máximo histórico en este instrumento."
+      - id: b
         correct: true
         text:
-          en: "That almost every recent bar closed up, so average losses are near zero — recent moves have been strongly one-sided to the upside."
-          es: "Que casi todas las velas recientes cerraron al alza, así que las pérdidas medias son casi cero: los movimientos recientes han sido fuertemente unilaterales al alza."
-      - id: b
-        text:
-          en: "That the price has reached its all-time high."
-          es: "Que el precio ha alcanzado su máximo histórico."
+          en: "That almost every recent bar closed up, so average losses are near zero."
+          es: "Que casi toda vela reciente cerró al alza, así que las pérdidas medias son casi cero."
       - id: c
         text:
-          en: "That the asset is overvalued relative to its fair price."
-          es: "Que el activo está sobrevalorado respecto a su precio justo."
+          en: "That the asset is overvalued relative to what it is really worth."
+          es: "Que el activo está sobrevalorado respecto a lo que vale de verdad."
       - id: d
         text:
-          en: "That trading volume has spiked to a record."
-          es: "Que el volumen de negociación ha subido a un récord."
+          en: "That the trading volume has spiked to a record for the period."
+          es: "Que el volumen de negociación ha subido a un récord del periodo."
     explanation:
-      en: "RSI is relative: near 100 means up-moves have overwhelmed down-moves over the lookback, not that price is at any particular level or that it is 'expensive'. It measures the balance of recent bars — nothing about value or volume."
-      es: "El RSI es relativo: cerca de 100 significa que las subidas han aplastado a las bajadas en el periodo, no que el precio esté en ningún nivel concreto ni que esté 'caro'. Mide el equilibrio de las velas recientes: nada sobre el valor ni el volumen."
+      en: "RSI is relative: near 100 means up-moves have overwhelmed down-moves over the lookback, so recent bars have been strongly one-sided to the upside. It says nothing about price being at any particular level, about the asset being 'expensive', or about how much traded — only about the balance of recent bars."
+      es: "El RSI es relativo: cerca de 100 significa que las subidas han aplastado a las bajadas en el periodo, así que las velas recientes han sido fuertemente unilaterales al alza. No dice nada sobre que el precio esté en un nivel concreto, ni sobre que el activo esté 'caro', ni sobre cuánto se ha negociado: solo sobre el equilibrio de las velas recientes."
   - id: rsi-facts
     kind: multi_select
     prompt:
@@ -123,25 +123,25 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is scaled to a fixed 0–100 range."
+          en: "It is scaled to a fixed range of 0 to 100."
           es: "Está escalado a un rango fijo de 0 a 100."
       - id: b
         correct: true
         text:
-          en: "Its default lookback is 14 bars."
-          es: "Su periodo de referencia por defecto es de 14 velas."
+          en: "Its default lookback window is fourteen bars."
+          es: "Su ventana de referencia por defecto es de catorce velas."
       - id: c
         correct: true
         text:
-          en: "It compares recent average gains to recent average losses."
+          en: "It compares recent average gains with recent average losses."
           es: "Compara las ganancias medias recientes con las pérdidas medias recientes."
       - id: d
         text:
-          en: "It measures how undervalued or overvalued an asset is versus its fair price."
-          es: "Mide lo infravalorado o sobrevalorado que está un activo respecto a su precio justo."
+          en: "It measures how far the asset is from its fair price."
+          es: "Mide lo lejos que está el activo de su precio justo."
     explanation:
-      en: "RSI is a bounded (0–100), 14-bar-by-default measure of how lopsided recent up- and down-moves have been. It says nothing about 'fair value' — that fourth idea is the classic misconception."
-      es: "El RSI es una medida acotada (0 a 100), de 14 velas por defecto, de cómo de desequilibradas han sido las subidas y bajadas recientes. No dice nada sobre el 'valor justo': esa cuarta idea es la confusión clásica."
+      en: "RSI is a bounded (0–100), 14-bar-by-default measure of how lopsided recent up- and down-moves have been. It has no notion of 'fair value' anywhere in its formula — that fourth idea is the classic misconception, and it is what makes people sell strength."
+      es: "El RSI es una medida acotada (0 a 100), de 14 velas por defecto, de cómo de desequilibradas han sido las subidas y bajadas recientes. No hay ninguna noción de 'valor justo' en su fórmula: esa cuarta idea es la confusión clásica, y es la que hace que la gente venda la fuerza."
   - id: macd-zero-line-means
     prompt:
       en: "The MACD line crosses from below zero to above it. What has just happened, mechanically?"
@@ -150,23 +150,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The fast (12) EMA has crossed above the slow (26) EMA — the two averages have swapped order."
-          es: "La EMA rápida (12) ha cruzado por encima de la lenta (26): las dos medias han intercambiado su orden."
+          en: "The fast 12-EMA has crossed above the slow 26-EMA."
+          es: "La EMA rápida de 12 ha cruzado por encima de la lenta de 26."
       - id: b
         text:
-          en: "The MACD line has crossed above its signal line."
-          es: "La línea MACD ha cruzado por encima de su línea de señal."
+          en: "The RSI has crossed above the 50 midpoint of its range."
+          es: "El RSI ha cruzado por encima del punto medio 50 de su rango."
       - id: c
         text:
-          en: "The RSI has crossed above 50."
-          es: "El RSI ha cruzado por encima de 50."
+          en: "The MACD line has crossed above its own signal line."
+          es: "La línea MACD ha cruzado por encima de su propia línea de señal."
       - id: d
         text:
-          en: "Price has crossed above its all-time high."
-          es: "El precio ha cruzado por encima de su máximo histórico."
+          en: "Price has crossed above its previous all-time high."
+          es: "El precio ha cruzado por encima de su anterior máximo histórico."
     explanation:
-      en: "The MACD line IS the fast EMA minus the slow EMA, so the line at zero means the two are equal and a cross of zero means they changed order. That is m10's golden cross on the 12/26 pair — a change of trend regime, and a different, higher-order event from a cross of the signal line (which only means the MACD line turned relative to its own average)."
-      es: "La línea MACD ES la EMA rápida menos la lenta, así que la línea en cero significa que ambas son iguales y que cruce el cero significa que cambiaron de orden. Ese es el cruce dorado de m10 sobre el par 12/26: un cambio de régimen de tendencia, y un evento distinto y de orden superior al cruce de la línea de señal (que solo significa que la línea MACD giró respecto a su propia media)."
+      en: "The MACD line IS the fast EMA minus the slow EMA, so the line at zero means the two are equal and a cross of zero means they swapped order. That is m10's golden cross on the 12/26 pair — a change of trend regime, and a different, higher-order event from a cross of the signal line, which only means the MACD line turned relative to its own average."
+      es: "La línea MACD ES la EMA rápida menos la lenta, así que la línea en cero significa que ambas son iguales y que cruce el cero significa que intercambiaron el orden. Ese es el cruce dorado de m10 sobre el par 12/26: un cambio de régimen de tendencia, y un evento distinto y de orden superior al cruce de la línea de señal, que solo significa que la línea MACD giró respecto a su propia media."
   - id: hist-zero-is-cross
     kind: true_false
     prompt:

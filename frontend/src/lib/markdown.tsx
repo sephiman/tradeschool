@@ -2,6 +2,9 @@ import { type ReactNode } from "react";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
+import type { Root } from "mdast";
+import { annotateLesson } from "@/lib/glossary/annotate";
+import type { TermMatcher } from "@/lib/glossary/terms";
 import { cn } from "@/lib/cn";
 
 /** Turn remark-directive nodes into plain elements carrying data-* hints for the `components` map. */
@@ -57,8 +60,16 @@ function Callout({ tone, children }: { tone: string; children: ReactNode }) {
 function buildComponents(
   renderExercise: (exerciseId: string) => ReactNode,
   renderFigure: (figureId: string) => ReactNode,
+  renderTerm: (termId: string, children: ReactNode) => ReactNode,
 ): Components {
   return {
+    span: (props) => {
+      const attrs = props as Record<string, unknown> & { children?: ReactNode };
+      const termId = attrs["data-term-id"];
+      // Planted by the glossary annotator; anything else is a span the markdown itself asked for.
+      if (typeof termId === "string") return <>{renderTerm(termId, attrs.children)}</>;
+      return <span>{attrs.children}</span>;
+    },
     h1: ({ children }) => <h1 className="mt-2 mb-4 text-2xl font-bold">{children}</h1>,
     h2: ({ children }) => <h2 className="mt-6 mb-3 text-xl font-semibold">{children}</h2>,
     h3: ({ children }) => <h3 className="mt-4 mb-2 text-lg font-semibold">{children}</h3>,
@@ -90,19 +101,33 @@ function buildComponents(
   };
 }
 
+/**
+ * A lesson's prose.
+ *
+ * `glossary` is the ONE annotator, run as a remark plugin over the same mdast the print renderer
+ * annotates: the app never detects a term on its own. Its `marked` set is created per run, which is
+ * exactly the web's policy — first occurrence of each term in THIS lesson.
+ */
 export function LessonMarkdown({
   markdown,
   renderExercise,
   renderFigure,
+  renderTerm = (_id, children) => children,
+  glossary,
 }: {
   markdown: string;
   renderExercise: (exerciseId: string) => ReactNode;
   renderFigure: (figureId: string) => ReactNode;
+  renderTerm?: (termId: string, children: ReactNode) => ReactNode;
+  glossary?: { lessonId: string; terms: TermMatcher[] };
 }) {
+  const annotate = () => (tree: Root) => {
+    if (glossary) annotateLesson(tree, { ...glossary, marked: new Set<string>() });
+  };
   return (
     <Markdown
-      remarkPlugins={[remarkGfm, remarkDirective, remarkDirectiveToHast]}
-      components={buildComponents(renderExercise, renderFigure)}
+      remarkPlugins={[remarkGfm, remarkDirective, annotate, remarkDirectiveToHast]}
+      components={buildComponents(renderExercise, renderFigure, renderTerm)}
     >
       {markdown}
     </Markdown>
@@ -112,7 +137,10 @@ export function LessonMarkdown({
 /** Inline prose (e.g. an exercise prompt) with the same styling but no directives. */
 export function Prose({ markdown }: { markdown: string }) {
   return (
-    <Markdown remarkPlugins={[remarkGfm]} components={buildComponents(() => null, () => null)}>
+    <Markdown
+      remarkPlugins={[remarkGfm]}
+      components={buildComponents(() => null, () => null, (_id, children) => children)}
+    >
       {markdown}
     </Markdown>
   );

@@ -7,75 +7,75 @@ variants:
       es: "¿Qué estilo de trading se define por mantener las posiciones de días a semanas?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Swing trading."
-          es: "Swing trading."
+          en: "Scalping, whose positions run from seconds to a few minutes."
+          es: "El scalping, cuyas posiciones van de segundos a unos minutos."
       - id: b
         text:
-          en: "Scalping."
-          es: "Scalping."
+          en: "Day trading, because 'day' means holding on for several days."
+          es: "El day trading, porque 'day' significa aguantar varios días."
       - id: c
+        correct: true
         text:
-          en: "Day trading, because 'day' means holding for several days."
-          es: "Day trading, porque 'day' significa mantener durante varios días."
+          en: "Swing trading, which holds a single position for days and sometimes weeks."
+          es: "El swing trading, que aguanta una posición días o semanas."
       - id: d
         text:
-          en: "Whichever style happens to use the most leverage."
-          es: "El estilo que use más apalancamiento en cada momento."
+          en: "Whichever of the styles happens to use the most leverage."
+          es: "El estilo que resulte usar más apalancamiento."
     explanation:
-      en: "Swing trading holds for days to weeks. Day trading closes within the same day (the name refers to a single session, not several days), and scalping lasts only seconds to minutes."
-      es: "El swing trading mantiene de días a semanas. El day trading cierra dentro del mismo día (el nombre alude a una única sesión, no a varios días), y el scalping dura solo de segundos a minutos."
+      en: "Swing trading holds for days to weeks. Day trading closes within the same day — the name refers to a single session, not several days — and scalping lasts only seconds to minutes. Leverage is a separate choice and plays no part in naming a style."
+      es: "El swing trading mantiene de días a semanas. El day trading cierra dentro del mismo día —el nombre alude a una única sesión, no a varios días— y el scalping dura solo de segundos a minutos. El apalancamiento es una elección aparte y no interviene en el nombre del estilo."
   - id: holding-period-scalp
     prompt:
       en: "About how long does a scalper typically hold a single position?"
       es: "¿Cuánto suele mantener un scalper una sola posición?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Seconds to a few minutes."
-          es: "De segundos a unos pocos minutos."
+          en: "Several days, closing the position out over the weekend."
+          es: "Varios días, cerrando la posición durante el fin de semana."
       - id: b
         text:
-          en: "Several days, closing on the weekend."
-          es: "Varios días, cerrando el fin de semana."
+          en: "Until the next funding payment comes round, and then out."
+          es: "Hasta que llega el siguiente pago de funding, y entonces fuera."
       - id: c
         text:
-          en: "Until the next funding payment, then out."
-          es: "Hasta el siguiente pago de funding, y entonces fuera."
-      - id: d
-        text:
-          en: "From the market open to the market close each day."
+          en: "From the market open through to the market close each day."
           es: "Desde la apertura hasta el cierre del mercado cada día."
+      - id: d
+        correct: true
+        text:
+          en: "Seconds to a few minutes, and often dozens or hundreds of trades a day."
+          es: "De segundos a unos pocos minutos, y a menudo decenas al día."
     explanation:
-      en: "Scalping means very short holds — seconds to a few minutes — and often dozens or hundreds of trades a day. Holding for a day is day trading; holding for days is swing trading."
-      es: "El scalping son tenencias muy cortas —de segundos a pocos minutos— y a menudo decenas o cientos de operaciones al día. Mantener un día es day trading; mantener varios días es swing trading."
+      en: "Scalping means very short holds — seconds to a few minutes — and often dozens or hundreds of trades a day. Holding for a day is day trading; holding for days is swing trading. And crypto has no open or close to hold between, which is why the styles are defined by duration rather than by a session."
+      es: "El scalping son tenencias muy cortas —de segundos a pocos minutos— y a menudo decenas o cientos de operaciones al día. Mantener un día es day trading; mantener varios días es swing trading. Y el cripto no tiene apertura ni cierre entre los que mantener, por eso los estilos se definen por duración y no por una sesión."
   - id: day-trade-definition
     prompt:
       en: "What is the defining feature of day trading?"
       es: "¿Cuál es el rasgo que define al day trading?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Positions are opened and closed within the same day; nothing is carried overnight on purpose."
-          es: "Las posiciones se abren y se cierran dentro del mismo día; nada se arrastra a la noche a propósito."
+          en: "Positions are held for several days, since 'day' means across days."
+          es: "Las posiciones se mantienen varios días, ya que 'day' significa varios días."
       - id: b
         text:
-          en: "Positions are held for several days, since 'day' trading means trading across days."
-          es: "Las posiciones se mantienen varios días, ya que el 'day' trading significa operar a lo largo de varios días."
+          en: "It only ever uses the daily chart, reading one candle at a time."
+          es: "Solo usa el gráfico diario, leyendo una vela cada vez."
       - id: c
+        correct: true
         text:
-          en: "It only ever uses the daily chart, one candle at a time."
-          es: "Solo usa el gráfico diario, una vela cada vez."
+          en: "Positions open and close within the same day, nothing held overnight."
+          es: "Las posiciones se abren y cierran el mismo día, sin mantener de noche."
       - id: d
         text:
-          en: "It always uses more leverage than swing trading."
+          en: "It always uses more leverage than swing trading does."
           es: "Siempre usa más apalancamiento que el swing trading."
     explanation:
-      en: "A day trader closes out before the day is over and does not hold overnight on purpose — the 'day' is a single session, not several days. Typical work is a handful of trades read off the 5-minute to 1-hour charts, and leverage is a separate choice, not part of the definition."
-      es: "Un day trader cierra antes de que acabe el día y no mantiene de un día para otro a propósito: el 'day' es una única sesión, no varios días. Lo típico es un puñado de operaciones leídas en gráficos de 5 minutos a 1 hora, y el apalancamiento es una elección aparte, no parte de la definición."
+      en: "A day trader closes out before the day is over and does not hold overnight on purpose — the 'day' is a single session, not several days. Typical work is a handful of trades read off the 5-minute to 1-hour charts rather than the daily, and leverage is a separate choice, not part of the definition."
+      es: "Un day trader cierra antes de que acabe el día y no mantiene de un día para otro a propósito: el 'day' es una única sesión, no varios días. Lo típico es un puñado de operaciones leídas en gráficos de 5 minutos a 1 hora, no en el diario, y el apalancamiento es una elección aparte, no parte de la definición."
   - id: styles-holding-match
     kind: matching
     prompt:
@@ -121,37 +121,37 @@ variants:
   - id: what-separates-styles
     kind: true_false
     prompt:
-      en: "True or false: what mainly separates scalping, day trading and swing trading is which coin and which indicator they use."
-      es: "Verdadero o falso: lo que separa principalmente al scalping, al day trading y al swing trading es qué moneda y qué indicador usan."
-    answer: false
+      en: "Three traders on the same coin, with the same account and the same indicator, can still be in three different styles."
+      es: "Tres traders en la misma moneda, con la misma cuenta y el mismo indicador, pueden estar aun así en tres estilos distintos."
+    answer: true
     explanation:
-      en: "False. Three traders can run the same account on the same coin with the same indicator and still be in different styles. What separates them is how long they hold and how often they trade — not the coin or the indicator."
-      es: "Falso. Tres traders pueden llevar la misma cuenta, en la misma moneda y con el mismo indicador, y aun así estar en estilos distintos. Lo que los separa es cuánto tiempo mantienen y con qué frecuencia operan, no la moneda ni el indicador."
+      en: "True. What separates the styles is how long they hold and how often they trade — not the coin, not the account size and not the indicator on the chart."
+      es: "Cierto. Lo que separa los estilos es cuánto tiempo mantienen y con qué frecuencia operan, no la moneda, ni el tamaño de la cuenta, ni el indicador del gráfico."
   - id: two-charts
     prompt:
       en: "Each style names two charts — a slower frame and a faster one. What different jobs do they do?"
       es: "Cada estilo nombra dos gráficos: uno más lento y otro más rápido. ¿Qué trabajos distintos hacen?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The higher timeframe dictates the bias; the lower one dictates the entry — in that order."
-          es: "La temporalidad mayor dicta el sesgo; la menor dicta la entrada, en ese orden."
+          en: "The lower timeframe dictates the bias, since it is the more current one."
+          es: "La temporalidad menor dicta el sesgo, por ser la más actualizada."
       - id: b
         text:
-          en: "The lower timeframe dictates the bias, since it is more current."
-          es: "La temporalidad menor dicta el sesgo, ya que está más actualizada."
-      - id: c
-        text:
-          en: "They are alternatives — you pick whichever agrees with your idea."
+          en: "They are alternatives — you pick whichever one agrees with your idea."
           es: "Son alternativas: eliges la que coincida con tu idea."
+      - id: c
+        correct: true
+        text:
+          en: "The higher timeframe sets the bias; the lower one sets the entry."
+          es: "La temporalidad mayor fija el sesgo; la menor fija la entrada."
       - id: d
         text:
-          en: "The slower chart is for entries and the faster one for targets."
+          en: "The slower chart is for entries and the faster one is for targets."
           es: "El gráfico lento es para entradas y el rápido para objetivos."
     explanation:
-      en: "That is the top-down step of the trading plan: bias first on the higher timeframe, then the entry on the lower one — never flipping between them to justify a position you already hold."
-      es: "Ese es el paso descendente del plan de trading: primero el sesgo en la temporalidad mayor, luego la entrada en la menor, sin saltar entre ellas para justificar una posición que ya tienes."
+      en: "That is the top-down step of the trading plan: bias first on the higher timeframe, then the entry on the lower one, in that order — never flipping between them to justify a position you already hold, and never letting the fastest chart decide the direction."
+      es: "Ese es el paso descendente del plan de trading: primero el sesgo en la temporalidad mayor, luego la entrada en la menor, en ese orden, sin saltar entre ellas para justificar una posición que ya tienes y sin dejar que el gráfico más rápido decida la dirección."
   - id: scalping-facts
     kind: multi_select
     prompt:
@@ -175,8 +175,8 @@ variants:
           en: "It is the most profitable style, because it captures more moves."
           es: "Es el estilo más rentable, porque captura más movimientos."
     explanation:
-      en: "Holding period, trade count and timeframe move together along the spectrum — pick a point on one and the other two are largely decided. None of that makes a style inherently more profitable."
-      es: "El periodo de tenencia, el número de operaciones y la temporalidad se mueven juntos en el espectro: elige un punto en uno y los otros dos quedan casi decididos. Nada de eso hace que un estilo sea intrínsecamente más rentable."
+      en: "Holding period, trade count and timeframe move together along the spectrum — pick a point on one and the other two are largely decided. None of that makes a style inherently more profitable; more trades is more decisions and more fees, not more edge."
+      es: "El periodo de tenencia, el número de operaciones y la temporalidad se mueven juntos en el espectro: elige un punto en uno y los otros dos quedan casi decididos. Nada de eso hace que un estilo sea intrínsecamente más rentable; más operaciones son más decisiones y más comisiones, no más ventaja."
   - id: style-boundaries
     kind: true_false
     prompt:

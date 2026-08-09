@@ -7,50 +7,50 @@ variants:
       es: "En un exchange centralizado (CEX), ¿quién controla las claves privadas de las monedas que muestra tu saldo?"
     options:
       - id: a
+        text:
+          en: "You do — a CEX issues every user their own private keys at signup."
+          es: "Tú: un CEX entrega a cada usuario sus propias claves privadas al registrarse."
+      - id: b
         correct: true
         text:
-          en: "The exchange — your balance is a claim on the company, not the coins themselves."
-          es: "El exchange: tu saldo es un derecho de cobro sobre la empresa, no las monedas."
-      - id: b
-        text:
-          en: "You do — a CEX gives every user their own private keys at signup."
-          es: "Tú: un CEX da a cada usuario sus propias claves privadas al registrarse."
+          en: "The exchange — your balance is a claim on the company, not the coins."
+          es: "El exchange: tu saldo es un derecho sobre la empresa, no las monedas."
       - id: c
         text:
-          en: "Nobody — the coins are locked in a smart contract until you trade them."
+          en: "Nobody — the coins sit locked in a smart contract until you trade."
           es: "Nadie: las monedas quedan bloqueadas en un contrato inteligente hasta que operas."
       - id: d
         text:
-          en: "A government regulator that supervises the exchange."
-          es: "Un regulador gubernamental que supervisa el exchange."
+          en: "A government regulator that holds exchange customer keys in escrow."
+          es: "Un regulador gubernamental que custodia en depósito las claves de los clientes."
     explanation:
-      en: "On a CEX the company holds the keys and your balance is an IOU. That is exactly why deposits are convenient but carry counterparty risk."
-      es: "En un CEX la empresa guarda las claves y tu saldo es un pagaré. Por eso depositar es cómodo pero conlleva riesgo de contraparte."
+      en: "On a CEX the company holds the keys and your balance is an IOU — there is no per-user key, no contract holding the coins on your behalf and no regulator standing in the middle. That is exactly why deposits are convenient but carry counterparty risk."
+      es: "En un CEX la empresa guarda las claves y tu saldo es un pagaré: no hay una clave por usuario, ni un contrato que guarde las monedas por ti, ni un regulador en medio. Por eso depositar es cómodo pero conlleva riesgo de contraparte."
   - id: dex-nature
     prompt:
       en: "What is the defining feature of a decentralised exchange (DEX)?"
       es: "¿Cuál es el rasgo que define a un exchange descentralizado (DEX)?"
     options:
       - id: a
-        correct: true
         text:
-          en: "You trade directly from your own wallet; no company takes custody of your funds."
-          es: "Operas directamente desde tu propia cartera; ninguna empresa custodia tus fondos."
+          en: "An exchange with no fees of any kind, because there is no company to pay."
+          es: "Un exchange sin comisiones de ningún tipo, porque no hay empresa a la que pagar."
       - id: b
         text:
-          en: "It is an exchange with no fees, because there is no company to pay."
-          es: "Es un exchange sin comisiones, porque no hay una empresa a la que pagar."
+          en: "A normal CEX that has passed an independent decentralisation audit."
+          es: "Un CEX normal que ha pasado una auditoría independiente de descentralización."
       - id: c
         text:
-          en: "It is a normal CEX that has passed a decentralisation audit."
-          es: "Es un CEX normal que ha pasado una auditoría de descentralización."
+          en: "A chat group where traders swap coins by private agreement and trust."
+          es: "Un grupo de chat donde los traders intercambian monedas por acuerdo y confianza."
       - id: d
+        correct: true
         text:
-          en: "It is a chat group where traders swap coins by private agreement."
-          es: "Es un grupo de chat donde los traders intercambian monedas por acuerdo privado."
+          en: "You trade from your own wallet; no company takes custody of your funds."
+          es: "Operas desde tu propia cartera; ninguna empresa custodia tus fondos."
     explanation:
-      en: "A DEX runs on smart contracts and lets you trade from your own wallet — self-custody by design. It still has fees (network and pool fees) and its own risks."
-      es: "Un DEX funciona con contratos inteligentes y te deja operar desde tu propia cartera: autocustodia por diseño. Sigue teniendo comisiones (de red y de pool) y sus propios riesgos."
+      en: "A DEX runs on smart contracts and lets you trade from your own wallet — self-custody by design, not a certificate a custodial venue can earn. It still charges you: network fees and pool fees apply, and it carries its own risks."
+      es: "Un DEX funciona con contratos inteligentes y te deja operar desde tu propia cartera: autocustodia por diseño, no un certificado que un venue custodial pueda obtener. Sigue costándote: hay comisiones de red y de pool, y tiene sus propios riesgos."
   - id: model-custody-match
     kind: matching
     prompt:
@@ -83,12 +83,12 @@ variants:
   - id: cex-keys-myth
     kind: true_false
     prompt:
-      en: "A centralised exchange gives every user their own private keys when they sign up."
-      es: "Un exchange centralizado da a cada usuario sus propias claves privadas al registrarse."
-    answer: false
+      en: "On a centralised exchange the company keeps the keys, and what you get is a login and a balance."
+      es: "En un exchange centralizado la empresa guarda las claves, y lo que tú obtienes es un login y un saldo."
+    answer: true
     explanation:
-      en: "On a CEX the company keeps the keys; you get a login and a balance, not keys. Only self-custody (or a DEX from your own wallet) puts the keys in your hands."
-      es: "En un CEX la empresa guarda las claves; tú obtienes un login y un saldo, no claves. Solo la autocustodia (o un DEX desde tu propia cartera) pone las claves en tus manos."
+      en: "True. A CEX account is a row in the company's database, not a key in your hands. Only self-custody — or a DEX you trade from your own wallet — puts the key where you can use it without asking anyone."
+      es: "Cierto. Una cuenta en un CEX es una fila en la base de datos de la empresa, no una clave en tus manos. Solo la autocustodia — o un DEX desde tu propia cartera — pone la clave donde puedes usarla sin pedir permiso."
   - id: dex-fees-myth
     kind: true_false
     prompt:
@@ -104,25 +104,25 @@ variants:
       es: "Depositas 500 USDC en un exchange centralizado. En cuanto a la custodia, ¿qué acaba de pasar?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The exchange now holds the coins; your balance is a claim on the company."
-          es: "Ahora el exchange guarda las monedas; tu saldo es un derecho de cobro sobre la empresa."
+          en: "The coins moved into a personal wallet that only your login can access."
+          es: "Las monedas pasaron a una cartera personal a la que solo entra tu login."
       - id: b
         text:
-          en: "The coins moved into a personal wallet that only you can access."
-          es: "Las monedas pasaron a una cartera personal a la que solo tú puedes acceder."
+          en: "Nothing changed — the coins stay yours until you place a trade."
+          es: "No cambió nada: las monedas siguen siendo tuyas hasta que operes."
       - id: c
         text:
-          en: "Nothing changed — the coins stay under your control until you place a trade."
-          es: "No cambió nada: las monedas siguen bajo tu control hasta que coloques una operación."
+          en: "The coins were converted into shares of the exchange, redeemable at par."
+          es: "Las monedas se convirtieron en acciones del exchange, canjeables a la par."
       - id: d
+        correct: true
         text:
-          en: "The coins were converted into shares of the exchange."
-          es: "Las monedas se convirtieron en acciones del exchange."
+          en: "The exchange now holds the coins; your balance became a claim on it."
+          es: "Ahora el exchange guarda las monedas; tu saldo pasó a ser un derecho sobre él."
     explanation:
-      en: "Depositing hands custody to the exchange: it holds the keys and your balance becomes an IOU. That is the trade-off you accept for the convenience of trading there."
-      es: "Depositar entrega la custodia al exchange: guarda las claves y tu saldo se convierte en un pagaré. Ese es el compromiso que aceptas a cambio de la comodidad de operar allí."
+      en: "Depositing hands custody over at the moment of the transfer, not at the moment you trade: the exchange holds the keys and your balance becomes an IOU. That is the trade-off you accept for the convenience of trading there."
+      es: "Depositar entrega la custodia en el momento de la transferencia, no cuando operas: el exchange guarda las claves y tu saldo se convierte en un pagaré. Ese es el compromiso que aceptas a cambio de la comodidad de operar allí."
   - id: dex-features
     kind: multi_select
     prompt:
@@ -132,24 +132,24 @@ variants:
       - id: a
         correct: true
         text:
-          en: "You trade directly from your own wallet."
-          es: "Operas directamente desde tu propia cartera."
+          en: "You trade directly from the wallet you already control."
+          es: "Operas directamente desde la cartera que ya controlas."
       - id: b
         correct: true
         text:
-          en: "No company takes custody of your funds."
-          es: "Ninguna empresa custodia tus fondos."
+          en: "No company takes custody of the funds while they trade."
+          es: "Ninguna empresa custodia los fondos mientras operan."
       - id: c
         text:
           en: "There is a support desk that can reset your password."
           es: "Hay atención al cliente que puede restablecer tu contraseña."
       - id: d
         text:
-          en: "Trades cost nothing because there is no company."
-          es: "Las operaciones no cuestan nada porque no hay empresa."
+          en: "Trades cost nothing, because there is no company charging fees."
+          es: "Las operaciones no cuestan nada, porque no hay empresa que cobre."
     explanation:
-      en: "A DEX runs on smart contracts: you keep custody and trade from your wallet. There is no support desk, and trades still incur network and pool fees."
-      es: "Un DEX funciona con contratos inteligentes: mantienes la custodia y operas desde tu cartera. No hay atención al cliente y las operaciones siguen teniendo comisiones de red y de pool."
+      en: "A DEX runs on smart contracts: you keep custody and trade from your wallet. Removing the company removes the support desk too, and the trades still incur network and pool fees."
+      es: "Un DEX funciona con contratos inteligentes: mantienes la custodia y operas desde tu cartera. Quitar la empresa quita también la atención al cliente, y las operaciones siguen teniendo comisiones de red y de pool."
   - id: cex-reset
     prompt:
       en: "Why can a centralised exchange reset your password and undo its own mistakes, when nobody can do that for a self-custody wallet?"
@@ -158,17 +158,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Because it controls the coins — the same power that lets it help you also lets it freeze, lose or spend them."
-          es: "Porque controla las monedas: el mismo poder que le permite ayudarte también le permite congelarlas, perderlas o gastarlas."
+          en: "Because it controls the coins, so it can simply edit its own ledger."
+          es: "Porque controla las monedas, así que puede editar su propio libro."
       - id: b
-        text: { en: "Because an operator can reverse a confirmed blockchain transaction.", es: "Porque un operador puede revertir una transacción confirmada en blockchain." }
+        text:
+          en: "Because an operator can reverse a confirmed blockchain transaction on request."
+          es: "Porque un operador puede revertir a petición una transacción confirmada en blockchain."
       - id: c
-        text: { en: "Because regulators require every exchange to offer account recovery.", es: "Porque los reguladores obligan a todo exchange a ofrecer recuperación de cuenta." }
+        text:
+          en: "Because regulators require every exchange to offer account recovery by law."
+          es: "Porque los reguladores obligan por ley a todo exchange a ofrecer recuperación de cuenta."
       - id: d
-        text: { en: "Because it keeps a backup copy of your personal private key.", es: "Porque guarda una copia de seguridad de tu clave privada personal." }
+        text:
+          en: "Because it keeps a backup copy of the private key it issued to you at signup."
+          es: "Porque guarda una copia de la clave privada que te emitió al registrarte."
     explanation:
-      en: "Custodial convenience and custodial risk are one fact seen from two sides: the company can fix things precisely because your balance is a number in its database and the coins are in its wallets."
-      es: "La comodidad y el riesgo custodial son un mismo hecho visto de dos lados: la empresa puede arreglar cosas precisamente porque tu saldo es un número en su base de datos y las monedas están en sus wallets."
+      en: "Custodial convenience and custodial risk are one fact seen from two sides: the company can fix things precisely because your balance is a number in its database and the coins are in its wallets. The same power that lets it help you also lets it freeze, lose or spend them — and it never touches the chain to do any of it."
+      es: "La comodidad y el riesgo custodial son un mismo hecho visto de dos lados: la empresa puede arreglar cosas precisamente porque tu saldo es un número en su base de datos y las monedas están en sus wallets. El mismo poder que le permite ayudarte le permite congelarlas, perderlas o gastarlas, y no toca la cadena para nada de eso."
   - id: dex-swap-steps
     kind: ordering
     prompt:
@@ -204,16 +210,22 @@ variants:
       es: "En un DEX apruebas un contrato que resulta ser malicioso y te vacía la wallet. ¿Qué recurso tienes?"
     options:
       - id: a
+        text:
+          en: "The DEX's support desk can claw the funds back if you report it fast."
+          es: "El soporte del DEX puede recuperar los fondos si lo denuncias rápido."
+      - id: b
+        text:
+          en: "The network refunds transactions that enough nodes flag as malicious."
+          es: "La red reembolsa las transacciones que suficientes nodos marcan como maliciosas."
+      - id: c
         correct: true
         text:
-          en: "None — you signed it yourself and it settled on-chain; there is no operator to reverse it."
-          es: "Ninguno: lo firmaste tú y se liquidó on-chain; no hay operador que pueda revertirlo."
-      - id: b
-        text: { en: "The DEX's support desk can claw the funds back.", es: "El soporte del DEX puede recuperar los fondos." }
-      - id: c
-        text: { en: "The network refunds transactions flagged as malicious.", es: "La red reembolsa las transacciones marcadas como maliciosas." }
+          en: "None — you signed it yourself and it settled on-chain, with no operator to undo it."
+          es: "Ninguno: lo firmaste tú y se liquidó on-chain, sin operador que lo deshaga."
       - id: d
-        text: { en: "Your wallet provider insures approvals up to a limit.", es: "El proveedor de tu wallet asegura las aprobaciones hasta un límite." }
+        text:
+          en: "Your wallet provider insures approvals up to a limit."
+          es: "El proveedor de tu wallet asegura las aprobaciones hasta cierto límite."
     explanation:
-      en: "A DEX removes the company and with it the safety net. Finality applies to signing too: approve one bad contract and the wallet can be emptied with no way back."
-      es: "Un DEX elimina la empresa y con ella la red de seguridad. La irreversibilidad también aplica al firmar: aprueba un contrato malo y la wallet puede quedar vacía sin vuelta atrás."
+      en: "A DEX removes the company and with it the safety net. Finality applies to signing too: approve one bad contract and the wallet can be emptied with no way back — nodes validate rules, they do not adjudicate intent, and no insurer sits behind your signature."
+      es: "Un DEX elimina la empresa y con ella la red de seguridad. La irreversibilidad también aplica al firmar: aprueba un contrato malo y la wallet puede quedar vacía sin vuelta atrás. Los nodos validan reglas, no juzgan intenciones, y ninguna aseguradora está detrás de tu firma."

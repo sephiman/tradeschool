@@ -9,23 +9,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The shorter-term trend has turned up and the cross confirms it late — a lagging confirmation, not a precise entry price."
-          es: "La tendencia de corto plazo ha girado al alza y el cruce lo confirma tarde: una confirmación rezagada, no un precio de entrada preciso."
+          en: "The short-term trend turned up, confirmed late by two lagging lines."
+          es: "La tendencia corta giró al alza, confirmada tarde por dos líneas rezagadas."
       - id: b
         text:
-          en: "Right now is the exact, optimal moment to buy."
-          es: "Ahora mismo es el momento exacto y óptimo para comprar."
+          en: "That price is guaranteed to rise from this point onwards."
+          es: "Que el precio tiene garantizado subir a partir de este punto."
       - id: c
         text:
-          en: "Price is guaranteed to rise from here."
-          es: "El precio tiene garantizado subir a partir de aquí."
+          en: "That right now is the exact, optimal moment at which to buy."
+          es: "Que ahora mismo es el momento exacto y óptimo para comprar."
       - id: d
         text:
-          en: "The fast MA has crossed below the slow MA."
-          es: "La MM rápida ha cruzado por debajo de la lenta."
+          en: "That the fast MA has just crossed below the slow MA instead."
+          es: "Que la MM rápida acaba de cruzar por debajo de la lenta."
     explanation:
-      en: "A golden cross is the fast MA rising above the slow one, and because both are averages of past prices it confirms a move that is already underway — it does not pin the optimal entry or guarantee anything. (The fast crossing below is a death cross.)"
-      es: "Un cruce dorado es la MM rápida subiendo por encima de la lenta y, como ambas son promedios de precios pasados, confirma un movimiento que ya está en marcha: no marca la entrada óptima ni garantiza nada. (La rápida cruzando por debajo es un cruce de la muerte.)"
+      en: "A golden cross is the fast MA rising above the slow one, and because both are averages of past prices it confirms a move that is already underway — it does not pin the optimal entry price or guarantee anything about what comes next. The fast line crossing below is the opposite event, a death cross."
+      es: "Un cruce dorado es la MM rápida subiendo por encima de la lenta y, como ambas son promedios de precios pasados, confirma un movimiento que ya está en marcha: no marca el precio de entrada óptimo ni garantiza nada sobre lo que viene. La línea rápida cruzando por debajo es el evento contrario, un cruce de la muerte."
   - id: ma-support-and-ranges
     prompt:
       en: "When do moving averages and their crosses tend to help, and how should you treat an MA as support?"
@@ -34,8 +34,8 @@ variants:
       - id: a
         correct: true
         text:
-          en: "They help in a trending market; in a range they whipsaw, and an MA is a zone to watch, not a line that must hold."
-          es: "Ayudan en un mercado con tendencia; en un rango dan latigazos, y una MM es una zona a vigilar, no una línea que tenga que aguantar."
+          en: "In a trend; in a range they whipsaw, and an MA is a zone, not a hard line."
+          es: "En tendencia; en rango dan latigazos, y una MM es una zona, no una línea dura."
       - id: b
         text:
           en: "They work best in a sideways range, smoothing the chop into clean signals."
@@ -43,14 +43,14 @@ variants:
       - id: c
         text:
           en: "A moving average is a precise support line that price will always bounce off."
-          es: "Una media móvil es una línea de soporte precisa de la que el precio siempre rebotará."
+          es: "Una media móvil es una línea de soporte precisa de la que el precio siempre rebota."
       - id: d
         text:
-          en: "They work equally well in every market condition."
-          es: "Funcionan igual de bien en cualquier condición de mercado."
+          en: "They work equally well in every market condition, which is why they are popular."
+          es: "Funcionan igual de bien en cualquier condición de mercado, y por eso gustan."
     explanation:
-      en: "Averages only earn their keep when there is a trend to smooth; a flat range makes them whipsaw, with every cross a false signal. Even in a trend an MA is a dynamic zone that price often respects but can slice straight through — never a guaranteed bounce."
-      es: "Las medias solo se ganan el sueldo cuando hay una tendencia que suavizar; un rango plano las hace dar latigazos, con cada cruce una señal falsa. Incluso en tendencia, una MM es una zona dinámica que el precio suele respetar pero que puede atravesar de lado a lado: nunca un rebote garantizado."
+      en: "Averages only earn their keep when there is a trend to smooth; a flat range makes them whipsaw, with every cross a false signal. Even in a trend an MA is a dynamic zone that price often respects but can slice straight through — never a guaranteed bounce, and never equally useful everywhere."
+      es: "Las medias solo se ganan el sueldo cuando hay una tendencia que suavizar; un rango plano las hace dar latigazos, con cada cruce una señal falsa. Incluso en tendencia, una MM es una zona dinámica que el precio suele respetar pero que puede atravesar de lado a lado: nunca un rebote garantizado, ni igual de útil en todas partes."
   - id: cross-term-match
     kind: matching
     prompt:
@@ -81,23 +81,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The shorter-term trend has turned down, confirmed late — a lagging bearish signal, not a guarantee that price keeps falling."
-          es: "La tendencia de corto plazo ha girado a la baja, confirmada tarde: una señal bajista rezagada, no una garantía de que el precio siga cayendo."
+          en: "The short-term trend turned down, confirmed late — not a guarantee."
+          es: "La tendencia corta giró a la baja, confirmada tarde: no es una garantía."
       - id: b
         text:
-          en: "Price is guaranteed to fall from here."
-          es: "El precio tiene garantizado caer a partir de aquí."
+          en: "That price is now guaranteed to keep falling from this point onwards."
+          es: "Que el precio tiene ya garantizado seguir cayendo a partir de aquí."
       - id: c
         text:
-          en: "This instant is the exact top — the optimal moment to sell."
-          es: "Este instante es el techo exacto: el momento óptimo para vender."
+          en: "That this instant is the exact top, and the optimal moment to sell."
+          es: "Que este instante es el techo exacto y el momento óptimo para vender."
       - id: d
         text:
-          en: "The fast MA has crossed above the slow MA."
-          es: "La MM rápida ha cruzado por encima de la lenta."
+          en: "That the fast MA has just crossed above the slow MA instead."
+          es: "Que la MM rápida acaba de cruzar por encima de la lenta."
     explanation:
-      en: "A death cross is the fast MA dropping below the slow one, confirming a downturn that is already underway — like the golden cross it lags and guarantees nothing. (The fast crossing above is a golden cross.)"
-      es: "Un cruce de la muerte es la MM rápida cayendo por debajo de la lenta, que confirma un giro bajista ya en marcha: como el cruce dorado, va con retardo y no garantiza nada. (La rápida cruzando por encima es un cruce dorado.)"
+      en: "A death cross is the fast MA dropping below the slow one, confirming a downturn that is already underway. Like the golden cross it lags, guarantees nothing, and marks no optimal price — by the time it prints, much of the move can be behind you. The fast line crossing above is the opposite event."
+      es: "Un cruce de la muerte es la MM rápida cayendo por debajo de la lenta, que confirma un giro bajista ya en marcha. Como el cruce dorado, va con retardo, no garantiza nada y no marca ningún precio óptimo: cuando se imprime, buena parte del movimiento puede quedar atrás. La línea rápida cruzando por encima es el evento contrario."
   - id: whipsaw-truths
     kind: multi_select
     prompt:
@@ -107,49 +107,49 @@ variants:
       - id: a
         correct: true
         text:
-          en: "In a flat range, the fast and slow MAs cross back and forth, producing false signals."
-          es: "En un rango plano, las MM rápida y lenta se cruzan a un lado y otro, produciendo señales falsas."
+          en: "In a flat range the fast and slow lines cross back and forth, misfiring."
+          es: "En un rango plano las líneas rápida y lenta se cruzan sin parar y fallan."
       - id: b
         correct: true
         text:
-          en: "Moving averages are most useful when there is a clear trend to smooth."
-          es: "Las medias móviles son más útiles cuando hay una tendencia clara que suavizar."
+          en: "Moving averages are most useful when a clear trend exists to smooth."
+          es: "Las medias son más útiles cuando existe una tendencia clara que suavizar."
       - id: c
         text:
-          en: "A shorter, faster MA avoids whipsaw in a range."
-          es: "Una MM más corta y rápida evita el whipsaw en un rango."
+          en: "A shorter, faster MA is the way to avoid whipsaw inside a range."
+          es: "Una MM más corta y rápida es la forma de evitar el whipsaw en un rango."
       - id: d
         text:
-          en: "Whipsaw happens because the exchange feed is delayed."
-          es: "El whipsaw ocurre porque el feed del exchange va con retraso."
+          en: "Whipsaw happens because the exchange's price feed runs delayed."
+          es: "El whipsaw ocurre porque el feed de precios del exchange va con retraso."
     explanation:
-      en: "Whipsaw is a range problem, not a data problem: with no trend the lines keep crossing and every cross misfires. A faster MA makes this worse, not better. Moving averages pay off only when a real trend is there to smooth."
-      es: "El whipsaw es un problema de rango, no de datos: sin tendencia las líneas se cruzan sin parar y cada cruce falla. Una MM más rápida lo empeora, no lo mejora. Las medias móviles rinden solo cuando hay una tendencia de verdad que suavizar."
+      en: "Whipsaw is a range problem, not a data problem: with no trend the lines keep crossing and every cross misfires. A faster MA makes this worse rather than better, because it turns on even smaller moves. Moving averages pay off only when a real trend is there to smooth."
+      es: "El whipsaw es un problema de rango, no de datos: sin tendencia las líneas se cruzan sin parar y cada cruce falla. Una MM más rápida lo empeora en vez de mejorarlo, porque gira con movimientos aún menores. Las medias rinden solo cuando hay una tendencia de verdad que suavizar."
   - id: three-agree
     prompt:
       en: "Which combination of slope, price position and MA order reads as a clean uptrend?"
       es: "¿Qué combinación de pendiente, posición del precio y orden de las medias se lee como una tendencia alcista limpia?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Price above a rising fast MA, with the fast MA above the slow one."
-          es: "Precio por encima de una media rápida ascendente, con la media rápida por encima de la lenta."
+          en: "Price above a flat fast MA, with the two averages intertwined around it."
+          es: "Precio sobre una media rápida plana, con las dos medias entrelazadas."
       - id: b
         text:
-          en: "Price above a flat fast MA, with the two MAs intertwined."
-          es: "Precio por encima de una media rápida plana, con las dos medias entrelazadas."
+          en: "Price below a rising slow MA, with the fast MA sitting below it too."
+          es: "Precio bajo una media lenta ascendente, con la rápida también por debajo."
       - id: c
+        correct: true
         text:
-          en: "Price below a rising slow MA, with the fast MA below it."
-          es: "Precio por debajo de una media lenta ascendente, con la media rápida por debajo de ella."
+          en: "Price above a rising fast MA, which sits above the slow one."
+          es: "Precio sobre una media rápida ascendente, que va por encima de la lenta."
       - id: d
         text:
-          en: "Price crossing back and forth across both MAs while they rise."
-          es: "Precio cruzando de un lado a otro ambas medias mientras suben."
+          en: "Price crossing back and forth over both averages while they rise."
+          es: "Precio cruzando de un lado a otro ambas medias mientras estas suben."
     explanation:
-      en: "The clean reads are when all three agree — slope, position and order. Price chopping across a flat, intertwined pair is the market telling you there is no trend to trade, which is exactly when moving averages are at their worst."
-      es: "Las lecturas limpias son cuando las tres coinciden: pendiente, posición y orden. El precio serruchando sobre un par plano y entrelazado es el mercado diciéndote que no hay tendencia que operar, que es justo cuando las medias son peores."
+      en: "The clean reads are when all three agree — slope, position and order. Price chopping across a flat, intertwined pair is the market telling you there is no trend to trade, which is exactly when moving averages are at their worst, and price under both lines is the bearish arrangement, not the bullish one."
+      es: "Las lecturas limpias son cuando las tres coinciden: pendiente, posición y orden. El precio serruchando sobre un par plano y entrelazado es el mercado diciéndote que no hay tendencia que operar, que es justo cuando las medias son peores, y el precio por debajo de ambas líneas es la disposición bajista, no la alcista."
   - id: why-cross-is-late
     kind: ordering
     prompt:
@@ -185,25 +185,25 @@ variants:
       es: "En una tendencia alcista en curso, ¿por qué un retroceso hasta la media móvil suele encontrar compradores?"
     options:
       - id: a
+        text:
+          en: "Because the MA is a hard floor price cannot close below during an uptrend."
+          es: "Porque la media es un suelo duro bajo el que el precio no puede cerrar."
+      - id: b
         correct: true
         text:
-          en: "Partly real — the MA tracks roughly the average cost of recent buyers — and partly self-fulfilling, because everyone watches the same 20, 50 and 200 EMAs, so orders cluster there."
-          es: "En parte real (la media sigue aproximadamente el coste medio de los compradores recientes) y en parte autocumplido, porque todos miran las mismas EMAs de 20, 50 y 200, así que las órdenes se agrupan ahí."
-      - id: b
-        text:
-          en: "Because the MA is a hard floor that price cannot close below in an uptrend."
-          es: "Porque la media es un suelo duro por debajo del cual el precio no puede cerrar en una tendencia alcista."
+          en: "It tracks recent buyers' average cost, and everyone watches the same lines."
+          es: "Sigue el coste medio de los compradores recientes, y todos miran lo mismo."
       - id: c
         text:
-          en: "Because exchanges place liquidity programmes at popular MA levels."
-          es: "Porque los exchanges colocan programas de liquidez en los niveles de medias populares."
+          en: "Because exchanges run liquidity programmes at the popular MA levels."
+          es: "Porque los exchanges tienen programas de liquidez en las medias populares."
       - id: d
         text:
-          en: "Because the MA predicts the next leg of the trend."
-          es: "Porque la media predice el siguiente tramo de la tendencia."
+          en: "Because the MA is forecasting the next leg of the trend before it happens."
+          es: "Porque la media pronostica el siguiente tramo de la tendencia antes de que ocurra."
     explanation:
-      en: "Treat it as a zone to watch, not a line that must hold: in a genuine reversal price cuts straight through it, and the same MA that was support becomes resistance on the way back down."
-      es: "Trátala como una zona que vigilar, no como una línea que deba aguantar: en una reversión genuina el precio la atraviesa, y la misma media que era soporte pasa a ser resistencia en la bajada."
+      en: "It is partly real — the MA tracks roughly the average cost of recent buyers — and partly self-fulfilling, because everyone watches the same 20, 50 and 200 EMAs, so orders cluster there. Treat it as a zone to watch, not a line that must hold: in a genuine reversal price cuts straight through, and the same MA that was support becomes resistance on the way back down."
+      es: "Es en parte real (la media sigue aproximadamente el coste medio de los compradores recientes) y en parte autocumplido, porque todos miran las mismas EMAs de 20, 50 y 200, así que las órdenes se agrupan ahí. Trátala como una zona que vigilar, no como una línea que deba aguantar: en una reversión genuina el precio la atraviesa, y la misma media que era soporte pasa a ser resistencia en la bajada."
   - id: crypto-ma-facts
     kind: multi_select
     prompt:
@@ -213,26 +213,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The price series is unbroken — no weekend gaps to digest — so an EMA50 on the daily genuinely averages fifty continuous days."
-          es: "La serie de precios es continua (sin gaps de fin de semana que digerir), así que una EMA50 en diario promedia realmente cincuenta días seguidos."
+          en: "The series is unbroken, so a daily EMA50 averages fifty continuous days."
+          es: "La serie es continua, así que una EMA50 diaria promedia cincuenta días seguidos."
       - id: b
         correct: true
         text:
-          en: "Bigger, sharper swings make a fast MA whip constantly, throwing crosses a calmer market would never produce."
-          es: "Los movimientos más grandes y bruscos hacen que una media rápida dé bandazos constantes, generando cruces que un mercado más tranquilo nunca produciría."
+          en: "Bigger, sharper swings make a fast MA whip and throw extra crosses."
+          es: "Las oscilaciones más bruscas hacen que una media rápida dé bandazos y cruces."
       - id: c
         correct: true
         text:
-          en: "To get the same smoothness you would from a given period on equities, you usually need a longer period on crypto."
-          es: "Para lograr la misma suavidad que un periodo dado da en acciones, normalmente necesitas un periodo más largo en cripto."
+          en: "Matching the smoothness of an equity period usually needs a longer one here."
+          es: "Igualar la suavidad de un periodo bursátil suele exigir aquí uno más largo."
       - id: d
         text:
-          en: "24/7 trading removes the lag, since the average is always current."
-          es: "Operar 24/7 elimina el retardo, ya que la media siempre está actualizada."
+          en: "24/7 trading removes the lag, because the average is always current."
+          es: "Operar 24/7 elimina el retardo, porque la media siempre está al día."
       - id: e
         text:
-          en: "A weekend low-liquidity wick cannot affect a short EMA."
-          es: "Una mecha de baja liquidez en fin de semana no puede afectar a una EMA corta."
+          en: "A weekend low-liquidity wick cannot affect a short EMA at all."
+          es: "Una mecha de baja liquidez en fin de semana no afecta a una EMA corta."
     explanation:
-      en: "Crypto changes the inputs in two opposite directions: cleaner series, noisier swings. The continuous tape helps the maths; the volatility punishes short periods."
-      es: "El cripto cambia las entradas en dos direcciones opuestas: series más limpias, oscilaciones más ruidosas. La cinta continua ayuda a las matemáticas; la volatilidad castiga los periodos cortos."
+      en: "Crypto changes the inputs in two opposite directions: cleaner series, noisier swings. The continuous tape helps the maths — no weekend gaps to digest — while the volatility punishes short periods. Neither effect touches the lag, which is structural, and a thin-book wick is exactly the kind of print a short EMA reacts to hardest."
+      es: "El cripto cambia las entradas en dos direcciones opuestas: series más limpias, oscilaciones más ruidosas. La cinta continua ayuda a las matemáticas —sin gaps de fin de semana que digerir— mientras que la volatilidad castiga los periodos cortos. Ninguno de los dos efectos toca el retardo, que es estructural, y una mecha en libro fino es justo el tipo de dato al que más reacciona una EMA corta."

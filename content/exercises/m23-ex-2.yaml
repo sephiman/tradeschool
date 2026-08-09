@@ -9,48 +9,48 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Leave the stop where you set it; the only legitimate direction to move a stop is toward profit, never wider."
-          es: "Deja el stop donde lo pusiste; la única dirección legítima para mover un stop es hacia el beneficio, nunca más lejos."
+          en: "Leave the stop where you set it — toward profit is the only legitimate move."
+          es: "Deja el stop donde lo pusiste: solo es legítimo moverlo hacia el beneficio."
       - id: b
         text:
-          en: "Slide the stop lower to give the level room to work — it's basically fine."
-          es: "Desliza el stop más abajo para darle margen al nivel; básicamente está bien."
+          en: "Remove the stop entirely so a wick cannot take you out before a bounce."
+          es: "Quita el stop del todo para que una mecha no te saque antes del rebote."
       - id: c
         text:
-          en: "Remove the stop entirely so a wick can't take you out just before the bounce."
-          es: "Quita el stop del todo para que una mecha no te saque justo antes del rebote."
+          en: "Slide the stop lower to give the level room to work — it's basically fine."
+          es: "Desliza el stop más abajo para dar margen al nivel; está bien."
       - id: d
         text:
-          en: "Add to the position at the lower price to improve your average and defend the level."
-          es: "Añade a la posición al precio más bajo para mejorar tu promedio y defender el nivel."
+          en: "Add to the position lower down to improve your average and defend the level."
+          es: "Añade más abajo para mejorar tu promedio y defender el nivel."
     explanation:
-      en: "Widening or deleting a stop converts a small loss you chose into a large loss you didn't. The stop was your one calm, pressure-free decision; honoring it is the whole point. Moving it wider — or averaging down to defend a losing level — is how a planned 1R loss becomes a disaster."
-      es: "Ensanchar o borrar un stop convierte una pérdida pequeña que elegiste en una grande que no elegiste. El stop fue tu única decisión en calma y sin presión; respetarlo es todo el sentido. Moverlo más lejos —o promediar a la baja para defender un nivel perdedor— es como una pérdida planificada de 1R se convierte en un desastre."
+      en: "Widening or deleting a stop converts a small loss you chose into a large loss you didn't. The stop was your one calm, pressure-free decision; honouring it is the whole point. Moving it wider — or averaging down to defend a losing level, which piles risk onto something already going against you — is how a planned 1R loss becomes a disaster."
+      es: "Ensanchar o borrar un stop convierte una pérdida pequeña que elegiste en una grande que no elegiste. El stop fue tu única decisión en calma y sin presión; respetarlo es todo el sentido. Moverlo más lejos —o promediar a la baja para defender un nivel perdedor, lo que acumula riesgo sobre algo que ya va en tu contra— es como una pérdida planificada de 1R se convierte en un desastre."
   - id: removing-stop-leverage
     prompt:
       en: "On a leveraged position, what actually happens if you delete your stop-loss to 'give the trade room'?"
       es: "En una posición apalancada, ¿qué ocurre en realidad si borras tu stop-loss para 'darle margen a la operación'?"
     options:
       - id: a
-        correct: true
         text:
-          en: "You don't remove the exit — you hand it to the exchange; your effective exit becomes the liquidation price, the worst way out."
-          es: "No eliminas la salida: se la entregas al exchange; tu salida efectiva pasa a ser el precio de liquidación, la peor forma de salir."
+          en: "You remove the risk, since a position with no stop can't close at a loss."
+          es: "Eliminas el riesgo, ya que sin stop no puede cerrarse en pérdida."
       - id: b
         text:
-          en: "You remove the risk, because a position with no stop can't be closed at a loss."
-          es: "Eliminas el riesgo, porque una posición sin stop no puede cerrarse en pérdida."
+          en: "Nothing changes until you close it by hand; leverage never forces an exit."
+          es: "Nada cambia hasta que cierres a mano; el apalancamiento nunca fuerza."
       - id: c
+        correct: true
         text:
-          en: "Nothing changes until you close it manually; leverage never forces an exit."
-          es: "Nada cambia hasta que la cierres a mano; el apalancamiento nunca fuerza una salida."
+          en: "You hand the exit to the exchange — liquidation becomes your stop."
+          es: "Le entregas la salida al exchange: la liquidación pasa a ser tu stop."
       - id: d
         text:
           en: "The exchange automatically sets a wider, safer stop on your behalf."
           es: "El exchange fija automáticamente por ti un stop más amplio y seguro."
     explanation:
-      en: "With leverage, no stop doesn't mean no exit — it means your exit is now the liquidation price, a forced close by the exchange that is the most expensive way to leave. 'Giving it room' with no stop is quietly choosing liquidation as your plan B."
-      es: "Con apalancamiento, no tener stop no significa no tener salida: significa que tu salida ahora es el precio de liquidación, un cierre forzoso por parte del exchange que es la forma más cara de salir. 'Darle margen' sin stop es elegir calladamente la liquidación como plan B."
+      en: "With leverage, no stop doesn't mean no exit — it means your effective exit is now the liquidation price, a forced close by the exchange and the most expensive way to leave. Nobody sets a replacement for you, and the position most certainly can close at a loss. 'Giving it room' with no stop is quietly choosing liquidation as your plan B."
+      es: "Con apalancamiento, no tener stop no significa no tener salida: significa que tu salida efectiva es ahora el precio de liquidación, un cierre forzoso del exchange y la forma más cara de salir. Nadie te pone un sustituto, y la posición desde luego puede cerrarse en pérdida. 'Darle margen' sin stop es elegir calladamente la liquidación como plan B."
   - id: room-to-work-myth
     kind: true_false
     prompt:
@@ -69,26 +69,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Leaving the stop where you set it while calm."
-          es: "Dejar el stop donde lo pusiste en calma."
+          en: "Leaving the stop exactly where you set it while calm."
+          es: "Dejar el stop exactamente donde lo pusiste en calma."
       - id: b
         correct: true
         text:
-          en: "Moving the stop to breakeven once the trade works in your favour."
-          es: "Mover el stop al punto de equilibrio cuando la operación va a tu favor."
+          en: "Moving it to breakeven once the trade works in your favour."
+          es: "Moverlo al punto de equilibrio cuando la operación va a tu favor."
       - id: c
         correct: true
         text:
-          en: "Trailing the stop to lock in gains as price advances."
-          es: "Ajustar el stop siguiendo al precio para asegurar ganancias según avanza."
+          en: "Trailing it to lock in gains as the price advances."
+          es: "Ajustarlo tras el precio para asegurar ganancias según avanza."
       - id: d
         text:
-          en: "Sliding the stop lower to give a drifting level 'room'."
-          es: "Deslizar el stop más abajo para dar 'margen' a un nivel que deriva en contra."
+          en: "Sliding it lower to give a drifting level a bit more 'room'."
+          es: "Bajarlo para dar algo más de 'margen' a un nivel que deriva."
       - id: e
         text:
-          en: "Deleting the stop so a wick can't take you out before the bounce."
-          es: "Borrar el stop para que una mecha no te saque antes del rebote."
+          en: "Deleting it so a wick cannot take you out before the bounce."
+          es: "Borrarlo para que una mecha no te saque antes del rebote."
       - id: f
         text:
           en: "Averaging down to defend the level and lower your average."
@@ -102,25 +102,25 @@ variants:
       es: "Estás largo y la operación ha ido a tu favor. ¿Qué ajuste del stop es legítimo?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Move it up toward breakeven or to lock in gains — toward profit is the only legitimate direction."
-          es: "Subirlo hacia el punto de equilibrio o para asegurar ganancias: hacia el beneficio es la única dirección legítima."
+          en: "Move it lower, so that a pullback cannot shake you out of the trade."
+          es: "Bajarlo, para que un retroceso no te saque de la operación."
       - id: b
         text:
-          en: "Move it lower to avoid getting shaken out on a pullback."
-          es: "Bajarlo para que un retroceso no te saque de la operación."
+          en: "Delete it now you are in profit; you cannot lose on this trade any more."
+          es: "Borrarlo ahora que ganas; ya no puedes perder en esta operación."
       - id: c
+        correct: true
         text:
-          en: "Delete it now that you're in profit; you can't lose on this trade anymore."
-          es: "Borrarlo ahora que estás en ganancia; ya no puedes perder en esta operación."
+          en: "Move it up toward breakeven or to lock in some of the gain."
+          es: "Subirlo hacia el punto de equilibrio o para asegurar parte de la ganancia."
       - id: d
         text:
-          en: "Widen it well beyond entry to give the winner maximum room."
-          es: "Ensancharlo mucho más allá de la entrada para dar el máximo margen al ganador."
+          en: "Widen it well beyond your entry to give the winner maximum room."
+          es: "Ensancharlo mucho más allá de la entrada para dar el máximo margen."
     explanation:
-      en: "Only moving a stop toward profit is legitimate. Moving it lower (b), widening it (d) or deleting it (c) all re-open the downside you'd already closed off — and being in profit doesn't make you safe: price can reverse below your entry, and on leverage a stop-less position drifts toward liquidation."
-      es: "Solo mover un stop hacia el beneficio es legítimo. Bajarlo (b), ensancharlo (d) o borrarlo (c) reabren el riesgo que ya habías cerrado; y estar en ganancia no te hace estar a salvo: el precio puede girar por debajo de tu entrada, y con apalancamiento una posición sin stop deriva hacia la liquidación."
+      en: "Toward profit is the only legitimate direction. Moving it lower, widening it or deleting it all re-open the downside you had already closed off — and being in profit doesn't make you safe: price can reverse below your entry, and on leverage a stop-less position drifts toward liquidation."
+      es: "Hacia el beneficio es la única dirección legítima. Bajarlo, ensancharlo o borrarlo reabren el riesgo que ya habías cerrado, y estar en ganancia no te hace estar a salvo: el precio puede girar por debajo de tu entrada, y con apalancamiento una posición sin stop deriva hacia la liquidación."
   - id: stop-actions-match
     kind: matching
     prompt:
@@ -156,48 +156,50 @@ variants:
       es: "Te pones largo en BTC en 60.000 con el stop en 59.400: una pérdida planificada de 1R. En 59.400 mueves el stop a 57.000 'para darle margen' y el precio te saca allí de todos modos. ¿Qué costó eso?"
     options:
       - id: a
-        correct: true
         text:
-          en: "5R — five times the loss you had actually agreed to accept, and none of the extra four was a decision you made on purpose."
-          es: "5R: cinco veces la pérdida que habías aceptado de verdad, y ninguna de las cuatro extra fue una decisión tomada a propósito."
+          en: "1R — the original planned loss, just realised a little later on."
+          es: "1R: la pérdida planificada original, solo realizada algo más tarde."
       - id: b
-        text: { en: "1R — the original planned loss, just realised later.", es: "1R: la pérdida planificada original, solo realizada más tarde." }
+        text:
+          en: "2R, on the grounds that the stop was moved exactly once."
+          es: "2R, dado que el stop se movió exactamente una vez."
       - id: c
         text:
-          en: "2R, because the stop was moved once."
-          es: "2R, porque el stop se movió una vez."
+          en: "Nothing extra at all — the position size never changed."
+          es: "Nada extra: el tamaño de la posición no cambió en ningún momento."
       - id: d
+        correct: true
         text:
-          en: "Nothing extra — the position size was unchanged."
-          es: "Nada extra: el tamaño de la posición no cambió."
+          en: "5R — five times the loss you had agreed to accept."
+          es: "5R: cinco veces la pérdida que habías aceptado asumir."
     explanation:
-      en: "The size was set from the original 600-point stop. Widening it to 3,000 points keeps the size and triples-and-doubles the loss — you swapped a certain small loss for an uncertain large one."
-      es: "El tamaño se fijó con el stop original de 600 puntos. Ampliarlo a 3.000 mantiene el tamaño y multiplica la pérdida: cambiaste una pérdida pequeña segura por una grande incierta."
+      en: "The size was set from the original 600-point stop, so keeping that size and widening the distance to 3,000 points multiplies the loss five-fold — and none of the extra four was a decision you made on purpose. Unchanged size is exactly why the loss grew: you swapped a certain small loss for an uncertain large one."
+      es: "El tamaño se fijó con el stop original de 600 puntos, así que mantener ese tamaño y ampliar la distancia a 3.000 puntos multiplica la pérdida por cinco, y ninguna de las cuatro extra fue una decisión tomada a propósito. Que el tamaño no cambiara es justo la razón de que creciera la pérdida: cambiaste una pérdida pequeña segura por una grande incierta."
   - id: sunk-cost
     prompt:
       en: "Why does widening a stop feel like the smart move in the moment?"
       es: "¿Por qué ampliar un stop parece la decisión inteligente en el momento?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "The sunk-cost trap: a sure loss stings so badly that taking a gamble to avoid it feels rational — you swap a certain small loss now for an uncertain large one later."
-          es: "La trampa del coste hundido: una pérdida segura escuece tanto que apostar para evitarla parece racional; cambias una pérdida pequeña segura ahora por una grande incierta después."
-      - id: b
         text:
           en: "Because a wider stop mathematically lowers the risk on the position."
-          es: "Porque un stop más amplio reduce matemáticamente el riesgo de la posición."
-      - id: c
+          es: "Porque un stop más amplio reduce matemáticamente el riesgo."
+      - id: b
         text:
           en: "Because levels genuinely need more room than most traders give them."
-          es: "Porque los niveles necesitan de verdad más margen del que les da la mayoría."
+          es: "Porque los niveles necesitan de verdad más margen del que se les da."
+      - id: c
+        correct: true
+        text:
+          en: "The sunk-cost trap: a sure loss stings, so a gamble feels rational."
+          es: "La trampa del coste hundido: una pérdida segura escuece y apostar parece racional."
       - id: d
         text:
           en: "Because the original stop was placed without information you now have."
-          es: "Porque el stop original se colocó sin la información que ahora tienes."
+          es: "Porque el stop original se puso sin la información que ahora tienes."
     explanation:
-      en: "The pressure of holding an open trade is precisely the bias the stop was built to overrule. Widening it in the heat throws away the one honest, pressure-free decision you made."
-      es: "La presión de tener una operación abierta es justo el sesgo que el stop existía para anular. Ampliarlo en caliente tira por la borda la única decisión honesta y sin presión que tomaste."
+      en: "You swap a certain small loss now for an uncertain large one later, and that swap feels like avoiding pain rather than adding risk — though the loss grows rather than shrinks. The only new 'information' is that price moved against you, which is precisely the pressure the stop was built to overrule. Widening it in the heat throws away the one honest, pressure-free decision you made."
+      es: "Cambias una pérdida pequeña segura ahora por una grande incierta después, y ese cambio parece evitar dolor en vez de añadir riesgo, aunque la pérdida crezca en lugar de encogerse. La única 'información' nueva es que el precio fue en tu contra, que es justo la presión que el stop existía para anular. Ampliarlo en caliente tira por la borda la única decisión honesta y sin presión que tomaste."
   - id: averaging-down
     kind: true_false
     prompt:

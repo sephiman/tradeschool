@@ -75,21 +75,21 @@ variants:
       - id: b
         correct: true
         text:
-          en: "Price makes a Higher Low during a pullback, while RSI prints a Lower Low."
-          es: "El precio marca un Mínimo Más Alto durante un retroceso, mientras el RSI marca un Mínimo Más Bajo."
+          en: "Price makes a Higher Low during a pullback while RSI prints a Lower Low."
+          es: "El precio marca un Mínimo Más Alto en el retroceso mientras el RSI marca uno Más Bajo."
       - id: c
         correct: false
         text:
-          en: "Price is forming a series of Lower Lows and Lower Highs."
-          es: "El precio está formando una serie de Mínimos Más Bajos y Máximos Más Bajos."
+          en: "Price is stepping down through a series of Lower Lows and Lower Highs."
+          es: "El precio baja escalonadamente con Mínimos Más Bajos y Máximos Más Bajos."
       - id: d
         correct: true
         text:
-          en: "The pullback retests a key support or moving average level."
-          es: "El retroceso retesta un nivel clave de soporte o media móvil."
+          en: "The pullback retests a key support or moving-average level."
+          es: "El retroceso retestea un nivel clave de soporte o de media móvil."
     explanation:
-      en: "Hidden bullish divergence shows that momentum resets (lower RSI) while price holds structural strength (higher low)."
-      es: "La divergencia alcista oculta muestra que el momentum se reinicia (RSI más bajo) mientras el precio mantiene fuerza estructural (mínimo más alto)."
+      en: "Hidden bullish divergence shows that momentum resets (a lower RSI low) while price holds structural strength (a higher low) — which only means anything inside an uptrend that is pausing. A market stepping down through lower lows and lower highs is a downtrend: there is no bullish structure for the divergence to be hidden inside."
+      es: "La divergencia alcista oculta muestra que el momentum se reinicia (un mínimo más bajo del RSI) mientras el precio mantiene su fuerza estructural (un mínimo más alto), algo que solo significa algo dentro de una tendencia alcista que hace una pausa. Un mercado que baja con mínimos y máximos más bajos es una tendencia bajista: no hay estructura alcista dentro de la que ocultar la divergencia."
 
   - id: divergence-timeframe-truth
     kind: true_false
@@ -108,25 +108,25 @@ variants:
       es: "¿Qué indica una Divergencia Bajista Regular sobre el momentum subyacente del mercado?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Buying pressure is weakening even though price pushed to a new higher peak."
-          es: "La presión compradora se está debilitando aunque el precio haya alcanzado un nuevo pico más alto."
+          en: "That sellers have withdrawn from the market completely."
+          es: "Que los vendedores se han retirado por completo del mercado."
       - id: b
         text:
-          en: "Sellers have completely exited the market."
-          es: "Los vendedores han abandonado por completo el mercado."
+          en: "That a large short squeeze is guaranteed to follow shortly."
+          es: "Que está garantizado que a continuación habrá un short squeeze grande."
       - id: c
         text:
-          en: "A massive short squeeze is guaranteed to happen next."
-          es: "Se garantiza que ocurrirá un short squeeze masivo a continuación."
+          en: "That trading volume on the instrument has fallen to zero."
+          es: "Que el volumen de negociación del instrumento ha caído a cero."
       - id: d
+        correct: true
         text:
-          en: "Trading volume has reached zero."
-          es: "El volumen de negociación ha llegado a cero."
+          en: "Buying pressure is weakening even as price pushes to a higher peak."
+          es: "La presión compradora se debilita aunque el precio empuje a un pico más alto."
     explanation:
-      en: "Regular bearish divergence reveals that each successive higher high is backed by diminishing momentum, signaling exhaustion."
-      es: "La divergencia bajista regular revela que cada nuevo máximo más alto está respaldado por un momentum decreciente, señalando agotamiento."
+      en: "Regular bearish divergence reveals that each successive higher high is backed by diminishing momentum, which is what 'exhaustion' means here. Sellers have not left — they are simply meeting less resistance each time — and nothing about a divergence guarantees the direction or size of what comes next."
+      es: "La divergencia bajista regular revela que cada nuevo máximo más alto está respaldado por un momentum decreciente, y eso es lo que significa aquí 'agotamiento'. Los vendedores no se han ido: simplemente encuentran menos resistencia cada vez, y nada en una divergencia garantiza la dirección ni el tamaño de lo que viene."
 
   - id: rsi-divergence-confirmation
     kind: single_choice
@@ -135,25 +135,25 @@ variants:
       es: "¿Por qué un trader debería esperar a que el RSI cruce de nuevo por encima de 30 antes de operar una divergencia alcista regular?"
     options:
       - id: a
+        text:
+          en: "Because it reduces the exchange's trading fees on the entry order."
+          es: "Porque reduce las comisiones del exchange en la orden de entrada."
+      - id: b
         correct: true
         text:
-          en: "It confirms that bullish momentum has actually turned upward rather than continuing to slide in oversold territory."
-          es: "Confirma que el momentum alcista ha girado hacia arriba en lugar de seguir cayendo en territorio de sobreventa."
-      - id: b
-        text:
-          en: "It reduces exchange trading fees to zero."
-          es: "Reduce las comisiones de trading del exchange a cero."
+          en: "It confirms momentum actually turned, rather than still sliding."
+          es: "Confirma que el momentum giró de verdad, en vez de seguir cayendo."
       - id: c
         text:
-          en: "It guarantees that the trade will reach Take Profit within 10 minutes."
-          es: "Garantiza que la operación llegará a Take Profit en 10 minutos."
+          en: "Because it guarantees the trade reaches its target within ten minutes."
+          es: "Porque garantiza que la operación llegue a su objetivo en diez minutos."
       - id: d
         text:
-          en: "It forces the exchange to disable short positions."
-          es: "Obliga al exchange a desactivar las posiciones cortas."
+          en: "Because it forces the venue to disable short positions on that pair."
+          es: "Porque obliga al venue a desactivar los cortos en ese par."
     explanation:
-      en: "RSI can remain deeply oversold during strong downtrends; waiting for the line to hook back up confirms buyer entry."
-      es: "El RSI puede permanecer muy sobrevendido durante tendencias bajistas fuertes; esperar a que la línea se enganche hacia arriba confirma la entrada de compradores."
+      en: "RSI can remain deeply oversold throughout a strong downtrend, so a divergence forming there says only that momentum is decelerating — not that it has turned. Waiting for the line to hook back above 30 is what confirms buyers actually stepped in. It changes nothing about fees, timing or what the venue allows."
+      es: "El RSI puede permanecer muy sobrevendido durante toda una tendencia bajista fuerte, así que una divergencia formada ahí solo dice que el momentum se desacelera, no que haya girado. Esperar a que la línea se enganche por encima de 30 es lo que confirma que los compradores entraron de verdad. No cambia nada sobre comisiones, plazos ni lo que permita el venue."
 
   - id: macd-histogram-divergence
     kind: single_choice
@@ -162,25 +162,25 @@ variants:
       es: "¿En qué se diferencia la divergencia del histograma MACD de la divergencia estándar de precio a indicador?"
     options:
       - id: a
-        correct: true
         text:
-          en: "It measures the rate of change of the distance between MACD lines, giving an earlier signal of momentum decelerating."
-          es: "Mide la tasa de cambio de la distancia entre las líneas MACD, dando una señal más temprana de desaceleración del momentum."
+          en: "It only works when read on weekend candlestick charts."
+          es: "Solo funciona cuando se lee en gráficos de velas de fin de semana."
       - id: b
         text:
-          en: "It only works on weekend candlestick charts."
-          es: "Solo funciona en gráficos de velas de fin de semana."
+          en: "It removes the need to place a stop-loss on the resulting trade."
+          es: "Elimina la necesidad de poner un stop-loss en la operación resultante."
       - id: c
+        correct: true
         text:
-          en: "It eliminates the need for stop loss orders."
-          es: "Elimina la necesidad de órdenes de stop loss."
+          en: "It tracks the gap between the MACD lines, so it warns earlier."
+          es: "Sigue la distancia entre las líneas MACD, así que avisa antes."
       - id: d
         text:
-          en: "It is only calculated on spot markets, never futures."
+          en: "It is only ever calculated on spot markets, never on futures."
           es: "Solo se calcula en mercados spot, nunca en futuros."
     explanation:
-      en: "The MACD histogram reflects acceleration/deceleration; histogram divergence spots slowing momentum before the MACD signal lines cross."
-      es: "El histograma MACD refleja aceleración/desaceleración; la divergencia del histograma detecta frenado del momentum antes de que las líneas del MACD se crucen."
+      en: "The histogram reflects the rate of change of the distance between the MACD lines — acceleration and deceleration — so histogram divergence spots slowing momentum before the lines themselves cross. It is an earlier and noisier clue, which is exactly why it still needs a level and a stop like any other setup."
+      es: "El histograma refleja la tasa de cambio de la distancia entre las líneas MACD —aceleración y desaceleración—, así que la divergencia del histograma detecta el frenado del momentum antes de que las propias líneas se crucen. Es una pista más temprana y más ruidosa, y por eso sigue necesitando un nivel y un stop como cualquier otra configuración."
 
   - id: divergence-trendline-break
     kind: single_choice
@@ -189,22 +189,22 @@ variants:
       es: "¿Qué papel juega la rotura de una micro línea de tendencia al ejecutar una operación por divergencia?"
     options:
       - id: a
+        text:
+          en: "It automatically doubles the position size the account can carry."
+          es: "Duplica automáticamente el tamaño de posición que puede llevar la cuenta."
+      - id: b
         correct: true
         text:
-          en: "It provides concrete price action confirmation that the counter-trend move has commenced."
-          es: "Proporciona confirmación concreta por acción del precio de que el movimiento contra-tendencia ha comenzado."
-      - id: b
-        text:
-          en: "It doubles your account's position size automatically."
-          es: "Duplica el tamaño de posición de tu cuenta automáticamente."
+          en: "It is the price-action confirmation that the counter-move has started."
+          es: "Es la confirmación por acción del precio de que el movimiento contrario empezó."
       - id: c
         text:
-          en: "It cancels all open orders on other exchanges."
-          es: "Cancela todas las órdenes abiertas en otros exchanges."
+          en: "It cancels every open order you hold on the other exchanges."
+          es: "Cancela todas las órdenes abiertas que tengas en los demás exchanges."
       - id: d
         text:
-          en: "It turns a bearish divergence into a hidden bullish divergence."
+          en: "It converts a bearish divergence into a hidden bullish one."
           es: "Convierte una divergencia bajista en una divergencia alcista oculta."
     explanation:
-      en: "Combining indicator divergence with a price structure or trendline break provides both context and timing."
-      es: "Combinar la divergencia de indicador con la rotura de estructura o línea de tendencia proporciona contexto y timing."
+      en: "Divergence is context and the level is location, but neither one times an entry: the trendline break is the concrete evidence that price has begun to move, which is what turns a reading into a trade. Nothing about it changes your sizing, your other orders, or the type of divergence you were looking at."
+      es: "La divergencia es contexto y el nivel es ubicación, pero ninguno pone la hora a una entrada: la rotura de la línea de tendencia es la prueba concreta de que el precio ha empezado a moverse, y eso es lo que convierte una lectura en una operación. Nada de eso cambia tu dimensionamiento, tus otras órdenes ni el tipo de divergencia que mirabas."

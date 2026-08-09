@@ -7,59 +7,59 @@ variants:
       es: "¿Por qué conviene tratar el soporte como una zona en lugar de una línea exacta?"
     options:
       - id: a
+        text:
+          en: "A zone guarantees a reversal there, whereas a line does not."
+          es: "Una zona garantiza el giro allí, mientras que una línea no."
+      - id: b
         correct: true
         text:
-          en: "The orders and decisions that create it are spread across a band of prices, so price reacts near the level, not precisely on it."
-          es: "Las órdenes y decisiones que lo crean están repartidas por una banda de precios, así que el precio reacciona cerca del nivel, no exactamente sobre él."
-      - id: b
-        text:
-          en: "A zone guarantees that price will reverse there, whereas a line does not."
-          es: "Una zona garantiza que el precio girará allí, mientras que una línea no."
+          en: "The orders behind it are spread across a band, so price reacts near it."
+          es: "Las órdenes de detrás están repartidas por una banda, así que el precio reacciona cerca."
       - id: c
         text:
-          en: "The true exact line is a secret only professional traders can see."
-          es: "La verdadera línea exacta es un secreto que solo ven los traders profesionales."
+          en: "The true exact line is a secret only professionals can see."
+          es: "La verdadera línea exacta es un secreto que solo ven los profesionales."
       - id: d
         text:
-          en: "Support lines automatically move up by a fixed amount each day."
-          es: "Las líneas de soporte suben automáticamente una cantidad fija cada día."
+          en: "Support lines drift up by a fixed amount every day."
+          es: "Las líneas de soporte suben una cantidad fija cada día."
     explanation:
-      en: "Support is a zone because the buying behind it is spread across a band of prices. It is not a guarantee of a reversal, not a hidden secret, and it does not drift on a schedule — it holds only while people keep acting on it."
-      es: "El soporte es una zona porque la compra que hay detrás está repartida por una banda de precios. No es una garantía de giro, ni un secreto oculto, ni se desplaza según un horario: aguanta solo mientras la gente siga actuando sobre él."
+      en: "Support is a zone because the buying behind it is spread across a band of prices — round numbers, old bodies, old wicks, clustered stops — so price reacts near the level rather than precisely on it. Widening it into a band buys you tolerance, not certainty: it is still not a guarantee of a reversal, not a hidden secret, and it does not drift on a schedule."
+      es: "El soporte es una zona porque la compra que hay detrás está repartida por una banda de precios (números redondos, cuerpos antiguos, mechas antiguas, stops agrupados), así que el precio reacciona cerca del nivel y no exactamente sobre él. Ensancharlo a una banda te da tolerancia, no certeza: sigue sin ser una garantía de giro, ni un secreto oculto, ni algo que se desplace según un horario."
   - id: exact-line-fails
     prompt:
       en: "Price dips a fraction below your drawn support line and immediately snaps back up. How do exact-line thinking and zone thinking read this differently?"
       es: "El precio cae una fracción por debajo de tu línea de soporte y rebota de inmediato. ¿Cómo lo leen de forma distinta el pensamiento de línea exacta y el de zona?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Exact-line thinking calls it a broken support (a false signal); zone thinking reads it as a normal test of the area's edge."
-          es: "El pensamiento de línea exacta lo llama soporte roto (una señal falsa); el de zona lo lee como un test normal del borde de la zona."
+          en: "Both approaches read it as a confirmed breakdown and exit the trade."
+          es: "Ambos enfoques lo leen como ruptura confirmada y salen de la operación."
       - id: b
-        text:
-          en: "Both approaches treat it as a confirmed breakdown and exit."
-          es: "Ambos enfoques lo tratan como una ruptura confirmada y salen."
-      - id: c
         text:
           en: "It proves the support was never real in the first place."
           es: "Demuestra que el soporte nunca fue real desde el principio."
-      - id: d
+      - id: c
         text:
           en: "The wick below the line guarantees a further fall is coming."
-          es: "La mecha por debajo de la línea garantiza que viene una caída mayor."
+          es: "La mecha bajo la línea garantiza que viene una caída mayor."
+      - id: d
+        correct: true
+        text:
+          en: "Exact-line thinking calls it broken; zone thinking calls it a normal test."
+          es: "La línea exacta lo llama roto; la zona lo llama un test normal."
     explanation:
-      en: "A small poke past the line and back is exactly what a zone predicts — price testing the edge of the band. Exact-line thinking turns that normal wick into a false 'broken level' alarm, which is why it misfires so often."
-      es: "Un pequeño asomo más allá de la línea y una vuelta es justo lo que predice una zona: el precio testeando el borde de la banda. El pensamiento de línea exacta convierte esa mecha normal en una falsa alarma de 'nivel roto', y por eso falla tan a menudo."
+      en: "A small poke past the line and back is exactly what a zone predicts — price testing the edge of the band, then being rejected. Exact-line thinking turns that ordinary wick into a false 'broken level' alarm, which is why it misfires so often. A rejected wick neither disproves the level nor promises a further fall; if anything it is the level doing its job."
+      es: "Un pequeño asomo más allá de la línea y una vuelta es justo lo que predice una zona: el precio testeando el borde de la banda y siendo rechazado. El pensamiento de línea exacta convierte esa mecha corriente en una falsa alarma de 'nivel roto', y por eso falla tan a menudo. Una mecha rechazada ni desmiente el nivel ni promete una caída mayor; si acaso, es el nivel haciendo su trabajo."
   - id: sr-exact-line
     kind: true_false
     prompt:
-      en: "Support and resistance are exact price lines that price reverses on precisely."
-      es: "Los soportes y las resistencias son líneas de precio exactas sobre las que el precio gira con precisión."
-    answer: false
+      en: "Support and resistance are bands of price rather than exact lines, because the orders behind them are spread across a range."
+      es: "Los soportes y las resistencias son bandas de precio más que líneas exactas, porque las órdenes que hay detrás están repartidas por un rango."
+    answer: true
     explanation:
-      en: "They are zones — bands of prices — because the orders behind them are spread across a range, not stacked on one exact number. Expecting a pixel-perfect reversal produces constant false alarms."
-      es: "Son zonas —bandas de precios— porque las órdenes que hay detrás están repartidas por un rango, no apiladas en un número exacto. Esperar un giro milimétrico genera falsas alarmas constantes."
+      en: "True. Nothing stacks every order on one exact number, so expecting a pixel-perfect reversal produces constant false alarms. Draw the band and let price test its edge."
+      es: "Cierto. Nada apila todas las órdenes en un número exacto, así que esperar un giro milimétrico genera falsas alarmas constantes. Dibuja la banda y deja que el precio testee su borde."
   - id: sr-definitions
     kind: matching
     prompt:
@@ -92,23 +92,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Price has reacted there several times, so more traders are watching it."
+          en: "Price has reacted there several times, so more traders watch it."
           es: "El precio ha reaccionado allí varias veces, así que más traders la vigilan."
       - id: b
         text:
-          en: "It has been drawn to the exact tick."
-          es: "Se ha trazado en el tick exacto."
+          en: "It has been drawn to the exact tick, so there is no ambiguity at all."
+          es: "Se ha trazado en el tick exacto, así que no queda ninguna ambigüedad."
       - id: c
         text:
-          en: "It is brand new and has never been touched."
-          es: "Es nueva y nunca se ha tocado."
+          en: "It is brand new and has never once been touched by price."
+          es: "Es completamente nueva y el precio no la ha tocado ni una vez."
       - id: d
         text:
-          en: "It appears only on a 1-minute chart."
-          es: "Solo aparece en un gráfico de 1 minuto."
+          en: "It appears only on the 1-minute chart, where the detail is finest."
+          es: "Solo aparece en el gráfico de 1 minuto, donde el detalle es más fino."
     explanation:
-      en: "A zone gains credibility from being tested: the more times price reacts there, the more traders watch it, which is partly why it keeps working — until enough of them give up and it breaks."
-      es: "Una zona gana credibilidad al ser testeada: cuantas más veces reacciona allí el precio, más traders la vigilan, que es en parte por lo que sigue funcionando, hasta que suficientes se rinden y se rompe."
+      en: "A zone gains credibility from being tested: the more times price reacts there, the more traders watch it, which is partly why it keeps working — until enough of them give up and it breaks. Precision of the drawing adds nothing, an untested level has no history behind it, and a zone visible only on the 1-minute chart was formed by the fewest participants of all."
+      es: "Una zona gana credibilidad al ser testeada: cuantas más veces reacciona allí el precio, más traders la vigilan, que es en parte por lo que sigue funcionando, hasta que suficientes se rinden y se rompe. La precisión del trazo no añade nada, un nivel sin testear no tiene historia detrás, y una zona que solo se ve en el gráfico de 1 minuto la formó la menor cantidad de participantes posible."
   - id: sr-truths
     kind: multi_select
     prompt:
@@ -118,24 +118,24 @@ variants:
       - id: a
         correct: true
         text:
-          en: "They are zones (bands of price), not exact lines."
-          es: "Son zonas (bandas de precio), no líneas exactas."
+          en: "They are zones — bands of price — rather than exact lines."
+          es: "Son zonas —bandas de precio— en lugar de líneas exactas."
       - id: b
         correct: true
         text:
-          en: "A zone holds only while people keep acting on it, and breaks when they stop."
-          es: "Una zona aguanta solo mientras la gente sigue actuando sobre ella, y se rompe cuando deja de hacerlo."
+          en: "A zone holds while people act on it, and breaks when they stop."
+          es: "Una zona aguanta mientras la gente actúa sobre ella y se rompe cuando deja."
       - id: c
         text:
-          en: "A zone guarantees that price will reverse there."
-          es: "Una zona garantiza que el precio girará allí."
+          en: "A zone guarantees that price will reverse when it gets there."
+          es: "Una zona garantiza que el precio girará al llegar allí."
       - id: d
         text:
           en: "The true exact line is a secret only professionals can see."
           es: "La verdadera línea exacta es un secreto que solo ven los profesionales."
     explanation:
-      en: "Support and resistance are zones that work because people remember and act on them; nothing about them is guaranteed or secret."
-      es: "Los soportes y las resistencias son zonas que funcionan porque la gente las recuerda y actúa sobre ellas; no hay nada garantizado ni secreto en ellas."
+      en: "Support and resistance are zones that work because people remember and act on them. Nothing about them is guaranteed and nothing is secret — the level is visible to everyone precisely because it is the record of what everyone already did."
+      es: "Los soportes y las resistencias son zonas que funcionan porque la gente las recuerda y actúa sobre ellas. No hay nada garantizado ni secreto: el nivel lo ve todo el mundo precisamente porque es el registro de lo que todo el mundo ya hizo."
   - id: level-not-wall
     kind: true_false
     prompt:
@@ -180,20 +180,22 @@ variants:
       es: "Mecánicamente, ¿por qué funciona una zona de soporte?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Memory, and it is partly self-fulfilling — buyers bid an old support because they expect other buyers to do the same. It holds because people act on it, and fails when enough of them stop."
-          es: "La memoria, y es en parte autocumplida: los compradores pujan en un soporte antiguo porque esperan que otros hagan lo mismo. Aguanta porque la gente actúa sobre él y falla cuando suficientes dejan de hacerlo."
+          en: "Exchanges place protective orders at the best-known historical levels."
+          es: "Los exchanges colocan órdenes de protección en los niveles más conocidos."
       - id: b
         text:
-          en: "Exchanges place protective orders at well-known levels."
-          es: "Los exchanges colocan órdenes de protección en niveles conocidos."
+          en: "The level is a mathematical property of the price series itself."
+          es: "El nivel es una propiedad matemática de la propia serie de precios."
       - id: c
+        correct: true
         text:
-          en: "The level is a mathematical property of the price series."
-          es: "El nivel es una propiedad matemática de la serie de precios."
+          en: "Memory, and it is partly self-fulfilling because everyone sees the same level."
+          es: "La memoria, y es en parte autocumplido."
       - id: d
-        text: { en: "Market makers are obliged to defend prior lows.", es: "Los creadores de mercado están obligados a defender mínimos previos." }
+        text:
+          en: "Market makers are obliged to defend prior lows on the venue."
+          es: "Los creadores de mercado están obligados a defender mínimos previos."
     explanation:
-      en: "A level is a place where people have acted before, nothing more and nothing less. The orders behind it are spread across a band of prices — round numbers, old bodies, old wicks, clustered stops — which is why it is a zone."
-      es: "Un nivel es un lugar donde la gente ya actuó antes, nada más y nada menos. Las órdenes detrás están repartidas por una banda de precios (números redondos, cuerpos antiguos, mechas antiguas, stops agrupados), y por eso es una zona."
+      en: "Buyers bid an old support because they expect other buyers to do the same, so it holds because people act on it and fails when enough of them stop. Nobody is obliged to defend it: a level is a place where people have acted before, nothing more and nothing less, and no formula or venue rule puts it there."
+      es: "Los compradores pujan en un soporte antiguo porque esperan que otros hagan lo mismo, así que aguanta porque la gente actúa sobre él y falla cuando suficientes dejan de hacerlo. Nadie está obligado a defenderlo: un nivel es un lugar donde la gente ya actuó antes, nada más y nada menos, y ninguna fórmula ni regla del venue lo pone ahí."

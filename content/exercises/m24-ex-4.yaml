@@ -7,100 +7,100 @@ variants:
       es: "Extracto del diario: «Tomé la entrada planificada en la reacción, stop donde planeé, salí en el fallo del objetivo planificado cuando se rompió la estructura. −1R.» Repetido en una racha de manual, la cuenta sangra. Esto es:"
     options:
       - id: a
-        correct: true
         text:
-          en: "A possible system failure — the plan was followed, so the edge itself is what to examine."
-          es: "Un posible fallo del sistema: el plan se siguió, así que lo que hay que examinar es la ventaja misma."
+          en: "An execution failure — losses this consistent mean rules were broken."
+          es: "Un fallo de ejecución: pérdidas tan constantes implican reglas rotas."
       - id: b
         text:
-          en: "An execution failure — you clearly broke your own rules."
-          es: "Un fallo de ejecución: claramente rompiste tus propias reglas."
+          en: "Proof the system works; a by-the-book run losing is normal, so size up."
+          es: "Prueba de que el sistema funciona; perder de manual es normal, sube tamaño."
       - id: c
         text:
-          en: "Proof the system works; keep sizing up."
-          es: "Prueba de que el sistema funciona; sigue subiendo el tamaño."
+          en: "Impossible to tell, since a journal cannot record whether you obeyed it."
+          es: "Imposible de saber, ya que un diario no registra si lo obedeciste."
       - id: d
+        correct: true
         text:
-          en: "Impossible to tell even with the journal."
-          es: "Imposible de saber incluso con el diario."
+          en: "A possible system failure — the plan was followed, so examine the edge itself."
+          es: "Un posible fallo del sistema: examina la ventaja."
     explanation:
-      en: "When by-the-book trades lose over a real sample, the discipline was there and the edge is suspect — study or adjust the system. The journal is what lets you say the plan was actually followed."
-      es: "Cuando las operaciones de manual pierden sobre una muestra real, la disciplina estuvo y la sospechosa es la ventaja: estudia o ajusta el sistema. El diario es lo que te deja afirmar que el plan se siguió de verdad."
+      en: "When by-the-book trades lose over a real sample, the discipline was there and the edge is what is suspect — study or adjust the system. Note that the journal is precisely what lets you say the plan was followed; without it this diagnosis would be unavailable, not obvious."
+      es: "Cuando las operaciones de manual pierden sobre una muestra real, la disciplina estuvo y la sospechosa es la ventaja: estudia o ajusta el sistema. Fíjate en que el diario es justo lo que te deja afirmar que el plan se siguió; sin él este diagnóstico sería imposible, no evidente."
   - id: moved-stop-lost
     prompt:
       en: "Journal excerpt: 'Trade went against me, moved the stop down twice to avoid the loss, finally closed at −4R. Plan said −1R.' This is:"
       es: "Extracto del diario: «La operación fue en mi contra, bajé el stop dos veces para evitar la pérdida, cerré al final en −4R. El plan decía −1R.» Esto es:"
     options:
       - id: a
+        text:
+          en: "A system failure — a strategy that produces −4R trades has no edge."
+          es: "Un fallo del sistema: una estrategia que da −4R no tiene ventaja."
+      - id: b
         correct: true
         text:
-          en: "An execution failure — the system was never tested; you were the variable."
-          es: "Un fallo de ejecución: el sistema nunca se probó; la variable fuiste tú."
-      - id: b
-        text:
-          en: "A system failure — the strategy clearly has no edge."
-          es: "Un fallo del sistema: la estrategia claramente no tiene ventaja."
+          en: "An execution failure — the system was never run; you were the variable."
+          es: "Un fallo de ejecución: la variable fuiste tú."
       - id: c
         text:
-          en: "Bad luck, nothing to learn from."
-          es: "Mala suerte, nada que aprender."
+          en: "Bad luck: the plan was intact, the market simply ran further than usual."
+          es: "Mala suerte: el plan estaba intacto, el mercado corrió más de lo normal."
       - id: d
         text:
-          en: "A win, because you avoided being stopped at −1R."
-          es: "Una victoria, porque evitaste que te saltaran en −1R."
+          en: "A win, since you avoided the −1R stop and chose your own exit instead."
+          es: "Una victoria, ya que evitaste el stop de −1R y elegiste tu propia salida."
     explanation:
-      en: "You broke the stop rule, so what lost money was the improvisation, not the strategy — the system was never actually run. The fix is discipline, not a new strategy."
-      es: "Rompiste la regla del stop, así que lo que perdió dinero fue la improvisación, no la estrategia: el sistema nunca se ejecutó de verdad. El arreglo es disciplina, no una estrategia nueva."
+      en: "You broke the stop rule, so what lost money was the improvisation, not the strategy — the system was never actually run, and its −1R would have been the good outcome here. The fix is discipline, not a new strategy."
+      es: "Rompiste la regla del stop, así que lo que perdió dinero fue la improvisación, no la estrategia: el sistema nunca se ejecutó de verdad, y su −1R habría sido aquí el buen resultado. El arreglo es disciplina, no una estrategia nueva."
   - id: why-journal
     prompt:
       en: "Why is the 'system failure vs execution failure' distinction impossible to make reliably without a journal?"
       es: "¿Por qué la distinción «fallo del sistema vs fallo de ejecución» es imposible de hacer de forma fiable sin un diario?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Both just look like a red number in the moment; only the record shows whether the plan was followed."
-          es: "Ambos solo parecen un número rojo en el momento; solo el registro muestra si se siguió el plan."
+          en: "Because a journal changes the outcome by making you trade more carefully."
+          es: "Porque un diario cambia el resultado al hacerte operar con más cuidado."
       - id: b
         text:
-          en: "Because a journal changes the outcome of the trades."
-          es: "Porque un diario cambia el resultado de las operaciones."
+          en: "It is not: you can always reconstruct exactly what you did from memory."
+          es: "No lo es: siempre puedes reconstruir de memoria exactamente qué hiciste."
       - id: c
+        correct: true
         text:
-          en: "It is not — you can always remember exactly what you did."
-          es: "No lo es: siempre puedes recordar exactamente qué hiciste."
+          en: "Both look like the same red number afterwards, whatever actually happened."
+          es: "Ambos parecen luego el mismo número rojo."
       - id: d
         text:
-          en: "Because system failures never actually happen."
-          es: "Porque los fallos del sistema nunca ocurren de verdad."
+          en: "Because system failures are rare enough to ignore in your first year."
+          es: "Porque los fallos del sistema son bastante raros como para ignorarlos."
     explanation:
-      en: "Memory edits itself — it keeps the wins and drops the rule-breaks. Without the written plan-vs-execution record, both failures present as the same loss, and beginners routinely misdiagnose which one they had."
-      es: "La memoria se edita: guarda las ganancias y descarta las roturas de reglas. Sin el registro escrito de plan-vs-ejecución, ambos fallos se presentan como la misma pérdida, y los principiantes confunden rutinariamente cuál tuvieron."
+      en: "Memory edits itself — it keeps the wins and quietly drops the rule-breaks — so 'I remember what I did' is exactly the claim that fails. Without the written plan-vs-execution record, both failures present as the same loss, and beginners routinely misdiagnose which one they had."
+      es: "La memoria se edita: guarda las ganancias y descarta en silencio las roturas de reglas, así que «recuerdo lo que hice» es justo la afirmación que falla. Sin el registro escrito de plan-vs-ejecución, ambos fallos se presentan como la misma pérdida, y los principiantes confunden rutinariamente cuál tuvieron."
   - id: fix-mismatch
     prompt:
       en: "You lost money by repeatedly chasing entries you never planned. You respond by scrapping your strategy and building a new one. What is wrong with this response?"
       es: "Perdiste dinero persiguiendo repetidamente entradas que nunca planeaste. Respondes desechando tu estrategia y construyendo una nueva. ¿Qué falla en esta respuesta?"
     options:
       - id: a
-        correct: true
         text:
-          en: "It fixes the wrong thing — the failure was execution, so the strategy was never the problem."
-          es: "Arregla lo que no es: el fallo fue de ejecución, así que la estrategia nunca fue el problema."
+          en: "Nothing — a losing week always means the strategy must be replaced."
+          es: "Nada: una semana perdedora siempre significa reemplazar la estrategia."
       - id: b
         text:
-          en: "Nothing — a losing week always means the strategy is broken."
-          es: "Nada: una semana perdedora siempre significa que la estrategia está rota."
+          en: "You should have scaled size up, to recover on the same strategy."
+          es: "Deberías haber subido el tamaño, para recuperar con la misma estrategia."
       - id: c
         text:
-          en: "You should have scaled up size instead."
-          es: "Deberías haber subido el tamaño en su lugar."
+          en: "New strategies outperform old ones, so the timing is the only mistake."
+          es: "Las estrategias nuevas rinden más que las viejas; el error es el momento."
       - id: d
+        correct: true
         text:
-          en: "New strategies are guaranteed to perform better."
-          es: "Las estrategias nuevas rinden mejor con seguridad."
+          en: "It fixes the wrong thing — the failure was execution."
+          es: "Arregla lo que no es: el fallo fue de ejecución."
     explanation:
-      en: "Chasing unplanned entries is an execution failure; the strategy was never actually tested. Rebuilding it drills the wrong lesson — the real fix is following the plan you already have."
-      es: "Perseguir entradas no planificadas es un fallo de ejecución; la estrategia nunca se probó de verdad. Reconstruirla machaca la lección equivocada: el arreglo real es seguir el plan que ya tienes."
+      en: "Chasing unplanned entries is an execution failure; the strategy was never actually tested, so there is no evidence against it. Rebuilding drills the wrong lesson and hands you a fresh untested system to break — the real fix is following the plan you already have."
+      es: "Perseguir entradas no planificadas es un fallo de ejecución; la estrategia nunca se probó de verdad, así que no hay pruebas en su contra. Reconstruirla machaca la lección equivocada y te da un sistema nuevo sin probar que romper: el arreglo real es seguir el plan que ya tienes."
   - id: r-not-dollars-tf
     kind: true_false
     prompt:
@@ -118,74 +118,74 @@ variants:
     options:
       - id: a
         correct: true
-        text: { en: "The setup and why it was a trade", es: "El setup y por qué era una operación" }
+        text: { en: "The setup, and why it was a trade at all", es: "El setup, y por qué era una operación siquiera" }
       - id: b
         correct: true
-        text: { en: "The plan: entry, stop, target, size (decided before entering)", es: "El plan: entrada, stop, objetivo, tamaño (decididos antes de entrar)" }
+        text: { en: "The plan: entry, stop, target and size, set before entering", es: "El plan: entrada, stop, objetivo y tamaño, antes de entrar" }
       - id: c
         correct: true
-        text: { en: "What you actually did vs the plan, and the result in R", es: "Qué hiciste de verdad frente al plan, y el resultado en R" }
+        text: { en: "What you actually did against the plan, and the result in R", es: "Qué hiciste de verdad frente al plan, y el resultado en R" }
       - id: d
-        text: { en: "A prediction of exactly where price will be next week", es: "Una predicción de dónde estará exactamente el precio la semana que viene" }
+        text: { en: "A prediction of where price will be next week", es: "Una predicción de dónde estará el precio la semana que viene" }
     explanation:
-      en: "Setup, plan, execution-vs-plan and result in R (plus a screenshot) are the fields that let the weekly review separate system from execution failures. A price prediction is not a journal field."
-      es: "Setup, plan, ejecución-frente-a-plan y resultado en R (más una captura) son los campos que permiten a la revisión semanal separar fallos de sistema de fallos de ejecución. Una predicción de precio no es un campo del diario."
+      en: "Setup, plan, execution-vs-plan and result in R (plus a screenshot) are the fields that let the weekly review separate system from execution failures — each one records a decision you made, which is the only thing you control. A price prediction records a guess about the market instead, so it can never be graded."
+      es: "Setup, plan, ejecución-frente-a-plan y resultado en R (más una captura) son los campos que permiten a la revisión semanal separar fallos de sistema de fallos de ejecución: cada uno registra una decisión tuya, que es lo único que controlas. Una predicción de precio registra una conjetura sobre el mercado, así que nunca se puede calificar."
   - id: weekly-review
     prompt:
       en: "What is the single most valuable thing the weekly journal review produces?"
       es: "¿Qué es lo más valioso que produce la revisión semanal del diario?"
     options:
       - id: a
+        text:
+          en: "A guarantee that next week is profitable if you follow every rule."
+          es: "Una garantía de que la próxima semana es rentable si sigues las reglas."
+      - id: b
         correct: true
         text:
-          en: "A clean split of every trade into 'followed the plan' vs 'did not' — so you fix the right thing."
-          es: "Una división limpia de cada operación en «seguí el plan» vs «no» — para arreglar lo correcto."
-      - id: b
-        text:
-          en: "A guarantee that next week will be profitable."
-          es: "Una garantía de que la semana que viene será rentable."
+          en: "A clean split into 'followed the plan' vs 'did not'."
+          es: "Una división limpia en «seguí el plan» vs «no»."
       - id: c
         text:
-          en: "A list of coins to buy."
-          es: "Una lista de monedas que comprar."
+          en: "A shortlist of the coins whose setups worked, to trade next week."
+          es: "Una lista de las monedas cuyos setups funcionaron, para la semana que viene."
       - id: d
         text:
-          en: "Permission to increase leverage."
-          es: "Permiso para aumentar el apalancamiento."
+          en: "Permission to raise leverage, since reviewing proves you are improving."
+          es: "Permiso para subir apalancamiento, ya que revisar prueba que mejoras."
     explanation:
-      en: "Sorting trades into followed/not-followed is what tells apart a system failure from an execution failure, which is the difference between adjusting the strategy and drilling discipline."
-      es: "Clasificar las operaciones en seguidas/no-seguidas es lo que distingue un fallo del sistema de uno de ejecución, que es la diferencia entre ajustar la estrategia y machacar disciplina."
+      en: "Sorting trades into followed/not-followed is what tells a system failure apart from an execution failure, which is the difference between adjusting the strategy and drilling discipline. The review grades your decisions, not the market — it produces no coin list and no licence to size up."
+      es: "Clasificar las operaciones en seguidas/no-seguidas es lo que distingue un fallo del sistema de uno de ejecución, que es la diferencia entre ajustar la estrategia y machacar disciplina. La revisión califica tus decisiones, no el mercado: no produce listas de monedas ni permisos para subir el tamaño."
   - id: risk-tiers-precondition
     prompt:
       en: "You want to move from a flat 1% per trade to risk tiers — 0,5–1% on ordinary setups, up to 2% on your best ones. What has to be true first?"
       es: "Quieres pasar de un 1% plano por operación a niveles de riesgo: 0,5–1% en los setups normales y hasta el 2% en los mejores. ¿Qué tiene que ser cierto antes?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Your journal has to show, over a real sample, that the trades you graded 'A' at entry genuinely outperform the ones you graded 'B'."
-          es: "Tu diario tiene que mostrar, sobre una muestra real, que las operaciones que calificaste «A» en la entrada rinden de verdad más que las que calificaste «B»."
+          en: "You have to be confident you can recognise a high-quality setup on sight."
+          es: "Tienes que estar seguro de que reconoces un setup de calidad al verlo."
       - id: b
         text:
-          en: "You have to be confident you can recognise a high-quality setup when you see one."
-          es: "Tienes que estar seguro de que reconoces un setup de calidad cuando lo ves."
+          en: "Your account has to be big enough that 2% is a meaningful sum of money."
+          es: "Tu cuenta debe ser lo bastante grande para que el 2% sea una suma real."
       - id: c
         text:
-          en: "Your account has to be large enough that 2% is a meaningful amount of money."
-          es: "Tu cuenta tiene que ser lo bastante grande para que el 2% sea una cantidad significativa."
+          en: "Nothing — sizing up on better setups is just better risk management."
+          es: "Nada: subir tamaño en los mejores setups ya es mejor gestión del riesgo."
       - id: d
+        correct: true
         text:
-          en: "Nothing — sizing up on better setups is simply better risk management than a flat percentage."
-          es: "Nada: subir el tamaño en los mejores setups es simplemente mejor gestión del riesgo que un porcentaje plano."
+          en: "The journal must show your 'A' grades outperform your 'B' grades."
+          es: "El diario debe mostrar que tus «A» rinden más que tus «B»."
     explanation:
       en: "Grading setups presupposes you can grade, and only the journal proves it: tag trades A/B/C at entry while still risking the same 1%, then compare average R per grade over a real sample. Feeling confident is not evidence — without the record, 'risk more on better setups' is just betting more when you feel more convinced."
       es: "Calificar setups presupone que sabes calificar, y solo el diario lo demuestra: etiqueta las operaciones A/B/C en la entrada arriesgando aún el mismo 1% y luego compara la R media por calificación sobre una muestra real. Sentirse seguro no es una prueba: sin el registro, «arriesgar más en los mejores setups» es solo apostar más cuando te sientes más convencido."
   - id: risk-tiers-tf
     kind: true_false
     prompt:
-      en: "Once you can describe your 'A' setups in writing, you have earned the right to risk 2% on them."
-      es: "Una vez que puedes describir por escrito tus setups «A», te has ganado el derecho a arriesgar el 2% en ellos."
-    answer: false
+      en: "The right to risk 2% on your 'A' setups is earned by the journal showing they outperform, not by being able to describe them in writing."
+      es: "El derecho a arriesgar el 2% en tus setups «A» se gana porque el diario muestre que rinden más, no por saber describirlos por escrito."
+    answer: true
     explanation:
-      en: "Written criteria are the starting point, not the proof. The tier is earned when the journal shows the A trades actually produce a better average R than the B trades over a real sample; fixed fractional risk stays the default until then."
-      es: "Los criterios escritos son el punto de partida, no la prueba. El nivel se gana cuando el diario muestra que las operaciones A producen de verdad una R media mejor que las B sobre una muestra real; hasta entonces el riesgo fraccionario fijo sigue siendo lo predeterminado."
+      en: "Written criteria are the starting point, not the proof. The tier is earned when the record shows the A trades actually produce a better average R than the B trades over a real sample; fixed fractional risk stays the default until then."
+      es: "Los criterios escritos son el punto de partida, no la prueba. El nivel se gana cuando el registro muestra que las operaciones A producen de verdad una R media mejor que las B sobre una muestra real; hasta entonces el riesgo fraccionario fijo sigue siendo lo predeterminado."

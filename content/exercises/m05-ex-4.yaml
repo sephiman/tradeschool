@@ -9,23 +9,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Exactly the margin you allocated to that position — the rest of your account is untouched."
-          es: "Exactamente el margen que asignaste a esa posición; el resto de tu cuenta queda intacto."
+          en: "Exactly the margin you allocated to that position, and nothing more."
+          es: "Exactamente el margen que asignaste a esa posición, y nada más."
       - id: b
+        text:
+          en: "Nothing — a position on isolated margin cannot be liquidated at all."
+          es: "Nada: una posición con margen aislado no puede liquidarse en absoluto."
+      - id: c
         text:
           en: "Your entire account balance, since all your funds back every position."
           es: "El saldo completo de tu cuenta, ya que todos tus fondos respaldan cada posición."
-      - id: c
-        text:
-          en: "Nothing — positions on isolated margin cannot be liquidated."
-          es: "Nada: las posiciones con margen aislado no pueden liquidarse."
       - id: d
         text:
-          en: "Only the exchange's trading fees; the margin is always returned."
-          es: "Solo las comisiones de trading del exchange; el margen siempre se devuelve."
+          en: "Only the exchange's trading fees; the allocated margin is returned."
+          es: "Solo las comisiones del exchange; el margen asignado se devuelve."
     explanation:
-      en: "Isolated margin ring-fences one position: a liquidation costs you exactly the allocated margin and nothing more. Option b describes cross margin, where the whole balance is at stake. Isolated positions absolutely can be liquidated — that's the point of the cap."
-      es: "El margen aislado acota una posición: una liquidación te cuesta exactamente el margen asignado y nada más. La opción b describe el margen cruzado, donde está en juego todo el saldo. Las posiciones aisladas sí pueden liquidarse; ese es el sentido del límite."
+      en: "Isolated margin ring-fences one position: a liquidation costs you exactly the allocated margin, and the rest of your account is untouched. Staking the whole balance is what *cross* margin does. And isolated positions absolutely can be liquidated — that is the point of the cap, and the margin is spent, not refunded."
+      es: "El margen aislado acota una posición: una liquidación te cuesta exactamente el margen asignado, y el resto de tu cuenta queda intacto. Poner en juego todo el saldo es lo que hace el margen *cruzado*. Y las posiciones aisladas sí pueden liquidarse: ese es el sentido del límite, y el margen se gasta, no se devuelve."
   - id: leverage-amplifies
     prompt:
       en: "Which statement about using higher leverage is true?"
@@ -34,57 +34,57 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It scales both gains and losses and moves your liquidation closer, without improving the trade's expected return."
-          es: "Escala tanto las ganancias como las pérdidas y acerca tu liquidación, sin mejorar el rendimiento esperado de la operación."
+          en: "It scales gains and losses alike, and moves your liquidation closer."
+          es: "Escala igual ganancias y pérdidas, y acerca tu liquidación."
       - id: b
         text:
-          en: "Higher leverage increases your expected profit."
-          es: "Más apalancamiento aumenta tu beneficio esperado."
+          en: "It increases your expected profit, since each move is worth more."
+          es: "Aumenta tu beneficio esperado, ya que cada movimiento vale más."
       - id: c
         text:
-          en: "Higher leverage reduces your risk of being liquidated."
-          es: "Más apalancamiento reduce tu riesgo de ser liquidado."
+          en: "It reduces your risk of being liquidated, by freeing up margin."
+          es: "Reduce tu riesgo de liquidación, al liberar margen."
       - id: d
         text:
-          en: "Higher leverage lowers the exchange's trading fees."
-          es: "Más apalancamiento reduce las comisiones de trading del exchange."
+          en: "It lowers the exchange's trading fees on the resulting notional."
+          es: "Reduce las comisiones del exchange sobre el nocional resultante."
     explanation:
-      en: "Leverage does not change whether the price moves your way, so it does not raise expected return. It scales gains and losses symmetrically and thins your margin cushion, putting liquidation closer — a smaller adverse move now closes you out."
-      es: "El apalancamiento no cambia si el precio se mueve a tu favor, así que no aumenta el rendimiento esperado. Escala ganancias y pérdidas de forma simétrica y adelgaza tu colchón de margen, acercando la liquidación: ahora un movimiento adverso más pequeño te cierra."
+      en: "Leverage does not change whether the price moves your way, so it does not raise expected return — it scales both directions symmetrically. The freed-up margin is exactly the cushion you just gave up: a thinner cushion puts liquidation closer, so a smaller adverse move now closes you out. Fees are charged on notional and do not fall either."
+      es: "El apalancamiento no cambia si el precio se mueve a tu favor, así que no aumenta el rendimiento esperado: escala las dos direcciones por igual. El margen que libera es justo el colchón que acabas de ceder: un colchón más fino acerca la liquidación, así que ahora un movimiento adverso menor te cierra. Las comisiones se cobran sobre el nocional y tampoco bajan."
   - id: cross-margin-def
     prompt:
       en: "What does trading a position on **cross** margin mean for your account?"
       es: "¿Qué significa operar una posición con margen **cruzado** (cross) para tu cuenta?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Your whole account balance backs the position, so one bad trade can drag your entire balance toward liquidation."
-          es: "El saldo de toda tu cuenta respalda la posición, así que una sola mala operación puede arrastrar todo tu saldo hacia la liquidación."
-      - id: b
         text:
           en: "Only the margin you allocate to that one position is ever at risk."
           es: "Solo el margen que asignas a esa única posición está en riesgo."
+      - id: b
+        correct: true
+        text:
+          en: "Your whole balance backs it, so one bad trade can drag it all down."
+          es: "Todo tu saldo la respalda, así que una mala operación se lo lleva todo."
       - id: c
         text:
           en: "The exchange splits your balance evenly across all open positions."
-          es: "El exchange reparte tu saldo a partes iguales entre todas las posiciones abiertas."
+          es: "El exchange reparte tu saldo a partes iguales entre las posiciones abiertas."
       - id: d
         text:
-          en: "Cross margin removes the risk of liquidation entirely."
-          es: "El margen cruzado elimina por completo el riesgo de liquidación."
+          en: "Cross margin removes the risk of being liquidated entirely."
+          es: "El margen cruzado elimina por completo el riesgo de ser liquidado."
     explanation:
-      en: "Cross margin uses your entire account balance as collateral: a winner can subsidise a loser, but a single bad move can pull the whole balance toward liquidation. Ring-fencing one position's margin is isolated, not cross."
-      es: "El margen cruzado usa el saldo de toda tu cuenta como colateral: una posición ganadora puede subvencionar a una perdedora, pero un solo mal movimiento puede arrastrar todo el saldo hacia la liquidación. Acotar el margen de una posición es el aislado, no el cruzado."
+      en: "Cross margin uses your entire account balance as collateral: a winner can subsidise a loser, but a single bad move can pull the whole balance toward liquidation. Ring-fencing one position's margin is what isolated does; nothing is split evenly, and nothing here removes liquidation — cross just moves the line further out while raising the stake behind it."
+      es: "El margen cruzado usa el saldo de toda tu cuenta como colateral: una posición ganadora puede subvencionar a una perdedora, pero un solo mal movimiento puede arrastrar todo el saldo hacia la liquidación. Acotar el margen de una posición es lo que hace el aislado; nada se reparte a partes iguales, y nada de esto elimina la liquidación: el cruzado solo aleja la línea mientras sube la apuesta que hay detrás."
   - id: isolated-not-immune
     kind: true_false
     prompt:
-      en: "A position opened with isolated margin can never be liquidated."
-      es: "Una posición abierta con margen aislado nunca puede liquidarse."
-    answer: false
+      en: "An isolated-margin position can still be liquidated; what isolation bounds is how much that liquidation costs you."
+      es: "Una posición con margen aislado sí puede liquidarse; lo que el aislamiento acota es cuánto te cuesta esa liquidación."
+    answer: true
     explanation:
-      en: "Isolated positions absolutely can be liquidated — that's the whole point of the cap. What isolated does is bound the loss: a liquidation costs you exactly the margin you allocated, and the rest of your account is untouched."
-      es: "Las posiciones aisladas sí pueden liquidarse; ese es justo el sentido del límite. Lo que hace el aislado es acotar la pérdida: una liquidación te cuesta exactamente el margen que asignaste, y el resto de tu cuenta queda intacto."
+      en: "True. Isolation is a cap on the loss, not immunity from the forced close: you lose exactly the margin you allocated, and the rest of the account is untouched."
+      es: "Cierto. El aislamiento es un límite a la pérdida, no inmunidad frente al cierre forzoso: pierdes exactamente el margen que asignaste, y el resto de la cuenta queda intacto."
   - id: leverage-expected-profit
     kind: true_false
     prompt:
@@ -160,19 +160,25 @@ variants:
       es: "Un principiante con 3.000 USDT en la cuenta abre en margen cruzado \"por el colchón extra\", pensando que es una operación de 500 USDT. Un movimiento brusco va en su contra. ¿Qué está realmente en riesgo?"
     options:
       - id: a
+        text:
+          en: "Only the 500 they mentally allocated to the idea."
+          es: "Solo los 500 que asignaron mentalmente a la idea."
+      - id: b
+        text:
+          en: "The 500 plus the maintenance margin the venue requires."
+          es: "Los 500 más el margen de mantenimiento que exige el venue."
+      - id: c
+        text:
+          en: "Nothing, because a cross-margin position cannot be liquidated."
+          es: "Nada, porque una posición en margen cruzado no puede liquidarse."
+      - id: d
         correct: true
         text:
-          en: "The entire 3,000 balance — on cross the whole account is collateral, so the loss keeps eating past the 500 they had in mind."
-          es: "Los 3.000 completos: en cruzado toda la cuenta es colateral, así que la pérdida sigue comiéndose más allá de los 500 que tenían en mente."
-      - id: b
-        text: { en: "Only the 500 they mentally allocated.", es: "Solo los 500 que asignaron mentalmente." }
-      - id: c
-        text: { en: "The 500 plus the maintenance margin.", es: "Los 500 más el margen de mantenimiento." }
-      - id: d
-        text: { en: "Nothing, because cross margin cannot be liquidated.", es: "Nada, porque el margen cruzado no puede liquidarse." }
+          en: "The entire 3,000 — on cross, the whole account is collateral."
+          es: "Los 3.000 completos: en cruzado, toda la cuenta es colateral."
     explanation:
-      en: "The stake they had in mind and the money actually at risk were never the same number. Cross buys depth of cushion by putting the full balance on the line; isolated converts a blow-up into a bounded, known loss."
-      es: "La apuesta que tenían en mente y el dinero realmente en riesgo nunca fueron el mismo número. El cruzado compra colchón poniendo todo el saldo en juego; el aislado convierte un reventón en una pérdida acotada y conocida."
+      en: "The stake they had in mind and the money actually at risk were never the same number: the loss keeps eating past the 500, because on cross there is no boundary around a single position. Cross buys depth of cushion by putting the full balance on the line; isolated converts a blow-up into a bounded, known loss."
+      es: "La apuesta que tenían en mente y el dinero realmente en riesgo nunca fueron el mismo número: la pérdida sigue comiéndose más allá de los 500, porque en cruzado no hay frontera alrededor de una sola posición. El cruzado compra colchón poniendo todo el saldo en juego; el aislado convierte un reventón en una pérdida acotada y conocida."
   - id: leverage-truths
     kind: multi_select
     prompt:
@@ -196,37 +202,37 @@ variants:
           es: "Acorta la distancia hasta un cierre forzoso."
       - id: d
         text:
-          en: "It reduces the size of the price move the trade needs to work."
-          es: "Reduce el movimiento de precio que la operación necesita para funcionar."
+          en: "It shrinks the price move the trade needs to work."
+          es: "Reduce el movimiento de precio que la operación necesita."
       - id: e
         text:
-          en: "It raises the expected return of a good trade."
-          es: "Eleva el rendimiento esperado de una buena operación."
+          en: "It raises the expected return of a genuinely good trade."
+          es: "Eleva el rendimiento esperado de una operación realmente buena."
     explanation:
-      en: "A good trade is good and a bad trade is bad, at 2× or at 50× — the price still has to move the same direction, the same amount. Leverage is more risk per correct call, not more edge."
-      es: "Una buena operación es buena y una mala es mala, a 2× o a 50×: el precio sigue teniendo que moverse en la misma dirección y la misma cantidad. El apalancamiento es más riesgo por acierto, no más ventaja."
+      en: "A good trade is good and a bad trade is bad, at 2× or at 50× — the price still has to move the same direction, the same amount, before the idea works. Leverage is more risk per correct call, not more edge."
+      es: "Una buena operación es buena y una mala es mala, a 2× o a 50×: el precio sigue teniendo que moverse en la misma dirección y la misma cantidad antes de que la idea funcione. El apalancamiento es más riesgo por acierto, no más ventaja."
   - id: liquidated-cant-recover
     prompt:
       en: "Why is being liquidated by ordinary noise worse than simply being down the same amount at lower leverage?"
       es: "¿Por qué ser liquidado por ruido normal es peor que simplemente estar perdiendo lo mismo con menos apalancamiento?"
     options:
       - id: a
+        text:
+          en: "Liquidation fees end up being larger than the underlying loss itself."
+          es: "Las comisiones de liquidación acaban siendo mayores que la propia pérdida."
+      - id: b
         correct: true
         text:
-          en: "A position closed at a loss can't recover when price comes back, because it no longer exists."
-          es: "Una posición cerrada con pérdida no puede recuperarse cuando el precio vuelve, porque ya no existe."
-      - id: b
-        text:
-          en: "Liquidation fees are larger than the loss itself."
-          es: "Las comisiones de liquidación son mayores que la propia pérdida."
+          en: "A closed position cannot recover when price comes back."
+          es: "Una posición cerrada no puede recuperarse cuando el precio vuelve."
       - id: c
         text:
-          en: "The exchange bans you from reopening the same pair for a period."
-          es: "El exchange te prohíbe reabrir el mismo par durante un tiempo." 
+          en: "The exchange bars you from reopening that pair for a cooling period."
+          es: "El exchange te veta reabrir ese par durante un periodo de enfriamiento."
       - id: d
         text:
-          en: "Liquidations are reported to other venues, worsening your fills."
-          es: "Las liquidaciones se reportan a otros venues, empeorando tus ejecuciones."
+          en: "Liquidations are reported to other venues, worsening your later fills."
+          es: "Las liquidaciones se reportan a otros venues y empeoran tus ejecuciones."
     explanation:
-      en: "This is the whole cost of thin cushions: the same 20× that doubles your upside on paper is why a 5% pullback — noise, on most assets — can end the trade at a loss you can never recover, before your thesis ever plays out."
-      es: "Ahí está todo el coste de los colchones finos: ese mismo 20× que duplica tu potencial en el papel es por lo que un retroceso del 5% (ruido en la mayoría de activos) puede terminar la operación con una pérdida irrecuperable, antes de que tu tesis se cumpla."
+      en: "This is the whole cost of thin cushions: the same 20× that doubles your upside on paper is why a 5% pullback — noise, on most assets — can end the trade at a loss you can never recover, before your thesis ever plays out. The loss is permanent not because of a penalty, but because the position no longer exists to benefit from the move back."
+      es: "Ahí está todo el coste de los colchones finos: ese mismo 20× que duplica tu potencial en el papel es por lo que un retroceso del 5% (ruido en la mayoría de activos) puede terminar la operación con una pérdida irrecuperable, antes de que tu tesis se cumpla. La pérdida es permanente no por una penalización, sino porque la posición ya no existe para aprovechar la vuelta."

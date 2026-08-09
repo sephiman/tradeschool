@@ -7,50 +7,50 @@ variants:
       es: "En una tendencia alcista fuerte y sostenida, el RSI lleva dos semanas por encima de 70 y el precio sigue haciendo nuevos máximos. ¿Qué te dice esto?"
     options:
       - id: a
+        text:
+          en: "That the asset is overbought and you should be selling or shorting it now."
+          es: "Que el activo está en sobrecompra y deberías venderlo o ponerte corto ya."
+      - id: b
         correct: true
         text:
-          en: "That momentum is strongly one-sided; in a strong trend RSI can stay overbought for a long time, so this is not a sell signal by itself."
-          es: "Que el momentum es fuertemente unilateral; en una tendencia fuerte el RSI puede quedarse en sobrecompra mucho tiempo, así que esto no es por sí solo una señal de venta."
-      - id: b
-        text:
-          en: "That the asset is overbought and you should sell or short it now."
-          es: "Que el activo está en sobrecompra y deberías venderlo o ponerte corto ahora."
+          en: "That momentum is strongly one-sided, which a strong trend can sustain."
+          es: "Que el momentum es fuertemente unilateral, algo que una tendencia fuerte sostiene."
       - id: c
         text:
           en: "That a reversal is guaranteed the moment RSI crosses back below 70."
-          es: "Que un giro está garantizado en cuanto el RSI vuelva a cruzar por debajo de 70."
+          es: "Que un giro está garantizado en cuanto el RSI vuelva a cruzar debajo de 70."
       - id: d
         text:
-          en: "That the RSI is broken and should be ignored completely."
-          es: "Que el RSI está estropeado y hay que ignorarlo por completo."
+          en: "That the RSI has broken on this chart and should be ignored entirely."
+          es: "Que el RSI se ha estropeado en este gráfico y hay que ignorarlo del todo."
     explanation:
-      en: "Overbought means recent moves have been strongly one-sided — in a powerful trend that is normal and can persist for weeks. 'RSI > 70, so sell' fights the trend and gets you run over. The reading describes momentum; it is not a dated appointment for a reversal."
-      es: "La sobrecompra significa que los movimientos recientes han sido fuertemente unilaterales, y en una tendencia potente eso es normal y puede durar semanas. 'RSI > 70, así que vender' pelea contra la tendencia y hace que te arrolle. La lectura describe el momentum; no es una cita con fecha para un giro."
+      en: "Overbought means recent moves have been strongly one-sided — in a powerful trend that is normal and can persist for weeks, so it is not a sell signal by itself. 'RSI > 70, so sell' fights the trend and gets you run over. The reading describes momentum accurately; it is simply not a dated appointment for a reversal."
+      es: "La sobrecompra significa que los movimientos recientes han sido fuertemente unilaterales, y en una tendencia potente eso es normal y puede durar semanas, así que no es por sí sola una señal de venta. 'RSI > 70, así que vender' pelea contra la tendencia y hace que te arrolle. La lectura describe el momentum con precisión; sencillamente no es una cita con fecha para un giro."
   - id: why-not-a-sell
     prompt:
       en: "Why is 'RSI above 70' not, on its own, a signal to sell?"
       es: "¿Por qué 'RSI por encima de 70' no es, por sí solo, una señal para vender?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Because in a strong trend RSI can stay overbought for days or weeks while price keeps rising; the reading shows one-sided momentum, not an imminent turn."
-          es: "Porque en una tendencia fuerte el RSI puede quedarse en sobrecompra días o semanas mientras el precio sigue subiendo; la lectura muestra momentum unilateral, no un giro inminente."
+          en: "Because 70 is too low a threshold; you should only sell above 90."
+          es: "Porque 70 es un umbral demasiado bajo; solo deberías vender por encima de 90."
       - id: b
         text:
-          en: "Because 70 is too low a threshold; you should only sell once RSI is above 90."
-          es: "Porque 70 es un umbral demasiado bajo; solo deberías vender cuando el RSI pase de 90."
+          en: "It is reliable — the moment RSI tags 70, the top is essentially in."
+          es: "Sí es fiable: en cuanto el RSI toca 70, el techo está esencialmente puesto."
       - id: c
+        correct: true
         text:
-          en: "It is a reliable sell signal — the moment RSI tags 70 the top is in."
-          es: "Sí es una señal de venta fiable: en cuanto el RSI toca 70, el techo está puesto."
+          en: "Because RSI can stay overbought for weeks while price keeps rising."
+          es: "Porque el RSI puede seguir en sobrecompra semanas mientras el precio sube."
       - id: d
         text:
-          en: "Because RSI only works on stocks, not on crypto."
-          es: "Porque el RSI solo funciona en acciones, no en cripto."
+          en: "Because the RSI only works on equities and not on crypto markets."
+          es: "Porque el RSI solo funciona en acciones y no en los mercados cripto."
     explanation:
-      en: "An overbought RSI tells you momentum has been strongly one-sided, which in an uptrend is a sign of strength as often as exhaustion. Extremes can persist; without structure or a level to lean on, the number alone is not a trade. Moving the threshold to 90 does not fix the logic — the mistake is treating an extreme as a timing trigger."
-      es: "Un RSI en sobrecompra te dice que el momentum ha sido fuertemente unilateral, lo que en una tendencia alcista es tan a menudo señal de fuerza como de agotamiento. Los extremos pueden persistir; sin estructura ni un nivel en el que apoyarse, el número por sí solo no es una operación. Mover el umbral a 90 no arregla la lógica: el error es tratar un extremo como un disparador de timing."
+      en: "An overbought RSI tells you momentum has been strongly one-sided, which in an uptrend is a sign of strength as often as exhaustion. Extremes can persist; without structure or a level to lean on, the number alone is not a trade. Moving the threshold to 90 does not fix the logic — the mistake is treating an extreme as a timing trigger, and it is the same mistake on any market."
+      es: "Un RSI en sobrecompra te dice que el momentum ha sido fuertemente unilateral, lo que en una tendencia alcista es tan a menudo señal de fuerza como de agotamiento. Los extremos pueden persistir; sin estructura ni un nivel en el que apoyarse, el número por sí solo no es una operación. Mover el umbral a 90 no arregla la lógica: el error es tratar un extremo como un disparador de timing, y es el mismo error en cualquier mercado."
   - id: overbought-sell-myth
     kind: true_false
     prompt:
@@ -63,12 +63,12 @@ variants:
   - id: oversold-buy-myth
     kind: true_false
     prompt:
-      en: "In a strong downtrend, an RSI below 30 is a reliable signal to buy the dip."
-      es: "En una tendencia bajista fuerte, un RSI por debajo de 30 es una señal fiable para comprar la caída."
-    answer: false
+      en: "A powerful downtrend can pin RSI below 30 for days while price prints new lows the whole way."
+      es: "Una tendencia bajista potente puede clavar el RSI por debajo de 30 durante días mientras el precio imprime nuevos mínimos todo el camino."
+    answer: true
     explanation:
-      en: "The oversold trap is the overbought one in reverse. A powerful downtrend can pin RSI below 30 for days, printing new lows the whole way; 'oversold' means one-sided selling, not that a bottom is in. Buying into it just hands your stop to the trend."
-      es: "La trampa de la sobreventa es la de la sobrecompra al revés. Una tendencia bajista potente puede clavar el RSI por debajo de 30 durante días, imprimiendo nuevos mínimos todo el camino; 'sobreventa' significa venta unilateral, no que se haya puesto un suelo. Comprar ahí solo le regala tu stop a la tendencia."
+      en: "True, and it is the overbought trap in reverse. 'Oversold' means one-sided selling, not that a bottom is in — buying into it just hands your stop to the trend."
+      es: "Cierto, y es la trampa de la sobrecompra al revés. 'Sobreventa' significa venta unilateral, no que se haya puesto un suelo: comprar ahí solo le regala tu stop a la tendencia."
   - id: reading-context
     kind: matching
     prompt:
@@ -112,25 +112,25 @@ variants:
       es: "Una moneda lleva semanas moviéndose de lado en un rango bien definido. La línea MACD ha cruzado por encima de su línea de señal: el cuarto cruce de ese tipo en el rango. ¿Cuánto vale este cruce?"
     options:
       - id: a
+        text:
+          en: "It is a strong buy — a bullish cross is bullish whatever market it prints in."
+          es: "Es una compra fuerte: un cruce alcista es alcista en el mercado que sea."
+      - id: b
         correct: true
         text:
-          en: "Very little — in a range the MACD line saws across zero, so crosses fire repeatedly and none of them leads anywhere. This is whipsaw."
-          es: "Muy poco: en un rango la línea MACD sierra el cero, así que los cruces saltan una y otra vez y ninguno lleva a ninguna parte. Esto es sierra (whipsaw)."
-      - id: b
-        text:
-          en: "It is a strong buy — a bullish cross is a bullish cross regardless of the market it happens in."
-          es: "Es una compra fuerte: un cruce alcista es un cruce alcista sea cual sea el mercado en el que ocurra."
+          en: "Very little — in a range the crosses fire repeatedly and lead nowhere."
+          es: "Muy poco: en un rango los cruces saltan sin parar y no llevan a ninguna parte."
       - id: c
         text:
-          en: "It guarantees the range is about to break upward, because four crosses in a row build pressure."
-          es: "Garantiza que el rango va a romper al alza, porque cuatro cruces seguidos acumulan presión."
+          en: "It guarantees an upward break, since four crosses in a row build pressure."
+          es: "Garantiza una ruptura al alza, ya que cuatro cruces seguidos acumulan presión."
       - id: d
         text:
-          en: "Nothing can be said, because the MACD does not work on ranging markets at all."
-          es: "No se puede decir nada, porque el MACD no funciona en absoluto en mercados en rango."
+          en: "Nothing can be said at all, because the MACD does not work in ranges."
+          es: "No se puede decir nada, porque el MACD no funciona en absoluto en rangos."
     explanation:
-      en: "The MACD is two moving averages, so it inherits m10's whipsaw problem exactly: hand it a sideways market and its lines cross back and forth, each cross looking identical to a good one. The same bullish cross inside an established uptrend would be continuation evidence — the context, not the cross, decides. And repeated crosses do not 'build pressure'; they are what a range looks like on the indicator."
-      es: "El MACD son dos medias móviles, así que hereda exactamente el problema de la sierra de m10: dale un mercado lateral y sus líneas se cruzan de un lado a otro, cada cruce igual que uno bueno. El mismo cruce alcista dentro de una tendencia alcista establecida sería indicio de continuación: decide el contexto, no el cruce. Y los cruces repetidos no 'acumulan presión': son el aspecto que tiene un rango en el indicador."
+      en: "This is whipsaw. The MACD is two moving averages, so it inherits m10's problem exactly: hand it a sideways market and its lines saw across each other, every cross looking identical to a good one. The indicator is working correctly — it is faithfully reporting a market with no trend. The same bullish cross inside an established uptrend would be continuation evidence, so the context decides, and repeated crosses do not 'build pressure': they are what a range looks like on the indicator."
+      es: "Esto es sierra (whipsaw). El MACD son dos medias móviles, así que hereda exactamente el problema de m10: dale un mercado lateral y sus líneas se sierran entre sí, cada cruce igual que uno bueno. El indicador funciona bien: informa fielmente de un mercado sin tendencia. El mismo cruce alcista dentro de una tendencia alcista establecida sería indicio de continuación, así que decide el contexto, y los cruces repetidos no 'acumulan presión': son el aspecto que tiene un rango en el indicador."
   - id: cross-context
     kind: matching
     prompt:
@@ -177,47 +177,47 @@ variants:
       - id: a
         correct: true
         text:
-          en: "To describe context — overbought inside a range means more than overbought in a rip-roaring trend."
-          es: "Para describir el contexto: la sobrecompra dentro de un rango significa más que la sobrecompra en una tendencia desbocada."
+          en: "To describe context: overbought in a range means more than in a rip-roaring trend."
+          es: "Para describir contexto: sobrecompra en rango dice más que en una tendencia desbocada."
       - id: b
         correct: true
         text:
           en: "As confirmation of a thesis you already hold from structure and levels."
-          es: "Como confirmación de una tesis que ya tienes a partir de la estructura y los niveles."
+          es: "Como confirmación de una tesis que ya tienes por estructura y niveles."
       - id: c
         correct: true
         text:
-          en: "As a read on how one-sided recent momentum has been."
+          en: "As a read on how one-sided the recent momentum has been."
           es: "Como lectura de cómo de unilateral ha sido el momentum reciente."
       - id: d
         text:
-          en: "As a standalone trigger: sell the moment RSI crosses above 70, buy the moment it crosses below 30."
-          es: "Como detonante autónomo: vender en cuanto el RSI cruce por encima de 70 y comprar en cuanto cruce por debajo de 30."
+          en: "As a standalone trigger: sell every cross above 70, buy every cross below 30."
+          es: "Como detonante autónomo: vender cada cruce sobre 70 y comprar cada cruce bajo 30."
     explanation:
-      en: "RSI is for context and confirmation, not standalone triggers. Reading it as momentum, weighing it against a level, or using it to back a thesis you already have are all sound; firing trades purely off 70/30 crossings is the mistake this module keeps warning about."
-      es: "El RSI es para contexto y confirmación, no para detonantes autónomos. Leerlo como momentum, sopesarlo contra un nivel o usarlo para respaldar una tesis que ya tienes son formas sensatas; disparar operaciones solo por los cruces de 70/30 es el error del que este módulo no deja de advertir."
+      en: "RSI is for context and confirmation, not standalone triggers. Reading it as momentum, weighing it against a level, or using it to back a thesis you already have are all sound; firing trades purely off 70/30 crossings is the mistake this module keeps warning about, because the extreme can persist far longer than your margin can."
+      es: "El RSI es para contexto y confirmación, no para detonantes autónomos. Leerlo como momentum, sopesarlo contra un nivel o usarlo para respaldar una tesis que ya tienes son formas sensatas; disparar operaciones solo por los cruces de 70/30 es el error del que este módulo no deja de advertir, porque el extremo puede durar mucho más que tu margen."
   - id: oversold-scenario
     prompt:
       en: "A coin is in a strong, sustained downtrend and its RSI has been below 30 for over a week while price keeps making new lows. What does this tell you?"
       es: "Una moneda está en una tendencia bajista fuerte y sostenida y su RSI lleva más de una semana por debajo de 30 mientras el precio sigue haciendo nuevos mínimos. ¿Qué te dice esto?"
     options:
       - id: a
-        correct: true
         text:
-          en: "That selling momentum is strongly one-sided; in a strong trend RSI can stay oversold a long time, so this is not a buy signal by itself."
-          es: "Que el momentum vendedor es fuertemente unilateral; en una tendencia fuerte el RSI puede quedarse en sobreventa mucho tiempo, así que esto no es por sí solo una señal de compra."
+          en: "That the coin is oversold and therefore cheap, so you should buy the dip now."
+          es: "Que la moneda está en sobreventa y por tanto barata: deberías comprar ya la caída."
       - id: b
         text:
-          en: "That the coin is oversold and cheap, so you should buy the dip now."
-          es: "Que la moneda está en sobreventa y barata, así que deberías comprar la caída ahora."
+          en: "That a bounce is guaranteed the moment RSI crosses back above the 30 line."
+          es: "Que un rebote está garantizado en cuanto el RSI cruce de nuevo la línea de 30."
       - id: c
+        correct: true
         text:
-          en: "That a bounce is guaranteed the moment RSI crosses back above 30."
-          es: "Que un rebote está garantizado en cuanto el RSI vuelva a cruzar por encima de 30."
+          en: "That selling momentum is strongly one-sided, and can stay that way."
+          es: "Que el momentum vendedor es fuertemente unilateral, y puede seguir así."
       - id: d
         text:
-          en: "That the RSI is malfunctioning and should be ignored entirely."
-          es: "Que el RSI está fallando y hay que ignorarlo por completo."
+          en: "That the RSI is malfunctioning on this chart and should be ignored entirely."
+          es: "Que el RSI está fallando en este gráfico y hay que ignorarlo por completo."
     explanation:
-      en: "This is the overbought trap in reverse. A pinned-low RSI describes one-sided selling, which in a downtrend is normal and can last; it is not a discount and not a bottom timer. Buying purely because it looks 'oversold' catches the falling knife."
-      es: "Esta es la trampa de la sobrecompra al revés. Un RSI clavado abajo describe una venta unilateral, que en una tendencia bajista es normal y puede durar; no es un descuento ni un cronómetro de suelos. Comprar solo porque parece 'sobreventa' es agarrar el cuchillo que cae."
+      en: "This is the overbought trap in reverse. A pinned-low RSI describes one-sided selling, which in a downtrend is normal and can last a long time, so it is not a buy signal by itself. It is not a discount and not a bottom timer — buying purely because it looks 'oversold' catches the falling knife, and the indicator is reporting the trend perfectly well."
+      es: "Esta es la trampa de la sobrecompra al revés. Un RSI clavado abajo describe una venta unilateral, que en una tendencia bajista es normal y puede durar mucho, así que no es por sí solo una señal de compra. No es un descuento ni un cronómetro de suelos: comprar solo porque parece 'sobreventa' es agarrar el cuchillo que cae, y el indicador está informando de la tendencia perfectamente."

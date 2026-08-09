@@ -7,25 +7,25 @@ variants:
       es: "Tu long abierto muestra +250 USDT de PnL no realizado. ¿Qué afirmación es cierta?"
     options:
       - id: a
+        text:
+          en: "It is 250 USDT already in your balance — you could withdraw it now."
+          es: "Son 250 USDT ya en tu saldo: podrías retirarlos ahora mismo."
+      - id: b
         correct: true
         text:
-          en: "It is a mark-to-market estimate; nothing lands in your balance until you close the position."
-          es: "Es una estimación a precio de mercado; nada llega a tu saldo hasta que cierras la posición."
-      - id: b
-        text:
-          en: "It is 250 USDT already added to your balance — you could withdraw it right now."
-          es: "Son 250 USDT ya añadidos a tu saldo: podrías retirarlos ahora mismo."
+          en: "It is a mark-to-market estimate; nothing lands until you close."
+          es: "Es una estimación a precio de mercado; nada llega hasta que cierras."
       - id: c
         text:
-          en: "It is locked in and can no longer decrease."
-          es: "Está fijado y ya no puede bajar."
+          en: "It is locked in at 250 and can no longer decrease from here."
+          es: "Está fijado en 250 y ya no puede bajar de ahí."
       - id: d
         text:
-          en: "It only becomes real once the next funding payment is settled."
-          es: "Solo se vuelve real cuando se salda el siguiente pago de funding."
+          en: "It becomes real once the next funding payment is settled."
+          es: "Se vuelve real cuando se salda el siguiente pago de funding."
     explanation:
-      en: "Unrealized PnL is what you'd have if you closed at the current price. It moves every tick and becomes a real balance change only when you close — a green number on an open position can still evaporate."
-      es: "El PnL no realizado es lo que tendrías si cerraras al precio actual. Se mueve en cada tick y solo se convierte en un cambio real de saldo cuando cierras: un número verde en una posición abierta todavía puede evaporarse."
+      en: "Unrealized PnL is what you'd have if you closed at the current price. It moves every tick and becomes a real balance change only when you close — a green number on an open position can still evaporate, and no funding interval or elapsed time banks it for you."
+      es: "El PnL no realizado es lo que tendrías si cerraras al precio actual. Se mueve en cada tick y solo se convierte en un cambio real de saldo cuando cierras: un número verde en una posición abierta todavía puede evaporarse, y ningún intervalo de funding ni el paso del tiempo te lo ingresa."
   - id: when-realized
     prompt:
       en: "At what moment does a position's PnL become realized?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "When you close the position (or the part you close) — the number stops moving and passes into your balance."
-          es: "Cuando cierras la posición (o la parte que cierres): el número deja de moverse y pasa a tu saldo."
+          en: "When you close the position, or the part of it that you close."
+          es: "Cuando cierras la posición, o la parte de ella que cierres."
       - id: b
         text:
-          en: "The instant the unrealized PnL first turns green."
-          es: "En el instante en que el PnL no realizado se pone verde por primera vez."
+          en: "Automatically, at the end of every funding interval that passes."
+          es: "Automáticamente, al final de cada intervalo de funding que pasa."
       - id: c
         text:
-          en: "At the end of every funding interval, automatically."
-          es: "Al final de cada intervalo de funding, de forma automática."
+          en: "The instant the unrealized figure first turns green on the screen."
+          es: "En cuanto la cifra no realizada se pone verde por primera vez."
       - id: d
         text:
-          en: "When price touches your take-profit target, even if the order does not fill."
-          es: "Cuando el precio toca tu objetivo de take-profit, aunque la orden no se ejecute."
+          en: "When price touches your take-profit, even if the order never fills."
+          es: "Cuando el precio toca tu take-profit, aunque la orden no se ejecute."
     explanation:
-      en: "PnL is realized only on closing the position. Until then it is unrealized and provisional, no matter how large it is or how long it has stayed positive."
-      es: "El PnL solo se realiza al cerrar la posición. Hasta entonces es no realizado y provisional, por grande que sea o por mucho tiempo que lleve en positivo."
+      en: "PnL is realized only on closing. Until then it is unrealized and provisional, no matter how large it is, how long it has stayed positive, or how close price came to your target — a level that is touched but not filled has changed nothing."
+      es: "El PnL solo se realiza al cerrar. Hasta entonces es no realizado y provisional, por grande que sea, por mucho tiempo que lleve en positivo o por cerca que el precio haya pasado de tu objetivo: un nivel tocado pero no ejecutado no ha cambiado nada."
   - id: unrealized-not-withdrawable
     kind: true_false
     prompt:
@@ -109,65 +109,65 @@ variants:
       - id: c
         correct: true
         text:
-          en: "It is what the exchange watches to decide whether your margin still covers the position."
-          es: "Es lo que el exchange vigila para decidir si tu margen todavía cubre la posición."
+          en: "It is what the exchange watches to judge whether margin still covers you."
+          es: "Es lo que vigila el exchange para juzgar si el margen todavía te cubre."
       - id: d
         text:
-          en: "It has already been added to your balance and can no longer decrease."
-          es: "Ya se ha añadido a tu saldo y no puede bajar más."
+          en: "It has already been credited to your balance and cannot fall from here."
+          es: "Ya se ha abonado a tu saldo y no puede bajar desde aquí."
     explanation:
-      en: "Unrealized PnL moves every tick, only settles on closing, and is exactly the figure the exchange uses for margin and liquidation. What it is NOT is money already banked — it can still shrink or reverse."
-      es: "El PnL no realizado se mueve en cada tick, solo se materializa al cerrar y es justo la cifra que el exchange usa para el margen y la liquidación. Lo que NO es: dinero ya ingresado; todavía puede encogerse o darse la vuelta."
+      en: "Unrealized PnL moves every tick, only settles on closing, and is exactly the figure the exchange uses for margin and liquidation. What it is NOT is money already banked — it can still shrink or reverse, and that is precisely why it can get you closed."
+      es: "El PnL no realizado se mueve en cada tick, solo se materializa al cerrar y es justo la cifra que el exchange usa para el margen y la liquidación. Lo que NO es: dinero ya ingresado; todavía puede encogerse o darse la vuelta, y precisamente por eso puede hacer que te cierren."
   - id: partial-close-realizes
     prompt:
       en: "You hold a long and close half of it while it's in profit, leaving the other half open. What happens to your PnL?"
       es: "Mantienes un long y cierras la mitad mientras va en ganancia, dejando la otra mitad abierta. ¿Qué pasa con tu PnL?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The profit on the half you closed is realized and lands in your balance; the rest stays unrealized."
-          es: "La ganancia de la mitad que cerraste se realiza y llega a tu saldo; el resto sigue siendo no realizado."
+          en: "Nothing is realized until you close the entire position at once."
+          es: "Nada se realiza hasta que cierras la posición entera de una vez."
       - id: b
         text:
-          en: "Nothing is realized until you close the entire position."
-          es: "Nada se realiza hasta que cierras la posición entera."
+          en: "The whole position's PnL is realized the moment you touch any of it."
+          es: "El PnL de toda la posición se realiza en cuanto tocas cualquier parte."
       - id: c
+        correct: true
         text:
-          en: "The whole position's PnL is realized as soon as you touch it."
-          es: "El PnL de toda la posición se realiza en cuanto la tocas."
+          en: "The half you closed is realized; the rest stays unrealized."
+          es: "La mitad que cerraste se realiza; el resto sigue sin realizar."
       - id: d
         text:
-          en: "Half the PnL is realized, but you can't withdraw it until funding settles."
-          es: "La mitad del PnL se realiza, pero no puedes retirarlo hasta que se salde el funding."
+          en: "Half the PnL is realized, but locked until funding next settles."
+          es: "La mitad del PnL se realiza, pero bloqueada hasta el próximo funding."
     explanation:
-      en: "Closing part of a position realizes the PnL on exactly that part; the portion still open remains unrealized and keeps moving. Realization is tied to closing, not to the whole position or to funding."
-      es: "Cerrar parte de una posición realiza el PnL de justo esa parte; la porción que sigue abierta continúa siendo no realizada y se mueve. La realización va ligada al cierre, no a la posición entera ni al funding."
+      en: "Closing part of a position realizes the PnL on exactly that part and credits it to your balance; the portion still open remains unrealized and keeps moving with price. Realization is tied to closing — not to the whole position, and not to any funding interval."
+      es: "Cerrar parte de una posición realiza el PnL de justo esa parte y lo abona a tu saldo; la porción que sigue abierta continúa sin realizar y se mueve con el precio. La realización va ligada al cierre: no a la posición entera, ni a ningún intervalo de funding."
   - id: peak-vs-close
     prompt:
       en: "Your long peaked at +400 USDT of unrealized PnL. You didn't close. You finally close when it shows +60 USDT. Ignoring fees, what is your realized PnL on the trade?"
       es: "Tu long llegó a marcar un máximo de +400 USDT de PnL no realizado. No cerraste. Al final cierras cuando muestra +60 USDT. Ignorando comisiones, ¿cuál es tu PnL realizado en la operación?"
     options:
       - id: a
-        correct: true
         text:
-          en: "+60 USDT — you realize whatever the position shows at the moment you close."
-          es: "+60 USDT: realizas lo que la posición muestre en el momento en que cierras."
+          en: "+400 USDT — the peak is the figure you locked in for the trade."
+          es: "+400 USDT: el máximo es la cifra que fijaste para la operación."
       - id: b
         text:
-          en: "+400 USDT — the peak is what you locked in."
-          es: "+400 USDT: el máximo es lo que fijaste."
+          en: "+460 USDT — the peak that accrued plus the amount at the close."
+          es: "+460 USDT: el máximo acumulado más la cantidad del cierre."
       - id: c
         text:
-          en: "+460 USDT — the peak plus the close."
-          es: "+460 USDT: el máximo más el cierre."
+          en: "0 — you missed the peak, so the trade nets out to nothing at all."
+          es: "0: te perdiste el máximo, así que la operación no deja nada."
       - id: d
+        correct: true
         text:
-          en: "0 — you missed the peak, so the trade doesn't count."
-          es: "0: te perdiste el máximo, así que la operación no cuenta."
+          en: "+60 USDT — you realize whatever it shows when you close."
+          es: "+60 USDT: realizas lo que muestre en el momento de cerrar."
     explanation:
-      en: "Only the number at the moment you close becomes realized. The +400 peak was unrealized and never settled — a green number on an open position can evaporate before you take it."
-      es: "Solo el número del momento en que cierras pasa a estar realizado. El máximo de +400 era no realizado y nunca se materializó: un número verde en una posición abierta puede evaporarse antes de que lo cojas."
+      en: "Only the number at the moment you close becomes realized. The +400 peak was unrealized and never settled, so it accrued nothing and adds nothing — a green number on an open position can evaporate before you take it. Missing the peak does not void the trade either: the +60 is genuinely yours."
+      es: "Solo el número del momento en que cierras pasa a estar realizado. El máximo de +400 era no realizado y nunca se materializó, así que no acumuló nada ni suma nada: un número verde en una posición abierta puede evaporarse antes de que lo cojas. Perderte el máximo tampoco anula la operación: los +60 son tuyos de verdad."
   - id: weather-climate
     prompt:
       en: "What is the useful habit for telling unrealized and realized PnL apart?"
@@ -176,23 +176,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Treat unrealized PnL as weather and realized PnL as climate — the weather is loud and changes constantly; only the climate goes into your record."
-          es: "Trata el PnL no realizado como el tiempo y el realizado como el clima: el tiempo es ruidoso y cambia constantemente; solo el clima entra en tu registro."
+          en: "Treat unrealized PnL as weather and realized PnL as climate."
+          es: "Trata el PnL no realizado como el tiempo y el realizado como el clima."
       - id: b
         text:
-          en: "Treat both the same — the exchange computes them from the same price."
-          es: "Trátalos igual: el exchange los calcula con el mismo precio."
+          en: "Treat them the same, since the exchange derives both from one price."
+          es: "Trátalos igual, ya que el exchange saca ambos de un mismo precio."
       - id: c
         text:
-          en: "Treat unrealized PnL as the reliable figure, since it updates tick by tick."
-          es: "Trata el PnL no realizado como la cifra fiable, ya que se actualiza tick a tick."
+          en: "Treat the unrealized figure as the reliable one, as it updates constantly."
+          es: "Trata la cifra no realizada como la fiable, porque se actualiza sin parar."
       - id: d
         text:
-          en: "Record the peak unrealized figure — it is what the position was truly worth."
+          en: "Record the peak unrealized figure: it is what the position was truly worth."
           es: "Registra el máximo no realizado: es lo que la posición valió de verdad."
     explanation:
-      en: "Unrealized PnL is a mark-to-market estimate that the next candle can erase. Realized PnL is a final, booked change in your balance — it is the only one that belongs in your record."
-      es: "El PnL no realizado es una estimación a precio de mercado que la siguiente vela puede borrar. El realizado es un cambio final y contabilizado en tu saldo: es el único que pertenece a tu registro."
+      en: "The weather is loud and changes constantly; only the climate goes into your record. Unrealized PnL is a mark-to-market estimate that the next candle can erase, and updating constantly is what makes it noisy rather than reliable. Realized PnL is a final, booked change in your balance — the only one that belongs in a journal, and the peak never belongs there at all."
+      es: "El tiempo es ruidoso y cambia constantemente; solo el clima entra en tu registro. El PnL no realizado es una estimación a precio de mercado que la siguiente vela puede borrar, y actualizarse sin parar es lo que lo hace ruidoso, no fiable. El realizado es un cambio final y contabilizado en tu saldo: el único que pertenece a un diario, y el máximo no pertenece ahí en absoluto."
   - id: unrealized-asymmetry
     kind: true_false
     prompt:

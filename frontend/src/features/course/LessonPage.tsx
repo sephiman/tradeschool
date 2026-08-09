@@ -2,11 +2,13 @@ import { useEffect, useMemo } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { completeLesson, getCourse, getLesson, type ExerciseType } from "@/api/course";
+import { completeLesson, getCourse, getGlossary, getLesson, type ExerciseType } from "@/api/course";
 import { listAttempts } from "@/api/exercises";
 import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
 import { LessonFigure } from "@/features/course/LessonFigure";
+import { GlossaryTerm, TermPopoverHost } from "@/features/glossary/TermPopover";
+import { buildTermIndex } from "@/lib/glossary/terms";
 import { currentAndNext, flattenLessons, stepLabel } from "@/features/course/courseNav";
 import { formatReadingTime } from "@/features/course/readingTime";
 import { LessonMarkdown } from "@/lib/markdown";
@@ -23,6 +25,22 @@ export function LessonPage() {
     queryFn: () => getLesson(lessonId),
   });
   const { data: course } = useQuery({ queryKey: ["course", lang], queryFn: getCourse });
+  // One fetch for the whole session, cached across lessons: the definitions the tooltips show, and
+  // the term list the annotator matches on. A lesson still renders while it is in flight — the prose
+  // simply has no marks yet.
+  const { data: glossary } = useQuery({
+    queryKey: ["glossary", lang],
+    queryFn: () => getGlossary(lang ?? "en"),
+    staleTime: Infinity,
+  });
+  const terms = useMemo(
+    () => (glossary ? buildTermIndex(glossary.terms, lang ?? "en") : []),
+    [glossary, lang],
+  );
+  const entriesById = useMemo(
+    () => new Map((glossary?.terms ?? []).map((entry) => [entry.id, entry])),
+    [glossary],
+  );
 
   // Canonical order across module boundaries, so the lesson knows where "back" and "next" lead.
   const nav = useMemo(
@@ -104,16 +122,20 @@ export function LessonPage() {
         )}
       </div>
       <div className="mt-4">
-        <LessonMarkdown
-          markdown={lesson.markdown}
-          renderExercise={(id) => {
-            const type = typeById.get(id);
-            return type ? (
-              <ExercisePlayer exerciseId={id} type={type} highlighted={id === highlightedExerciseId} />
-            ) : null;
-          }}
-          renderFigure={(id) => <LessonFigure id={id} />}
-        />
+        <TermPopoverHost entries={entriesById}>
+          <LessonMarkdown
+            markdown={lesson.markdown}
+            renderExercise={(id) => {
+              const type = typeById.get(id);
+              return type ? (
+                <ExercisePlayer exerciseId={id} type={type} highlighted={id === highlightedExerciseId} />
+              ) : null;
+            }}
+            renderFigure={(id) => <LessonFigure id={id} />}
+            glossary={{ lessonId, terms }}
+            renderTerm={(termId, children) => <GlossaryTerm termId={termId}>{children}</GlossaryTerm>}
+          />
+        </TermPopoverHost>
       </div>
       {/* End-of-lesson panel. The button is the *only* thing that marks a lesson read — nothing is
           inferred from scrolling or dwell time — so it says so rather than sitting unexplained. */}

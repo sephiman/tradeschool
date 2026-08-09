@@ -7,50 +7,50 @@ variants:
       es: "Has hecho 10 operaciones con un sistema nuevo y 8 fueron ganadoras. ¿Qué puedes concluir legítimamente?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Very little — 10 trades is far too small a sample; this could easily be variance rather than a real edge."
-          es: "Muy poco: 10 operaciones son una muestra demasiado pequeña; esto podría ser fácilmente varianza y no un edge real."
+          en: "The system is profitable — a high win rate always means a profitable one."
+          es: "El sistema es rentable: un win rate alto siempre implica rentabilidad."
       - id: b
         text:
-          en: "The system is profitable — a high win rate always means a profitable system."
-          es: "El sistema es rentable: un win rate alto siempre significa un sistema rentable."
+          en: "The system is broken — a real edge should be winning closer to 100%."
+          es: "El sistema está roto: un edge real ganaría cerca del 100%."
       - id: c
+        correct: true
         text:
-          en: "The system is broken — with a real edge you should be winning closer to 100%."
-          es: "El sistema está roto: con un edge real deberías estar ganando cerca del 100%."
+          en: "Very little — ten trades is far too small a sample to read."
+          es: "Muy poco: diez operaciones son una muestra demasiado pequeña."
       - id: d
         text:
-          en: "Nothing at all until you have taken exactly 100 trades."
-          es: "Nada en absoluto hasta que hayas hecho exactamente 100 operaciones."
+          en: "Nothing at all until you have taken exactly one hundred trades."
+          es: "Nada en absoluto hasta haber hecho exactamente cien operaciones."
     explanation:
-      en: "Ten trades is noise: a losing system can show 8 early wins purely by variance, and only a large sample (think hundreds of trades) reveals the true expectancy. A high win rate alone never proves profitability, because it says nothing about the size of the wins and losses. There is no magic number like 100 either — the point is 'a large sample', and edge is about expectancy, not win rate."
-      es: "Diez operaciones son ruido: un sistema perdedor puede mostrar 8 ganancias tempranas por pura varianza, y solo una muestra grande (piensa en cientos de operaciones) revela la esperanza real. Un win rate alto por sí solo nunca demuestra rentabilidad, porque no dice nada sobre el tamaño de las ganancias y las pérdidas. Tampoco hay un número mágico como 100: la clave es 'una muestra grande', y el edge va de esperanza, no de win rate."
+      en: "Ten trades is noise: this could easily be variance rather than a real edge, and a losing system can show 8 early wins purely by chance. Only a large sample — think hundreds of trades — reveals the true expectancy. A high win rate alone never proves profitability, because it says nothing about the size of the wins and losses, and there is no magic number like 100 either: the point is 'a large sample'."
+      es: "Diez operaciones son ruido: esto podría ser fácilmente varianza y no un edge real, y un sistema perdedor puede mostrar 8 ganancias tempranas por pura casualidad. Solo una muestra grande —piensa en cientos de operaciones— revela la esperanza real. Un win rate alto por sí solo nunca demuestra rentabilidad, porque no dice nada sobre el tamaño de las ganancias y las pérdidas, y tampoco hay un número mágico como 100: la clave es 'una muestra grande'."
   - id: losing-streak
     prompt:
       en: "Your positive-expectancy system, which wins about 40% of the time, has just lost 6 trades in a row. What is the right read?"
       es: "Tu sistema de esperanza positiva, que gana alrededor del 40% de las veces, acaba de perder 6 operaciones seguidas. ¿Cuál es la lectura correcta?"
     options:
       - id: a
+        text:
+          en: "The edge has clearly stopped working — change the rules before losing more."
+          es: "El edge ha dejado de funcionar: cambia las reglas antes de perder más."
+      - id: b
         correct: true
         text:
-          en: "A streak like this is normal and expected with a 40% win rate — it is arithmetic, not evidence the edge is gone."
-          es: "Una racha así es normal y esperable con un win rate del 40%: es aritmética, no una prueba de que el edge haya desaparecido."
-      - id: b
-        text:
-          en: "The edge has clearly stopped working — change the rules now before you lose more."
-          es: "El edge ha dejado de funcionar claramente: cambia las reglas ya, antes de perder más."
+          en: "Normal and expected at a 40% win rate — arithmetic, not evidence."
+          es: "Normal y esperable con un 40% de acierto: aritmética, no una prueba."
       - id: c
         text:
-          en: "You must have made execution errors — a real edge never loses 6 in a row."
-          es: "Habrás cometido errores de ejecución: un edge real nunca pierde 6 seguidas."
+          en: "You must have made execution errors — a real edge never loses six running."
+          es: "Habrás cometido errores: un edge real nunca pierde seis seguidas."
       - id: d
         text:
-          en: "Increase your position size to win back the losses faster."
-          es: "Aumenta el tamaño de tus posiciones para recuperar las pérdidas más rápido."
+          en: "Increase your position size in order to win the losses back faster."
+          es: "Sube el tamaño de posición para recuperar las pérdidas más rápido."
     explanation:
-      en: "With a 60% chance of losing any single trade, six losses in a row happens about 0.60^6 ≈ 4.7% of the time — over hundreds of trades such streaks are expected to recur. A run within the normal range is not evidence of anything. Abandoning or rewriting a working system mid-drawdown, or sizing up to 'win it back', is the classic way beginners turn a normal streak into a real loss."
-      es: "Con un 60% de probabilidad de perder cualquier operación, perder seis seguidas ocurre alrededor del 0,60^6 ≈ 4,7% de las veces; a lo largo de cientos de operaciones se espera que estas rachas se repitan. Una racha dentro del rango normal no prueba nada. Abandonar o reescribir un sistema que funciona en pleno drawdown, o subir el tamaño para 'recuperarlo', es la forma clásica en que los principiantes convierten una racha normal en una pérdida real."
+      en: "With a 60% chance of losing any single trade, six losses in a row happens about 0.60^6 ≈ 4.7% of the time — over hundreds of trades such streaks are expected to recur, so a run within the normal range is not evidence the edge is gone. Abandoning or rewriting a working system mid-drawdown, or sizing up to 'win it back', is the classic way beginners turn a normal streak into a real loss."
+      es: "Con un 60% de probabilidad de perder cualquier operación, perder seis seguidas ocurre alrededor del 0,60^6 ≈ 4,7% de las veces; a lo largo de cientos de operaciones se espera que estas rachas se repitan, así que una racha dentro del rango normal no prueba que el edge haya desaparecido. Abandonar o reescribir un sistema que funciona en pleno drawdown, o subir el tamaño para 'recuperarlo', es la forma clásica en que los principiantes convierten una racha normal en una pérdida real."
   - id: variance-terms-match
     kind: matching
     prompt:
@@ -106,26 +106,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A large sample of trades — think hundreds, not a handful."
-          es: "Una muestra grande de operaciones: piensa en cientos, no en un puñado."
+          en: "A large sample of trades — hundreds, not a handful."
+          es: "Una muestra grande de operaciones: cientos, no un puñado."
       - id: b
         correct: true
         text:
-          en: "Positive expectancy measured across that sample."
-          es: "Una esperanza positiva medida a lo largo de esa muestra."
+          en: "Positive expectancy measured across that whole sample."
+          es: "Esperanza positiva medida a lo largo de toda esa muestra."
       - id: c
         correct: true
         text:
-          en: "The same method applied consistently to every trade."
-          es: "El mismo método aplicado de forma consistente en cada operación."
+          en: "The same method applied consistently to every one of them."
+          es: "El mismo método aplicado de forma consistente en todas ellas."
       - id: d
         text:
           en: "A high win rate over your last five trades."
           es: "Un win rate alto en tus últimas cinco operaciones."
       - id: e
         text:
-          en: "A recent winning streak."
-          es: "Una racha ganadora reciente."
+          en: "A recent winning streak on the live account."
+          es: "Una racha ganadora reciente en la cuenta real."
       - id: f
         text:
           en: "A profitable screenshot from someone online."
@@ -141,73 +141,73 @@ variants:
       - id: a
         correct: true
         text:
-          en: "About 22% — 0.60 × 0.60 × 0.60, or roughly one in five."
-          es: "Alrededor del 22%: 0,60 × 0,60 × 0,60, más o menos una de cada cinco."
+          en: "About 22% — 0.60 cubed, roughly one run in five."
+          es: "Alrededor del 22%: 0,60 al cubo, más o menos una de cada cinco."
       - id: b
         text:
-          en: "Almost 0% — three losses in a row hardly ever happens."
-          es: "Casi 0%: tres pérdidas seguidas casi nunca ocurren."
+          en: "60% — the same as the chance of losing any one single trade."
+          es: "60%: lo mismo que perder una sola operación cualquiera."
       - id: c
         text:
-          en: "60% — the same as the chance of losing any single trade."
-          es: "60%: lo mismo que la probabilidad de perder cualquier operación."
+          en: "Almost 0% — three losses in a row hardly ever actually happens."
+          es: "Casi 0%: tres pérdidas seguidas casi nunca ocurren de verdad."
       - id: d
         text:
-          en: "About 6% — you'd cube the 40% win rate (0.40³) instead."
-          es: "Alrededor del 6%: se elevaría al cubo el win rate del 40% (0,40³)."
+          en: "About 6% — you would cube the 40% win rate (0.40³) instead."
+          es: "Alrededor del 6%: se elevaría al cubo el 40% de acierto (0,40³)."
     explanation:
-      en: "Independent losses multiply: 0.60³ = 0.216, about 22% — roughly one in five, so over a few hundred trades it happens constantly. Cubing the win rate (0.40³ ≈ 6%) answers the wrong question, and the chance doesn't stay at the single-trade 60% because the losses compound."
-      es: "Las pérdidas independientes se multiplican: 0,60³ = 0,216, alrededor del 22%, más o menos una de cada cinco, así que a lo largo de unos cientos de operaciones ocurre constantemente. Elevar al cubo el win rate (0,40³ ≈ 6%) responde a la pregunta equivocada, y la probabilidad no se queda en el 60% de una sola operación porque las pérdidas se acumulan."
+      en: "Independent losses multiply: 0.60³ = 0.216, about 22% — roughly one in five, so over a few hundred trades it happens constantly. Cubing the win rate answers the wrong question entirely, and the chance does not stay at the single-trade 60% because the losses compound."
+      es: "Las pérdidas independientes se multiplican: 0,60³ = 0,216, alrededor del 22%, más o menos una de cada cinco, así que a lo largo de unos cientos de operaciones ocurre constantemente. Elevar al cubo el win rate responde a una pregunta completamente distinta, y la probabilidad no se queda en el 60% de una sola operación porque las pérdidas se acumulan."
   - id: larger-sample-streaks
     prompt:
       en: "You take more trades to let the law of averages smooth things out. What actually happens to your worst losing streak?"
       es: "Tomas más operaciones para que la ley de los grandes números lo suavice todo. ¿Qué le pasa realmente a tu peor racha perdedora?"
     options:
       - id: a
+        text:
+          en: "It gets shorter, because the losses and the wins even out over time."
+          es: "Se acorta, porque pérdidas y ganancias se compensan con el tiempo."
+      - id: b
         correct: true
         text:
-          en: "It gets deeper — a larger sample does not smooth the streaks away, it guarantees you eventually hit a run long enough to test your nerve."
-          es: "Se hace más profunda: una muestra mayor no suaviza las rachas, garantiza que tarde o temprano encuentres una lo bastante larga para poner a prueba tus nervios."
-      - id: b
-        text:
-          en: "It gets shorter, because losses and wins even out over time."
-          es: "Se acorta, porque las pérdidas y las ganancias se compensan con el tiempo."
+          en: "It gets deeper — a bigger sample guarantees a longer run eventually."
+          es: "Se hace más profunda: más muestra garantiza una racha más larga."
       - id: c
         text:
-          en: "It stays the same — streak length does not depend on sample size."
-          es: "Se mantiene igual: la longitud de la racha no depende del tamaño de la muestra."
+          en: "It stays the same — streak length does not depend on the sample size."
+          es: "Sigue igual: la longitud de la racha no depende del tamaño muestral."
       - id: d
         text:
-          en: "It becomes unpredictable, since past trades influence future ones."
-          es: "Se vuelve impredecible, ya que las operaciones pasadas influyen en las futuras."
+          en: "It becomes unpredictable, since past trades influence the future ones."
+          es: "Se vuelve impredecible, ya que las pasadas influyen en las futuras."
     explanation:
-      en: "What a larger sample smooths is the measured *average*, not the streaks. Trades are near enough independent, so a bad run carries no memory and no self-correction — the market does not owe you a win after four losses."
-      es: "Lo que una muestra mayor suaviza es la *media* medida, no las rachas. Las operaciones son prácticamente independientes, así que una mala racha no tiene memoria ni autocorrección: el mercado no te debe una ganancia tras cuatro pérdidas."
+      en: "What a larger sample smooths is the measured *average*, not the streaks: more trades means you eventually hit a run long enough to test your nerve. Trades are near enough independent, so a bad run carries no memory and no self-correction — the market does not owe you a win after four losses."
+      es: "Lo que una muestra mayor suaviza es la *media* medida, no las rachas: más operaciones significan que tarde o temprano encuentras una racha lo bastante larga para poner a prueba tus nervios. Las operaciones son prácticamente independientes, así que una mala racha no tiene memoria ni autocorrección: el mercado no te debe una ganancia tras cuatro pérdidas."
   - id: same-expectancy-feel
     prompt:
       en: "Two systems have identical expectancy — one wins often with small wins, the other rarely with large ones. What follows?"
       es: "Dos sistemas tienen la misma expectativa: uno gana a menudo con ganancias pequeñas y el otro rara vez con ganancias grandes. ¿Qué se deduce?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Same maths, very different psychology — the low-win-rate one makes you sit through long strings of losses. Choose the one you can actually follow."
-          es: "Las mismas matemáticas, una psicología muy distinta: el de baja tasa de acierto te hace aguantar largas series de pérdidas. Elige el que puedas seguir de verdad."
-      - id: b
         text:
           en: "The high-win-rate one is objectively better, since it is easier to trade."
-          es: "El de alta tasa de acierto es objetivamente mejor, ya que es más fácil de operar."
+          es: "El de alta tasa de acierto es mejor, porque es más fácil de operar."
+      - id: b
+        correct: true
+        text:
+          en: "Same maths, very different psychology — pick the one you can follow."
+          es: "Mismas matemáticas, psicología muy distinta: elige el que puedas seguir."
       - id: c
         text:
-          en: "The low-win-rate one must have higher expectancy in practice."
-          es: "El de baja tasa de acierto debe tener mayor expectativa en la práctica."
+          en: "The low-win-rate one must have a higher expectancy in actual practice."
+          es: "El de baja tasa de acierto debe tener más expectativa en la práctica."
       - id: d
         text:
-          en: "Identical expectancy means identical experience, so pick either."
-          es: "La misma expectativa significa la misma experiencia, así que elige cualquiera."
+          en: "Identical expectancy means identical experience, so just pick either one."
+          es: "La misma expectativa da la misma experiencia: elige cualquiera."
     explanation:
-      en: "A system you abandon mid-drawdown has an expectancy of zero in practice, whatever the spreadsheet says. Fit matters because the rules only pay if you keep following them."
-      es: "Un sistema que abandonas en mitad del drawdown tiene una expectativa de cero en la práctica, diga lo que diga la hoja de cálculo. El encaje importa porque las reglas solo pagan si sigues cumpliéndolas."
+      en: "The low-win-rate system makes you sit through long strings of losses, which is a completely different experience from the same expectancy delivered in frequent small wins. A system you abandon mid-drawdown has an expectancy of zero in practice, whatever the spreadsheet says — fit matters because the rules only pay if you keep following them."
+      es: "El sistema de baja tasa de acierto te hace aguantar largas series de pérdidas, que es una experiencia completamente distinta de la misma expectativa entregada en ganancias pequeñas y frecuentes. Un sistema que abandonas en mitad del drawdown tiene una expectativa de cero en la práctica, diga lo que diga la hoja de cálculo: el encaje importa porque las reglas solo pagan si sigues cumpliéndolas."
   - id: dilution-facts
     kind: multi_select
     prompt:
@@ -217,29 +217,29 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Your edge belongs to a specific setup, so every marginal boredom or FOMO trade dilutes the average with trades that never had one."
-          es: "Tu ventaja pertenece a un setup concreto, así que cada operación marginal por aburrimiento o FOMO diluye la media con operaciones que nunca la tuvieron."
+          en: "Boredom and FOMO trades dilute the average with setups that had no edge."
+          es: "Las operaciones por aburrimiento o FOMO diluyen la media con setups sin ventaja."
       - id: b
         correct: true
         text:
-          en: "Every extra trade pays the round-trip fee, so the break-even win rate quietly rises with every position you open."
-          es: "Cada operación extra paga la comisión de ida y vuelta, así que la tasa de acierto de equilibrio sube discretamente con cada posición que abres."
+          en: "Every extra trade pays the round-trip fee, raising the break-even win rate."
+          es: "Cada operación extra paga la ida y vuelta y sube la tasa de equilibrio."
       - id: c
         correct: true
         text:
-          en: "Compressed time: a normal losing streak that a swing trader meets over months can hit you in a few hours, which feels far more like a broken system than it is."
-          es: "Tiempo comprimido: una racha perdedora normal que un swing encuentra en meses puede golpearte en unas horas, y eso parece mucho más un sistema roto de lo que es."
+          en: "Compressed time: a months-long streak can arrive in a few hours."
+          es: "Tiempo comprimido: una racha de meses puede llegar en unas horas."
       - id: d
         text:
           en: "More trades add to your edge, because the sample grows faster."
-          es: "Más operaciones suman a tu ventaja, porque la muestra crece más rápido."
+          es: "Más operaciones suman ventaja, porque la muestra crece más rápido."
       - id: e
         text:
           en: "A 24/7 market removes variance, since there are no gaps between sessions."
           es: "Un mercado 24/7 elimina la varianza, ya que no hay huecos entre sesiones."
     explanation:
-      en: "The discipline the 24/7 clock demands is *not taking* trades. Fewer, higher-quality trades keep the sample clean and the measured expectancy honest."
-      es: "La disciplina que exige el reloj 24/7 es *no* operar. Menos operaciones y de mayor calidad mantienen la muestra limpia y la expectativa medida honesta."
+      en: "Your edge belongs to a specific setup, so marginal trades dilute it rather than growing the sample usefully; the fee toll rises with every position; and a normal losing streak that a swing trader meets over months can hit you in an afternoon, which feels far more like a broken system than it is. The discipline the 24/7 clock demands is *not taking* trades — fewer, higher-quality ones keep the sample clean and the measured expectancy honest."
+      es: "Tu ventaja pertenece a un setup concreto, así que las operaciones marginales la diluyen en vez de hacer crecer la muestra de forma útil; el peaje de comisiones sube con cada posición; y una racha perdedora normal que un swing encuentra en meses puede golpearte en una tarde, y eso parece mucho más un sistema roto de lo que es. La disciplina que exige el reloj 24/7 es *no* operar: menos operaciones y de mayor calidad mantienen la muestra limpia y la expectativa medida honesta."
   - id: judging-a-system-order
     kind: ordering
     prompt:

@@ -7,50 +7,50 @@ variants:
       es: "Quieres dibujar un retroceso de Fibonacci sobre una tendencia alcista. ¿Entre qué dos puntos anclas la herramienta?"
     options:
       - id: a
+        text:
+          en: "From the current price all the way down to zero on the scale."
+          es: "Desde el precio actual hasta el cero de la escala."
+      - id: b
         correct: true
         text:
-          en: "From the swing low (start of the impulse) to the swing high (end of the impulse)."
-          es: "Desde el mínimo del swing (inicio del impulso) hasta el máximo del swing (final del impulso)."
-      - id: b
-        text:
-          en: "From the current price down to zero."
-          es: "Desde el precio actual hasta cero."
+          en: "From the swing low to the swing high of one impulse."
+          es: "Del mínimo al máximo del swing de un impulso."
       - id: c
         text:
-          en: "Between the two most recent daily highs, whatever the trend."
-          es: "Entre los dos máximos diarios más recientes, sea cual sea la tendencia."
+          en: "Between the two most recent daily highs, whatever the trend is doing."
+          es: "Entre los dos máximos diarios recientes, haga lo que haga la tendencia."
       - id: d
         text:
-          en: "Between the EMA20 and the EMA50."
-          es: "Entre la EMA20 y la EMA50."
+          en: "Between the EMA20 and the EMA50 wherever those two lines sit."
+          es: "Entre la EMA20 y la EMA50, allí donde estén esas dos líneas."
     explanation:
-      en: "Anchor start-to-end of one clean impulse leg: swing low to swing high in an uptrend (swing high to swing low in a downtrend). Drag it backwards and the 0.382 and 0.618 levels swap places."
-      es: "Se ancla de principio a fin de una pierna de impulso limpia: del mínimo al máximo del swing en tendencia alcista (del máximo al mínimo en bajista). Si lo arrastras al revés, los niveles 0,382 y 0,618 se intercambian."
+      en: "Anchor start-to-end of one clean impulse leg: swing low to swing high in an uptrend, swing high to swing low in a downtrend. The tool measures a move that happened, so it needs that move's two ends — not an arbitrary price, not a pair of calendar highs, and not indicator lines. Drag it backwards and the 0.382 and 0.618 levels swap places."
+      es: "Se ancla de principio a fin de una pierna de impulso limpia: del mínimo al máximo del swing en tendencia alcista, del máximo al mínimo en bajista. La herramienta mide un movimiento que ocurrió, así que necesita sus dos extremos: ni un precio arbitrario, ni un par de máximos del calendario, ni líneas de indicador. Si la arrastras al revés, los niveles 0,382 y 0,618 se intercambian."
   - id: not-fibonacci
     prompt:
       en: "Of the three levels traders use most (0.382, 0.5, 0.618), which one is NOT actually derived from the Fibonacci sequence?"
       es: "De los tres niveles que más usan los traders (0,382, 0,5, 0,618), ¿cuál NO procede en realidad de la sucesión de Fibonacci?"
     options:
       - id: a
-        correct: true
         text:
-          en: "0.5 — it is just the midpoint, kept because markets respect round halves."
-          es: "0,5 — es solo el punto medio, que se mantiene porque el mercado respeta las mitades redondas."
+          en: "0.618, which is the inverse of the golden ratio itself."
+          es: "0,618, que es el inverso del propio número áureo."
       - id: b
         text:
-          en: "0.618 — the inverse of the golden ratio."
-          es: "0,618 — el inverso del número áureo."
+          en: "0.382, which is simply 1 minus 0.618 on the same scale."
+          es: "0,382, que es sencillamente 1 menos 0,618 en la misma escala."
       - id: c
+        correct: true
         text:
-          en: "0.382 — which is 1 − 0.618."
-          es: "0,382 — que es 1 − 0,618."
+          en: "0.5 — it is just the midpoint, kept by convention."
+          es: "0,5: es solo el punto medio, mantenido por convención."
       - id: d
         text:
-          en: "None of them; all three come straight from the Fibonacci sequence."
-          es: "Ninguno; los tres salen directamente de la sucesión de Fibonacci."
+          en: "None of them; all three come straight out of the sequence."
+          es: "Ninguno; los tres salen directamente de la sucesión."
     explanation:
-      en: "0.618 is the inverse of the golden ratio and 0.382 is 1 − 0.618, so both trace to the sequence. 0.5 does not — it is the halfway point, kept on the tool by convention because price respects halves."
-      es: "0,618 es el inverso del número áureo y 0,382 es 1 − 0,618, así que ambos vienen de la sucesión. 0,5 no: es el punto medio, que se mantiene en la herramienta por convención porque el precio respeta las mitades."
+      en: "0.618 is the inverse of the golden ratio and 0.382 is 1 − 0.618, so both trace back to the sequence. 0.5 does not: it is the halfway point, kept on the tool because price respects round halves — which is a perfectly good reason to watch it, and no reason to call it Fibonacci."
+      es: "0,618 es el inverso del número áureo y 0,382 es 1 − 0,618, así que ambos se remontan a la sucesión. 0,5 no: es el punto medio, mantenido en la herramienta porque el precio respeta las mitades redondas, que es una razón excelente para vigilarlo y ninguna para llamarlo Fibonacci."
   - id: draw-steps
     kind: ordering
     prompt:
@@ -117,23 +117,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "From the swing high (start) to the swing low (end); the levels sit above the low and measure how far a bounce climbs back up."
-          es: "Desde el máximo del swing (inicio) hasta el mínimo del swing (final); los niveles quedan por encima del mínimo y miden cuánto sube el rebote."
+          en: "High to low; the levels sit above the low and measure the bounce."
+          es: "De máximo a mínimo; los niveles quedan sobre el mínimo y miden el rebote."
       - id: b
         text:
-          en: "From the swing low to the swing high, exactly the same as in an uptrend."
-          es: "Desde el mínimo del swing hasta el máximo del swing, exactamente igual que en una tendencia alcista."
+          en: "Low to high, in exactly the same way as you would in an uptrend."
+          es: "De mínimo a máximo, exactamente igual que harías en una alcista."
       - id: c
         text:
-          en: "From the current price up to the previous all-time high."
-          es: "Desde el precio actual hasta el máximo histórico anterior."
+          en: "From the price right now up to the previous all-time high on the chart."
+          es: "Del precio actual hasta el máximo histórico anterior del gráfico."
       - id: d
         text:
-          en: "Between the two lowest candles of the day, regardless of the swing."
-          es: "Entre las dos velas más bajas del día, sin importar el swing."
+          en: "Between the two lowest candles of the day, whatever the swing was."
+          es: "Entre las dos velas más bajas del día, fuera cual fuera el swing."
     explanation:
-      en: "In a downtrend you anchor high-to-low — start of the impulse to its end — so the levels fall above the low and measure the bounce. Always drag start-to-end; low-to-high is the uptrend setup and would swap your levels around."
-      es: "En una tendencia bajista se ancla de máximo a mínimo —del inicio del impulso a su final—, así los niveles caen por encima del mínimo y miden el rebote. Arrastra siempre de principio a fin; de mínimo a máximo sería el montaje alcista e intercambiaría tus niveles."
+      en: "In a downtrend the impulse runs from the swing high (its start) to the swing low (its end), so you anchor high-to-low and the levels fall above the low, measuring how far a bounce climbs back. Always drag start-to-end: low-to-high is the uptrend setup and would swap your levels around, and neither the all-time high nor the day's lowest candles have anything to do with this leg."
+      es: "En una tendencia bajista el impulso va del máximo del swing (su inicio) al mínimo (su final), así que anclas de máximo a mínimo y los niveles caen por encima del mínimo, midiendo cuánto sube el rebote. Arrastra siempre de principio a fin: de mínimo a máximo es el montaje alcista e intercambiaría tus niveles, y ni el máximo histórico ni las velas más bajas del día tienen nada que ver con esta pierna."
   - id: reversed-swap
     kind: true_false
     prompt:
@@ -149,50 +149,50 @@ variants:
       es: "El precio retrocedió el 61,8 % de una pierna de impulso y luego reanudó la tendencia. ¿Cómo se llama correctamente ese retroceso del 61,8 %?"
     options:
       - id: a
+        text:
+          en: "A 0.618 extension of the impulse leg that came before it."
+          es: "Una extensión del 0,618 de la pierna de impulso anterior."
+      - id: b
+        text:
+          en: "A 1.618 extension, projected beyond the end of the move."
+          es: "Una extensión del 1,618, proyectada más allá del final del movimiento."
+      - id: c
         correct: true
         text:
           en: "A 0.618 retracement — the deep 'golden' pullback."
           es: "Un retroceso del 0,618: el retroceso profundo 'dorado'."
-      - id: b
-        text:
-          en: "A 0.618 extension."
-          es: "Una extensión del 0,618."
-      - id: c
-        text:
-          en: "A 1.618 extension."
-          es: "Una extensión del 1,618."
       - id: d
         text:
-          en: "A 0.382 shallow pullback."
-          es: "Un retroceso superficial del 0,382."
+          en: "A 0.382 shallow pullback, measured from the swing high."
+          es: "Un retroceso superficial del 0,382, medido desde el máximo."
     explanation:
-      en: "A retracement measures how far price pulls back inside the move, so 61.8% is the 0.618 retracement. Extensions (1.272, 1.618) are different: they project past the old extreme toward where the next leg might reach, not the depth of a pullback."
-      es: "Un retroceso mide cuánto retrocede el precio dentro del movimiento, así que el 61,8 % es el retroceso del 0,618. Las extensiones (1,272, 1,618) son otra cosa: proyectan más allá del extremo anterior hacia dónde podría llegar la siguiente pierna, no la profundidad de un retroceso."
+      en: "A retracement measures how far price pulls back *inside* the move, so 61.8% given back is the 0.618 retracement. Extensions such as 1.272 and 1.618 are a different measurement entirely: they project past the old extreme toward where the next leg might reach, rather than describing the depth of a pullback."
+      es: "Un retroceso mide cuánto retrocede el precio *dentro* del movimiento, así que devolver el 61,8 % es el retroceso del 0,618. Las extensiones como 1,272 y 1,618 son otra medición distinta: proyectan más allá del extremo anterior hacia dónde podría llegar la siguiente pierna, en vez de describir la profundidad de un retroceso."
   - id: fib-numbers
     prompt:
       en: "You draw the tool across a clean leg up from 60,000 to 70,000. Where do the three levels fall?"
       es: "Dibujas la herramienta sobre un tramo alcista limpio de 60.000 a 70.000. ¿Dónde caen los tres niveles?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "0.382 at 66,180; 0.5 at 65,000; 0.618 at 63,820 — each a fraction of the 10,000-point impulse measured down from the high."
-          es: "0,382 en 66.180; 0,5 en 65.000; 0,618 en 63.820: cada uno una fracción del impulso de 10.000 puntos medida hacia abajo desde el máximo."
-      - id: b
         text:
           en: "0.382 at 63,820; 0.5 at 65,000; 0.618 at 66,180."
           es: "0,382 en 63.820; 0,5 en 65.000; 0,618 en 66.180."
+      - id: b
+        correct: true
+        text:
+          en: "0.382 at 66,180; 0.5 at 65,000; 0.618 at 63,820."
+          es: "0,382 en 66.180; 0,5 en 65.000; 0,618 en 63.820."
       - id: c
         text:
-          en: "0.382 at 26,180; 0.5 at 35,000; 0.618 at 43,820 — fractions of the price, not the leg."
-          es: "0,382 en 26.180; 0,5 en 35.000; 0,618 en 43.820: fracciones del precio, no del tramo."
+          en: "0.382 at 26,180; 0.5 at 35,000; 0.618 at 43,820 — fractions of price."
+          es: "0,382 en 26.180; 0,5 en 35.000; 0,618 en 43.820: fracciones del precio."
       - id: d
         text:
-          en: "0.382 at 73,820; 0.5 at 75,000; 0.618 at 76,180 — measured up from the high."
-          es: "0,382 en 73.820; 0,5 en 75.000; 0,618 en 76.180: medidos hacia arriba desde el máximo."
+          en: "0.382 at 73,820; 0.5 at 75,000; 0.618 at 76,180 — above the high."
+          es: "0,382 en 73.820; 0,5 en 75.000; 0,618 en 76.180: sobre el máximo."
     explanation:
-      en: "Each level is the fraction of the impulse price has given back: 70,000 − 0.382 × 10,000 = 66,180, and so on. A shallow pullback finds a floor near 66,180; a deep one drops toward 63,820."
-      es: "Cada nivel es la fracción del impulso que el precio ha devuelto: 70.000 − 0,382 × 10.000 = 66.180, y así sucesivamente. Un retroceso superficial encuentra suelo cerca de 66.180; uno profundo cae hacia 63.820."
+      en: "Each level is the fraction of the 10,000-point impulse that price has given back, measured down from the high: 70,000 − 0.382 × 10,000 = 66,180, and so on. So a shallow pullback finds a floor near 66,180 and a deep one drops toward 63,820 — the shallow level is the *higher* number. The fractions apply to the leg, not to the price itself, and a retracement always sits inside the move."
+      es: "Cada nivel es la fracción del impulso de 10.000 puntos que el precio ha devuelto, medida hacia abajo desde el máximo: 70.000 − 0,382 × 10.000 = 66.180, y así sucesivamente. Por eso un retroceso superficial encuentra suelo cerca de 66.180 y uno profundo cae hacia 63.820: el nivel superficial es el número *más alto*. Las fracciones se aplican al tramo, no al precio en sí, y un retroceso siempre queda dentro del movimiento."
   - id: golden-zone-band
     prompt:
       en: "On that same 60,000→70,000 leg, what is the 'golden zone' and why is it read as a band?"
@@ -201,23 +201,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "65,000 down to 63,820 — the 0.5-to-0.618 band, because a healthy pullback usually gives back between a half and roughly two-thirds of the move."
-          es: "De 65.000 a 63.820: la banda de 0,5 a 0,618, porque un retroceso sano suele devolver entre la mitad y unos dos tercios del movimiento."
+          en: "65,000 down to 63,820, which is the 0.5-to-0.618 band of that leg."
+          es: "De 65.000 a 63.820: la banda de 0,5 a 0,618."
       - id: b
         text:
-          en: "66,180 down to 65,000 — the 0.382-to-0.5 band, where strong trends turn."
-          es: "De 66.180 a 65.000: la banda de 0,382 a 0,5, donde giran las tendencias fuertes."
+          en: "63,820 exactly — it is a single line, and 'band' is just imprecision."
+          es: "63.820 exactamente: es una línea, y 'banda' es solo imprecisión."
       - id: c
         text:
-          en: "63,820 exactly — it is a single line, and the 'band' is just imprecision."
-          es: "63.820 exactamente: es una única línea, y la 'banda' es solo imprecisión."
+          en: "66,180 down to 65,000 — the 0.382-to-0.5 band, where strong trends turn."
+          es: "De 66.180 a 65.000: la banda 0,382-0,5, donde giran las tendencias fuertes."
       - id: d
         text:
-          en: "60,000 to 70,000 — the whole impulse is the zone."
-          es: "De 60.000 a 70.000: todo el impulso es la zona."
+          en: "60,000 to 70,000 — the whole impulse leg is the zone."
+          es: "De 60.000 a 70.000: toda la pierna de impulso es la zona."
     explanation:
-      en: "Shallow enough that the trend is clearly still intact, deep enough to shake out weak hands and let resting orders refill. A pullback stalling above 0.5 barely tested the trend; one slicing through 0.618 warns the move may be over, not resting."
-      es: "Lo bastante superficial para que la tendencia siga claramente intacta, y lo bastante profundo para sacudir manos débiles y dejar que se rellenen las órdenes. Un retroceso que se para por encima de 0,5 apenas puso a prueba la tendencia; uno que atraviesa 0,618 avisa de que el movimiento puede haber terminado, no estar descansando."
+      en: "A healthy pullback usually gives back between a half and roughly two-thirds of the move: shallow enough that the trend is clearly still intact, deep enough to shake out weak hands and let resting orders refill. A pullback stalling above 0.5 barely tested the trend, and one slicing through 0.618 warns the move may be over rather than resting — which is why the zone is that particular band and not a single line."
+      es: "Un retroceso sano suele devolver entre la mitad y unos dos tercios del movimiento: lo bastante superficial para que la tendencia siga claramente intacta, y lo bastante profundo para sacudir manos débiles y dejar que se rellenen las órdenes. Un retroceso que se para por encima de 0,5 apenas puso a prueba la tendencia, y uno que atraviesa 0,618 avisa de que el movimiento puede haber terminado en vez de estar descansando: por eso la zona es esa banda concreta y no una sola línea."
   - id: tool-parts-facts
     kind: multi_select
     prompt:
@@ -227,26 +227,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Retracement levels estimate how deep a pullback will go before the trend resumes."
-          es: "Los niveles de retroceso estiman cuánto profundizará un retroceso antes de que la tendencia se reanude."
+          en: "Retracement levels estimate how deep a pullback goes before the trend resumes."
+          es: "Los niveles de retroceso estiman cuánto cae un retroceso antes de reanudarse."
       - id: b
         correct: true
         text:
-          en: "Extensions — commonly 1.272 and 1.618 — project where the next leg might reach past the old extreme."
-          es: "Las extensiones (habitualmente 1,272 y 1,618) proyectan hasta dónde podría llegar el siguiente tramo más allá del extremo anterior."
+          en: "Extensions such as 1.272 and 1.618 project past the old extreme."
+          es: "Las extensiones como 1,272 y 1,618 proyectan más allá del extremo anterior."
       - id: c
         correct: true
         text:
-          en: "0.5 is not a Fibonacci ratio — it is just the halfway point, kept because markets respect round halves."
-          es: "0,5 no es una proporción de Fibonacci: es solo el punto medio, mantenido porque los mercados respetan las mitades redondas."
+          en: "0.5 is not a Fibonacci ratio; it is simply the halfway point."
+          es: "0,5 no es una proporción de Fibonacci; es sencillamente el punto medio."
       - id: d
         text:
-          en: "Anchoring the tool backwards shifts the levels but keeps shallow and deep in place."
-          es: "Anclar la herramienta al revés desplaza los niveles pero mantiene el superficial y el profundo en su sitio."
+          en: "Anchoring backwards shifts the levels but keeps shallow and deep in place."
+          es: "Anclar al revés desplaza los niveles pero deja superficial y profundo en su sitio."
       - id: e
         text:
-          en: "0.618 comes from the golden ratio, and so does 0.5."
-          es: "0,618 viene de la proporción áurea, y 0,5 también."
+          en: "0.618 comes from the golden ratio, and 0.5 comes from it as well."
+          es: "0,618 viene de la proporción áurea, y 0,5 también viene de ella."
     explanation:
-      en: "0.618 is the inverse of the golden ratio and 0.382 is 1 − 0.618, so those two genuinely come from the sequence. Draw the leg backwards and your shallow and deep levels swap places — every read off them is then wrong."
-      es: "0,618 es el inverso de la proporción áurea y 0,382 es 1 − 0,618, así que esos dos vienen de verdad de la secuencia. Dibuja el tramo al revés y tus niveles superficial y profundo se intercambian: toda lectura sobre ellos queda mal."
+      en: "0.618 is the inverse of the golden ratio and 0.382 is 1 − 0.618, so those two genuinely come from the sequence while 0.5 is kept for a different reason. Draw the leg backwards and your shallow and deep levels swap places — every read taken off them is then exactly wrong."
+      es: "0,618 es el inverso de la proporción áurea y 0,382 es 1 − 0,618, así que esos dos vienen de verdad de la secuencia mientras que 0,5 se conserva por otro motivo. Dibuja el tramo al revés y tus niveles superficial y profundo se intercambian: toda lectura tomada de ellos queda exactamente al revés."

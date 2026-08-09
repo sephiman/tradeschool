@@ -7,34 +7,34 @@ variants:
       es: "¿Qué es una zona de soporte?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A price area where buying has previously been strong enough to stop a fall."
-          es: "Una zona de precio donde antes la compra ha sido lo bastante fuerte como para frenar una caída."
+          en: "An exact price line at which price is guaranteed to reverse cleanly."
+          es: "Una línea de precio exacta en la que el precio gira limpiamente seguro."
       - id: b
         text:
-          en: "An exact price line at which price is guaranteed to reverse."
-          es: "Una línea de precio exacta en la que el precio va a girar seguro."
+          en: "The lowest price the asset has ever traded at in its history."
+          es: "El precio más bajo al que el activo ha cotizado en toda su historia."
       - id: c
+        correct: true
         text:
-          en: "The lowest price the asset has ever traded at."
-          es: "El precio más bajo al que el activo ha cotizado nunca."
+          en: "A price area where buying has previously halted a fall."
+          es: "Una zona de precio donde antes la compra ha frenado una caída."
       - id: d
         text:
-          en: "A floor below which price can never fall."
-          es: "Un suelo por debajo del cual el precio nunca puede caer."
+          en: "A floor below which price is not able to fall any further."
+          es: "Un suelo por debajo del cual el precio ya no puede caer más."
     explanation:
-      en: "Support is an area where buyers have stepped in before — a zone, not an exact line, and never a guaranteed or permanent floor. Every support can and eventually does break."
-      es: "El soporte es una zona donde los compradores han entrado antes: una zona, no una línea exacta, y nunca un suelo garantizado ni permanente. Todo soporte puede romperse y acaba rompiéndose."
+      en: "Support is an area where buyers have stepped in before — a band of prices, not an exact line, and not the all-time low. It is never a guaranteed or permanent floor either: every support can break, and eventually every one does."
+      es: "El soporte es una zona donde los compradores han entrado antes: una banda de precios, no una línea exacta, ni el mínimo histórico. Tampoco es un suelo garantizado ni permanente: todo soporte puede romperse, y al final todos se rompen."
   - id: always-holds-myth
     kind: true_false
     prompt:
-      en: "A support zone, once it has held a few times, will always hold."
-      es: "Una zona de soporte, una vez que ha aguantado unas cuantas veces, aguantará siempre."
-    answer: false
+      en: "Each test of a support zone consumes some of the orders defending it, so a well-tested zone is not automatically the safer one."
+      es: "Cada test de una zona de soporte consume parte de las órdenes que la defienden, así que una zona muy testeada no es automáticamente la más segura."
+    answer: true
     explanation:
-      en: "No level always holds. A level is a probability, not a wall — and each test consumes the orders defending it, so a well-tested zone is often closer to breaking, not safer."
-      es: "Ningún nivel aguanta siempre. Un nivel es una probabilidad, no un muro, y cada test consume las órdenes que lo defienden, así que una zona muy testeada suele estar más cerca de romperse, no más segura."
+      en: "True, and it cuts against the intuition that a level which has held often is stronger. A level is a probability, not a wall: repeated tests build the crowd's confidence while thinning the bids underneath it."
+      es: "Cierto, y va en contra de la intuición de que un nivel que ha aguantado muchas veces es más fuerte. Un nivel es una probabilidad, no un muro: los tests repetidos construyen la confianza de la multitud mientras adelgazan las pujas de debajo."
   - id: exact-line-myth
     kind: true_false
     prompt:
@@ -87,8 +87,8 @@ variants:
       - id: b
         correct: true
         text:
-          en: "A break is more trustworthy after a candle closes beyond the zone with real volume."
-          es: "Una ruptura es más fiable después de que una vela cierre más allá de la zona con volumen real."
+          en: "A break is more trustworthy once a candle closes beyond the zone."
+          es: "Una ruptura es más fiable cuando una vela cierra más allá de la zona."
       - id: c
         correct: true
         text:
@@ -96,15 +96,15 @@ variants:
           es: "Una resistencia rota puede luego actuar como soporte."
       - id: d
         text:
-          en: "A zone that has been tested many times can never break."
-          es: "Una zona testeada muchas veces no puede romperse nunca."
+          en: "A zone tested many times has proven that it can never break."
+          es: "Una zona testeada muchas veces ha demostrado que no puede romperse."
       - id: e
         text:
-          en: "Support is a guaranteed floor that price cannot pass."
-          es: "El soporte es un suelo garantizado que el precio no puede rebasar."
+          en: "Support is a guaranteed floor that price cannot pass through."
+          es: "El soporte es un suelo garantizado que el precio no puede atravesar."
     explanation:
-      en: "Zones are bands; a break earns trust from a close-with-volume, not a lone wick; and broken levels often flip roles. 'Never breaks' and 'guaranteed floor' are exactly the beliefs that blow up accounts."
-      es: "Las zonas son bandas; una ruptura se gana la confianza con un cierre con volumen, no con una mecha suelta; y los niveles rotos suelen cambiar de rol. 'Nunca se rompe' y 'suelo garantizado' son justo las creencias que revientan cuentas."
+      en: "Zones are bands; a break earns trust from a close with volume behind it, not from a lone wick; and broken levels often flip roles. 'It has held so it never breaks' and 'guaranteed floor' are exactly the beliefs that blow up accounts — every test spends some of the defence."
+      es: "Las zonas son bandas; una ruptura se gana la confianza con un cierre y volumen detrás, no con una mecha suelta; y los niveles rotos suelen cambiar de rol. 'Ha aguantado, luego no se rompe' y 'suelo garantizado' son justo las creencias que revientan cuentas: cada test gasta parte de la defensa."
   - id: false-break
     prompt:
       en: "BTC has a support zone at 60,000–60,300. On a quiet Sunday, price wicks down to 59,500 on light volume, then closes the candle back at 60,450. What is the best read?"
@@ -113,48 +113,48 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Likely a false break on a thin weekend book — wait for a close below the zone with real volume before trusting it."
-          es: "Probablemente una falsa ruptura en un libro poco profundo de fin de semana: espera un cierre por debajo de la zona con volumen real antes de fiarte."
+          en: "Likely a false break on a thin weekend book — wait for a close below with real volume."
+          es: "Probablemente una falsa ruptura en un libro fino de fin de semana: espera un cierre por debajo con volumen real."
       - id: b
         text:
-          en: "Support broke, so go short immediately."
-          es: "El soporte se rompió, así que ponte corto de inmediato."
+          en: "Support broke, so go short immediately at the next print."
+          es: "El soporte se rompió, así que ponte corto ya en la siguiente cotización."
       - id: c
         text:
           en: "The zone is now invalid and should be deleted from the chart."
           es: "La zona ya no vale y hay que borrarla del gráfico."
       - id: d
         text:
-          en: "A level always holds, so nothing happened at all."
-          es: "Un nivel siempre aguanta, así que no pasó nada de nada."
+          en: "A level always holds, so nothing at all happened here."
+          es: "Un nivel siempre aguanta, así que aquí no pasó nada de nada."
     explanation:
-      en: "The wick pierced the zone but the candle closed back inside it, on light volume, on a thin weekend — the signature of a false break or stop hunt. The zone still stands; a real break needs a close beyond it with volume."
-      es: "La mecha perforó la zona pero la vela cerró de nuevo dentro, con poco volumen, en un fin de semana fino: la firma de una falsa ruptura o barrido de stops. La zona sigue en pie; una ruptura real necesita un cierre más allá con volumen."
+      en: "The wick pierced the zone but the candle closed back inside it, on light volume, on a thin weekend — the signature of a false break or stop hunt. The zone still stands and stays on the chart; a real break needs a close beyond it with volume, and shorting the wick is reacting to the least reliable part of the candle."
+      es: "La mecha perforó la zona pero la vela cerró de nuevo dentro, con poco volumen, en un fin de semana fino: la firma de una falsa ruptura o barrido de stops. La zona sigue en pie y se queda en el gráfico; una ruptura real necesita un cierre más allá con volumen, y ponerse corto en la mecha es reaccionar a la parte menos fiable de la vela."
   - id: role-reversal
     prompt:
       en: "Price breaks convincingly above a long-standing resistance zone, then pulls back to it. What often happens?"
       es: "El precio rompe de forma convincente por encima de una zona de resistencia de mucho tiempo y luego retrocede hacia ella. ¿Qué suele pasar?"
     options:
       - id: a
+        text:
+          en: "The old resistance becomes irrelevant and never matters again."
+          es: "La vieja resistencia se vuelve irrelevante y ya nunca importa."
+      - id: b
+        text:
+          en: "The break guarantees price keeps rising with no pullback at all."
+          es: "La ruptura garantiza que el precio sigue subiendo sin ningún retroceso."
+      - id: c
+        text:
+          en: "The zone must be redrawn far lower down on the chart."
+          es: "Hay que redibujar la zona mucho más abajo en el gráfico."
+      - id: d
         correct: true
         text:
           en: "The old resistance can now act as support on the retest."
           es: "La vieja resistencia puede actuar ahora como soporte en el retest."
-      - id: b
-        text:
-          en: "The old resistance becomes irrelevant and never matters again."
-          es: "La vieja resistencia se vuelve irrelevante y ya nunca importa."
-      - id: c
-        text:
-          en: "The break guarantees price will keep rising with no pullback."
-          es: "La ruptura garantiza que el precio seguirá subiendo sin ningún retroceso."
-      - id: d
-        text:
-          en: "The zone must be redrawn far lower on the chart."
-          es: "Hay que redibujar la zona mucho más abajo en el gráfico."
     explanation:
-      en: "This is role reversal: traders who missed the breakout buy the retest, so the old ceiling tends to act as a new floor. It is a tendency, not a guarantee, and it certainly does not promise an uninterrupted rise."
-      es: "Esto es el cambio de rol: los traders que se perdieron la ruptura compran el retest, así que el viejo techo tiende a actuar como nuevo suelo. Es una tendencia, no una garantía, y desde luego no promete una subida ininterrumpida."
+      en: "This is role reversal: traders who missed the breakout buy the retest, so the old ceiling tends to act as a new floor. Far from becoming irrelevant, the level stays exactly where it was and keeps mattering — but it is a tendency, not a guarantee, and it certainly does not promise an uninterrupted rise."
+      es: "Esto es el cambio de rol: los traders que se perdieron la ruptura compran el retest, así que el viejo techo tiende a actuar como nuevo suelo. Lejos de volverse irrelevante, el nivel se queda donde estaba y sigue importando, pero es una tendencia, no una garantía, y desde luego no promete una subida ininterrumpida."
   - id: confirm-break-order
     kind: ordering
     prompt:

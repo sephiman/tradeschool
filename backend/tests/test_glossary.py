@@ -3,11 +3,21 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from pydantic import ValidationError
 
 from tradeschool.config import get_settings
-from tradeschool.content.glossary import Glossary, GlossaryTerm
+from tradeschool.content.glossary import (
+    Glossary,
+    GlossarySense,
+    GlossaryTerm,
+    LocaleFlags,
+    LocaleLessons,
+    MatchVariants,
+    load_glossary,
+)
 from tradeschool.content.registry import load_registry
 from tradeschool.content.schema import LOCALES, LocalizedText
 
@@ -127,6 +137,123 @@ def test_an_alias_may_not_point_at_another_alias() -> None:
                 GlossaryTerm(id="g-c", en="c", es="c", origin="m01-l1", alias_of="g-b"),
             ]
         )
+
+
+# --- annotation: which occurrences may become a link ---
+
+
+def test_an_entry_links_by_default_and_says_so_by_omission() -> None:
+    term = GlossaryTerm(id="g-a", en="a", es="a", origin="m01-l1", definition=_def())
+    assert term.link is True
+    assert term.match is None and term.link_except == []
+    registry = load_registry(get_settings().content_dir)
+    plain = next(e for e in registry.glossary_entries("en") if e["id"] == "g-blockchain")
+    assert "link" not in plain and "linkExcept" not in plain
+
+
+def test_opting_out_of_linking_may_not_also_configure_linking() -> None:
+    """`link: false` and a match list contradict each other; the file must say one thing."""
+    with pytest.raises(ValidationError, match="link is off for en, so it needs no rules"):
+        GlossaryTerm(
+            id="g-a", en="a", es="a", origin="m01-l1", definition=_def(), link=False,
+            match=MatchVariants(en=["a"]),
+        )
+
+
+def test_a_term_can_opt_out_of_linking_in_one_locale_only() -> None:
+    """ES `base` is "base de datos" everywhere; EN `basis` is unambiguous. One entry, two answers."""
+    term = GlossaryTerm(
+        id="g-basis", en="basis", es="base", origin="m17-l1", definition=_def(),
+        link=LocaleFlags(es=False),
+    )
+    assert term.links("en") is True
+    assert term.links("es") is False
+    # The rules that would contradict the switch are rejected only for the locale that is off.
+    GlossaryTerm(
+        id="g-b", en="b", es="b", origin="m01-l1", definition=_def(),
+        link=LocaleFlags(es=False), match=MatchVariants(en=["bs"]),
+    )
+    with pytest.raises(ValidationError, match="link is off for es"):
+        GlossaryTerm(
+            id="g-c", en="c", es="c", origin="m01-l1", definition=_def(),
+            link=LocaleFlags(es=False), match=MatchVariants(es=["cs"]),
+        )
+
+
+def test_exclusions_can_be_per_locale_and_are_reported_per_locale() -> None:
+    term = GlossaryTerm(
+        id="g-spot", en="spot", es="spot", origin="m02-l1", definition=_def(),
+        link_except=LocaleLessons(en=["m13-l1"]),
+    )
+    assert term.excluded_lessons("en") == ["m13-l1"]
+    assert term.excluded_lessons("es") == []
+    assert term.all_excluded_lessons() == ["m13-l1"]
+
+
+@pytest.mark.parametrize(
+    ("variants", "message"),
+    [([], "empty list"), ([" a"], "blank or padded"), (["a", "a"], "duplicate variant")],
+)
+def test_match_variants_reject_empty_padded_and_duplicate_forms(variants: list[str], message: str) -> None:
+    with pytest.raises(ValidationError, match=message):
+        MatchVariants(en=variants)
+
+
+def test_link_except_must_name_lessons_that_exist(tmp_path: Path) -> None:
+    (tmp_path / "glossary.yaml").write_text(
+        "terms:\n"
+        "- id: g-a\n  en: a\n  es: a\n  origin: m01-l1\n"
+        "  definition: {en: d, es: d}\n  link_except: [m99-l9]\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="unknown lesson 'm99-l9' in link_except"):
+        load_glossary(tmp_path, {"m01-l1"}, set())
+
+
+def test_the_annotation_fields_reach_the_payload_per_locale() -> None:
+    registry = load_registry(get_settings().content_dir)
+    registry.glossary.terms.append(
+        GlossaryTerm(
+            id="g-test-only",
+            en="widget",
+            es="artilugio",
+            origin="m01-l1",
+            definition=_def(),
+            match=MatchVariants(es=["artilugios"]),
+            link_except=["m02-l1"],
+        )
+    )
+    try:
+        es = next(e for e in registry.glossary_entries("es") if e["id"] == "g-test-only")
+        en = next(e for e in registry.glossary_entries("en") if e["id"] == "g-test-only")
+        assert es["match"] == ["artilugios"]
+        assert "match" not in en, "an override for one locale must not leak into the other"
+        assert es["linkExcept"] == ["m02-l1"] and en["linkExcept"] == ["m02-l1"]
+    finally:
+        registry.glossary.terms.pop()
+
+
+def test_origins_collects_the_entry_and_every_sense() -> None:
+    plain = GlossaryTerm(id="g-a", en="a", es="a", origin="m01-l1", definition=_def())
+    assert plain.origins() == ["m01-l1"]
+    homonym = GlossaryTerm(
+        id="g-b",
+        en="b",
+        es="b",
+        senses=[
+            GlossarySense(origin="m17-l1", definition=_def()),
+            GlossarySense(origin="m28-l1", definition=_def()),
+        ],
+    )
+    assert homonym.origins() == ["m17-l1", "m28-l1"]
+
+
+def test_every_authored_exclusion_names_a_real_lesson() -> None:
+    registry = load_registry(get_settings().content_dir)
+    lesson_ids = {lesson.id for _, lesson in registry.manifest.iter_lessons()}
+    for term in registry.glossary.terms:
+        for excluded in term.all_excluded_lessons():
+            assert excluded in lesson_ids, f"{term.id} excludes unknown lesson {excluded}"
 
 
 def test_the_glossary_never_coins_guard_fires_on_a_term_absent_from_the_prose() -> None:

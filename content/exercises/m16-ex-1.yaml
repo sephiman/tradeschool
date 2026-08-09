@@ -7,25 +7,25 @@ variants:
       es: "¿Qué mide realmente el índice de miedo y codicia de cripto?"
     options:
       - id: a
+        text:
+          en: "The exact direction price will take over the next several days."
+          es: "La dirección exacta que tomará el precio en los próximos días."
+      - id: b
         correct: true
         text:
-          en: "The recent mood of the market, blended from inputs like volatility, momentum, social media and search trends into a single 0–100 score."
-          es: "El estado de ánimo reciente del mercado, mezclando ingredientes como volatilidad, momentum, redes sociales y tendencias de búsqueda en una sola cifra de 0 a 100."
-      - id: b
-        text:
-          en: "The exact direction price will take over the next few days."
-          es: "La dirección exacta que tomará el precio en los próximos días."
+          en: "The market's recent mood, blended into a single 0–100 score."
+          es: "El ánimo reciente del mercado, mezclado en una sola cifra de 0 a 100."
       - id: c
         text:
-          en: "The total amount of leverage open across all exchanges."
-          es: "La cantidad total de apalancamiento abierto en todos los exchanges."
+          en: "The total amount of leverage currently open across all exchanges."
+          es: "El apalancamiento total abierto ahora mismo en todos los exchanges."
       - id: d
         text:
-          en: "A guaranteed signal of the moment the market will reverse."
-          es: "Una señal garantizada del momento en que el mercado girará."
+          en: "A guaranteed signal of the exact moment the market will reverse."
+          es: "Una señal garantizada del momento exacto en que el mercado girará."
     explanation:
-      en: "The index is a lagging, backward-looking composite of the crowd's recent mood on a 0–100 scale. It summarises how it has felt lately; it does not forecast direction or timing."
-      es: "El índice es un compuesto rezagado y retrospectivo del ánimo reciente de la masa en una escala de 0 a 100. Resume cómo se ha sentido últimamente; no pronostica dirección ni timing."
+      en: "The index is a lagging, backward-looking composite — volatility, momentum, social media, dominance and search trends — on a 0–100 scale. It summarises how the market has felt lately; it does not forecast direction, does not know when a turn is coming, and reads nobody's actual positioning."
+      es: "El índice es un compuesto rezagado y retrospectivo —volatilidad, momentum, redes sociales, dominancia y tendencias de búsqueda— en una escala de 0 a 100. Resume cómo se ha sentido el mercado últimamente; no pronostica dirección, no sabe cuándo llega un giro y no lee el posicionamiento real de nadie."
   - id: half-from-price
     prompt:
       en: "Roughly half of the Fear & Greed score comes from which two inputs?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Volatility and market momentum — both derived from price itself."
-          es: "Volatilidad y momentum de mercado, ambos derivados del propio precio."
+          en: "Volatility and market momentum, both derived from price."
+          es: "Volatilidad y momentum de mercado, ambos derivados del precio."
       - id: b
         text:
-          en: "Verified surveys of every trader's real positioning."
-          es: "Encuestas verificadas del posicionamiento real de cada trader."
+          en: "The number of active wallets recorded on-chain over the window."
+          es: "El número de carteras activas registradas on-chain en la ventana."
       - id: c
         text:
-          en: "The number of active wallets recorded on-chain."
-          es: "El número de carteras activas registradas on-chain."
+          en: "Verified surveys of every trader's real positioning across venues."
+          es: "Encuestas verificadas del posicionamiento real de cada trader."
       - id: d
         text:
-          en: "Central bank interest-rate decisions."
-          es: "Las decisiones de tipos de interés de los bancos centrales."
+          en: "The interest-rate decisions taken by the major central banks."
+          es: "Las decisiones de tipos de interés de los grandes bancos centrales."
     explanation:
-      en: "Volatility and momentum together make up about half the score, and both are computed from price. That is why the index is largely a re-description of recent price action rather than an independent measure of emotion."
-      es: "La volatilidad y el momentum suman juntos casi la mitad de la puntuación, y ambos se calculan a partir del precio. Por eso el índice es, en gran medida, una redescripción de la acción de precio reciente y no una medida independiente de la emoción."
+      en: "Volatility and momentum together make up about half the score, and both are computed from price. That is why the index is largely a re-description of recent price action rather than an independent measure of emotion — it never surveys anyone, never reads the chain, and never looks at macro policy."
+      es: "La volatilidad y el momentum suman juntos casi la mitad de la puntuación, y ambos se calculan a partir del precio. Por eso el índice es, en gran medida, una redescripción de la acción de precio reciente y no una medida independiente de la emoción: no encuesta a nadie, no lee la cadena y no mira la política macro."
   - id: blend-inputs
     kind: multi_select
     prompt:
@@ -100,12 +100,12 @@ variants:
   - id: lagging-or-forecast
     kind: true_false
     prompt:
-      en: "The Fear & Greed index is a forward-looking forecast that tells you where price will go next."
-      es: "El índice de miedo y codicia es un pronóstico prospectivo que te dice hacia dónde irá el precio a continuación."
-    answer: false
+      en: "The Fear & Greed index is a lagging read of how the market has felt lately, not a forecast of where price goes next."
+      es: "El índice de miedo y codicia es una lectura rezagada de cómo se ha sentido el mercado últimamente, no un pronóstico de hacia dónde irá el precio."
+    answer: true
     explanation:
-      en: "It is the opposite: a lagging, backward-looking read of how the market has felt lately. It summarises the recent past; it knows nothing about the future, the next turn or how much room is left."
-      es: "Es lo contrario: una lectura rezagada y retrospectiva de cómo se ha sentido el mercado últimamente. Resume el pasado reciente; no sabe nada del futuro, del próximo giro ni de cuánto recorrido queda."
+      en: "True. It summarises the recent past — and since about half of it is computed from price, it largely re-describes what the chart already showed. It knows nothing about the future, the next turn, or how much room is left."
+      es: "Cierto. Resume el pasado reciente y, como cerca de la mitad se calcula a partir del precio, en buena medida vuelve a describir lo que el gráfico ya mostraba. No sabe nada del futuro, del próximo giro ni de cuánto recorrido queda."
   - id: zero-vs-hundred
     prompt:
       en: "On the index's 0–100 scale, what do the two ends represent?"
@@ -114,48 +114,48 @@ variants:
       - id: a
         correct: true
         text:
-          en: "0 is extreme fear; 100 is extreme greed."
+          en: "0 is extreme fear; 100 is extreme greed, and the middle says little."
           es: "0 es miedo extremo; 100 es codicia extrema."
       - id: b
         text:
-          en: "0 is extreme greed; 100 is extreme fear."
-          es: "0 es codicia extrema; 100 es miedo extremo."
+          en: "0 is extreme greed and 100 is extreme fear, the other way round."
+          es: "0 es codicia extrema y 100 miedo extremo, justo al revés."
       - id: c
         text:
-          en: "0 means the market is closed; 100 means it is fully open."
-          es: "0 significa que el mercado está cerrado; 100, que está totalmente abierto."
+          en: "0 means the market is closed and 100 that it is fully open."
+          es: "0 significa que el mercado está cerrado y 100 que está abierto."
       - id: d
         text:
           en: "The number is the percentage chance that price rises tomorrow."
-          es: "El número es el porcentaje de probabilidad de que el precio suba mañana."
+          es: "El número es la probabilidad en porcentaje de que el precio suba mañana."
     explanation:
-      en: "The scale runs from 0 (extreme fear) to 100 (extreme greed). It is a reading of mood, not a probability of tomorrow's direction."
-      es: "La escala va de 0 (miedo extremo) a 100 (codicia extrema). Es una lectura de ánimo, no una probabilidad de la dirección de mañana."
+      en: "The scale runs from 0 (extreme fear) to 100 (extreme greed). It is a reading of mood, not a probability of tomorrow's direction — and crypto never closes, so there is nothing on the scale about the market being open."
+      es: "La escala va de 0 (miedo extremo) a 100 (codicia extrema). Es una lectura de ánimo, no una probabilidad de la dirección de mañana, y el cripto nunca cierra, así que nada en la escala habla de que el mercado esté abierto."
   - id: why-re-description
     prompt:
       en: "Why can the index fairly be called \"recent price action dressed up as emotion\"?"
       es: "¿Por qué se puede llamar al índice, con razón, \"acción de precio reciente disfrazada de emoción\"?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Volatility and momentum — about half the score — are computed directly from price."
-          es: "La volatilidad y el momentum —casi la mitad de la puntuación— se calculan directamente a partir del precio."
+          en: "Because it is built only from social-media posts, which mirror price."
+          es: "Porque se construye solo con publicaciones de redes, que reflejan el precio."
       - id: b
         text:
-          en: "It is built only from social-media posts, which always mirror price."
-          es: "Se construye solo con publicaciones de redes sociales, que siempre reflejan el precio."
+          en: "Because a central authority sets the number to match the chart."
+          es: "Porque una autoridad central fija el número para que cuadre con el gráfico."
       - id: c
+        correct: true
         text:
-          en: "A central authority sets the number so it matches the chart."
-          es: "Una autoridad central fija el número para que cuadre con el gráfico."
+          en: "Volatility and momentum — about half the score — come straight from price."
+          es: "La volatilidad y el momentum —casi la mitad— salen directamente del precio."
       - id: d
         text:
-          en: "It is a pure survey of emotions with no price data at all."
-          es: "Es una encuesta pura de emociones sin ningún dato de precio."
+          en: "Because it is a pure survey of emotions with no price data in it at all."
+          es: "Porque es una encuesta pura de emociones sin ningún dato de precio."
     explanation:
-      en: "Two of its biggest inputs, volatility and momentum, are just transformations of price. So a large part of the \"emotion\" score is really a re-description of what price recently did — worth remembering, not a flaw."
-      es: "Dos de sus mayores ingredientes, la volatilidad y el momentum, son solo transformaciones del precio. Así que buena parte de la puntuación de \"emoción\" es en realidad una redescripción de lo que hizo el precio hace poco: conviene recordarlo, no es un defecto."
+      en: "Two of its biggest inputs are just transformations of price, so a large part of the 'emotion' score is really a re-description of what price recently did. Nobody sets the number by hand, and social media is only one of several inputs — worth remembering, and not a flaw in the index so much as a limit on what it can independently tell you."
+      es: "Dos de sus mayores ingredientes son solo transformaciones del precio, así que buena parte de la puntuación de 'emoción' es en realidad una redescripción de lo que hizo el precio hace poco. Nadie fija el número a mano, y las redes sociales son solo uno de varios ingredientes: conviene recordarlo, y no es tanto un defecto del índice como un límite a lo que puede decirte por su cuenta."
   - id: input-weights-match
     kind: matching
     prompt:
@@ -191,47 +191,47 @@ variants:
       es: "BTC sube suavemente de 40.000 a 60.000 en tres semanas con solo caídas leves, y el índice marca 88: codicia extrema. ¿Qué produjo realmente esa lectura?"
     options:
       - id: a
+        text:
+          en: "An independent survey of the emotional state of active traders."
+          es: "Una encuesta independiente del estado emocional de los traders activos."
+      - id: b
         correct: true
         text:
-          en: "The rising price fed most of the inputs — low orderly volatility, strong momentum and volume, celebratory posts, spiking searches. The index did not independently discover euphoria; the price did the work."
-          es: "El precio al alza alimentó la mayoría de las entradas: volatilidad baja y ordenada, momentum y volumen fuertes, publicaciones celebratorias, búsquedas al alza. El índice no descubrió la euforia por su cuenta; lo hizo el precio."
-      - id: b
-        text:
-          en: "An independent survey of traders' emotional state."
-          es: "Una encuesta independiente del estado emocional de los traders."
+          en: "The rising price fed most of the inputs at once."
+          es: "El precio al alza alimentó a la vez la mayoría de las entradas."
       - id: c
         text:
-          en: "A forecast that price will keep rising for three more weeks."
-          es: "Una previsión de que el precio seguirá subiendo tres semanas más."
+          en: "A forecast that price will keep on rising for three more weeks."
+          es: "Un pronóstico de que el precio seguirá subiendo tres semanas más."
       - id: d
         text:
-          en: "Falling volatility alone, which is the only input that matters."
-          es: "Solo la caída de la volatilidad, que es la única entrada que importa."
+          en: "Falling volatility on its own, which is the only input that matters."
+          es: "La caída de la volatilidad sola, la única entrada que importa."
     explanation:
-      en: "That is why a fresh price high and an extreme-greed reading almost always arrive together — they are largely the same event described twice. The index is not an independent second opinion."
-      es: "Por eso un nuevo máximo de precio y una lectura de codicia extrema casi siempre llegan juntos: son en gran medida el mismo evento descrito dos veces. El índice no es una segunda opinión independiente."
+      en: "Low orderly volatility, strong momentum and volume, celebratory posts, spiking searches — the price did the work, and the index did not independently discover euphoria. That is why a fresh price high and an extreme-greed reading almost always arrive together: they are largely the same event described twice, from a composite of several inputs rather than one."
+      es: "Volatilidad baja y ordenada, momentum y volumen fuertes, publicaciones celebratorias, búsquedas al alza: el trabajo lo hizo el precio, y el índice no descubrió la euforia por su cuenta. Por eso un nuevo máximo de precio y una lectura de codicia extrema casi siempre llegan juntos: son en gran medida el mismo evento descrito dos veces, desde un compuesto de varias entradas y no de una sola."
   - id: alt-local-sentiment
     prompt:
       en: "The market-wide index reads a calm 50, but one thin-book altcoin's holders are wildly euphoric. What does that tell you about the index?"
       es: "El índice del mercado marca un tranquilo 50, pero los holders de una altcoin de libro poco profundo están en plena euforia. ¿Qué te dice eso sobre el índice?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The headline index tracks Bitcoin and the broad market, not each coin — in alts, sentiment is more local, faster and more extreme than the one dashboard number suggests."
-          es: "El índice general sigue a Bitcoin y al mercado amplio, no a cada moneda: en las alts el sentimiento es más local, más rápido y más extremo de lo que sugiere ese único número."
+          en: "That the index is broken and ought to be ignored entirely from now on."
+          es: "Que el índice está roto y hay que ignorarlo por completo a partir de ahora."
       - id: b
         text:
-          en: "The index is broken and should be ignored entirely."
-          es: "El índice está roto y debería ignorarse por completo."
+          en: "That the alt's crowd must be wrong, since the broad market is calm."
+          es: "Que la multitud de la alt se equivoca, ya que el mercado amplio está tranquilo."
       - id: c
+        correct: true
         text:
-          en: "The alt's crowd must be wrong, since the broad market is calm."
-          es: "La multitud de la alt debe estar equivocada, ya que el mercado amplio está tranquilo."
+          en: "It tracks Bitcoin and the broad market, so it averages local extremes away."
+          es: "Sigue a Bitcoin y al mercado amplio, así que promedia y borra los extremos locales."
       - id: d
         text:
-          en: "Alt sentiment always leads the market-wide index by a fixed lag."
-          es: "El sentimiento de las alts siempre adelanta al índice general con un retardo fijo."
+          en: "That alt sentiment always leads the market-wide index by a fixed lag."
+          es: "Que el sentimiento de las alts siempre adelanta al índice con un retardo fijo."
     explanation:
-      en: "On a thin book a handful of orders moves price and sentiment violently. The dashboard number is a market-wide average, and averages hide exactly the local extremes you are trading into."
-      es: "En un libro poco profundo, un puñado de órdenes mueve el precio y el sentimiento con violencia. El número del panel es una media del mercado, y las medias esconden justo los extremos locales en los que estás operando."
+      en: "In alts, sentiment is more local, faster and more extreme than the one dashboard number suggests: on a thin book a handful of orders moves price and sentiment violently. The index is doing exactly what it was built to do — it is a market-wide average, and averages hide precisely the local extremes you are trading into."
+      es: "En las alts el sentimiento es más local, más rápido y más extremo de lo que sugiere ese único número del panel: en un libro poco profundo, un puñado de órdenes mueve el precio y el sentimiento con violencia. El índice hace exactamente aquello para lo que se construyó: es una media del mercado, y las medias esconden justo los extremos locales en los que estás operando."

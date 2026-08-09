@@ -36,6 +36,19 @@ export const PRINT = {
   } as Record<string, { fill: string; border: string }>,
 } as const;
 
+/**
+ * How an internal cross-reference looks: a dotted rule in the muted grey, ink colour untouched.
+ *
+ * Deliberately NOT the web's blue underline. A printed book marks a pointer to somewhere else in the
+ * same volume quietly — a reader who never follows it should barely notice it is there — and the same
+ * treatment covers all three kinds, so "dotted rule" reads as one idea rather than three.
+ */
+export const CROSS_REF = {
+  decoration: "underline",
+  decorationStyle: "dotted",
+  decorationColor: PRINT.muted,
+} as const;
+
 /** The embedded print face. See `assets/fonts/liberation-sans/README.md` for why it is embedded. */
 export const PRINT_FONT = "LiberationSans";
 

@@ -7,25 +7,25 @@ variants:
       es: "El funding rate de un perpetuo es claramente positivo. ¿Qué te dice eso?"
     options:
       - id: a
+        text:
+          en: "Shorts pay longs, since a positive number rewards the long side."
+          es: "Los cortos pagan a los largos, ya que un número positivo premia al largo."
+      - id: b
         correct: true
         text:
-          en: "Longs are paying shorts, and the crowd is leaning long — positioning is tilted to the upside."
-          es: "Los largos pagan a los cortos, y la masa está inclinada al lado largo: el posicionamiento se inclina al alza."
-      - id: b
-        text:
-          en: "Shorts are paying longs, since a positive number naturally rewards the long side."
-          es: "Los cortos pagan a los largos, ya que un número positivo premia de forma natural al lado largo."
+          en: "Longs pay shorts, which tells you the crowd is leaning long right now."
+          es: "Los largos pagan a los cortos, y la masa se inclina al lado largo."
       - id: c
         text:
-          en: "Price is guaranteed to keep rising for as long as funding stays positive."
-          es: "El precio tiene garantizado seguir subiendo mientras el funding se mantenga positivo."
+          en: "Price is guaranteed to keep rising while funding stays positive."
+          es: "El precio tiene garantizado subir mientras el funding siga positivo."
       - id: d
         text:
-          en: "The exchange is charging a flat fee on every trade, regardless of side."
-          es: "El exchange cobra una comisión fija en cada operación, sin importar el lado."
+          en: "The exchange is charging a flat fee on every trade, whatever the side."
+          es: "El exchange cobra una comisión fija en cada operación, sea el lado que sea."
     explanation:
-      en: "Positive funding means the perp trades above spot, so longs pay shorts to keep the perp tethered near spot. It tells you the crowd is leaning long — a positioning reading, not a promise price will keep rising, and nothing to do with trading fees."
-      es: "Un funding positivo significa que el perpetuo cotiza por encima del spot, así que los largos pagan a los cortos para mantener el perpetuo anclado cerca del spot. Te dice que la masa está inclinada al lado largo: una lectura de posicionamiento, no una promesa de que el precio seguirá subiendo, y nada que ver con las comisiones de trading."
+      en: "Positive funding means the perp trades above spot, so longs pay shorts to keep the perp tethered near spot — positioning is tilted to the upside. It is a positioning reading, not a promise price will keep rising, and it has nothing to do with trading fees: the payment moves between traders, not to the venue."
+      es: "Un funding positivo significa que el perpetuo cotiza por encima del spot, así que los largos pagan a los cortos para mantener el perpetuo anclado cerca del spot: el posicionamiento se inclina al alza. Es una lectura de posicionamiento, no una promesa de que el precio seguirá subiendo, y no tiene nada que ver con las comisiones: el pago va entre traders, no al venue."
   - id: crowded-extreme
     prompt:
       en: "Funding has been strongly positive for days and keeps climbing. A beginner reads this as a reason to add longs. What's the more honest read?"
@@ -34,23 +34,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The long side is crowded and paying to stay in — one-sided positioning that is fragile, not a green light to pile in."
-          es: "El lado largo está saturado y pagando por quedarse: un posicionamiento unilateral que es frágil, no una luz verde para amontonarse."
+          en: "The long side is crowded and paying to stay in — fragile, not confirming."
+          es: "El lado largo está saturado y paga por quedarse: frágil, no confirmatorio."
       - id: b
         text:
-          en: "Strong positive funding confirms the uptrend, so adding longs is the high-probability play."
-          es: "Un funding fuertemente positivo confirma la tendencia alcista, así que sumar largos es la jugada de alta probabilidad."
+          en: "Only negative funding is ever a warning; positive funding is a sign of health."
+          es: "Solo el funding negativo avisa; el positivo es señal de salud."
       - id: c
         text:
-          en: "Only negative funding is ever a warning; positive funding is always a sign of health."
-          es: "Solo el funding negativo es una advertencia; el funding positivo siempre es señal de salud."
+          en: "Strong positive funding confirms the uptrend, so adding longs is high-probability."
+          es: "Un funding muy positivo confirma la alcista: sumar largos es alta probabilidad."
       - id: d
         text:
-          en: "Funding levels have no connection to how crowded positioning is."
-          es: "Los niveles de funding no tienen ninguna relación con lo saturado que está el posicionamiento."
+          en: "Funding levels have no connection at all to how crowded positioning is."
+          es: "Los niveles de funding no tienen relación con lo saturado del posicionamiento."
     explanation:
-      en: "Extreme positive funding means almost everyone is already long and paying for it — crowded, one-sided positioning. That is fragile, not confirming: little new buying is left and many longs are one bad candle from being forced out. It's a caution flag, not an entry."
-      es: "Un funding extremadamente positivo significa que casi todos ya están largos y pagando por ello: un posicionamiento concurrido y unilateral. Eso es frágil, no confirmatorio: queda poca compra nueva y muchos largos están a una vela mala de ser expulsados por la fuerza. Es una señal de precaución, no una entrada."
+      en: "Extreme positive funding means almost everyone is already long and paying for it — crowded, one-sided positioning. That is fragile: little new buying is left and many longs are one bad candle from being forced out. It is a caution flag, not an entry, and the reading is precisely a measure of crowding rather than an unrelated number."
+      es: "Un funding extremadamente positivo significa que casi todos ya están largos y pagando por ello: un posicionamiento concurrido y unilateral. Eso es frágil: queda poca compra nueva y muchos largos están a una vela mala de ser expulsados. Es una señal de precaución, no una entrada, y la lectura es precisamente una medida de saturación, no un número ajeno."
   - id: fee-myth
     kind: true_false
     prompt:
@@ -98,73 +98,73 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The perp is trading below spot, so shorts pay longs — the crowd is leaning short."
-          es: "El perpetuo cotiza por debajo del spot, así que los cortos pagan a los largos: la masa se inclina al lado corto."
+          en: "The perp trades below spot, so shorts pay longs — the crowd leans short."
+          es: "El perpetuo cotiza bajo el spot, así que los cortos pagan: la masa está corta."
       - id: b
         text:
           en: "Shorts are winning their bets, and the exchange rewards them with a payment."
-          es: "Los cortos están ganando sus apuestas, y el exchange los premia con un pago."
+          es: "Los cortos ganan sus apuestas y el exchange los premia con un pago."
       - id: c
         text:
-          en: "Price is guaranteed to keep falling for as long as funding stays negative."
-          es: "El precio tiene garantizado seguir cayendo mientras el funding se mantenga negativo."
+          en: "Price is guaranteed to keep falling while funding remains negative."
+          es: "El precio tiene garantizado caer mientras el funding siga negativo."
       - id: d
         text:
-          en: "Longs pay shorts, since any funding payment always flows to the short side."
-          es: "Los largos pagan a los cortos, ya que cualquier pago de funding va siempre al lado corto."
+          en: "Longs pay shorts, since a funding payment always flows to the short side."
+          es: "Los largos pagan a los cortos, ya que el funding va siempre al lado corto."
     explanation:
-      en: "Negative funding means the perp trades below spot, so shorts pay longs to pull the perp back up toward spot. It reads as the crowd leaning short — a positioning gauge, not a promise price keeps falling and not a reward for being 'right.'"
-      es: "Un funding negativo significa que el perpetuo cotiza por debajo del spot, así que los cortos pagan a los largos para tirar del perpetuo de vuelta hacia el spot. Se lee como que la masa se inclina al lado corto: un medidor de posicionamiento, no una promesa de que el precio seguirá cayendo ni un premio por 'acertar'."
+      en: "Negative funding means the perp trades below spot, so shorts pay longs to pull the perp back up toward spot — the sign flips with the basis, it does not always favour one side. It reads as the crowd leaning short: a positioning gauge, not a promise price keeps falling, and not a reward paid by the venue for being 'right'."
+      es: "Un funding negativo significa que el perpetuo cotiza por debajo del spot, así que los cortos pagan a los largos para tirar del perpetuo hacia el spot: el signo cambia con la base, no favorece siempre al mismo lado. Se lee como que la masa se inclina al lado corto: un medidor de posicionamiento, no una promesa de que el precio seguirá cayendo ni un premio del venue por 'acertar'."
   - id: funding-purpose
     prompt:
       en: "Perpetual futures never expire. Why do exchanges use a funding rate at all?"
       es: "Los futuros perpetuos nunca vencen. ¿Por qué usan los exchanges un funding rate?"
     options:
       - id: a
+        text:
+          en: "To predict which direction the price will move next on the contract."
+          es: "Para predecir hacia qué dirección se moverá el precio del contrato."
+      - id: b
         correct: true
         text:
-          en: "To tether the perpetual's price to spot, via a small periodic payment between the two sides."
-          es: "Para anclar el precio del perpetuo al spot, mediante un pequeño pago periódico entre los dos lados."
-      - id: b
-        text:
-          en: "To predict which direction price will move next."
-          es: "Para predecir hacia qué dirección se moverá el precio a continuación."
+          en: "To tether the perpetual to spot with a small periodic payment."
+          es: "Para anclar el perpetuo al spot con un pequeño pago periódico."
       - id: c
         text:
           en: "So the exchange can collect a commission on every open position."
           es: "Para que el exchange cobre una comisión por cada posición abierta."
       - id: d
         text:
-          en: "To pay a dividend to long-term holders of the contract."
+          en: "To pay a dividend to the long-term holders of the contract."
           es: "Para pagar un dividendo a los tenedores del contrato a largo plazo."
     explanation:
-      en: "Because a perp never settles at an expiry, the funding payment is the mechanism that keeps its price tethered to spot: when the perp drifts above spot, longs pay shorts; below spot, shorts pay longs. It's a tethering tool between traders — not a forecast, an exchange fee, or a dividend."
-      es: "Como un perpetuo nunca liquida a vencimiento, el pago de funding es el mecanismo que mantiene su precio anclado al spot: cuando el perpetuo se aleja por encima del spot, los largos pagan a los cortos; por debajo del spot, los cortos pagan a los largos. Es una herramienta de anclaje entre traders: no un pronóstico, ni una comisión del exchange, ni un dividendo."
+      en: "Because a perp never settles at an expiry, the funding payment is the mechanism that keeps its price tethered to spot: when the perp drifts above spot, longs pay shorts; below spot, shorts pay longs. It is a tethering tool that moves between the two sides — not a forecast, not an exchange fee, and not a dividend."
+      es: "Como un perpetuo nunca liquida a vencimiento, el pago de funding es el mecanismo que mantiene su precio anclado al spot: cuando el perpetuo se aleja por encima del spot, los largos pagan a los cortos; por debajo, los cortos pagan a los largos. Es una herramienta de anclaje que se mueve entre los dos lados: no un pronóstico, ni una comisión del exchange, ni un dividendo."
   - id: basis-definition
     prompt:
       en: "Spot BTC is 60,000 and the BTC perpetual trades 60,300. What is that gap, and what does it usually come with?"
       es: "El BTC spot está en 60.000 y el perpetuo de BTC cotiza a 60.300. ¿Qué es ese hueco y con qué suele venir acompañado?"
     options:
       - id: a
+        text:
+          en: "A 0.5% discount, which would mean the shorts are paying the longs."
+          es: "Un descuento del 0,5%, lo que significaría que los cortos pagan a los largos."
+      - id: b
         correct: true
         text:
-          en: "A basis of +300, a 0.5% premium — the perp is rich over spot, so expect strongly positive funding alongside it."
-          es: "Una base de +300, una prima del 0,5%: el perpetuo está caro sobre el spot, así que espera un funding fuertemente positivo junto a ello."
-      - id: b
-        text:
-          en: "A 0.5% discount, which means shorts are paying longs."
-          es: "Un descuento del 0,5%, lo que significa que los cortos pagan a los largos."
+          en: "A basis of +300, a 0.5% premium — expect positive funding with it."
+          es: "Una base de +300, una prima del 0,5%: espera funding positivo con ella."
       - id: c
         text:
-          en: "An arbitrage that is impossible in crypto, since perp and spot are always the same price."
-          es: "Un arbitraje imposible en cripto, ya que el perpetuo y el spot siempre valen lo mismo."
+          en: "An arbitrage impossible in crypto, since perp and spot always match."
+          es: "Un arbitraje imposible en cripto, ya que perpetuo y spot siempre coinciden."
       - id: d
         text:
           en: "The exchange's trading fee on the perpetual, expressed in price terms."
           es: "La comisión de trading del exchange en el perpetuo, expresada en precio."
     explanation:
-      en: "The basis is perp minus spot: 60,300 − 60,000 = 300, or 0.5% of spot — a premium. Perp above spot is exactly what makes funding positive, so the two readings arrive together: the basis measures how much the crowd overpays for leverage, funding measures what that overpayment costs per interval."
-      es: "La base es el perpetuo menos el spot: 60.300 − 60.000 = 300, o el 0,5% del spot: una prima. Que el perpetuo esté por encima del spot es justo lo que hace positivo el funding, así que las dos lecturas llegan juntas: la base mide cuánto paga de más la masa por el apalancamiento y el funding mide lo que ese sobreprecio cuesta por intervalo."
+      en: "The basis is perp minus spot: 60,300 − 60,000 = 300, or 0.5% of spot — the perp is rich over spot, which is a premium rather than a discount. Perp above spot is exactly what makes funding positive, so the two readings arrive together: the basis measures how much the crowd overpays for leverage, funding measures what that overpayment costs per interval."
+      es: "La base es el perpetuo menos el spot: 60.300 − 60.000 = 300, o el 0,5% del spot: el perpetuo está caro sobre el spot, lo que es una prima y no un descuento. Que el perpetuo esté por encima del spot es justo lo que hace positivo el funding, así que las dos lecturas llegan juntas: la base mide cuánto paga de más la masa por el apalancamiento y el funding mide lo que ese sobreprecio cuesta por intervalo."
   - id: basis-premium-not-direction
     kind: true_false
     prompt:
@@ -180,25 +180,25 @@ variants:
       es: "Durante un movimiento rápido al alza, el perpetuo pasa de golpe a cotizar un 1,5% por encima del spot mientras el spot apenas se mueve. ¿Cuál es la lectura honesta?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The buying is forced flow on the contract — squeeze mechanics — so read it as local exhaustion, not as a trend starting."
-          es: "La compra es flujo forzado sobre el contrato —mecánica de squeeze—, así que léelo como agotamiento local, no como el inicio de una tendencia."
+          en: "Organic demand for the asset has arrived; the dislocation confirms the break."
+          es: "Ha llegado demanda orgánica del activo; la dislocación confirma la ruptura."
       - id: b
         text:
-          en: "Organic demand for the asset has arrived; the dislocation confirms the breakout."
-          es: "Ha llegado demanda orgánica del activo; la dislocación confirma la ruptura."
+          en: "The spot market is broken here and its price should simply be ignored."
+          es: "El mercado spot está roto aquí y su precio debería ignorarse sin más."
       - id: c
+        correct: true
         text:
-          en: "The spot market is broken and its price should be ignored."
-          es: "El mercado spot está roto y hay que ignorar su precio."
+          en: "Forced flow on the contract — squeeze mechanics, so read local exhaustion."
+          es: "Flujo forzado sobre el contrato: mecánica de squeeze, léelo como agotamiento."
       - id: d
         text:
-          en: "Nothing — perp and spot routinely sit 1.5% apart on major coins."
-          es: "Nada: el perpetuo y el spot suelen estar a un 1,5% de distancia en las monedas grandes."
+          en: "Nothing: perp and spot routinely sit 1.5% apart on the major coins."
+          es: "Nada: el perpetuo y el spot suelen estar a un 1,5% en las monedas grandes."
     explanation:
-      en: "Forced closes land on the perpetual, not on spot: a liquidated short is force-bought on the contract, so the perp overshoots while the coin barely moves. Organic demand would show in spot and pull the perp behind it. Forced bids come from a finite pool of trapped positions, so a wild premium spike is a late-stage, exhaustion signature — and the basis usually collapses back toward zero as the cascade finishes."
-      es: "Los cierres forzados caen sobre el perpetuo, no sobre el spot: un corto liquidado es una compra forzada del contrato, así que el perpetuo se pasa mientras la moneda apenas se mueve. La demanda orgánica se vería en el spot y arrastraría al perpetuo detrás. La demanda forzada sale de una bolsa finita de posiciones atrapadas, así que un pico salvaje de prima es una firma tardía, de agotamiento, y la base suele derrumbarse hacia cero a medida que la cascada termina."
+      en: "Forced closes land on the perpetual, not on spot: a liquidated short is force-bought on the contract, so the perp overshoots while the coin barely moves. Organic demand would show in spot and pull the perp behind it, and a 1.5% gap on a major is a dislocation rather than a normal state. Forced bids come from a finite pool of trapped positions, so a wild premium spike is a late-stage, exhaustion signature — and the basis usually collapses back toward zero as the cascade finishes."
+      es: "Los cierres forzados caen sobre el perpetuo, no sobre el spot: un corto liquidado es una compra forzada del contrato, así que el perpetuo se pasa mientras la moneda apenas se mueve. La demanda orgánica se vería en el spot y arrastraría al perpetuo detrás, y un hueco del 1,5% en una moneda grande es una dislocación, no un estado normal. La demanda forzada sale de una bolsa finita de posiciones atrapadas, así que un pico salvaje de prima es una firma tardía, de agotamiento, y la base suele derrumbarse hacia cero cuando la cascada termina."
   - id: daily-vs-extreme
     kind: true_false
     prompt:

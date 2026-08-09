@@ -49,50 +49,50 @@ variants:
       es: "¿En qué fase del rango aparece el spring (o el upthrust)?"
     options:
       - id: a
+        text:
+          en: "Phase A — it is what stops the prior trend and gets the range started."
+          es: "Fase A: es lo que detiene la tendencia previa y pone en marcha el rango."
+      - id: b
         correct: true
         text:
-          en: "Phase C — the test, near the end of the range, before it resolves"
-          es: "Fase C — la prueba, cerca del final del rango, antes de que se resuelva"
-      - id: b
-        text:
-          en: "Phase A — it is what stops the prior trend and starts the range"
-          es: "Fase A — es lo que detiene la tendencia previa e inicia el rango"
+          en: "Phase C — the test, near the end, before the range resolves."
+          es: "Fase C: la prueba, cerca del final, antes de que el rango se resuelva."
       - id: c
         text:
-          en: "Phase E — it is the break that leaves the range"
-          es: "Fase E — es la ruptura que abandona el rango"
+          en: "Phase E — it is the decisive break that finally leaves the range behind."
+          es: "Fase E: es la ruptura decisiva que por fin abandona el rango."
       - id: d
         text:
-          en: "Phase B — it is the whole long churn in the middle"
-          es: "Fase B — es todo el ir y venir largo del medio"
+          en: "Phase B — it is the whole long, choppy churn through the middle."
+          es: "Fase B: es todo el ir y venir largo y errático de la parte central."
     explanation:
-      en: "The spring and upthrust are phase-C tests: they come near the end of the range, after the long phase-B churn has built the cause, and before phase D and the final break. A common mistake is to place them at the start (phase A stops the prior trend) or to confuse the phase-E break out of the range with the phase-C false break that fails back inside."
-      es: "El spring y el upthrust son pruebas de la fase C: llegan cerca del final del rango, después de que el ir y venir largo de la fase B haya construido la causa, y antes de la fase D y la ruptura final. Un error común es colocarlos al principio (la fase A detiene la tendencia previa) o confundir la ruptura de la fase E que abandona el rango con la ruptura falsa de la fase C que vuelve hacia dentro."
+      en: "The spring and upthrust are phase-C tests: they come near the end of the range, after the long phase-B churn has built the cause, and before phase D and the final break. A common mistake is to place them at the start — phase A is what stops the prior trend — or to confuse the phase-E break that leaves the range with the phase-C false break that fails back inside."
+      es: "El spring y el upthrust son pruebas de la fase C: llegan cerca del final del rango, después de que el ir y venir largo de la fase B haya construido la causa, y antes de la fase D y la ruptura final. Un error común es colocarlos al principio —la fase A es lo que detiene la tendencia previa— o confundir la ruptura de la fase E que abandona el rango con la ruptura falsa de la fase C que vuelve hacia dentro."
   - id: utad-definition
     prompt:
       en: "What is a UTAD?"
       es: "¿Qué es un UTAD?"
     options:
       - id: a
-        correct: true
         text:
-          en: "An upthrust after distribution — the decisive phase-C false break above resistance that marks a distribution top and precedes a markdown"
-          es: "Un upthrust after distribution: la ruptura falsa decisiva de la fase C por encima de la resistencia que marca un techo de distribución y precede a un markdown"
+          en: "A false break below support that recovers, sitting in accumulation before a markup."
+          es: "Una ruptura falsa bajo soporte que se recupera, en acumulación antes de un markup."
       - id: b
         text:
-          en: "A false break below support that recovers, sitting in accumulation before a markup"
-          es: "Una ruptura falsa por debajo del soporte que se recupera, dentro de la acumulación antes de un markup"
+          en: "A confirmed breakout above resistance proving a fresh markup has begun."
+          es: "Una ruptura confirmada sobre la resistencia que prueba que empezó un markup."
       - id: c
+        correct: true
         text:
-          en: "A confirmed breakout above resistance that proves a fresh markup has begun"
-          es: "Una ruptura confirmada por encima de la resistencia que prueba que ha comenzado un nuevo markup"
+          en: "The decisive phase-C false break above resistance that tops a distribution."
+          es: "La ruptura falsa decisiva de la fase C sobre la resistencia que corona una distribución."
       - id: d
         text:
-          en: "The long, choppy middle of a distribution range where the cause is built"
-          es: "El medio largo y errático de un rango de distribución donde se construye la causa"
+          en: "The long, choppy middle of a distribution range, where the cause gets built."
+          es: "El medio largo y errático de una distribución, donde se construye la causa."
     explanation:
-      en: "UTAD stands for 'upthrust after distribution': the decisive phase-C upthrust that tops a distribution range. Option b describes a spring (accumulation's mirror event); option c is exactly the misconception a UTAD exploits — it only looks like a breakout while large players sell into the trapped buyers; option d is phase B, not the phase-C test."
-      es: "UTAD significa «upthrust after distribution»: el upthrust decisivo de la fase C que corona un rango de distribución. La opción b describe un spring (el evento espejo de la acumulación); la opción c es justo el error que un UTAD explota —solo parece una ruptura mientras los grandes participantes venden a los compradores atrapados—; la opción d es la fase B, no la prueba de la fase C."
+      en: "UTAD stands for 'upthrust after distribution', and it precedes a markdown. The first option describes a spring, accumulation's mirror event; the second is exactly the misconception a UTAD exploits — it only looks like a breakout while large players sell into the trapped buyers; the last is phase B, not the phase-C test."
+      es: "UTAD significa «upthrust after distribution», y precede a un markdown. La primera opción describe un spring, el evento espejo de la acumulación; la segunda es justo el error que un UTAD explota —solo parece una ruptura mientras los grandes participantes venden a los compradores atrapados—; la última es la fase B, no la prueba de la fase C."
   - id: distribution-mirror-tf
     kind: true_false
     prompt:
@@ -119,69 +119,73 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Large players quietly build (or unload) their position over many sessions, transferring supply a little at a time — building the cause for the move to come"
-          es: "Los grandes participantes construyen (o sueltan) su posición en silencio a lo largo de muchas sesiones, traspasando la oferta poco a poco: construyen la causa del movimiento que vendrá"
+          en: "Large players quietly build or unload over many sessions, building the cause."
+          es: "Los grandes construyen o sueltan en silencio muchas sesiones: construyen la causa."
       - id: b
         text:
-          en: "Nothing meaningful — the market is idle and only wakes up when it finally breaks out"
-          es: "Nada relevante: el mercado está parado y solo se despierta cuando por fin rompe"
+          en: "The spring has already fired, so the range is essentially finished by now."
+          es: "El spring ya se ha disparado, así que el rango está prácticamente acabado."
       - id: c
         text:
-          en: "The spring has already fired, so the range is essentially finished"
-          es: "El spring ya se ha disparado, así que el rango está esencialmente terminado"
+          en: "Nothing meaningful — the market idles and wakes up only when it breaks out."
+          es: "Nada relevante: el mercado se para y solo despierta cuando rompe."
       - id: d
         text:
-          en: "Price is trending: phase B is the markup or markdown itself"
-          es: "El precio está en tendencia: la fase B es el markup o el markdown en sí"
+          en: "Price is trending: phase B is the markup or the markdown itself."
+          es: "El precio está en tendencia: la fase B es el markup o el markdown en sí."
     explanation:
-      en: "Phase B is the heart of the accumulation or distribution: a big order worked patiently over many sessions of two-way churn, so it fills without spiking price. The longer the churn, the bigger the cause it builds. Option b is the beginner's read that the range is 'nothing'; the spring comes later, in phase C (not b's or c's timing); and the trend is phase E, not B."
-      es: "La fase B es el corazón de la acumulación o la distribución: una orden grande trabajada con paciencia a lo largo de muchas sesiones de ir y venir, para que se llene sin disparar el precio. Cuanto más largo el ir y venir, mayor la causa que construye. La opción b es la lectura de principiante de que el rango «no es nada»; el spring llega después, en la fase C (no en el momento de c); y la tendencia es la fase E, no la B."
+      en: "Phase B is the heart of the accumulation or distribution: a big order worked patiently over many sessions of two-way churn, so it fills without spiking price, transferring supply a little at a time. The longer the churn, the bigger the cause it builds. Calling the range 'nothing' is the beginner's read; the spring comes later, in phase C; and the trend is phase E, not B."
+      es: "La fase B es el corazón de la acumulación o la distribución: una orden grande trabajada con paciencia a lo largo de muchas sesiones de ir y venir, para que se llene sin disparar el precio, traspasando oferta poco a poco. Cuanto más largo el ir y venir, mayor la causa que construye. Llamar «nada» al rango es la lectura de principiante; el spring llega después, en la fase C; y la tendencia es la fase E, no la B."
   - id: phase-b-churn
     prompt:
       en: "In the example range, price spends six weeks oscillating between roughly 41,000 and 46,000 on unremarkable activity. Why is this the phase where the real work happens?"
       es: "En el rango de ejemplo, el precio pasa seis semanas oscilando entre unos 41.000 y 46.000 con actividad poco llamativa. ¿Por qué es esta la fase en la que ocurre el trabajo real?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A large buyer cannot lift 41,000 to 47,000 in one go without spiking price against themselves, so they buy patiently on the dips — every cycle transfers a little more supply from tired sellers to patient buyers."
-          es: "Un gran comprador no puede llevar 41.000 a 47.000 de una vez sin disparar el precio en su contra, así que compra con paciencia en las caídas: cada ciclo transfiere un poco más de oferta de vendedores cansados a compradores pacientes."
+          en: "Nothing happens in phase B; it is the pause before phase C does the real work."
+          es: "En la fase B no ocurre nada; es la pausa antes de que la fase C haga el trabajo."
       - id: b
         text:
-          en: "Nothing happens in phase B; it is the pause before phase C does the work."
-          es: "En la fase B no ocurre nada; es la pausa antes de que la fase C haga el trabajo."
+          en: "It is where the stop-losses get triggered, and that is what builds the cause."
+          es: "Es donde se disparan los stop-loss, y eso es lo que construye la causa."
       - id: c
         text:
-          en: "It is where stop-losses are triggered, which is what builds the cause."
-          es: "Es donde se disparan los stop-loss, y eso es lo que construye la causa."
-      - id: d
-        text:
-          en: "Volume is at its highest here, which is why the move that follows is large."
+          en: "Volume peaks here, which is the reason the move that follows is a large one."
           es: "El volumen es máximo aquí, y por eso el movimiento posterior es grande."
+      - id: d
+        correct: true
+        text:
+          en: "A large buyer must work the size patiently, buying the dips over many cycles."
+          es: "Un gran comprador debe trabajar el tamaño con paciencia, comprando las caídas."
     explanation:
-      en: "Wyckoff calls this building the cause: the more churn, the bigger the eventual move it can pay for. Six weeks in a 41,000–46,000 band is not 'nothing happening' — it is the accumulation itself."
-      es: "Wyckoff llama a esto construir la causa: cuanto más movimiento lateral, mayor el movimiento que puede pagar después. Seis semanas en una banda de 41.000-46.000 no es 'que no pase nada': es la acumulación misma."
+      en: "Lifting 41,000 to 47,000 in one go would spike price against the buyer, so they buy patiently on the dips and every cycle transfers a little more supply from tired sellers to patient buyers. Wyckoff calls this building the cause: the more churn, the bigger the eventual move it can pay for. Six weeks in a 41,000–46,000 band is not 'nothing happening' — it is the accumulation itself, and the stops fire later, in phase C."
+      es: "Llevar 41.000 a 47.000 de una vez dispararía el precio en contra del comprador, así que compra con paciencia en las caídas y cada ciclo transfiere un poco más de oferta de vendedores cansados a compradores pacientes. Wyckoff llama a esto construir la causa: cuanto más movimiento lateral, mayor el movimiento que puede pagar después. Seis semanas en una banda de 41.000-46.000 no es «que no pase nada»: es la acumulación misma, y los stops saltan más tarde, en la fase C."
   - id: phase-d-vs-b
     prompt:
       en: "What visibly distinguishes phase D from phase B in the same range?"
       es: "¿Qué distingue visiblemente la fase D de la fase B en el mismo rango?"
     options:
       - id: a
+        text:
+          en: "Phase D is always shorter in duration than phase B turns out to be."
+          es: "La fase D siempre dura menos de lo que acaba durando la fase B."
+      - id: b
         correct: true
         text:
-          en: "The slope. Phase B churns flat between the lines; phase D walks uphill — higher lows at 44,000 then 45,500, pressing repeatedly against the ceiling."
-          es: "La pendiente. La fase B se mueve plana entre las líneas; la fase D sube: mínimos crecientes en 44.000 y luego 45.500, presionando repetidamente contra el techo."
-      - id: b
-        text: { en: "Phase D is always shorter than phase B.", es: "La fase D siempre es más corta que la fase B." }
+          en: "The slope: phase B churns flat, phase D walks uphill on higher lows."
+          es: "La pendiente: la B se mueve plana, la D sube con mínimos crecientes."
       - id: c
         text:
-          en: "Phase D happens below support, phase B above it."
-          es: "La fase D ocurre por debajo del soporte y la fase B por encima."
+          en: "Phase D happens below the support line, while phase B happens above it."
+          es: "La fase D ocurre bajo la línea de soporte y la fase B por encima."
       - id: d
-        text: { en: "Only phase D has a spring in it.", es: "Solo la fase D contiene un spring." }
+        text:
+          en: "Only phase D contains a spring; phase B never has one in it."
+          es: "Solo la fase D contiene un spring; la fase B nunca tiene uno."
     explanation:
-      en: "Once supply is gone, buyers no longer need to be patient: demand overwhelms what little selling appears, so each pullback is shallower than the last. Higher lows against a flat ceiling are the fingerprint of that shift in control."
-      es: "Una vez agotada la oferta, los compradores ya no necesitan paciencia: la demanda supera la poca venta que aparece, así que cada retroceso es más superficial que el anterior. Mínimos crecientes contra un techo plano son la huella de ese cambio de control."
+      en: "Higher lows at 44,000 then 45,500, pressing repeatedly against a flat ceiling, are the fingerprint of the shift in control: once supply is gone, buyers no longer need to be patient, so demand overwhelms what little selling appears and each pullback is shallower than the last. Both phases sit inside the same range, neither has a fixed length, and the spring belongs to phase C."
+      es: "Mínimos crecientes en 44.000 y luego 45.500, presionando una y otra vez contra un techo plano, son la huella del cambio de control: agotada la oferta, los compradores ya no necesitan paciencia, así que la demanda supera la poca venta que aparece y cada retroceso es más superficial que el anterior. Ambas fases viven dentro del mismo rango, ninguna tiene duración fija, y el spring pertenece a la fase C."
   - id: depth-vs-recovery
     kind: multi_select
     prompt:
@@ -191,26 +195,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The recovery matters more than the depth — a deep wick on a thin book is cheap to produce."
-          es: "La recuperación importa más que la profundidad: una mecha profunda en un libro poco profundo es barata de producir."
+          en: "The recovery matters more than the depth of the stab below."
+          es: "La recuperación importa más que la profundidad del pinchazo."
       - id: b
         correct: true
         text:
-          en: "Demand a clean snap-back inside the range before you trust the spring."
-          es: "Exige un regreso limpio al interior del rango antes de fiarte del spring."
+          en: "Demand a clean snap-back inside before you trust the spring."
+          es: "Exige un regreso limpio al interior antes de fiarte del spring."
       - id: c
         correct: true
         text:
-          en: "A 'spring' printed at 3 a.m. on a Sunday deserves more suspicion, not less."
-          es: "Un 'spring' impreso a las 3 de la madrugada de un domingo merece más sospecha, no menos."
+          en: "A 'spring' printed at 3 a.m. on a Sunday deserves more suspicion."
+          es: "Un 'spring' impreso a las 3 de la madrugada de un domingo da más sospecha."
       - id: d
         text:
           en: "A deeper stab below support is stronger proof of accumulation."
-          es: "Un pinchazo más profundo bajo el soporte es una prueba más fuerte de acumulación."
+          es: "Un pinchazo más profundo bajo el soporte prueba mejor la acumulación."
       - id: e
         text:
-          en: "You can label the break a spring the moment it happens."
+          en: "You can label the break a spring the moment that it happens."
           es: "Puedes etiquetar la ruptura como spring en el momento en que ocurre."
     explanation:
-      en: "A stab below support that keeps falling was never a spring — it was a breakdown. You only earn the label once price recovers and holds; live, the two look identical."
-      es: "Un pinchazo bajo el soporte que sigue cayendo nunca fue un spring: fue una ruptura. Solo te ganas la etiqueta cuando el precio recupera y se sostiene; en vivo, ambos se ven idénticos."
+      en: "A deep wick on a thin book is cheap to produce, so depth proves nothing on its own — which is exactly why a deeper stab is weaker evidence, not stronger. A stab below support that keeps falling was never a spring; it was a breakdown. You only earn the label once price recovers and holds, and live the two look identical."
+      es: "Una mecha profunda en un libro fino es barata de producir, así que la profundidad no prueba nada por sí sola, y por eso un pinchazo más profundo es un indicio más débil, no más fuerte. Un pinchazo bajo el soporte que sigue cayendo nunca fue un spring: fue una ruptura. Solo te ganas la etiqueta cuando el precio recupera y se sostiene, y en vivo ambos se ven idénticos."

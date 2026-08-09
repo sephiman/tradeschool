@@ -10,26 +10,26 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Shorting a strong bull trend solely because of a regular bearish divergence."
-          es: "Vender en corto una tendencia alcista fuerte únicamente por una divergencia bajista regular."
+          en: "Shorting a strong bull trend solely on a regular bearish divergence."
+          es: "Ponerse corto en una tendencia alcista fuerte solo por divergencia bajista."
       - id: b
         correct: true
         text:
-          en: "Comparing price peaks from different market cycles instead of adjacent swings."
-          es: "Comparar picos de precio de diferentes ciclos de mercado en lugar de oscilaciones adyacentes."
+          en: "Comparing price peaks from different cycles instead of adjacent swings."
+          es: "Comparar picos de ciclos distintos en vez de oscilaciones adyacentes."
       - id: c
         correct: false
         text:
-          en: "Requiring divergence to form at a key HTF support/resistance level."
-          es: "Requerir que la divergencia se forme en un nivel clave de soporte/resistencia de temporalidad alta."
+          en: "Requiring the divergence to form at a key high-timeframe level."
+          es: "Exigir que la divergencia se forme en un nivel clave de temporalidad alta."
       - id: d
         correct: true
         text:
-          en: "Ignoring that indicators can remain divergent during prolonged parabolic trends."
-          es: "Ignorar que los indicadores pueden permanecer en divergencia durante tendencias parabólicas prolongadas."
+          en: "Forgetting that indicators stay divergent through parabolic trends."
+          es: "Olvidar que los indicadores siguen divergentes en tendencias parabólicas."
     explanation:
-      en: "Indicators can stay in divergence mode for a long time in strong trends. Divergences must be supported by structural levels and price action."
-      es: "Los indicadores pueden permanecer en divergencia mucho tiempo en tendencias fuertes. Las divergencias deben estar respaldadas por niveles estructurales y acción del precio."
+      en: "Indicators can stay in divergence mode for a long time in strong trends, and comparing swings that belong to different cycles fabricates patterns that were never there. Demanding a key structural level is the opposite of a mistake — it is the filter that keeps the other three from costing you."
+      es: "Los indicadores pueden permanecer en divergencia mucho tiempo en tendencias fuertes, y comparar oscilaciones de ciclos distintos fabrica patrones que nunca existieron. Exigir un nivel estructural clave es lo contrario de un error: es el filtro que evita que los otros tres te cuesten dinero."
 
   - id: regular-vs-hidden-purpose
     kind: true_false
@@ -73,25 +73,25 @@ variants:
       es: "¿Por qué es peligroso vender en corto una subida parabólica de cripto basándose solo en divergencia bajista?"
     options:
       - id: a
+        text:
+          en: "Because divergence indicators freeze once volume exceeds a billion USD."
+          es: "Porque los indicadores se congelan si el volumen supera los mil millones."
+      - id: b
         correct: true
         text:
-          en: "In strong trend manias, indicators can print multiple consecutive divergences while price rises 100%+."
-          es: "En manías de tendencia fuerte, los indicadores pueden marcar múltiples divergencias consecutivas mientras el precio sube un 100%+."
-      - id: b
-        text:
-          en: "Divergence indicators freeze when volume exceeds 1 billion USD."
-          es: "Los indicadores de divergencia se congelan cuando el volumen supera 1.000 millones de USD."
+          en: "Indicators can print divergence after divergence while price doubles."
+          es: "Los indicadores pueden marcar divergencia tras divergencia mientras el precio se dobla."
       - id: c
         text:
-          en: "Exchanges automatically close short positions during parabolic rallies."
-          es: "Los exchanges cierran automáticamente posiciones cortas durante subidas parabólicas."
+          en: "Because exchanges close short positions automatically in parabolic rallies."
+          es: "Porque los exchanges cierran los cortos automáticamente en subidas parabólicas."
       - id: d
         text:
-          en: "Bearish divergence guarantees price will never pull back."
-          es: "La divergencia bajista garantiza que el precio nunca retrocederá."
+          en: "Because a bearish divergence guarantees price will never pull back at all."
+          es: "Porque una divergencia bajista garantiza que el precio no retrocederá nunca."
     explanation:
-      en: "Parabolic rallies erase short accounts because momentum indicators reset dynamically while aggressive buyers keep driving price higher."
-      es: "Las subidas parabólicas eliminan cuentas en corto porque los indicadores de momentum se reinician dinámicamente mientras los compradores siguen empujando el precio."
+      en: "In strong trend manias, momentum indicators reset dynamically while aggressive buyers keep driving price higher — so multiple consecutive divergences can print through a 100%+ move, and each one liquidates the shorts who traded it. Nothing freezes, nothing closes your position for you, and the divergence is a real observation; it is simply not a timing tool."
+      es: "En manías de tendencia fuerte, los indicadores de momentum se reinician dinámicamente mientras los compradores agresivos siguen empujando el precio, así que pueden marcarse varias divergencias consecutivas a lo largo de un movimiento del 100 % o más, y cada una liquida a quienes la operaron en corto. Nada se congela, nadie te cierra la posición, y la divergencia es una observación real: sencillamente no es una herramienta de timing."
 
   - id: divergence-execution-order
     kind: ordering
@@ -132,23 +132,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It confirms that fewer aggressive market participants are participating in pushing price to the new high."
-          es: "Confirma que menos participantes agresivos están participando en empujar el precio al nuevo máximo."
+          en: "Fewer aggressive participants are behind the push to the new high."
+          es: "Hay menos participantes agresivos detrás del empujón al nuevo máximo."
       - id: b
         text:
-          en: "It indicates that all exchange servers are undergoing maintenance."
-          es: "Indica que todos los servidores del exchange están en mantenimiento."
+          en: "It indicates the exchange's servers are undergoing scheduled maintenance."
+          es: "Indica que los servidores del exchange están en mantenimiento programado."
       - id: c
         text:
-          en: "It guarantees that funding rates will turn negative in the next block."
-          es: "Garantiza que las tasas de funding serán negativas en el siguiente bloque."
+          en: "It guarantees that funding rates will turn negative in the next window."
+          es: "Garantiza que las tasas de funding se volverán negativas en la próxima ventana."
       - id: d
         text:
-          en: "It means spot and perpetual prices have merged."
-          es: "Significa que los precios de spot y perpetuos se han fusionado."
+          en: "It means the spot and perpetual prices have converged onto each other."
+          es: "Significa que los precios spot y perpetuo han convergido entre sí."
     explanation:
-      en: "Price reaching a new high on declining volume confirms lack of buyer commitment, reinforcing the momentum exhaustion shown by the oscillator."
-      es: "El precio alcanzando un nuevo máximo con volumen decreciente confirma falta de compromiso comprador, reforzando el agotamiento del oscilador."
+      en: "Price reaching a new high on declining volume confirms a lack of buyer commitment, which reinforces the momentum exhaustion the oscillator is already showing. It is a second, independent witness to the same story — not a statement about infrastructure, funding, or the basis between markets."
+      es: "Que el precio alcance un nuevo máximo con volumen decreciente confirma la falta de compromiso comprador, lo que refuerza el agotamiento de momentum que ya muestra el oscilador. Es un segundo testigo independiente de la misma historia, no una afirmación sobre infraestructura, funding ni la base entre mercados."
 
   - id: divergence-stop-placement
     kind: single_choice
@@ -157,25 +157,25 @@ variants:
       es: "¿Cuál es la ubicación estructural más lógica para un Stop Loss al operar una divergencia alcista regular?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Just below the lowest swing point (the Lower Low) of the divergence pattern."
-          es: "Justo por debajo del punto de giro más bajo (el Mínimo Más Bajo) del patrón de divergencia."
+          en: "Exactly at the entry price, so that the trade carries no risk at all."
+          es: "Exactamente en el precio de entrada, para que la operación no tenga riesgo."
       - id: b
         text:
-          en: "Exactly at the entry price to ensure zero risk."
-          es: "Exactamente en el precio de entrada para garantizar cero riesgo."
+          en: "Fifty percent above the resistance level you are targeting on the way up."
+          es: "Un cincuenta por ciento por encima de la resistencia a la que apuntas."
       - id: c
+        correct: true
         text:
-          en: "50% above the resistance target."
-          es: "Un 50% por encima del objetivo de resistencia."
+          en: "Just below the Lower Low that formed the divergence pattern."
+          es: "Justo por debajo del Mínimo Más Bajo que formó el patrón de divergencia."
       - id: d
         text:
-          en: "At the 200 EMA line on the 1-minute chart."
-          es: "En la línea de la EMA 200 del gráfico de 1 minuto."
+          en: "On the 200 EMA of the 1-minute chart, wherever that happens to sit."
+          es: "En la EMA 200 del gráfico de 1 minuto, esté donde esté."
     explanation:
-      en: "If price breaks below the lowest swing point of a bullish divergence, the structural setup is invalidated and the trade must be exited."
-      es: "Si el precio rompe por debajo del mínimo de la divergencia alcista, la configuración estructural se invalida y hay que salir de la operación."
+      en: "If price breaks below the lowest swing point of a bullish divergence, the structural setup is invalidated and there is nothing left to be right about — so that is where the stop belongs. A stop at the entry is not a stop, a stop above the target is not risk management, and an unrelated indicator line has nothing to do with what would invalidate this idea."
+      es: "Si el precio rompe por debajo del mínimo de la divergencia alcista, la configuración estructural queda invalidada y ya no queda nada en lo que tener razón: ahí es donde va el stop. Un stop en la entrada no es un stop, un stop por encima del objetivo no es gestión de riesgo, y una línea de indicador ajena no tiene nada que ver con lo que invalidaría esta idea."
 
   - id: triple-divergence-phenomenon
     kind: single_choice
@@ -186,20 +186,20 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Severe, compounding momentum exhaustion in an extended trend nearing structural top."
-          es: "Agotamiento severo y acumulado del momentum en una tendencia extendida cerca del techo estructural."
+          en: "Compounding momentum exhaustion in an extended, ageing trend."
+          es: "Agotamiento de momentum acumulado en una tendencia extendida y envejecida."
       - id: b
         text:
-          en: "That the market has entered a risk-free perpetual buying cycle."
-          es: "Que el mercado ha entrado en un ciclo de compra perpetua sin riesgo."
+          en: "That the technical indicators on the chart have stopped updating."
+          es: "Que los indicadores técnicos del gráfico han dejado de actualizarse."
       - id: c
         text:
-          en: "That technical indicators have stopped updating."
-          es: "Que los indicadores técnicos han dejado de actualizarse."
+          en: "That the market has entered a risk-free cycle of perpetual buying."
+          es: "Que el mercado ha entrado en un ciclo de compra perpetua sin riesgo."
       - id: d
         text:
-          en: "That funding rate calculation has been inverted."
-          es: "Que el cálculo de la tasa de funding se ha invertido."
+          en: "That the funding-rate calculation on the venue has been inverted."
+          es: "Que el cálculo de la tasa de funding del venue se ha invertido."
     explanation:
-      en: "Triple divergence shows repeated failed attempts by buyers to push price higher with strength, building extreme pressure for a deep reversal once support breaks."
-      es: "La triple divergencia muestra intentos fallidos repetidos de los compradores por empujar el precio con fuerza, acumulando presión para una inversión profunda."
+      en: "Triple divergence shows repeated failed attempts by buyers to push price higher *with strength*, building pressure for a deep reversal once support finally breaks. It is still a description of momentum, not a promise about timing — which is exactly why the same pattern can print three times while a parabolic trend keeps running."
+      es: "La triple divergencia muestra intentos fallidos repetidos de los compradores por empujar el precio *con fuerza*, acumulando presión para una inversión profunda cuando por fin ceda el soporte. Sigue siendo una descripción del momentum, no una promesa sobre el momento, y por eso el mismo patrón puede aparecer tres veces mientras una tendencia parabólica sigue corriendo."

@@ -7,50 +7,50 @@ variants:
       es: "Cada pico sucesivo es más alto que el anterior, y cada retroceso hace suelo por encima del retroceso previo. ¿Cómo se describe mejor esta estructura?"
     options:
       - id: a
+        text:
+          en: "A change of character, since price keeps climbing to new ground."
+          es: "Un cambio de carácter, ya que el precio sigue subiendo a terreno nuevo."
+      - id: b
         correct: true
         text:
-          en: "An uptrend — a sequence of higher highs and higher lows."
-          es: "Una tendencia alcista: una secuencia de máximos más altos y mínimos más altos."
-      - id: b
-        text:
-          en: "A change of character, since price keeps climbing."
-          es: "Un cambio de carácter, ya que el precio sigue subiendo."
+          en: "An uptrend — a ladder of higher highs and higher lows, step by step."
+          es: "Una tendencia alcista: máximos más altos y mínimos más altos."
       - id: c
         text:
-          en: "A downtrend — lower highs and lower lows."
-          es: "Una tendencia bajista: máximos más bajos y mínimos más bajos."
+          en: "A downtrend, whose lower highs and lower lows are read upside down."
+          es: "Una bajista, cuyos máximos y mínimos decrecientes se leen al revés."
       - id: d
         text:
-          en: "A range, because price is just oscillating up and down."
-          es: "Un rango, porque el precio solo oscila arriba y abajo."
+          en: "A range, because price oscillates up and down between turns."
+          es: "Un rango, porque el precio oscila arriba y abajo entre giros."
     explanation:
-      en: "Higher highs plus higher lows is the definition of an uptrend. A change of character is the OPPOSITE — the break of that pattern (a first lower low), not the trend itself."
-      es: "Máximos más altos más mínimos más altos es la definición de tendencia alcista. Un cambio de carácter es lo CONTRARIO: la ruptura de ese patrón (un primer mínimo más bajo), no la tendencia en sí."
+      en: "Higher highs plus higher lows is the definition of an uptrend, and the oscillation between them is the trend advancing, not going nowhere. A change of character is the OPPOSITE — the break of that pattern, a first lower low — and a downtrend is its mirror, not the same picture read differently."
+      es: "Máximos más altos más mínimos más altos es la definición de tendencia alcista, y la oscilación entre ellos es la tendencia avanzando, no quedándose quieta. Un cambio de carácter es lo CONTRARIO —la ruptura de ese patrón, un primer mínimo más bajo— y una bajista es su espejo, no la misma imagen leída de otro modo."
   - id: choch-first-lower-low
     prompt:
       en: "You have been in a clean uptrend of higher highs and higher lows. Price now drops and makes its first lower low, closing below the previous higher low. What does this tell you?"
       es: "Vienes de una tendencia alcista limpia de máximos más altos y mínimos más altos. Ahora el precio cae y hace su primer mínimo más bajo, cerrando por debajo del mínimo más alto anterior. ¿Qué te dice esto?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A change of character: the first evidence the uptrend's pattern has stopped working — a reason to watch, not a confirmed reversal."
-          es: "Un cambio de carácter: el primer indicio de que el patrón alcista ha dejado de funcionar; un motivo para vigilar, no un giro confirmado."
+          en: "A downtrend has definitely begun; expect steadily lower prices now."
+          es: "Ha empezado con seguridad una bajista; espera precios cada vez más bajos."
       - id: b
         text:
-          en: "A downtrend has definitely begun; expect steadily lower prices from here."
-          es: "Ha empezado con seguridad una tendencia bajista; espera precios cada vez más bajos desde aquí."
+          en: "Nothing meaningful — one lower low is always just a pullback."
+          es: "Nada relevante: un solo mínimo más bajo siempre es solo un pullback."
       - id: c
         text:
-          en: "Nothing meaningful — a single lower low is always just a pullback within the uptrend."
-          es: "Nada relevante: un solo mínimo más bajo siempre es solo un pullback dentro de la tendencia alcista."
+          en: "That support and resistance stop applying once structure breaks."
+          es: "Que soportes y resistencias dejan de aplicar al romperse la estructura."
       - id: d
+        correct: true
         text:
-          en: "Support and resistance stop applying once a trend's structure breaks."
-          es: "Los soportes y resistencias dejan de aplicar en cuanto se rompe la estructura de una tendencia."
+          en: "A change of character: the uptrend's pattern has stopped working."
+          es: "Un cambio de carácter: el patrón alcista ha dejado de funcionar."
     explanation:
-      en: "The first lower low breaks the uptrend's rule — that is a change of character. It is the earliest honest warning, not a guarantee: it can still resolve as a deep pullback that resumes, so it is a question to watch, not a confirmed reversal."
-      es: "El primer mínimo más bajo rompe la regla de la tendencia alcista: eso es un cambio de carácter. Es el aviso honesto más temprano, no una garantía: aún puede resolverse como un pullback profundo que se reanuda, así que es una pregunta que vigilar, no un giro confirmado."
+      en: "The first lower low breaks the uptrend's rule — that is a change of character, and it is the earliest honest warning you get. It is not a guarantee: it can still resolve as a deep pullback that resumes, so it is a question to watch rather than a confirmed reversal. Dismissing it entirely is the other error, and levels keep working regardless."
+      es: "El primer mínimo más bajo rompe la regla de la tendencia alcista: eso es un cambio de carácter, y es el aviso honesto más temprano que recibes. No es una garantía: aún puede resolverse como un pullback profundo que se reanuda, así que es una pregunta que vigilar más que un giro confirmado. Descartarlo del todo es el otro error, y los niveles siguen funcionando igual."
   - id: downtrend-structure
     prompt:
       en: "Each rally tops out below the previous peak, and each drop bottoms out below the previous low. How is this structure best described?"
@@ -63,19 +63,19 @@ variants:
           es: "Una tendencia bajista: una secuencia de máximos más bajos y mínimos más bajos."
       - id: b
         text:
-          en: "A change of character on every swing, since price keeps dropping."
-          es: "Un cambio de carácter en cada swing, ya que el precio sigue cayendo."
+          en: "A change of character on every swing, as price keeps dropping."
+          es: "Un cambio de carácter en cada swing, mientras el precio sigue cayendo."
       - id: c
         text:
-          en: "A range, because price is oscillating between two prices."
-          es: "Un rango, porque el precio oscila entre dos precios."
+          en: "A range, because price oscillates between two prices repeatedly."
+          es: "Un rango, porque el precio oscila entre dos precios repetidamente."
       - id: d
         text:
-          en: "An uptrend that is temporarily pulling back."
-          es: "Una tendencia alcista que está haciendo un pullback temporal."
+          en: "An uptrend that happens to be pulling back for the moment."
+          es: "Una tendencia alcista que resulta estar corrigiendo de momento."
     explanation:
-      en: "Lower highs plus lower lows is the mirror of an uptrend: a downtrend. A change of character would be the OPPOSITE of that pattern — the first higher high — not more of the same down structure."
-      es: "Máximos más bajos más mínimos más bajos es el espejo de una tendencia alcista: una tendencia bajista. Un cambio de carácter sería lo CONTRARIO de ese patrón —el primer máximo más alto—, no más de la misma estructura bajista."
+      en: "Lower highs plus lower lows is the mirror of an uptrend: a downtrend. A change of character would be the OPPOSITE of that pattern — the first higher high — not more of the same down structure, and each successive low being lower is exactly what a range does not do."
+      es: "Máximos más bajos más mínimos más bajos es el espejo de una tendencia alcista: una tendencia bajista. Un cambio de carácter sería lo CONTRARIO de ese patrón —el primer máximo más alto—, no más de la misma estructura bajista, y que cada mínimo sucesivo sea más bajo es justo lo que un rango no hace."
   - id: structure-terms-match
     kind: matching
     prompt:
@@ -116,37 +116,37 @@ variants:
   - id: choch-downtrend-direction
     kind: true_false
     prompt:
-      en: "In a downtrend, the change of character is the first time price makes a lower low."
-      es: "En una tendencia bajista, el cambio de carácter es la primera vez que el precio hace un mínimo más bajo."
-    answer: false
+      en: "In a downtrend, the change of character is the first higher high — a lower low would simply continue the trend."
+      es: "En una tendencia bajista, el cambio de carácter es el primer máximo más alto; un mínimo más bajo simplemente continuaría la tendencia."
+    answer: true
     explanation:
-      en: "False. A downtrend is made of lower highs and lower lows, so a lower low just continues it. The change of character is the OPPOSITE — the first higher high, the first swing that breaks the downtrend's pattern."
-      es: "Falso. Una tendencia bajista está formada por máximos más bajos y mínimos más bajos, así que un mínimo más bajo solo la continúa. El cambio de carácter es lo CONTRARIO: el primer máximo más alto, el primer swing que rompe el patrón bajista."
+      en: "True. A downtrend is made of lower highs and lower lows, so another lower low is the pattern working as advertised. The change of character is always the first swing that breaks the trend's own rule — which in a downtrend means breaking upward."
+      es: "Cierto. Una tendencia bajista está formada por máximos más bajos y mínimos más bajos, así que otro mínimo más bajo es el patrón funcionando como toca. El cambio de carácter es siempre el primer swing que rompe la regla de la propia tendencia, que en una bajista significa romper al alza."
   - id: pullback-not-reversal
     prompt:
       en: "In a clean uptrend, price dips to a low that is still above the previous higher low, then rallies to a fresh higher high. What was that dip?"
       es: "En una tendencia alcista limpia, el precio cae a un mínimo que sigue estando por encima del mínimo más alto anterior, y luego sube a un nuevo máximo más alto. ¿Qué fue esa caída?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A pullback — a counter-move within the uptrend, which then resumed."
-          es: "Un pullback: un movimiento en contra dentro de la tendencia alcista, que luego se reanudó."
+          en: "A change of character, because price dropped for a while first."
+          es: "Un cambio de carácter, porque el precio cayó durante un rato antes."
       - id: b
         text:
-          en: "A change of character, because price dropped for a while."
-          es: "Un cambio de carácter, porque el precio cayó durante un rato."
+          en: "A confirmed reversal into a downtrend that then failed to follow through."
+          es: "Un giro confirmado a bajista que luego no tuvo continuidad."
       - id: c
         text:
-          en: "A confirmed reversal into a downtrend."
-          es: "Un giro confirmado hacia una tendencia bajista."
+          en: "A fakeout of support, since price traded down into the level."
+          es: "Un fakeout del soporte, ya que el precio bajó hasta el nivel."
       - id: d
+        correct: true
         text:
-          en: "A fakeout of support."
-          es: "Un fakeout de un soporte."
+          en: "A pullback — the trend caught its breath and resumed."
+          es: "Un pullback: la tendencia tomó aire y se reanudó."
     explanation:
-      en: "The dip held above the prior higher low and the trend then made a new higher high, so the staircase continued — that is a pullback, the trend catching its breath. A change of character would have required a lower low."
-      es: "La caída se mantuvo por encima del mínimo más alto previo y la tendencia luego hizo un nuevo máximo más alto, así que la escalera continuó: eso es un pullback, la tendencia tomando aire. Un cambio de carácter habría requerido un mínimo más bajo."
+      en: "The dip held above the prior higher low and the trend then made a new higher high, so the staircase continued intact. A change of character would have required a lower low; nothing was reversed and no level was broken and reclaimed, so there is no fakeout to name either."
+      es: "La caída se mantuvo por encima del mínimo más alto previo y la tendencia luego hizo un nuevo máximo más alto, así que la escalera continuó intacta. Un cambio de carácter habría requerido un mínimo más bajo; no se giró nada ni se rompió y recuperó ningún nivel, así que tampoco hay ningún fakeout que nombrar."
   - id: choch-is-reversal-myth
     kind: true_false
     prompt:
@@ -162,23 +162,25 @@ variants:
       es: "Un gráfico marca: mínimo 100, máximo 110, retroceso a 104, máximo 118, retroceso a 109, máximo 126; luego el precio cae desde 126 atravesando 109 hasta un mínimo de 106. ¿Qué acaba de ocurrir?"
     options:
       - id: a
+        text:
+          en: "Nothing structural — 106 is still comfortably above the original low of 100."
+          es: "Nada estructural: 106 sigue holgadamente por encima del mínimo original de 100."
+      - id: b
         correct: true
         text:
-          en: "A change of character — the first lower low in a run that had made only higher ones. Evidence the old rule stopped working, not a confirmed reversal."
-          es: "Un cambio de carácter: el primer mínimo decreciente en una secuencia que solo había hecho crecientes. Indicio de que la regla antigua dejó de funcionar, no una reversión confirmada."
-      - id: b
-        text:
-          en: "Nothing structural — 106 is still above the original low of 100."
-          es: "Nada estructural: 106 sigue por encima del mínimo original de 100."
+          en: "A change of character — the first lower low of the whole run."
+          es: "Un cambio de carácter: el primer mínimo decreciente de toda la secuencia."
       - id: c
         text:
-          en: "A confirmed downtrend, since price made a lower low."
-          es: "Una tendencia bajista confirmada, ya que el precio hizo un mínimo decreciente."
+          en: "A confirmed downtrend, now that price has made a lower low."
+          es: "Una tendencia bajista confirmada, ahora que hizo un mínimo decreciente."
       - id: d
-        text: { en: "A normal higher low, so the uptrend is intact.", es: "Un mínimo creciente normal, así que la tendencia alcista sigue intacta." }
+        text:
+          en: "A perfectly normal higher low, so the uptrend remains intact."
+          es: "Un mínimo creciente perfectamente normal, así que la alcista sigue intacta."
     explanation:
-      en: "The whole uptrend rested on one mechanism: every dip being bought above the previous dip. Breaking 109 is the first time that visibly failed — the buyers did not show up where they had been showing up."
-      es: "Toda la tendencia alcista se apoyaba en un mecanismo: que cada retroceso se compraba por encima del anterior. Romper 109 es la primera vez que eso falla visiblemente: los compradores no aparecieron donde venían apareciendo."
+      en: "The whole uptrend rested on one mechanism: every dip being bought above the previous dip. Breaking 109 is the first time that visibly failed — the buyers did not show up where they had been showing up. What matters is the sequence, not the distance from the original low, and one broken rule is evidence the pattern stopped working, not yet a new trend."
+      es: "Toda la tendencia alcista se apoyaba en un mecanismo: que cada retroceso se compraba por encima del anterior. Romper 109 es la primera vez que eso falla visiblemente: los compradores no aparecieron donde venían apareciendo. Lo que importa es la secuencia, no la distancia al mínimo original, y una regla rota es indicio de que el patrón dejó de funcionar, todavía no una tendencia nueva."
   - id: choch-confirmation
     kind: multi_select
     prompt:
@@ -187,24 +189,30 @@ variants:
     options:
       - id: a
         correct: true
-        text: { en: "A lower high printed after the lower low.", es: "Un máximo decreciente impreso después del mínimo decreciente." }
+        text:
+          en: "A lower high printed after the lower low."
+          es: "Un máximo decreciente impreso después del mínimo decreciente."
       - id: b
         correct: true
-        text: { en: "A failed attempt to reclaim the broken level.", es: "Un intento fallido de recuperar el nivel roto." }
+        text:
+          en: "A failed attempt to reclaim the broken level."
+          es: "Un intento fallido de recuperar el nivel roto."
       - id: c
         correct: true
-        text: { en: "A second confirming break.", es: "Una segunda ruptura que confirme." }
+        text:
+          en: "A second break that confirms the first one."
+          es: "Una segunda ruptura que confirma la primera."
       - id: d
         text:
-          en: "The single lower low on its own — it is already the answer."
-          es: "El único mínimo decreciente por sí solo: ya es la respuesta."
+          en: "The single lower low by itself — it already answers it."
+          es: "El único mínimo decreciente por sí solo: ya lo responde."
       - id: e
         text:
-          en: "A doji printed anywhere after the break."
-          es: "Un doji impreso en cualquier parte después de la ruptura."
+          en: "A doji printed anywhere on the chart after the break."
+          es: "Un doji impreso en cualquier parte del gráfico tras la ruptura."
     explanation:
-      en: "One CHoCH is a broken pattern, not a new trend — strong trends print the odd lower low inside a deep pullback all the time. Treat it as a question and wait for the answer."
-      es: "Un CHoCH es un patrón roto, no una tendencia nueva: las tendencias fuertes imprimen algún mínimo decreciente dentro de un retroceso profundo continuamente. Trátalo como una pregunta y espera la respuesta."
+      en: "One CHoCH is a broken pattern, not a new trend — strong trends print the odd lower low inside a deep pullback all the time, which is precisely why the break alone cannot be the answer. Treat it as a question and wait for structure to answer it; a lone candle shape anywhere on the chart says nothing about who is in control."
+      es: "Un CHoCH es un patrón roto, no una tendencia nueva: las tendencias fuertes imprimen algún mínimo decreciente dentro de un retroceso profundo continuamente, y por eso la ruptura sola no puede ser la respuesta. Trátalo como una pregunta y espera a que la estructura la conteste; una vela suelta en cualquier parte del gráfico no dice nada sobre quién manda."
   - id: pullback-uncertainty
     kind: true_false
     prompt:

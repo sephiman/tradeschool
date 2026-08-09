@@ -7,25 +7,25 @@ variants:
       es: "Tu cuenta es de 10.000 USDT. Abres tres posiciones largas en tres altcoins muy correlacionadas, cada una dimensionada para arriesgar exactamente el 1% (100 USDT) en su propio stop. Una caída generalizada del mercado toca los tres stops a la vez. ¿Cuánto pierdes en ese único movimiento?"
     options:
       - id: a
-        correct: true
         text:
-          en: "300 USDT — about 3% of the account, all in one move."
-          es: "300 USDT: alrededor del 3% de la cuenta, todo en un movimiento."
+          en: "100 USDT — the caps hold each position to 1%, so the total is 1% too."
+          es: "100 USDT: los límites mantienen cada posición en el 1%, y el total también."
       - id: b
         text:
-          en: "100 USDT — the caps hold each position to 1%, so the total is 1%."
-          es: "100 USDT: los límites mantienen cada posición en el 1%, así que el total es el 1%."
+          en: "Less than 100 USDT, because three coins diversify the risk downwards."
+          es: "Menos de 100 USDT, porque tres monedas diversifican el riesgo a la baja."
       - id: c
+        correct: true
         text:
-          en: "Less than 100 USDT — three coins diversify the risk down."
-          es: "Menos de 100 USDT: tres monedas diversifican el riesgo a la baja."
+          en: "300 USDT — about 3% of the account, all riding on one single move."
+          es: "300 USDT: alrededor del 3% de la cuenta, todo en un movimiento."
       - id: d
         text:
-          en: "0 USDT — three positions hedge one another out."
-          es: "0 USDT: tres posiciones se cubren entre sí."
+          en: "0 USDT, since three separate positions end up hedging one another out."
+          es: "0 USDT, ya que tres posiciones separadas acaban cubriéndose entre sí."
     explanation:
-      en: "Correlated positions move as one, so their risks add: 100 + 100 + 100 = 300 USDT = 3% of the account, arriving together in a single move. The three '1% bets' were really one ~3% bet in three costumes. Per-trade caps do not cap the correlated total."
-      es: "Las posiciones correlacionadas se mueven como una, así que sus riesgos se suman: 100 + 100 + 100 = 300 USDT = 3% de la cuenta, y llegan juntas en un solo movimiento. Las tres «apuestas del 1%» eran en realidad una sola apuesta de ~3% con tres trajes. Los límites por operación no limitan el total correlacionado."
+      en: "Correlated positions move as one, so their risks add: 100 + 100 + 100 = 300 USDT = 3% of the account, arriving together in a single move. The three '1% bets' were really one ~3% bet in three costumes. Per-trade caps do not cap the correlated total, and three coins that fall together diversify nothing."
+      es: "Las posiciones correlacionadas se mueven como una, así que sus riesgos se suman: 100 + 100 + 100 = 300 USDT = 3% de la cuenta, y llegan juntas en un solo movimiento. Las tres «apuestas del 1%» eran en realidad una sola apuesta de ~3% con tres trajes. Los límites por operación no limitan el total correlacionado, y tres monedas que caen juntas no diversifican nada."
   - id: exposure-true-statements
     kind: multi_select
     prompt:
@@ -40,8 +40,8 @@ variants:
       - id: b
         correct: true
         text:
-          en: "Your real risk is your total exposure to one move, not the number of tickets."
-          es: "Tu riesgo real es tu exposición total a un movimiento, no el número de tickets."
+          en: "Real risk is total exposure to one move, not the number of tickets."
+          es: "El riesgo real es la exposición total a un movimiento, no el número de tickets."
       - id: c
         correct: true
         text:
@@ -49,16 +49,16 @@ variants:
           es: "Una sola caída correlacionada puede tocar los tres stops al mismo tiempo."
       - id: d
         text:
-          en: "Each remains an independent 1% risk because each has its own stop."
-          es: "Cada uno sigue siendo un riesgo del 1% independiente porque cada uno tiene su propio stop."
+          en: "Each stays an independent 1% risk, because each has its own stop."
+          es: "Cada uno sigue siendo un riesgo del 1% aparte, porque tiene su propio stop."
       - id: e
         text:
           en: "Holding three different names diversifies the risk away."
           es: "Tener tres nombres distintos diversifica el riesgo."
       - id: f
         text:
-          en: "Capping each trade at 1% guarantees the whole book risks at most 1%."
-          es: "Limitar cada operación al 1% garantiza que toda la cartera arriesga como mucho el 1%."
+          en: "Capping each trade at 1% guarantees the whole book risks 1% at most."
+          es: "Limitar cada operación al 1% garantiza que la cartera arriesga como mucho el 1%."
     explanation:
       en: "Correlated positions stack: three 1% longs that fall together are one ~3% bet, and their stops can all trigger in the same move. Real risk is total exposure to a single move, not the ticket count. Independence, diversification and per-trade caps are exactly the illusions that hide the stacked bet."
       es: "Las posiciones correlacionadas se apilan: tres largos del 1% que caen juntos son una apuesta de ~3%, y sus stops pueden dispararse todos en el mismo movimiento. El riesgo real es la exposición total a un solo movimiento, no la cuenta de tickets. La independencia, la diversificación y los límites por operación son justo las ilusiones que esconden la apuesta apilada."
@@ -70,73 +70,73 @@ variants:
       - id: a
         correct: true
         text:
-          en: "3,000 USDT — 1,000 USDT per position (100 ÷ 0.10), times three."
-          es: "3.000 USDT: 1.000 USDT por posición (100 ÷ 0,10), por tres."
+          en: "3,000 USDT — 1,000 per position (100 ÷ 0.10), times three."
+          es: "3.000 USDT: 1.000 por posición (100 ÷ 0,10), multiplicado por tres."
       - id: b
         text:
-          en: "300 USDT — the total money you can lose."
-          es: "300 USDT: el dinero total que puedes perder."
+          en: "100 USDT — the risk budget assigned to a single one of the positions."
+          es: "100 USDT: el presupuesto de riesgo de una sola de las posiciones."
       - id: c
         text:
-          en: "100 USDT — the risk budget of a single position."
-          es: "100 USDT: el presupuesto de riesgo de una sola posición."
+          en: "300 USDT — the total amount of money that you can actually lose."
+          es: "300 USDT: el dinero total que puedes llegar a perder."
       - id: d
         text:
-          en: "30,000 USDT — ten times the account for leverage."
-          es: "30.000 USDT: diez veces la cuenta por el apalancamiento."
+          en: "30,000 USDT — ten times the account, on account of the leverage used."
+          es: "30.000 USDT: diez veces la cuenta, por el apalancamiento utilizado."
     explanation:
-      en: "A 100 USDT risk over a 10% stop means notional = 100 ÷ 0.10 = 1,000 USDT per position. Three of them is 3,000 USDT of directional exposure — 30% of a 10,000 account pointed the same way. The money at risk (300 USDT) and the exposure (3,000 USDT) are different numbers; both matter."
-      es: "Un riesgo de 100 USDT sobre un stop del 10% significa nocional = 100 ÷ 0,10 = 1.000 USDT por posición. Tres de ellas son 3.000 USDT de exposición direccional: el 30% de una cuenta de 10.000 apuntando en la misma dirección. El dinero en riesgo (300 USDT) y la exposición (3.000 USDT) son cifras distintas; ambas importan."
+      en: "A 100 USDT risk over a 10% stop means notional = 100 ÷ 0.10 = 1,000 USDT per position. Three of them is 3,000 USDT of directional exposure — 30% of a 10,000 account pointed the same way. The money at risk (300 USDT) and the exposure (3,000 USDT) are different numbers, and both matter."
+      es: "Un riesgo de 100 USDT sobre un stop del 10% significa nocional = 100 ÷ 0,10 = 1.000 USDT por posición. Tres de ellas son 3.000 USDT de exposición direccional: el 30% de una cuenta de 10.000 apuntando en la misma dirección. El dinero en riesgo (300 USDT) y la exposición (3.000 USDT) son cifras distintas, y ambas importan."
   - id: aggregate-question
     prompt:
       en: "Which single question best reveals your aggregate directional exposure?"
       es: "¿Qué única pregunta revela mejor tu exposición direccional agregada?"
     options:
       - id: a
-        correct: true
         text:
-          en: "If the market dropped 10% right now, how much would I lose across all my positions?"
-          es: "Si el mercado cayera un 10% ahora mismo, ¿cuánto perdería en todas mis posiciones?"
+          en: "How many different coins am I currently holding across the book?"
+          es: "¿Cuántas monedas distintas tengo ahora mismo en la cartera?"
       - id: b
         text:
-          en: "How many different coins am I currently holding?"
-          es: "¿Cuántas monedas distintas tengo ahora mismo?"
+          en: "Is every individual trade capped at 1% risk of the account?"
+          es: "¿Está cada operación limitada al 1% de riesgo de la cuenta?"
       - id: c
+        correct: true
         text:
-          en: "Is every individual trade capped at 1% risk?"
-          es: "¿Está cada operación individual limitada al 1% de riesgo?"
+          en: "If the market dropped 10% now, what would I lose in total?"
+          es: "Si el mercado cayera un 10% ahora, ¿cuánto perdería en total?"
       - id: d
         text:
-          en: "Which of my coins has the cleanest-looking chart?"
-          es: "¿Cuál de mis monedas tiene el gráfico más limpio?"
+          en: "Which of the coins I hold has the cleanest-looking chart right now?"
+          es: "¿Cuál de las monedas que tengo tiene ahora el gráfico más limpio?"
     explanation:
-      en: "Portfolio risk is total exposure to a single move, so the revealing question adds up the loss from one market-wide drop. Counting coins or checking per-trade caps hides correlation rather than measuring it; a clean chart says nothing about your aggregate exposure."
-      es: "El riesgo de cartera es la exposición total a un solo movimiento, así que la pregunta reveladora suma la pérdida de una única caída generalizada. Contar monedas o revisar los límites por operación esconde la correlación en vez de medirla; un gráfico limpio no dice nada de tu exposición agregada."
+      en: "Portfolio risk is total exposure to a single move, so the revealing question adds up the loss from one market-wide drop across every position at once. Counting coins or checking per-trade caps hides correlation rather than measuring it, and a clean chart says nothing whatsoever about your aggregate exposure."
+      es: "El riesgo de cartera es la exposición total a un solo movimiento, así que la pregunta reveladora suma la pérdida de una única caída generalizada en todas las posiciones a la vez. Contar monedas o revisar los límites por operación esconde la correlación en vez de medirla, y un gráfico limpio no dice absolutamente nada de tu exposición agregada."
   - id: four-longs-total
     prompt:
       en: "Your account is 20,000 USDT. You hold four long positions on highly correlated alts, each risking 1% (200 USDT) at its stop. A correlated sell-off hits all four stops together. What do you lose in that move?"
       es: "Tu cuenta es de 20.000 USDT. Tienes cuatro posiciones largas en altcoins muy correlacionadas, cada una arriesgando el 1% (200 USDT) en su stop. Una caída correlacionada toca los cuatro stops juntos. ¿Cuánto pierdes en ese movimiento?"
     options:
       - id: a
-        correct: true
         text:
-          en: "800 USDT — 4% of the account, since the four correlated risks add up."
-          es: "800 USDT: el 4% de la cuenta, ya que los cuatro riesgos correlacionados se suman."
+          en: "200 USDT — still just 1%, because each stop is a separate one."
+          es: "200 USDT: sigue siendo solo el 1%, porque cada stop es independiente."
       - id: b
         text:
-          en: "200 USDT — still just 1%, because each stop is separate."
-          es: "200 USDT: sigue siendo solo el 1%, porque cada stop es independiente."
+          en: "400 USDT, which is the average of the four position risks."
+          es: "400 USDT, que es la media de los riesgos de las cuatro posiciones."
       - id: c
+        correct: true
         text:
-          en: "400 USDT — the average of the four positions."
-          es: "400 USDT: la media de las cuatro posiciones."
+          en: "800 USDT — 4% of the account, since the four risks add up."
+          es: "800 USDT: el 4% de la cuenta, ya que los cuatro riesgos se suman."
       - id: d
         text:
-          en: "2,000 USDT — the full margin used across the book."
-          es: "2.000 USDT: todo el margen usado en la cartera."
+          en: "2,000 USDT — the full amount of margin used across the whole book."
+          es: "2.000 USDT: todo el margen utilizado en el conjunto de la cartera."
     explanation:
-      en: "Four correlated 1% longs that fall together are one 4% bet: 4 × 200 = 800 USDT = 4% of 20,000, arriving in a single move. Splitting a bet across more tickets never lowers the correlated total; it just makes it harder to see."
-      es: "Cuatro largos correlacionados del 1% que caen juntos son una apuesta del 4%: 4 × 200 = 800 USDT = 4% de 20.000, y llega en un solo movimiento. Repartir una apuesta en más tickets nunca reduce el total correlacionado; solo lo hace más difícil de ver."
+      en: "Four correlated 1% longs that fall together are one 4% bet: 4 × 200 = 800 USDT = 4% of 20,000, arriving in a single move rather than averaged across it. Splitting a bet across more tickets never lowers the correlated total; it just makes it harder to see."
+      es: "Cuatro largos correlacionados del 1% que caen juntos son una apuesta del 4%: 4 × 200 = 800 USDT = 4% de 20.000, y llega en un solo movimiento en vez de promediarse. Repartir una apuesta en más tickets nunca reduce el total correlacionado; solo lo hace más difícil de ver."
   - id: long-short-relative
     kind: true_false
     prompt:
@@ -183,23 +183,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The 10% stops get blown through — you are filled lower after slippage, each position loses more than its 100 USDT budget, and the 3% quietly becomes 4% or worse, all in one move."
-          es: "Los stops del 10% se atraviesan: te ejecutan más abajo tras el slippage, cada posición pierde más de sus 100 USDT de presupuesto y el 3% se convierte discretamente en un 4% o peor, todo en un solo movimiento."
+          en: "The stops get blown through, so the 3% quietly becomes 4% or worse."
+          es: "Los stops se atraviesan, así que el 3% se convierte en un 4% o peor."
       - id: b
         text:
-          en: "Exactly 3% — the stops cap each position at its 100 USDT budget."
-          es: "Exactamente el 3%: los stops limitan cada posición a su presupuesto de 100 USDT."
+          en: "Less than 3%, because alts with a higher beta also recover faster."
+          es: "Menos del 3%, porque las alts con más beta también se recuperan antes."
       - id: c
         text:
-          en: "Less than 3%, because alts with higher beta recover faster."
-          es: "Menos del 3%, porque las alts con beta mayor se recuperan más rápido."
+          en: "Exactly 3% — the stops cap each position at its 100 USDT budget."
+          es: "Exactamente el 3%: los stops limitan cada posición a sus 100 USDT."
       - id: d
         text:
-          en: "Nothing until BTC itself breaks its own support level."
-          es: "Nada hasta que BTC rompa su propio nivel de soporte."
+          en: "Nothing at all until BTC itself breaks its own support level."
+          es: "Nada en absoluto hasta que BTC rompa su propio nivel de soporte."
     explanation:
-      en: "Most alts have a beta above 1 to BTC — they fall harder. Combine that with a thin book, 24/7, possibly on a weekend when there is barely anyone to fill you, and the budget is a plan rather than a promise."
-      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC: caen más. Suma un libro poco profundo, 24/7 y posiblemente un fin de semana en el que apenas hay quien te ejecute, y el presupuesto es un plan más que una promesa."
+      en: "Most alts have a beta above 1 to BTC — they fall harder — so a 10% BTC drop takes them 15–25% down, straight through the 10% stops. You are filled lower after slippage and each position loses more than its 100 USDT budget, all in one move. Combine that with a thin book, 24/7, possibly on a weekend when there is barely anyone to fill you, and the budget is a plan rather than a promise."
+      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC —caen más—, así que una caída del 10% en BTC las lleva un 15-25% abajo, directas a través de los stops del 10%. Te ejecutan más abajo tras el slippage y cada posición pierde más de sus 100 USDT de presupuesto, todo en un mismo movimiento. Suma un libro poco profundo, 24/7 y posiblemente un fin de semana en el que apenas hay quien te ejecute, y el presupuesto es un plan más que una promesa."
   - id: sum-of-caps-tf
     kind: true_false
     prompt:

@@ -138,6 +138,18 @@ Open <http://localhost:5173>, register an account, and review the full course:
   test (the last candles cannot predict the answer); every classification chart is guarded by the
   credibility test (the final candles are ambient noise, never a synthetic spike) plus a
   structure-matches-label test asserting the on-screen geometry really encodes the answer.
+- **The answer's *shape* never reveals it:** a longer, more carefully-hedged option is the oldest tell in
+  multiple choice, and writing distractors as throwaways is what creates it. So each distractor names a
+  concrete but *wrong* mechanism — ideally a misconception the course explicitly warns about — and the
+  nuance that used to pad the correct option lives in the explanation, where it teaches instead of
+  leaking. `tests/test_quiz_answer_bias.py` holds the whole suite to that, per locale and in aggregate
+  rather than per question: for each variant it enumerates every way the same number of options could
+  have been the answer, giving the exact mean and variance of "the answer is the longest option" and of
+  "the answer's length advantage", then combines them into a z-score that must land inside ±3σ. Because
+  the null conditions on each variant's own length multiset, it measures *which* option was made long
+  and can never be satisfied by writing shorter answers. The same aggregate treatment guards the two
+  position tells — the slot the answer is authored into, and the slot the generator deals it to — plus
+  the true/false balance, matching pairs and ordering steps.
 - **Drawn levels are corroborated, not decorative:** on a chart whose question is "did this level
   break?", a horizontal line is the thing being measured, so it may not sit where price never went. An
   injector plants a level together with a `LevelGuard` — the bars that must *test* the line and the
@@ -396,6 +408,37 @@ Ordering is alphabetical **per locale**, accent-insensitive, and the two locales
 differently — an entry is looked up by the word the reader actually met, and roughly a third of the ES
 terms are English pass-throughs (`funding`, `spot`, `spring`, `order block`).
 
+#### The prose points into the glossary
+
+Term occurrences in lesson prose become links: a hover tooltip (tap-and-dismiss popover on touch) in
+the app, an internal jump to the glossary entry in the PDF. **One annotator decides both** —
+`frontend/src/lib/glossary/annotate.ts`, run over the mdast each renderer already parses, so what the
+book links and what the screen marks cannot drift. Neither surface detects terms on its own, and
+`surfaces.test.tsx` renders real lessons down both pipelines and compares them term for term.
+
+Detection is word-boundary anchored (the EMA-inside-`sistema` trap), tolerant of the ~100-column hard
+wrap — a multi-word term split across two lines still matches, the same trap the never-coins guard
+has — and blind to headings, code, link text and figure directives. It never stems: an entry lists
+its own `match` variants where the derived plural is wrong. *Which* occurrences get marked is one
+rule with two lifetimes:
+
+| | which occurrence | what the reader gets |
+|---|---|---|
+| **App** | first per **lesson** | the term is a tooltip once per lesson, wherever it appears |
+| **PDF** | first in the **book** | the term is linked at most once in ~200 pages |
+
+A term is never linked in the lesson it points back at — a link to an entry that points back at the
+page you are reading is a loop. That occurrence still **spends** the term's one slot in the book, so
+a term the course first uses inside its own lesson gets no PDF link at all while remaining a tooltip
+everywhere else in the app. Today that is 100 of 161 terms in EN and 108 in ES: the book carries 61
+term links (EN) / 51 (ES) against 538 / 468 tooltips.
+
+Every decision is recorded in `content/glossary-links.<locale>.txt`, a **frozen golden** that a
+content change diffs loudly instead of moving links in silence — that diff is where a false positive
+gets caught before a reader meets it, and there were plenty ("base de datos", "a lo largo de", "Wall
+Street", "the summed footprints"). See `content/README.md` for the per-entry keys and how to
+regenerate it.
+
 Auth (session cookie) is required, like the rest of the content API. The registry is built **once at
 startup**, so newly authored content needs a backend restart before it appears in an export.
 
@@ -431,12 +474,40 @@ Three properties make it a *book* rather than a dump:
 **Export PDF**, next to the course-page header, produces the whole course as one print-ready document
 in the language being browsed — cover, table of contents with page numbers, block and module headings
 with their summaries, every lesson's prose, callouts and figures, **the lesson's exercises after its
-prose, and an answer key at the back**. ~203 pages (EN) / ~215 (ES): 36 lessons, 29 figures, 126
-exercises, 23 of which print a chart. Every lesson starts on a new page, and the answer key is a
-table-of-contents entry with a resolved page number. The running footer carries the course title, the
+prose, and an answer key at the back**, and it is **navigable**: bookmarks, a clickable contents, term
+links into the glossary and exercise ↔ answer cross-links (see below). ~203 pages (EN) / ~215 (ES):
+36 lessons, 29 figures, 126 exercises, 23 of which print a chart. Every lesson starts on a new page,
+and the answer key is a table-of-contents entry with a resolved page number. The running footer carries the course title, the
 **top-level section the page belongs to** (the block, or the answer key) and the page number, so a page
 found loose still says where it came from; the cover and the contents precede the first block and name
 no section. The file is named `tradeschool-<course>-<locale>-<YYYY-MM-DD>.pdf`.
+
+### Navigating the book
+
+The PDF is navigable, not just printable, and every one of these is a pdfmake feature rather than a
+post-processing step:
+
+* **A document outline** (bookmarks) that mirrors `course.yaml` exactly — block › module › lesson,
+  with the glossary and the answer key beside the blocks. The 161 glossary entries stay out of it: a
+  bookmark pane listing every term is a second glossary, not a way around the book.
+* **A clickable table of contents.** This one already worked — pdfmake gives every `tocItem` row a
+  `linkToDestination` — so what changed is that every heading now carries a **content id** instead of
+  pdfmake's invented `toc-_default_-7`, and a test says so.
+* **Term links into the glossary**, one per term across the whole book (see the glossary section
+  above), styled as a dotted rule in the muted grey rather than web-blue: a printed cross-reference
+  should be findable and otherwise invisible.
+* **Exercise ↔ answer key, both directions.** The printed number jumps to its answer and the answer's
+  number jumps back, which is what makes the stable numbering navigable.
+* **The glossary's own pointers.** "Taught in M17-L1 · The basis" reaches that lesson, and an alias's
+  `CHoCH → change of character` reaches that entry — a reference whose pointers you cannot follow is
+  half a reference.
+
+Two things constrain how those are built. A destination only exists where the id sits on a **text**
+node — pdfmake writes one out of `line.id` as it renders a line, so the same id on a wrapping stack
+anchors nothing. And a destination name is written into the file's name tree, so the exercise pair is
+keyed by the **printed number**, never the exercise id: `render.test.ts` requires that no exercise id
+reaches the bytes, and that rule is the reason it does not. `navigation.test.ts` walks the built
+document and fails on any link whose target is not an anchor in the same document.
 
 **That footer is why the document is rendered twice.** pdfmake gives the footer callback a page number
 and nothing else, and which page a block starts on is not known until the document has been laid out.

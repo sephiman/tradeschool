@@ -7,59 +7,59 @@ variants:
       es: "¿Qué define una tendencia alcista?"
     options:
       - id: a
+        text:
+          en: "Today's candle is green and closed near its high."
+          es: "La vela de hoy es verde y cerró cerca de su máximo."
+      - id: b
         correct: true
         text:
           en: "A sequence of higher highs and higher lows."
           es: "Una secuencia de máximos más altos y mínimos más altos."
-      - id: b
-        text:
-          en: "Today's candle is green."
-          es: "La vela de hoy es verde."
       - id: c
         text:
-          en: "Price is above a moving average right now."
-          es: "El precio está ahora por encima de una media móvil."
+          en: "Price is trading above its moving average right now."
+          es: "El precio cotiza ahora por encima de su media móvil."
       - id: d
         text:
-          en: "Price went up a lot in the last hour."
-          es: "El precio subió mucho en la última hora."
+          en: "Price went up sharply over the last hour of trading."
+          es: "El precio subió con fuerza en la última hora de negociación."
     explanation:
-      en: "A trend is a structure, not a single move: an uptrend is higher highs AND higher lows. A green candle, a moving average, or one fast hour say nothing about that sequence."
-      es: "Una tendencia es una estructura, no un solo movimiento: una tendencia alcista son máximos más altos Y mínimos más altos. Una vela verde, una media móvil o una hora rápida no dicen nada sobre esa secuencia."
+      en: "A trend is a structure, not a single move: an uptrend is higher highs AND higher lows. A green candle, a position above a moving average, or one fast hour are all single observations — none of them says anything about the sequence of swings, and each can be true in the middle of a range or a downtrend."
+      es: "Una tendencia es una estructura, no un solo movimiento: una tendencia alcista son máximos más altos Y mínimos más altos. Una vela verde, estar por encima de una media móvil o una hora rápida son observaciones sueltas: ninguna dice nada de la secuencia de oscilaciones, y todas pueden ser ciertas en medio de un rango o de una tendencia bajista."
   - id: broken-structure
     prompt:
       en: "Price rallies to 100, pulls back to 92, pushes to 108, then falls to 89. What has happened to the uptrend?"
       es: "El precio sube a 100, retrocede a 92, empuja hasta 108 y luego cae a 89. ¿Qué le ha pasado a la tendencia alcista?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Its structure is broken — the 89 low undercuts the previous higher low of 92."
-          es: "Su estructura se ha roto: el mínimo de 89 perfora el mínimo más alto anterior de 92."
+          en: "It is still perfectly intact, because 108 was a brand-new high."
+          es: "Sigue perfectamente intacta, porque 108 fue un máximo totalmente nuevo."
       - id: b
         text:
-          en: "It is still perfectly intact, because 108 was a new high."
-          es: "Sigue perfectamente intacta, porque 108 fue un nuevo máximo."
+          en: "It became a downtrend the moment price first dipped to 92."
+          es: "Se convirtió en bajista en cuanto el precio cayó por primera vez a 92."
       - id: c
         text:
-          en: "It became a downtrend the moment price first dipped to 92."
-          es: "Se convirtió en tendencia bajista en cuanto el precio cayó por primera vez a 92."
+          en: "Nothing is decided until price closes below the 100 round number."
+          es: "Nada se decide hasta que el precio cierre bajo el número redondo de 100."
       - id: d
+        correct: true
         text:
-          en: "Nothing matters until price closes below zero."
-          es: "Nada importa hasta que el precio cierre por debajo de cero."
+          en: "Broken — the 89 low undercuts the previous higher low of 92."
+          es: "Rota: el mínimo de 89 perfora el mínimo más alto anterior de 92."
     explanation:
-      en: "An uptrend needs higher lows. The 89 low sits below the prior 92 low, so the higher-low sequence is broken. The earlier dip to 92 was itself a higher low and did no damage."
-      es: "Una tendencia alcista necesita mínimos más altos. El mínimo de 89 queda por debajo del mínimo previo de 92, así que la secuencia de mínimos crecientes se rompe. La caída anterior a 92 era en sí un mínimo más alto y no hizo daño."
+      en: "An uptrend needs higher lows as well as higher highs, so a new high at 108 does not immunise it: the 89 low sits below the prior 92 low and the higher-low sequence is broken. The earlier dip to 92 was itself a higher low and did no damage, and structure is read off swing points, not off round numbers."
+      es: "Una tendencia alcista necesita mínimos más altos además de máximos más altos, así que un nuevo máximo en 108 no la inmuniza: el mínimo de 89 queda por debajo del previo de 92 y la secuencia de mínimos crecientes se rompe. La caída anterior a 92 era en sí un mínimo más alto y no hizo daño, y la estructura se lee en los puntos de giro, no en números redondos."
   - id: one-hh-myth
     kind: true_false
     prompt:
-      en: "A single higher high after a downtrend confirms that a new uptrend has begun."
-      es: "Un único máximo más alto tras una tendencia bajista confirma que ha comenzado una nueva tendencia alcista."
-    answer: false
+      en: "A single higher high after a downtrend is not enough to confirm that a new uptrend has begun."
+      es: "Un único máximo más alto tras una tendencia bajista no basta para confirmar que ha comenzado una nueva tendencia alcista."
+    answer: true
     explanation:
-      en: "One higher high is not a trend. An uptrend needs a sequence — higher highs AND higher lows. A single push up can easily be one bounce inside a continuing downtrend or a range."
-      es: "Un solo máximo más alto no es una tendencia. Una tendencia alcista necesita una secuencia: máximos más altos Y mínimos más altos. Un solo empujón al alza puede ser fácilmente un rebote dentro de una tendencia bajista que continúa o de un rango."
+      en: "True. An uptrend needs a sequence — higher highs AND higher lows — and a single push up is easily one bounce inside a continuing downtrend or a range."
+      es: "Cierto. Una tendencia alcista necesita una secuencia —máximos más altos Y mínimos más altos— y un solo empujón al alza es fácilmente un rebote dentro de una bajista que continúa o de un rango."
   - id: regime-match
     kind: matching
     prompt:
@@ -93,13 +93,13 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Highs land at roughly similar levels."
-          es: "Los máximos caen a niveles parecidos."
+          en: "Highs land at roughly similar levels each time."
+          es: "Los máximos caen a niveles parecidos cada vez."
       - id: b
         correct: true
         text:
-          en: "Lows land at roughly similar levels."
-          es: "Los mínimos caen a niveles parecidos."
+          en: "Lows land at roughly similar levels each time."
+          es: "Los mínimos caen a niveles parecidos cada vez."
       - id: c
         correct: true
         text:
@@ -107,40 +107,40 @@ variants:
           es: "No hay avance neto en ninguna dirección."
       - id: d
         text:
-          en: "Each peak is clearly above the previous peak."
-          es: "Cada pico está claramente por encima del anterior."
+          en: "Each peak is clearly above the peak that came before it."
+          es: "Cada pico está claramente por encima del pico anterior."
       - id: e
         text:
           en: "Price makes strong, sustained progress in one direction."
           es: "El precio avanza de forma fuerte y sostenida en una dirección."
     explanation:
-      en: "A range has roughly equal highs, roughly equal lows and no net progress. Rising peaks or sustained one-way progress describe a trend, not a range."
-      es: "Un rango tiene máximos parecidos, mínimos parecidos y ningún avance neto. Picos crecientes o un avance sostenido en un sentido describen una tendencia, no un rango."
+      en: "A range has roughly equal highs, roughly equal lows and no net progress — the moves cancel out. Rising peaks or sustained one-way progress are the definition of a trend, which is the other regime entirely."
+      es: "Un rango tiene máximos parecidos, mínimos parecidos y ningún avance neto: los movimientos se cancelan. Picos crecientes o un avance sostenido en un sentido son la definición de una tendencia, que es justo el otro régimen."
   - id: why-regime
     prompt:
       en: "Why is 'trending or ranging?' the first question to ask a chart?"
       es: "¿Por qué '¿tendencia o rango?' es la primera pregunta que hacerle a un gráfico?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Because tactics that work in a trend get shredded in a range, and vice versa."
-          es: "Porque las tácticas que funcionan en una tendencia se destrozan en un rango, y al revés."
+          en: "Because a ranging market can never begin to trend afterwards."
+          es: "Porque un mercado en rango nunca puede pasar a tendencia después."
       - id: b
         text:
-          en: "Because a ranging market can never trend afterwards."
-          es: "Porque un mercado en rango nunca puede pasar a tendencia después."
+          en: "Because trends are far more common than ranges in practice."
+          es: "Porque las tendencias son mucho más frecuentes que los rangos."
       - id: c
         text:
-          en: "Because trends are far more common than ranges."
-          es: "Porque las tendencias son mucho más frecuentes que los rangos."
+          en: "Because the regime hands you the exact price target to aim at."
+          es: "Porque el régimen te da el objetivo de precio exacto al que apuntar."
       - id: d
+        correct: true
         text:
-          en: "Because the regime tells you the exact price target."
-          es: "Porque el régimen te dice el objetivo de precio exacto."
+          en: "Because tactics that work in a trend get shredded in a range."
+          es: "Porque las tácticas que funcionan en tendencia fallan en rango."
     explanation:
-      en: "The regime decides which tactics make sense: ride pullbacks in a trend, fade the edges in a range. Get it wrong and you buy range tops or fight strong trends. Ranges are actually the more common state, and no regime gives you a price target."
-      es: "El régimen decide qué tácticas tienen sentido: montar los retrocesos en tendencia, operar contra los extremos en rango. Equivócate y comprarás techos de rango o pelearás contra tendencias fuertes. En realidad los rangos son el estado más común, y ningún régimen te da un objetivo de precio."
+      en: "The regime decides which tactics make sense: ride pullbacks in a trend, fade the edges in a range. Get it wrong and you buy range tops or fight strong trends. Ranges are in fact the more common state, regimes change all the time, and no regime ever gives you a price target."
+      es: "El régimen decide qué tácticas tienen sentido: montar los retrocesos en tendencia, operar contra los extremos en rango. Equivócate y comprarás techos de rango o pelearás contra tendencias fuertes. En realidad los rangos son el estado más común, los regímenes cambian continuamente y ninguno te da nunca un objetivo de precio."
   - id: classify-order
     kind: ordering
     prompt:
@@ -178,21 +178,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A peak with lower candles on either side of it — swing points are the skeleton of structure, and reading how they line up is what defines trend or range."
-          es: "Un pico con velas más bajas a ambos lados: los puntos de oscilación son el esqueleto de la estructura, y leer cómo se alinean es lo que define tendencia o rango."
+          en: "A peak with lower candles either side — the skeleton of structure."
+          es: "Un pico con velas más bajas a ambos lados: el esqueleto de la estructura."
       - id: b
         text:
           en: "The highest price of the week, which anchors every level below it."
-          es: "El precio más alto de la semana, que ancla todos los niveles por debajo."
+          es: "El precio más alto de la semana, que ancla todos los niveles de abajo."
       - id: c
         text:
-          en: "Any green candle that closes above the previous one."
-          es: "Cualquier vela verde que cierre por encima de la anterior."
+          en: "Any green candle that closes above the one immediately before it."
+          es: "Cualquier vela verde que cierre por encima de la inmediatamente anterior."
       - id: d
-        text: { en: "The midpoint between a range's floor and ceiling.", es: "El punto medio entre el suelo y el techo de un rango." }
+        text:
+          en: "The midpoint between a range's floor and its ceiling."
+          es: "El punto medio entre el suelo y el techo de un rango."
     explanation:
-      en: "Everything structural is read off these pivots: higher highs and higher lows for an uptrend, lower highs and lower lows for a downtrend. Without swing points there is no structure to read."
-      es: "Todo lo estructural se lee de estos pivotes: máximos y mínimos crecientes para una tendencia alcista, decrecientes para una bajista. Sin puntos de oscilación no hay estructura que leer."
+      en: "A swing high is a local pivot — a peak with lower candles on either side — and everything structural is read off these pivots: higher highs and higher lows for an uptrend, lower highs and lower lows for a downtrend. It is not a calendar extreme, not any green candle, and not a derived midpoint. Without swing points there is no structure to read."
+      es: "Un máximo de oscilación es un pivote local —un pico con velas más bajas a ambos lados— y todo lo estructural se lee de estos pivotes: máximos y mínimos crecientes para una tendencia alcista, decrecientes para una bajista. No es un extremo del calendario, ni cualquier vela verde, ni un punto medio calculado. Sin puntos de oscilación no hay estructura que leer."
   - id: regime-tactics-match
     kind: matching
     prompt:

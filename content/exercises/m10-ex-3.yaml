@@ -7,50 +7,50 @@ variants:
       es: "¿En qué se diferencia una EMA de una SMA del mismo periodo?"
     options:
       - id: a
+        text:
+          en: "It is always smoother and less noisy than the SMA of the same length."
+          es: "Siempre es más suave y menos ruidosa que la SMA del mismo periodo."
+      - id: b
         correct: true
         text:
-          en: "It weights recent closes more heavily, so it reacts faster to new price and lags less than the SMA."
-          es: "Pondera más los cierres recientes, así que reacciona más rápido al precio nuevo y va con menos retardo que la SMA."
-      - id: b
-        text:
-          en: "It is always smoother and less noisy than the SMA."
-          es: "Siempre es más suave y menos ruidosa que la SMA."
+          en: "It weights recent closes more, so it reacts faster and lags less."
+          es: "Pondera más los cierres recientes, así que reacciona antes y va con menos retardo."
       - id: c
         text:
           en: "It predicts the next move, while the SMA only describes the past."
           es: "Predice el próximo movimiento, mientras que la SMA solo describe el pasado."
       - id: d
         text:
-          en: "Nothing — 'EMA' is just the newer name for the same calculation."
-          es: "Nada: 'EMA' es solo el nombre más moderno del mismo cálculo."
+          en: "Nothing at all — 'EMA' is the newer name for the same calculation."
+          es: "Nada en absoluto: 'EMA' es el nombre moderno del mismo cálculo."
     explanation:
-      en: "The EMA's extra weight on recent closes makes it turn sooner — less lag — but that same speed makes it noisier, not smoother, and neither average predicts anything: both are built from prices that already happened."
-      es: "El peso extra de la EMA sobre los cierres recientes hace que gire antes (menos retardo), pero esa misma velocidad la hace más ruidosa, no más suave, y ninguna media predice nada: ambas se construyen con precios que ya ocurrieron."
+      en: "The EMA's extra weight on recent closes makes it turn sooner — less lag — but that same speed makes it noisier, not smoother. And neither average predicts anything: both are built entirely from prices that already happened, using genuinely different weightings."
+      es: "El peso extra de la EMA sobre los cierres recientes hace que gire antes (menos retardo), pero esa misma velocidad la hace más ruidosa, no más suave. Y ninguna media predice nada: ambas se construyen por completo con precios que ya ocurrieron, usando ponderaciones realmente distintas."
   - id: why-mas-lag
     prompt:
       en: "Why does every moving average lag price?"
       es: "¿Por qué toda media móvil va con retardo respecto al precio?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "It is computed from past closes, so it can only describe a trend that has already happened, confirmed late."
-          es: "Se calcula con cierres pasados, así que solo puede describir una tendencia que ya ha ocurrido, confirmada tarde."
-      - id: b
         text:
           en: "Because the exchange publishes the average with a built-in time delay."
           es: "Porque el exchange publica la media con un retardo de tiempo incorporado."
-      - id: c
+      - id: b
         text:
           en: "A long-period average lags, but a short EMA has no lag at all."
-          es: "Una media de periodo largo va con retardo, pero una EMA corta no tiene ningún retardo."
+          es: "Una media de periodo largo va con retardo, pero una EMA corta no tiene ninguno."
+      - id: c
+        correct: true
+        text:
+          en: "It is computed from past closes, so it can only confirm late."
+          es: "Se calcula con cierres pasados, así que solo puede confirmar tarde."
       - id: d
         text:
-          en: "It does not lag; it moves exactly in step with the current price."
+          en: "It does not lag at all; it moves exactly in step with the current price."
           es: "No va con retardo; se mueve exactamente al compás del precio actual."
     explanation:
-      en: "The lag is structural, not a data-feed delay: an average of past closes can only ever confirm the trend after it has started. A shorter EMA lags less, but 'less' is not 'none' — the lag never reaches zero."
-      es: "El retardo es estructural, no un retraso del feed de datos: un promedio de cierres pasados solo puede confirmar la tendencia después de que empiece. Una EMA más corta va con menos retardo, pero 'menos' no es 'ninguno': el retardo nunca llega a cero."
+      en: "The lag is structural, not a data-feed delay: an average of past closes can only ever describe a trend after it has already started. A shorter EMA lags less, but 'less' is not 'none' — the lag never reaches zero for any period."
+      es: "El retardo es estructural, no un retraso del feed de datos: un promedio de cierres pasados solo puede describir una tendencia después de que haya empezado. Una EMA más corta va con menos retardo, pero 'menos' no es 'ninguno': el retardo nunca llega a cero para ningún periodo."
   - id: ma-predicts-next
     kind: true_false
     prompt:
@@ -69,24 +69,24 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The lag is structural — it comes from averaging past closes, not from a slow data feed."
-          es: "El retardo es estructural: viene de promediar cierres pasados, no de un feed de datos lento."
+          en: "The lag is structural: it comes from averaging closes that already happened."
+          es: "El retardo es estructural: viene de promediar cierres que ya ocurrieron."
       - id: b
         correct: true
         text:
-          en: "A shorter period lags less than a longer one, but never reaches zero lag."
-          es: "Un periodo más corto va con menos retardo que uno más largo, pero nunca llega a retardo cero."
+          en: "A shorter period lags less than a longer one, but never reaches zero."
+          es: "Un periodo más corto va con menos retardo que uno largo, pero nunca a cero."
       - id: c
         text:
-          en: "A short EMA removes the lag completely, so it moves in step with price."
-          es: "Una EMA corta elimina el retardo por completo, así que se mueve al compás del precio."
+          en: "A short EMA removes the lag entirely, moving in step with live price."
+          es: "Una EMA corta elimina el retardo del todo y va al compás del precio."
       - id: d
         text:
-          en: "The lag disappears once the trend becomes strong enough."
-          es: "El retardo desaparece cuando la tendencia se vuelve lo bastante fuerte."
+          en: "The lag disappears once the trend becomes strong and sustained enough."
+          es: "El retardo desaparece cuando la tendencia es lo bastante fuerte y sostenida."
     explanation:
-      en: "Lag is baked into the maths of averaging closes that already happened, so no market condition removes it. A shorter period trims the lag but cannot delete it, and no EMA — however short — reaches zero lag."
-      es: "El retardo está incorporado en las matemáticas de promediar cierres que ya ocurrieron, así que ninguna condición de mercado lo elimina. Un periodo más corto recorta el retardo pero no puede borrarlo, y ninguna EMA —por corta que sea— llega a retardo cero."
+      en: "Lag is baked into the maths of averaging closes that already happened — it is not a slow data feed, and no market condition removes it. A shorter period trims the lag but cannot delete it, and no EMA, however short, reaches zero."
+      es: "El retardo está incorporado en las matemáticas de promediar cierres que ya ocurrieron: no es un feed lento, y ninguna condición de mercado lo elimina. Un periodo más corto recorta el retardo pero no puede borrarlo, y ninguna EMA, por corta que sea, llega a cero."
   - id: ma-term-meanings
     kind: matching
     prompt:
@@ -106,25 +106,25 @@ variants:
       es: "Un principiante cambia de una SMA20 a una EMA20 y dice que la línea más rápida es 'más precisa'. ¿Cuál es la trampa?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The faster EMA also turns on moves that fizzle, so it is noisier — faster is a different setting, not a more accurate one."
-          es: "La EMA más rápida también gira ante movimientos que se quedan en nada, así que es más ruidosa: más rápida es otro ajuste, no uno más preciso."
+          en: "There is no catch at all — a faster average is strictly better than a slower one."
+          es: "No hay ninguna trampa: una media más rápida es sin más mejor que una lenta."
       - id: b
         text:
-          en: "There is no catch — a faster average is strictly better."
-          es: "No hay trampa: una media más rápida es sin más mejor."
+          en: "The EMA20 predicts the turns, so it can be wrong about what comes next."
+          es: "La EMA20 predice los giros, así que puede equivocarse sobre lo que viene."
       - id: c
+        correct: true
         text:
-          en: "The EMA20 predicts turns, so it can be wrong about the future."
-          es: "La EMA20 predice los giros, así que puede equivocarse sobre el futuro."
+          en: "It also turns on moves that fizzle, so it is noisier, not more accurate."
+          es: "También gira con movimientos que se quedan en nada: es más ruidosa, no más precisa."
       - id: d
         text:
-          en: "The EMA20 is smoother than the SMA20, so it hides the real trend."
-          es: "La EMA20 es más suave que la SMA20, así que oculta la tendencia real."
+          en: "The EMA20 is smoother than the SMA20, so it hides the trend that is really there."
+          es: "La EMA20 es más suave que la SMA20 y oculta la tendencia que hay de verdad."
     explanation:
-      en: "Speed and accuracy are not the same thing. The EMA turns sooner, which also means it turns on moves that go nowhere — more false starts, more noise. Neither line predicts anything; both only describe prices that already happened."
-      es: "Velocidad y precisión no son lo mismo. La EMA gira antes, lo que también significa que gira ante movimientos que no van a ninguna parte: más arranques en falso, más ruido. Ninguna línea predice nada; ambas solo describen precios que ya ocurrieron."
+      en: "Speed and accuracy are not the same thing. The EMA turns sooner, which also means it turns on moves that go nowhere — more false starts, more noise, and less smoothing rather than more. Neither line predicts anything; both only describe prices that already happened."
+      es: "Velocidad y precisión no son lo mismo. La EMA gira antes, lo que también significa que gira ante movimientos que no van a ninguna parte: más arranques en falso, más ruido y menos suavizado, no más. Ninguna línea predice nada; ambas solo describen precios que ya ocurrieron."
   - id: ema-sma-worked
     prompt:
       en: "Price sat flat at 100 for a long time, so an SMA10 and an EMA10 both read 100. Price now jumps to 110 and holds. How do the two lines behave?"
@@ -133,44 +133,48 @@ variants:
       - id: a
         correct: true
         text:
-          en: "The SMA10 climbs in a straight line — 101, 102, 103… — reaching 110 only after ten bars, while the EMA10 jumps to about 101.8 on the first bar and is near 106.3 by bar five."
-          es: "La SMA10 sube en línea recta (101, 102, 103…) y solo alcanza 110 tras diez barras, mientras la EMA10 salta a unos 101,8 en la primera barra y está cerca de 106,3 en la quinta."
+          en: "The SMA climbs 1 a bar to 110 over ten bars; the EMA is near 106 by bar five."
+          es: "La SMA sube 1 por barra hasta 110 en diez barras; la EMA ronda 106 en la quinta."
       - id: b
         text:
-          en: "Both jump to 110 immediately, since the new price is in both windows."
-          es: "Ambas saltan a 110 de inmediato, ya que el nuevo precio está en las dos ventanas."
+          en: "Both jump straight to 110 immediately, since the new price is in both windows."
+          es: "Ambas saltan a 110 de inmediato, ya que el precio nuevo está en las dos ventanas."
       - id: c
         text:
-          en: "The SMA10 reacts faster, because every close counts equally."
-          es: "La SMA10 reacciona más rápido, porque todos los cierres cuentan igual."
+          en: "The SMA10 reacts faster than the EMA, because every close counts equally in it."
+          es: "La SMA10 reacciona antes que la EMA, porque en ella cada cierre cuenta igual."
       - id: d
         text:
-          en: "Neither moves until the tenth bar, when the window is full of 110s."
-          es: "Ninguna se mueve hasta la décima barra, cuando la ventana está llena de 110."
+          en: "Neither line moves at all until bar ten, when the window is full of 110s."
+          es: "Ninguna línea se mueve hasta la barra diez, cuando la ventana está llena de 110."
     explanation:
-      en: "Same data, different weighting: the EMA has admitted most of the move before the SMA is halfway there. That speed is also what makes it noisier — it turns on moves that fizzle."
-      es: "Los mismos datos, distinta ponderación: la EMA ha admitido la mayor parte del movimiento antes de que la SMA llegue a la mitad. Esa velocidad es también lo que la hace más ruidosa: gira con movimientos que se quedan en nada."
+      en: "Same data, different weighting: the SMA climbs in a straight line — 101, 102, 103… — reaching 110 only after ten bars, while the EMA10 jumps to about 101.8 on the very first bar and is near 106.3 by bar five. The EMA has admitted most of the move before the SMA is halfway there, and that speed is exactly what makes it noisier."
+      es: "Los mismos datos, distinta ponderación: la SMA sube en línea recta (101, 102, 103…) y solo alcanza 110 tras diez barras, mientras la EMA10 salta a unos 101,8 ya en la primera barra y está cerca de 106,3 en la quinta. La EMA ha admitido la mayor parte del movimiento antes de que la SMA llegue a la mitad, y esa velocidad es justo lo que la hace más ruidosa."
   - id: sma-drop-off
     prompt:
       en: "Why can an SMA lurch on a bar where today's price barely moved?"
       es: "¿Por qué una SMA puede dar un salto en una barra en la que el precio de hoy apenas se movió?"
     options:
       - id: a
+        text:
+          en: "Because the SMA weights recent closes more heavily than older ones."
+          es: "Porque la SMA pondera más los cierres recientes que los antiguos."
+      - id: b
         correct: true
         text:
-          en: "Because the oldest close drops out of the window completely — a big price from exactly N bars ago simply falls off the back."
-          es: "Porque el cierre más antiguo sale de la ventana por completo: un precio grande de exactamente N barras atrás simplemente se cae por detrás."
-      - id: b
-        text:
-          en: "Because the SMA weights recent closes more heavily than old ones."
-          es: "Porque la SMA pondera más los cierres recientes que los antiguos."
+          en: "Because the oldest close drops out of the window completely."
+          es: "Porque el cierre más antiguo sale de la ventana por completo."
       - id: c
-        text: { en: "Because it is recalculated from the high and low, not the close.", es: "Porque se recalcula con el máximo y el mínimo, no con el cierre." }
+        text:
+          en: "Because it is recalculated from the high and low, rather than the close."
+          es: "Porque se recalcula con el máximo y el mínimo, en vez de con el cierre."
       - id: d
-        text: { en: "Because exchanges revise old closes at the daily boundary.", es: "Porque los exchanges revisan los cierres antiguos en el límite diario." }
+        text:
+          en: "Because exchanges revise old closes when the daily boundary passes."
+          es: "Porque los exchanges revisan los cierres antiguos al pasar el límite diario."
     explanation:
-      en: "In an SMA a close from N bars ago has as much say as yesterday's, right up until the instant it has none. The EMA avoids the cliff: old prices fade geometrically instead of dropping out."
-      es: "En una SMA, un cierre de N barras atrás pesa igual que el de ayer, hasta el instante en que deja de pesar nada. La EMA evita el precipicio: los precios antiguos se desvanecen geométricamente en vez de caerse de golpe."
+      en: "A big price from exactly N bars ago simply falls off the back of the window. In an SMA a close from N bars ago has as much say as yesterday's — every close is weighted equally, which is the point — right up until the instant it has none. The EMA avoids the cliff: old prices fade geometrically instead of dropping out."
+      es: "Un precio grande de exactamente N barras atrás simplemente se cae por detrás de la ventana. En una SMA, un cierre de N barras atrás pesa igual que el de ayer —todos los cierres pesan lo mismo, ese es el punto— hasta el instante en que deja de pesar nada. La EMA evita el precipicio: los precios antiguos se desvanecen geométricamente en vez de caerse de golpe."
   - id: sma50-age
     kind: true_false
     prompt:

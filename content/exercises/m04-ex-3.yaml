@@ -7,50 +7,50 @@ variants:
       es: "Cuando te pones largo en un futuro perpetuo de BTC, ¿qué tienes en realidad?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "A contract whose value tracks BTC's price — you do not own any BTC."
-          es: "Un contrato cuyo valor sigue al precio de BTC: no posees ningún BTC."
-      - id: b
         text:
           en: "Actual BTC, held in custody for you by the exchange until you close."
           es: "BTC de verdad, que el exchange te custodia hasta que cierras."
+      - id: b
+        correct: true
+        text:
+          en: "A contract whose value tracks BTC's price — you own no BTC."
+          es: "Un contrato cuyo valor sigue al precio de BTC: no posees ningún BTC."
       - id: c
         text:
           en: "A dated contract that expires and settles for BTC next quarter."
           es: "Un contrato con fecha que vence y liquida en BTC el próximo trimestre."
       - id: d
         text:
-          en: "A loan of BTC that you must repay to the exchange."
-          es: "Un préstamo de BTC que debes devolver al exchange."
+          en: "A loan of BTC from the exchange that you must repay on closing."
+          es: "Un préstamo de BTC del exchange que debes devolver al cerrar."
     explanation:
-      en: "A perp is a contract that tracks a price; you never own or borrow the underlying coin. And 'perpetual' means there is no expiry date — that is the whole point of the design."
-      es: "Un perp es un contrato que sigue un precio; nunca posees ni pides prestada la moneda subyacente. Y 'perpetuo' significa que no hay fecha de vencimiento: ese es todo el sentido del diseño."
+      en: "A perp is a contract that tracks a price: you never own, hold or borrow the underlying coin, and the exchange settles the difference in value rather than delivering anything. 'Perpetual' also means there is no expiry date — that is the whole point of the design, and the reason funding exists at all."
+      es: "Un perp es un contrato que sigue un precio: nunca posees, tienes ni pides prestada la moneda subyacente, y el exchange salda la diferencia de valor en vez de entregar nada. 'Perpetuo' significa además que no hay fecha de vencimiento: ese es todo el sentido del diseño, y la razón de que exista el funding."
   - id: mark-vs-last
     prompt:
       en: "A perp's last traded price wicks down for a few seconds on one exchange, far below every other venue. Your long is nowhere near its liquidation level on the mark price. What happens?"
       es: "El último precio de un perp da una mecha hacia abajo durante unos segundos en un exchange, muy por debajo del resto de plataformas. Tu largo está lejísimos de su nivel de liquidación según el precio de marca. ¿Qué pasa?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Nothing is forced — liquidations track the mark price (a smoothed fair value), not one venue's last trade."
-          es: "No se fuerza nada: las liquidaciones siguen el precio de marca (un valor justo suavizado), no la última operación de una plataforma."
-      - id: b
         text:
           en: "You are liquidated at once, because the last price touched your level."
           es: "Te liquidan de inmediato, porque el último precio tocó tu nivel."
+      - id: b
+        text:
+          en: "Your long is closed automatically at a profit by the venue's engine."
+          es: "El motor del venue cierra tu largo automáticamente con beneficio."
       - id: c
         text:
-          en: "Your long is closed automatically at a profit."
-          es: "Tu largo se cierra automáticamente con beneficio."
+          en: "Funding is paid to you early, to make up for the wick against you."
+          es: "Se te paga el funding por adelantado, para compensar la mecha en contra."
       - id: d
+        correct: true
         text:
-          en: "Funding is paid to you early to make up for the wick."
-          es: "Se te paga el funding por adelantado para compensar la mecha."
+          en: "Nothing is forced — liquidations track the mark price, not one venue's last trade."
+          es: "No se fuerza nada: las liquidaciones siguen el mark, no la última operación de un venue."
     explanation:
-      en: "Liquidations use the mark price precisely so a single thin or manipulated wick cannot force-close healthy positions. The last price is jumpy; the mark price is the fair reference your liquidation level is measured against."
-      es: "Las liquidaciones usan el precio de marca justamente para que una sola mecha fina o manipulada no cierre a la fuerza posiciones sanas. El último precio es nervioso; el precio de marca es la referencia justa contra la que se mide tu nivel de liquidación."
+      en: "Liquidations use the mark price — a smoothed fair value built from a spot index across venues — precisely so a single thin or manipulated wick cannot force-close healthy positions. The last price is jumpy; funding is a scheduled payment between traders, not compensation; and nothing closes a position that is still comfortably margined."
+      es: "Las liquidaciones usan el precio de marca —un valor justo suavizado a partir de un índice spot de varios venues— justamente para que una sola mecha fina o manipulada no cierre a la fuerza posiciones sanas. El último precio es nervioso; el funding es un pago programado entre traders, no una compensación; y nada cierra una posición que sigue holgadamente margen."
   - id: price-term-meanings
     kind: matching
     prompt:
@@ -100,12 +100,12 @@ variants:
   - id: no-expiry-myth
     kind: true_false
     prompt:
-      en: "A perpetual future settles on a fixed date each quarter — it just runs longer than an ordinary dated future."
-      es: "Un futuro perpetuo vence en una fecha fija cada trimestre; solo dura más que un futuro con fecha normal."
-    answer: false
+      en: "A perpetual future has no expiry date at all, which is exactly why funding exists to tether it to spot."
+      es: "Un futuro perpetuo no tiene ninguna fecha de vencimiento, y precisamente por eso existe el funding para amarrarlo al spot."
+    answer: true
     explanation:
-      en: "False. 'Perpetual' means there is no expiry date at all — that is the whole design. A dated future settles on a set day; a perp just keeps running, which is exactly why funding exists to tether it to spot."
-      es: "Falso. 'Perpetuo' significa que no hay ninguna fecha de vencimiento: ese es todo el diseño. Un futuro con fecha vence un día fijado; un perp simplemente sigue corriendo, y por eso existe el funding para amarrarlo al spot."
+      en: "True. A dated future settles on a set day, and that settlement is what drags its price back to spot. A perp just keeps running, so it needs a different tether — the periodic payment between longs and shorts."
+      es: "Cierto. Un futuro con fecha vence un día fijado, y esa liquidación es lo que arrastra su precio hacia el spot. Un perp simplemente sigue corriendo, así que necesita otro amarre: el pago periódico entre largos y cortos."
   - id: short-without-borrowing
     prompt:
       en: "To open a short on a BTC perpetual, what do you have to do with real BTC first?"
@@ -114,8 +114,8 @@ variants:
       - id: a
         correct: true
         text:
-          en: "Nothing — the contract is symmetric, so a short is opened natively, without borrowing or selling any coin."
-          es: "Nada: el contrato es simétrico, así que un corto se abre de forma nativa, sin pedir prestada ni vender ninguna moneda."
+          en: "Nothing — the contract is symmetric, so a short opens natively."
+          es: "Nada: el contrato es simétrico, así que un corto se abre de forma nativa."
       - id: b
         text:
           en: "Borrow BTC from the exchange and sell it, then buy it back later."
@@ -129,33 +129,33 @@ variants:
           en: "Convert your margin into BTC, which the exchange then sells for you."
           es: "Convertir tu margen en BTC, que luego el exchange vende por ti."
     explanation:
-      en: "On a perp a short is just as native as a long — you open a position in a contract, you do not borrow or sell any real coin. That is different from shorting on a spot market, where you really would borrow the asset."
-      es: "En un perp un corto es tan nativo como un largo: abres una posición en un contrato, no pides prestada ni vendes ninguna moneda real. Es distinto de ponerte corto en el mercado spot, donde sí pedirías prestado el activo."
+      en: "On a perp a short is just as native as a long: you open a position in a contract, and no real coin is borrowed, delivered or sold at any point. That is what makes it different from shorting on a spot market, where you genuinely would have to borrow the asset first."
+      es: "En un perp un corto es tan nativo como un largo: abres una posición en un contrato, y en ningún momento se pide prestada, se entrega ni se vende ninguna moneda real. Eso es lo que lo distingue de ponerse corto en el mercado spot, donde sí tendrías que pedir prestado el activo primero."
   - id: zero-sum
     prompt:
       en: "BTC is at 20,000 and you open a long perp with 10,000 USDT of notional. Price rises 5% to 21,000. What happened?"
       es: "BTC está en 20.000 y abres un perp largo con 10.000 USDT de nocional. El precio sube un 5% hasta 21.000. ¿Qué ha ocurrido?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "You gained 5% of notional — 500 USDT, credited in USDT — and a trader short the same notional lost exactly that 500. No Bitcoin moved."
-          es: "Ganaste el 5% del nocional (500 USDT, abonados en USDT) y un trader corto por el mismo nocional perdió exactamente esos 500. Ningún Bitcoin se movió."
-      - id: b
         text:
           en: "0.5 BTC was transferred into your account from the exchange's reserves."
           es: "Se transfirieron 0,5 BTC a tu cuenta desde las reservas del exchange."
-      - id: c
+      - id: b
         text:
           en: "You gained 500 USDT, paid by the exchange out of its trading revenue."
           es: "Ganaste 500 USDT, pagados por el exchange con sus ingresos de trading."
+      - id: c
+        correct: true
+        text:
+          en: "You gained 500 USDT and a trader short the same notional lost it."
+          es: "Ganaste 500 USDT y un trader corto por el mismo nocional los perdió."
       - id: d
         text:
-          en: "You gained 5% of your margin, not of the notional."
-          es: "Ganaste el 5% de tu margen, no del nocional."
+          en: "You gained 5% of your margin, rather than 5% of the notional."
+          es: "Ganaste el 5% de tu margen, en lugar del 5% del nocional."
     explanation:
-      en: "The contract is a zero-sum transfer between the two sides, settled in a stablecoin. Your position size is measured in notional — the full value the contract controls — and the coin itself sat untouched in someone else's wallet the whole time."
-      es: "El contrato es una transferencia de suma cero entre las dos partes, liquidada en una stablecoin. El tamaño de tu posición se mide en nocional (el valor total que controla el contrato) y la moneda siguió intacta en la wallet de otra persona todo el tiempo."
+      en: "The contract is a zero-sum transfer between the two sides, settled in a stablecoin: 5% of the 10,000 notional is 500 USDT, credited to you and debited from the other side — not from the exchange, which only takes fees. Your position size is measured in notional, the full value the contract controls, and the coin itself sat untouched in someone else's wallet the whole time."
+      es: "El contrato es una transferencia de suma cero entre las dos partes, liquidada en una stablecoin: el 5% de los 10.000 de nocional son 500 USDT, abonados a ti y cargados a la otra parte, no al exchange, que solo cobra comisiones. El tamaño de tu posición se mide en nocional, el valor total que controla el contrato, y la moneda siguió intacta en la wallet de otra persona todo el tiempo."
   - id: mark-price-facts
     kind: multi_select
     prompt:
@@ -165,47 +165,51 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is a smoothed fair value built from an index of spot prices across many venues."
-          es: "Es un valor razonable suavizado, construido con un índice de precios spot de muchos venues."
+          en: "It is a smoothed fair value built from a spot index across venues."
+          es: "Es un valor razonable suavizado, construido con un índice spot de varios venues."
       - id: b
         correct: true
-        text: { en: "Your liquidation level is measured against it.", es: "Tu nivel de liquidación se mide contra él." }
+        text:
+          en: "Your liquidation level is measured against it."
+          es: "Tu nivel de liquidación se mide contra él."
       - id: c
         correct: true
         text:
-          en: "It moves less violently than last price because no single venue can drag it far."
-          es: "Se mueve menos violentamente que el último precio porque ningún venue puede arrastrarlo lejos."
+          en: "It moves less violently than last price, since no one venue drags it."
+          es: "Se mueve menos que el último precio, porque ningún venue lo arrastra."
       - id: d
         text:
-          en: "It is the price of the most recent trade on your exchange."
-          es: "Es el precio de la operación más reciente en tu exchange."
+          en: "It is the price of the most recent trade on your own exchange."
+          es: "Es el precio de la operación más reciente en tu propio exchange."
       - id: e
-        text: { en: "It is set manually by the exchange's risk desk.", es: "Lo fija manualmente la mesa de riesgos del exchange." }
+        text:
+          en: "It is set by hand each session by the exchange's risk desk."
+          es: "Lo fija a mano cada sesión la mesa de riesgos del exchange."
     explanation:
-      en: "The mark exists for a defensive reason: if forced closes tracked the last trade, one momentary wick on a thin venue could liquidate thousands of healthy positions in a heartbeat."
-      es: "El mark existe por una razón defensiva: si los cierres forzosos siguieran la última operación, una mecha momentánea en un venue ilíquido podría liquidar miles de posiciones sanas en un instante."
+      en: "The mark exists for a defensive reason: if forced closes tracked the last trade, one momentary wick on a thin venue could liquidate thousands of healthy positions in a heartbeat. It is computed from an index, continuously and mechanically — nobody at the exchange types it in."
+      es: "El mark existe por una razón defensiva: si los cierres forzosos siguieran la última operación, una mecha momentánea en un venue ilíquido podría liquidar miles de posiciones sanas en un instante. Se calcula a partir de un índice, de forma continua y mecánica: nadie en el exchange lo teclea."
   - id: panic-close
     prompt:
       en: "During a violent candle a trader watches the last price stab down through their liquidation number and closes the position themselves at a terrible tick. What actually happened?"
       es: "Durante una vela violenta, un trader ve el último precio atravesar su número de liquidación y cierra él mismo la posición a un precio terrible. ¿Qué ocurrió en realidad?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "The wick existed only on the last price. Reading the calmer mark price, the exchange would never have force-closed them — they turned a non-event into a realised loss."
-          es: "La mecha solo existió en el último precio. Leyendo el mark, más tranquilo, el exchange nunca los habría cerrado por la fuerza: convirtieron un no-evento en una pérdida realizada."
-      - id: b
         text:
           en: "They saved themselves — the exchange would have liquidated them moments later."
           es: "Se salvaron: el exchange los habría liquidado momentos después."
+      - id: b
+        correct: true
+        text:
+          en: "The wick existed only on the last price, so they turned a non-event into a real loss."
+          es: "La mecha solo existió en el último precio, así que convirtieron un no-evento en pérdida real."
       - id: c
         text:
-          en: "The exchange had already liquidated them; their close did nothing."
-          es: "El exchange ya los había liquidado; su cierre no hizo nada."
+          en: "The exchange had already liquidated them; their own close did nothing."
+          es: "El exchange ya los había liquidado; su propio cierre no hizo nada."
       - id: d
         text:
-          en: "Both prices had crossed the level, so the outcome was identical either way."
-          es: "Ambos precios habían cruzado el nivel, así que el resultado era idéntico de todas formas."
+          en: "Both prices crossed the level, so the outcome was identical either way."
+          es: "Ambos precios cruzaron el nivel, así que el resultado era idéntico igualmente."
     explanation:
-      en: "Learn which number actually triggers the forced close before you react to a spike. Liquidations track the mark price, never the last price — this is exactly the scenario the mark was designed to protect you from."
-      es: "Aprende qué número dispara realmente el cierre forzoso antes de reaccionar a un pico. Las liquidaciones siguen el mark, nunca el último precio: este es precisamente el escenario del que el mark te protege."
+      en: "Reading the calmer mark price, the exchange would never have force-closed them. Learn which number actually triggers the forced close before you react to a spike: liquidations track the mark price, never the last price, and this is exactly the scenario the mark was designed to protect you from."
+      es: "Leyendo el mark, más tranquilo, el exchange nunca los habría cerrado por la fuerza. Aprende qué número dispara realmente el cierre forzoso antes de reaccionar a un pico: las liquidaciones siguen el mark, nunca el último precio, y este es precisamente el escenario del que el mark te protege."

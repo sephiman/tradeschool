@@ -36,25 +36,25 @@ variants:
       es: "Un short squeeze ha subido un 15% en una hora y sigue trepando. ¿Qué lectura te dice que se acerca al agotamiento en vez de empezar una tendencia?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "The funding that was deeply negative has flipped positive and open interest has fallen as those shorts were closed out — the forced buyers behind price are gone."
-          es: "El funding, que estaba muy negativo, se ha vuelto positivo y el interés abierto ha caído a medida que esos cortos se cerraban: los compradores forzosos que había detrás del precio han desaparecido."
-      - id: b
         text:
           en: "The speed of the move itself — 15% in an hour confirms real conviction."
-          es: "La velocidad del movimiento en sí: un 15% en una hora confirma convicción real."
+          es: "La velocidad del movimiento: un 15% en una hora confirma convicción real."
+      - id: b
+        text:
+          en: "Price printing new highs on the largest volume seen all day."
+          es: "El precio marcando nuevos máximos con el mayor volumen del día."
       - id: c
         text:
-          en: "Price printing new highs on the largest volume of the day."
-          es: "El precio marcando nuevos máximos con el mayor volumen del día."
-      - id: d
-        text:
           en: "The liquidation map showing a fresh cluster of shorts above current price."
-          es: "El mapa de liquidaciones mostrando un clúster nuevo de cortos por encima del precio actual."
+          es: "El mapa mostrando un clúster nuevo de cortos por encima del precio."
+      - id: d
+        correct: true
+        text:
+          en: "Funding has flipped positive and open interest has fallen."
+          es: "El funding se ha vuelto positivo y el interés abierto ha caído."
     explanation:
-      en: "The fuel was forced buying from a finite pool, so the tell is the pool emptying: funding flipping sign and open interest falling as those positions are closed. Volume proves nothing — forced flow prints volume too — and a cluster still above price is fuel, not exhaustion."
-      es: "El combustible era compra forzosa de una reserva finita, así que la señal es que esa reserva se vacía: el funding cambiando de signo y el interés abierto cayendo a medida que se cierran esas posiciones. El volumen no prueba nada (el flujo forzoso también imprime volumen) y un clúster todavía por encima del precio es combustible, no agotamiento."
+      en: "The fuel was forced buying from a finite pool, so the tell is the pool emptying: funding that was deeply negative flipping sign, and open interest falling as those shorts get closed out — the forced buyers behind price are gone. Volume proves nothing, because forced flow prints volume too, and a cluster still above price is fuel rather than exhaustion."
+      es: "El combustible era compra forzosa de una reserva finita, así que la señal es que esa reserva se vacía: el funding, que estaba muy negativo, cambiando de signo, y el interés abierto cayendo a medida que esos cortos se cierran; los compradores forzosos que había detrás del precio han desaparecido. El volumen no prueba nada, porque el flujo forzoso también imprime volumen, y un clúster todavía por encima del precio es combustible, no agotamiento."
   - id: durable-trend-myth
     kind: true_false
     prompt:
@@ -107,25 +107,25 @@ variants:
       es: "ETH acaba de subir un 15% de golpe en una hora por un short squeeze y está en máximos. Un principiante compra esperando que la tendencia continúe. ¿Cuál es el fallo?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The move was forced buying from a finite pool of shorts that is now nearly empty; buying here is buying just as the mechanical bid disappears."
-          es: "El movimiento era compra forzada de una bolsa finita de cortos que ahora está casi vacía; comprar aquí es comprar justo cuando la demanda mecánica desaparece."
+          en: "There is no flaw — a 15% hour confirms a strong uptrend worth joining."
+          es: "No hay fallo: un 15% en una hora confirma una alcista fuerte a la que sumarse."
       - id: b
         text:
-          en: "There is no flaw — a 15% move in an hour confirms a strong uptrend worth joining."
-          es: "No hay fallo: un movimiento del 15% en una hora confirma una tendencia alcista fuerte a la que vale la pena sumarse."
+          en: "The only real risk is that trading fees rise during volatile periods."
+          es: "El único riesgo real es que las comisiones suben en periodos volátiles."
       - id: c
+        correct: true
         text:
-          en: "The only risk is that trading fees are higher during volatile periods."
-          es: "El único riesgo es que las comisiones de trading son más altas en periodos volátiles."
+          en: "The forced bid came from a finite short pool that is now nearly empty."
+          es: "La demanda forzada salía de una bolsa finita de cortos ya casi vacía."
       - id: d
         text:
-          en: "Squeezes always continue the next day, so the entry is just slightly early."
-          es: "Los squeezes siempre continúan al día siguiente, así que la entrada es solo un poco temprana."
+          en: "Squeezes always continue the next day, so the entry is only slightly early."
+          es: "Los squeezes siempre siguen al día siguiente: la entrada es solo temprana."
     explanation:
-      en: "Chasing a spent squeeze is the classic trap. The violent leg was mechanical — forced buying from a crowded short side that is now emptied. Buying the top means providing the liquidity that early longs take profit into, right as the forced bid runs out. The move that looked strongest was ending."
-      es: "Perseguir un squeeze gastado es la trampa clásica. El tramo violento era mecánico: compra forzada de un lado corto concurrido que ahora está vacío. Comprar el techo significa aportar la liquidez con la que los primeros largos toman ganancias, justo cuando la demanda forzada se acaba. El movimiento que parecía más fuerte estaba terminando."
+      en: "Chasing a spent squeeze is the classic trap. The violent leg was mechanical — forced buying from a crowded short side that is now emptied — so buying here means buying just as the mechanical bid disappears, providing the liquidity that early longs take profit into. The move that looked strongest was ending, and its speed was the symptom, not the confirmation."
+      es: "Perseguir un squeeze gastado es la trampa clásica. El tramo violento era mecánico —compra forzada de un lado corto concurrido que ahora está vacío—, así que comprar aquí es comprar justo cuando la demanda mecánica desaparece, aportando la liquidez con la que los primeros largos toman ganancias. El movimiento que parecía más fuerte estaba terminando, y su velocidad era el síntoma, no la confirmación."
   - id: forced-direction
     kind: matching
     prompt:
@@ -173,21 +173,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "About 15% of the crowded short side being emptied by forced buying — mechanics, not fresh conviction."
-          es: "Alrededor de un 15% del lado corto saturado siendo vaciado por compra forzosa: mecánica, no convicción nueva."
+          en: "The crowded short side being emptied by forced buying — mechanics."
+          es: "El lado corto saturado vaciándose por compra forzosa: mecánica."
       - id: b
         text:
-          en: "A durable new uptrend, confirmed by the speed of the move."
-          es: "Una nueva tendencia alcista duradera, confirmada por la velocidad del movimiento."
+          en: "Spot demand alone, on the grounds that the buying started in spot."
+          es: "Solo demanda spot, dado que la compra empezó en el mercado spot."
       - id: c
-        text: { en: "Spot demand alone, since the buying started in spot.", es: "Solo demanda spot, ya que la compra empezó en spot." }
+        text:
+          en: "A durable new uptrend, confirmed by the sheer speed of the move."
+          es: "Una nueva tendencia alcista duradera, confirmada por la velocidad."
       - id: d
         text:
-          en: "A long squeeze, because price moved violently."
-          es: "Un long squeeze, porque el precio se movió con violencia."
+          en: "A long squeeze, given how violently the price moved in the hour."
+          es: "Un long squeeze, dada la violencia con que se movió el precio."
     explanation:
-      en: "By 3,450 the crowded shorts are gone and funding has flipped positive. With no forced buyers left behind price, it stalls and bleeds back toward 3,150 — the violent leg was mechanical, and mechanics run out."
-      es: "En 3.450 los cortos saturados han desaparecido y el funding se ha vuelto positivo. Sin compradores forzosos detrás del precio, se estanca y retrocede hacia 3.150: el tramo violento era mecánico, y la mecánica se agota."
+      en: "About 15% of the move was the crowded short side being closed out, not fresh conviction: the spot buying was only the spark that reached the first shelf. By 3,450 the crowded shorts are gone and funding has flipped positive, so with no forced buyers left behind price it stalls and bleeds back toward 3,150. The violent leg was mechanical, and mechanics run out — and it was shorts being squeezed, which drives price up, not longs."
+      es: "Un 15% del movimiento fue el lado corto saturado cerrándose, no convicción nueva: la compra spot solo fue la chispa que alcanzó la primera plataforma. En 3.450 los cortos saturados han desaparecido y el funding se ha vuelto positivo, así que sin compradores forzosos detrás el precio se estanca y retrocede hacia 3.150. El tramo violento era mecánico, y la mecánica se agota, y quienes fueron exprimidos eran cortos, lo que empuja el precio arriba, no largos."
   - id: crypto-cascade-facts
     kind: multi_select
     prompt:
@@ -197,51 +199,51 @@ variants:
       - id: a
         correct: true
         text:
-          en: "24/7 trading — no overnight pause to let a crowded position cool off, so cascades fire at 3am and run unopposed."
-          es: "Operar 24/7: no hay pausa nocturna que enfríe una posición saturada, así que las cascadas se disparan a las 3 de la madrugada y corren sin oposición."
+          en: "24/7 trading — no overnight pause, so cascades fire at 3am unopposed."
+          es: "Operar 24/7: sin pausa nocturna, las cascadas se disparan sin oposición."
       - id: b
         correct: true
         text:
-          en: "Extreme leverage puts liquidation prices right next to entry, so clusters are dense and go off on tiny moves."
-          es: "El apalancamiento extremo sitúa los precios de liquidación junto a la entrada, así que los grupos son densos y se disparan con movimientos mínimos."
+          en: "Extreme leverage puts liquidation prices right next to the entry."
+          es: "El apalancamiento extremo pone las liquidaciones junto a la entrada."
       - id: c
         correct: true
         text:
-          en: "Thin books — weekends, holidays and small-cap alts — mean the same forced flow moves price much further."
-          es: "Los libros poco profundos (fines de semana, festivos y alts pequeñas) hacen que el mismo flujo forzoso mueva mucho más el precio."
+          en: "Thin books mean the same forced flow moves price much further."
+          es: "Los libros finos hacen que el mismo flujo forzoso mueva mucho más."
       - id: d
         text:
           en: "Exchanges halt trading during cascades, which concentrates the move."
-          es: "Los exchanges detienen la negociación durante las cascadas, lo que concentra el movimiento."
+          es: "Los exchanges detienen la negociación en cascadas y concentran el movimiento."
       - id: e
         text:
-          en: "Forced orders are limit orders, which stack the book in the direction of the move."
-          es: "Las órdenes forzosas son órdenes límite, que apilan el libro en la dirección del movimiento."
+          en: "Forced orders are limit orders, which stack the book in that direction."
+          es: "Las órdenes forzosas son límite y apilan el libro en esa dirección."
     explanation:
-      en: "The wick overshoots because there was nothing there to absorb it. All three conditions push the same way: dense fuel, no pause, and nothing to stop the flow."
-      es: "La mecha se excede porque no había nada que la absorbiera. Las tres condiciones empujan en la misma dirección: combustible denso, sin pausa y sin nada que frene el flujo."
+      en: "Dense clusters, no closing bell and thin books all push the same way, and the wick overshoots because there was nothing there to absorb it. Nothing halts a 24/7 market mid-cascade, and forced closes are market orders that take liquidity rather than limit orders that supply it — which is exactly why they move price so far."
+      es: "Grupos densos, sin campana de cierre y libros finos empujan todos en la misma dirección, y la mecha se excede porque no había nada que la absorbiera. Nada detiene un mercado 24/7 en plena cascada, y los cierres forzosos son órdenes a mercado que toman liquidez, no órdenes límite que la aportan: por eso mueven tanto el precio."
   - id: fade-not-chase
     prompt:
       en: "A squeeze is running right now. What is the honest edge — and what if you cannot tell which phase you are in?"
       es: "Un squeeze está en marcha ahora mismo. ¿Cuál es la ventaja honesta, y qué hacer si no sabes en qué fase estás?"
     options:
       - id: a
-        correct: true
-        text:
-          en: "Fade exhaustion, never chase the cascade — and if you cannot tell which phase you are in, the correct trade is none."
-          es: "Operar contra el agotamiento, nunca perseguir la cascada, y si no sabes en qué fase estás, la operación correcta es ninguna."
-      - id: b
         text:
           en: "Chase the cascade — momentum this strong tends to continue for days."
-          es: "Perseguir la cascada: un momentum tan fuerte suele continuar días."
-      - id: c
+          es: "Perseguir la cascada: un momentum así suele continuar durante días."
+      - id: b
         text:
-          en: "Enter in the direction of the cluster the map shows next."
+          en: "Enter in the direction of whichever cluster the map shows next."
           es: "Entrar en la dirección del siguiente grupo que muestre el mapa."
+      - id: c
+        correct: true
+        text:
+          en: "Fade exhaustion, never chase; if unsure of the phase, trade nothing."
+          es: "Operar el agotamiento, nunca perseguir; si dudas de la fase, no operes."
       - id: d
         text:
-          en: "Add to the crowded side, since funding pays it."
-          es: "Añadir al lado saturado, ya que el funding lo paga."
+          en: "Add to the crowded side, on the grounds that funding is paying it."
+          es: "Añadir al lado saturado, con el argumento de que el funding lo paga."
     explanation:
-      en: "The cascade looks exactly like a powerful breakout, which is why chasing it is the classic mistake: you buy precisely as the mechanical bid disappears and become the liquidity the early sellers take profit into."
-      es: "La cascada se parece exactamente a una ruptura potente, y por eso perseguirla es el error clásico: compras justo cuando desaparece la demanda mecánica y te conviertes en la liquidez con la que los primeros vendedores toman beneficio."
+      en: "The cascade looks exactly like a powerful breakout, which is why chasing it is the classic mistake: you buy precisely as the mechanical bid disappears and become the liquidity the early sellers take profit into. A cluster on the map is fuel, not a direction, and the crowded side is the one that gets liquidated — funding is what it pays for the privilege, not a reward for joining."
+      es: "La cascada se parece exactamente a una ruptura potente, y por eso perseguirla es el error clásico: compras justo cuando desaparece la demanda mecánica y te conviertes en la liquidez con la que los primeros vendedores toman beneficio. Un grupo en el mapa es combustible, no una dirección, y el lado saturado es el que acaba liquidado: el funding es lo que paga por el privilegio, no un premio por sumarse."

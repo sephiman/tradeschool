@@ -123,7 +123,18 @@ export function glossaryFromContent(locale: Locale): GlossaryEntry[] {
       definition?: LocalizedText;
       senses?: { origin: string; definition: LocalizedText }[];
       alias_of?: string;
+      link?: boolean | { en?: boolean; es?: boolean };
+      match?: { en?: string[]; es?: string[] };
+      link_except?: string[] | { en?: string[]; es?: string[] };
     }[];
+  };
+  /** `link` and `link_except` may be one value for both locales or one per locale, as the loader reads them. */
+  const perLocale = <T,>(value: T | { en?: T; es?: T } | undefined, fallback: T): T => {
+    if (value === undefined) return fallback;
+    if (typeof value === "object" && value !== null && ("en" in value || "es" in value)) {
+      return (value as { en?: T; es?: T })[locale] ?? fallback;
+    }
+    return value as T;
   };
   const byId = new Map(raw.terms.map((term) => [term.id, term]));
   const titles = new Map(manifestLessons().map((lesson) => [lesson.id, lesson.title[locale]]));
@@ -145,6 +156,14 @@ export function glossaryFromContent(locale: Locale): GlossaryEntry[] {
           }
         : {}),
       ...(target ? { aliasOf: { id: target.id, term: target[locale] } } : {}),
+      // Shaped exactly as `_glossary_entry` emits them: resolved for this locale, and absent where
+      // the annotator's default applies.
+      ...(perLocale(term.link, true) ? {} : { link: false }),
+      ...(term.match?.[locale] ? { match: term.match[locale] } : {}),
+      ...((): { linkExcept?: string[] } => {
+        const except = perLocale<string[]>(term.link_except, []);
+        return except.length ? { linkExcept: except } : {};
+      })(),
     };
   });
 }

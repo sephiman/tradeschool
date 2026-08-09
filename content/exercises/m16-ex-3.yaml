@@ -7,50 +7,50 @@ variants:
       es: "¿Qué es la \"capitulación\"?"
     options:
       - id: a
-        correct: true
         text:
-          en: "The point where scared holders give up and sell at a loss just to stop the pain, so selling pressure becomes largely spent."
-          es: "El punto en que los tenedores asustados se rinden y venden con pérdidas solo para dejar de sufrir, con lo que la presión vendedora queda casi agotada."
+          en: "The exchange force-closing leveraged positions once their margin runs out."
+          es: "El exchange cerrando posiciones apalancadas cuando se agota su margen."
       - id: b
         text:
-          en: "The exchange force-closing leveraged positions when their margin runs out."
-          es: "El exchange cerrando forzosamente posiciones apalancadas cuando su margen se agota."
+          en: "A scheduled halving of the Bitcoin block reward paid to miners."
+          es: "Un halving programado de la recompensa por bloque que cobran los mineros."
       - id: c
+        correct: true
         text:
-          en: "A scheduled halving of Bitcoin's block reward."
-          es: "Un halving programado de la recompensa por bloque de Bitcoin."
+          en: "Scared holders giving up and selling at a loss to stop the pain."
+          es: "Tenedores asustados que se rinden y venden con pérdidas para dejar de sufrir."
       - id: d
         text:
-          en: "The moment the crowd turns euphoric and buys the top."
+          en: "The moment the crowd turns euphoric and buys the very top."
           es: "El momento en que la masa se vuelve eufórica y compra el techo."
     explanation:
-      en: "Capitulation is the emotional surrender at the low, not a mechanical force-close. Option b describes liquidation — a different thing: the exchange closing a leveraged position when margin is exhausted."
-      es: "La capitulación es la rendición emocional en el mínimo, no un cierre forzoso mecánico. La opción b describe la liquidación, algo distinto: el exchange cerrando una posición apalancada cuando el margen se agota."
+      en: "Capitulation is the emotional surrender at the low, and once it has run, selling pressure is largely spent. It is not a mechanical force-close: that is liquidation, a different thing entirely, where the exchange closes a leveraged position because margin is exhausted. Euphoric buying is the opposite end of the same emotional scale."
+      es: "La capitulación es la rendición emocional en el mínimo y, una vez consumada, la presión vendedora queda casi agotada. No es un cierre forzoso mecánico: eso es la liquidación, algo del todo distinto, donde el exchange cierra una posición apalancada porque el margen se agotó. La compra eufórica es el extremo contrario de la misma escala emocional."
   - id: fear-location
     prompt:
       en: "Where on the price chart does the deepest extreme fear tend to appear?"
       es: "¿En qué parte del gráfico de precio tiende a aparecer el miedo extremo más profundo?"
     options:
       - id: a
+        text:
+          en: "Near market tops, right before a big rally is about to begin."
+          es: "Cerca de los techos, justo antes de que empiece un gran rally."
+      - id: b
         correct: true
         text:
-          en: "Near market lows, because the people who were going to panic-sell have largely already done so."
-          es: "Cerca de los mínimos del mercado, porque quienes iban a vender presa del pánico ya lo han hecho en su mayoría."
-      - id: b
-        text:
-          en: "Near market tops, right before a big rally begins."
-          es: "Cerca de los techos del mercado, justo antes de que empiece un gran rally."
+          en: "Near market lows, once the panic sellers have largely gone."
+          es: "Cerca de los mínimos, cuando los vendedores en pánico ya se han ido."
       - id: c
         text:
-          en: "Randomly, with no relation to where price is."
-          es: "Al azar, sin relación con dónde está el precio."
+          en: "Randomly across the chart, with no relation to where price is."
+          es: "Al azar por el gráfico, sin relación con dónde está el precio."
       - id: d
         text:
-          en: "Only during scheduled news events."
-          es: "Solo durante eventos de noticias programados."
+          en: "Only during scheduled news events on the macro calendar."
+          es: "Solo durante eventos de noticias programados del calendario macro."
     explanation:
-      en: "Deep fear clusters near bottoms: once capitulation has run and the panic sellers are out, selling pressure is largely spent and price is often near a low. That makes extreme fear a zone of interest — not a dated buy signal."
-      es: "El miedo profundo se concentra cerca de los suelos: una vez consumada la capitulación y fuera los vendedores presa del pánico, la presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo. Eso convierte el miedo extremo en una zona de interés, no en una señal de compra con fecha."
+      en: "Deep fear clusters near bottoms: once capitulation has run and the panic sellers are out, selling pressure is largely spent and price is often near a low. That makes extreme fear a zone of interest — not a dated buy signal, and not something that needs a calendar event to appear."
+      es: "El miedo profundo se concentra cerca de los suelos: una vez consumada la capitulación y fuera los vendedores presa del pánico, la presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo. Eso convierte el miedo extremo en una zona de interés, no en una señal de compra con fecha, ni en algo que necesite un evento del calendario para aparecer."
   - id: capitulation-vs-liquidation
     kind: true_false
     prompt:
@@ -68,23 +68,23 @@ variants:
       - id: a
         correct: true
         text:
-          en: "It is largely spent — the people who were going to panic-sell have already done so."
-          es: "Queda casi agotada: quienes iban a vender presa del pánico ya lo han hecho."
+          en: "It is largely spent — those who were going to panic-sell already have."
+          es: "Queda casi agotada: quienes iban a vender en pánico ya lo han hecho."
       - id: b
         text:
-          en: "It accelerates, because capitulation guarantees more forced selling for weeks."
-          es: "Se acelera, porque la capitulación garantiza más ventas forzadas durante semanas."
+          en: "It accelerates, since capitulation guarantees weeks of forced selling."
+          es: "Se acelera, ya que la capitulación garantiza semanas de venta forzada."
       - id: c
         text:
-          en: "The exchange takes over and keeps selling on holders' behalf."
-          es: "El exchange toma el relevo y sigue vendiendo en nombre de los tenedores."
+          en: "The exchange takes over and keeps selling on the holders' behalf."
+          es: "El exchange toma el relevo y sigue vendiendo por cuenta de los tenedores."
       - id: d
         text:
-          en: "Nothing changes; capitulation has no effect on the sellers who remain."
-          es: "No cambia nada; la capitulación no afecta a los vendedores que quedan."
+          en: "Nothing changes: capitulation has no effect on the sellers who remain."
+          es: "No cambia nada: la capitulación no afecta a los vendedores que quedan."
     explanation:
-      en: "That is the point of capitulation as a signal: when the sellers who were going to give up have given up, the supply of forced selling dries up, and price is often near a low. That is why it marks a zone of interest — not a precise buy moment."
-      es: "Ese es el sentido de la capitulación como señal: cuando los vendedores que iban a rendirse ya se han rendido, la oferta de venta forzada se seca y el precio suele estar cerca de un mínimo. Por eso marca una zona de interés, no un momento preciso de compra."
+      en: "That is the point of capitulation as a signal: when the sellers who were going to give up have given up, the supply of frightened selling dries up, and price is often near a low. That is why it marks a zone of interest — not a precise buy moment, and nobody keeps selling on your behalf afterwards."
+      es: "Ese es el sentido de la capitulación como señal: cuando los vendedores que iban a rendirse ya se han rendido, la oferta de venta asustada se seca y el precio suele estar cerca de un mínimo. Por eso marca una zona de interés, no un momento preciso de compra, y después nadie sigue vendiendo en tu nombre."
   - id: fear-sequence
     kind: ordering
     prompt:
@@ -120,25 +120,25 @@ variants:
       es: "Un trader compra en cuanto el índice marca por primera vez miedo extremo, pero el precio sigue sangrando durante semanas. ¿Cuál fue el error?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Treating extreme fear as a timed bottom — it is a zone, and fear can stay extreme through long bear markets, so entries need their own confirmation."
-          es: "Tratar el miedo extremo como un suelo con fecha: es una zona, y el miedo puede seguir extremo durante largos mercados bajistas, así que las entradas necesitan su propia confirmación."
+          en: "The index was broken: extreme fear never appears within a downtrend."
+          es: "El índice estaba roto: el miedo extremo nunca aparece en una bajista."
       - id: b
         text:
-          en: "The index was broken; extreme fear never appears in a downtrend."
-          es: "El índice estaba roto; el miedo extremo nunca aparece en una tendencia bajista."
+          en: "They should have shorted — fear always means lower prices from there."
+          es: "Deberían haber cortado: el miedo siempre significa precios más bajos."
       - id: c
         text:
-          en: "They should have shorted instead — fear always means lower prices from here."
-          es: "Deberían haber cortado; el miedo siempre significa precios más bajos desde ahí."
+          en: "Sentiment matters only in equities, so it should have been ignored."
+          es: "El sentimiento solo importa en acciones, así que debió ignorarse."
       - id: d
+        correct: true
         text:
-          en: "Sentiment matters only in stocks, so it should have been ignored."
-          es: "El sentimiento solo importa en las acciones, así que debería haberse ignorado."
+          en: "Treating extreme fear as a timed bottom, when it is only a zone."
+          es: "Tratar el miedo extremo como un suelo con fecha, siendo una zona."
     explanation:
-      en: "Extreme fear marks a contrarian zone of interest, not a moment. It can persist while price keeps falling, so buying the first extreme print without your own confirmation gets you run over — exactly the trap the lesson warns about."
-      es: "El miedo extremo marca una zona contraria de interés, no un momento. Puede persistir mientras el precio sigue cayendo, así que comprar en la primera lectura extrema sin tu propia confirmación te arrolla: justo la trampa contra la que advierte la lección."
+      en: "Extreme fear marks a contrarian zone of interest, not a moment, and fear can stay extreme through long bear markets — so entries need their own confirmation. It appears in downtrends by definition, it is not an instruction to short, and it applies to crypto as much as anywhere else."
+      es: "El miedo extremo marca una zona contraria de interés, no un momento, y el miedo puede seguir extremo durante largos mercados bajistas: las entradas necesitan su propia confirmación. Aparece en tendencias bajistas por definición, no es una orden de cortar, y aplica al cripto tanto como a cualquier otro sitio."
   - id: capitulation-scene
     kind: multi_select
     prompt:
@@ -154,45 +154,45 @@ variants:
       - id: c
         correct: true
         text:
-          en: "A cascade of liquidations dumping even more supply into a thin book."
-          es: "Una cascada de liquidaciones vertiendo aún más oferta en un libro poco profundo."
+          en: "A cascade of liquidations dumping more supply into a thin book."
+          es: "Una cascada de liquidaciones vertiendo más oferta en un libro fino."
       - id: d
         correct: true
         text:
-          en: "The index gapping down to single digits while social flips to 'it's over, crypto is dead'."
-          es: "El índice cayendo de golpe a un solo dígito mientras las redes cambian a 'se acabó, el cripto está muerto'."
+          en: "The index gapping to single digits as social flips to 'it's over'."
+          es: "El índice cayendo a un dígito mientras las redes dicen 'se acabó'."
       - id: e
         text:
           en: "A slow, quiet drift lower on shrinking volume over several months."
-          es: "Una deriva lenta y tranquila a la baja con volumen decreciente durante varios meses."
+          es: "Una deriva lenta y tranquila a la baja con volumen decreciente durante meses."
     explanation:
-      en: "Panic, forced selling and a spike of fear all at once — that flush is what exhausts the supply of frightened holders. It is a zone of interest, a place to look for setups, not a command to buy."
-      es: "Pánico, venta forzosa y un pico de miedo a la vez: ese lavado es lo que agota la oferta de holders asustados. Es una zona de interés, un lugar donde buscar setups, no una orden de comprar."
+      en: "Panic, forced selling and a spike of fear all at once — that flush is what exhausts the supply of frightened holders, and it is loud by nature. A slow quiet drift is the opposite: nobody has surrendered yet, so the selling is still ahead. Either way it is a zone of interest, a place to look for setups, not a command to buy."
+      es: "Pánico, venta forzosa y un pico de miedo a la vez: ese lavado es lo que agota la oferta de holders asustados, y es ruidoso por naturaleza. Una deriva lenta y tranquila es lo contrario: nadie se ha rendido todavía, así que la venta aún está por llegar. En cualquier caso es una zona de interés, un lugar donde buscar setups, no una orden de comprar."
   - id: overnight-swing
     prompt:
       en: "Crypto never closes. What does that do to a sentiment reading you check at breakfast?"
       es: "El cripto nunca cierra. ¿Qué le hace eso a una lectura de sentimiento que consultas en el desayuno?"
     options:
       - id: a
+        text:
+          en: "Nothing at all — the index only updates during weekday hours."
+          es: "Nada en absoluto: el índice solo se actualiza en horario laboral."
+      - id: b
         correct: true
         text:
-          en: "Sentiment compounds through overnight and weekend sessions on thin liquidity, so an extreme can be reached *and* unwound while you sleep — the number you see may be lagging both moves."
-          es: "El sentimiento se acumula en sesiones nocturnas y de fin de semana con escasa liquidez, así que un extremo puede alcanzarse *y* deshacerse mientras duermes: el número que ves puede ir por detrás de ambos movimientos."
-      - id: b
-        text:
-          en: "Nothing — the index only updates during weekday hours."
-          es: "Nada: el índice solo se actualiza en horario laboral."
+          en: "An extreme can be reached and unwound while you sleep."
+          es: "Un extremo puede alcanzarse y deshacerse mientras duermes."
       - id: c
         text:
-          en: "It makes the reading more reliable, since it never resets."
-          es: "Hace la lectura más fiable, ya que nunca se reinicia."
+          en: "It makes the reading more reliable, because it never gets reset."
+          es: "Hace la lectura más fiable, porque nunca se reinicia."
       - id: d
         text:
-          en: "It guarantees the extreme will still be in place when you act."
-          es: "Garantiza que el extremo seguirá ahí cuando actúes."
+          en: "It guarantees the extreme will still be in place when you act on it."
+          es: "Garantiza que el extremo seguirá ahí cuando actúes sobre él."
     explanation:
-      en: "The mood never gets a nightly reset. Combined with the index's already-lagging inputs, a reading can describe a state the market has moved on from hours ago."
-      es: "El ánimo no tiene reinicio nocturno. Combinado con las entradas ya retrasadas del índice, una lectura puede describir un estado que el mercado dejó atrás horas antes."
+      en: "Sentiment compounds through overnight and weekend sessions on thin liquidity, and the mood never gets a nightly reset — so the number you see may be lagging both the swing out and the swing back. Combined with the index's already-lagging inputs, a reading can describe a state the market moved on from hours ago."
+      es: "El sentimiento se acumula en sesiones nocturnas y de fin de semana con escasa liquidez, y el ánimo no tiene reinicio nocturno, así que el número que ves puede ir por detrás tanto del movimiento de ida como del de vuelta. Combinado con las entradas ya retrasadas del índice, una lectura puede describir un estado que el mercado dejó atrás horas antes."
   - id: fear-persists
     kind: true_false
     prompt:

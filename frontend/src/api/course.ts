@@ -145,6 +145,13 @@ export interface GlossaryEntry {
   senses?: GlossarySense[];
   /** A second name the course uses: renders as a pointer, never as a repeated definition. */
   aliasOf?: { id: string; term: string };
+  // --- what the annotator may link. Absent means the default; see lib/glossary/terms.ts.
+  /** `false` opts the term out of prose annotation entirely (a word too common to link). */
+  link?: boolean;
+  /** The surface forms to look for, where the derived default is wrong for this locale. */
+  match?: string[];
+  /** Lessons where this term is never marked, on top of its own origin. */
+  linkExcept?: string[];
 }
 
 export interface Glossary {

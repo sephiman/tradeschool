@@ -65,21 +65,21 @@ variants:
       es: "Un mismo pin bar de mecha larga aparece en dos sitios: (A) justo en el retroceso 0,618, sobre un soporte antiguo que ya ha aguantado dos veces; (B) a media altura del rango, en ningún nivel. ¿Cuál es la señal operable?"
     options:
       - id: a
+        text:
+          en: "B — a clean pin bar is a signal wherever on the chart it appears."
+          es: "B: un pin bar limpio es una señal aparezca donde aparezca en el gráfico."
+      - id: b
         correct: true
         text:
-          en: "A — the rejection lands on a level that already mattered, so it carries information."
-          es: "A: el rechazo cae sobre un nivel que ya importaba, así que lleva información."
-      - id: b
-        text:
-          en: "B — a clean pin bar is a signal wherever it appears."
-          es: "B: un pin bar limpio es una señal aparezca donde aparezca."
+          en: "A — the rejection lands on a level that already mattered."
+          es: "A: el rechazo cae sobre un nivel que ya importaba."
       - id: c
         text:
-          en: "Both equally — the candle shape is identical, so the meaning is identical."
-          es: "Ambos por igual: la forma de la vela es idéntica, así que el significado es idéntico."
+          en: "Both equally — the candle's shape is identical, so its meaning is too."
+          es: "Ambos por igual: la forma de la vela es idéntica, y su significado también."
     explanation:
-      en: "Same wick, completely different value — because the level, not the candle, does the work. A rejection at a demonstrated level is information; the identical wick in open space is noise. Location is 90% of the signal."
-      es: "La misma mecha, un valor completamente distinto, porque quien hace el trabajo es el nivel, no la vela. Un rechazo en un nivel demostrado es información; la misma mecha en espacio abierto es ruido. La ubicación es el 90 % de la señal."
+      en: "Same wick, completely different value — because the level, not the candle, does the work. A rejection at a demonstrated level tells you buyers defended a price that already mattered; the identical wick in open space tells you someone was rejected at a price nobody was watching. Location is 90% of the signal."
+      es: "La misma mecha, un valor completamente distinto, porque quien hace el trabajo es el nivel, no la vela. Un rechazo en un nivel demostrado te dice que los compradores defendieron un precio que ya importaba; la misma mecha en espacio abierto te dice que alguien fue rechazado en un precio que nadie miraba. La ubicación es el 90 % de la señal."
   - id: what-decides
     prompt:
       en: "You spot a textbook bullish engulfing candle. What most decides whether it means anything?"
@@ -92,15 +92,15 @@ variants:
           es: "Dónde ocurrió: en un nivel que el gráfico respeta, o en espacio abierto."
       - id: b
         text:
-          en: "How large and green the candle is."
-          es: "Cuán grande y verde es la vela."
+          en: "Whether it matches the textbook proportions for the pattern exactly."
+          es: "Si cumple exactamente las proporciones de manual para el patrón."
       - id: c
         text:
-          en: "Whether it matches the exact textbook proportions."
-          es: "Si cumple las proporciones exactas del manual."
+          en: "How large the candle is and how convincingly green its body closes."
+          es: "Cuán grande es la vela y con qué contundencia cierra su cuerpo en verde."
     explanation:
-      en: "The overrun is real either way, but it only means something where it overruns a level that mattered. Size and tidy proportions are cosmetics; location is the signal."
-      es: "El overrun es real en ambos casos, pero solo significa algo donde arrolla un nivel que importaba. El tamaño y las proporciones limpias son cosmética; la señal es la ubicación."
+      en: "The overrun is real either way, but it only means something where it overruns a level that mattered. Size and tidy proportions are cosmetics: a huge engulfing candle in the middle of a range has swallowed nothing anybody cared about."
+      es: "El overrun es real en ambos casos, pero solo significa algo donde arrolla un nivel que importaba. El tamaño y las proporciones limpias son cosmética: una envolvente enorme en mitad de un rango no se ha tragado nada que a nadie le importara."
   - id: sixty-patterns-myth
     kind: true_false
     prompt:
@@ -119,24 +119,24 @@ variants:
       - id: a
         correct: true
         text:
-          en: "A long wick records price being pushed to a price, absorbed, and returned."
-          es: "Una mecha larga registra que el precio fue empujado a un precio, absorbido y devuelto."
+          en: "A long wick records price pushed to a price, absorbed, and returned."
+          es: "Una mecha larga registra un precio empujado, absorbido y devuelto."
       - id: b
         correct: true
         text:
-          en: "An engulfing candle invalidates the prior candle's whole range."
+          en: "An engulfing candle invalidates the whole range of the prior one."
           es: "Una vela envolvente invalida todo el rango de la vela anterior."
       - id: c
         text:
-          en: "A doji on its own is a reliable reversal signal."
-          es: "Un doji por sí solo es una señal de giro fiable."
+          en: "A doji standing on its own is a reliable signal that price will reverse."
+          es: "Un doji por sí solo es una señal fiable de que el precio se va a girar."
       - id: d
         text:
-          en: "A given form means the same thing wherever on the chart it appears."
-          es: "Una forma dada significa lo mismo aparezca donde aparezca en el gráfico."
+          en: "A given form carries the same meaning wherever on the chart it appears."
+          es: "Una forma dada tiene el mismo significado aparezca donde aparezca."
     explanation:
-      en: "Wicks record rejection and engulfings record overrun — both true. A doji alone is indecision, not a reversal, and the same form changes meaning entirely with its location."
-      es: "Las mechas registran rechazo y las envolventes registran overrun: ambas ciertas. Un doji solo es indecisión, no un giro, y la misma forma cambia de significado por completo según su ubicación."
+      en: "Wicks record rejection and engulfings record overrun — both true, and both are facts about what happened, not forecasts. A doji is indecision: nobody won, so there is nothing to act on. And the same form changes meaning entirely with its location, which is the whole lesson."
+      es: "Las mechas registran rechazo y las envolventes registran overrun: ambas ciertas, y ambas son hechos sobre lo ocurrido, no pronósticos. Un doji es indecisión: nadie ganó, así que no hay nada sobre lo que actuar. Y la misma forma cambia de significado por completo según su ubicación, que es toda la lección."
   - id: read-in-two-moves
     kind: ordering
     prompt:
@@ -172,23 +172,25 @@ variants:
       es: "En un mercado cripto apalancado, ¿qué registra a menudo una mecha larga que atraviesa un nivel obvio y vuelve de inmediato?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A stop-hunt — real order flow, but manufactured by stops and liquidations stacked just beyond the level, not organic conviction."
-          es: "Una caza de stops: flujo de órdenes real, pero fabricado por los stops y liquidaciones acumulados justo más allá del nivel, no convicción orgánica."
+          en: "A heavyweight rejection, since the wick it left behind is a long one."
+          es: "Un rechazo de peso, ya que la mecha que dejó es larga."
       - id: b
         text:
-          en: "A heavyweight rejection, since the wick is long."
-          es: "Un rechazo de peso, ya que la mecha es larga."
+          en: "A data error in the exchange's feed that will be corrected later."
+          es: "Un error de datos del feed del exchange que se corregirá después."
       - id: c
-        text: { en: "A data error from the exchange's feed.", es: "Un error de datos del feed del exchange." }
+        correct: true
+        text:
+          en: "A stop-hunt — real flow, but manufactured by stops stacked past the level."
+          es: "Una caza de stops: flujo real, pero fabricado por stops apilados tras el nivel."
       - id: d
         text:
-          en: "Proof the level has been permanently invalidated."
-          es: "La prueba de que el nivel ha quedado invalidado para siempre."
+          en: "Proof that the level has been permanently invalidated by the break."
+          es: "La prueba de que la ruptura ha invalidado el nivel para siempre."
     explanation:
-      en: "Because leverage stacks stops and liquidations just past obvious levels, the flow is genuine but engineered. Weight every reaction by the depth of the book it happened in, and distrust a lonely, spectacular wick in a quiet market."
-      es: "Como el apalancamiento acumula stops y liquidaciones justo más allá de los niveles obvios, el flujo es genuino pero provocado. Pondera cada reacción por la profundidad del libro en que ocurrió y desconfía de una mecha solitaria y espectacular en un mercado tranquilo."
+      en: "Because leverage stacks stops and liquidations just past obvious levels, the flow is genuine but engineered rather than organic conviction — which is why wick length alone says nothing about how much real intent was behind it. Weight every reaction by the depth of the book it happened in, and distrust a lonely, spectacular wick in a quiet market."
+      es: "Como el apalancamiento acumula stops y liquidaciones justo más allá de los niveles obvios, el flujo es genuino pero provocado, no convicción orgánica, y por eso la longitud de la mecha por sí sola no dice nada sobre cuánta intención real había detrás. Pondera cada reacción por la profundidad del libro en que ocurrió y desconfía de una mecha solitaria y espectacular en un mercado tranquilo."
   - id: crowded-name
     kind: true_false
     prompt:
