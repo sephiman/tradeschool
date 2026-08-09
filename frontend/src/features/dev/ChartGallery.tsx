@@ -9,15 +9,17 @@ import {
   type PatternGroundTruth,
 } from "@/api/dev";
 import { CandleChart } from "@/components/charts/CandleChart";
+import { FramedChart, PAIRED_HEIGHT } from "@/components/charts/FramedChart";
 import { divergenceMarkers, patternBands, patternMarkers } from "@/components/charts/markers";
 import { Badge, Button, Card, Input, Select, Spinner } from "@/components/ui/primitives";
 import { LessonFigure } from "@/features/course/LessonFigure";
 
 // One per render primitive the gallery exists to eyeball: divergence panes, the CVD pane, m30's
-// shaded zones, m31's sloped lines (single and channel) and m32's envelopes + momentum pane.
+// shaded zones, m31's sloped lines (single and channel), m32's envelopes + momentum pane and m20-l2's
+// paired frames (one with the coarser panel above, one with it below).
 const EXERCISES = [
   "m12-ex-1", "m12-ex-2", "m26-ex-1", "m30-ex-1", "m30-ex-2",
-  "m31-ex-1", "m31-ex-2", "m31-ex-5", "m32-ex-1",
+  "m31-ex-1", "m31-ex-2", "m31-ex-5", "m32-ex-1", "m20-ex-6", "m20-ex-7",
 ];
 
 /** Divergence ground truth carries a `divergence` string; pattern_chart carries a `label`. */
@@ -150,27 +152,29 @@ export function ChartGallery() {
                   </div>
                 </div>
                 {item.payload.series && (
-                  <CandleChart
-                    series={item.payload.series}
-                    rsi={item.payload.rsi}
-                    macd={item.payload.macd}
-                    oi={item.payload.oi}
-                    cvd={item.payload.cvd}
-                    momentum={
-                      item.payload.momentum
-                        ? { values: item.payload.momentum, state: item.payload.momentum_state }
-                        : undefined
-                    }
-                    indicator={item.payload.indicator ?? "rsi"}
-                    markers={markers}
-                    overlays={item.payload.overlays}
-                    levels={item.payload.levels}
-                    diagonals={item.payload.diagonals}
-                    // The gallery shows ground truth by design, so the zone IS drawn here — which is
-                    // what makes it reviewable against the candles it claims to be read from.
-                    bands={isDivergence(gt) ? [] : patternBands(gt)}
-                    height={320}
-                  />
+                  <FramedChart context={item.payload.context}>
+                    <CandleChart
+                      series={item.payload.series}
+                      rsi={item.payload.rsi}
+                      macd={item.payload.macd}
+                      oi={item.payload.oi}
+                      cvd={item.payload.cvd}
+                      momentum={
+                        item.payload.momentum
+                          ? { values: item.payload.momentum, state: item.payload.momentum_state }
+                          : undefined
+                      }
+                      indicator={item.payload.indicator ?? "rsi"}
+                      markers={markers}
+                      overlays={item.payload.overlays}
+                      levels={item.payload.levels}
+                      diagonals={item.payload.diagonals}
+                      // The gallery shows ground truth by design, so the zone IS drawn here — which is
+                      // what makes it reviewable against the candles it claims to be read from.
+                      bands={isDivergence(gt) ? [] : patternBands(gt)}
+                      height={item.payload.context ? PAIRED_HEIGHT : 320}
+                    />
+                  </FramedChart>
                 )}
               </Card>
             );

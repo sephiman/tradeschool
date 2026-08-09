@@ -102,6 +102,9 @@ export async function mount(stage: HTMLElement, node: ReactNode): Promise<Mounte
   return { root, failure: () => thrown.error };
 }
 
+/** Height of each panel when a chart is drawn with its multi-timeframe companion (m20-l2). */
+export const PAIRED_STAGE_HEIGHT = 210;
+
 /** A degenerate bitmap makes the typesetter SPIN rather than complain, so reject it while it has a name. */
 const MIN_BITMAP_PX = 64;
 
@@ -116,13 +119,53 @@ export function toPng(canvas: HTMLCanvasElement, what: string): string {
   return url;
 }
 
-async function capturePanel(panel: FigurePanel, figureId: string): Promise<string> {
-  const stage = makeStage(STAGE_WIDTH, STAGE_HEIGHT);
+/** Draw one chart off-screen and hand back its bitmap. `what` names it in every failure. */
+export async function captureChart(node: (onReady: (c: IChartApi) => void) => ReactNode, what: string, height: number): Promise<HTMLCanvasElement> {
+  const stage = makeStage(STAGE_WIDTH, height);
   let mounted: Mounted | null = null;
   try {
     const ready: { chart: IChartApi | null } = { chart: null };
     mounted = await mount(
       stage,
+      node((chart) => {
+        ready.chart = chart;
+      }),
+    );
+    await waitFor(() => ready.chart !== null, mounted.failure, what);
+    await nextFrame(); // one more, so the panes have laid out before we ask for a bitmap
+    return ready.chart!.takeScreenshot();
+  } finally {
+    mounted?.root.unmount();
+    stage.remove();
+  }
+}
+
+/**
+ * Stack two captured panels into one bitmap (m20-l2's paired frames).
+ *
+ * One image rather than two, so nothing downstream has to learn about pairs: a figure keeps one entry
+ * per panel and `ExerciseChartLookup` keeps returning one image per exercise — which is what keeps the
+ * printed exercise / answer-key bijection a bijection.
+ */
+export function stackCanvases(top: HTMLCanvasElement, bottom: HTMLCanvasElement, what: string): string {
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(top.width, bottom.width);
+  canvas.height = top.height + bottom.height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error(`${what}: no 2d context to stack the panels on`);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(top, 0, 0);
+  ctx.drawImage(bottom, 0, top.height);
+  return toPng(canvas, what);
+}
+
+async function capturePanel(panel: FigurePanel, figureId: string): Promise<string> {
+  const what = `figure ${figureId}`;
+  const paired = panel.context !== undefined;
+  const height = paired ? PAIRED_STAGE_HEIGHT : STAGE_HEIGHT;
+  const main = await captureChart(
+    (onReady) => (
       <CandleChart
         series={panel.series}
         rsi={panel.rsi}
@@ -136,21 +179,33 @@ async function capturePanel(panel: FigurePanel, figureId: string): Promise<strin
         bands={panel.bands}
         indicator={panel.indicator}
         markers={toMarkers(panel.annotations)}
-        height={STAGE_HEIGHT}
+        height={height}
         rightOffset={10}
         theme="light"
-        onReady={(chart) => {
-          ready.chart = chart;
-        }}
-      />,
-    );
-    await waitFor(() => ready.chart !== null, mounted.failure, `figure ${figureId}`);
-    await nextFrame(); // one more, so the panes have laid out before we ask for a bitmap
-    return toPng(ready.chart!.takeScreenshot(), `figure ${figureId}`);
-  } finally {
-    mounted?.root.unmount();
-    stage.remove();
-  }
+        onReady={onReady}
+      />
+    ),
+    what,
+    height,
+  );
+  if (!panel.context) return toPng(main, what);
+  const companion = await captureChart(
+    (onReady) => (
+      <CandleChart
+        series={panel.context!.series}
+        indicator="none"
+        height={height}
+        rightOffset={10}
+        theme="light"
+        onReady={onReady}
+      />
+    ),
+    `${what} (context panel)`,
+    height,
+  );
+  return panel.context.position === "above"
+    ? stackCanvases(companion, main, what)
+    : stackCanvases(main, companion, what);
 }
 
 /** Paint properties to inline: Tailwind class colours do not survive serialization away from the sheet. */

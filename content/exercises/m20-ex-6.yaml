@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: multi_timeframe
+n: 140
+indicator: none
+targets: [pullback_against_trend, continuation_with_trend, higher_frame_ranges]
+choices: [pullback_against_trend, continuation_with_trend, higher_frame_ranges]
+prompt:
+  en: "Two panels, one stretch of price: the lower one is the execution frame and the upper one is the SAME bars aggregated four to one, so the whole thing is on screen twice. Read the last stretch of the lower panel — it is running somewhere — and then read what the upper panel says that run is. A pullback against the higher frame, a continuation of it, or neither, because the higher frame is going nowhere?"
+  es: "Dos paneles, un mismo tramo de precio: el de abajo es la temporalidad de ejecución y el de arriba son esas MISMAS barras agregadas de cuatro en cuatro, así que lo tienes todo en pantalla dos veces. Lee el último trecho del panel de abajo —va hacia algún sitio— y luego lee lo que el de arriba dice que es ese movimiento. ¿Un pullback contra la temporalidad mayor, una continuación de ella, o ninguna de las dos porque la mayor no va a ningún lado?"
+explanation:
+  en: "The lower panel is telling the truth in every case — there really is a run there. What the upper panel decides is what the run is INSIDE. A pullback goes against the higher frame's direction and gives back well under half of the leg it interrupts, leaving that structure intact; a continuation goes the same way as the higher frame and carries price beyond everything before it; and when the upper panel has simply travelled nowhere across the window, the run belongs to a range and there is no higher-frame trend for it to agree or disagree with. Note what does not decide it: how long or how convincing the run looks on the lower panel is the same in all three."
+  es: "El panel de abajo dice la verdad en los tres casos: ese movimiento existe. Lo que decide el de arriba es DENTRO de qué está ese movimiento. Un pullback va contra la dirección de la temporalidad mayor y devuelve bastante menos de la mitad del tramo que interrumpe, dejando esa estructura intacta; una continuación va en el mismo sentido que la mayor y lleva el precio más allá de todo lo anterior; y cuando el panel de arriba no ha ido a ninguna parte en toda la ventana, el movimiento pertenece a un rango y no hay tendencia mayor con la que estar de acuerdo o en contra. Fíjate en lo que no decide nada: lo largo o lo convincente que parezca el movimiento en el panel de abajo es igual en los tres."

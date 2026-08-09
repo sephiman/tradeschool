@@ -598,3 +598,114 @@ def test_no_two_figures_draw_the_same_diagonal_anchor() -> None:
                 where.setdefault(round(price, 2), set()).add(figure_id)
     shared = {price: sorted(f) for price, f in where.items() if len(f) > 1}
     assert not shared, f"the same diagonal anchor drawn by different figures: {shared}"
+
+
+# --- 7. RED FIRST: the two contracts of §2 and §3, shown saying no ---------------------------------
+#
+# Owed from the m31/m32 build and produced here. Everything above asserts that correct output passes,
+# which is only half a proof: a `respected()` that returned True unconditionally, or a `channel_failed`
+# check that could not tell the anchor from the parallel, would sail through every one of them.
+#
+# So this section breaks things on purpose. §7a mutates a chart that PASSES until each of the two
+# clauses of the respect contract is violated, one at a time. §7b cross-feeds the channel labels: the
+# check for one ending is run against the other, where it must say no — which is exactly the failure
+# `channel_failed` was added to make possible, since before it the generator could only plant one.
+
+
+def _held_instance(seed: int = 4) -> tuple[Series, Diagonal, int, int]:
+    """A `line_holds` chart, its line, and the window §2 measures over — a case that passes."""
+    inj = get_injector("trend_channel")
+    result = inj.build(np.random.default_rng(seed), _N, "line_holds")
+    f = _full(_config("trend_channel", ["line_holds"]), seed)
+    d = result.diagonals[0]
+    _lo, hi = _window(result, _N, f.warmup)
+    return f.series, d, d.start, hi
+
+
+def _with_closes(series: Series, closes: list[float]) -> Series:
+    """The same candles with a different close path — bodies moved, wicks left where they were."""
+    return Series(
+        time=list(series.time), open=list(series.open), high=list(series.high),
+        low=list(series.low), close=closes, volume=list(series.volume),
+    )
+
+
+def test_the_respect_contract_fails_when_a_body_closes_through_the_line() -> None:
+    """RED FIRST, clause 1: one close pushed past the line, by twice the margin that counts as slop."""
+    series, d, lo, hi = _held_instance()
+    assert dg.respected(series, d, lo, hi), "the unmodified chart must pass, or this proves nothing"
+
+    closes = list(series.close)
+    j = (lo + hi) // 2
+    line = dg.price_at(d, j)
+    push = 1.0 + 2 * dg.BREACH_MARGIN
+    closes[j] = round(line * push if d.kind == "resistance" else line / push, 2)
+    broken = _with_closes(series, closes)
+
+    assert dg.worst_breach(broken, d, lo, hi) > dg.BREACH_MARGIN
+    assert not dg.respected(broken, d, lo, hi), "a body through the line was called respect"
+
+
+def test_the_respect_contract_fails_when_the_line_was_never_touched() -> None:
+    """RED FIRST, clause 2: the same candles, the line re-anchored away from all of them.
+
+    Two touches propose a line and the third validates it (m31-l1). A line price never came back to
+    has none, and a contract that only checked for breaches would certify it — which is precisely the
+    "draw whatever you want to see" failure the lesson names.
+    """
+    series, d, lo, hi = _held_instance()
+    assert dg.respected(series, d, lo, hi)
+
+    # 4% further onto the untraded side: too far to touch, and still never closed through.
+    away = 0.96 if d.kind == "resistance" else 1.04
+    lifted = Diagonal(
+        start=d.start, end=d.end,
+        start_price=round(d.start_price / away, 2), end_price=round(d.end_price / away, 2),
+        label=d.label, kind=d.kind,
+    )
+    assert dg.worst_breach(series, lifted, lo, hi) <= dg.BREACH_MARGIN, "still not breached..."
+    assert len(dg.touches(series, lifted, lo, hi)) < 3, "...and no longer validated"
+    assert not dg.respected(series, lifted, lo, hi), "an untouched line was called validated"
+
+
+def test_touch_counting_fails_when_one_plateau_is_all_there_is() -> None:
+    """RED FIRST, clause 2 again: `VISIT_GAP` must reject four touches that are one visit.
+
+    Collapsing a run to one index is what makes "three touches" a claim about price RETURNING. Fed a
+    chart that sat on the line once and never came back, the counter has to say one.
+    """
+    series, d, lo, hi = _held_instance()
+    line = [dg.price_at(d, j) for j in range(lo, hi)]
+    # Every bar parked 3% off the line except a single ten-bar stretch sitting exactly on it.
+    off = 1.03 if d.kind == "support" else 0.97
+    closes = list(series.close)
+    for k, j in enumerate(range(lo, hi)):
+        closes[j] = round(line[k] * (1.0 if 40 <= k < 50 else off), 2)
+    once = _with_closes(series, closes)
+
+    assert len(dg.touches(once, d, lo, hi)) == 1, "one plateau is one visit, whatever its length"
+    assert not dg.respected(once, d, lo, hi)
+
+
+@pytest.mark.parametrize(
+    ("planted", "other"), [("channel_failed", "channel_broken"), ("channel_broken", "channel_failed")]
+)
+def test_each_channel_ending_fails_the_other_ending_s_check(planted: str, other: str) -> None:
+    """RED FIRST for §3: the check for one ending, run against the chart of the other, must say no.
+
+    This is the proof that `channel_failed` is a second ending rather than a second name. It decides at
+    the ANCHOR and `channel_broken` decides at the PARALLEL, so each label's own line is breached and
+    the other label's line is not — measured on the same seeds, with the labels swapped.
+    """
+    inj = get_injector("trend_channel")
+    for seed in range(60):
+        result = inj.build(np.random.default_rng(seed), _N, planted)
+        f = _full(_config("trend_channel", [planted]), seed)
+        mine, theirs = _decided(result, planted), _decided(result, other)
+        end = len(f.series.close)
+        assert dg.worst_breach(f.series, mine, mine.start, end) > dg.BREACH_MARGIN, (
+            f"seed {seed}: {planted} never left through its own line"
+        )
+        assert dg.worst_breach(f.series, theirs, theirs.start, end) <= dg.BREACH_MARGIN, (
+            f"seed {seed}: {planted} also left through {other}'s line — the two endings are one chart"
+        )

@@ -19,7 +19,7 @@ from tradeschool.content.schema import LocalizedText
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import ema, macd, rsi
 from tradeschool.exercises.charts.injectors import RsiDivergenceInjector
-from tradeschool.exercises.charts.patterns.base import Diagonal, LevelGuard
+from tradeschool.exercises.charts.patterns.base import ContextPanel, Diagonal, LevelGuard
 from tradeschool.exercises.charts.patterns.common import (
     append_linear_continuation,
     append_resolution,
@@ -122,6 +122,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     resolution_hint: float | None = None
     diagonals_raw: list[Diagonal] = []
     injector_obj: object = None
+    context: ContextPanel | None = None
 
     if panel.generator == "synthetic_chart":
         target = DivergenceType(panel.target)
@@ -157,6 +158,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         momentum_full, momentum_state_full = result.momentum_full, result.momentum_state_full
         candles_override = result.candles_full
         resolution_hint = result.resolution_hint
+        context = result.context
         diagonals_raw = list(result.diagonals)
         injector_obj = injector
         default_dir = _PATTERN_DIR.get(panel.injector or "", {}).get(panel.target, 0.0)
@@ -231,6 +233,17 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         pane = getattr(injector_obj, "figure_momentum", None)
         if callable(pane):
             momentum_full, momentum_state_full = pane(close_full, series)
+    if context is not None:
+        # ...and the third hook, for the same reason again: the second panel (m20-l2) is an aggregation
+        # OF these candles, so an aggregate built before the resolution leg would go blank across
+        # exactly the stretch the figure exists to show.
+        recompute_context = getattr(injector_obj, "figure_context", None)
+        if callable(recompute_context):
+            context = ContextPanel(
+                series=recompute_context(close_full, series),
+                ratio=context.ratio,
+                position=context.position,
+            )
     # The projection is the whole point of a diagonal: a break is only visible against the line carried
     # PAST the bars that drew it, so a figure re-anchors every diagonal to its own right edge.
     diagonals = [
@@ -264,6 +277,15 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         payload["momentum"] = _round(momentum_full, 4)[w:]
     if momentum_state_full is not None:
         payload["momentum_state"] = _round(momentum_state_full, 4)[w:]
+    if context is not None:
+        c, k = context.series, w // context.ratio
+        payload["context"] = {
+            "series": {
+                "time": c.time[k:], "open": c.open[k:], "high": c.high[k:],
+                "low": c.low[k:], "close": c.close[k:], "volume": c.volume[k:],
+            },
+            "position": context.position,
+        }
     return payload
 
 

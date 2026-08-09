@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { getFigure, type FigurePanel } from "@/api/course";
 import { CandleAnatomy } from "@/components/charts/CandleAnatomy";
 import { CandleChart, type SwingMarker } from "@/components/charts/CandleChart";
+import { FramedChart, PAIRED_HEIGHT } from "@/components/charts/FramedChart";
 import { Spinner } from "@/components/ui/primitives";
 
 // Hand-drawn SVG figures, keyed by the spec's `svg` name.
@@ -40,23 +41,24 @@ export function LessonFigure({ id }: { id: string }) {
       {data.kind === "chart" && data.panels && (
         <div className={data.panels.length > 1 ? "grid grid-cols-1 gap-3 sm:grid-cols-2" : ""}>
           {data.panels.map((p, i) => (
-            <CandleChart
-              key={i}
-              series={p.series}
-              rsi={p.rsi}
-              macd={p.macd}
-              oi={p.oi}
-              cvd={p.cvd}
-              momentum={p.momentum ? { values: p.momentum, state: p.momentum_state } : undefined}
-              overlays={p.overlays}
-              levels={p.levels}
-              diagonals={p.diagonals}
-              bands={p.bands}
-              indicator={p.indicator}
-              markers={toMarkers(p.annotations)}
-              height={300}
-              rightOffset={10}
-            />
+            <FramedChart key={i} context={p.context}>
+              <CandleChart
+                series={p.series}
+                rsi={p.rsi}
+                macd={p.macd}
+                oi={p.oi}
+                cvd={p.cvd}
+                momentum={p.momentum ? { values: p.momentum, state: p.momentum_state } : undefined}
+                overlays={p.overlays}
+                levels={p.levels}
+                diagonals={p.diagonals}
+                bands={p.bands}
+                indicator={p.indicator}
+                markers={toMarkers(p.annotations)}
+                height={p.context ? PAIRED_HEIGHT : 300}
+                rightOffset={10}
+              />
+            </FramedChart>
           ))}
         </div>
       )}

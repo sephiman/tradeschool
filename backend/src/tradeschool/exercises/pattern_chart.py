@@ -22,6 +22,7 @@ from tradeschool.exercises.base import (
 )
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import macd, rsi
+from tradeschool.exercises.charts.patterns.base import ContextPanel
 from tradeschool.exercises.charts.patterns.common import apply_level_guards
 from tradeschool.exercises.charts.patterns.registry import get_injector, has_injector
 from tradeschool.exercises.charts.types import Series
@@ -83,6 +84,9 @@ class FullPatternChart:
     #: full-length zero-centred pane series and its optional state row (empty unless supplied).
     momentum: list[float]
     momentum_state: list[float]
+    #: the second candle panel (m20-l2), still carrying its own warm-up prefix. Public, unlike `bands`
+    #: — see `ContextPanel`.
+    context: ContextPanel | None
 
 
 def _pane(values: np.ndarray | None) -> list[float]:
@@ -121,6 +125,7 @@ def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
         cvd=([round(float(x), 2) for x in result.cvd_full.tolist()] if result.cvd_full is not None else []),
         momentum=_pane(result.momentum_full),
         momentum_state=_pane(result.momentum_state_full),
+        context=result.context,
         levels=[{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels],
         diagonals=[
             {
@@ -176,6 +181,19 @@ def _instantiate(
         # it would leave nothing on the chart to judge. Conditional like `oi`/`cvd` so an injector that
         # draws none keeps exactly the payload keys it always had.
         payload["diagonals"] = f.diagonals
+    if f.context is not None:
+        # The second panel (m20-l2), trimmed at the same instant the main one is — which is why its
+        # `ratio` divides the warm-up exactly. `ratio` itself stays out of the payload: it would say
+        # in JSON which panel is the aggregate, and that is the question one of the exercises asks.
+        c = f.context.series
+        k = w // f.context.ratio
+        payload["context"] = {
+            "series": asdict(
+                Series(time=c.time[k:], open=c.open[k:], high=c.high[k:], low=c.low[k:],
+                       close=c.close[k:], volume=c.volume[k:])
+            ),
+            "position": f.context.position,
+        }
     return f.label, f.annotations, payload
 
 

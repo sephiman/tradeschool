@@ -42,6 +42,17 @@ export interface PriceDiagonalPayload {
   kind: string;
 }
 
+/**
+ * The second candle panel (m20-l2): the same stretch of price at a coarser resolution.
+ *
+ * `position` is where it draws, not what it is — the two panels are the same size on purpose, so
+ * "which of these contains the other" is answered off the candles and never off the layout.
+ */
+export interface TimeframeContext {
+  series: ChartSeriesPayload;
+  position: "above" | "below";
+}
+
 export interface AttemptPayload {
   // quiz — every quiz payload carries `kind`; calculation carries "multiple_choice".
   kind?: QuizKind | "multiple_choice";
@@ -68,6 +79,8 @@ export interface AttemptPayload {
   overlays?: Record<string, number[]>;
   levels?: PriceLevelPayload[];
   diagonals?: PriceDiagonalPayload[];
+  /** A second panel of the SAME price at a coarser frame (m20-l2). Public, like `diagonals`. */
+  context?: TimeframeContext;
 }
 
 export interface AttemptInstance {

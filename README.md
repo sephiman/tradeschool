@@ -74,13 +74,30 @@ cd frontend && npm install && npm run dev
 
 Open <http://localhost:5173>, register an account, and review the full course:
 
-- **32 modules across 7 blocks, 39 lessons** (seven modules carry a second lesson), through a
+- **34 modules across 7 blocks, 43 lessons** (nine modules carry a second lesson), through a
   capstone (m24) that assembles everything into a **complete trading plan** — one worked trade end to
   end (top-down protocol, sizing from the stop, live management, and the **daily stop** that closes a
   losing day), then the journal, the risk tiers that only a journal can earn, validation and the step
   to real money — and on into **order flow** (block F). Each lesson is bilingual (ES + EN)
   with server-generated, server-graded exercises, end to end: lesson → attempt → answer → grading
   with the instantiated solution → progress & statistics.
+- **The arc closes: read → size → verify → execute.** Three late modules finish it, and each is placed
+  where its material belongs rather than where its id would put it (see `content/README.md` — the id is
+  a permanent label, the position is the order). **m20-l2** is multi-timeframe analysis: *a chart has no
+  opinion, it has its frame's opinion* — one 4h candle **is** sixteen 15m candles, so a timeframe change
+  is aggregation and never new information, levels do not move between frames (only the noise around
+  them does), and the hierarchy is a mechanism rather than a rank (a daily level outweighs a 15m one
+  because more participants watched it for longer, so more orders rest there). Its figure and both of
+  its chart exercises draw **two linked panels of one generated series**, the upper one aggregated out
+  of the lower to the cent. **m33** (after m22) is validation: m22's expectancy is a *claim*, and the
+  lesson is the trading version of red-first — rules written before you look, bar-by-bar with no
+  scrolling back, the arithmetic of why twenty trades cannot tell a system from a coin (a fair coin
+  shows 60%+ one time in four), overfitting as the cardinal sin, and an abandonment criterion fixed
+  **before** the drawdown that would make you want one. **m34** (after m17) is the market around the
+  chart: the **cash-and-carry**, sold as free money and actually a thin-margin business whose short leg
+  can be liquidated in a rally its own spot leg is winning — *delta-neutral is not margin-neutral*, m06
+  unchanged — and the **calendar** of unlocks, listings, expiries and venue outages, which is m17's
+  "conditions, never direction" mould for the third and last time.
 - **Order flow and microstructure** (block F, m25–m29): what a candle hides — maker/taker, the
   aggressor, and delta as the number OHLCV throws away; **CVD** (cumulative volume delta) with
   **CVD divergence as absorption made visible** rather than inferred, which is the confirmation m09's
@@ -137,8 +154,8 @@ Open <http://localhost:5173>, register an account, and review the full course:
   are self-similar across timeframes, which is why m20's style ↔ timeframe choice picks the periods
   as a side effect.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
-  matching), mixed inside every bank rather than bolted on — **804 hand-written variants across 85
-  quiz banks** (8–11 per bank, ~46% of them non-single-choice), so repeating a concept keeps asking a
+  matching), mixed inside every bank rather than bolted on — **867 hand-written variants across 99
+  quiz banks** (3–11 per bank, ~46% of them non-single-choice), so repeating a concept keeps asking a
   different question about it rather than the same one mirrored;
   multiple-choice **calculations** whose distractors are instantiated common mistakes
   (`Decimal` end to end); and **chart-reading** exercises — divergences plus fakeouts, Wyckoff,
@@ -194,10 +211,22 @@ Open <http://localhost:5173>, register an account, and review the full course:
   is pinned over 300 seeds per label: the zone precedes the break it is the origin of, the return really
   trades into it, which *side* price ends on carries the label while the *distance* does not, and every
   chart carries at most one imbalance, matching the three-candle detector exactly.
+- **Two frames of one series, aggregated to the cent:** m20-l2's chart exercises and its figure carry a
+  second candle panel — the same generated stretch at a coarser resolution — because "is this run a
+  pullback on the frame above it?" cannot be asked of one chart. The coarser panel is never generated
+  separately: it is `aggregate`d out of the published lower one (first open, last close, extreme high,
+  extreme low, summed volume), which is the lesson's own claim that a timeframe change is aggregation
+  and not new information. `tests/test_chart_timeframes.py` re-derives every upper bar from its four
+  lower ones **to the cent**, and then, red-first, corrupts each field in turn and requires the checker
+  to catch it. The panel rides the ordinary `pattern_chart` pipeline as one more conditional payload
+  key (the `oi`/`cvd`/`diagonals` precedent) and the PDF stacks the pair into a single captured image,
+  so the printed exercise ↔ answer-key bijection is untouched. Two anti-leak details are load-bearing:
+  both panels render at the *same height* (a smaller "context" panel would answer "which contains the
+  other?" by layout), and the aggregation ratio never reaches the client (it would answer it in JSON).
 - **Lesson figures:** lessons embed didactic charts via a `::figure{id}` directive — server-generated
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by
-  `GET /api/figures/{id}` (auth + locale-aware, cached). 27 figures across the course, including the
+  `GET /api/figures/{id}` (auth + locale-aware, cached). 34 figures across the course, including the
   labelled HH/HL staircase and the swing that breaks it (m08), a liquidity sweep read as a shelf being
   taken (m17) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
   (m21), and one complete trade with its level, entry, stop and target drawn (m24). Every reference is
@@ -479,10 +508,10 @@ Three properties make it a *book* rather than a dump:
   `(config, seed)` and then **re-graded as a submitted answer, which must come back correct** before it
   is published. Every number the answer quotes is read out of the payload being published — a chart
   answer's prices are indexed out of the very series the reader sees — so a key cannot drift from its
-  question. `tests/test_print_exercises.py` re-grades all 136.
+  question. `tests/test_print_exercises.py` re-grades all 147.
 * **Nothing dropped quietly.** An exercise that cannot be printed is listed in `excluded` with a reason
   and logged; the export console names it, and the lesson in the PDF prints *"N interactive exercises
-  not included"*. Today the whole course prints: 136 of 136, nothing excluded.
+  not included"*. Today the whole course prints: 147 of 147, nothing excluded.
 
 ## Printing the course (PDF)
 
@@ -490,8 +519,8 @@ Three properties make it a *book* rather than a dump:
 in the language being browsed — cover, table of contents with page numbers, block and module headings
 with their summaries, every lesson's prose, callouts and figures, **the lesson's exercises after its
 prose, and an answer key at the back**, and it is **navigable**: bookmarks, a clickable contents, term
-links into the glossary and exercise ↔ answer cross-links (see below). ~236 pages (EN) / ~253 (ES):
-39 lessons, 33 figures, 136 exercises, 28 of which print a chart. Every lesson starts on a new page,
+links into the glossary and exercise ↔ answer cross-links (see below). ~261 pages (EN) / ~274 (ES):
+43 lessons, 34 figures, 147 exercises, 30 of which print a chart. Every lesson starts on a new page,
 and the answer key is a table-of-contents entry with a resolved page number. The running footer carries the course title, the
 **top-level section the page belongs to** (the block, or the answer key) and the page number, so a page
 found loose still says where it came from; the cover and the contents precede the first block and name
@@ -503,7 +532,7 @@ The PDF is navigable, not just printable, and every one of these is a pdfmake fe
 post-processing step:
 
 * **A document outline** (bookmarks) that mirrors `course.yaml` exactly — block › module › lesson,
-  with the glossary and the answer key beside the blocks. The 161 glossary entries stay out of it: a
+  with the glossary and the answer key beside the blocks. The 177 glossary entries stay out of it: a
   bookmark pane listing every term is a second glossary, not a way around the book.
 * **A clickable table of contents.** This one already worked — pdfmake gives every `tocItem` row a
   `linkToDestination` — so what changed is that every heading now carries a **content id** instead of
@@ -589,7 +618,7 @@ walk of the manifest, which is why the printed book cannot carry a different set
 different set of questions — from the app.
 
 Exercise charts are captured the same way figures are, on the same off-screen stage, and are the reason
-generation now takes noticeably longer: 33 figures plus 28 exercise charts. The button counts **both**
+generation now takes noticeably longer: 34 figures plus 30 exercise charts. The button counts **both**
 capture phases (`Drawing figures 12/29…`, then `Drawing exercise charts 8/23…`) rather than spinning.
 
 ```

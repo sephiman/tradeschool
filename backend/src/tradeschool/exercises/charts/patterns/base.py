@@ -77,6 +77,21 @@ class Diagonal:
 
 
 @dataclass
+class ContextPanel:
+    """A SECOND candle panel beside the main one: the same stretch at a coarser resolution (m20-l2).
+
+    Public like `diagonals`, and for the same reason — the question is asked about the relationship
+    BETWEEN the two panels, so withholding one leaves nothing to judge. `ratio` never reaches the
+    client: it is how the generator trims the warm-up (`warmup // ratio`), and published it would
+    answer "which panel is the aggregate" in the payload rather than on the chart.
+    """
+
+    series: Series  # FULL coords at its own resolution — `warmup` must be a multiple of `ratio`
+    ratio: int  # main-panel bars per context bar
+    position: str = "above"  # "above" | "below" — which side of the main panel it renders on
+
+
+@dataclass
 class LevelGuard:
     """A drawn `Level`'s contract with the CANDLES, applied by `apply_level_guards`.
 
@@ -126,6 +141,8 @@ class PatternResult:
     #: OHLC override for injectors shaping individual candles (m08). Used verbatim instead of
     #: ``build_series``; its ``close`` must match ``close_full`` so indicators stay consistent.
     candles_full: Series | None = None
+    #: a second candle panel drawn beside the main one (m20-l2) — see ``ContextPanel``.
+    context: ContextPanel | None = None
     #: figure-only direction for the resolution continuation (+1 up / -1 down / 0 sideways).
     resolution_hint: float | None = None
 

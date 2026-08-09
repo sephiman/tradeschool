@@ -1,0 +1,91 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: leg-liquidation
+    prompt:
+      en: "You are long 1 BTC spot and short 1 BTC of perpetual, with 20,000 USDT of collateral behind the short. BTC rallies 30%. What happens?"
+      es: "Tienes 1 BTC en spot y un corto de 1 BTC de perpetuo, con 20.000 USDT de colateral detrás del corto. El BTC sube un 30%. ¿Qué pasa?"
+    options:
+      - id: a
+        text:
+          en: "Nothing: the position is delta-neutral, so the two legs cancel out."
+          es: "Nada: la posición es delta neutral, así que las dos patas se anulan."
+      - id: b
+        text:
+          en: "The exchange moves the spot into the short's margin automatically."
+          es: "El exchange mete el spot en el margen del corto automáticamente."
+      - id: c
+        correct: true
+        text:
+          en: "The short is liquidated and you are left holding an accidental naked long."
+          es: "El corto se liquida y te quedas con un largo desnudo por accidente."
+      - id: d
+        text:
+          en: "Funding turns strongly positive, which covers the short's losses."
+          es: "El funding se vuelve muy positivo y eso cubre las pérdidas del corto."
+    explanation:
+      en: "The exchange does not liquidate wholes. It liquidates positions, against the margin in their own account, and it does not know your spot exists — m06's mechanics unchanged. The short is 18,000 down against 20,000 of collateral, so it goes long before the rally ends, and the spot never rescues it. You end up holding the winning leg of a hedge whose losing leg was closed at the worst possible price. Delta-neutral is not margin-neutral."
+      es: "El exchange no liquida conjuntos. Liquida posiciones, contra el margen de su propia cuenta, y no sabe que tu spot existe: la mecánica de m06 sin cambios. El corto pierde 18.000 contra 20.000 de colateral, así que se va mucho antes de que el rally termine, y el spot no lo rescata nunca. Acabas con la pata ganadora de una cobertura cuya pata perdedora se cerró al peor precio posible. Delta neutral no es margen neutral."
+  - id: how-to-survive-it
+    prompt:
+      en: "How do you actually protect a cash-and-carry against the short leg being liquidated?"
+      es: "¿Cómo se protege de verdad un cash-and-carry frente a la liquidación de la pata corta?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Post far more collateral than the arithmetic needs, and accept less yield."
+          es: "Poner bastante más colateral del que pide la aritmética y aceptar menos rendimiento."
+      - id: b
+        text:
+          en: "Add a second short on another venue, so the hedge is doubled."
+          es: "Añadir un segundo corto en otra plataforma, para doblar la cobertura."
+      - id: c
+        text:
+          en: "Set a stop on the short leg, so it closes before liquidation does it."
+          es: "Poner un stop en la pata corta, para que cierre antes de que la liquide."
+      - id: d
+        text:
+          en: "Nothing is needed: the spot leg is the collateral for the short."
+          es: "No hace falta nada: la pata de spot es el colateral del corto."
+    explanation:
+      en: "The fix is unglamorous and it costs yield: more margin behind the short, so a 30% or 50% rally does not reach the liquidation price. Doubling the short doubles the exposure rather than hedging it. A stop is worse than useless here — closing the short deliberately leaves the same naked long the liquidation would have, only sooner. And the spot leg is collateral only if the exchange is actually treating it as such, which is a specific product, not an assumption."
+      es: "El arreglo no tiene glamur y cuesta rendimiento: más margen detrás del corto, para que un rally del 30% o del 50% no llegue al precio de liquidación. Doblar el corto dobla la exposición en vez de cubrirla. Un stop aquí es peor que inútil: cerrar el corto a propósito deja el mismo largo desnudo que dejaría la liquidación, solo que antes. Y la pata de spot es colateral únicamente si el exchange la trata como tal, que es un producto concreto y no una suposición."
+  - id: two-venues
+    kind: true_false
+    prompt:
+      en: "Splitting the two legs across two exchanges removes the counterparty risk, since no single venue holds the whole position."
+      es: "Repartir las dos patas entre dos exchanges elimina el riesgo de contraparte, ya que ninguna plataforma tiene la posición entera."
+    answer: false
+    explanation:
+      en: "It doubles the number of counterparties rather than removing any, and it adds the transfer between them — needed at exactly the moment you least want a transfer to be slow. Keeping both legs on one venue removes the transfer and concentrates the risk instead of splitting it. There is no arrangement without a cost; the choice is which cost you prefer."
+      es: "Duplica el número de contrapartes en vez de quitar ninguna, y además añade la transferencia entre ellas, que hace falta justo en el momento en que menos te apetece que una transferencia vaya lenta. Tener las dos patas en una sola plataforma quita la transferencia y concentra el riesgo en lugar de repartirlo. No hay montaje sin coste: la elección es qué coste prefieres."
+  - id: shape-of-the-trade
+    kind: matching
+    prompt:
+      en: "Match each part of the carry to what it actually is."
+      es: "Empareja cada parte del carry con lo que realmente es."
+    pairs:
+      - id: upside
+        left: { en: "The upside", es: "La ganancia" }
+        right:
+          en: "Bounded by construction — a small rate, collected."
+          es: "Acotada por construcción: una tasa pequeña, cobrada."
+      - id: downside
+        left: { en: "The downside", es: "La pérdida" }
+        right:
+          en: "Open-ended, and operational rather than directional."
+          es: "Sin techo, y operativa más que direccional."
+      - id: crowding
+        left: { en: "More capital arriving", es: "Más capital entrando" }
+        right:
+          en: "A smaller premium, so a smaller rate for everyone."
+          es: "Una prima menor, o sea una tasa menor para todos."
+      - id: mania
+        left: { en: "A leverage mania", es: "Una manía de apalancamiento" }
+        right:
+          en: "Funding over 0.1% per 8h — the carry's best conditions."
+          es: "Funding por encima del 0,1% cada 8h: las mejores condiciones."
+    explanation:
+      en: "Thin margin, fat tails. The return is a percentage you collect, capped by what the market will pay; the losses are open-ended because they come from operational failure — a liquidated leg, a venue you cannot withdraw from, funding that stays negative — rather than from price. That combination makes it a business, not a yield product, and 'risk-free yield' is a misdescription of the same family as 'more trades means more profit'."
+      es: "Margen fino, colas gordas. El retorno es un porcentaje que cobras, topado por lo que el mercado esté dispuesto a pagar; las pérdidas no tienen techo porque vienen de fallos operativos —una pata liquidada, una plataforma de la que no puedes retirar, un funding que se queda en negativo— y no del precio. Esa combinación lo convierte en un negocio, no en un producto de rendimiento, y «rendimiento sin riesgo» es una descripción tramposa de la misma familia que «más operaciones es más beneficio»."

@@ -284,7 +284,12 @@
     "compression_holding": "Sigue comprimiendo",
     "compression": "Compresión",
     "expansion": "Expansión",
-    "channel_failed": "Canal fallido (por su propia línea)"
+    "channel_failed": "Canal fallido (por su propia línea)",
+    "pullback_against_trend": "Un pullback contra la temporalidad mayor",
+    "continuation_with_trend": "Una continuación de la temporalidad mayor",
+    "higher_frame_ranges": "Ninguna de las dos: la mayor está en rango",
+    "top_is_higher_frame": "El panel de arriba",
+    "bottom_is_higher_frame": "El panel de abajo"
   },
   "chartMarker": {
     "hammer": "Martillo",

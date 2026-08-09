@@ -1,24 +1,21 @@
-import type { IChartApi } from "lightweight-charts";
 import type { PrintExercise, PrintExercises } from "@/api/course";
 import { CandleChart } from "@/components/charts/CandleChart";
 import {
-  makeStage,
-  mount,
-  nextFrame,
+  captureChart,
+  stackCanvases,
   toPng,
-  waitFor,
   withPrintPixelRatio,
   type CaptureProgress,
-  type Mounted,
+  PAIRED_STAGE_HEIGHT,
   STAGE_HEIGHT,
-  STAGE_WIDTH,
 } from "@/lib/pdf/figures";
 
 /**
  * Off-screen capture of the charts that ARE the question, on the lesson figures' stage.
  *
  * Unlike a figure: NO markers or bands — those give the answer away and live only in the key — and one
- * chart per exercise, keyed by exercise id.
+ * IMAGE per exercise, keyed by exercise id. m20-l2's two frames are stacked into that single image
+ * rather than published as a pair, so the printed-exercise / answer-key bijection is untouched.
  */
 
 /** Chart-bearing exercises in print order, counted up front so progress has a known total. */
@@ -29,14 +26,13 @@ export function chartExercises(print: PrintExercises): PrintExercise[] {
 async function captureOne(exercise: PrintExercise): Promise<string> {
   const payload = exercise.payload;
   if (!payload.series) throw new Error(`exercise ${exercise.id}: chart payload has no series`);
-  const stage = makeStage(STAGE_WIDTH, STAGE_HEIGHT);
-  let mounted: Mounted | null = null;
-  try {
-    const ready: { chart: IChartApi | null } = { chart: null };
-    mounted = await mount(
-      stage,
+  const what = `exercise ${exercise.id}`;
+  const context = payload.context;
+  const height = context ? PAIRED_STAGE_HEIGHT : STAGE_HEIGHT;
+  const main = await captureChart(
+    (onReady) => (
       <CandleChart
-        series={payload.series}
+        series={payload.series!}
         rsi={payload.rsi}
         macd={payload.macd}
         oi={payload.oi}
@@ -49,21 +45,28 @@ async function captureOne(exercise: PrintExercise): Promise<string> {
         diagonals={payload.diagonals}
         // Deliberately absent: `markers` and `bands` are the answer.
         indicator={payload.indicator ?? "rsi"}
-        height={STAGE_HEIGHT}
+        height={height}
         rightOffset={8}
         theme="light"
-        onReady={(chart) => {
-          ready.chart = chart;
-        }}
-      />,
-    );
-    await waitFor(() => ready.chart !== null, mounted.failure, `exercise ${exercise.id}`);
-    await nextFrame(); // one more, so the panes have laid out before we ask for a bitmap
-    return toPng(ready.chart!.takeScreenshot(), `exercise ${exercise.id}`);
-  } finally {
-    mounted?.root.unmount();
-    stage.remove();
-  }
+        onReady={onReady}
+      />
+    ),
+    what,
+    height,
+  );
+  if (!context) return toPng(main, what);
+  // The coarser frame (m20-l2). Same height as the panel it accompanies, because one of the questions
+  // is which of the two contains the other and a shrunken panel would answer it by size.
+  const companion = await captureChart(
+    (onReady) => (
+      <CandleChart series={context.series} indicator="none" height={height} rightOffset={8} theme="light" onReady={onReady} />
+    ),
+    `${what} (context panel)`,
+    height,
+  );
+  return context.position === "above"
+    ? stackCanvases(companion, main, what)
+    : stackCanvases(main, companion, what);
 }
 
 /** Draw every chart exercise the book needs, keyed by id. Any failure throws, naming the exercise. */

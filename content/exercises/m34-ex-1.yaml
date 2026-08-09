@@ -1,0 +1,87 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: carry-yield
+    prompt:
+      en: "You hold 1 BTC spot at 60,000 and short 1 BTC of perpetual against it. Funding runs at 0.01% per 8h in your favour. Roughly what does the position earn in a day?"
+      es: "Tienes 1 BTC en spot a 60.000 y un corto de 1 BTC de perpetuo contra él. El funding va al 0,01% cada 8h a tu favor. ¿Cuánto gana la posición al día, más o menos?"
+    options:
+      - id: a
+        text:
+          en: "6 USDT — the funding rate is charged once a day on the notional."
+          es: "6 USDT: el funding se cobra una vez al día sobre el nocional."
+      - id: b
+        correct: true
+        text:
+          en: "18 USDT — 6 per interval, and there are three intervals a day."
+          es: "18 USDT: 6 por intervalo y hay tres intervalos al día."
+      - id: c
+        text:
+          en: "Nothing — a delta-neutral position by definition earns nothing."
+          es: "Nada: una posición delta neutral no gana nada por definición."
+      - id: d
+        text:
+          en: "600 USDT — 0.01% of the position, three times, on 60,000 of leverage."
+          es: "600 USDT: el 0,01% de la posición, tres veces, sobre 60.000 apalancados."
+    explanation:
+      en: "60,000 × 0.0001 = 6 USDT per interval, three intervals a day, so 18 USDT — about 6,570 a year, which on the roughly 120,000 the whole position ties up (spot plus the short's collateral) is around 5.5% annualised. Delta-neutral means no exposure to PRICE, not no return: the return is the funding the leveraged longs pay you for being on the other side."
+      es: "60.000 × 0,0001 = 6 USDT por intervalo, tres intervalos al día, o sea 18 USDT: unos 6.570 al año, que sobre los aproximadamente 120.000 que inmoviliza la posición entera (spot más el colateral del corto) son alrededor de un 5,5% anualizado. Delta neutral significa sin exposición al PRECIO, no sin retorno: el retorno es el funding que te pagan los largos apalancados por estar en el otro lado."
+  - id: funding-flip
+    prompt:
+      en: "You have been collecting 0.01% per 8h on the carry for a full month. The market crashes and funding goes to −0.05% per 8h. What happens?"
+      es: "Llevas un mes entero cobrando el 0,01% cada 8h con el carry. El mercado se desploma y el funding se va al −0,05% cada 8h. ¿Qué pasa?"
+    options:
+      - id: a
+        text:
+          en: "Nothing — the hedge is delta-neutral, so funding cannot reach it."
+          es: "Nada: la cobertura es delta neutral, así que el funding no la alcanza."
+      - id: b
+        text:
+          en: "Your spot leg's losses are offset by the funding, as designed."
+          es: "Las pérdidas de la pata de spot las compensa el funding, como estaba previsto."
+      - id: c
+        correct: true
+        text:
+          en: "You now PAY, and five days of it wipes out five sixths of the month."
+          es: "Ahora PAGAS, y cinco días de eso se llevan cinco sextos del mes."
+      - id: d
+        text:
+          en: "The position auto-closes: exchanges unwind carries at negative funding."
+          es: "La posición se cierra sola: los exchanges deshacen los carries en negativo."
+    explanation:
+      en: "Negative funding means shorts pay longs, and you are the short: 60,000 × 0.0005 × 3 = 90 USDT a day against the 18 you were collecting. Five days of that is 450 USDT against the 540 a whole month of collecting brings in — five sixths of it, gone in five days. That is the strategy's true shape — small reliable collections and occasional large payments — and nothing in your position changed to cause it. The market changed sides."
+      es: "Funding negativo significa que los cortos pagan a los largos, y el corto eres tú: 60.000 × 0,0005 × 3 = 90 USDT al día frente a los 18 que cobrabas. Cinco días de eso son 450 USDT frente a los 540 que trae un mes entero de cobros: cinco sextos, en cinco días. Esa es la forma real de la estrategia —cobros pequeños y fiables y pagos grandes de vez en cuando— y no cambió nada en tu posición para provocarlo. Cambió de lado el mercado."
+  - id: why-the-gap-persists
+    prompt:
+      en: "If the carry is a positive expected return with no directional risk, why has the premium not been arbitraged to zero?"
+      es: "Si el carry es un retorno esperado positivo sin riesgo direccional, ¿por qué no se ha arbitrado la prima hasta cero?"
+    options:
+      - id: a
+        text:
+          en: "Because retail traders are not allowed to short the perpetual."
+          es: "Porque los traders minoristas no pueden ponerse cortos en el perpetuo."
+      - id: b
+        text:
+          en: "Because exchanges cap funding, which keeps a permanent gap open."
+          es: "Porque los exchanges topan el funding, y eso deja un hueco permanente abierto."
+      - id: c
+        text:
+          en: "It has been: the premium on majors is zero except during outages."
+          es: "Sí se ha arbitrado: la prima de las grandes es cero salvo en caídas del servicio."
+      - id: d
+        correct: true
+        text:
+          en: "Capital is not free, the legs cost something to hold, and nobody can do it infinitely."
+          es: "El capital no es gratis, sostener las patas cuesta y nadie puede hacerlo infinitamente."
+    explanation:
+      en: "Desks do run it at size, which is exactly why the premium on majors normally sits well inside a tenth of a percent — but the arbitrage is bounded by collateral, by the yield the same capital could earn elsewhere and by the counterparty and transfer costs of holding two legs. And the residual widens precisely when the crowd is maddest, which is why the carry's yield doubles as a leverage-mania thermometer."
+      es: "Hay mesas haciéndolo con tamaño, que es justo por lo que la prima de las grandes suele quedarse muy por debajo de una décima de punto porcentual, pero el arbitraje está limitado por el colateral, por lo que ese mismo capital podría rendir en otro sitio y por los costes de contraparte y de transferencia de sostener dos patas. Y el residuo se ensancha precisamente cuando la masa está más loca, y por eso el rendimiento del carry sirve además de termómetro de la manía del apalancamiento."
+  - id: crowded-carry
+    kind: true_false
+    prompt:
+      en: "The more capital piles into the cash-and-carry, the more it pays."
+      es: "Cuanto más capital se amontona en el cash-and-carry, más paga."
+    answer: false
+    explanation:
+      en: "It is the other way round, and by construction: every carry sells the perp against spot, which compresses the premium, which lowers the funding everybody is collecting. A crowded carry is a carry paying less — m17-l1's premium read from the other side of the table — and it is why advertised yields always belong to the period before everybody arrived."
+      es: "Es al revés, y por construcción: cada carry vende perpetuo contra spot, lo que comprime la prima, lo que baja el funding que cobra todo el mundo. Un carry concurrido es un carry que paga menos —la prima de m17-l1 leída desde el otro lado de la mesa— y por eso los rendimientos que se anuncian son siempre los del periodo anterior a que llegara todo el mundo."

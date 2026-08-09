@@ -85,12 +85,21 @@ Rules:
   course uses `spot-m01`, `spot-m01-l1`, `spot-m01-ex-3`, `fig-spot-m01-…`, `spot-block-a`. This keeps
   the global namespace collision-free without ever touching the crypto-futures ids.
 - The course id itself is also globally unique (`crypto-futures`, `spot`, …) and is likewise permanent.
-- **Ids are never renumbered, and display order is list position — not the id.** So new content either
-  **appends to its block** or arrives as a **new trailing block**; it is never inserted mid-sequence,
-  because that would leave the id badge on the course page reading `M14 → M30 → M15`. The id is a
-  permanent label, the position is the order, and the two are allowed to disagree only where nothing
-  renders them side by side (`m17-ex-4` sits out of numeric sequence inside its lesson, with the reason
-  on file in the manifest). `block-g` (one module, `m30`) is the first block added under this rule.
+- **Ids are never renumbered, and display order is list position — not the id.** The id is a permanent
+  label and the position is the order; where a new module goes is a teaching decision, not an
+  arithmetic one. `block-g` (one module, `m30`) is the first block added under this rule, and `m31`/
+  `m32` are the first modules appended to the end of an existing block (`block-c`, after `m14`).
+- **Prefer appending; insert mid-block only when the position is load-bearing, and say why in the
+  manifest.** An earlier version of this rule forbade mid-sequence insertion outright, because it
+  leaves the id badge on the course page reading `M22 → M33 → M23`. That cost is real and it is still
+  the reason to prefer appending. It stopped being decisive when a module arrived whose *whole point*
+  was where it sat: `m33` tests the claim `m22` makes and is pointed back at by `m23` and `m24`, and
+  `m34` inhabits an arbitrage `m17` mentions in passing. Appending either one would have turned several
+  backward references into forward ones — a worse defect than a badge out of numeric order, and one the
+  reader actually trips over. Both carry a comment in `course.yaml` explaining the placement; a future
+  insertion without one is a bug.
+- The same id-versus-position licence covers ids out of sequence *inside* a lesson (`m17-ex-4`, with
+  the reason on file in the manifest).
 
 ### Ids are globally unique — confirmed, and permanent
 

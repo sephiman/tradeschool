@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: pattern_chart
+injector: multi_timeframe
+n: 140
+indicator: none
+targets: [top_is_higher_frame, bottom_is_higher_frame]
+choices: [top_is_higher_frame, bottom_is_higher_frame]
+prompt:
+  en: "These two panels are the same stretch of price at two resolutions: one of them is the other one aggregated four candles into one. Neither is labelled, and this time they are NOT in the usual order. Which panel is the higher timeframe — the one whose candles contain the other's?"
+  es: "Estos dos paneles son el mismo tramo de precio a dos resoluciones: uno es el otro agregado de cuatro velas en una. Ninguno lleva etiqueta y esta vez NO están en el orden de siempre. ¿Cuál es la temporalidad mayor, la que tiene las velas que contienen a las del otro?"
+explanation:
+  en: "Count, do not squint. The higher frame is the panel with FEWER candles covering the same journey — its four-to-one candles start where the first of their four opened, end where the fourth closed, and reach the extremes any of the four made, so both panels begin at the same price, end at the same price, and share the same highest high and lowest low. That is all a timeframe change is. The panel with more candles is not showing you more of the market, only more of the path; and neither panel is the context panel because of where it is drawn — position is a convention, and here it was deliberately swapped."
+  es: "Cuenta, no entrecierres los ojos. La temporalidad mayor es el panel con MENOS velas para el mismo recorrido: sus velas de cuatro en una abren donde abrió la primera de sus cuatro, cierran donde cerró la cuarta y alcanzan los extremos que hiciera cualquiera de ellas, así que los dos paneles empiezan al mismo precio, terminan al mismo precio y comparten el máximo más alto y el mínimo más bajo. Eso es todo lo que hace un cambio de temporalidad. El panel con más velas no te enseña más mercado, solo más camino; y ninguno de los dos es el panel de contexto por dónde esté dibujado: la posición es una convención, y aquí se ha cambiado a propósito."

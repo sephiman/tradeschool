@@ -226,6 +226,18 @@ figures:
     # by the lessons it names" check still covers it.
     anchors: []
 
+  fig-m20-timeframes:
+    lessons: [m20-l2]
+    # Every anchor is on the LOWER panel, and that is not a gap in the grammar: the upper panel is this
+    # one aggregated, so an upper close IS a lower close (the fourth of its group) and quoting it twice
+    # would be quoting the same generated number under two names. The lesson says which frame it is
+    # reading each figure out of, in words.
+    anchors:
+      - {what: "close:0",   prose: 10400}  # where the 4h leg starts...
+      - {what: "close:114", prose: 8760}   # ...the low it reaches, and the pivot the pullback turns at
+      - {what: "close:159", prose: 9460}   # the 1h "rally" at the right edge of the exercise window
+      - {what: "close:183", prose: 8360}   # ...and the resolution only a figure shows: the trend resumes
+
   fig-m32-squeeze:
     lessons: [m32-l1]
     anchors:

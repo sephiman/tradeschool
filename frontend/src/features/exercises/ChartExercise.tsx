@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { ExerciseType } from "@/api/course";
 import type { Answer, AttemptPayload, Deferred, GradeResponse } from "@/api/exercises";
 import { CandleChart } from "@/components/charts/CandleChart";
+import { FramedChart, PAIRED_HEIGHT } from "@/components/charts/FramedChart";
 import { divergenceMarkers, patternBands, patternMarkers } from "@/components/charts/markers";
 import { Button } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
@@ -60,21 +61,24 @@ export function ChartExercise({
   return (
     <div className="mt-3 space-y-3">
       {payload.series && (
-        <CandleChart
-          series={payload.series}
-          rsi={payload.rsi}
-          macd={payload.macd}
-          oi={payload.oi}
-          cvd={payload.cvd}
-          momentum={payload.momentum ? { values: payload.momentum, state: payload.momentum_state } : undefined}
-          overlays={payload.overlays}
-          levels={payload.levels}
-          diagonals={payload.diagonals}
-          bands={bands}
-          indicator={payload.indicator ?? "rsi"}
-          markers={markers}
-          rightOffset={8}
-        />
+        <FramedChart context={payload.context}>
+          <CandleChart
+            series={payload.series}
+            rsi={payload.rsi}
+            macd={payload.macd}
+            oi={payload.oi}
+            cvd={payload.cvd}
+            momentum={payload.momentum ? { values: payload.momentum, state: payload.momentum_state } : undefined}
+            overlays={payload.overlays}
+            levels={payload.levels}
+            diagonals={payload.diagonals}
+            bands={bands}
+            indicator={payload.indicator ?? "rsi"}
+            markers={markers}
+            height={payload.context ? PAIRED_HEIGHT : undefined}
+            rightOffset={8}
+          />
+        </FramedChart>
       )}
 
       {!result ? (

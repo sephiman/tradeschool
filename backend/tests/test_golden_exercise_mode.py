@@ -170,6 +170,18 @@ GOLDEN = {
     "volatility_bands:1": "8a0947912ea43f12",
     "volatility_bands:2": "8435e061dad165e4",
     "volatility_bands:3": "d076b8f4fe0e9050",
+    # Captured when the m20-l2 injector was ADDED — the first to return a SECOND candle panel, and so
+    # the first addition since m30's `bands` that puts a new key in the payload these hashes cover.
+    #
+    # Every hash above stayed byte-identical in the same commit, which is the load-bearing part again.
+    # `PatternResult` gained `context`, `_instantiate` gained a CONDITIONAL `context` key (the
+    # `oi`/`cvd`/`diagonals` precedent, so an injector that returns none keeps exactly the keys it had),
+    # and `figures._panel_payload` gained a third recompute hook — which is the figure path and cannot
+    # reach these at all.
+    "multi_timeframe:0": "4011e049fd51a814",
+    "multi_timeframe:1": "70976889cd226292",
+    "multi_timeframe:2": "faea307085fde6ad",
+    "multi_timeframe:3": "ecbc9f3fbc7b408a",
 }
 
 _SEEDS = range(4)

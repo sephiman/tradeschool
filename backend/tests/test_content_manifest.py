@@ -37,14 +37,21 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     # The single course today owns all existing content under a stable id.
     assert registry.manifest.course.id == "crypto-futures"
     assert registry.manifest.course.title.en and registry.manifest.course.description.es
-    # 32 modules across 7 blocks. Block G is still the trailing single-module block (m30, the SMC
-    # dialect); m31 and m32 are the two most recent, and they APPEND TO BLOCK C rather than open an
-    # eighth — the id says when they were written, the position says where they belong, and
-    # content/README.md allows the two to disagree exactly where nothing renders them side by side.
+    # 34 modules across 7 blocks. Block G is still the trailing single-module block (m30, the SMC
+    # dialect); the id says when a module was written and the position says where it belongs, and
+    # content/README.md allows the two to disagree.
     assert len(registry.manifest.blocks) == 7
-    assert len(registry.manifest.iter_modules()) == 32
+    assert len(registry.manifest.iter_modules()) == 34
     block_c = next(b for b in registry.manifest.blocks if b.id == "block-c")
     assert [m.id for m in block_c.modules][-3:] == ["m14", "m31", "m32"]
+    # m33 and m34 are INSERTED rather than appended, which the README allows only where the position is
+    # load-bearing — pinned here so a stray reorder is a failing test rather than a silent regression.
+    # m33 tests the claim m22 makes and is pointed back at by m23 and m24; m34 inhabits the arbitrage
+    # m17-l1 mentions in passing.
+    block_d = next(b for b in registry.manifest.blocks if b.id == "block-d")
+    block_e = next(b for b in registry.manifest.blocks if b.id == "block-e")
+    assert [m.id for m in block_d.modules] == ["m15", "m16", "m17", "m34", "m18"]
+    assert [m.id for m in block_e.modules] == ["m19", "m20", "m21", "m22", "m33", "m23", "m24"]
     # Every authored lesson exists in both languages (load_registry enforces it).
     for locale in ("en", "es"):
         assert "m06-l1" in registry.markdown[locale]

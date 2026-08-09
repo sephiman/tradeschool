@@ -284,7 +284,12 @@
     "compression_holding": "Still compressing",
     "compression": "Compression",
     "expansion": "Expansion",
-    "channel_failed": "Channel failed (out through its own line)"
+    "channel_failed": "Channel failed (out through its own line)",
+    "pullback_against_trend": "A pullback against the higher frame",
+    "continuation_with_trend": "A continuation of the higher frame",
+    "higher_frame_ranges": "Neither — the higher frame is ranging",
+    "top_is_higher_frame": "The top panel",
+    "bottom_is_higher_frame": "The bottom panel"
   },
   "chartMarker": {
     "hammer": "Hammer",

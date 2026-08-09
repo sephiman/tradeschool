@@ -166,6 +166,8 @@ terms:
     es: >-
       La orden de compra en reposo más alta: contra ella te ejecutas si vendes a mercado. El lado bid
       del libro es la demanda que aguarda bajo el precio.
+  link_except:
+    en: [m34-l1]  # "leveraged longs bid the perp far over spot" — the verb, not the resting order
 
 - id: g-ask
   en: ask
@@ -332,7 +334,8 @@ terms:
       trata el rango como un proceso y no como una pausa.
   # m31-l2 and m32-l1 mean a CANDLE's range and the ATR's ("average true range"), never a market
   # rotating between a floor and a ceiling.
-  link_except: [m01-l1, m31-l2, m32-l1]  # "the quality range" / "el rango de calidad"
+  # ...and m33-l1 means a range of NUMBERS ("this range contains every system").
+  link_except: [m01-l1, m31-l2, m32-l1, m33-l1]  # "the quality range" / "el rango de calidad"
 
 - id: g-support
   en: support
@@ -451,7 +454,7 @@ terms:
     es: [cortos, un corto, en corto]
   link_except:
     en: [m11-l1]  # "a beginner following the rule shorts at 70" — the verb
-    es: [m10-l1]  # "los periodos son cortos"
+    es: [m10-l1, m33-l1]  # "los periodos son cortos", "los tramos cortos de un proceso"
 
 - id: g-mark-price
   en: mark price
@@ -547,9 +550,11 @@ terms:
     es: >-
       El dinero que de verdad depositas para abrir y mantener una posición. Pequeño al lado del
       nocional, y la parte que te pueden quitar.
-  # ES `margen` is polysemous prose: "al margen de", "darle margen", "margen para reaccionar".
+  # ES `margen` is polysemous prose: "al margen de", "darle margen", "margen para reaccionar" — and in
+  # m34-l1 "margen fino" is the profit margin. EN says it as a hyphenated compound ("thin-margin
+  # business"), which is not an occurrence at all, so that locale needs no rule for it.
   link_except:
-    es: [m01-l1, m12-l1, m19-l2, m23-l1, m27-l1, m30-l1]
+    es: [m01-l1, m12-l1, m19-l2, m23-l1, m27-l1, m30-l1, m34-l1]
 
 - id: g-initial-margin
   en: initial margin
@@ -1627,6 +1632,84 @@ terms:
       Un mapa de calor que estima dónde se apilan los stops y los precios de liquidación. Una
       estimación de dónde está el combustible: se opera alrededor del mapa, no en él.
 
+# m34 sits between m17 and m18 in display order, so its entries do too — this file is maintained in
+# origin-lesson order, which is reading order, not id order.
+
+- id: g-carry
+  en: carry
+  es: carry
+  origin: m34-l1
+  # "carry" is an ordinary English verb and turns up in a dozen lessons ("levels carry more weight",
+  # "the delta OHLCV cannot carry"), so only the noun phrase is marked. ES has no collision at all —
+  # the word is a loan there and means nothing else.
+  match:
+    en: [carry trade, carry trades]
+    es: [carry]
+  definition:
+    en: >-
+      Holding a delta-neutral position purely to collect a recurring payment, in crypto usually the
+      funding a short perp earns. A rate you collect, never a move you catch.
+    es: >-
+      Mantener una posición delta neutral solo para cobrar un pago recurrente, en cripto casi siempre
+      el funding que gana un perpetuo corto. Una tasa que cobras, nunca un movimiento que cazas.
+
+- id: g-cash-and-carry
+  en: cash-and-carry
+  es: cash-and-carry
+  origin: m34-l1
+  definition:
+    en: >-
+      The carry's usual shape: long spot and short the perpetual against it, in equal size. Sold as
+      free money, and m34-l1 is the half about what can go wrong with it.
+    es: >-
+      La forma habitual del carry: largo en spot y corto en el perpetuo contra él, al mismo tamaño.
+      Se vende como dinero gratis, y m34-l1 es la mitad que cuenta qué puede salir mal.
+
+- id: g-delta-neutral
+  en: delta-neutral
+  es: delta neutral
+  origin: m34-l1
+  match:
+    # Two words in ES, hyphenated in EN, and both locales also inflect it ("delta-neutral position",
+    # "una posición delta neutral") — so the surface forms are listed rather than guessed.
+    en: [delta-neutral]
+    es: [delta neutral]
+  definition:
+    en: >-
+      A position with no exposure to price, because two opposite legs cancel. It is not
+      margin-neutral: the exchange liquidates each leg against its own collateral (m06).
+    es: >-
+      Una posición sin exposición al precio, porque dos patas opuestas se anulan. No es margen
+      neutral: el exchange liquida cada pata contra su propio colateral (m06).
+
+- id: g-expiry
+  en: expiry
+  es: vencimiento
+  origin: m34-l2
+  definition:
+    en: >-
+      The date a dated future or an option settles. Perpetuals have none, and still move on other
+      contracts' expiries, because the hedges around them unwind on the perp.
+    es: >-
+      La fecha en la que liquida un futuro con fecha o una opción. Los perpetuos no tienen, y aun así
+      se mueven en los vencimientos de otros contratos, porque las coberturas se deshacen en el perpetuo.
+  link_except:
+    en: [m30-l1, m31-l2]  # "its expiry date" — a zone's and a Fibonacci level's, not a contract's
+    es: [m18-l1]   # "vencimientos de bloqueo" — a lock-up ending, not a contract settling
+
+- id: g-sell-the-news
+  en: sell the news
+  es: vender la noticia
+  origin: m34-l2
+  definition:
+    en: >-
+      The confirmed event releasing the people who positioned for it, into the flow the news itself
+      brings. A statement about how long the market had to prepare, not about the news being bad.
+    es: >-
+      El evento confirmado libera a quienes se habían posicionado para él, contra el flujo que trae
+      la propia noticia. Habla de cuánto tiempo tuvo el mercado para prepararse, no de que la noticia
+      sea mala.
+
 - id: g-tokenomics
   en: tokenomics
   es: tokenómica
@@ -1788,6 +1871,18 @@ terms:
     es: >-
       La exposición direccional agregada de todo lo que tienes abierto a la vez, no la suma de las
       partes. Dimensiona el racimo, no el ticker.
+
+- id: g-multi-timeframe
+  en: multi-timeframe
+  es: multitemporal
+  origin: m20-l2
+  definition:
+    en: >-
+      Reading one market on two frames that do different jobs: the higher one sets the context, the
+      lower one sets the entry. Same prices, different amounts of noise around them.
+    es: >-
+      Leer un mismo mercado en dos temporalidades con trabajos distintos: la mayor pone el contexto y
+      la menor pone la entrada. Los mismos precios, con distinta cantidad de ruido alrededor.
 
 - id: g-scalping
   en: scalping
@@ -1959,6 +2054,45 @@ terms:
     es: >-
       El win rate que un payoff dado necesita solo para dejar de perder dinero. Convierte "¿es
       suficiente?" en una cuenta.
+
+# m33 sits between m22 and m23 in display order, so its entries do too.
+
+- id: g-backtest
+  en: backtest
+  es: backtest
+  origin: m33-l1
+  definition:
+    en: >-
+      Walking pre-written rules over price history bar by bar and logging what would have happened.
+      Without the rules written first it is m31-l1's redrawn trendline: it describes the past forever.
+    es: >-
+      Recorrer vela a vela un histórico de precios con reglas escritas de antemano y anotar lo que
+      habría pasado. Sin las reglas escritas antes es la línea redibujada de m31-l1: describe el
+      pasado para siempre.
+
+- id: g-overfitting
+  en: overfitting
+  es: sobreajuste
+  origin: m33-l1
+  definition:
+    en: >-
+      Fitting the noise along with the signal, one added parameter at a time. A rule with enough knobs
+      describes any history perfectly, including one made with dice.
+    es: >-
+      Ajustar el ruido junto con la señal, un parámetro añadido cada vez. Una regla con mandos
+      suficientes describe a la perfección cualquier histórico, incluido uno hecho con dados.
+
+- id: g-forward-testing
+  en: forward-testing
+  es: forward-testing
+  origin: m33-l1
+  definition:
+    en: >-
+      Running a validated system live, on demo or minimum size, before real money. It is where the
+      frictions a backtest has none of show up — and where the trader does.
+    es: >-
+      Poner a rodar un sistema ya validado en vivo, en demo o a tamaño mínimo, antes del dinero real.
+      Ahí aparecen las fricciones que un backtest no tiene, y ahí aparece el trader.
 
 - id: g-revenge-trading
   en: revenge trading

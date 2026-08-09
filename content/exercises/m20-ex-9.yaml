@@ -1,0 +1,116 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: the-named-error
+    prompt:
+      en: "The 15-minute chart shows higher highs and higher lows. On the 4-hour chart those same candles are one green candle inside a run of lower highs. What are you looking at?"
+      es: "El gráfico de 15 minutos enseña máximos y mínimos crecientes. En el de 4 horas esas mismas velas son una vela verde dentro de una racha de máximos decrecientes. ¿Qué estás mirando?"
+    options:
+      - id: a
+        text:
+          en: "A conflict between two charts; whichever is more recent is the one to trust."
+          es: "Un conflicto entre dos gráficos; hay que fiarse del más reciente."
+      - id: b
+        text:
+          en: "A new uptrend, since the fine detail is where a trend is visible first."
+          es: "Una tendencia alcista nueva, porque el detalle fino es donde antes se ve."
+      - id: c
+        correct: true
+        text:
+          en: "A pullback inside a downtrend, seen from close enough to look like a trend."
+          es: "Un pullback dentro de una bajista, visto tan de cerca que parece tendencia."
+      - id: d
+        text:
+          en: "Nothing readable: two frames that disagree cancel each other out."
+          es: "Nada legible: dos temporalidades que se contradicen se anulan entre sí."
+    explanation:
+      en: "The two charts do not disagree — they are the same candles, and one of them contains the other. The higher frame says what the run IS: an interruption inside a structure still making lower highs, which the sellers who own that structure are waiting to sell into. Trading the lower frame against the higher one is trading the noise against the signal that contains it, and what ends the noise is the trend resuming into your position."
+      es: "Los dos gráficos no se contradicen: son las mismas velas y uno contiene al otro. La temporalidad mayor dice QUÉ es ese movimiento: una interrupción dentro de una estructura que sigue haciendo máximos decrecientes y en la que los vendedores que la mandan esperan para vender. Operar la temporalidad menor contra la mayor es operar el ruido contra la señal que lo contiene, y lo que termina el ruido es la tendencia volviendo contra tu posición."
+  - id: sequence
+    kind: ordering
+    prompt:
+      en: "Order the steps of a top-down read, from first to last."
+      es: "Ordena los pasos de una lectura de arriba abajo, del primero al último."
+    items:
+      - id: bias
+        position: 1
+        text:
+          en: "Read the higher frame: direction, structure, the levels that matter."
+          es: "Lee la temporalidad superior: dirección, estructura y los niveles que importan."
+      - id: entry
+        position: 2
+        text:
+          en: "Drop to the lower frame and look for an entry in that direction only."
+          es: "Baja a la temporalidad menor y busca entrada solo en esa dirección."
+      - id: stop
+        position: 3
+        text:
+          en: "Place the stop beyond the structure that invalidates that entry."
+          es: "Pon el stop al otro lado de la estructura que invalida esa entrada."
+      - id: size
+        position: 4
+        text:
+          en: "Size the position from the distance to that stop."
+          es: "Dimensiona la posición desde la distancia hasta ese stop."
+    explanation:
+      en: "Context above, trigger below, and never back up again to justify a setup you have already found — that last move is timeframe shopping with extra steps. The stop belongs to the frame you entered on, and m19's sizing then falls out of its distance."
+      es: "El contexto arriba, el disparo abajo, y nunca volver a subir para justificar un setup que ya has encontrado: ese último paso es ir de compras por las temporalidades con pasos intermedios. El stop es de la temporalidad por la que entraste, y el dimensionamiento de m19 sale luego de su distancia."
+  - id: which-stop
+    prompt:
+      en: "You took the context from the 4-hour chart and the entry from the 15-minute chart. Where does the stop belong?"
+      es: "Has sacado el contexto del gráfico de 4 horas y la entrada del de 15 minutos. ¿A qué temporalidad pertenece el stop?"
+    options:
+      - id: a
+        text:
+          en: "On the 4-hour chart, because the higher frame outranks the lower one."
+          es: "Al de 4 horas, porque la temporalidad mayor manda sobre la menor."
+      - id: b
+        correct: true
+        text:
+          en: "On the 15-minute chart — beyond the structure that invalidates this entry."
+          es: "Al de 15 minutos, al otro lado de lo que invalidaría esta entrada."
+      - id: c
+        text:
+          en: "Wherever a fixed percentage of the account puts it, whatever the chart says."
+          es: "Donde lo ponga un porcentaje fijo de la cuenta, diga lo que diga el gráfico."
+      - id: d
+        text:
+          en: "Halfway between the two, splitting the difference between the frames."
+          es: "A medio camino entre las dos, repartiendo la diferencia entre temporalidades."
+    explanation:
+      en: "The stop lives in the entry's frame. A 4h stop under a 15m entry is a 15-minute trade carrying four-hour risk — and since size comes from stop distance, that is either a position a fraction of the one you meant to take or a loss several times the one you planned for. The stop's job is to say 'this entry was wrong', so it answers to the frame the entry came from."
+      es: "El stop vive en la temporalidad de la entrada. Un stop de 4h bajo una entrada de 15m es una operación de 15 minutos cargando con riesgo de 4 horas y, como el tamaño sale de la distancia al stop, eso es o una posición mucho más pequeña de la que querías o una pérdida varias veces mayor de la que planeaste. El trabajo del stop es decir «esta entrada estaba mal», así que responde a la temporalidad de la que salió la entrada."
+  - id: no-bias
+    prompt:
+      en: "You open the higher frame first and it is a range going nowhere. What does that mean for the lower frame?"
+      es: "Abres primero la temporalidad superior y es un rango que no va a ningún lado. ¿Qué significa eso para la menor?"
+    options:
+      - id: a
+        text:
+          en: "Move up another frame until one of them shows a trend you can trade."
+          es: "Sube otra temporalidad hasta que alguna enseñe una tendencia operable."
+      - id: b
+        text:
+          en: "Trade the lower frame freely — with no higher bias, nothing constrains it."
+          es: "Opera la menor con libertad: sin sesgo arriba, nada la limita."
+      - id: c
+        text:
+          en: "Take the trade with a wider stop, since a range is a low-risk environment."
+          es: "Entra con un stop más ancho, porque un rango es un entorno de poco riesgo."
+      - id: d
+        correct: true
+        text:
+          en: "'No bias' is a complete answer: there is no trade to go looking for below."
+          es: "«Sin sesgo» es una respuesta completa: abajo no hay operación que buscar."
+    explanation:
+      en: "The higher frame's job is to answer whether to look at all, and 'nothing here' is one of its legal answers. Climbing frames until one shows you a trend is the same shopping the lesson warns about, aimed one level up; and a range is not a low-risk environment, it is an environment where the levels that matter are its edges rather than a direction."
+      es: "El trabajo de la temporalidad superior es contestar si hay que mirar siquiera, y «aquí no hay nada» es una de sus respuestas legítimas. Ir subiendo de temporalidad hasta que una enseñe tendencia es la misma ida de compras contra la que avisa la lección, un piso más arriba; y un rango no es un entorno de poco riesgo, es un entorno donde los niveles que importan son sus bordes y no una dirección."
+  - id: shopping
+    kind: true_false
+    prompt:
+      en: "You are already long. You open five timeframes and three of them look bullish, so the trade is confirmed."
+      es: "Ya estás largo. Abres cinco temporalidades y tres se ven alcistas, así que la operación queda confirmada."
+    answer: false
+    explanation:
+      en: "That is timeframe shopping, and it always works — with enough charts open, some frame always agrees, which is exactly why finding one proves nothing. The two frames are chosen before the trade and read in order, context first. Confirmation you went looking for after taking the position is not evidence, it is an m23 mistake wearing a chart."
+      es: "Eso es ir de compras por las temporalidades, y siempre funciona: con suficientes gráficos abiertos, alguna te da la razón, y por eso mismo encontrarla no demuestra nada. Las dos temporalidades se eligen antes de la operación y se leen en orden, primero el contexto. Una confirmación que has ido a buscar después de abrir la posición no es evidencia: es un error de m23 disfrazado de gráfico."

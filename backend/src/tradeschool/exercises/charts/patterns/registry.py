@@ -15,6 +15,7 @@ from tradeschool.exercises.charts.patterns.liquidity_sweep import LiquiditySweep
 from tradeschool.exercises.charts.patterns.ma_context import MaContextInjector
 from tradeschool.exercises.charts.patterns.macd_cross import MacdCrossInjector
 from tradeschool.exercises.charts.patterns.market_structure import MarketStructureInjector
+from tradeschool.exercises.charts.patterns.multi_timeframe import MultiTimeframeInjector
 from tradeschool.exercises.charts.patterns.origin_zone import OriginZoneInjector
 from tradeschool.exercises.charts.patterns.oscillator_reading import OscillatorReadingInjector
 from tradeschool.exercises.charts.patterns.stop_limit_gap import StopLimitGapInjector
@@ -48,6 +49,9 @@ _INJECTORS: dict[str, PatternInjector] = {
         ConvergingLinesInjector(),
         # m32: the volatility cycle, and the first injector to drive the zero-centred momentum pane.
         VolatilityBandsInjector(),
+        # m20-l2: the first injector to return a SECOND candle panel — the same stretch aggregated to a
+        # coarser frame, which is the only way to ask a question about the relationship between two.
+        MultiTimeframeInjector(),
         # Figure-only injectors: shapes whose whole point is the resolution, so no exercise uses them.
         MarketStructureInjector(),
         LiquiditySweepInjector(),

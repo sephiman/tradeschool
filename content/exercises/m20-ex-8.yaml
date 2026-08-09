@@ -1,0 +1,131 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: aggregation-arithmetic
+    prompt:
+      en: "A 4-hour candle covers sixteen 15-minute candles. Where does its HIGH come from?"
+      es: "Una vela de 4 horas cubre dieciséis velas de 15 minutos. ¿De dónde sale su MÁXIMO?"
+    options:
+      - id: a
+        text:
+          en: "From the highest close among the sixteen, since closes are what count."
+          es: "Del cierre más alto de las dieciséis, porque lo que cuenta son los cierres."
+      - id: b
+        text:
+          en: "From the exchange, which computes 4h candles from a separate feed."
+          es: "Del exchange, que calcula las velas de 4h con un feed aparte."
+      - id: c
+        correct: true
+        text:
+          en: "The highest high any one of the sixteen reached — nothing else."
+          es: "El máximo más alto que alcanzara cualquiera de las dieciséis, nada más."
+      - id: d
+        text:
+          en: "The average of the sixteen highs, which is why the chart looks smoother."
+          es: "La media de los dieciséis máximos, y por eso el gráfico se ve más suave."
+    explanation:
+      en: "A higher-frame candle is pure arithmetic over the lower ones: first open, last close, highest high, lowest low, summed volume. No second data source exists and nothing is averaged — a 4h chart looks smoother because the wobble inside each group has been absorbed into one candle's wick, not because anything was smoothed."
+      es: "Una vela de temporalidad mayor es aritmética pura sobre las pequeñas: primera apertura, último cierre, máximo más alto, mínimo más bajo y suma de volúmenes. No hay ninguna segunda fuente de datos ni se promedia nada: el gráfico de 4h se ve más suave porque el vaivén de dentro de cada grupo se ha absorbido en la mecha de una sola vela, no porque se haya suavizado algo."
+  - id: why-a-daily-level-weighs-more
+    prompt:
+      en: "Why does a level from the daily chart carry more weight than one from the 15-minute chart?"
+      es: "¿Por qué pesa más un nivel del gráfico diario que uno del de 15 minutos?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "More participants have watched it for longer, so more orders rest there."
+          es: "Lo ha mirado más gente durante más tiempo, así que hay más órdenes ahí."
+      - id: b
+        text:
+          en: "Higher timeframes are more accurate; short ones are distorted by noise."
+          es: "Las temporalidades altas son más exactas; las cortas las distorsiona el ruido."
+      - id: c
+        text:
+          en: "Daily candles use real volume and intraday candles only estimate it."
+          es: "Las velas diarias usan volumen real y las intradía solo lo estiman."
+      - id: d
+        text:
+          en: "Because market makers are contractually required to defend daily levels."
+          es: "Porque los creadores de mercado están obligados a defender los niveles diarios."
+    explanation:
+      en: "It is order-book arithmetic, not rank. Everyone who opened that daily chart in the last months saw the same line and a good number left orders near it; a 15m level from two hours ago was seen by a far smaller crowd who have mostly moved on. Both charts are equally accurate — they are the same prices — and neither timeframe is 'more real' than the other."
+      es: "Es aritmética de libro de órdenes, no jerarquía. Todo el que abriera ese gráfico diario en los últimos meses vio la misma línea y buena parte dejó órdenes cerca; un nivel de 15m de hace dos horas lo vio mucha menos gente y casi toda está ya en otra cosa. Los dos gráficos son igual de exactos —son los mismos precios— y ninguna temporalidad es «más real» que la otra."
+  - id: level-does-not-move
+    kind: true_false
+    prompt:
+      en: "A support drawn at 25,900 on the 4-hour chart sits at a different price on the 15-minute chart, because each timeframe has its own levels."
+      es: "Un soporte trazado en 25.900 en el gráfico de 4 horas está a otro precio en el de 15 minutos, porque cada temporalidad tiene sus propios niveles."
+    answer: false
+    explanation:
+      en: "A level is a price, and 25,900 is 25,900 on every chart — changing the dropdown does not move it. What changes is how much noise surrounds it: on the fast chart the approach is forty candles of wobble with three pokes through, and on the slow one it is two candles with a wick into the level and no body beyond it."
+      es: "Un nivel es un precio, y 25.900 son 25.900 en todos los gráficos: cambiar el desplegable no lo mueve. Lo que cambia es cuánto ruido lo rodea: en el gráfico rápido la aproximación son cuarenta velas de vaivén con tres pinchazos, y en el lento son dos velas con una mecha metida en el nivel y ningún cuerpo al otro lado."
+  - id: frame-jobs
+    kind: matching
+    prompt:
+      en: "Match each frame of your pair to the job it is there to do."
+      es: "Empareja cada temporalidad de tu pareja con el trabajo que está ahí para hacer."
+    pairs:
+      - id: higher
+        left:
+          en: "The higher frame"
+          es: "La temporalidad superior"
+        right:
+          en: "Direction, structure, and which levels matter at all."
+          es: "Dirección, estructura y qué niveles importan siquiera."
+      - id: lower
+        left:
+          en: "The lower frame"
+          es: "La temporalidad inferior"
+        right:
+          en: "The entry, and the stop that invalidates it."
+          es: "La entrada y el stop que la invalida."
+      - id: pair
+        left:
+          en: "The gap between them"
+          es: "La separación entre ambas"
+        right:
+          en: "Roughly four to six times, so both describe one event."
+          es: "De cuatro a seis veces, para que las dos hablen de un suceso."
+      - id: count
+        left:
+          en: "How many frames"
+          es: "Cuántas temporalidades"
+        right:
+          en: "Two, three at the outside — each extra one can disagree."
+          es: "Dos, tres como mucho: cada una de más puede contradecir."
+    explanation:
+      en: "The pair is a division of labour, not a hierarchy of truth: context above, execution below, separated enough that the upper one genuinely smooths the lower and close enough that they are discussing the same event. Watching five frames is not five times the information — it is a guarantee that one of them will agree with whatever you already want to do."
+      es: "La pareja es un reparto de tareas, no una jerarquía de verdad: contexto arriba, ejecución abajo, con separación suficiente para que la superior suavice de verdad a la inferior y cercanía suficiente para que hablen del mismo suceso. Mirar cinco temporalidades no es cinco veces la información: es la garantía de que alguna te dará la razón en lo que ya querías hacer."
+  - id: what-a-coarser-frame-loses
+    kind: multi_select
+    prompt:
+      en: "Select ALL the things that are true when you move from the 15-minute chart to the 4-hour chart."
+      es: "Selecciona TODO lo que es cierto al pasar del gráfico de 15 minutos al de 4 horas."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The path price took inside each group of candles is lost."
+          es: "Se pierde el camino que recorrió el precio dentro de cada grupo."
+      - id: b
+        correct: true
+        text:
+          en: "The prices of your levels are unchanged."
+          es: "Los precios de tus niveles no cambian."
+      - id: c
+        correct: true
+        text:
+          en: "Each candle now takes four hours to close."
+          es: "Cada vela tarda ahora cuatro horas en cerrar."
+      - id: d
+        text:
+          en: "You gain information the faster chart did not have."
+          es: "Ganas información que el gráfico rápido no tenía."
+      - id: e
+        text:
+          en: "The volume figures shrink, since there are fewer candles."
+          es: "Las cifras de volumen encogen, ya que hay menos velas."
+    explanation:
+      en: "Changing frame is a lossy compression you choose the strength of: you drop detail (the path inside each group), you keep every price (a level is a number), and you pay for the noise reduction in time, because a 4h candle takes four hours to close. Volume is summed rather than shrunk — the same trades, counted in bigger buckets."
+      es: "Cambiar de temporalidad es una compresión con pérdidas cuya intensidad eliges: pierdes detalle (el camino dentro de cada grupo), conservas todos los precios (un nivel es un número) y pagas el ruido que quitas con tiempo, porque una vela de 4h tarda cuatro horas en cerrar. El volumen se suma, no encoge: son las mismas operaciones contadas en cubos más grandes."

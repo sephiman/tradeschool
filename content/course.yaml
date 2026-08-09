@@ -535,6 +535,46 @@ blocks:
         type: quiz
       - id: m17-ex-6
         type: quiz
+  # m34 follows m17 for the same kind of reason m33 follows m22, and with the same cost to the badge
+  # sequence (M17 -> M34 -> M18). Both of its lessons are the far side of something m17 taught: the
+  # carry IS m17-l1's basis and funding read from the seller's chair, and the calendar is the third and
+  # last outing of m17's "conditions, never direction" mould. Put it after m18 and the module that
+  # inhabits m17's arbitrage sits two modules away from it, with tokenomics in between.
+  #
+  # The one forward reference this creates is deliberate and small: m34-l2 reads a token unlock as a
+  # calendar event and points at m18 for the tokenomics underneath it. `assumes` is advisory only, so it
+  # names m04 and m17 — what a reader would be lost without — and not m18, which is a pointer rather
+  # than a prerequisite.
+  - id: m34
+    title:
+      en: The market around the chart
+      es: El mercado alrededor del gráfico
+    summary:
+      en: 'The two things that move price from outside the chart, both with mechanics you can read: the cash-and-carry, sold as free money and actually a thin-margin business whose short leg can be liquidated in a rally that its own spot leg is winning; and the calendar of unlocks, listings, expiries and outages, none of which predicts direction and all of which predicts conditions.'
+      es: 'Las dos cosas que mueven el precio desde fuera del gráfico, las dos con mecánica legible: el cash-and-carry, que se vende como dinero gratis y es un negocio de margen fino cuya pata corta puede liquidarse en un rally que su propia pata de spot está ganando; y el calendario de unlocks, listings, vencimientos y caídas de servicio, que no predice ninguna dirección y sí predice las condiciones.'
+    assumes:
+    - m04
+    - m06
+    - m17
+    lessons:
+    - id: m34-l1
+      title:
+        en: 'The carry: funding and basis as a strategy'
+        es: 'El carry: funding y base como estrategia'
+      exercises:
+      - id: m34-ex-1
+        type: quiz
+      - id: m34-ex-2
+        type: quiz
+    - id: m34-l2
+      title:
+        en: 'The calendar: events with known mechanics'
+        es: 'El calendario: eventos con mecánica conocida'
+      exercises:
+      - id: m34-ex-3
+        type: quiz
+      - id: m34-ex-4
+        type: quiz
   - id: m18
     title:
       en: Tokenomics
@@ -601,8 +641,8 @@ blocks:
       en: 'Trading styles: scalping, day trading, swing'
       es: 'Estilos de trading: scalping, day trading, swing'
     summary:
-      en: 'What changes across timeframes: funding weight, fees eating the edge, 24/7 market, time and mental demands.'
-      es: 'Qué cambia entre temporalidades: peso del funding, comisiones que se comen el edge, mercado 24/7, exigencia mental.'
+      en: 'What changes across timeframes: funding weight, fees eating the edge, 24/7 market, time and mental demands. Then the two charts a style quietly hands you — the higher frame for context, the lower for execution — and the pullback one of them calls a trend.'
+      es: 'Qué cambia entre temporalidades: peso del funding, comisiones que se comen el edge, mercado 24/7, exigencia mental. Y luego los dos gráficos que te da el estilo sin decirlo —la temporalidad mayor para el contexto, la menor para la ejecución— y el pullback que una de ellas llama tendencia.'
     assumes:
     - m06
     lessons:
@@ -621,6 +661,19 @@ blocks:
         type: quiz
       - id: m20-ex-5
         type: calculation
+    - id: m20-l2
+      title:
+        en: Multi-timeframe analysis
+        es: Análisis multitemporal
+      exercises:
+      - id: m20-ex-6
+        type: pattern_chart
+      - id: m20-ex-7
+        type: pattern_chart
+      - id: m20-ex-8
+        type: quiz
+      - id: m20-ex-9
+        type: quiz
   - id: m21
     title:
       en: Execution
@@ -666,6 +719,39 @@ blocks:
       - id: m22-ex-3
         type: quiz
       - id: m22-ex-4
+        type: quiz
+  # m33 sits BETWEEN m22 and m23, and that is the first time this manifest inserts a module mid-block
+  # rather than appending to the end of one. The reason is that its position is load-bearing in a way
+  # m31's and m32's were not: m22 states expectancy as a claim, m33 is how the claim gets tested, and
+  # m23 and m24 both point BACK at it (the abandonment criterion is m23's streak psychology, the journal
+  # is m33's sample). Appending it after m24 would put the capstone in the middle of its own block and
+  # turn three backward references into forward ones.
+  #
+  # What that costs, stated rather than hidden: the module badges on the course page read
+  # M22 -> M33 -> M23 -> M24, so the id and the position disagree in a place that renders them side by
+  # side. Ids are permanent labels and order is list position (content/README.md); this is the case that
+  # made the rule's "append only" wording too strong, and the README now says so.
+  - id: m33
+    title:
+      en: Validating a system
+      es: Validar un sistema
+    summary:
+      en: 'm22''s expectancy is a testable claim, and untested it is worth nothing: the honest manual backtest, why twenty trades cannot tell a system from a coin, overfitting as the cardinal sin, forward-testing as the last filter, and an abandonment criterion fixed before the drawdown that would make you want one.'
+      es: 'La esperanza de m22 es una afirmación comprobable y, sin comprobar, no vale nada: el backtest manual honesto, por qué veinte operaciones no distinguen un sistema de una moneda, el sobreajuste como pecado capital, el forward-testing como último filtro y un criterio de abandono fijado antes del drawdown que te haría quererlo.'
+    assumes:
+    - m19
+    - m22
+    lessons:
+    - id: m33-l1
+      title:
+        en: Validating a system
+        es: Validar un sistema
+      exercises:
+      - id: m33-ex-1
+        type: quiz
+      - id: m33-ex-2
+        type: quiz
+      - id: m33-ex-3
         type: quiz
   - id: m23
     title:

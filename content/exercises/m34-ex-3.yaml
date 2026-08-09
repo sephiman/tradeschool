@@ -1,0 +1,78 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: unlock-conditions-not-direction
+    prompt:
+      en: "A token has a large unlock published for next Tuesday. What does that date actually tell you?"
+      es: "Un token tiene un desbloqueo grande publicado para el martes que viene. ¿Qué te dice esa fecha en realidad?"
+    options:
+      - id: a
+        text:
+          en: "That price will fall on Tuesday, since new supply reaches the book."
+          es: "Que el precio caerá el martes, ya que llega oferta nueva al libro."
+      - id: b
+        correct: true
+        text:
+          en: "What conditions to expect, not a direction — the date is public."
+          es: "Qué condiciones esperar, no una dirección: la fecha es pública."
+      - id: c
+        text:
+          en: "Nothing useful: supply changes are already inside the market cap."
+          es: "Nada útil: los cambios de oferta ya están dentro de la capitalización."
+      - id: d
+        text:
+          en: "That price will rise, because unlocks are usually bought as good news."
+          es: "Que el precio subirá, porque los unlocks suelen comprarse como buena noticia."
+    explanation:
+      en: "It is m17's mould for the third time: conditions, never direction. What is knowable is that supply may arrive, how big it is against the depth available to absorb it (m27), and that anyone who cared has had months to position — which is why unlocks so often drift down for weeks BEFORE the date and bounce on the day. And unlocked means allowed to move, not moved: a holder may sit on it, sell weeks later, or have hedged with a short long ago, in which case the selling already happened on the perp."
+      es: "Es el molde de m17 por tercera vez: condiciones, nunca dirección. Lo que se puede saber es que puede llegar oferta, cómo de grande es frente a la profundidad disponible para absorberla (m27) y que quien tuviera interés ha tenido meses para posicionarse, y por eso los unlocks derivan tantas veces a la baja durante semanas ANTES de la fecha y rebotan el día en cuestión. Y desbloqueado significa que ya puede moverse, no que se haya movido: quien lo tiene puede quedárselo, vender semanas después o haberlo cubierto con un corto hace tiempo, en cuyo caso la venta ya ocurrió en el perpetuo."
+  - id: sell-the-news-mechanism
+    prompt:
+      en: "A listing is announced two weeks ahead, price rallies, and then falls on the listing day itself. What is the mechanism?"
+      es: "Se anuncia un listing con dos semanas de antelación, el precio sube y luego cae el mismo día del listing. ¿Cuál es el mecanismo?"
+    options:
+      - id: a
+        text:
+          en: "The listing failed to bring the buyers it was expected to bring."
+          es: "El listing no trajo los compradores que se esperaba que trajera."
+      - id: b
+        text:
+          en: "Markets are fickle: good news is priced randomly on the day."
+          es: "Los mercados son veleidosos: las buenas noticias se cotizan al azar."
+      - id: c
+        correct: true
+        text:
+          en: "Those positioned for it sell into the flow the news itself brings."
+          es: "Los posicionados venden contra el flujo que trae la propia noticia."
+      - id: d
+        text:
+          en: "The exchange sells its own allocation at the open of trading."
+          es: "El exchange vende su propia asignación en la apertura de la cotización."
+    explanation:
+      en: "The rally was people buying an expectation. On the day the expectation is used up — there is nothing left to expect — so those holders sell, and they sell at the moment of maximum incoming demand, which is when the news is loudest. That is the release of the positioned, and it is why the useful reading is about PREPARATION TIME: an event public for weeks is largely in the price, an event with no warning is not."
+      es: "La subida era gente comprando una expectativa. El día de la fecha la expectativa se agota —ya no queda nada que esperar—, así que esos tenedores venden, y venden en el momento de máxima demanda entrante, que es cuando la noticia suena más fuerte. Eso es la liberación de los posicionados, y por eso la lectura útil va del TIEMPO DE PREPARACIÓN: un evento público desde hace semanas está en gran parte en el precio, uno que llega sin aviso no."
+  - id: unlock-size
+    prompt:
+      en: "Two tokens each unlock 5% of supply on the same day. What decides which one moves more?"
+      es: "Dos tokens desbloquean cada uno el 5% de la oferta el mismo día. ¿Qué decide cuál se mueve más?"
+    options:
+      - id: a
+        text:
+          en: "The larger market cap moves more, since more value is unlocked."
+          es: "El de mayor capitalización se mueve más, porque se desbloquea más valor."
+      - id: b
+        text:
+          en: "The one with the longer vesting schedule, which has more pent-up supply."
+          es: "El de calendario de vesting más largo, que acumula más oferta reprimida."
+      - id: c
+        correct: true
+        text:
+          en: "The depth of its book — the same size into a thin one walks price further."
+          es: "La profundidad de su libro: el mismo tamaño en uno fino arrastra más el precio."
+      - id: d
+        text:
+          en: "Whichever announced it more recently, since less of it is priced in."
+          es: "El que lo anunciara más recientemente, porque está menos descontado."
+    explanation:
+      en: "5% is a number about the token; what matters is that number against the resting size available to absorb it, which is m27's depth. A large unlock into a deep book may barely register and the same unlock into a thin one walks price a long way. Market cap and vesting length are properties of the issuance, not of the book that has to take the flow."
+      es: "El 5% es un número sobre el token; lo que importa es ese número frente al tamaño en reposo disponible para absorberlo, que es la profundidad de m27. Un unlock grande contra un libro profundo puede no notarse, y ese mismo unlock contra uno fino arrastra el precio un buen trecho. La capitalización y la duración del vesting son propiedades de la emisión, no del libro que tiene que tragarse el flujo."

@@ -276,6 +276,11 @@ export interface FigurePanel {
   bands?: { low: number; high: number; label: string; kind: string }[];
   indicator: "rsi" | "macd" | "oi" | "cvd" | "momentum" | "none";
   annotations: { index: number; kind: string; label: string }[];
+  /** A second panel of the SAME price at a coarser frame (m20-l2), aggregated from the one above. */
+  context?: {
+    series: { time: number[]; open: number[]; high: number[]; low: number[]; close: number[]; volume: number[] };
+    position: "above" | "below";
+  };
 }
 
 export interface FigureData {
