@@ -37,14 +37,20 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     # The single course today owns all existing content under a stable id.
     assert registry.manifest.course.id == "crypto-futures"
     assert registry.manifest.course.title.en and registry.manifest.course.description.es
-    # 34 modules across 7 blocks. Block G is still the trailing single-module block (m34, the SMC
-    # dialect). Since the 2026-08-10 renumbering, id order == display order, pinned here so a stray
-    # reorder or insertion is a failing test rather than a silent regression; permanent identity
-    # (seeds, progress) lives on `key`, not on these ids.
-    assert len(registry.manifest.blocks) == 7
+    # 34 modules across 6 blocks. (The old "block G is the trailing single-module block" guard was
+    # RETIRED 2026-08-10 when block-g merged into block-f — the SMC dialect is now f's closing
+    # module, not a block of its own; the numbering-continuity invariant below replaces it.)
+    assert len(registry.manifest.blocks) == 6
     assert len(registry.manifest.iter_modules()) == 34
+    # Numbering continuity — a PERMANENT invariant for any future restructure, not just today's:
+    # (a) module display numbers run m01..m34 strictly consecutive, ascending across every block
+    #     boundary, with no gaps; permanent identity (seeds, progress) lives on `key`, never here.
     module_ids = [m.id for _, m in registry.manifest.iter_modules()]
-    assert module_ids == sorted(module_ids)
+    assert module_ids == [f"m{i:02d}" for i in range(1, len(module_ids) + 1)]
+    # (b) block identifiers are consecutive letters with no hole where a removed block used to be.
+    assert [b.id for b in registry.manifest.blocks] == [
+        f"block-{chr(ord('a') + i)}" for i in range(len(registry.manifest.blocks))
+    ]
     block_c = next(b for b in registry.manifest.blocks if b.id == "block-c")
     assert [m.id for m in block_c.modules][-3:] == ["m14", "m15", "m16"]
     # The two modules the renumbering genuinely MOVED (not just relabeled), pinned with their keys:

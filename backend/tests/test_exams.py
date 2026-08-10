@@ -45,21 +45,27 @@ async def test_block_exam_scopes_to_one_block(content_client: AsyncClient) -> No
     assert len(exam["questions"]) >= 1
 
 
-async def test_a_single_module_block_yields_a_one_question_exam(content_client: AsyncClient) -> None:
-    """A one-module block samples one question and scores cleanly — no `EXAM_EMPTY`, no zero division."""
+async def test_a_block_exam_scores_per_block_and_reveals_unanswered(content_client: AsyncClient) -> None:
+    """A block exam samples one question per module and scores cleanly, unanswered included.
+
+    RETIRED with the 2026-08-10 block-g→block-f merge: the one-question-exam edge this test used to
+    pin via the single-module block-g (no `EXAM_EMPTY`, no zero division at n=1). No single-module
+    block exists in the course any more, so that edge is untestable against real content; what
+    remains pinned is the same scoring path on f — m34's question now sampled under its new block.
+    """
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-g"})).json()
-    assert exam["scope"] == "block" and exam["blockId"] == "block-g"
-    assert [q["moduleId"] for q in exam["questions"]] == ["m34"]
+    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-f"})).json()
+    assert exam["scope"] == "block" and exam["blockId"] == "block-f"
+    assert [q["moduleId"] for q in exam["questions"]] == ["m29", "m30", "m31", "m32", "m33", "m34"]
 
     submitted = (await content_client.post(f"/api/exams/{exam['id']}/submit")).json()
     result = submitted["result"]
-    assert result["total"] == 1
+    assert result["total"] == 6
     assert result["blocks"] == [
-        {"blockId": "block-g", "title": submitted["blockTitle"], "correct": 0, "total": 1, "score": 0.0}
+        {"blockId": "block-f", "title": submitted["blockTitle"], "correct": 0, "total": 6, "score": 0.0}
     ]
     # Unanswered, so incorrect — but distinguishable from a wrong answer, and the solution is revealed.
-    assert submitted["questions"][0]["unanswered"] is True
+    assert all(q["unanswered"] is True for q in submitted["questions"])
 
 
 async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncClient) -> None:
@@ -68,7 +74,7 @@ async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncC
     exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
     m34 = [q for q in exam["questions"] if q["moduleId"] == "m34"]
     assert len(m34) == 1, "the global exam did not pick up m34"
-    assert m34[0]["blockId"] == "block-g"
+    assert m34[0]["blockId"] == "block-f"  # block-g merged into block-f, 2026-08-10
     # ...and it sampled from m34's own bank, not from somewhere else.
     assert m34[0]["exerciseId"] in {"m34-ex-1", "m34-ex-2", "m34-ex-3", "m34-ex-4"}
 

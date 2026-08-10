@@ -1037,27 +1037,22 @@ blocks:
       - id: m33-ex-2
         key: m29-ex-2
         type: quiz
-# A trailing block of its own, because this is a translation layer rather than a new theme: it maps the
-# vocabulary the crowd uses onto mechanics every earlier block already taught. Placing it last is what
-# keeps the dependency graph clean: everything m34-l1 points at — m06, m08, m09, m10, m13, m19, m22, m23,
-# m26, m29, m32, m33 — is behind it, so the lesson makes no forward reference at all.
-#
-# `assumes` below is NOT that list, and deliberately. It is ADVISORY ONLY: it renders a grey "Se apoya en
-# … — contexto opcional" hint on the module card plus a longer notice on the module page (via
-# `unmet_prereqs`, whose own docstring says "Advisory only"), and it gates nothing — not navigation, not
-# exercises, not exam sampling. On that criterion the right list is the short curated one: the modules a
-# reader would be lost without, not every module cited. So m08 (structure, zones, role reversal, the
-# ladder), m09 (absorption), m13 (self-fulfilling levels) and m19 (liquidity pools and sweeps) are in;
-# m06 and m10, cited once and twice as supporting colour, are not — putting them in would pad the hint
-# until nobody reads it.
-#
-# Per content/README.md, ids are never renumbered and display order is list position, so new content
-# appends to its block or, as here, as a new trailing block.
-- id: block-g
-  title:
-    en: The dialect
-    es: El dialecto
-  modules:
+  # Block f's closing module — a translation layer, not a new theme: it maps the vocabulary the crowd
+  # uses onto mechanics the course already taught, and above all onto the order-flow machinery THIS
+  # block just built. Read as f's coda the arc closes: candle as aggregate → CVD → the book → the
+  # premium → footprint → the dialect that renames everything you just learned. (It was a trailing
+  # single-module block of its own, block-g, until the 2026-08-10 merge; placing it last keeps the
+  # dependency graph clean — everything m34-l1 points at — m06, m08, m09, m10, m13, m19, m22, m23,
+  # m26, m29, m32, m33 — is behind it, so the lesson makes no forward reference at all.)
+  #
+  # `assumes` below is NOT that list, and deliberately. It is ADVISORY ONLY: it renders a grey "Se
+  # apoya en … — contexto opcional" hint on the module card plus a longer notice on the module page
+  # (via `unmet_prereqs`, whose own docstring says "Advisory only"), and it gates nothing — not
+  # navigation, not exercises, not exam sampling. On that criterion the right list is the short
+  # curated one: the modules a reader would be lost without, not every module cited. So m08
+  # (structure, zones, role reversal, the ladder), m09 (absorption), m13 (self-fulfilling levels) and
+  # m19 (liquidity pools and sweeps) are in; m06 and m10, cited once and twice as supporting colour,
+  # are not — putting them in would pad the hint until nobody reads it.
   - id: m34
     key: m30
     title:

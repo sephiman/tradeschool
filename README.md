@@ -99,7 +99,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   can be liquidated in a rally its own spot leg is winning — *delta-neutral is not margin-neutral*, m06
   unchanged — and the **calendar** of unlocks, listings, expiries and venue outages, which is m19's
   "conditions, never direction" mould for the third and last time.
-- **Order flow and microstructure** (block F, m29–m33): what a candle hides — maker/taker, the
+- **Order flow and microstructure** (block F, m29–m34): what a candle hides — maker/taker, the
   aggressor, and delta as the number OHLCV throws away; **CVD** (cumulative volume delta) with
   **CVD divergence as absorption made visible** rather than inferred, which is the confirmation m09's
   Wyckoff spring was missing; the **order book** (depth, walls, spoofing vs icebergs, and the
@@ -108,7 +108,8 @@ Open <http://localhost:5173>, register an account, and review the full course:
   **footprint charts and volume profile**. Where a credible generated exercise isn't possible — a
   depth ladder and a footprint are an instant snapshot and a distribution-inside-a-bar, not the time
   series this engine builds — the lesson **says so and names the real tools** instead of faking a
-  chart, the same honest-frontier stance as m08's candle-pattern dictionary.
+  chart, the same honest-frontier stance as m08's candle-pattern dictionary. The block closes with
+  **the SMC dialect** (m34, below) — the lexicon that renames everything the block just taught.
 - **The rest of the classic canon, with its weak spots named** (block C, m15–m16): the two modules that
   close the technical-analysis block. **m15** is diagonal geometry — trendlines, channels, wedges and
   triangles — and it is taught with the honest problem stated in the prose rather than in a footnote:
@@ -124,7 +125,9 @@ Open <http://localhost:5173>, register an account, and review the full course:
   envelopes above it* rather than as a signal. It also carries a **mandatory disambiguation**: the
   volatility squeeze here and m19-l2's liquidity squeeze are unrelated mechanisms sharing a word, and
   the glossary entry for `squeeze` is a homonym with numbered senses because of it.
-- **The SMC dialect, mapped onto mechanics** (block G, m34): learners arrive from fintwit knowing *order
+- **The SMC dialect, mapped onto mechanics** (m34, block F's closing module — a block of its own,
+  block-g, until the 2026-08-10 merge; its whole thesis is mapping SMC vocabulary onto the mechanics
+  block F just taught, so it reads as F's coda): learners arrive from fintwit knowing *order
   block*, *FVG*, *BOS*, *liquidity grab*, *premium/discount* — vocabulary the course never named though
   it already taught most of the substance. This closing module does for that lexicon what m08-l2's candle
   dictionary does for named candle patterns: each term is mapped onto a mechanic plus a location, never
@@ -414,12 +417,12 @@ The two shapes are discriminated by their top-level key, so a consumer never has
 ```jsonc
 // no lang / lang=all  ->  every localized field is paired
 {"locales": ["en", "es"],
- "blocks": [{"id": "block-g", "title": {"en": "The dialect", "es": "El dialecto"},
+ "blocks": [{"id": "block-f", "title": {"en": "Order flow and microstructure", "es": "Flujo de órdenes y microestructura"},
    "modules": [{"id": "m34", "title": {…}, "summary": {…},
      "lessons": [{"id": "m34-l1", "title": {…}, "markdown": {"en": "# The SMC…", "es": "# El dialecto…"}}]}]}]}
 
 // lang=es  ->  plain strings, one language
-{"locale": "es", "blocks": [{"id": "block-g", "title": "El dialecto", "modules": [{…}]}]}
+{"locale": "es", "blocks": [{"id": "block-f", "title": "Flujo de órdenes y microestructura", "modules": [{…}]}]}
 ```
 
 Both shapes come from one walk of the manifest, so they can never carry different modules. Note that
