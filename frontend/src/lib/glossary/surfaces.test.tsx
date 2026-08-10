@@ -21,7 +21,7 @@ import { glossaryFromContent, lessonMarkdown, manifestLessons, LOCALES, type Loc
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
 /** A handful of real lessons, spread across the course rather than clustered at the front. */
-const SAMPLE = ["m03-l2", "m09-l1", "m17-l1", "m24-l1", "m30-l1"];
+const SAMPLE = ["m03-l2", "m09-l1", "m19-l1", "m27-l1", "m34-l1"];
 
 function mount(node: ReactElement): HTMLElement {
   const host = document.createElement("div");

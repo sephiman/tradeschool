@@ -75,41 +75,42 @@ cd frontend && npm install && npm run dev
 Open <http://localhost:5173>, register an account, and review the full course:
 
 - **34 modules across 7 blocks, 43 lessons** (nine modules carry a second lesson), through a
-  capstone (m24) that assembles everything into a **complete trading plan** — one worked trade end to
+  capstone (m27) that assembles everything into a **complete trading plan** — one worked trade end to
   end (top-down protocol, sizing from the stop, live management, and the **daily stop** that closes a
   losing day), then the journal, the risk tiers that only a journal can earn, validation and the step
   to real money — and on into **order flow** (block F). Each lesson is bilingual (ES + EN)
   with server-generated, server-graded exercises, end to end: lesson → attempt → answer → grading
   with the instantiated solution → progress & statistics.
-- **The arc closes: read → size → verify → execute.** Three late modules finish it, and each is placed
-  where its material belongs rather than where its id would put it (see `content/README.md` — the id is
-  a permanent label, the position is the order). **m20-l2** is multi-timeframe analysis: *a chart has no
+- **The arc closes: read → size → verify → execute.** Three late modules finish it, each placed where
+  its material belongs — and since the one-time 2026-08-10 renumbering (see `content/README.md`) the
+  ids read in that same order, while permanent identity lives on each entity's `key`.
+  **m23-l2** is multi-timeframe analysis: *a chart has no
   opinion, it has its frame's opinion* — one 4h candle **is** sixteen 15m candles, so a timeframe change
   is aggregation and never new information, levels do not move between frames (only the noise around
   them does), and the hierarchy is a mechanism rather than a rank (a daily level outweighs a 15m one
   because more participants watched it for longer, so more orders rest there). Its figure and both of
   its chart exercises draw **two linked panels of one generated series**, the upper one aggregated out
-  of the lower to the cent. **m33** (after m22) is validation: m22's expectancy is a *claim*, and the
+  of the lower to the cent. **m28** (after m25) is validation: m25's expectancy is a *claim*, and the
   lesson is the trading version of red-first — rules written before you look, bar-by-bar with no
   scrolling back, the arithmetic of why twenty trades cannot tell a system from a coin (a fair coin
   shows 60%+ one time in four), overfitting as the cardinal sin, and an abandonment criterion fixed
-  **before** the drawdown that would make you want one. **m34** (after m17) is the market around the
+  **before** the drawdown that would make you want one. **m21** (after m19) is the market around the
   chart: the **cash-and-carry**, sold as free money and actually a thin-margin business whose short leg
   can be liquidated in a rally its own spot leg is winning — *delta-neutral is not margin-neutral*, m06
-  unchanged — and the **calendar** of unlocks, listings, expiries and venue outages, which is m17's
+  unchanged — and the **calendar** of unlocks, listings, expiries and venue outages, which is m19's
   "conditions, never direction" mould for the third and last time.
-- **Order flow and microstructure** (block F, m25–m29): what a candle hides — maker/taker, the
+- **Order flow and microstructure** (block F, m29–m33): what a candle hides — maker/taker, the
   aggressor, and delta as the number OHLCV throws away; **CVD** (cumulative volume delta) with
   **CVD divergence as absorption made visible** rather than inferred, which is the confirmation m09's
   Wyckoff spring was missing; the **order book** (depth, walls, spoofing vs icebergs, and the
-  mechanism behind m15's book thinning before a scheduled release); **premium between venues**
+  mechanism behind m17's book thinning before a scheduled release); **premium between venues**
   (regional demand vs transfer friction, and why arbitrage caps a premium rather than erasing it); and
   **footprint charts and volume profile**. Where a credible generated exercise isn't possible — a
   depth ladder and a footprint are an instant snapshot and a distribution-inside-a-bar, not the time
   series this engine builds — the lesson **says so and names the real tools** instead of faking a
   chart, the same honest-frontier stance as m08's candle-pattern dictionary.
-- **The rest of the classic canon, with its weak spots named** (block C, m31–m32): the two modules that
-  close the technical-analysis block. **m31** is diagonal geometry — trendlines, channels, wedges and
+- **The rest of the classic canon, with its weak spots named** (block C, m15–m16): the two modules that
+  close the technical-analysis block. **m15** is diagonal geometry — trendlines, channels, wedges and
   triangles — and it is taught with the honest problem stated in the prose rather than in a footnote:
   no order can rest at a price that moves, so a diagonal is *the weakest instrument in the course*, and
   two competent traders will draw two different ones on the same chart. That does not exclude it; it
@@ -117,13 +118,13 @@ Open <http://localhost:5173>, register an account, and review the full course:
   keep it), and it obliges reading a break with m08-l1's body-close and m14's participation, which
   matter **more** here than at a horizontal level. On the wedge's textbook directional bias, the lesson
   splits the sentence: the exhaustion half has a mechanism, the "therefore it breaks down" half is
-  statistics without one. **m32** takes m08-l2's compression candle up to a market regime — volatility
+  statistics without one. **m16** takes m08-l2's compression candle up to a market regime — volatility
   clustering, Bollinger (how far the closes scatter) against Keltner (how far a bar travels), and the
   squeeze between them, with the squeeze-momentum oscillator presented as *a repackaging of the two
   envelopes above it* rather than as a signal. It also carries a **mandatory disambiguation**: the
-  volatility squeeze here and m17-l2's liquidity squeeze are unrelated mechanisms sharing a word, and
+  volatility squeeze here and m19-l2's liquidity squeeze are unrelated mechanisms sharing a word, and
   the glossary entry for `squeeze` is a homonym with numbered senses because of it.
-- **The SMC dialect, mapped onto mechanics** (block G, m30): learners arrive from fintwit knowing *order
+- **The SMC dialect, mapped onto mechanics** (block G, m34): learners arrive from fintwit knowing *order
   block*, *FVG*, *BOS*, *liquidity grab*, *premium/discount* — vocabulary the course never named though
   it already taught most of the substance. This closing module does for that lexicon what m08-l2's candle
   dictionary does for named candle patterns: each term is mapped onto a mechanic plus a location, never
@@ -151,7 +152,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   watch the same line that resting orders pile up around it, so it works while it is crowded rather
   than because the number is right. What the parameters change is the **horizon a signal talks
   about**, never how it is read — the three EMA signatures (order, slope, price relative to the pair)
-  are self-similar across timeframes, which is why m20's style ↔ timeframe choice picks the periods
+  are self-similar across timeframes, which is why m23's style ↔ timeframe choice picks the periods
   as a side effect.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
   matching), mixed inside every bank rather than bolted on — **867 hand-written variants across 99
@@ -211,7 +212,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   is pinned over 300 seeds per label: the zone precedes the break it is the origin of, the return really
   trades into it, which *side* price ends on carries the label while the *distance* does not, and every
   chart carries at most one imbalance, matching the three-candle detector exactly.
-- **Two frames of one series, aggregated to the cent:** m20-l2's chart exercises and its figure carry a
+- **Two frames of one series, aggregated to the cent:** m23-l2's chart exercises and its figure carry a
   second candle panel — the same generated stretch at a coarser resolution — because "is this run a
   pullback on the frame above it?" cannot be asked of one chart. The coarser panel is never generated
   separately: it is `aggregate`d out of the published lower one (first open, last close, extreme high,
@@ -228,8 +229,8 @@ Open <http://localhost:5173>, register an account, and review the full course:
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by
   `GET /api/figures/{id}` (auth + locale-aware, cached). 34 figures across the course, including the
   labelled HH/HL staircase and the swing that breaks it (m08), a liquidity sweep read as a shelf being
-  taken (m17) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
-  (m21), and one complete trade with its level, entry, stop and target drawn (m24). Every reference is
+  taken (m19) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
+  (m24), and one complete trade with its level, entry, stop and target drawn (m27). Every reference is
   checked to resolve in both languages, and no spec may sit unembedded.
 - **Exams** (`/exams`): a sampled, graded run over the exercise bank — one question per module,
   **global** (every module) or **per-block**, each instantiated with a fresh seed. One attempt per
@@ -295,8 +296,8 @@ Open <http://localhost:5173>, register an account, and review the full course:
   generated charts with their ground-truth labels — the exact renderer students see. The exercise-id
   box accepts any chart exercise, e.g. `m12-ex-1` (divergences), `m08-ex-1` (fakeouts),
   `m09-ex-1` (Wyckoff), `m10-ex-1` (moving averages), `m11-ex-1` (RSI), `m11-ex-5` (MACD crossovers),
-  `m13-ex-1` (Fibonacci), `m14-ex-1` (volume), `m17-ex-1` (open interest), `m26-ex-1` (CVD
-  divergence), `m30-ex-1` (origin zones) and `m30-ex-2` (imbalances) — the last two draw their
+  `m13-ex-1` (Fibonacci), `m14-ex-1` (volume), `m19-ex-1` (open interest), `m30-ex-1` (CVD
+  divergence), `m34-ex-1` (origin zones) and `m34-ex-2` (imbalances) — the last two draw their
   ground-truth **zone**, which the exercise itself withholds; CSV export per seed on each
   card.
 
@@ -362,6 +363,12 @@ Pre-scoping page URLs redirect (`/glossary` → `/courses/crypto-futures/glossar
 so old bookmarks land and the address bar corrects itself. `App.routes.test.tsx` pins that table.
 nginx needs no change: `try_files $uri /index.html` already serves any depth.
 
+The one-time 2026-08-10 renumbering (see `content/README.md`) vacated four module ids, and bookmarks
+to those redirect too: `/modules/m31→m15`, `m32→m16`, `m33→m28`, `m34→m21`, plus their lessons. The
+other sixteen renumbered ids were *reused* by the permutation, so those old URLs now open a different
+(live) module — a redirect there is impossible in principle, since the URL cannot say which era it
+was bookmarked in.
+
 ## Which build am I running?
 
 The stack builds from the **working tree**, not from a commit, so "is this container running my
@@ -408,8 +415,8 @@ The two shapes are discriminated by their top-level key, so a consumer never has
 // no lang / lang=all  ->  every localized field is paired
 {"locales": ["en", "es"],
  "blocks": [{"id": "block-g", "title": {"en": "The dialect", "es": "El dialecto"},
-   "modules": [{"id": "m30", "title": {…}, "summary": {…},
-     "lessons": [{"id": "m30-l1", "title": {…}, "markdown": {"en": "# The SMC…", "es": "# El dialecto…"}}]}]}]}
+   "modules": [{"id": "m34", "title": {…}, "summary": {…},
+     "lessons": [{"id": "m34-l1", "title": {…}, "markdown": {"en": "# The SMC…", "es": "# El dialecto…"}}]}]}]}
 
 // lang=es  ->  plain strings, one language
 {"locale": "es", "blocks": [{"id": "block-g", "title": "El dialecto", "modules": [{…}]}]}
@@ -431,7 +438,8 @@ GET /api/courses/{course}/glossary?lang=es    # …or the locale you name (en|es
 
 The glossary **refers, it does not teach**: every entry is one or two sentences distilled from the
 lesson that teaches the term, plus the pointer back to it. It is authored in `content/glossary.yaml`
-and validated at startup — origins must be real lesson ids, ids share the one permanent id namespace,
+and validated at startup — origins must be real lesson **keys** (served as display ids), glossary ids
+share the one permanent id namespace,
 and **no term may enter the glossary that does not appear in that locale's prose** (the glossary never
 coins). Three entry shapes:
 
@@ -441,10 +449,10 @@ coins). Three entry shapes:
 
 // a homonym: one entry, numbered senses, each with its own origin
 {"id": "g-premium", "term": "prima",
- "senses": [{"origin": "m17-l1", "definition": "…"}, {"origin": "m28-l1", "definition": "…"}]}
+ "senses": [{"origin": "m19-l1", "definition": "…"}, {"origin": "m32-l1", "definition": "…"}]}
 
 // an alias: a second name the course uses, deferring to the canonical entry
-{"id": "g-choch", "term": "CHoCH", "origin": "m30-l1",
+{"id": "g-choch", "term": "CHoCH", "origin": "m34-l1",
  "aliasOf": {"id": "g-change-of-character", "term": "cambio de carácter"}}
 ```
 
@@ -501,9 +509,11 @@ who wants the answers can read them here, as they can turn to the back of any te
 
 Three properties make it a *book* rather than a dump:
 
-* **A fixed seed per exercise.** Each instance is generated at `print_seed(exercise_id)` — blake2b of
-  the id, deliberately not `hash()`, which is salted per process and would print a different book after
-  every restart. Two exports of the same content version are identical.
+* **A fixed seed per exercise.** Each instance is generated at `print_seed(exercise key)` — blake2b of
+  the exercise's permanent `key` (its id at creation; for anything renumbered on 2026-08-10, its OLD
+  id), deliberately not `hash()`, which is salted per process and would print a different book after
+  every restart. Two exports of the same content version are identical, and a display renumbering
+  cannot silently reprint the book.
 * **One instance, one pass.** `generate()` is called once; the answer is read from `grade()` on the same
   `(config, seed)` and then **re-graded as a submitted answer, which must come back correct** before it
   is published. Every number the answer quotes is read out of the payload being published — a chart
@@ -542,7 +552,7 @@ post-processing step:
   should be findable and otherwise invisible.
 * **Exercise ↔ answer key, both directions.** The printed number jumps to its answer and the answer's
   number jumps back, which is what makes the stable numbering navigable.
-* **The glossary's own pointers.** "Taught in M17-L1 · The basis" reaches that lesson, and an alias's
+* **The glossary's own pointers.** "Taught in M19-L1 · The basis" reaches that lesson, and an alias's
   `CHoCH → change of character` reaches that entry — a reference whose pointers you cannot follow is
   half a reference.
 
@@ -684,7 +694,7 @@ callouts, accents and text inherit dark unchanged — ink *gains* contrast again
 
 For **figures**, the same rule holds: `palette()` in `CandleChart.tsx` returns the dark palette with a
 delta, so every signal colour is shared across themes — candle up/down, the indicator/signal pair, OI,
-CVD, the overlay cycle, and the neutral that markers, shaded bands and `plan` lines share (m21/m24's
+CVD, the overlay cycle, and the neutral that markers, shaded bands and `plan` lines share (m24/m27's
 entry/stop/target, which are deliberately *not* red or green). Only the chrome moves: background to
 pure black, a neutral grid and axis border in place of the blue-tinted grays, and an explicit
 crosshair — light and dark keep the library's default there, so neither can shift. `palette.test.ts`

@@ -1,232 +1,204 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: low-float-signal
+  - id: what-is-capitulation
     prompt:
-      en: "A newly listed token has a market cap of $50M but an FDV of $2B, with only about 3% of its supply circulating. What does this most likely tell you?"
-      es: "Un token recién listado tiene un market cap de 50 millones de USD pero una FDV de 2.000 millones, con solo cerca del 3% de su oferta en circulación. ¿Qué te dice esto con más probabilidad?"
+      en: "What is 'capitulation'?"
+      es: "¿Qué es la \"capitulación\"?"
     options:
       - id: a
         text:
-          en: "It is cheap: the market cap is small, so there is room for price to grow."
-          es: "Está barato: el market cap es pequeño, hay margen para que crezca."
+          en: "The exchange force-closing leveraged positions once their margin runs out."
+          es: "El exchange cerrando posiciones apalancadas cuando se agota su margen."
       - id: b
         text:
-          en: "The FDV is irrelevant, because tokens that do not circulate do not exist."
-          es: "La FDV es irrelevante, porque los tokens que no circulan no existen."
+          en: "A scheduled halving of the Bitcoin block reward paid to miners."
+          es: "Un halving programado de la recompensa por bloque que cobran los mineros."
       - id: c
         correct: true
         text:
-          en: "About 97% is still locked, so large future dilution is coming."
-          es: "Cerca del 97% sigue bloqueado: viene una gran dilución futura."
+          en: "Scared holders giving up and selling at a loss to stop the pain."
+          es: "Tenedores asustados que se rinden y venden con pérdidas para dejar de sufrir."
       - id: d
         text:
-          en: "A high FDV guarantees the price will rise over time to justify it."
-          es: "Una FDV alta garantiza que el precio subirá con el tiempo para justificarla."
+          en: "The moment the crowd turns euphoric and buys the very top."
+          es: "El momento en que la masa se vuelve eufórica y compra el techo."
     explanation:
-      en: "A market cap far below the FDV means only a small float is circulating and most of the supply is still scheduled to unlock, so price must keep absorbing wave after wave of new supply. That is future selling pressure, not a bargain: a small market cap says nothing about value on its own, locked tokens are very much real, and a big FDV is a bill rather than a promise."
-      es: "Un market cap muy por debajo de la FDV significa que solo circula un float pequeño y que la mayor parte de la oferta aún está programada para desbloquearse, así que el precio tendrá que seguir absorbiendo oleada tras oleada de nueva oferta. Eso es presión vendedora futura, no una ganga: un market cap pequeño no dice nada sobre el valor por sí solo, los tokens bloqueados son bien reales y una FDV grande es una factura, no una promesa."
-  - id: which-dilutes-more
+      en: "Capitulation is the emotional surrender at the low, and once it has run, selling pressure is largely spent. It is not a mechanical force-close: that is liquidation, a different thing entirely, where the exchange closes a leveraged position because margin is exhausted. Euphoric buying is the opposite end of the same emotional scale."
+      es: "La capitulación es la rendición emocional en el mínimo y, una vez consumada, la presión vendedora queda casi agotada. No es un cierre forzoso mecánico: eso es la liquidación, algo del todo distinto, donde el exchange cierra una posición apalancada porque el margen se agotó. La compra eufórica es el extremo contrario de la misma escala emocional."
+  - id: fear-location
     prompt:
-      en: "Two tokens both trade at $2. Token A has 90% of its supply circulating; Token B has 10% circulating. All else equal, which faces more future dilution pressure?"
-      es: "Dos tokens cotizan ambos a 2 USD. El token A tiene el 90% de su oferta en circulación; el token B, el 10%. En igualdad de condiciones, ¿cuál afronta más presión de dilución futura?"
+      en: "Where on the price chart does the deepest extreme fear tend to appear?"
+      es: "¿En qué parte del gráfico de precio tiende a aparecer el miedo extremo más profundo?"
     options:
       - id: a
+        text:
+          en: "Near market tops, right before a big rally is about to begin."
+          es: "Cerca de los techos, justo antes de que empiece un gran rally."
+      - id: b
         correct: true
         text:
-          en: "Token B — roughly 90% of its supply has yet to unlock."
-          es: "El token B: cerca del 90% de su oferta está por desbloquearse."
-      - id: b
-        text:
-          en: "Neither: dilution depends only on price, not on how much is locked."
-          es: "Ninguno: la dilución depende solo del precio, no de lo bloqueado."
+          en: "Near market lows, once the panic sellers have largely gone."
+          es: "Cerca de los mínimos, cuando los vendedores en pánico ya se han ido."
       - id: c
         text:
-          en: "Token A, because a larger circulating supply means more selling ahead."
-          es: "El token A, porque más oferta circulante implica más ventas por delante."
+          en: "Randomly across the chart, with no relation to where price is."
+          es: "Al azar por el gráfico, sin relación con dónde está el precio."
       - id: d
         text:
-          en: "Token B, but only if its market cap is already larger than Token A's."
-          es: "El token B, pero solo si su market cap ya supera al del token A."
+          en: "Only during scheduled news events on the macro calendar."
+          es: "Solo durante eventos de noticias programados del calendario macro."
     explanation:
-      en: "Future dilution comes from supply still waiting to unlock and be sold into the market. Token B has only 10% circulating, so ~90% is yet to arrive — a much heavier overhang than Token A, whose supply is almost fully out already. Same price, very different tokenomics, and the comparison holds whatever their market caps happen to be."
-      es: "La dilución futura viene de la oferta que aún espera para desbloquearse y venderse en el mercado. El token B solo tiene el 10% en circulación, así que le queda por llegar el ~90%: un lastre mucho mayor que el del token A, cuya oferta ya está casi toda fuera. Mismo precio, tokenómica muy distinta, y la comparación se sostiene sean cuales sean sus capitalizaciones."
-  - id: terms-to-meanings
-    kind: matching
-    prompt:
-      en: "Match each tokenomics term to what it actually measures."
-      es: "Empareja cada término de tokenómica con lo que mide en realidad."
-    pairs:
-      - id: circ
-        left: { en: "Circulating supply", es: "Oferta circulante" }
-        right:
-          en: "The tokens tradable right now, free to be bought and sold."
-          es: "Los tokens negociables ahora mismo, libres para comprarse y venderse."
-      - id: total
-        left: { en: "Total supply", es: "Oferta total" }
-        right:
-          en: "Everything minted so far, including locked and vesting tokens not yet on the market."
-          es: "Todo lo emitido hasta la fecha, incluidos los tokens bloqueados y en vesting que aún no están en el mercado."
-      - id: max
-        left: { en: "Max supply", es: "Oferta máxima" }
-        right:
-          en: "The ceiling — the most tokens that will ever exist once all emissions have happened."
-          es: "El techo: la mayor cantidad de tokens que existirá jamás una vez ocurridas todas las emisiones."
-      - id: mcap
-        left: { en: "Market cap", es: "Market cap" }
-        right:
-          en: "Price × circulating supply — what the tradable float is worth today."
-          es: "Precio × oferta circulante: lo que vale hoy el float negociable."
-      - id: fdv
-        left: { en: "FDV", es: "FDV" }
-        right:
-          en: "Price × max supply — what the whole thing would be worth if every token traded at today's price."
-          es: "Precio × oferta máxima: lo que valdría el conjunto si cada token cotizara al precio de hoy."
-    explanation:
-      en: "The three supply numbers differ by how much is tradable: circulating (now), total (minted so far), max (the final ceiling). Market cap uses circulating supply; FDV uses max supply. The gap between the last two is the future supply still waiting to unlock."
-      es: "Las tres cifras de oferta se distinguen por cuánto es negociable: circulante (ahora), total (lo emitido hasta la fecha) y máximo (el techo final). El market cap usa el oferta circulante; la FDV, el oferta máxima. La distancia entre las dos últimas es la oferta futura que aún espera para desbloquearse."
-  - id: mcap-fdv-same
+      en: "Deep fear clusters near bottoms: once capitulation has run and the panic sellers are out, selling pressure is largely spent and price is often near a low. That makes extreme fear a zone of interest — not a dated buy signal, and not something that needs a calendar event to appear."
+      es: "El miedo profundo se concentra cerca de los suelos: una vez consumada la capitulación y fuera los vendedores presa del pánico, la presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo. Eso convierte el miedo extremo en una zona de interés, no en una señal de compra con fecha, ni en algo que necesite un evento del calendario para aparecer."
+  - id: capitulation-vs-liquidation
     kind: true_false
     prompt:
-      en: "The gap between a token's market cap and its FDV is exactly the future supply still waiting to unlock."
-      es: "La distancia entre el market cap de un token y su FDV es justamente la oferta futura que aún espera para desbloquearse."
-    answer: true
+      en: "\"Capitulation\" and \"liquidation\" are two names for the same event."
+      es: "\"Capitulación\" y \"liquidación\" son dos nombres para el mismo suceso."
+    answer: false
     explanation:
-      en: "True, and it is why the two are not interchangeable. Market cap = price × circulating supply (the tradable float today); FDV = price × max supply (every token that will ever exist, at today's price). A large gap is a large overhang."
-      es: "Cierto, y por eso no son intercambiables. Market cap = precio × oferta circulante (el float negociable hoy); FDV = precio × oferta máxima (cada token que existirá, al precio de hoy). Una distancia grande es un lastre grande."
-  - id: low-float-red-flags
-    kind: multi_select
+      en: "They are different. Capitulation is holders emotionally giving up and selling at a loss to stop the pain. Liquidation is the exchange force-closing a leveraged position when its margin runs out. Panic-driven capitulation can trigger liquidations, but the two are not the same thing."
+      es: "Son distintos. La capitulación es que los tenedores se rinden emocionalmente y venden con pérdidas para dejar de sufrir. La liquidación es el exchange cerrando forzosamente una posición apalancada cuando se agota su margen. La capitulación por pánico puede desencadenar liquidaciones, pero no son lo mismo."
+  - id: capitulation-effect
     prompt:
-      en: "You are looking at a newly listed, low-float token. Select ALL of the following that are genuine warning signs about its tokenomics."
-      es: "Estás mirando un token recién listado con float bajo. Selecciona TODO lo siguiente que sea una señal de alarma real sobre su tokenómica."
+      en: "Once capitulation has run its course, what happens to selling pressure?"
+      es: "Una vez consumada la capitulación, ¿qué le ocurre a la presión vendedora?"
     options:
       - id: a
         correct: true
         text:
-          en: "The FDV is many times larger than the market cap."
-          es: "La FDV es muchas veces mayor que el market cap."
-      - id: b
-        correct: true
-        text:
-          en: "Only a few percent of the supply is circulating; the rest is locked."
-          es: "Solo circula un pequeño porcentaje de la oferta; el resto está bloqueado."
-      - id: c
-        correct: true
-        text:
-          en: "The unlock calendar schedules large releases over the coming months."
-          es: "El calendario de desbloqueo programa liberaciones grandes en los próximos meses."
-      - id: d
-        text:
-          en: "The market cap is small, which on its own means the token is cheap."
-          es: "El market cap es pequeño, lo que por sí solo significa que está barato."
-      - id: e
-        text:
-          en: "Its max supply is capped and every token is already circulating."
-          es: "Su oferta máxima tiene tope y todos los tokens ya circulan."
-    explanation:
-      en: "A huge FDV-to-market-cap gap, a tiny float, and big scheduled unlocks are three views of the same thing: heavy future dilution. A small market cap by itself is not a bargain, and a fully-circulating capped supply is reassuring — the opposite of a red flag, because there is no bill still to arrive."
-      es: "Una diferencia enorme entre FDV y market cap, un float minúsculo y desbloqueos grandes programados son tres vistas de lo mismo: fuerte dilución futura. Un market cap pequeño por sí solo no es una ganga, y una oferta con tope ya del todo en circulación es tranquilizadora: lo contrario de una señal de alarma, porque no queda ninguna factura por llegar."
-  - id: fdv-ratio
-    prompt:
-      en: "A token's FDV is $2B and its market cap is $200M. Reading the ratio between them, what does it tell you?"
-      es: "La FDV de un token es de 2.000 millones de USD y su market cap es de 200 millones. Al leer el cociente entre ambos, ¿qué te dice?"
-    options:
-      - id: a
-        text:
-          en: "About 90% of the supply already circulates, so it is nearly fully diluted."
-          es: "Cerca del 90% ya circula, así que está casi totalmente diluido."
-      - id: b
-        correct: true
-        text:
-          en: "FDV is 10× the cap, so only about 10% of supply circulates."
-          es: "La FDV es 10× el cap, así que solo circula cerca del 10% de la oferta."
-      - id: c
-        text:
-          en: "The ratio reveals nothing about supply — it only reflects today's price."
-          es: "El cociente no revela nada de la oferta: solo refleja el precio de hoy."
-      - id: d
-        text:
-          en: "Only 10% circulates, making it a bargain because the cap is small."
-          es: "Solo circula el 10%, lo que lo hace una ganga porque el cap es pequeño."
-    explanation:
-      en: "Divide FDV by market cap: 2B / 200M = 10, so roughly a tenth of the supply is circulating and about nine-tenths is still scheduled to unlock — a large future dilution overhang. Both figures use the same price, so the ratio is purely a statement about supply, and that overhang is something to absorb rather than a reason to call the token cheap."
-      es: "Divide la FDV entre el market cap: 2.000M / 200M = 10, así que circula alrededor de una décima parte de la oferta y unas nueve décimas siguen programadas para desbloquearse: un gran lastre de dilución futura. Ambas cifras usan el mismo precio, así que el cociente habla puramente de oferta, y ese lastre es algo que absorber, no un motivo para llamar barato al token."
-  - id: low-float-worked
-    prompt:
-      en: "A token launches with a 1-billion max supply but only 8% circulating — 80 million tokens — and gets bid to $3.00. What do the numbers say?"
-      es: "Un token se lanza con un oferta máxima de 1.000 millones pero solo el 8% circulando (80 millones de tokens) y se puja hasta 3,00 $. ¿Qué dicen los números?"
-    options:
-      - id: a
-        text:
-          en: "Market cap $3B and FDV $240M — the float is what sets the ceiling."
-          es: "Capitalización de 3.000 M$ y FDV de 240 M$: el float fija el techo."
+          en: "It is largely spent — those who were going to panic-sell already have."
+          es: "Queda casi agotada: quienes iban a vender en pánico ya lo han hecho."
       - id: b
         text:
-          en: "Market cap and FDV are both $240M until the remainder unlocks."
-          es: "La capitalización y el FDV son ambos 240 M$ hasta que se desbloquee el resto."
-      - id: c
-        correct: true
-        text:
-          en: "Market cap $240M, FDV $3B — 920 million tokens still to absorb."
-          es: "Capitalización de 240 M$, FDV de 3.000 M$: quedan 920 millones por absorber."
-      - id: d
-        text:
-          en: "A modest market cap under a large FDV is a bargain — you are early."
-          es: "Una capitalización modesta bajo un FDV grande es un chollo: llegas temprano."
-    explanation:
-      en: "80 million × $3 is a $240M market cap; 1 billion × $3 is a $3B FDV. For the price to merely hold at $3 the market must absorb 920 million tokens — $2.76 billion, more than eleven times the float holding the price up today. The chart looks like a healthy, affordable coin; the tokenomics say a modest market cap under a gigantic FDV is not a bargain but a bill that has not arrived yet."
-      es: "80 millones × 3 $ son 240 M$ de capitalización; 1.000 millones × 3 $ son 3.000 M$ de FDV. Para que el precio solo se mantenga en 3 $, el mercado debe absorber 920 millones de tokens: 2.760 M$, más de once veces el float que sostiene el precio hoy. El gráfico parece una moneda sana y asequible; la tokenómica dice que una capitalización modesta bajo un FDV gigantesco no es un chollo, sino una factura que aún no ha llegado."
-  - id: penny-coin
-    prompt:
-      en: "Token A trades at $0.001 with a 100-billion max supply. Token B trades at $50 with a 1-million max supply. Which is the more expensive network?"
-      es: "El token A cotiza a 0,001 $ con un oferta máxima de 100.000 millones. El token B cotiza a 50 $ con un máximo de 1 millón. ¿Cuál es la red más cara?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Token A — its FDV is $100M against Token B's $50M, so it is the larger."
-          es: "El token A: su FDV es de 100 M$ frente a los 50 M$ del B."
-      - id: b
-        text:
-          en: "They are equally priced; the supply differences cancel each other out."
-          es: "Están igual de caros; las diferencias de oferta se cancelan entre sí."
+          en: "It accelerates, since capitulation guarantees weeks of forced selling."
+          es: "Se acelera, ya que la capitulación garantiza semanas de venta forzada."
       - id: c
         text:
-          en: "Token B — $50 per token is obviously more expensive than $0.001 is."
-          es: "El token B: 50 $ por token es obviamente más caro que 0,001 $."
+          en: "The exchange takes over and keeps selling on the holders' behalf."
+          es: "El exchange toma el relevo y sigue vendiendo por cuenta de los tenedores."
       - id: d
         text:
-          en: "They cannot be compared without knowing each one's circulating supply."
-          es: "No pueden compararse sin conocer la oferta circulante de cada uno."
+          en: "Nothing changes: capitulation has no effect on the sellers who remain."
+          es: "No cambia nada: la capitulación no afecta a los vendedores que quedan."
     explanation:
-      en: "Price per token is arbitrary — the team simply chose a supply — so the three-decimal 'penny coin' looks like a bargain and is in fact the pricier network. Only market cap and FDV, measured against what the thing actually does, say anything about value, and the max supplies given are enough to compute FDV. Compare like with like: market cap to market cap, FDV to FDV."
-      es: "El precio por token es arbitrario —el equipo simplemente eligió una oferta—, así que la 'moneda de céntimos' de tres decimales parece un chollo y en realidad es la red más cara. Solo la capitalización y el FDV, medidos contra lo que la cosa hace realmente, dicen algo sobre el valor, y con las ofertas máximas dadas basta para calcular el FDV. Compara lo comparable: capitalización con capitalización, FDV con FDV."
-  - id: tokenomics-check
+      en: "That is the point of capitulation as a signal: when the sellers who were going to give up have given up, the supply of frightened selling dries up, and price is often near a low. That is why it marks a zone of interest — not a precise buy moment, and nobody keeps selling on your behalf afterwards."
+      es: "Ese es el sentido de la capitulación como señal: cuando los vendedores que iban a rendirse ya se han rendido, la oferta de venta asustada se seca y el precio suele estar cerca de un mínimo. Por eso marca una zona de interés, no un momento preciso de compra, y después nadie sigue vendiendo en tu nombre."
+  - id: fear-sequence
     kind: ordering
     prompt:
-      en: "Put the tokenomics check you run before buying a newer token in order."
-      es: "Ordena la comprobación de tokenómica que haces antes de comprar un token reciente."
+      en: "Put the stages of a fear-driven sell-off in order, first to last."
+      es: "Ordena las fases de una caída impulsada por el miedo, de la primera a la última."
     items:
-      - id: supplies
+      - id: drop
         position: 1
         text:
-          en: "Look up circulating, total and max supply — most data sites list all three."
-          es: "Busca el oferta circulante, total y máximo: la mayoría de webs de datos listan los tres."
-      - id: ratio
+          en: "Price falls and the mood turns fearful."
+          es: "El precio cae y el ánimo se vuelve temeroso."
+      - id: deepen
         position: 2
         text:
-          en: "Compute market cap and FDV and take their ratio — a huge gap means heavy future dilution."
-          es: "Calcula la capitalización y el FDV y su ratio: una brecha enorme significa una dilución futura fuerte."
-      - id: emission
+          en: "Fear deepens toward extreme as the drop continues."
+          es: "El miedo se agrava hacia el extremo a medida que sigue la caída."
+      - id: capitulate
         position: 3
         text:
-          en: "Read the emission/inflation rate: is supply growing fast, and who receives it?"
-          es: "Lee la tasa de emisión/inflación: ¿crece rápido la oferta y quién lo recibe?"
-      - id: calendar
+          en: "Holders capitulate — selling at a loss to stop the pain."
+          es: "Los tenedores capitulan: venden con pérdidas para dejar de sufrir."
+      - id: spent
         position: 4
         text:
-          en: "Check the unlock calendar for large releases near your trading horizon."
-          es: "Revisa el calendario de desbloqueos por si hay liberaciones grandes cerca de tu horizonte de trading."
+          en: "Selling pressure is largely spent and price is often near a low."
+          es: "La presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo."
     explanation:
-      en: "Every one of these numbers is public, and every one of them can override a clean chart. The order runs from what exists, to what it is worth, to what is still coming."
-      es: "Cada uno de estos números es público y cada uno puede invalidar un gráfico limpio. El orden va de lo que existe, a lo que vale, a lo que aún está por llegar."
+      en: "Fear builds, peaks in capitulation, and then selling exhausts itself near a low. The sequence explains why the deepest fear clusters near bottoms — but it still tells you nothing about the exact day price turns."
+      es: "El miedo se acumula, culmina en la capitulación y después la venta se agota cerca de un mínimo. La secuencia explica por qué el miedo más profundo se concentra cerca de los suelos, pero sigue sin decirte el día exacto en que gira el precio."
+  - id: fear-buy-too-early
+    prompt:
+      en: "A trader buys the moment the index first prints extreme fear, yet price keeps bleeding for weeks. What was the mistake?"
+      es: "Un trader compra en cuanto el índice marca por primera vez miedo extremo, pero el precio sigue sangrando durante semanas. ¿Cuál fue el error?"
+    options:
+      - id: a
+        text:
+          en: "The index was broken: extreme fear never appears within a downtrend."
+          es: "El índice estaba roto: el miedo extremo nunca aparece en una bajista."
+      - id: b
+        text:
+          en: "They should have shorted — fear always means lower prices from there."
+          es: "Deberían haber cortado: el miedo siempre significa precios más bajos."
+      - id: c
+        text:
+          en: "Sentiment matters only in equities, so it should have been ignored."
+          es: "El sentimiento solo importa en acciones, así que debió ignorarse."
+      - id: d
+        correct: true
+        text:
+          en: "Treating extreme fear as a timed bottom, when it is only a zone."
+          es: "Tratar el miedo extremo como un suelo con fecha, siendo una zona."
+    explanation:
+      en: "Extreme fear marks a contrarian zone of interest, not a moment, and fear can stay extreme through long bear markets — so entries need their own confirmation. It appears in downtrends by definition, it is not an instruction to short, and it applies to crypto as much as anywhere else."
+      es: "El miedo extremo marca una zona contraria de interés, no un momento, y el miedo puede seguir extremo durante largos mercados bajistas: las entradas necesitan su propia confirmación. Aparece en tendencias bajistas por definición, no es una orden de cortar, y aplica al cripto tanto como a cualquier otro sitio."
+  - id: capitulation-scene
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the following that describe what a capitulation low typically looks like."
+      es: "Selecciona TODO lo siguiente que describa cómo suele verse un mínimo de capitulación."
+    options:
+      - id: a
+        correct: true
+        text: { en: "A single violent session — BTC dropping 15% in a few hours.", es: "Una única sesión violenta: BTC cayendo un 15% en pocas horas." }
+      - id: b
+        correct: true
+        text: { en: "Enormous volume as holders finally give up.", es: "Volumen enorme cuando los holders por fin se rinden." }
+      - id: c
+        correct: true
+        text:
+          en: "A cascade of liquidations dumping more supply into a thin book."
+          es: "Una cascada de liquidaciones vertiendo más oferta en un libro fino."
+      - id: d
+        correct: true
+        text:
+          en: "The index gapping to single digits as social flips to 'it's over'."
+          es: "El índice cayendo a un dígito mientras las redes dicen 'se acabó'."
+      - id: e
+        text:
+          en: "A slow, quiet drift lower on shrinking volume over several months."
+          es: "Una deriva lenta y tranquila a la baja con volumen decreciente durante meses."
+    explanation:
+      en: "Panic, forced selling and a spike of fear all at once — that flush is what exhausts the supply of frightened holders, and it is loud by nature. A slow quiet drift is the opposite: nobody has surrendered yet, so the selling is still ahead. Either way it is a zone of interest, a place to look for setups, not a command to buy."
+      es: "Pánico, venta forzosa y un pico de miedo a la vez: ese lavado es lo que agota la oferta de holders asustados, y es ruidoso por naturaleza. Una deriva lenta y tranquila es lo contrario: nadie se ha rendido todavía, así que la venta aún está por llegar. En cualquier caso es una zona de interés, un lugar donde buscar setups, no una orden de comprar."
+  - id: overnight-swing
+    prompt:
+      en: "Crypto never closes. What does that do to a sentiment reading you check at breakfast?"
+      es: "El cripto nunca cierra. ¿Qué le hace eso a una lectura de sentimiento que consultas en el desayuno?"
+    options:
+      - id: a
+        text:
+          en: "Nothing at all — the index only updates during weekday hours."
+          es: "Nada en absoluto: el índice solo se actualiza en horario laboral."
+      - id: b
+        correct: true
+        text:
+          en: "An extreme can be reached and unwound while you sleep."
+          es: "Un extremo puede alcanzarse y deshacerse mientras duermes."
+      - id: c
+        text:
+          en: "It makes the reading more reliable, because it never gets reset."
+          es: "Hace la lectura más fiable, porque nunca se reinicia."
+      - id: d
+        text:
+          en: "It guarantees the extreme will still be in place when you act on it."
+          es: "Garantiza que el extremo seguirá ahí cuando actúes sobre él."
+    explanation:
+      en: "Sentiment compounds through overnight and weekend sessions on thin liquidity, and the mood never gets a nightly reset — so the number you see may be lagging both the swing out and the swing back. Combined with the index's already-lagging inputs, a reading can describe a state the market moved on from hours ago."
+      es: "El sentimiento se acumula en sesiones nocturnas y de fin de semana con escasa liquidez, y el ánimo no tiene reinicio nocturno, así que el número que ves puede ir por detrás tanto del movimiento de ida como del de vuelta. Combinado con las entradas ya retrasadas del índice, una lectura puede describir un estado que el mercado dejó atrás horas antes."
+  - id: fear-persists
+    kind: true_false
+    prompt:
+      en: "Extreme fear can stay extreme for months while price keeps bleeding."
+      es: "El miedo extremo puede seguir extremo durante meses mientras el precio sigue sangrando."
+    answer: true
+    explanation:
+      en: "True — fear stayed extreme through long grinding bear markets. A contrarian who bought the *first* extreme-fear print got run over: the crowd stayed lopsided far longer than their account could survive."
+      es: "Cierto: el miedo se mantuvo extremo durante mercados bajistas largos y desgastantes. Quien compró la *primera* lectura de miedo extremo fue arrollado: la multitud siguió desequilibrada mucho más de lo que su cuenta podía aguantar."

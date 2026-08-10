@@ -14,7 +14,7 @@ import {
  * Off-screen capture of the charts that ARE the question, on the lesson figures' stage.
  *
  * Unlike a figure: NO markers or bands — those give the answer away and live only in the key — and one
- * IMAGE per exercise, keyed by exercise id. m20-l2's two frames are stacked into that single image
+ * IMAGE per exercise, keyed by exercise id. m23-l2's two frames are stacked into that single image
  * rather than published as a pair, so the printed-exercise / answer-key bijection is untouched.
  */
 
@@ -40,7 +40,7 @@ async function captureOne(exercise: PrintExercise): Promise<string> {
         momentum={payload.momentum ? { values: payload.momentum, state: payload.momentum_state } : undefined}
         overlays={payload.overlays}
         levels={payload.levels}
-        // Present, unlike `bands`: the sloped line is what m31's question is asked AGAINST, so a
+        // Present, unlike `bands`: the sloped line is what m15's question is asked AGAINST, so a
         // printed chart without it is a question with nothing to answer.
         diagonals={payload.diagonals}
         // Deliberately absent: `markers` and `bands` are the answer.
@@ -55,7 +55,7 @@ async function captureOne(exercise: PrintExercise): Promise<string> {
     height,
   );
   if (!context) return toPng(main, what);
-  // The coarser frame (m20-l2). Same height as the panel it accompanies, because one of the questions
+  // The coarser frame (m23-l2). Same height as the panel it accompanies, because one of the questions
   // is which of the two contains the other and a shrunken panel would answer it by size.
   const companion = await captureChart(
     (onReady) => (

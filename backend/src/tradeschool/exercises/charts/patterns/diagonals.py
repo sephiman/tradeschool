@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Diagonal geometry and its respect contract (m31) — the moving-level twin of `Level`/`LevelGuard`.
+"""Diagonal geometry and its respect contract (m15) — the moving-level twin of `Level`/`LevelGuard`.
 
 One definition of "the line's price at bar i", shared by the two injectors that draw diagonals, the
 figure builder that projects them through the appended resolution, and `tests/test_chart_diagonals.py`
 that measures whether the candles honour them. A second, private copy of that arithmetic is exactly how
 a drawn line and its contract drift apart.
 
-**Respect is measured on the CLOSE**, never on the wick. That is not a convenience: m31-l1 teaches that
+**Respect is measured on the CLOSE**, never on the wick. That is not a convenience: m15-l1 teaches that
 a wick through a diagonal is even less information than a wick through a horizontal level, so a contract
 that failed on wicks would enforce the opposite of what the lesson says. It is also why there is no
 `DiagonalGuard` — nothing here ever moves a candle. The contract is asserted over hundreds of seeds, the
@@ -25,7 +25,7 @@ from tradeschool.exercises.charts.types import Series
 TOUCH_MARGIN = 0.008
 #: ...and a close this far past the line counts as through it rather than as slop.
 BREACH_MARGIN = 0.004
-# Both are MEASURED bounds, not traced ones — the same discipline that put m30's clean-break margin at
+# Both are MEASURED bounds, not traced ones — the same discipline that put m34's clean-break margin at
 # 2% after measuring a 3.40% floor over 600 samples.
 #
 # TOUCH_MARGIN, over 12,000 designed visits (600 seeds x 5 `trend_channel` labels x 4 visits): the
@@ -90,7 +90,7 @@ def touches(series: Series, d: Diagonal, lo: int, hi: int, margin: float = TOUCH
     """Bars in `[lo, hi)` whose CLOSE sits on the line — within `margin`, on either side of it.
 
     One index per VISIT (the first bar of it): two touches define a candidate line and the third
-    validates it (m31-l1), and that count is only meaningful if price left the line in between.
+    validates it (m15-l1), and that count is only meaningful if price left the line in between.
     """
     line = projected(d, lo, hi)
     closes = np.asarray(series.close[lo:hi], dtype=float)
@@ -118,7 +118,7 @@ def respected(
 ) -> bool:
     """The whole contract in one call: `min_touches` separated touches and no close through the line.
 
-    This is the `zone_respected` equivalent m31 needed. What it deliberately does NOT check is the
+    This is the `zone_respected` equivalent m15 needed. What it deliberately does NOT check is the
     wicks — see the module docstring.
     """
     return len(touches(series, d, lo, hi)) >= min_touches and worst_breach(series, d, lo, hi) <= margin

@@ -31,7 +31,7 @@ class AttemptInstance(BaseModel):
     def from_opened(cls, opened: OpenedAttempt) -> AttemptInstance:
         return cls(
             attemptId=opened.attempt.id,
-            exerciseId=opened.attempt.exercise_id,
+            exerciseId=opened.exercise_id,  # display id; the row stores the permanent key
             type=opened.exercise_type.value,
             prompt=opened.instance.prompt,
             payload=opened.instance.payload,
@@ -78,7 +78,7 @@ class AttemptReviewResponse(BaseModel):
         r = review.result
         return cls(
             attemptId=a.id,
-            exerciseId=a.exercise_id,
+            exerciseId=review.exercise_id,  # display id; the row stores the permanent key
             type=review.exercise_type.value,
             prompt=review.instance.prompt,
             payload=review.instance.payload,
@@ -102,10 +102,11 @@ class AttemptSummary(BaseModel):
     answeredAt: datetime | None
 
     @classmethod
-    def build(cls, attempt: Attempt) -> AttemptSummary:
+    def build(cls, attempt: Attempt, exercise_id: str) -> AttemptSummary:
+        # `exercise_id` is the display id the listing was filtered by; the row stores the key.
         return cls(
             attemptId=attempt.id,
-            exerciseId=attempt.exercise_id,
+            exerciseId=exercise_id,
             state=attempt.state,
             isCorrect=attempt.is_correct,
             createdAt=attempt.created_at,

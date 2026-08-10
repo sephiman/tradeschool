@@ -52,11 +52,14 @@ def _resolve_locale(lang: str | None, user: User) -> str:
     return "en"
 
 
-async def _completed_lesson_ids(session: AsyncSession, user_id: uuid.UUID) -> set[str]:
+async def _completed_lesson_ids(
+    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID
+) -> set[str]:
+    """Completed lessons as DISPLAY ids — the rows store permanent keys."""
     rows = await session.scalars(
         select(LessonCompletion.lesson_id).where(LessonCompletion.user_id == user_id)
     )
-    return set(rows.all())
+    return {display for key in rows.all() if (display := registry.lesson_id_for_key(key))}
 
 
 async def _has_any_attempt(session: AsyncSession, user_id: uuid.UUID) -> bool:
@@ -69,8 +72,10 @@ async def _has_any_attempt(session: AsyncSession, user_id: uuid.UUID) -> bool:
     return row is not None
 
 
-async def _passed_exercise_ids(session: AsyncSession, user_id: uuid.UUID) -> set[str]:
-    """Exercises passed in *practice* (the mastery signal ≠ reading). Exam passes never count here."""
+async def _passed_exercise_ids(
+    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID
+) -> set[str]:
+    """Exercises passed in *practice*, as DISPLAY ids (rows store keys). Exam passes never count."""
     rows = await session.scalars(
         select(Attempt.exercise_id)
         .where(
@@ -81,7 +86,7 @@ async def _passed_exercise_ids(session: AsyncSession, user_id: uuid.UUID) -> set
         )
         .distinct()
     )
-    return set(rows.all())
+    return {display for key in rows.all() if (display := registry.exercise_id_for_key(key))}
 
 
 class CompleteResponse(BaseModel):
@@ -97,8 +102,8 @@ async def get_course(
     lang: LangQuery = None,
 ) -> dict[str, object]:
     locale = _resolve_locale(lang, user)
-    completed = await _completed_lesson_ids(session, user.id)
-    passed = await _passed_exercise_ids(session, user.id)
+    completed = await _completed_lesson_ids(session, registry, user.id)
+    passed = await _passed_exercise_ids(session, registry, user.id)
     # `started` drives the course page's Continue CTA (hidden for a fresh account).
     started = bool(completed) or await _has_any_attempt(session, user.id)
     return {
@@ -156,7 +161,7 @@ async def export_print_exercises(
 
     This endpoint reveals solutions, deliberately: an answer key is the solutions in the reader's
     hands by definition. Grading stays server-side, so attempt scoring is unaffected. Single-locale,
-    deterministic per ``print_seed(exercise_id)``, cached per locale.
+    deterministic per ``print_seed(exercise key)``, cached per locale.
     """
     locale = _resolve_locale(lang, user)
     if not hasattr(request.app.state, "print_cache"):
@@ -198,7 +203,7 @@ async def get_lesson(
     lang: LangQuery = None,
 ) -> dict[str, object]:
     locale = _resolve_locale(lang, user)
-    completed = await _completed_lesson_ids(session, user.id)
+    completed = await _completed_lesson_ids(session, registry, user.id)
     detail = registry.lesson_detail(lesson_id, locale, completed)
     if detail is None:
         raise AppError("LESSON_NOT_FOUND", f"No lesson {lesson_id!r}.", status_code=404)
@@ -216,7 +221,8 @@ async def complete_lesson(
         raise AppError("LESSON_NOT_FOUND", f"No lesson {lesson_id!r}.", status_code=404)
     await session.execute(
         pg_insert(LessonCompletion)
-        .values(user_id=user.id, lesson_id=lesson_id)
+        # The row stores the permanent key, so a display renumbering never orphans a completion.
+        .values(user_id=user.id, lesson_id=registry.lesson_key(lesson_id))
         .on_conflict_do_nothing(index_elements=["user_id", "lesson_id"])
     )
     await session.commit()
@@ -232,7 +238,7 @@ async def get_module(
     lang: LangQuery = None,
 ) -> dict[str, object]:
     locale = _resolve_locale(lang, user)
-    completed = await _completed_lesson_ids(session, user.id)
+    completed = await _completed_lesson_ids(session, registry, user.id)
     detail = registry.module_detail(module_id, locale, completed)
     if detail is None:
         raise AppError("MODULE_NOT_FOUND", f"No module {module_id!r}.", status_code=404)

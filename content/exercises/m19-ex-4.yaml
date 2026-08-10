@@ -1,216 +1,224 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: drawdown-asymmetry
+  - id: cluster-magnet
     prompt:
-      en: "Your account falls 50% in a bad month. What return, on the balance that is left, do you need to get back to where you started?"
-      es: "Tu cuenta cae un 50% en un mal mes. ¿Qué rentabilidad, sobre el saldo que queda, necesitas para volver al punto de partida?"
+      en: "A liquidation cluster sits just below the current price. In practice, what does that tend to mean?"
+      es: "Un clúster de liquidaciones está justo debajo del precio actual. En la práctica, ¿qué suele significar eso?"
     options:
       - id: a
         text:
-          en: "+50%, exactly the same percentage that you lost on the way down."
-          es: "+50%, exactamente el mismo porcentaje que perdiste en la bajada."
+          en: "Price reliably avoids it, since the exchange protects positions parked there."
+          es: "El precio lo evita, ya que el exchange protege las posiciones de ahí."
       - id: b
         text:
-          en: "+25%, which is half of the percentage that you lost."
-          es: "+25%, que es la mitad del porcentaje que perdiste."
+          en: "It marks a zone of high trading volume with no effect on where price goes."
+          es: "Marca una zona de mucho volumen sin efecto sobre adónde va el precio."
       - id: c
+        text:
+          en: "The market has run out of liquidity there, so price will stop moving."
+          es: "El mercado se ha quedado sin liquidez ahí y el precio dejará de moverse."
+      - id: d
         correct: true
         text:
-          en: "+100% — you have to double what is left just to get back to even."
-          es: "+100%: tienes que duplicar lo que queda."
-      - id: d
-        text:
-          en: "+150%, being the loss itself plus a margin to cover the fees."
-          es: "+150%: la pérdida más un margen para cubrir las comisiones."
+          en: "Price is often drawn toward it, and can accelerate through it."
+          es: "El precio suele verse atraído hacia él, y puede acelerarse al atravesarlo."
     explanation:
-      en: "Gains and losses are not symmetric, because the gain is figured on a smaller base. Going 100 → 50 is −50%, but climbing 50 → 100 is +100% — a 50% gain on 50 only reaches 75. The deeper the drawdown, the more brutally this curve turns against you, which is the reason to cap risk per trade."
-      es: "Las ganancias y las pérdidas no son simétricas, porque la ganancia se calcula sobre una base más pequeña. Ir de 100 → 50 es −50%, pero subir de 50 → 100 es +100%: una ganancia del 50% sobre 50 solo llega a 75. Cuanto más profundo es el drawdown, más brutalmente se vuelve esta curva en tu contra, y por eso se limita el riesgo por operación."
-  - id: correlation-stacks
+      en: "Liquidation clusters act like magnets: reaching one triggers forced closes whose orders pull price the last stretch in and can accelerate the move through it. It is a probability and a source of volatility, not a guarantee — the exchange protects nobody — and it is a forced-close zone, not a comment on 'liquidity' running out."
+      es: "Los clústeres de liquidación actúan como imanes: alcanzar uno dispara cierres forzosos cuyas órdenes arrastran el precio el último tramo y pueden acelerar el movimiento a través de él. Es una probabilidad y una fuente de volatilidad, no una garantía —el exchange no protege a nadie— y es una zona de cierres forzosos, no un comentario sobre que se acabe la 'liquidez'."
+  - id: short-squeeze
     prompt:
-      en: "You open five separate longs, each risking 1% of your account, on five altcoins that usually rise and fall together. In a market-wide sell-off, what is your real risk?"
-      es: "Abres cinco largos separados, cada uno arriesgando el 1% de tu cuenta, en cinco altcoins que suelen subir y bajar juntas. En una caída generalizada del mercado, ¿cuál es tu riesgo real?"
+      en: "In a short squeeze, why does price accelerate upward?"
+      es: "En un short squeeze, ¿por qué se acelera el precio hacia arriba?"
     options:
       - id: a
-        correct: true
         text:
-          en: "About 5% — correlated positions move as one, so risks stack."
-          es: "Alrededor del 5%: las correlacionadas se mueven como una y se suman."
+          en: "The short sellers sell even more aggressively, which drives the price up."
+          es: "Los vendedores en corto venden aún más fuerte, lo que sube el precio."
       - id: b
         text:
-          en: "Lower than 1%, because holding five coins diversifies the risk away."
-          es: "Menos del 1%, porque tener cinco monedas diversifica el riesgo."
+          en: "The exchange raises the price to punish traders betting against the market."
+          es: "El exchange sube el precio para castigar a quien apuesta contra el mercado."
       - id: c
+        correct: true
         text:
-          en: "Still 1%: each position is capped at 1%, so the total must be too."
-          es: "Sigue siendo el 1%: cada posición está limitada al 1%, luego el total también."
+          en: "Shorts must buy to close, and that forced buying lifts price further."
+          es: "Los cortos deben comprar para cerrar, y esa compra forzada sube más el precio."
       - id: d
         text:
-          en: "0%, since five separate positions end up hedging each other out."
-          es: "0%, ya que cinco posiciones separadas acaban cubriéndose entre sí."
+          en: "New buyers step in calmly once the shorts have quietly finished closing."
+          es: "Compradores nuevos entran con calma cuando los cortos ya han cerrado."
     explanation:
-      en: "Diversification only helps when holdings are genuinely uncorrelated. Five coins that fall together are effectively one 5% bet in five costumes; their risks add rather than cancel, and a per-trade cap does not cap the correlated total. In a hard crypto sell-off almost everything correlates toward 1."
-      es: "La diversificación solo ayuda cuando lo que tienes está genuinamente descorrelacionado. Cinco monedas que caen juntas son en la práctica una sola apuesta del 5% con cinco trajes; sus riesgos se suman en vez de anularse, y un límite por operación no limita el total correlacionado. En una caída dura de cripto casi todo se correlaciona hacia 1."
-  - id: drawdown-myth
+      en: "A liquidation is a forced close, and closing a short means buying back — so a wave of short liquidations is a wave of forced buying, which lifts price, liquidates more shorts, and cascades upward. The shorts are not choosing to sell more, nobody is being punished, and the buying is anything but calm. A long squeeze is the mirror image: forced selling cascading down."
+      es: "Una liquidación es un cierre forzoso, y cerrar un corto significa recomprar: así que una oleada de liquidaciones de cortos es una oleada de compra forzada, que sube el precio, liquida más cortos y forma una cascada hacia arriba. Los cortos no eligen vender más, nadie está siendo castigado, y esa compra es de todo menos tranquila. Un long squeeze es la imagen especular: venta forzada en cascada hacia abajo."
+  - id: liquidation-def
+    prompt:
+      en: "Which of these best describes a liquidation on a futures exchange?"
+      es: "¿Cuál de estas opciones describe mejor una liquidación en un exchange de futuros?"
+    options:
+      - id: a
+        text:
+          en: "Any large wave of selling that pushes the price down sharply on the day."
+          es: "Cualquier gran oleada de ventas que hunde bruscamente el precio del día."
+      - id: b
+        text:
+          en: "A trader choosing to sell their position in order to lock in a profit."
+          es: "Un trader que decide vender su posición para asegurar una ganancia."
+      - id: c
+        correct: true
+        text:
+          en: "The exchange force-closing a position whose margin cannot cover the loss."
+          es: "El exchange cerrando a la fuerza una posición cuyo margen no cubre la pérdida."
+      - id: d
+        text:
+          en: "The market running out of buyers, so that orders can no longer be filled."
+          es: "El mercado quedándose sin compradores, de modo que no se ejecutan órdenes."
+    explanation:
+      en: "A liquidation is strictly a forced close of a leveraged position. It is not ordinary selling however large, not a voluntary profit-take, and not 'liquidity' drying up — those are three separate things that routinely get muddled with the word."
+      es: "Una liquidación es estrictamente el cierre forzoso de una posición apalancada. No es una venta corriente por grande que sea, ni una toma de ganancias voluntaria, ni que se seque la 'liquidez': son tres cosas distintas que se confunden con la palabra continuamente."
+  - id: repel-myth
     kind: true_false
     prompt:
-      en: "A 50% drawdown needs a +100% gain on what is left to get back to where you started."
-      es: "Un drawdown del 50% necesita una ganancia del +100% sobre lo que queda para volver al punto de partida."
+      en: "A liquidation cluster acts like a magnet: reaching it triggers forced closes whose orders can accelerate the move through it."
+      es: "Un clúster de liquidaciones actúa como un imán: alcanzarlo dispara cierres forzosos cuyas órdenes pueden acelerar el movimiento a través de él."
     answer: true
     explanation:
-      en: "True, and the belief that +50% would do it is what ruins over-leveraged accounts. Going 100 → 50 is −50%, but climbing 50 → 100 is +100%, because the gain is figured on the smaller surviving base — a 50% gain on 50 only reaches 75."
-      es: "Cierto, y creer que bastaría con un +50% es lo que arruina las cuentas sobreapalancadas. Ir de 100 → 50 es −50%, pero subir de 50 → 100 es +100%, porque la ganancia se calcula sobre la base menor que sobrevive: un +50% sobre 50 solo llega a 75."
-  - id: recovery-matching
+      en: "True — clusters attract price and add volatility; they do not repel it. That is why a map of them is a map of where the market tends to get violent, not a set of levels that hold price back."
+      es: "Cierto: los clústeres atraen el precio y añaden volatilidad, no lo repelen. Por eso un mapa de clústeres es un mapa de dónde el mercado suele volverse violento, no un conjunto de niveles que contengan el precio."
+  - id: cluster-tiers
+    prompt:
+      en: "Longs opened at 60,000 at 100×, 50× and 20×, with a 0.5% maintenance margin, have liquidation prices of 59,700, 59,100 and 57,300 respectively. Price wicks down to 59,000 and recovers. Which clusters did that wick harvest?"
+      es: "Largos abiertos en 60.000 a 100×, 50× y 20×, con un margen de mantenimiento del 0,5%, tienen precios de liquidación de 59.700, 59.100 y 57.300 respectivamente. El precio hace una mecha hasta 59.000 y se recupera. ¿Qué clústeres cosechó esa mecha?"
+    options:
+      - id: a
+        text:
+          en: "All three — a cascade force-closes every leveraged position at once."
+          es: "Los tres: una cascada cierra a la fuerza todas las posiciones a la vez."
+      - id: b
+        text:
+          en: "Only the 100× cluster; the 50× liquidation sits at 58,800, below the wick."
+          es: "Solo el de 100×; la liquidación del 50× está en 58.800, bajo la mecha."
+      - id: c
+        text:
+          en: "None — a 1.7% move cannot liquidate anything at any leverage at all."
+          es: "Ninguno: un movimiento del 1,7% no puede liquidar nada a ningún apalancamiento."
+      - id: d
+        correct: true
+        text:
+          en: "The 100× and 50× clusters, but not the 20× one, which sits much further down."
+          es: "Los clústeres de 100× y 50×, pero no el de 20×."
+    explanation:
+      en: "The wick reached 59,000, which is past 59,700 and 59,100 but nowhere near 57,300 — and the forced selling from the first two is exactly what can carry price down toward the third. This is why clusters stack densest right under price and go off on tiny moves: the higher the leverage, the closer liquidation sits to entry. The 58,800 figure is the classic slip of dropping the maintenance-margin term, which puts the level further from price than it really is."
+      es: "La mecha llegó a 59.000, que está pasado 59.700 y 59.100 pero muy lejos de 57.300, y la venta forzosa de los dos primeros es precisamente lo que puede llevar el precio hacia el tercero. Por esto los clústeres se acumulan más densos justo debajo del precio y se disparan con movimientos mínimos: cuanto mayor el apalancamiento, más cerca de la entrada queda la liquidación. La cifra de 58.800 es el desliz clásico de olvidar el término de margen de mantenimiento, que aleja el nivel del precio más de lo que está."
+  - id: terms-match
     kind: matching
     prompt:
-      en: "Match each drawdown to the gain, on what is left, needed to get back to even."
-      es: "Empareja cada drawdown con la ganancia, sobre lo que queda, necesaria para volver a estar en tablas."
+      en: "Match each term to what it describes."
+      es: "Empareja cada término con lo que describe."
     pairs:
-      - { id: d10, left: { en: "Down 10%", es: "Caída del 10%" }, right: { en: "needs +11.1%", es: "necesita +11,1%" } }
-      - { id: d20, left: { en: "Down 20%", es: "Caída del 20%" }, right: { en: "needs +25%", es: "necesita +25%" } }
-      - { id: d50, left: { en: "Down 50%", es: "Caída del 50%" }, right: { en: "needs +100%", es: "necesita +100%" } }
-      - { id: d80, left: { en: "Down 80%", es: "Caída del 80%" }, right: { en: "needs +400%", es: "necesita +400%" } }
+      - id: ss
+        left:
+          en: "Short squeeze"
+          es: "Short squeeze"
+        right:
+          en: "Forced buying that cascades price upward"
+          es: "Compra forzada que forma una cascada del precio hacia arriba"
+      - id: ls
+        left:
+          en: "Long squeeze"
+          es: "Long squeeze"
+        right:
+          en: "Forced selling that cascades price downward"
+          es: "Venta forzada que forma una cascada del precio hacia abajo"
+      - id: cl
+        left:
+          en: "Liquidation cluster"
+          es: "Clúster de liquidaciones"
+        right:
+          en: "A price zone that acts like a magnet for volatile moves"
+          es: "Una zona de precio que actúa como un imán para los movimientos violentos"
     explanation:
-      en: "Each recovery is larger than the loss it undoes, and the gap widens fast because the gain is figured on the shrunken base that is left. −10% needs +11.1%, but −80% needs +400%. This accelerating asymmetry is the whole reason to cap risk before the hole gets deep."
-      es: "Cada recuperación es mayor que la pérdida que deshace, y la brecha se ensancha rápido porque la ganancia se calcula sobre la base reducida que queda. −10% necesita +11,1%, pero −80% necesita +400%. Esta asimetría que se acelera es toda la razón para limitar el riesgo antes de que el pozo se haga profundo."
-  - id: diversification-truth
-    prompt:
-      en: "When does holding several different coins actually reduce your risk?"
-      es: "¿Cuándo reduce de verdad tu riesgo tener varias monedas distintas?"
-    options:
-      - id: a
-        text:
-          en: "Always — more different coins is always more diversification of risk."
-          es: "Siempre: más monedas distintas es siempre más diversificación del riesgo."
-      - id: b
-        text:
-          en: "Whenever each position is capped at 1%, since the caps make the total safe."
-          es: "Siempre que cada posición esté limitada al 1%: los límites hacen seguro el total."
-      - id: c
-        correct: true
-        text:
-          en: "Only when the coins do not tend to fall together, which in crypto is rare."
-          es: "Solo cuando las monedas no tienden a caer juntas."
-      - id: d
-        text:
-          en: "Whenever you hold at least five names, which is the usual rule of thumb."
-          es: "Siempre que tengas al menos cinco valores, la regla general habitual."
-    explanation:
-      en: "Diversification only helps when the holdings are genuinely uncorrelated. In a hard crypto sell-off almost everything correlates toward 1, so a book that looked diversified in calm weather behaves like one leveraged long exactly when it matters. Counting names or capping each line does not fix correlation — it only hides it."
-      es: "La diversificación solo ayuda cuando lo que tienes está genuinamente descorrelacionado. En una caída dura de cripto casi todo se correlaciona hacia 1, así que una cartera que parecía diversificada con el mercado tranquilo se comporta como un único largo apalancado justo cuando importa. Contar valores o limitar cada línea no arregla la correlación: solo la oculta."
-  - id: cluster-cap
-    prompt:
-      en: "You are long BTC, ETH and three large-cap alts that historically move together. How should you think about your real portfolio risk?"
-      es: "Estás largo en BTC, ETH y tres altcoins de gran capitalización que históricamente se mueven juntas. ¿Cómo deberías pensar tu riesgo de cartera real?"
-    options:
-      - id: a
-        text:
-          en: "As five independent bets, since each has its own ticker and its own stop."
-          es: "Como cinco apuestas independientes: cada una tiene su ticker y su stop."
-      - id: b
-        text:
-          en: "As lower risk than one position, because five names dilute the exposure."
-          es: "Como menos riesgo que una posición, porque cinco valores lo diluyen."
-      - id: c
-        correct: true
-        text:
-          en: "As one correlated cluster — cap the risk of the whole group."
-          es: "Como un solo grupo correlacionado: limita el riesgo de todo el grupo."
-      - id: d
-        text:
-          en: "As irrelevant: portfolio risk matters to spot investors, not futures traders."
-          es: "Como irrelevante: el riesgo de cartera es para inversores de contado."
-    explanation:
-      en: "Your real portfolio risk is your total exposure to a single move, not the number of tickets you hold, so you cap the cluster's combined risk rather than just each line on its own. Positions that move together are effectively one bet in several costumes — treating them as independent is how several 'small' positions add up to one large, undiversified bet, and that arithmetic applies to any account that carries direction."
-      es: "Tu riesgo de cartera real es tu exposición total a un mismo movimiento, no el número de tickets que tengas, así que limitas el riesgo combinado del grupo en vez de solo el de cada línea. Las posiciones que se mueven juntas son en la práctica una sola apuesta con varios trajes: tratarlas como independientes es como varias posiciones 'pequeñas' se suman en una sola grande y sin diversificar, y esa aritmética vale para cualquier cuenta que lleve dirección."
-  - id: drawdown-facts
+      en: "A short squeeze is forced buying (shorts buying to close) cascading up; a long squeeze is forced selling (longs selling to close) cascading down; a liquidation cluster is the pool of would-be forced closes near one price that draws price toward it and turns volatile."
+      es: "Un short squeeze es compra forzada (cortos que compran para cerrar) en cascada hacia arriba; un long squeeze es venta forzada (largos que venden para cerrar) en cascada hacia abajo; un clúster de liquidaciones es la bolsa de cierres forzosos potenciales cerca de un mismo precio que atrae el precio hacia sí y lo vuelve volátil."
+  - id: squeeze-fuel-signs
     kind: multi_select
     prompt:
-      en: "Select ALL statements about drawdown asymmetry that are TRUE."
-      es: "Selecciona TODAS las afirmaciones ciertas sobre la asimetría del drawdown."
+      en: "Select ALL of the following that together tell you a market is primed for a squeeze."
+      es: "Selecciona TODO lo que en conjunto te dice que un mercado está preparado para un squeeze."
     options:
       - id: a
         correct: true
         text:
-          en: "The recovery gain is calculated on what remains, not on what you started with."
-          es: "La ganancia de recuperación se calcula sobre lo que queda, no sobre el inicio."
+          en: "Funding has gone clearly one-sided, so the crowded side pays to hold."
+          es: "El funding se ha vuelto unilateral: el lado saturado paga por mantener."
       - id: b
         correct: true
         text:
-          en: "Losing a third of the account requires about +50% to get back to even."
-          es: "Perder un tercio de la cuenta exige en torno a un +50% para volver a cero."
+          en: "Open interest has climbed on that same crowded side of the book."
+          es: "El interés abierto ha subido en ese mismo lado saturado del libro."
       - id: c
         correct: true
         text:
-          en: "Every further percent lost removes capital and raises the recovery bar."
-          es: "Cada punto perdido quita capital y sube la barra de recuperación."
+          en: "A fat cluster of stops and liquidation prices sits on the crowded side."
+          es: "Un grupo denso de stops y liquidaciones está en el lado saturado."
       - id: d
         text:
-          en: "A 90% loss needs about +90% to recover the original balance."
-          es: "Una pérdida del 90% necesita un +90% para recuperar el saldo original."
+          en: "The data tells you when the spark will arrive."
+          es: "Los datos te dicen cuándo llegará la chispa."
       - id: e
         text:
-          en: "The relationship is linear: each 10% lost needs exactly 10% gained."
-          es: "La relación es lineal: cada 10% perdido necesita exactamente un 10%."
+          en: "The cluster tells you which direction the day will end."
+          es: "El grupo te dice en qué dirección terminará el día."
     explanation:
-      en: "The curve turns against you faster the deeper you fall — 50% needs +100%, 75% needs +300%, 90% needs +900%, nothing like the symmetric relationship the last two options describe. That is the whole reason to cap risk per trade before you are anywhere near a deep hole."
-      es: "La curva se vuelve contra ti más rápido cuanto más caes: el 50% necesita +100%, el 75% +300% y el 90% +900%, nada parecido a la relación simétrica que describen las dos últimas opciones. Esa es toda la razón para limitar el riesgo por operación antes de estar cerca de un agujero profundo."
-  - id: moving-stop
+      en: "One-sided funding, rising open interest on that side, and a fat cluster below it are three views of the same loaded fuel. What none of them does is predict the spark or the outcome: the data shows you a market primed to burn, never when it lights or which way it runs."
+      es: "Un funding unilateral, un interés abierto creciente en ese lado y un grupo denso debajo son tres vistas del mismo combustible cargado. Lo que ninguno hace es predecir la chispa ni el resultado: los datos te muestran un mercado listo para arder, nunca cuándo prende ni hacia dónde corre."
+  - id: cluster-not-target
     prompt:
-      en: "Price nears your stop, you decide the level 'needs more room', and you slide the stop further away. What have you just done?"
-      es: "El precio se acerca a tu stop, decides que el nivel 'necesita más margen' y lo alejas. ¿Qué acabas de hacer?"
+      en: "How should a liquidation map be used?"
+      es: "¿Cómo debería usarse un mapa de liquidaciones?"
     options:
       - id: a
         text:
-          en: "Given a good trade the room it needs, at no cost to your risk budget."
-          es: "Dar a una buena operación el margen que necesita, sin coste para el riesgo."
+          en: "As price targets to trade toward, since price is drawn to the clusters."
+          es: "Como objetivos a los que operar, ya que el precio se siente atraído por ellos."
       - id: b
         text:
-          en: "Reduced the position size automatically, since the stop is now wider."
-          es: "Reducir el tamaño automáticamente, ya que ahora el stop es más ancho."
+          en: "As support and resistance levels that reliably hold price back."
+          es: "Como niveles de soporte y resistencia que contienen el precio de forma fiable."
       - id: c
-        text:
-          en: "Nothing meaningful — the risk is still 1%, since size has not changed."
-          es: "Nada relevante: el riesgo sigue en el 1%, porque el tamaño no cambió."
-      - id: d
         correct: true
         text:
-          en: "Turned a defined 1% risk into an open-ended one you no longer control."
-          es: "Convertir un riesgo definido del 1% en uno sin límite."
+          en: "As zones of volatility and likely sweeps, never as a direction."
+          es: "Como zonas de volatilidad y probables barridos, nunca como una dirección."
+      - id: d
+        text:
+          en: "As the place to park your own stop, where the liquidity is deepest."
+          es: "Como el sitio donde poner tu propio stop, donde la liquidez es mayor."
     explanation:
-      en: "The size was calculated from the original stop distance, so widening the stop after entry keeps the size and enlarges the loss — the fastest way to turn a planned small loss into an account-ending one. Nothing resizes itself when you drag the line: the arithmetic that protected you only works if the stop stays where you put it."
-      es: "El tamaño se calculó con la distancia original del stop, así que ampliarlo después de entrar mantiene el tamaño y agranda la pérdida: la forma más rápida de convertir una pérdida pequeña planificada en una que acaba con la cuenta. Nada se redimensiona solo al arrastrar la línea: la aritmética que te protegía solo funciona si el stop se queda donde lo pusiste."
-  - id: oversize-once
-    kind: true_false
+      en: "A cluster tells you where it may get violent, not which way the day ends: none of this predicts direction — it maps the fuel and shows you where the market tends to burn it. Clusters attract rather than repel, so they are the opposite of levels that hold. And keep your own stops outside the obvious pool, beyond the level rather than one tick inside it."
+      es: "Un grupo te dice dónde puede volverse violento, no en qué dirección termina el día: nada de esto predice la dirección, cartografía el combustible y te muestra dónde suele quemarlo el mercado. Los grupos atraen en vez de repeler, así que son lo contrario de niveles que contienen. Y mantén tus propios stops fuera del grupo obvio, más allá del nivel y no un tick por dentro."
+  - id: leverage-density
     prompt:
-      en: "After a good winning streak, taking one trade at 5% risk instead of 1% is acceptable — the earlier wins have paid for it."
-      es: "Tras una buena racha ganadora, tomar una operación con un 5% de riesgo en vez del 1% es aceptable: las ganancias previas ya lo han pagado."
-    answer: false
-    explanation:
-      en: "One oversized trade can undo the protection of a hundred disciplined ones. The rule only works if it has no exceptions — and 'just this once' is exactly the exception that arrives after a streak or a loss you want back quickly."
-      es: "Una sola operación sobredimensionada puede deshacer la protección de cien disciplinadas. La regla solo funciona si no tiene excepciones, y 'solo esta vez' es precisamente la excepción que llega tras una racha o una pérdida que quieres recuperar rápido."
-  - id: gap-risk
-    prompt:
-      en: "Crypto never closes, so there is no weekend gap. Does that make your 1% risk a guarantee?"
-      es: "El cripto nunca cierra, así que no hay gap de fin de semana. ¿Eso convierte tu riesgo del 1% en una garantía?"
+      en: "Why do liquidation clusters in crypto go off on such small moves?"
+      es: "¿Por qué los grupos de liquidación en cripto se disparan con movimientos tan pequeños?"
     options:
       - id: a
         text:
-          en: "Yes — 24/7 trading means there is always a price sitting at your stop level."
-          es: "Sí: operar 24/7 significa que siempre hay precio en tu nivel de stop."
+          en: "Because exchanges deliberately trigger the clusters at fixed times of day."
+          es: "Porque los exchanges disparan los grupos a horas fijas del día a propósito."
       - id: b
-        text:
-          en: "Yes, provided that you use a limit order rather than a market stop."
-          es: "Sí, siempre que uses una orden límite en vez de un stop a mercado."
-      - id: c
         correct: true
         text:
-          en: "No — a stop only requests the next available price, never your own price."
-          es: "No: un stop solo pide el siguiente precio disponible."
+          en: "Perps allow 50–100×, so liquidation sits right next to entry."
+          es: "Los perps permiten 50-100×, así que la liquidación queda pegada a la entrada."
+      - id: c
+        text:
+          en: "Because the maintenance margin is larger in crypto than in other markets."
+          es: "Porque el margen de mantenimiento es mayor en cripto que en otros mercados."
       - id: d
         text:
-          en: "No, but only on exchanges that have no insurance fund behind them."
-          es: "No, pero solo en exchanges que no tienen fondo de seguros detrás."
+          en: "Because funding is charged three times a day, and that moves the price."
+          es: "Porque el funding se cobra tres veces al día, y eso mueve el precio."
     explanation:
-      en: "In a cascade, an outage, thin weekend liquidity or a 3 a.m. news shock, price can jump straight past your level and your 1% becomes 2% or 4% realised — a limit stop makes that worse, not better, because it may simply not fill. Treat the 1% as a ceiling that holds in calm conditions, not a floor the exchange guarantees, and size with a little room for the fill to come out worse than planned."
-      es: "En una cascada, una caída del exchange, escasa liquidez de fin de semana o un shock de noticias a las 3 de la madrugada, el precio puede saltarse tu nivel y tu 1% se convierte en un 2% o 4% realizado; un stop límite lo empeora, no lo mejora, porque puede sencillamente no ejecutarse. Trata el 1% como un techo que se cumple en condiciones tranquilas, no como un suelo que garantice el exchange, y dimensiona dejando algo de margen para que la ejecución salga peor de lo previsto."
+      en: "A roughly 1% wick can liquidate a 100× position, so the trigger needs almost nothing — and the higher the leverage on offer, the denser the shelf sitting immediately under price. Dense clusters plus no closing bell plus thin books is the whole reason cascades are worse here: they fire at 3am, run unopposed, and overshoot because there was nothing there to absorb them."
+      es: "Una mecha de en torno al 1% puede liquidar una posición a 100×, así que el disparador casi no necesita nada, y cuanto mayor es el apalancamiento ofrecido, más densa es la repisa que queda justo debajo del precio. Grupos densos, sin campana de cierre y libros finos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."

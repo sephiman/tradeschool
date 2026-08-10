@@ -1,224 +1,149 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: sequence
+  - id: weaker-mechanism
     prompt:
-      en: "What is the classic order of capital rotation in a crypto cycle?"
-      es: "¿Cuál es el orden clásico de la rotación de capital en un ciclo cripto?"
+      en: "m15-l1 calls the diagonal the weakest instrument in the course. What is the mechanical reason?"
+      es: "m15-l1 llama a la diagonal el instrumento más débil del curso. ¿Cuál es la razón mecánica?"
     options:
       - id: a
         text:
-          en: "Small-cap alts → large-cap alts → ETH → BTC, climbing toward safety."
-          es: "Alts pequeñas → alts grandes → ETH → BTC, subiendo hacia la seguridad."
+          en: "Diagonals are computed from fewer candles, so they carry a smaller sample."
+          es: "Las diagonales se calculan con menos velas, así que llevan una muestra menor."
       - id: b
-        text:
-          en: "Stablecoins → small-cap alts → BTC → ETH, ending in the majors."
-          es: "Stablecoins → alts pequeñas → BTC → ETH, acabando en los grandes."
-      - id: c
-        text:
-          en: "Everything rises together at the same time, in no particular order."
-          es: "Todo sube a la vez, al mismo tiempo y sin ningún orden concreto."
-      - id: d
         correct: true
         text:
-          en: "BTC → ETH → large-cap alts → small-cap alts, outward along the risk curve."
-          es: "BTC → ETH → alts de gran capitalización → alts de pequeña capitalización."
-    explanation:
-      en: "New money tends to arrive through Bitcoin, then rotate into Ether, then the large alts, and finally the small speculative ones — appetite for risk builds gradually, which is why capital travels in that order rather than all at once. The reverse sequence is what happens when fear returns, and it is a tendency, never a timetable."
-      es: "El dinero nuevo suele entrar por Bitcoin, luego rota hacia Ether, después a las alts grandes y por último a las pequeñas especulativas: el apetito por el riesgo se construye poco a poco, y por eso el capital viaja en ese orden y no todo de golpe. La secuencia inversa es lo que ocurre cuando vuelve el miedo, y es una tendencia, nunca un calendario."
-  - id: last-stage
-    prompt:
-      en: "In the classic rotation, which assets tend to receive money last, in the most euphoric and riskiest phase?"
-      es: "En la rotación clásica, ¿qué activos tienden a recibir dinero los últimos, en la fase más eufórica y arriesgada?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Small-cap, speculative altcoins, which are the last stop of the sequence."
-          es: "Altcoins pequeñas y especulativas, la última parada del ciclo."
-      - id: b
-        text:
-          en: "Bitcoin, in its role as the safe reserve asset of the space."
-          es: "Bitcoin, en su papel de activo de reserva seguro del espacio."
+          en: "No order can rest at a price that moves, so nothing remembers where it was."
+          es: "Ninguna orden descansa en un precio que se mueve: nada recuerda dónde estaba."
       - id: c
         text:
-          en: "Ether, which is the first alt in the rotation sequence."
-          es: "Ether, que es la primera alt de la secuencia de rotación."
+          en: "They only work on daily charts, and crypto trades around the clock every day."
+          es: "Solo funcionan en gráficos diarios, y las cripto cotizan a todas horas cada día."
       - id: d
         text:
-          en: "Stablecoins, where everybody parks their cash between trades."
-          es: "Las stablecoins, donde todos aparcan el efectivo entre operaciones."
+          en: "Exchanges do not publish the data a sloped line would need to be drawn from."
+          es: "Los exchanges no publican los datos con los que habría que trazar una inclinada."
     explanation:
-      en: "The smallest, most speculative tokens tend to move last, exactly when the crowd feels most certain and risk is highest. Bitcoin and Ether are the early stops in the sequence, not the late ones, and when fear returns the small caps bleed first and worst."
-      es: "Los tokens más pequeños y especulativos suelen moverse los últimos, justo cuando la multitud se siente más segura y el riesgo es más alto. Bitcoin y Ether son las paradas tempranas de la secuencia, no las tardías, y cuando vuelve el miedo los small caps sangran primero y peor."
-  - id: rotation-order
-    kind: ordering
-    prompt:
-      en: "Arrange the classic capital rotation of a crypto cycle in order, from where new money tends to arrive first to where it arrives last."
-      es: "Ordena la rotación clásica de capital de un ciclo cripto, desde donde suele llegar primero el dinero nuevo hasta donde llega el último."
-    items:
-      - id: btc
-        position: 1
-        text:
-          en: "Bitcoin"
-          es: "Bitcoin"
-      - id: eth
-        position: 2
-        text:
-          en: "Ether (ETH)"
-          es: "Ether (ETH)"
-      - id: large
-        position: 3
-        text:
-          en: "Large-cap alts"
-          es: "Alts de gran capitalización"
-      - id: small
-        position: 4
-        text:
-          en: "Small-cap, speculative alts"
-          es: "Alts pequeñas y especulativas"
-    explanation:
-      en: "New money tends to arrive through Bitcoin, rotate into Ether as confidence grows, then into the large established alts, and finally into the small speculative ones in the euphoric phase — a tendency, never a timetable."
-      es: "El dinero nuevo suele entrar por Bitcoin, rota hacia Ether a medida que crece la confianza, luego hacia las alts grandes y establecidas y por último hacia las pequeñas especulativas en la fase eufórica: una tendencia, nunca un calendario."
-  - id: first-stage
-    prompt:
-      en: "According to the rotation, where does fresh money entering the market tend to go first?"
-      es: "Según la rotación, ¿hacia dónde tiende a ir primero el dinero nuevo que entra en el mercado?"
-    options:
-      - id: a
-        text:
-          en: "Into the small-cap alts, where the very biggest gains are found."
-          es: "Hacia las alts pequeñas, donde están las mayores ganancias posibles."
-      - id: b
-        text:
-          en: "Into Ether, which is the first stop for all incoming capital."
-          es: "Hacia Ether, que es la primera parada de todo el capital entrante."
-      - id: c
-        correct: true
-        text:
-          en: "Into Bitcoin first, which is why dominance rises early in a fresh cycle."
-          es: "Hacia Bitcoin primero, y por eso la dominancia sube al principio."
-      - id: d
-        text:
-          en: "Spread evenly across every coin in the market at the same time."
-          es: "Repartido por igual entre todas las monedas del mercado a la vez."
-    explanation:
-      en: "New money tends to arrive through Bitcoin first, pushing dominance up; only as confidence grows does it rotate outward into ETH, then the large alts, then the small ones. The small caps are the last stop, not the first, and the whole point of the rotation is that capital does not arrive everywhere at once."
-      es: "El dinero nuevo suele entrar primero por Bitcoin, empujando la dominancia al alza; solo a medida que crece la confianza rota hacia fuera, hacia ETH, luego las alts grandes y luego las pequeñas. Los small caps son la última parada, no la primera, y todo el sentido de la rotación es que el capital no llega a todas partes a la vez."
-  - id: reverse-rotation
-    prompt:
-      en: "When fear returns and the rotation runs in reverse, which tokens tend to bleed first and worst?"
-      es: "Cuando vuelve el miedo y la rotación funciona a la inversa, ¿qué tokens tienden a sangrar primero y peor?"
-    options:
-      - id: a
-        text:
-          en: "Bitcoin, because it is the biggest position anyone has to exit."
-          es: "Bitcoin, porque es la posición más grande de la que hay que salir."
-      - id: b
-        text:
-          en: "Every coin falls by exactly the same percentage as every other."
-          es: "Todas las monedas caen exactamente el mismo porcentaje que las demás."
-      - id: c
-        correct: true
-        text:
-          en: "The smallest, least liquid tokens, which were the last ones to be bought."
-          es: "Los tokens más pequeños y menos líquidos, los últimos en comprarse."
-      - id: d
-        text:
-          en: "Stablecoins, which are the first thing to lose their dollar peg."
-          es: "Las stablecoins, lo primero que pierde su paridad con el dólar."
-    explanation:
-      en: "In reverse, money climbs back up the curve toward Bitcoin, and the smallest, least liquid tokens — the last to be bought — are the first and hardest hit. Bitcoin is where the money is heading, not what it is fleeing, and the whole point is that the fall is not evenly distributed."
-      es: "A la inversa, el dinero sube de nuevo por la curva hacia Bitcoin, y los tokens más pequeños y menos líquidos —los últimos en comprarse— son los primeros y más golpeados. Bitcoin es a donde va el dinero, no de lo que huye, y todo el sentido es que la caída no se reparte por igual."
-  - id: tendency-not-timetable
+      en: "A horizontal level works because orders rest at prices: a shelf that held twice may hold again because some of those same orders are still sitting there. A diagonal names a price that changes every bar, and nobody's stop or limit is parked at 'wherever the line is next Tuesday'. What the line describes is a regularity of demand that has held so far, which nobody is obliged to maintain."
+      es: "Un nivel horizontal funciona porque las órdenes descansan en precios: un estante que aguantó dos veces puede volver a aguantar porque algunas de esas mismas órdenes siguen ahí. Una diagonal nombra un precio que cambia cada barra, y el stop o el límite de nadie está aparcado en «donde esté la línea el martes que viene». Lo que describe la línea es una regularidad de la demanda que se ha cumplido hasta ahora, y nadie está obligado a mantenerla."
+  - id: two-traders
     kind: true_false
     prompt:
-      en: "The rotation is a reliable timetable: once one stage happens, the next always follows on schedule."
-      es: "La rotación es un calendario fiable: una vez que ocurre una etapa, la siguiente llega siempre en su plazo."
-    answer: false
+      en: "Two competent traders can draw different trendlines on the same chart and both be following the rules."
+      es: "Dos operadores competentes pueden trazar líneas de tendencia distintas en el mismo gráfico y estar los dos siguiendo las reglas."
+    answer: true
     explanation:
-      en: "The rotation is a tendency, not a timetable. It does not complete every cycle, the stages overlap, and many predicted alt seasons never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding them for years."
-      es: "La rotación es una tendencia, no un calendario. No se completa en cada ciclo, las etapas se solapan y muchas alt seasons anunciadas nunca llegaron. A los traders que compraron alts pequeñas porque 'la rotación dice que van a continuación' les ha tocado sostenerlas durante años."
-  - id: thin-book-final-leg
+      en: "True, and it is the honest reason to hold a diagonal loosely. The line depends on which extremes you count and whether you anchor on wicks or bodies — both defensible choices. The discipline is not that there is one right line; it is that you declare your criterion, keep it, and do not redraw the line to keep a thesis alive."
+      es: "Cierto, y es la razón honesta para no aferrarse a lo que dice una diagonal. La línea depende de qué extremos cuentas y de si te anclas en mechas o en cuerpos, dos elecciones defendibles las dos. La disciplina no es que haya una única línea correcta: es que declares tu criterio, lo mantengas y no redibujes la línea para mantener viva una tesis."
+  - id: wick-through
     prompt:
-      en: "Why is the final leg of the rotation — into small, speculative tokens — so violent?"
-      es: "¿Por qué el último tramo de la rotación, hacia tokens pequeños y especulativos, es tan violento?"
+      en: "A single candle's wick pierces a validated trendline and the candle closes back above it. What have you learned?"
+      es: "La mecha de una sola vela atraviesa una línea de tendencia validada y la vela cierra otra vez por encima. ¿Qué has aprendido?"
     options:
       - id: a
         text:
-          en: "Because small caps are granted higher leverage limits than the majors."
-          es: "Porque los small caps tienen límites de apalancamiento mayores que los grandes."
+          en: "The trendline is broken: any trade through the line ends its validity for good."
+          es: "La línea está rota: cualquier operación a través de ella acaba con su validez."
       - id: b
+        text:
+          en: "The trendline is confirmed, since price defended it inside that very candle."
+          es: "La línea queda confirmada, ya que el precio la defendió dentro de esa misma vela."
+      - id: c
         correct: true
         text:
-          en: "Their books are thin, so a modest inflow can double a micro-cap."
-          es: "Sus libros son finos, así que un flujo modesto puede duplicar un micro-cap."
-      - id: c
-        text:
-          en: "Because their fundamentals improve fastest late in the market cycle."
-          es: "Porque sus fundamentales mejoran más rápido al final del ciclo."
+          en: "Very little — a wick through a diagonal is even weaker evidence than usual."
+          es: "Muy poco: una mecha a través de una diagonal es evidencia aún más débil que de costumbre."
       - id: d
         text:
-          en: "Because market makers are obliged to quote them more aggressively."
-          es: "Porque los creadores de mercado deben cotizarlos más agresivamente."
+          en: "That the anchors were wrong and the whole line has to be redrawn from scratch."
+          es: "Que los anclajes estaban mal y hay que volver a trazar la línea entera desde cero."
     explanation:
-      en: "A small-cap has little capital sitting in it, so the same inflow that nudges Bitcoin a few percent can double it. That is exactly why small tokens moon last, hardest, and most seductively — and why they bleed first and worst in reverse: the thin book that amplified the rise amplifies the fall, and there is often no bid to sell into. Nothing about it is a fundamental improvement or a rule imposed by the venue."
-      es: "Un small-cap tiene poco capital dentro, así que el mismo flujo que mueve a Bitcoin unos puntos porcentuales puede duplicarlo. Por eso los tokens pequeños suben al final, con más fuerza y de forma más seductora, y por eso sangran primero y peor a la inversa: el libro fino que amplificó la subida amplifica la caída, y a menudo no hay demanda a la que vender. Nada de esto es una mejora fundamental ni una regla impuesta por el venue."
-  - id: stylised-cycle-match
+      en: "The body decides, which is m08-l1's rule unchanged. And a wick through a diagonal is worth even less than a wick through a horizontal level: at a horizontal level, price at least traded where a pool of real orders was sitting. Here it traded where a line somebody drew happened to be. It is not a break, and it is not a defence either."
+      es: "Decide el cuerpo, que es la regla de m08-l1 sin cambios. Y una mecha a través de una diagonal vale aún menos que una a través de un nivel horizontal: en un nivel horizontal, al menos el precio negoció donde había una bolsa de órdenes reales. Aquí negoció donde estaba una línea que alguien dibujó. No es una ruptura, y tampoco es una defensa."
+  - id: not-here
+    prompt:
+      en: "Price has been going sideways between two horizontal bounds for six weeks. Where does a trendline fit?"
+      es: "El precio lleva seis semanas lateral entre dos límites horizontales. ¿Dónde encaja una línea de tendencia?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Nowhere: with no rate of advance there is no rhythm for a diagonal to describe."
+          es: "En ningún sitio: sin ritmo de avance no hay regularidad que una diagonal describa."
+      - id: b
+        text:
+          en: "Draw a very shallow one across the lows to catch the trend forming underneath it."
+          es: "Traza una muy plana por los mínimos para pillar la tendencia que se forma debajo."
+      - id: c
+        text:
+          en: "Draw two, one per bound, so the range is expressed in the same language as a trend."
+          es: "Traza dos, una por límite, para expresar el rango en el mismo lenguaje que una tendencia."
+      - id: d
+        text:
+          en: "Use the diagonal to time the exit, since a range always ends in a trend eventually."
+          es: "Usa la diagonal para cronometrar la salida, ya que un rango siempre acaba en tendencia."
+    explanation:
+      en: "A range has horizontal bounds and no rate of advance, and a diagonal's only claim is a rate of advance. Reaching for a near-flat trendline to describe a sideways market means swapping a tool with a mechanism — resting orders at a price, m03-l2 — for one without. The horizontal level was the right instrument and it was already there."
+      es: "Un rango tiene límites horizontales y ningún ritmo de avance, y la única afirmación de una diagonal es un ritmo de avance. Recurrir a una línea casi plana para describir un mercado lateral es cambiar una herramienta con mecanismo —órdenes en reposo en un precio, m03-l2— por otra sin él. El nivel horizontal era el instrumento correcto y ya estaba ahí."
+  - id: what-each-claims
     kind: matching
     prompt:
-      en: "Match each stage of the stylised cycle to what is happening in it."
-      es: "Empareja cada etapa del ciclo estilizado con lo que ocurre en ella."
+      en: "Match each drawn object to the claim it actually makes."
+      es: "Empareja cada objeto trazado con la afirmación que hace de verdad."
     pairs:
-      - id: btc
+      - id: horiz
         left:
-          en: "Dominance grinds up from 40% into the high 40s"
-          es: "La dominancia sube poco a poco del 40% hasta cerca del 50%"
-        right: { en: "New money pouring into BTC first.", es: "Dinero nuevo entrando primero en BTC." }
-      - id: eth
-        left: { en: "Dominance stalls and ETH/BTC turns up", es: "La dominancia se estanca y ETH/BTC gira al alza" }
+          en: "Horizontal level"
+          es: "Nivel horizontal"
         right:
-          en: "The first profits rotating out of Bitcoin into Ether."
-          es: "Los primeros beneficios rotando de Bitcoin a Ether."
-      - id: small
+          en: "This price mattered, and resting orders can still be sitting at it."
+          es: "Este precio importó, y todavía puede haber órdenes en reposo en él."
+      - id: diag
         left:
-          en: "Obscure small caps triple while the crowd declares the alt season permanent"
-          es: "Small caps oscuros se triplican mientras la multitud declara permanente la alt season"
+          en: "Trendline"
+          es: "Línea de tendencia"
         right:
-          en: "Dominance bottoming just as risk actually peaks."
-          es: "La dominancia hace suelo justo cuando el riesgo alcanza su máximo."
+          en: "Demand has been arriving at a steady rate that nothing obliges it to keep."
+          es: "La demanda llega a un ritmo constante que nada obliga a mantener."
+      - id: chan
+        left:
+          en: "Channel"
+          es: "Canal"
+        right:
+          en: "That rhythm has had a width as well as a slope, so far."
+          es: "Ese ritmo ha tenido también una anchura además de una pendiente, hasta ahora."
+      - id: proj
+        left:
+          en: "The projection past the last touch"
+          es: "La proyección más allá del último toque"
+        right:
+          en: "Where the line would be, if it continued — the part a break is judged against."
+          es: "Dónde estaría la línea si continuara: la parte contra la que se juzga una ruptura."
     explanation:
-      en: "The crowd feels most certain exactly where risk is highest. Then something spooks the market and the whole ladder is climbed back down in a fraction of the time it took to go up."
-      es: "La multitud se siente más segura precisamente donde el riesgo es mayor. Luego algo asusta al mercado y toda la escalera se baja en una fracción del tiempo que costó subirla."
-  - id: rotation-facts
-    kind: multi_select
+      en: "Reading them side by side is the point of the lesson. Only the first names something that exists in the order book. The other three are descriptions of a regularity plus an extrapolation of it, which is why the same break evidence — a body, and participation — is demanded more strictly here, not less."
+      es: "Leerlos en paralelo es el sentido de la lección. Solo el primero nombra algo que existe en el libro de órdenes. Los otros tres son descripciones de una regularidad más una extrapolación de ella, y por eso la misma evidencia de ruptura —un cuerpo y participación— se exige aquí con más rigor, no con menos."
+  - id: stop-pocket
     prompt:
-      en: "Select ALL statements about the rotation that are TRUE."
-      es: "Selecciona TODAS las afirmaciones ciertas sobre la rotación."
+      en: "Everyone is watching the same obvious rising support. Why does that make the line more dangerous, not safer?"
+      es: "Todo el mundo mira el mismo soporte ascendente evidente. ¿Por qué eso hace la línea más peligrosa y no más segura?"
     options:
       - id: a
-        correct: true
         text:
-          en: "It is a tendency, not a timetable — it does not complete every cycle."
-          es: "Es una tendencia, no un calendario: no se completa en cada ciclo."
+          en: "A crowded line stops working the moment more than a handful of people watch it."
+          es: "Una línea concurrida deja de funcionar en cuanto la miran más de unos pocos."
       - id: b
-        correct: true
         text:
-          en: "The stages overlap with one another rather than running cleanly."
-          es: "Las etapas se solapan entre sí en vez de sucederse limpiamente."
+          en: "Crowded lines are recalculated by the exchanges, which moves them without warning."
+          es: "Los exchanges recalculan las líneas concurridas, y eso las mueve sin previo aviso."
       - id: c
+        text:
+          en: "The more people watch a line, the wider the spread gets at exactly that price."
+          es: "Cuantos más miran una línea, más se ensancha el spread justo en ese precio."
+      - id: d
         correct: true
         text:
-          en: "Risk appetite builds gradually, so capital travels in this order."
-          es: "El apetito por el riesgo crece poco a poco: por eso el capital va en ese orden."
-      - id: d
-        text:
-          en: "Once stage N has happened, stage N+1 duly follows on schedule."
-          es: "Una vez ocurrida la etapa N, la N+1 llega puntualmente según el calendario."
-      - id: e
-        text:
-          en: "Buying illiquid small caps early is safe, since they are next in line."
-          es: "Comprar small caps ilíquidos pronto es seguro, ya que son los siguientes."
+          en: "Everyone's stop goes just under it, which is a known pocket of forced sell orders."
+          es: "El stop de todos va justo debajo, y eso es una bolsa conocida de ventas forzadas."
     explanation:
-      en: "Plenty of 'alt seasons' have been called that never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding a thin, bleeding book for years — the sequence describes how appetite tends to build, and it promises nobody a turn."
-      es: "Se han anunciado muchas 'alt seasons' que nunca llegaron. Los traders que compraron alts pequeñas porque 'la rotación dice que son las siguientes' se han quedado años con un libro poco profundo y sangrando: la secuencia describe cómo suele construirse el apetito, y no le promete el turno a nadie."
+      en: "This is m19-l2 arriving at a diagonal. A visible line concentrates protective stops immediately beneath it, and a pocket of resting sell orders at a known price is exactly what a sweep goes looking for. The move into it triggers them and the forced selling can print a candle clean through the line before price closes back above. The defence is the same as everywhere: wait for the close, and check whether anyone came with it."
+      es: "Esto es m19-l2 llegando a una diagonal. Una línea visible concentra stops de protección justo debajo, y una bolsa de órdenes de venta en reposo en un precio conocido es exactamente lo que va buscando un barrido. El movimiento hasta ahí las dispara y las ventas forzadas pueden imprimir una vela limpiamente a través de la línea antes de que el precio cierre otra vez por encima. La defensa es la de siempre: espera al cierre y comprueba si vino alguien detrás."

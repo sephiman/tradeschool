@@ -28,9 +28,17 @@ const UPDATE = process.env.UPDATE_GLOSSARY_LINKS === "1";
 /** Building the report walks 36 lessons twice; under a full parallel run that outlasts the 5s default. */
 const SLOW = 120_000;
 
-/** Course reading order, which is what the PDF's "first occurrence in the book" means. */
+/**
+ * Course reading order, which is what the PDF's "first occurrence in the book" means.
+ *
+ * The report's lesson axis is the permanent KEY (matching the yaml's `origin`/`link_except`), so a
+ * display renumbering leaves every line's lesson column untouched; only genuine order changes diff.
+ */
 function courseLessons(locale: Locale): ReportLesson[] {
-  return manifestLessons().map((lesson) => ({ id: lesson.id, markdown: lessonMarkdown(locale, lesson.id) }));
+  return manifestLessons().map((lesson) => ({
+    id: lesson.key ?? lesson.id,
+    markdown: lessonMarkdown(locale, lesson.id),
+  }));
 }
 
 function goldenPath(locale: Locale): string {
@@ -42,13 +50,13 @@ const reports = new Map<Locale, LinkReport>();
 function report(locale: Locale): LinkReport {
   const existing = reports.get(locale);
   if (existing) return existing;
-  const built = buildLinkReport(courseLessons(locale), glossaryFromContent(locale), locale);
+  const built = buildLinkReport(courseLessons(locale), glossaryFromContent(locale, "key"), locale);
   reports.set(locale, built);
   return built;
 }
 
 function generate(locale: Locale): string {
-  return formatLinkReport(buildLinkReport(courseLessons(locale), glossaryFromContent(locale), locale));
+  return formatLinkReport(buildLinkReport(courseLessons(locale), glossaryFromContent(locale, "key"), locale));
 }
 
 describe.each(LOCALES)("the golden link report (%s)", (locale) => {
@@ -77,7 +85,7 @@ describe.each(LOCALES)("the golden link report (%s)", (locale) => {
 
   it("never links a term in a lesson that term points back at", () => {
     const origins = new Map(
-      glossaryFromContent(locale).map((entry) => [
+      glossaryFromContent(locale, "key").map((entry) => [
         entry.id,
         new Set([entry.origin, ...(entry.senses ?? []).map((sense) => sense.origin)].filter(Boolean)),
       ]),
@@ -95,7 +103,7 @@ describe.each(LOCALES)("the golden link report (%s)", (locale) => {
 
   it("shows a moved link as a diff when the prose changes", () => {
     const lessons = courseLessons(locale);
-    const entries = glossaryFromContent(locale);
+    const entries = glossaryFromContent(locale, "key");
     // A synthetic edit: the same prose with its first two lessons swapped moves every term whose
     // first occurrence lived in either of them.
     const swapped = [lessons[1], lessons[0], ...lessons.slice(2)];

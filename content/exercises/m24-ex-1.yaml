@@ -1,199 +1,209 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: move-stop-away
+  - id: market-tradeoff
     prompt:
-      en: "You are long from 60.300 with a stop at 59.300. Price falls to 59.500 and looks likely to hit the stop. You slide the stop down to 58.000 to 'give it room'. What did you just do?"
-      es: "Estás largo desde 60.300 con el stop en 59.300. El precio cae a 59.500 y parece que va a tocar el stop. Deslizas el stop a 58.000 para «darle espacio». ¿Qué acabas de hacer?"
+      en: "You use a market order instead of a limit order. What are you choosing?"
+      es: "Usas una orden de mercado en lugar de una de límite. ¿Qué estás eligiendo?"
     options:
       - id: a
         text:
-          en: "Sound risk management: a wider stop lets a good trade survive normal noise."
-          es: "Buena gestión del riesgo: un stop más ancho deja sobrevivir al ruido normal."
+          en: "A guaranteed better price than the one the market is showing now."
+          es: "Un precio garantizado mejor que el que muestra ahora el mercado."
       - id: b
         text:
-          en: "Cut the risk, since price now needs a bigger move against you to close it."
-          es: "Reducir el riesgo, ya que ahora hace falta un movimiento mayor en contra."
+          en: "To wait in the book until price comes down to your chosen level."
+          es: "Esperar en el libro hasta que el precio baje a tu nivel elegido."
       - id: c
         text:
-          en: "Nothing structural: the stop is a soft marker you re-price as context changes."
-          es: "Nada estructural: el stop es una marca blanda que repones según el contexto."
+          en: "Lower fees, because market orders are always the cheaper option."
+          es: "Menos comisiones, porque las órdenes de mercado son siempre más baratas."
       - id: d
         correct: true
         text:
-          en: "Abandoned the plan and uncapped the risk, which is the cardinal sin of live management."
-          es: "Abandonar el plan y quitar el tope al riesgo: el pecado capital en vivo."
+          en: "Immediacy — you fill now, at whatever the book offers."
+          es: "Inmediatez: te ejecutas ya, al precio que ofrezca el libro."
     explanation:
-      en: "Moving a stop away from price is the cardinal sin of live management: it turns a known, budgeted loss into an open-ended one. It does not reduce risk — the position size is unchanged, so a wider stop is a strictly bigger loss in money. The stop only ever moves in the trade's favour; widening it is how a 1% risk becomes a liquidation."
-      es: "Mover el stop en contra es el pecado capital de la gestión en vivo: convierte una pérdida conocida y presupuestada en una abierta. No reduce el riesgo: el tamaño de la posición no cambia, así que un stop más ancho es una pérdida estrictamente mayor en dinero. El stop solo se mueve a favor; ensancharlo es como un riesgo del 1% se vuelve una liquidación."
-  - id: breakeven-legit
+      en: "A market order trades price control for immediacy: it fills right away at whatever the book offers. It gives no price guarantee, it does not rest waiting for a level, and as a taker it usually costs more in fees, not less."
+      es: "Una orden de mercado cambia control del precio por inmediatez: se ejecuta al instante al precio que ofrezca el libro. No garantiza precio, no espera puesta en el libro a un nivel y, como taker, suele costar más en comisiones, no menos."
+  - id: maker-taker
     prompt:
-      en: "Long from 60.300, stop 59.300. Price rises to 62.300, then pulls back and forms a clear higher low at 61.200. Moving your stop up to break-even (60.300) is:"
-      es: "Largo desde 60.300, stop 59.300. El precio sube a 62.300, luego retrocede y forma un mínimo más alto claro en 61.200. Subir tu stop a break-even (60.300) es:"
+      en: "A resting limit order that adds liquidity to the book makes you a…"
+      es: "Una orden de límite puesta en el libro que aporta liquidez te convierte en…"
     options:
       - id: a
         text:
-          en: "Fear — a stop at entry only proves you do not trust your own analysis."
-          es: "Miedo: un stop en la entrada solo demuestra que no confías en tu análisis."
+          en: "Taker — you remove liquidity from the book and fill immediately."
+          es: "Taker: retiras liquidez del libro y te ejecutas de inmediato."
       - id: b
         correct: true
         text:
-          en: "Legitimate — the new higher low is structure that now protects the entry."
-          es: "Legítimo: la nueva estructura ahora protege la entrada."
+          en: "Maker — price control, but no guarantee of being filled."
+          es: "Maker: control del precio, pero sin garantía de ejecutarte."
       - id: c
         text:
-          en: "The cardinal sin, since any stop move after entry abandons the written plan."
-          es: "El pecado capital, ya que mover el stop tras entrar abandona el plan escrito."
+          en: "Maker — and you are guaranteed to fill at exactly your price."
+          es: "Maker, y tienes garantizada la ejecución exactamente a tu precio."
       - id: d
         text:
-          en: "Pointless — a break-even stop can only ever produce a zero result."
-          es: "Inútil: un stop en break-even solo puede producir un resultado de cero."
+          en: "Neither — orders resting in the book are cancelled automatically."
+          es: "Ninguno: las órdenes en reposo se cancelan automáticamente."
     explanation:
-      en: "The stop moving in the trade's favour, justified by fresh structure, is exactly the legitimate case: the higher low at 61.200 is the chart's own evidence that 60.300 should no longer trade. The rule forbids moving a stop AWAY, not moving it up behind a confirmed low, and a break-even stop still leaves the whole upside to target open."
-      es: "El stop moviéndose a favor de la operación, justificado por estructura nueva, es justo el caso legítimo: el mínimo más alto en 61.200 es la prueba del propio gráfico de que 60.300 ya no debería negociarse. La regla prohíbe mover el stop EN CONTRA, no subirlo tras un mínimo confirmado, y un stop en break-even deja intacto todo el recorrido al objetivo."
-  - id: breakeven-fear
+      en: "Adding liquidity with a resting limit order makes you a maker: you control the price, but the market may never reach it, so there is no fill guarantee. A taker, by contrast, removes liquidity and fills at once — and a resting order stays put until it fills or you cancel it."
+      es: "Aportar liquidez con una orden de límite puesta te convierte en maker: controlas el precio, pero el mercado puede no alcanzarlo nunca, así que no hay garantía de ejecución. El taker, en cambio, retira liquidez y se ejecuta al instante, y una orden en reposo se queda ahí hasta ejecutarse o hasta que la canceles."
+  - id: limit-tradeoff
     prompt:
-      en: "Long from 60.300, stop 59.300, target 64.000. One green candle prints to 60.600 (still well inside the range, no new structure). You snap the stop to break-even. Most likely result?"
-      es: "Largo desde 60.300, stop 59.300, objetivo 64.000. Se imprime una vela verde hasta 60.600 (aún dentro del rango, sin estructura nueva). Pegas el stop a break-even. ¿Resultado más probable?"
+      en: "You use a limit order instead of a market order. What are you accepting in exchange for price control?"
+      es: "Usas una orden de límite en lugar de una de mercado. ¿Qué aceptas a cambio del control del precio?"
     options:
       - id: a
         text:
-          en: "You have locked in a guaranteed profit and removed the downside entirely."
-          es: "Has asegurado un beneficio garantizado y eliminado del todo el riesgo."
+          en: "Guaranteed immediacy — a limit order always fills right away."
+          es: "Inmediatez garantizada: una orden límite siempre se ejecuta al momento."
       - id: b
         text:
-          en: "Nothing changes, because a stop only matters once price trades near it."
-          es: "Nada cambia, porque un stop solo importa cuando el precio ya lo roza."
+          en: "A worse price than the one the market is currently showing you."
+          es: "Un precio peor que el que te muestra ahora mismo el mercado."
       - id: c
         text:
-          en: "The trade needs a smaller move to reach target now that the risk is gone."
-          es: "La operación necesita menos recorrido al objetivo ahora que no hay riesgo."
+          en: "Higher fees, because a resting limit order counts as a taker order."
+          es: "Más comisiones, porque una orden límite en reposo cuenta como taker."
       - id: d
         correct: true
         text:
-          en: "A noise wick taps 60.300, stops you out, and the move runs without you."
-          es: "Una mecha de ruido toca 60.300 y el movimiento corre sin ti."
+          en: "The risk of not filling at all if price never reaches you."
+          es: "El riesgo de no ejecutarte si el precio nunca llega a ti."
     explanation:
-      en: "Moving to break-even before any new structure chokes the trade: 60.300 is still inside the band price is oscillating in, so you have placed the stop where noise alone will reach it. You exit for zero — not a profit — and the position is gone before the idea had room to play out. Break-even is earned by a higher low, not by the first green candle."
-      es: "Mover a break-even antes de cualquier estructura nueva ahoga la operación: 60.300 sigue dentro de la banda en la que oscila el precio, así que has puesto el stop donde el ruido solo ya llega. Sales por cero —no con beneficio— y la posición desaparece antes de que la idea tuviera espacio. El break-even se gana con un mínimo más alto, no con la primera vela verde."
-  - id: do-nothing
-    prompt:
-      en: "Your trade is open and drifting sideways between entry and target. Nothing about the structure has changed. What is usually the correct action?"
-      es: "Tu operación está abierta y deambula de lado entre la entrada y el objetivo. Nada de la estructura ha cambiado. ¿Cuál suele ser la acción correcta?"
-    options:
-      - id: a
-        text:
-          en: "Close it — flat price after entry means the read has already failed."
-          es: "Cerrarla: un precio plano tras entrar significa que la lectura ya falló."
-      - id: b
-        text:
-          en: "Add to the position so the average entry improves while price is cheap."
-          es: "Añadir a la posición para mejorar la entrada media mientras está barata."
-      - id: c
-        correct: true
-        text:
-          en: "Nothing — the plan is already made, and the trade needs room and time to work."
-          es: "Ninguna: el plan ya está hecho y la operación necesita espacio y tiempo."
-      - id: d
-        text:
-          en: "Tighten the stop just under price to bank the small unrealised gain."
-          es: "Apretar el stop justo bajo el precio para asegurar la ganancia latente."
-    explanation:
-      en: "Most of the time the right live-management action is none. Boredom is not a signal: the plan already set the stop and the target, and sideways drift is what the middle of a trade looks like. Closing early, averaging in, and choking the stop are all the same impulse — doing something because waiting is uncomfortable."
-      es: "La mayor parte del tiempo la acción de gestión correcta es ninguna. El aburrimiento no es una señal: el plan ya fijó el stop y el objetivo, y el vaivén lateral es el aspecto normal de la mitad de una operación. Cerrar antes, promediar y ahogar el stop son el mismo impulso: hacer algo porque esperar incomoda."
-  - id: stop-direction-tf
+      en: "A limit order gives price control but no certainty of filling: if price never reaches your level, you sit unfilled while the move happens without you. The price you name is your own, usually better than market, and a resting limit order is a maker order, which normally pays lower fees rather than higher."
+      es: "Una orden de límite da control del precio pero ninguna certeza de ejecución: si el precio nunca llega a tu nivel, te quedas sin ejecutar mientras el movimiento ocurre sin ti. El precio que fijas es el tuyo, normalmente mejor que el de mercado, y una orden límite en reposo es maker, que suele pagar comisiones más bajas y no más altas."
+  - id: taker-maker-fees
     kind: true_false
     prompt:
-      en: "Once a trade is live, the stop may only move in the trade's favour: up for a long, down for a short."
-      es: "Una vez que la operación está en vivo, el stop solo puede moverse a favor: arriba en un largo, abajo en un corto."
+      en: "On most exchanges a taker pays more than a maker — but a fee saved on a limit order that never fills is no saving at all."
+      es: "En la mayoría de exchanges el taker paga más que el maker, pero una comisión ahorrada en una orden límite que nunca se ejecuta no es ningún ahorro."
     answer: true
     explanation:
-      en: "This is the one inviolable rule of live management. Moving the stop away from price, however good the story feels in the moment, uncaps your risk and breaks the plan."
-      es: "Es la única regla inviolable de la gestión en vivo. Mover el stop en contra, por muy buena que suene la historia en el momento, quita el tope al riesgo y rompe el plan."
-  - id: legit-actions-multi
+      en: "True on both halves. Most venues charge takers more and sometimes rebate makers, and the gap adds up over hundreds of trades — but price control is only worth what it costs you in fills you never get."
+      es: "Cierto en ambas mitades. La mayoría de venues cobran más al taker y a veces bonifican al maker, y la diferencia se acumula a lo largo de cientos de operaciones, pero el control del precio solo vale lo que te cuesta en ejecuciones que nunca consigues."
+  - id: order-role-match
+    kind: matching
+    prompt:
+      en: "Match each execution concept to its behaviour."
+      es: "Empareja cada concepto de ejecución con su comportamiento."
+    pairs:
+      - id: mkt
+        left: { en: "Market order", es: "Orden de mercado" }
+        right: { en: "Fills now at whatever the book offers; you give up price control", es: "Se ejecuta ya al precio que ofrezca el libro; renuncias al control del precio" }
+      - id: lmt
+        left: { en: "Limit order", es: "Orden de límite" }
+        right: { en: "Fills only at your price or better; may never fill", es: "Se ejecuta solo a tu precio o mejor; puede no ejecutarse nunca" }
+      - id: mkr
+        left: { en: "Maker", es: "Maker" }
+        right: { en: "Adds liquidity with a resting order", es: "Aporta liquidez con una orden puesta en el libro" }
+      - id: tkr
+        left: { en: "Taker", es: "Taker" }
+        right: { en: "Removes liquidity by filling against resting orders", es: "Retira liquidez ejecutándose contra las órdenes puestas" }
+    explanation:
+      en: "A market order takes immediacy and gives up price control; a limit order names your price but may never fill. Resting a limit order makes you a maker (you add liquidity); filling against the book makes you a taker (you remove it)."
+      es: "Una orden de mercado toma inmediatez y renuncia al control del precio; una orden de límite fija tu precio pero puede no ejecutarse nunca. Poner una orden de límite en el libro te hace maker (aportas liquidez); ejecutarte contra el libro te hace taker (la retiras)."
+  - id: limit-missed-move
+    prompt:
+      en: "You place a limit buy just below the market and wait. Price jumps up and runs without ever dipping to your level. What did the limit order cost you?"
+      es: "Colocas una compra de límite justo por debajo del mercado y esperas. El precio salta y se dispara sin bajar nunca a tu nivel. ¿Qué te costó la orden de límite?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The trade itself — you never filled and missed the move."
+          es: "La operación misma: no te ejecutaste y perdiste el movimiento."
+      - id: b
+        text:
+          en: "Extra taker fees charged on the order that was eventually cancelled."
+          es: "Comisiones taker extra por la orden que acabó cancelándose."
+      - id: c
+        text:
+          en: "Nothing — a limit order guarantees a fill once price comes close enough."
+          es: "Nada: una orden límite garantiza ejecución si el precio se acerca."
+      - id: d
+        text:
+          en: "A forced liquidation of the rest of your account's positions."
+          es: "Una liquidación forzosa del resto de posiciones de tu cuenta."
+    explanation:
+      en: "A limit order controls your price but carries no fill guarantee. If the market never trades at your level, you simply do not get in, and the move happens without you while your order sits there. That missed entry — not a fee and not a liquidation — is the cost of insisting on price."
+      es: "Una orden de límite controla tu precio pero no da garantía de ejecución. Si el mercado nunca opera a tu nivel, sencillamente no entras, y el movimiento ocurre sin ti mientras tu orden sigue ahí. Esa entrada perdida —no una comisión ni una liquidación— es el coste de insistir en el precio."
+  - id: market-price-guarantee
+    kind: true_false
+    prompt:
+      en: "A market order guarantees you fill at the price shown on your screen at the moment you click."
+      es: "Una orden de mercado garantiza que te ejecutas al precio que muestra tu pantalla en el momento en que haces clic."
+    answer: false
+    explanation:
+      en: "A market order guarantees a fill, not a price. It takes whatever the book offers, which can differ from the last printed price — especially in a thin book, where it walks through resting orders and fills at progressively worse prices."
+      es: "Una orden de mercado garantiza la ejecución, no el precio. Toma lo que ofrezca el libro, que puede diferir del último precio impreso, sobre todo en un libro poco profundo, donde atraviesa las órdenes puestas y se ejecuta a precios cada vez peores."
+  - id: btc-order-choice
+    prompt:
+      en: "You want to buy 1 BTC and the best ask is 60,000. What does each order type actually get you?"
+      es: "Quieres comprar 1 BTC y el mejor ask está en 60.000. ¿Qué consigue realmente cada tipo de orden?"
+    options:
+      - id: a
+        text:
+          en: "Both fill at 60,000; the limit order simply pays the lower fee."
+          es: "Ambas se ejecutan en 60.000; la límite solo paga la comisión menor."
+      - id: b
+        text:
+          en: "The limit order fills first, because it is placed inside the spread."
+          es: "La límite se ejecuta primero, porque se coloca dentro del spread."
+      - id: c
+        correct: true
+        text:
+          en: "Market fills now near 60,000; a limit at 59,850 fills only on a dip."
+          es: "La de mercado ejecuta ya cerca de 60.000; una límite en 59.850, solo si baja."
+      - id: d
+        text:
+          en: "A market order fills at the last printed price, whatever the book holds."
+          es: "La de mercado ejecuta al último precio impreso, tenga lo que tenga el libro."
+    explanation:
+      en: "The market order fills instantly at 60,000 — a little worse if 1 BTC exceeds the size at the top ask — while the limit buy at 59,850 saves 150 if price dips and never fills if price runs away. Same idea, two outcomes chosen entirely by the order type: cheaper-or-nothing versus now-at-market. That trade-off, immediacy against price, is the whole distinction."
+      es: "La orden de mercado se ejecuta al instante en 60.000 —algo peor si 1 BTC supera el tamaño del mejor ask—, mientras que la compra límite en 59.850 ahorra 150 si el precio baja y no se ejecuta nunca si el precio se escapa. La misma idea, dos resultados elegidos únicamente por el tipo de orden: más barato o nada, frente a ahora a mercado. Ese equilibrio, inmediatez contra precio, es toda la distinción."
+  - id: order-roles
     kind: multi_select
     prompt:
-      en: "Select ALL of the following that are legitimate live-management actions (not fear or improvisation)."
-      es: "Selecciona TODAS las siguientes que sean acciones de gestión en vivo legítimas (no miedo ni improvisación)."
+      en: "Select ALL statements about makers and takers that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre makers y takers."
     options:
       - id: a
         correct: true
         text:
-          en: "Trailing the stop up behind a confirmed higher low."
-          es: "Subir el stop tras un mínimo más alto confirmado."
+          en: "Every order you send either takes a resting order or becomes one."
+          es: "Cada orden que envías o toma una orden en reposo o se convierte en una."
       - id: b
         correct: true
         text:
-          en: "Taking a partial exit at a milestone set in the plan."
-          es: "Tomar un parcial en un hito fijado en el plan."
+          en: "A market order makes you a taker: immediacy, no price control."
+          es: "Una orden de mercado te hace taker: inmediatez, sin control del precio."
       - id: c
         correct: true
         text:
-          en: "Doing nothing while the structure is unchanged."
-          es: "No hacer nada mientras la estructura no cambia."
-      - id: d
-        text:
-          en: "Widening the stop so a losing trade has more room to recover its ground."
-          es: "Ensanchar el stop para que una operación perdedora tenga más recorrido."
-    explanation:
-      en: "Break-even behind new structure, a planned partial, and doing nothing are all valid, because each was either decided in advance or justified by the chart. Widening the stop is the one move that is never legitimate — it is the cardinal sin, and 'more room' is the story it always tells."
-      es: "Break-even tras estructura nueva, un parcial planificado y no hacer nada son todos válidos, porque cada uno se decidió de antemano o lo justifica el gráfico. Ensanchar el stop es el único movimiento que nunca es legítimo: es el pecado capital, y «más espacio» es la historia que siempre cuenta."
-  - id: partial-tradeoff
-    prompt:
-      en: "You take half your position off at +2R and let the rest run. What is the honest trade-off of this partial exit?"
-      es: "Quitas la mitad de tu posición en +2R y dejas correr el resto. ¿Cuál es el compromiso honesto de esta salida parcial?"
-    options:
-      - id: a
-        text:
-          en: "It strictly increases expectancy, since banked profit can never be given back."
-          es: "Aumenta la esperanza sin más, ya que el beneficio asegurado no se devuelve."
-      - id: b
-        text:
-          en: "It is the same move as widening the stop, only expressed in position size."
-          es: "Es el mismo movimiento que ensanchar el stop, dicho en tamaño de posición."
-      - id: c
-        text:
-          en: "It guarantees the remaining half reaches the target, since it now rides free."
-          es: "Garantiza que la mitad restante llega al objetivo, porque ya va sin riesgo."
+          en: "A resting limit order makes you a maker: price control, no certainty."
+          es: "Una límite en reposo te hace maker: control del precio, sin certeza."
       - id: d
         correct: true
         text:
-          en: "It banks progress and lowers the emotional stakes, but it lowers your average R too."
-          es: "Asegura avance y baja la carga emocional, pero también baja tu R media."
+          en: "Most exchanges charge takers more, sometimes rebating makers."
+          es: "La mayoría de exchanges cobran más al taker y a veces bonifican al maker."
+      - id: e
+        text:
+          en: "A limit order is always the better choice, because the fee is lower."
+          es: "Una orden límite siempre es mejor opción, porque la comisión es menor."
     explanation:
-      en: "Partials are a legitimate tool but not a free win: they cap the upside on the portion you sold, so over many trades the average R comes down in exchange for lower emotional stakes and a smoother equity curve. That is a choice, and it belongs in the plan rather than in the heat of the moment."
-      es: "Los parciales son una herramienta legítima pero no un regalo: limitan el recorrido de la parte que vendiste, así que en muchas operaciones la R media baja a cambio de menos carga emocional y una curva más suave. Es una elección, y pertenece al plan, no al calor del momento."
-  - id: daily-stop-scenario
-    prompt:
-      en: "Your plan says: risk 1% per trade (100 USDT on a 10.000 USDT account) and a daily stop at −2% (200 USDT). Today you have taken two full stop-outs, so you are −200 USDT. An hour later a textbook setup appears. What does the plan say you do?"
-      es: "Tu plan dice: arriesgar el 1% por operación (100 USDT en una cuenta de 10.000 USDT) y un freno diario en −2% (200 USDT). Hoy has encajado dos stops completos, así que estás en −200 USDT. Una hora después aparece un setup de manual. ¿Qué dice el plan que hagas?"
-    options:
-      - id: a
-        text:
-          en: "Take it at normal size — the daily stop only caps oversized positions."
-          es: "Tomarla al tamaño normal: el freno solo limita posiciones sobredimensionadas."
-      - id: b
-        correct: true
-        text:
-          en: "Stop for the day: the daily limit is already hit, whatever this setup looks like."
-          es: "Parar por hoy: el freno diario ya está alcanzado, parezca lo que parezca."
-      - id: c
-        text:
-          en: "Take it at double size — a quality setup is the fastest way back to even."
-          es: "Tomarla al doble: un setup de calidad es la vía rápida de volver a cero."
-      - id: d
-        text:
-          en: "Take it after moving the daily stop to −4% so the risk fits the budget."
-          es: "Tomarla tras mover el freno a −4% para que el riesgo entre en el presupuesto."
-    explanation:
-      en: "The daily stop is not a suggestion and it does not judge setups: once realised PnL hits −X% you close the charts regardless of what is on screen. Its whole value is that it does not consult you at the moment you are least able to answer, and 'but this one is high quality' is exactly the argument it exists to overrule."
-      es: "El freno diario no es una sugerencia y no juzga setups: cuando el PnL realizado toca el −X%, cierras los gráficos sin importar lo que haya en pantalla. Todo su valor es que no te consulta en el momento en que menos capaz eres de responder, y «pero esta es de calidad» es justo el argumento que existe para desautorizar."
-  - id: daily-stop-adjust-tf
+      en: "The fee gap is small per trade and large over hundreds of trades — one reason scalpers fight to use limit orders. But a fee saved on an order that never fills is not a saving, so 'always better' is exactly the conclusion the trade-off forbids."
+      es: "La diferencia de comisiones es pequeña por operación y grande a lo largo de cientos: una razón por la que los scalpers luchan por usar órdenes límite. Pero una comisión ahorrada en una orden que nunca se ejecuta no es un ahorro, así que 'siempre mejor' es justo la conclusión que el compromiso prohíbe."
+  - id: fee-saved-nofill
     kind: true_false
     prompt:
-      en: "The X in your daily stop is a personal number, but it is chosen in the plan before a losing day and never edited during one."
-      es: "La X de tu freno diario es un número personal, pero se elige en el plan antes de un día perdedor y nunca se edita durante él."
-    answer: true
+      en: "Choosing a limit order to capture the lower maker fee is a saving even when the order never fills."
+      es: "Elegir una orden límite para aprovechar la comisión maker más baja es un ahorro incluso si la orden no se ejecuta nunca."
+    answer: false
     explanation:
-      en: "Editing the limit while you are down is the override the rule was built to prevent: the person who just lost 3% is the least qualified person to decide how much more they may lose."
-      es: "Editar el límite mientras vas perdiendo es exactamente la excepción que la regla existe para evitar: quien acaba de perder un 3% es la persona menos cualificada para decidir cuánto más puede perder."
+      en: "A fee saved on an order that never fills is not a saving — it is a missed trade. Price control is only worth what it costs you in fills you do not get."
+      es: "Una comisión ahorrada en una orden que nunca se ejecuta no es un ahorro: es una operación perdida. El control del precio solo vale lo que te cuesta en ejecuciones que no consigues."

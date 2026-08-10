@@ -1,16 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: pattern_chart
-injector: origin_zone
+injector: cvd_divergence
 n: 130
-indicator: none
-# The zone is NEVER drawn here — the shaded band is ground truth, and drawing it would be the answer.
-# The learner has to find it the way the lesson says to: locate the impulse, check whether it broke
-# structure at all, then read what the return did. Grading reveals the band on the same chart.
-targets: [zone_respected, zone_failed, no_zone]
-choices: [zone_respected, zone_failed, no_zone]
+indicator: cvd
+targets: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
+choices: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
 prompt:
-  en: "Work in the lesson's order. First: did a move **break structure** — a close clean past the high the range had been testing? If it did, the last down candles before that move are the **origin zone** (what the dialect calls an order block), and price has come back to it near the right edge. Did the return **hold the zone** (traded into it and left upward), did the zone **fail** (price closed clean through it and kept going), or is there **no zone at all** because nothing ever broke?"
-  es: "Trabaja en el orden de la lección. Primero: ¿hubo un movimiento que **rompiera la estructura** —un cierre limpio por encima del máximo que el rango venía testeando—? Si lo hubo, las últimas velas bajistas antes de ese movimiento son la **zona de origen** (lo que el dialecto llama order block), y el precio ha vuelto a ella cerca del borde derecho. ¿La vuelta **respetó la zona** (entró en ella y se fue hacia arriba), la zona **falló** (el precio cerró limpiamente a través de ella y siguió) o **no hay zona** porque nunca se rompió nada?"
+  en: "Price makes a second extreme of the same kind late in this window. Compare the **CVD** in the lower pane at those two swings: does the aggression refuse to follow price into its new extreme, or does it make its own new extreme with it?"
+  es: "El precio hace un segundo extremo del mismo tipo cerca del final de esta ventana. Compara el **CVD** del panel inferior en esos dos swings: ¿se niega la agresión a seguir al precio hasta su extremo nuevo, o hace su propio extremo nuevo con él?"
 explanation:
-  en: "The break comes first, and it is what most people skip. Without a close past the prior high there is no impulse that broke anything, so the dip before the rally is just a dip: calling it an order block is reading a zone into an ordinary pullback, which is the commonest error in this dialect. When structure did break, the zone is real but not a promise — it is where size was working and could not all get filled, so a return often finds the remainder and sometimes does not. A zone that holds shows price trading into the band and leaving; a zone that fails shows a close clean through it. Both are ordinary; only the dogma says the zone must hold."
-  es: "La ruptura va primero, y es lo que casi todo el mundo se salta. Sin un cierre por encima del máximo anterior no hay ningún impulso que haya roto nada, así que la caída previa al rebote es solo una caída: llamarla order block es leer una zona dentro de un retroceso corriente, que es el error más común de este dialecto. Cuando la estructura sí se rompió, la zona es real pero no es una promesa: es donde había tamaño trabajando que no pudo llenarse del todo, así que una vuelta encuentra el resto muchas veces y otras no. Una zona que aguanta muestra al precio entrando en la banda y marchándose; una zona que falla muestra un cierre limpio a través de ella. Las dos cosas son normales; solo el dogma dice que la zona tiene que aguantar."
+  en: "Read the two swings, not the line's overall slope. Price makes a lower low while CVD makes a higher low = bullish divergence: sellers reached further and gave up ground in flow to do it, so their supply is being absorbed. Price makes a higher high while CVD makes a lower high = bearish divergence: the new peak was bought with less aggression than the last one. If CVD makes its new extreme alongside price there is no divergence at all — that is a flow-backed move, the most common of the three, and calling it a divergence because you wanted one is the mistake this exercise trains out."
+  es: "Lee los dos swings, no la pendiente general de la línea. El precio hace un mínimo más bajo mientras el CVD hace un mínimo más alto = divergencia alcista: los vendedores llegaron más lejos y cedieron terreno en flujo para conseguirlo, así que su oferta está siendo absorbida. El precio hace un máximo más alto mientras el CVD hace un máximo más bajo = divergencia bajista: el nuevo techo se compró con menos agresión que el anterior. Si el CVD hace su extremo nuevo junto al precio no hay divergencia ninguna: es un movimiento respaldado por el flujo, el más común de los tres, y llamarlo divergencia porque querías una es el error que este ejercicio te quita."

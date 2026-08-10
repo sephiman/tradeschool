@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Liquidity-sweep injector (m17-l2 and m06-l1): the shelf, the wick through it, the snap-back.
+"""Liquidity-sweep injector (m19-l2 and m06-l1): the shelf, the wick through it, the snap-back.
 
 The geometry is identical across labels on purpose — it is one event, and sharing an injector is what
 keeps the two lessons from teaching two different shapes for it. Only the annotation and spike size
@@ -83,7 +83,7 @@ class LiquiditySweepInjector(PatternInjector):
         close_visible = base * np.exp(shape + bounded_noise(rng, n, amp=_NOISE))
         apply_ambient_tail(rng, close_visible)
         # The shelf HELD: every close in the window is above it, all the way through the sweep — only the
-        # wick went below, which is the difference between a sweep and a break (m17-l2's own tell).
+        # wick went below, which is the difference between a sweep and a break (m19-l2's own tell).
         clamp_close_inside(close_visible, round(base, 2), "support")
         close_full = with_warmup(rng, close_visible)
         series = build_series(rng, close_full)

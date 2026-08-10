@@ -41,10 +41,10 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
     lessons = [lesson for m in modules for lesson in m["lessons"]]
     # 34 modules, nine of which carry a second lesson -> 43 in total.
     assert len(lessons) == 43
-    # In DISPLAY order, which is why m31 lands between m09 and m17 and m34 right after m17: position is
+    # In DISPLAY order, which is why m15 lands between m09 and m19 and m21 right after m19: position is
     # where the material belongs and the id only says when it was written (content/README.md).
     assert [m["id"] for m in modules if len(m["lessons"]) == 2] == [
-        "m03", "m08", "m09", "m31", "m17", "m34", "m19", "m20", "m24",
+        "m03", "m08", "m09", "m15", "m19", "m21", "m22", "m23", "m27",
     ]
 
     for m in modules:
@@ -59,7 +59,7 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
     # Spanish export is localized.
     es = (await content_client.get("/api/course/export?lang=es")).json()
     assert es["locale"] == "es"
-    assert _module(es, "m16")["title"] == "Sentimiento de masas"
+    assert _module(es, "m18")["title"] == "Sentimiento de masas"
 
     # Download flag serves it as a file attachment, named for what is inside it.
     dl = await content_client.get("/api/course/export?lang=es&download=true")
@@ -92,9 +92,9 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
         assert [m["summary"][locale] for m in modules] == [m["summary"] for m in single_modules]
 
     # ...and the two languages really are different text, not one copied into both slots.
-    m30 = next(lesson for lesson in lessons if lesson["id"] == "m30-l1")
-    assert m30["markdown"]["en"] != m30["markdown"]["es"]
-    assert m30["title"]["es"] == "El dialecto SMC (order blocks, FVG, BOS)"
+    m34 = next(lesson for lesson in lessons if lesson["id"] == "m34-l1")
+    assert m34["markdown"]["en"] != m34["markdown"]["es"]
+    assert m34["title"]["es"] == "El dialecto SMC (order blocks, FVG, BOS)"
 
     dl = await content_client.get("/api/course/export?download=true")
     assert 'filename="tradeschool-course-all.json"' in dl.headers.get("content-disposition", "")

@@ -1,243 +1,188 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: after-two-losses
+  - id: holding-period-swing
     prompt:
-      en: "You've taken two stop-outs in a row and you're down for the day. You feel a strong pull to put on a bigger position and win it back in one trade. What does a sound pre-commitment rule tell you to do?"
-      es: "Has saltado dos stops seguidos y vas en pérdida en el día. Sientes un fuerte impulso de abrir una posición más grande y recuperarlo todo en una sola operación. ¿Qué te dice una buena regla de precompromiso?"
+      en: "Which trading style is defined by holding positions for days to weeks?"
+      es: "¿Qué estilo de trading se define por mantener las posiciones de días a semanas?"
     options:
       - id: a
         text:
-          en: "Put on a larger position now — one good trade gets you back to even."
-          es: "Abre ya una posición mayor: una buena operación te devuelve a cero."
+          en: "Scalping, whose positions run from seconds to a few minutes."
+          es: "El scalping, cuyas posiciones van de segundos a unos minutos."
       - id: b
         text:
-          en: "Drop to a faster timeframe so you can make it back before the close."
-          es: "Baja a una temporalidad rápida para recuperarlo antes del cierre."
+          en: "Day trading, because 'day' means holding on for several days."
+          es: "El day trading, porque 'day' significa aguantar varios días."
       - id: c
         correct: true
         text:
-          en: "Respect your daily loss limit and stop trading for the rest of the day."
-          es: "Respeta tu límite de pérdida diaria y para por hoy."
+          en: "Swing trading, which holds a single position for days and sometimes weeks."
+          es: "El swing trading, que aguanta una posición días o semanas."
       - id: d
         text:
-          en: "Keep your size but remove the next stop so the trade has room to work."
-          es: "Mantén el tamaño pero quita el siguiente stop para dar margen."
+          en: "Whichever of the styles happens to use the most leverage."
+          es: "El estilo que resulte usar más apalancamiento."
     explanation:
-      en: "Revenge trading is trying to force a loss back with bigger size. The market owes you nothing and the next setup's odds haven't improved — they're worse, because you're now sizing on emotion. A losing day is a reason to size down or stop, never up, and a faster timeframe or a missing stop simply adds ways to lose. The pre-commitment is a daily loss limit plus a cooldown."
-      es: "El revenge trading es intentar forzar la recuperación de una pérdida con más tamaño. El mercado no te debe nada y las probabilidades de la siguiente oportunidad no han mejorado: son peores, porque ahora dimensionas por emoción. Un día en pérdida es motivo para reducir el tamaño o parar, nunca para subirlo, y una temporalidad más rápida o un stop ausente solo añaden formas de perder. El precompromiso es un límite de pérdida diaria más un enfriamiento."
-  - id: best-rule
+      en: "Swing trading holds for days to weeks. Day trading closes within the same day — the name refers to a single session, not several days — and scalping lasts only seconds to minutes. Leverage is a separate choice and plays no part in naming a style."
+      es: "El swing trading mantiene de días a semanas. El day trading cierra dentro del mismo día —el nombre alude a una única sesión, no a varios días— y el scalping dura solo de segundos a minutos. El apalancamiento es una elección aparte y no interviene en el nombre del estilo."
+  - id: holding-period-scalp
     prompt:
-      en: "Which rule best prevents revenge trading?"
-      es: "¿Qué regla previene mejor el revenge trading?"
+      en: "About how long does a scalper typically hold a single position?"
+      es: "¿Cuánto suele mantener un scalper una sola posición?"
     options:
       - id: a
         text:
-          en: "Always take the trade after a loss bigger, since a bounce back is due."
-          es: "Tomar siempre mayor la operación tras una pérdida: toca un rebote."
+          en: "Several days, closing the position out over the weekend."
+          es: "Varios días, cerrando la posición durante el fin de semana."
       - id: b
         text:
-          en: "Keep trading until you are back to break-even for the day."
-          es: "Seguir operando hasta volver al equilibrio del día."
+          en: "Until the next funding payment comes round, and then out."
+          es: "Hasta que llega el siguiente pago de funding, y entonces fuera."
       - id: c
+        text:
+          en: "From the market open through to the market close each day."
+          es: "Desde la apertura hasta el cierre del mercado cada día."
+      - id: d
         correct: true
         text:
-          en: "A fixed daily loss limit, plus never increasing size after a loss."
-          es: "Un límite fijo de pérdida diaria, y no subir nunca el tamaño tras perder."
-      - id: d
-        text:
-          en: "Delete your stop after a loss so the recovery trade isn't stopped early."
-          es: "Borrar el stop tras perder para que la recuperación no salte antes."
+          en: "Seconds to a few minutes, and often dozens or hundreds of trades a day."
+          es: "De segundos a unos pocos minutos, y a menudo decenas al día."
     explanation:
-      en: "The other three are rationalisations dressed as rules. 'A bounce is due' is the gambler's fallacy; 'trade until break-even' is the core revenge impulse; deleting the stop just turns a small loss into an unbounded one. A daily loss limit that ends the session and a fixed size are what actually break the loop."
-      es: "Las otras tres son racionalizaciones disfrazadas de reglas. 'Toca un rebote' es la falacia del jugador; 'operar hasta el punto de equilibrio' es el impulso de venganza en estado puro; borrar el stop solo convierte una pérdida pequeña en una ilimitada. Un límite de pérdida diaria que cierra la sesión y un tamaño fijo son lo que de verdad rompe el bucle."
-  - id: one-good-trade-myth
-    kind: true_false
+      en: "Scalping means very short holds — seconds to a few minutes — and often dozens or hundreds of trades a day. Holding for a day is day trading; holding for days is swing trading. And crypto has no open or close to hold between, which is why the styles are defined by duration rather than by a session."
+      es: "El scalping son tenencias muy cortas —de segundos a pocos minutos— y a menudo decenas o cientos de operaciones al día. Mantener un día es day trading; mantener varios días es swing trading. Y el cripto no tiene apertura ni cierre entre los que mantener, por eso los estilos se definen por duración y no por una sesión."
+  - id: day-trade-definition
     prompt:
-      en: "After a losing trade, putting on one bigger trade to 'get back to even' is a sound way to manage a red day."
-      es: "Tras una operación perdedora, abrir una operación más grande para 'recuperar lo perdido' es una buena forma de gestionar un día rojo."
-    answer: false
-    explanation:
-      en: "This is the core revenge-trading rationalization. 'Even' is a number that matters to your ego, not to the next setup, whose odds haven't improved — they're worse, because you're now sizing on emotion. The fix is a daily loss limit and never sizing up after a loss."
-      es: "Esta es la racionalización central del revenge trading. 'Recuperar lo perdido' es una cifra que le importa a tu ego, no a la siguiente oportunidad, cuyas probabilidades no han mejorado: son peores, porque ahora dimensionas por emoción. La solución es un límite de pérdida diaria y no subir nunca el tamaño tras una pérdida."
-  - id: revenge-habits
-    kind: multi_select
-    prompt:
-      en: "Select ALL of the habits that genuinely reduce revenge trading."
-      es: "Selecciona TODOS los hábitos que de verdad reducen el revenge trading."
+      en: "What is the defining feature of day trading?"
+      es: "¿Cuál es el rasgo que define al day trading?"
     options:
       - id: a
-        correct: true
         text:
-          en: "A fixed daily loss limit that ends the session when it is hit."
-          es: "Un límite de pérdida diaria fijo que cierra la sesión al alcanzarlo."
+          en: "Positions are held for several days, since 'day' means across days."
+          es: "Las posiciones se mantienen varios días, ya que 'day' significa varios días."
       - id: b
-        correct: true
         text:
-          en: "A short mandatory cooldown after any loss."
-          es: "Un breve enfriamiento obligatorio después de cualquier pérdida."
+          en: "It only ever uses the daily chart, reading one candle at a time."
+          es: "Solo usa el gráfico diario, leyendo una vela cada vez."
       - id: c
         correct: true
         text:
-          en: "Never sizing up after a loss — it is a reason to size down."
-          es: "No subir nunca el tamaño tras perder: es motivo para reducirlo."
+          en: "Positions open and close within the same day, nothing held overnight."
+          es: "Las posiciones se abren y cierran el mismo día, sin mantener de noche."
       - id: d
         text:
-          en: "Re-entering bigger to win the loss back in a single trade."
-          es: "Reentrar con más tamaño para recuperar la pérdida de una vez."
-      - id: e
-        text:
-          en: "Dropping to a faster timeframe to make it back before the close."
-          es: "Bajar a una temporalidad más rápida para recuperarlo antes del cierre."
-      - id: f
-        text:
-          en: "Removing the next stop so the recovery trade has room to work."
-          es: "Quitar el siguiente stop para que la recuperación tenga margen."
+          en: "It always uses more leverage than swing trading does."
+          es: "Siempre usa más apalancamiento que el swing trading."
     explanation:
-      en: "The first three are pre-commitments you write while calm and flat; they remove the decision at the moment you'd make it worst. The rest are the revenge impulse dressed as tactics — bigger size, a faster timeframe, or no stop all make a red day worse."
-      es: "Los tres primeros son precompromisos que escribes en calma y fuera del mercado; eliminan la decisión en el momento en que peor la tomarías. El resto es el impulso de venganza disfrazado de táctica: más tamaño, un marco más rápido o quitar el stop solo empeoran un día rojo."
-  - id: scalping-revenge
-    prompt:
-      en: "You scalp. After a few quick losses you notice you're firing off re-entries seconds apart, faster than your usual pace. What is this most likely, and what should you do?"
-      es: "Haces scalping. Tras unas pérdidas rápidas te das cuenta de que estás lanzando reentradas con segundos de diferencia, más rápido de lo normal. ¿Qué es esto con mayor probabilidad y qué deberías hacer?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Revenge trading in scalping clothes — hit your loss limit and stop."
-          es: "Revenge trading disfrazado de scalping: aplica tu límite y para."
-      - id: b
-        text:
-          en: "Perfectly fine, on the grounds that each re-entry is small on its own."
-          es: "Perfectamente normal, ya que cada reentrada es pequeña por separado."
-      - id: c
-        text:
-          en: "A hot streak of setups appearing — keep firing while the pace is high."
-          es: "Una racha caliente de setups: sigue lanzando mientras el ritmo sea alto."
-      - id: d
-        text:
-          en: "A sign the market is trending, so you should raise size to catch it."
-          es: "Señal de tendencia, así que deberías subir tamaño para aprovecharla."
-    explanation:
-      en: "Revenge doesn't only look like one huge trade; in scalping it looks like machine-gun re-entries seconds apart, and the tell is your frequency climbing whenever you're frustrated. Small individually is not small in aggregate, and a rising pace is a mood, not a market signal. The rule is the same: a daily loss limit and a cooldown, never sizing or speeding up out of emotion."
-      es: "La venganza no solo tiene forma de una operación enorme; en scalping tiene forma de reentradas a ráfagas con segundos de diferencia, y la señal es que tu frecuencia sube cada vez que te frustras. Pequeñas por separado no es pequeño en conjunto, y un ritmo creciente es un estado de ánimo, no una señal del mercado. La regla es la misma: un límite de pérdida diaria y un enfriamiento, sin subir el tamaño ni acelerar por emoción."
-  - id: mistakes-to-rationalizations
+      en: "A day trader closes out before the day is over and does not hold overnight on purpose — the 'day' is a single session, not several days. Typical work is a handful of trades read off the 5-minute to 1-hour charts rather than the daily, and leverage is a separate choice, not part of the definition."
+      es: "Un day trader cierra antes de que acabe el día y no mantiene de un día para otro a propósito: el 'day' es una única sesión, no varios días. Lo típico es un puñado de operaciones leídas en gráficos de 5 minutos a 1 hora, no en el diario, y el apalancamiento es una elección aparte, no parte de la definición."
+  - id: styles-holding-match
     kind: matching
     prompt:
-      en: "Match each classic mistake to the rationalization that usually comes with it."
-      es: "Empareja cada error clásico con la racionalización que suele acompañarlo."
+      en: "Match each trading style to its typical holding period and behaviour."
+      es: "Empareja cada estilo de trading con su periodo de tenencia y comportamiento típicos."
     pairs:
-      - id: rev
-        left: { en: "Revenge trading", es: "Revenge trading" }
+      - id: scalp
+        left: { en: "Scalping", es: "Scalping" }
         right:
-          en: "\"I just need one good trade to get back to even.\""
-          es: "\"Solo necesito una buena operación para recuperar lo perdido\"."
-      - id: stop
-        left: { en: "Moving or removing the stop", es: "Mover o quitar el stop" }
+          en: "Seconds to a few minutes; dozens or hundreds of trades a day."
+          es: "De segundos a unos pocos minutos; decenas o cientos de operaciones al día."
+      - id: day
+        left: { en: "Day trading", es: "Day trading" }
         right:
-          en: "\"Let me give it room — the level's basically fine, it'll bounce.\""
-          es: "\"Voy a darle margen, el nivel está básicamente bien, va a rebotar\"."
-      - id: lev
-        left: { en: "Over-leverage after a winning streak", es: "Sobreapalancarse tras una racha ganadora" }
+          en: "Minutes to hours; flat by the end of the session, no overnight position."
+          es: "De minutos a horas; plano al final de la sesión, sin posición nocturna."
+      - id: swing
+        left: { en: "Swing trading", es: "Swing trading" }
         right:
-          en: "\"I'm reading it perfectly right now.\""
-          es: "\"Ahora mismo lo estoy leyendo perfecto\"."
-      - id: fomo
-        left: { en: "FOMO / chasing green candles", es: "FOMO / perseguir velas verdes" }
-        right:
-          en: "\"I'm missing it, I have to get in.\""
-          es: "\"Me lo estoy perdiendo, tengo que entrar\"."
+          en: "Days to weeks; only a handful of trades, decided on higher timeframes."
+          es: "De días a semanas; solo un puñado de operaciones, decididas en temporalidades altas."
     explanation:
-      en: "Every one of these mistakes arrives dressed as a sensible decision, backed by a sentence you half-believe. Learning to hear the sentence is how you catch the mistake before it costs you — the fix is always a rule written down in advance, not more willpower in the moment."
-      es: "Cada uno de estos errores llega disfrazado de decisión sensata, respaldado por una frase que te crees a medias. Aprender a oír la frase es como atrapas el error antes de que te cueste: la solución siempre es una regla escrita por adelantado, no más fuerza de voluntad en el momento."
-  - id: revenge-numbers
-    prompt:
-      en: "Your account is 2,000 USDT and you normally risk 1% — 20 USDT. Two stop-outs leave you down 40 USDT. You decide to win it back in one shot at five times normal size, risking 100 USDT, and it loses. Where are you?"
-      es: "Tu cuenta es de 2.000 USDT y normalmente arriesgas el 1%: 20 USDT. Dos stops te dejan con −40 USDT. Decides recuperarlo de una vez con cinco veces tu tamaño habitual, arriesgando 100 USDT, y pierde. ¿Dónde estás?"
-    options:
-      - id: a
-        text:
-          en: "Down 100 USDT — the larger trade replaced the two smaller losses."
-          es: "Con −100 USDT: la operación grande sustituyó a las dos pequeñas."
-      - id: b
-        text:
-          en: "Back to even, since the bigger size covered the earlier losses."
-          es: "En tablas, ya que el tamaño mayor cubrió las pérdidas anteriores."
-      - id: c
-        correct: true
-        text:
-          en: "Down 140 USDT — a 7% hole dug out of a survivable 2% day."
-          es: "Con −140 USDT: un agujero del 7% cavado sobre un día del 2%."
-      - id: d
-        text:
-          en: "Down 60 USDT — the third trade risked 1% of the reduced balance."
-          es: "Con −60 USDT: la tercera arriesgó el 1% del saldo reducido."
-    explanation:
-      en: "40 + 100 = 140 USDT: the big trade adds to the earlier losses rather than replacing or cancelling them, and it was sized on emotion, not on 1% of anything. That is the loop — each attempt to erase the loss deepens it and tightens the grip, with the pull to do it again, bigger, stronger than ever. Ordinary trades lose all the time; the oversizing is what turns a normal red day into a hole."
-      es: "40 + 100 = 140 USDT: la operación grande se suma a las pérdidas anteriores en vez de sustituirlas o cancelarlas, y se dimensionó por emoción, no por el 1% de nada. Ese es el bucle: cada intento de borrar la pérdida la agranda y aprieta más, con el impulso de repetirlo, más grande, más fuerte que nunca. Las operaciones normales pierden constantemente; sobredimensionar es lo que convierte un día rojo normal en un agujero."
-  - id: bounce-due
-    kind: true_false
-    prompt:
-      en: "After two losing trades in a row, a winning trade is 'due' — so the next entry has better odds."
-      es: "Después de dos operaciones perdedoras seguidas, una ganadora 'toca', así que la siguiente entrada tiene mejores probabilidades."
-    answer: false
-    explanation:
-      en: "That is the gambler's fallacy. The market has no memory of your two losses and owes you no third win — and 'a bounce is due' is exactly the sentence that talks you into sizing up."
-      es: "Es la falacia del jugador. El mercado no recuerda tus dos pérdidas y no te debe una tercera victoria, y 'toca un rebote' es exactamente la frase que te convence de subir el tamaño."
-  - id: no-closing-bell
-    prompt:
-      en: "A stock market's closing bell ends a revenge spiral whether you like it or not. What replaces it on perpetuals?"
-      es: "La campana de cierre de una bolsa termina una espiral de revancha te guste o no. ¿Qué la sustituye en los perpetuos?"
-    options:
-      - id: a
-        text:
-          en: "The funding window, which forces positions closed every eight hours."
-          es: "La ventana de funding, que obliga a cerrar cada ocho horas."
-      - id: b
-        text:
-          en: "Exchange-imposed cooling-off periods after consecutive losses."
-          es: "Periodos de enfriamiento que impone el exchange tras pérdidas seguidas."
-      - id: c
-        correct: true
-        text:
-          en: "Nothing external — only the daily loss limit you build yourself."
-          es: "Nada externo: solo el límite de pérdida diaria que construyas tú."
-      - id: d
-        text:
-          en: "Nothing is needed: a 24/7 market gives you time to recover calmly."
-          es: "No hace falta nada: un mercado 24/7 da tiempo para recuperarse."
-    explanation:
-      en: "At 03:00 on a Sunday the market is still open and your tilt still has somewhere to go — funding does not close anything and no venue watches your losing streak for you. So build the bell: a fixed daily loss limit that ends the session when hit, no exceptions, plus a short mandatory cooldown after any loss. Your next position is never larger than normal."
-      es: "A las 03:00 de un domingo el mercado sigue abierto y tu tilt aún tiene a dónde ir: el funding no cierra nada y ningún venue vigila tu racha perdedora por ti. Así que constrúyete la campana: un límite fijo de pérdida diaria que cierra la sesión al alcanzarse, sin excepciones, más un enfriamiento obligatorio corto tras cualquier pérdida. Tu siguiente posición nunca es mayor de lo normal."
-  - id: revenge-loop-order
+      en: "The styles form a spectrum by holding period: scalping is seconds to minutes, day trading is minutes to hours (closed within the session), and swing trading runs for days to weeks. Holding period — not the coin or the indicator — is how you tell them apart."
+      es: "Los estilos forman un espectro por periodo de tenencia: el scalping es de segundos a minutos, el day trading de minutos a horas (cerrado dentro de la sesión) y el swing trading corre de días a semanas. El periodo de tenencia —no la moneda ni el indicador— es como se distinguen."
+  - id: styles-speed-order
     kind: ordering
     prompt:
-      en: "Put the revenge-trading loop in the order it actually runs."
-      es: "Ordena el bucle del revenge trading en el orden en que realmente ocurre."
+      en: "Order the three trading styles from the shortest typical holding period to the longest."
+      es: "Ordena los tres estilos de trading del periodo de tenencia típico más corto al más largo."
     items:
-      - id: loss
+      - id: scalp
         position: 1
-        text: { en: "You take an ordinary loss at your stop.", es: "Sufres una pérdida normal en tu stop." }
-      - id: wound
+        text: { en: "Scalping (seconds to minutes)", es: "Scalping (de segundos a minutos)" }
+      - id: day
         position: 2
-        text:
-          en: "It registers as a wound rather than a neutral fact, and you want it back now — not eventually."
-          es: "Se registra como una herida y no como un hecho neutro, y quieres recuperarlo ya, no con el tiempo."
-      - id: bigger
+        text: { en: "Day trading (minutes to hours)", es: "Day trading (de minutos a horas)" }
+      - id: swing
         position: 3
-        text:
-          en: "You re-enter bigger, to recover it in one trade."
-          es: "Vuelves a entrar con más tamaño, para recuperarlo en una sola operación."
-      - id: deeper
-        position: 4
-        text:
-          en: "That trade loses too — ordinary trades lose all the time — and the hole is now several times deeper."
-          es: "Esa operación también pierde (las operaciones normales pierden constantemente) y el agujero es ahora varias veces más profundo."
-      - id: grip
-        position: 5
-        text:
-          en: "The pull to do it again, bigger, is stronger than ever."
-          es: "El impulso de repetirlo, con más tamaño, es más fuerte que nunca."
+        text: { en: "Swing trading (days to weeks)", es: "Swing trading (de días a semanas)" }
     explanation:
-      en: "Each attempt to erase the loss deepens it and tightens the grip. The tell is the urgency: a sound trade is never something you *need* to happen right now — which is why the fix is a daily loss limit decided in advance, not resolve summoned in the moment."
-      es: "Cada intento de borrar la pérdida la agranda y aprieta más. La señal es la urgencia: una operación sensata nunca es algo que *necesites* que ocurra ahora mismo, y por eso la solución es un límite de pérdida diaria decidido de antemano, no fuerza de voluntad invocada en el momento."
+      en: "Fastest to slowest: scalping (seconds to minutes), then day trading (minutes to hours, closed within the day), then swing trading (days to weeks). That single axis — how long you hold — is what separates the styles."
+      es: "Del más rápido al más lento: scalping (de segundos a minutos), luego day trading (de minutos a horas, cerrado dentro del día) y luego swing trading (de días a semanas). Ese único eje —cuánto tiempo mantienes— es lo que separa los estilos."
+  - id: what-separates-styles
+    kind: true_false
+    prompt:
+      en: "Three traders on the same coin, with the same account and the same indicator, can still be in three different styles."
+      es: "Tres traders en la misma moneda, con la misma cuenta y el mismo indicador, pueden estar aun así en tres estilos distintos."
+    answer: true
+    explanation:
+      en: "True. What separates the styles is how long they hold and how often they trade — not the coin, not the account size and not the indicator on the chart."
+      es: "Cierto. Lo que separa los estilos es cuánto tiempo mantienen y con qué frecuencia operan, no la moneda, ni el tamaño de la cuenta, ni el indicador del gráfico."
+  - id: two-charts
+    prompt:
+      en: "Each style names two charts — a slower frame and a faster one. What different jobs do they do?"
+      es: "Cada estilo nombra dos gráficos: uno más lento y otro más rápido. ¿Qué trabajos distintos hacen?"
+    options:
+      - id: a
+        text:
+          en: "The lower timeframe dictates the bias, since it is the more current one."
+          es: "La temporalidad menor dicta el sesgo, por ser la más actualizada."
+      - id: b
+        text:
+          en: "They are alternatives — you pick whichever one agrees with your idea."
+          es: "Son alternativas: eliges la que coincida con tu idea."
+      - id: c
+        correct: true
+        text:
+          en: "The higher timeframe sets the bias; the lower one sets the entry."
+          es: "La temporalidad mayor fija el sesgo; la menor fija la entrada."
+      - id: d
+        text:
+          en: "The slower chart is for entries and the faster one is for targets."
+          es: "El gráfico lento es para entradas y el rápido para objetivos."
+    explanation:
+      en: "That is the top-down step of the trading plan: bias first on the higher timeframe, then the entry on the lower one, in that order — never flipping between them to justify a position you already hold, and never letting the fastest chart decide the direction."
+      es: "Ese es el paso descendente del plan de trading: primero el sesgo en la temporalidad mayor, luego la entrada en la menor, en ese orden, sin saltar entre ellas para justificar una posición que ya tienes y sin dejar que el gráfico más rápido decida la dirección."
+  - id: scalping-facts
+    kind: multi_select
+    prompt:
+      en: "Select ALL statements that are TRUE of scalping."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre el scalping."
+    options:
+      - id: a
+        correct: true
+        text: { en: "Positions last seconds to a few minutes.", es: "Las posiciones duran de segundos a unos pocos minutos." }
+      - id: b
+        correct: true
+        text: { en: "Dozens or hundreds of trades a day is normal.", es: "Docenas o cientos de operaciones al día es lo normal." }
+      - id: c
+        correct: true
+        text: { en: "Most days end flat, with no open risk.", es: "La mayoría de los días acaban planos, sin riesgo abierto." }
+      - id: d
+        correct: true
+        text: { en: "It reads the fastest charts — tick, 1-minute, 5-minute.", es: "Lee los gráficos más rápidos: tick, 1 minuto, 5 minutos." }
+      - id: e
+        text:
+          en: "It is the most profitable style, because it captures more moves."
+          es: "Es el estilo más rentable, porque captura más movimientos."
+    explanation:
+      en: "Holding period, trade count and timeframe move together along the spectrum — pick a point on one and the other two are largely decided. None of that makes a style inherently more profitable; more trades is more decisions and more fees, not more edge."
+      es: "El periodo de tenencia, el número de operaciones y la temporalidad se mueven juntos en el espectro: elige un punto en uno y los otros dos quedan casi decididos. Nada de eso hace que un estilo sea intrínsecamente más rentable; más operaciones son más decisiones y más comisiones, no más ventaja."
+  - id: style-boundaries
+    kind: true_false
+    prompt:
+      en: "The boundaries between the styles are strict rules: a day trade that runs a little long has become something else and the trade is a mistake."
+      es: "Los límites entre estilos son reglas estrictas: una operación intradía que se alarga un poco se ha convertido en otra cosa y la operación es un error."
+    answer: false
+    explanation:
+      en: "The boundaries are not laws; a 'day trade' that runs a little long is not a sin. The holding period is simply the honest way to tell the styles apart — not how clever the setup looks, and not which coin you trade."
+      es: "Los límites no son leyes; una 'operación intradía' que se alarga un poco no es un pecado. El periodo de tenencia es simplemente la forma honesta de distinguir los estilos, no lo ingenioso que parezca el setup ni la moneda que operes."

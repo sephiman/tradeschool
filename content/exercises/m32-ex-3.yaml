@@ -1,114 +1,205 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: not-a-direction
+  - id: premium-basis-match
+    kind: matching
     prompt:
-      en: "The Bollinger band has been inside the Keltner channel for three weeks and has just pushed back outside. What does that tell you?"
-      es: "La banda de Bollinger lleva tres semanas dentro del canal de Keltner y acaba de salir. ¿Qué te dice eso?"
-    options:
-      - id: a
-        text:
-          en: "That a rally is starting, since compression resolves upward more often."
-          es: "Que empieza un rally, ya que la compresión se resuelve al alza más a menudo."
-      - id: b
-        correct: true
-        text:
-          en: "That an expansion is under way, and nothing at all about its direction."
-          es: "Que hay una expansión en marcha, y nada en absoluto sobre su dirección."
-      - id: c
-        text:
-          en: "That the trend before the compression is now confirmed to be resuming."
-          es: "Que la tendencia previa a la compresión queda confirmada como reanudada."
-      - id: d
-        text:
-          en: "Nothing: the exit is a lagging artefact of the two moving averages."
-          es: "Nada: la salida es un artefacto con retardo de las dos medias móviles."
+      en: "Match each futures pricing term to its market state."
+      es: "Empareja cada término de precio de futuros con su estado de mercado."
+    pairs:
+      - id: basis
+        left: { en: "Futures Basis", es: "Basis de Futuros" }
+        right:
+          en: "The price difference between the futures contract and the underlying spot index."
+          es: "La diferencia de precio entre el contrato de futuros y el índice spot subyacente."
+      - id: contango
+        left: { en: "Contango", es: "Contango" }
+        right:
+          en: "Futures price trades at a premium above the spot index (positive basis)."
+          es: "El precio de futuros cotiza con prima por encima del índice spot (basis positivo)."
+      - id: backwardation
+        left: { en: "Backwardation", es: "Backwardation" }
+        right:
+          en: "Futures price trades at a discount below the spot index (negative basis)."
+          es: "El precio de futuros cotiza con descuento por debajo del índice spot (basis negativo)."
     explanation:
-      en: "The squeeze is a statement about the SIZE of the next move, never its direction — the same mould as m17's open interest, which tells you positions are being added without saying by whom, and funding, which tells you who is paying without saying who is right. The direction you read from the break, with the body-close and participation discipline m08-l1 and m14 ask for everywhere else."
-      es: "El squeeze es una afirmación sobre el TAMAÑO del próximo movimiento, nunca sobre su dirección: el mismo molde que el interés abierto de m17, que te dice que se están añadiendo posiciones sin decirte de quién, y el funding, que te dice quién paga sin decirte quién tiene razón. La dirección la lees de la ruptura, con la disciplina de cierre de cuerpo y participación que m08-l1 y m14 piden en todas partes."
-  - id: homonym
-    prompt:
-      en: "Someone says 'there's a squeeze building'. What are the two unrelated things they could mean?"
-      es: "Alguien dice «se está formando un squeeze». ¿Cuáles son las dos cosas sin relación que puede querer decir?"
-    options:
-      - id: a
-        text:
-          en: "A squeeze on the spot side and the same squeeze on the perpetual side."
-          es: "Un squeeze en el spot y ese mismo squeeze en el perpetuo."
-      - id: b
-        text:
-          en: "A narrow Bollinger band and a narrow Keltner channel, which differ by period."
-          es: "Una banda de Bollinger estrecha y un canal de Keltner estrecho, que difieren en periodo."
-      - id: c
-        correct: true
-        text:
-          en: "Compressed bands on a chart, or shorts being forcibly bought back into a rally."
-          es: "Bandas comprimidas en un gráfico, o cortos recomprados a la fuerza en un rally."
-      - id: d
-        text:
-          en: "A widening spread, or a market maker pulling quotes from the book."
-          es: "Un spread ensanchándose, o un creador de mercado retirando cotizaciones."
-    explanation:
-      en: "One is a measurement artefact: the Bollinger band inside the Keltner channel, describing how compressed price has been, with nobody forced to do anything. The other is m17-l2's liquidity squeeze, a market event with real forced orders in it — shorts liquidated into a rising price, whose forced buying raises it further. They share a word and nothing else, and the two possible meanings differ on whether anything is happening at all."
-      es: "Uno es un artefacto de medición: la banda de Bollinger dentro del canal de Keltner, que describe lo comprimido que ha estado el precio, sin nadie forzado a hacer nada. El otro es el squeeze de liquidez de m17-l2, un suceso de mercado con órdenes forzadas de verdad dentro: cortos liquidados contra un precio que sube, cuya compra forzada lo sube más. Comparten una palabra y nada más, y los dos significados posibles difieren en si está pasando algo siquiera."
-  - id: oracle
-    kind: true_false
-    prompt:
-      en: "The squeeze momentum pane tells you things the Bollinger and Keltner lines above it do not."
-      es: "El panel de squeeze momentum te dice cosas que las líneas de Bollinger y Keltner de arriba no."
-    answer: false
-    explanation:
-      en: "The dots ARE the Bollinger-inside-Keltner condition and the histogram is a smoothed measure of where price sits against its own recent range. The pane is a convenience — one panel instead of four lines — and reading it as an oracle is reading a repackaging of two averages as though it knew something. When the dots go dim, the bands had already told you."
-      es: "Los puntos SON la condición de Bollinger-dentro-de-Keltner y el histograma es una medida suavizada de dónde está el precio respecto a su propio rango reciente. El panel es una comodidad —uno en vez de cuatro líneas— y leerlo como un oráculo es leer el reempaquetado de dos medias como si supiera algo. Cuando los puntos se apagan, las bandas ya te lo habían dicho."
-  - id: sizing
-    prompt:
-      en: "You want to trade the expansion out of a squeeze. What does the squeeze itself contribute to the position's size?"
-      es: "Quieres operar la expansión que sale de un squeeze. ¿Qué aporta el propio squeeze al tamaño de la posición?"
-    options:
-      - id: a
-        text:
-          en: "A larger size, since a coiled market pays more when it finally moves."
-          es: "Un tamaño mayor, ya que un mercado comprimido paga más cuando por fin se mueve."
-      - id: b
-        text:
-          en: "A wider stop, because the expansion needs room to work through the noise."
-          es: "Un stop más ancho, porque la expansión necesita margen para atravesar el ruido."
-      - id: c
-        text:
-          en: "A smaller size, because a squeeze makes any entry statistically worse."
-          es: "Un tamaño menor, porque un squeeze empeora estadísticamente cualquier entrada."
-      - id: d
-        correct: true
-        text:
-          en: "Nothing at all: size comes from the distance to the stop, as it always has."
-          es: "Nada en absoluto: el tamaño sale de la distancia al stop, como siempre."
-    explanation:
-      en: "m19 is unchanged by any of this — size comes from the distance to the stop and the stop comes from the structure. What the squeeze does change is that the expansion out of one is often violent, so a trade on the wrong side of it loses quickly. 'The squeeze is about to fire' is not a direction, and a position sized as though it were is sized on nothing, which is m23."
-      es: "m19 no cambia por nada de esto: el tamaño sale de la distancia al stop y el stop sale de la estructura. Lo que sí cambia el squeeze es que la expansión que sale de uno suele ser violenta, así que una operación en el lado equivocado pierde rápido. «El squeeze está a punto de dispararse» no es una dirección, y una posición dimensionada como si lo fuera está dimensionada a partir de nada, que es m23."
-  - id: which-squeeze
+      en: "Basis measures the premium or discount of futures versus spot. High contango signals bullish leverage demand, while backwardation signals extreme bearishness or spot scarcity."
+      es: "El basis mide la prima o descuento de los futuros frente al spot. Un contango elevado señala demanda alcista apalancada, mientras que el backwardation señala pesimismo o escasez spot."
+
+  - id: arbitrage-mechanics
     kind: multi_select
     prompt:
-      en: "Select ALL the statements that are true of the LIQUIDITY squeeze (m17-l2) and not of the volatility one."
-      es: "Selecciona TODAS las afirmaciones ciertas del squeeze de LIQUIDEZ (m17-l2) y no del de volatilidad."
+      en: "Which statements correctly describe cash-and-carry arbitrage?"
+      es: "¿Qué afirmaciones describen correctamente el arbitraje cash-and-carry?"
     options:
       - id: a
         correct: true
         text:
-          en: "Somebody is being forced to trade, in a known direction."
-          es: "Alguien está siendo obligado a operar, en una dirección conocida."
+          en: "Buying spot while shorting the perp when funding is strongly positive."
+          es: "Comprar spot y vender el perp cuando el funding es muy positivo."
       - id: b
         correct: true
         text:
-          en: "It is a feedback loop: the forced orders cause more forced orders."
-          es: "Es un bucle: las órdenes forzadas provocan más órdenes forzadas."
+          en: "Capturing market-neutral yield from the funding longs pay."
+          es: "Capturar rendimiento neutral del funding que pagan los largos."
+      - id: c
+        correct: false
+        text:
+          en: "Taking unhedged long directional exposure on high leverage."
+          es: "Tomar exposición direccional alcista sin cobertura y apalancada."
+      - id: d
+        correct: true
+        text:
+          en: "The yield narrows as arbitrageurs compete and drive the perp back."
+          es: "El rendimiento se estrecha cuando los arbitrajistas devuelven el perp."
+    explanation:
+      en: "Cash-and-carry locks in market-neutral yield by going long spot and short futures when futures trade at a high premium — the whole point is that the two legs cancel, so direction no longer matters. An unhedged leveraged long is the opposite trade: it keeps every bit of the direction risk the hedge exists to remove."
+      es: "El cash-and-carry asegura un rendimiento neutral al mercado comprando spot y vendiendo futuros cuando cotizan con prima alta: todo su sentido es que las dos patas se cancelan y la dirección deja de importar. Un largo apalancado sin cobertura es la operación contraria: conserva todo el riesgo direccional que la cobertura existe para eliminar."
+
+  - id: basis-convergence-truth
+    kind: true_false
+    prompt:
+      en: "Dated futures contracts are guaranteed to converge to the spot price upon expiry."
+      es: "Se garantiza que los contratos de futuros con fecha vencen al precio spot en el momento de la expiración."
+    answer: true
+    explanation:
+      en: "At contract settlement, the futures settlement price is pegged directly to the underlying spot index, forcing basis to zero."
+      es: "En la liquidación del contrato, el precio de liquidación de futuros se fija directamente al índice spot subyacente, forzando a que el basis sea cero."
+
+  - id: premium-driver-identification
+    kind: single_choice
+    prompt:
+      en: "What does a sudden widening of the Korean Kimchi Premium (high BTC price on Korean exchanges vs global spot) indicate?"
+      es: "¿Qué indica un ensanchamiento repentino de la Prima Kimchi (precio alto de BTC en exchanges coreanos vs spot global)?"
+    options:
+      - id: a
+        text:
+          en: "Bitcoin block times have lengthened, so transfers between venues stall."
+          es: "Los bloques de Bitcoin tardan más y las transferencias se atascan."
+      - id: b
+        correct: true
+        text:
+          en: "Strong local retail demand plus fiat transfer and withdrawal friction."
+          es: "Demanda minorista local fuerte más fricción de fiat y de retirada."
       - id: c
         text:
-          en: "It is read off two envelopes drawn around a moving average."
-          es: "Se lee a partir de dos envolventes trazadas alrededor de una media móvil."
+          en: "Global spot venues are quoting stale prices while Korea quotes live ones."
+          es: "El spot global cotiza precios rancios mientras Corea cotiza en vivo."
       - id: d
         text:
-          en: "It says a large move is coming without naming its direction."
-          es: "Dice que viene un movimiento grande sin nombrar su dirección."
+          en: "Korean shorts are being paid an unusually large funding rate right now."
+          es: "A los cortos coreanos les pagan ahora un funding inusualmente alto."
     explanation:
-      en: "The liquidity squeeze is a market event with participants in it: shorts liquidated into a rising price, whose forced buying pushes price higher and liquidates more of them. It has a direction by construction. The last two describe the volatility squeeze instead — a measurement over the chart, which names a size and refuses to name a side."
-      es: "El squeeze de liquidez es un suceso de mercado con participantes dentro: cortos liquidados contra un precio que sube, cuya compra forzada empuja el precio más arriba y liquida a más. Tiene dirección por construcción. Las dos últimas describen en cambio el squeeze de volatilidad: una medición sobre el gráfico, que nombra un tamaño y se niega a nombrar un lado."
+      en: "Cross-exchange premiums persist when capital flow friction prevents arbitrageurs from quickly moving fiat or crypto between venues — the demand is what opens the gap, the friction is what keeps it open. Block times affect everyone equally and no venue's feed is stale here; both readings would apply globally rather than to one country's exchanges."
+      es: "Las primas entre exchanges persisten cuando la fricción del flujo de capital impide que los arbitrajistas muevan rápido fiat o cripto entre sitios: la demanda abre el hueco, la fricción lo mantiene abierto. El tiempo de bloque afecta a todos por igual y aquí ningún feed está rancio; las dos lecturas valdrían globalmente, no para los exchanges de un solo país."
+
+  - id: basis-arbitrage-sequence
+    kind: ordering
+    prompt:
+      en: "Sequence the execution steps of a cash-and-carry basis arbitrage trade."
+      es: "Ordena los pasos de ejecución de una operación de arbitraje de basis cash-and-carry."
+    items:
+      - id: step-1
+        position: 1
+        text:
+          en: "Identify perpetual futures trading at a substantial premium above spot with high positive funding."
+          es: "Identificar futuros perpetuos cotizando con prima sustancial sobre spot con funding positivo alto."
+      - id: step-2
+        position: 2
+        text:
+          en: "Buy spot asset on spot venue and transfer as collateral to futures venue."
+          es: "Comprar activo en el mercado spot y transferirlo como colateral al mercado de futuros."
+      - id: step-3
+        position: 3
+        text:
+          en: "Open an equivalent short position on perpetual futures (1x hedge)."
+          es: "Abrir una posición corta equivalente en futuros perpetuos (cobertura 1x)."
+      - id: step-4
+        position: 4
+        text:
+          en: "Collect periodic funding yield until premium normalizes, then close both legs."
+          es: "Cobrar el rendimiento periódico de funding hasta que la prima se normalice y cerrar ambas patas."
+    explanation:
+      en: "Cash-and-carry locks in market-neutral yield by balancing spot long against futures short."
+      es: "El cash-and-carry bloquea rendimiento neutral al mercado equilibrando spot largo contra futuros corto."
+
+  - id: funding-arb-risk
+    kind: single_choice
+    prompt:
+      en: "What is the principal risk in a delta-neutral cash-and-carry trade (long spot, short perp)?"
+      es: "¿Cuál es el riesgo principal en una operación de cash-and-carry delta-neutral (long spot, short perp)?"
+    options:
+      - id: a
+        text:
+          en: "The asset price rising 50%, since the spot leg cannot cover the short."
+          es: "Que el precio suba un 50 %, ya que el spot no cubre el corto."
+      - id: b
+        text:
+          en: "Liquidation of the spot position, which carries no margin buffer."
+          es: "La liquidación de la posición spot, que no tiene colchón de margen."
+      - id: c
+        text:
+          en: "The order book deepening, which erodes the spread the trade earns."
+          es: "Que el libro gane profundidad y erosione el spread que gana la operación."
+      - id: d
+        correct: true
+        text:
+          en: "Funding flipping negative, turning the yield into a recurring cost."
+          es: "Que el funding se vuelva negativo y el ingreso pase a ser gasto."
+    explanation:
+      en: "Price moves are hedged by construction — that is what delta-neutral means, so a 50% rally costs nothing net and an unleveraged spot holding cannot be liquidated. What is not hedged is the funding rate itself: if sentiment shifts, the yield can shrink to nothing or reverse into a payment you owe every interval."
+      es: "Los movimientos de precio están cubiertos por construcción —eso significa delta-neutral—, así que una subida del 50 % no cuesta nada en neto y una posición spot sin apalancar no se puede liquidar. Lo que no está cubierto es el propio funding: si cambia el sentimiento, el rendimiento puede reducirse a nada o invertirse en un pago que debes cada intervalo."
+
+  - id: spot-perp-basis-expansion
+    kind: single_choice
+    prompt:
+      en: "Why does perpetual futures basis expand to high positive levels during euphoric bull markets?"
+      es: "¿Por qué el basis de futuros perpetuos se expande a niveles positivos altos durante mercados alcistas eufóricos?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Leveraged long demand arrives faster than spot liquidity can keep up."
+          es: "La demanda de largos apalancados va más rápido que la liquidez spot."
+      - id: b
+        text:
+          en: "Exchanges charge longs a higher maker fee, which lifts the perp price."
+          es: "Los exchanges cobran más comisión a los largos y eso sube el perp."
+      - id: c
+        text:
+          en: "The underlying chain congests, so the perp cannot track spot closely."
+          es: "La cadena se congestiona y el perp no puede seguir de cerca al spot."
+      - id: d
+        text:
+          en: "Shorts are given zero margin requirement, so nobody sells the premium."
+          es: "A los cortos no se les exige margen y nadie vende la prima."
+    explanation:
+      en: "High leverage demand drives perpetual prices above spot, creating high positive basis and elevating funding payments to shorts. The perp does not need the chain at all to track spot — funding is the mechanism that tethers it, and a fee schedule is far too small to open a basis of this size."
+      es: "La alta demanda de apalancamiento empuja los perpetuos por encima del spot, creando un basis positivo alto y elevando los pagos de funding a los cortos. El perp no necesita la cadena para seguir al spot: el funding es el mecanismo que lo ata, y una tabla de comisiones es demasiado pequeña para abrir un basis de este tamaño."
+
+  - id: cross-venue-transfer-friction
+    kind: single_choice
+    prompt:
+      en: "Why do price premiums between two exchanges fail to close immediately when wallet withdrawals are suspended on one venue?"
+      es: "¿Por qué las primas de precio entre dos exchanges no se cierran inmediatamente cuando se suspenden las retiradas de wallet en uno de ellos?"
+    options:
+      - id: a
+        text:
+          en: "The order books stop displaying bids until withdrawals are restored."
+          es: "Los libros dejan de mostrar bids hasta que vuelvan las retiradas."
+      - id: b
+        text:
+          en: "Global trading volume falls to zero, so no price can be discovered."
+          es: "El volumen global cae a cero y no se puede descubrir ningún precio."
+      - id: c
+        text:
+          en: "Funding rates are forced to zero on every venue during a suspension."
+          es: "El funding se fuerza a cero en todos los exchanges durante la pausa."
+      - id: d
+        correct: true
+        text:
+          en: "Arbitrageurs cannot move assets across to sell on the dearer venue."
+          es: "Los arbitrajistas no pueden llevar activos al exchange más caro."
+    explanation:
+      en: "Arbitrage relies on physically transporting assets or fiat between exchanges; closing the withdrawal rails traps capital and preserves the divergence. Trading itself continues normally on both venues — that is exactly why the two prices can stay apart while each book keeps quoting."
+      es: "El arbitraje depende de transportar físicamente activos o fiat entre exchanges; cerrar la vía de retiradas atrapa capital y mantiene la divergencia. La negociación sigue con normalidad en los dos sitios: por eso justamente los dos precios pueden quedarse separados mientras cada libro sigue cotizando."

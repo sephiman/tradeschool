@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m24-stop-limit-gap
+key: fig-m21-stop-limit-gap  # pre-renumber identity (2026-08-10); never renamed
+kind: chart
+caption:
+  en: 'A protective stop-limit that never fills. One candle''s body slices through
+    the trigger and the limit together, and from that bar on the market never trades
+    back up to the limit: the sell order rests above the price, untouched, while the
+    loss keeps running. The two lines are drawn far enough apart to see — in practice
+    they often sit a tick apart, which only makes the trap easier to fall into.'
+  es: 'Un stop-limit de protección que nunca se ejecuta. El cuerpo de una sola vela
+    atraviesa el precio trigger y el límite a la vez, y desde esa vela el mercado ya no
+    vuelve a subir hasta el límite: la orden de venta se queda por encima del precio,
+    sin tocar, mientras la pérdida sigue corriendo. Las dos líneas se dibujan lo bastante
+    separadas para verlas; en la práctica suelen estar a un tick, lo que solo hace
+    más fácil caer en la trampa.'
+panels:
+- generator: pattern_chart
+  injector: stop_limit_gap
+  target: unfilled_stop_limit
+  # A different base-price tier from every other figure on these injectors — see the note in
+  # fig-m19-liquidity-sweep.yaml.
+  seed: 11
+  n: 150
+  indicator: none
+  resolution:
+    direction: down
+    strength: 0.05

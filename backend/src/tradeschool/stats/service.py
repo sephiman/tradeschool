@@ -76,6 +76,7 @@ async def _answered(session: AsyncSession, user_id: uuid.UUID | None) -> list[At
 
 
 def _roll_by_exercise(attempts: list[Attempt]) -> dict[str, _ExerciseRoll]:
+    # Keyed by the attempt's stored exercise KEY; manifest walks translate display -> key to read it.
     rolls: dict[str, _ExerciseRoll] = defaultdict(_ExerciseRoll)
     for a in attempts:
         rolls[a.exercise_id].add(bool(a.is_correct))
@@ -99,12 +100,12 @@ async def me_stats(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, locale: str
 ) -> dict[str, object]:
     rolls = _roll_by_exercise(await _answered(session, user_id))
-    passed = {eid for eid, roll in rolls.items() if roll.correct > 0}
+    passed = {key for key, roll in rolls.items() if roll.correct > 0}  # exercise KEYS
 
     completed_rows = await session.scalars(
         select(LessonCompletion.lesson_id).where(LessonCompletion.user_id == user_id)
     )
-    completed_lessons = set(completed_rows.all())
+    completed_lessons = set(completed_rows.all())  # lesson KEYS
 
     overall = _Agg()  # exercise stats across all published modules
     module_rows: list[dict[str, object]] = []
@@ -120,7 +121,7 @@ async def me_stats(
         if not lesson_ids:
             continue  # unpublished — excluded from coverage and reading (§ report on published only)
         published_modules += 1
-        lessons_done = sum(1 for lid in lesson_ids if lid in completed_lessons)
+        lessons_done = sum(1 for lid in lesson_ids if registry.lesson_key(lid) in completed_lessons)
         published_lessons += len(lesson_ids)
         completed_published += lessons_done
 
@@ -128,7 +129,7 @@ async def me_stats(
         mod = _Agg()
         to_review: list[dict[str, object]] = []
         for eid in exercise_ids:
-            roll = rolls.get(eid)
+            roll = rolls.get(registry.exercise_key(eid))
             if roll is None:
                 continue
             for agg in (mod, overall):
@@ -161,7 +162,7 @@ async def me_stats(
                 "lessonsCompleted": lessons_done,
                 # Mastery (exercises).
                 "exercisesTotal": len(exercise_ids),
-                "exercisesPassed": sum(1 for eid in exercise_ids if eid in passed),
+                "exercisesPassed": sum(1 for eid in exercise_ids if registry.exercise_key(eid) in passed),
                 "answered": mod.answered,
                 "accuracy": _ratio(mod.correct, mod.answered),
                 "firstAttemptAccuracy": _ratio(mod.first_correct, mod.first_seen),
@@ -242,9 +243,11 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
     # person. The rate is over the observations; the gate and the printed headcount are over people.
     exercise_learners: dict[str, set[uuid.UUID]] = defaultdict(set)
     module_learners: dict[str, set[uuid.UUID]] = defaultdict(set)
-    for (user_id, exercise_id), correct in first_seen.items():
-        loc = registry.exercise_location(exercise_id)
-        if loc is None:
+    for (user_id, exercise_key), correct in first_seen.items():
+        # The attempt row stores the KEY; everything from here out speaks display ids.
+        exercise_id = registry.exercise_id_for_key(exercise_key)
+        loc = registry.exercise_location(exercise_id) if exercise_id else None
+        if exercise_id is None or loc is None:
             continue
         _, module_id = loc
         for agg in (by_exercise[exercise_id], by_module[module_id]):

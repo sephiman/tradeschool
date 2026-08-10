@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { CandleChart, type ChartSeries } from "@/components/charts/CandleChart";
 
 /**
- * A chart with its multi-timeframe companion stacked above or below it (m20-l2).
+ * A chart with its multi-timeframe companion stacked above or below it (m23-l2).
  *
  * The companion is the SAME price aggregated to a coarser frame, so it carries no oscillator pane, no
  * levels and no markers — there is nothing on it that is not already on the panel it came from.

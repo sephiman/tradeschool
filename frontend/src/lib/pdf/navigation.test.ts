@@ -162,7 +162,7 @@ describe.each(LOCALES)("internal links (%s)", (locale) => {
 
   it("makes the glossary's own pointers clickable too — origins, and an alias's canonical", () => {
     // The glossary is a reference, and in a navigable book every pointer in it should be followable:
-    // "taught in M17-L1" reaches that lesson, and "CHoCH → change of character" reaches that entry.
+    // "taught in M19-L1" reaches that lesson, and "CHoCH → change of character" reaches that entry.
     const targets = new Set(links(build(locale)).map((node) => node.linkToDestination));
     const entries = glossaryFromContent(locale);
     const withOrigin = entries.filter((entry) => entry.origin && !entry.senses?.length);

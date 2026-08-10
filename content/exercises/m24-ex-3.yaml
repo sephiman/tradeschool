@@ -1,203 +1,224 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: order-of-steps
-    kind: ordering
+  - id: reduce-only-why
     prompt:
-      en: "Put the steps of one complete trade into the correct order, from first decision to last."
-      es: "Ordena los pasos de una operación completa en el orden correcto, de la primera decisión a la última."
-    items:
-      - id: ctx
-        position: 1
-        text: { en: "Read the context (trend / structure)", es: "Leer el contexto (tendencia / estructura)" }
-      - id: setup
-        position: 2
-        text: { en: "Identify the setup at a level (confluence)", es: "Identificar el setup en un nivel (confluencia)" }
-      - id: trigger
-        position: 3
-        text: { en: "Wait for the reaction (entry trigger)", es: "Esperar la reacción (detonante de entrada)" }
-      - id: stop
-        position: 4
-        text: { en: "Place the stop where the idea is wrong", es: "Colocar el stop donde la idea es errónea" }
-      - id: size
-        position: 5
-        text: { en: "Size the position from the stop", es: "Dimensionar la posición desde el stop" }
+      en: "On perpetual futures, why tag your take-profit and stop-loss as reduce-only?"
+      es: "En futuros perpetuos, ¿por qué etiquetar tu take-profit y tu stop-loss como reduce-only?"
+    options:
+      - id: a
+        text:
+          en: "So that the exchange waives all of its trading fees on the exit."
+          es: "Para que el exchange perdone todas sus comisiones en la salida."
+      - id: b
+        text:
+          en: "So that the order gets filled faster than an ordinary order would."
+          es: "Para que la orden se ejecute más rápido que una orden normal."
+      - id: c
+        text:
+          en: "So that it prevents the exchange from ever liquidating your position."
+          es: "Para que impida al exchange liquidar tu posición alguna vez."
+      - id: d
+        correct: true
+        text:
+          en: "So the order can only shrink the position, never flip or grow it."
+          es: "Para que la orden solo reduzca la posición, sin darle la vuelta ni agrandarla."
     explanation:
-      en: "Context → setup → trigger → stop → size. The stop comes from the chart and the size comes from the stop, so risk is decided before you ever commit money. Reversing stop and size (pick a size, then a stop) is gambling."
-      es: "Contexto → setup → disparador → stop → tamaño. El stop sale del gráfico y el tamaño sale del stop, así que el riesgo se decide antes de comprometer dinero. Invertir stop y tamaño (elegir un tamaño y luego un stop) es apostar."
-  - id: stop-only-favour-tf
+      en: "Reduce-only guarantees the order can only reduce the current position. Without it, a mis-sized or duplicated exit could close your position and open the opposite one, or stack you into a bigger one. It changes nothing about fees, speed, or whether the exchange can liquidate you."
+      es: "Reduce-only garantiza que la orden solo pueda reducir la posición actual. Sin ella, una salida mal dimensionada o duplicada podría cerrar tu posición y abrir la contraria, o apilarte en una mayor. No cambia nada sobre comisiones, velocidad ni sobre si el exchange puede liquidarte."
+  - id: tp-sl-purpose
+    prompt:
+      en: "What is the purpose of a stop-loss (SL) paired with a take-profit (TP)?"
+      es: "¿Cuál es el propósito de un stop-loss (SL) combinado con un take-profit (TP)?"
+    options:
+      - id: a
+        text:
+          en: "Both of them raise your leverage automatically as the price moves."
+          es: "Ambos suben tu apalancamiento automáticamente al moverse el precio."
+      - id: b
+        correct: true
+        text:
+          en: "The SL caps the loss and the TP banks the gain, defining the trade."
+          es: "El SL limita la pérdida y el TP asegura la ganancia: definen la operación."
+      - id: c
+        text:
+          en: "The SL is the exchange force-closing you; the TP prevents that liquidation."
+          es: "El SL es el exchange cerrándote a la fuerza; el TP evita esa liquidación."
+      - id: d
+        text:
+          en: "Together they guarantee a profit on every single trade that you take."
+          es: "Juntos garantizan beneficio en cada operación que hagas."
+    explanation:
+      en: "SL and TP are voluntary exits you control: the SL closes at your chosen loss level, the TP at your target gain — defining the trade before emotion arrives. This is you deciding, not liquidation, which is the exchange forcibly closing a leveraged position when margin runs out. Neither touches your leverage, and no order guarantees a profit."
+      es: "El SL y el TP son salidas voluntarias que tú controlas: el SL cierra en tu nivel de pérdida elegido, el TP en tu objetivo de ganancia, definiendo la operación antes de que llegue la emoción. Lo decides tú, no es una liquidación, que es el exchange cerrando a la fuerza una posición apalancada cuando se agota el margen. Ninguno toca tu apalancamiento, y ninguna orden garantiza beneficio."
+  - id: reduce-only-increase
     kind: true_false
     prompt:
-      en: "The one inviolable rule of managing a live trade: the stop only ever moves in the trade's favour."
-      es: "La única regla inviolable de gestionar una operación en vivo: el stop solo se mueve a favor de la operación."
-    answer: true
+      en: "A reduce-only order can increase the size of your open position."
+      es: "Una orden reduce-only puede aumentar el tamaño de tu posición abierta."
+    answer: false
     explanation:
-      en: "Up for a long, down for a short, never away. This single rule is what keeps a planned loss capped at the amount you budgeted."
-      es: "Arriba en un largo, abajo en un corto, nunca en contra. Esta única regla es lo que mantiene una pérdida planificada topada en la cantidad que presupuestaste."
-  - id: where-stop
+      en: "By definition a reduce-only order can only ever shrink the current position. The exchange caps it at your position size and discards any excess, so it can never open a new position or enlarge an existing one — that is the whole point of the tag."
+      es: "Por definición, una orden reduce-only solo puede reducir la posición actual. El exchange la limita al tamaño de tu posición y descarta cualquier exceso, así que nunca puede abrir una posición nueva ni agrandar una existente: ese es todo el sentido de la etiqueta."
+  - id: sl-vs-liquidation
     prompt:
-      en: "Where does a stop belong?"
-      es: "¿Dónde pertenece un stop?"
+      en: "How does a stop-loss differ from a liquidation?"
+      es: "¿En qué se diferencia un stop-loss de una liquidación?"
     options:
       - id: a
         text:
-          en: "At the dollar amount you are comfortable losing on this particular trade."
-          es: "En la cantidad de dinero que te sientas cómodo perdiendo en esta operación."
+          en: "They are two names for the same thing: the exchange closing your trade."
+          es: "Son dos nombres para lo mismo: el exchange cerrando tu operación."
       - id: b
         text:
-          en: "A fixed 2% below entry on every trade, so the risk stays consistent."
-          es: "Un 2% fijo bajo la entrada en toda operación, para un riesgo constante."
+          en: "A stop-loss is forced by the exchange; a liquidation is one you choose."
+          es: "El stop-loss lo fuerza el exchange; la liquidación la eliges tú."
       - id: c
         text:
-          en: "Wherever leaves a round position size, so the maths stays simple."
-          es: "Donde deje un tamaño de posición redondo, para que la cuenta sea simple."
+          en: "A stop-loss adds margin automatically in order to avoid a liquidation."
+          es: "El stop-loss añade margen automáticamente para evitar una liquidación."
       - id: d
         correct: true
         text:
-          en: "At the price that invalidates the setup — where the idea is proven wrong."
-          es: "En el precio que invalida el setup: donde la idea se demuestra falsa."
+          en: "The stop-loss is your voluntary exit; liquidation is the venue's forced one."
+          es: "El stop-loss es tu salida voluntaria; la liquidación es la forzosa del venue."
     explanation:
-      en: "The stop marks where the idea is dead (structure), not a money figure. Placed there, being stopped means something real; the size then adjusts so that loss equals your budget. Start from the money instead and the stop lands wherever your comfort happens to be, which the market has no reason to respect."
-      es: "El stop marca dónde muere la idea (estructura), no una cifra de dinero. Colocado ahí, que te salten significa algo real; el tamaño se ajusta luego para que esa pérdida iguale tu presupuesto. Si partes del dinero, el stop cae donde esté tu comodidad, y el mercado no tiene razón alguna para respetarla."
-  - id: why-trigger
+      en: "A stop-loss is you deciding in advance where to exit if wrong — a voluntary close at a level you set and control. Liquidation is the exchange deciding for you, forcibly closing a leveraged position when your margin is exhausted; it adds nothing to your collateral. A sensible stop-loss can help you avoid ever reaching liquidation, but it is not the same event, and the roles are not reversed."
+      es: "Un stop-loss es que tú decidas de antemano dónde salir si te equivocas: un cierre voluntario en un nivel que tú fijas y controlas. La liquidación es que el exchange decida por ti, cerrando a la fuerza una posición apalancada cuando se agota tu margen; no añade nada a tu colateral. Un stop-loss sensato puede ayudarte a no llegar nunca a la liquidación, pero no es el mismo suceso, y los papeles no están invertidos."
+  - id: flip-scenario
     prompt:
-      en: "Why wait for a reaction candle at the level instead of buying the moment price touches it?"
-      es: "¿Por qué esperar una vela de reacción en el nivel en vez de comprar en cuanto el precio lo toca?"
+      en: "You are long 1 BTC and send a plain sell order for more than 1 BTC to exit, without tagging it reduce-only. What can go wrong?"
+      es: "Estás largo 1 BTC y envías una orden de venta simple por más de 1 BTC para salir, sin etiquetarla como reduce-only. ¿Qué puede salir mal?"
     options:
       - id: a
         text:
-          en: "It guarantees the level holds, since a reaction candle confirms the buyers."
-          es: "Garantiza que el nivel aguanta, ya que la vela de reacción confirma compras."
+          en: "Nothing — the exchange always caps a sell at your current position size."
+          es: "Nada: el exchange siempre limita una venta al tamaño de tu posición."
       - id: b
         correct: true
         text:
-          en: "It makes the market prove that buyers actually showed up before you commit."
-          es: "Obliga al mercado a demostrar que los compradores aparecieron de verdad."
+          en: "It can close the long and open a short — you flip instead of exiting."
+          es: "Puede cerrar el largo y abrir un corto: te das la vuelta en vez de salir."
       - id: c
         text:
-          en: "It lets you enter closer to the level and so win a slightly better price."
-          es: "Te deja entrar más cerca del nivel y así conseguir un precio algo mejor."
+          en: "The exchange rejects the whole order for being too large to process."
+          es: "El exchange rechaza la orden entera por ser demasiado grande."
       - id: d
         text:
-          en: "There is no reason; the touch is always the cheaper entry, so take it."
-          es: "No hay razón; el toque siempre es la entrada más barata, así que tómala."
+          en: "It triggers an immediate liquidation of the extra size you sent."
+          es: "Provoca una liquidación inmediata del tamaño de más que enviaste."
     explanation:
-      en: "Buying the touch assumes the level holds; waiting for the reaction demands evidence and lets you refuse the trade if the reaction never comes. Note what it does not do: it guarantees nothing, and it costs you a worse price than the touch. You pay that little price for proof."
-      es: "Comprar el toque da por hecho que el nivel aguanta; esperar la reacción exige pruebas y te deja rechazar la operación si la reacción nunca llega. Fíjate en lo que no hace: no garantiza nada, y te cuesta un precio peor que el toque. Pagas ese poco de precio a cambio de pruebas."
-  - id: r-multiple
+      en: "Without reduce-only, the excess beyond your 1 BTC does not vanish and is not rejected: it closes the long and then opens a short, leaving you positioned the wrong way with no liquidation involved. Tagging the exit reduce-only is exactly what makes the exchange cap it at your position size and discard the rest."
+      es: "Sin reduce-only, el exceso por encima de tu 1 BTC ni desaparece ni se rechaza: cierra el largo y luego abre un corto, dejándote posicionado al revés y sin ninguna liquidación de por medio. Etiquetar la salida como reduce-only es justamente lo que hace que el exchange la limite al tamaño de tu posición y descarte el resto."
+  - id: exit-concepts-match
+    kind: matching
     prompt:
-      en: "You risk 1R and your target is 3,7R away. Entry 60.300, stop 59.300 (risk 1.000). Roughly where is the target?"
-      es: "Arriesgas 1R y tu objetivo está a 3,7R. Entrada 60.300, stop 59.300 (riesgo 1.000). ¿Dónde está aproximadamente el objetivo?"
-    options:
-      - id: a
-        correct: true
-        text: { en: "Around 64.000 (about 3.700 above the entry)", es: "Alrededor de 64.000 (unos 3.700 sobre la entrada)" }
-      - id: b
-        text: { en: "Around 59.300 (at the stop itself)", es: "Alrededor de 59.300 (en el propio stop)" }
-      - id: c
-        text: { en: "Around 60.700 (about 400 above entry)", es: "Alrededor de 60.700 (unos 400 sobre la entrada)" }
-      - id: d
-        text: { en: "Around 71.000 (about 10.700 above)", es: "Alrededor de 71.000 (unos 10.700 arriba)" }
+      en: "Match each exit concept to what it is."
+      es: "Empareja cada concepto de salida con lo que es."
+    pairs:
+      - id: sl
+        left: { en: "Stop-loss", es: "Stop-loss" }
+        right: { en: "Voluntary exit that caps the loss if price goes against you", es: "Salida voluntaria que limita la pérdida si el precio va en tu contra" }
+      - id: tp
+        left: { en: "Take-profit", es: "Take-profit" }
+        right: { en: "Voluntary exit that banks the gain at a target", es: "Salida voluntaria que asegura la ganancia en un objetivo" }
+      - id: ro
+        left: { en: "Reduce-only", es: "Reduce-only" }
+        right: { en: "Tag that lets an order only shrink a position, never open or grow one", es: "Etiqueta que permite a una orden solo reducir una posición, nunca abrir ni agrandar una" }
+      - id: liq
+        left: { en: "Liquidation", es: "Liquidación" }
+        right: { en: "Forced close by the exchange when margin runs out", es: "Cierre forzoso del exchange cuando se agota el margen" }
     explanation:
-      en: "1R is the stop distance, 1.000. 3,7R ≈ 3.700 above the 60.300 entry ≈ 64.000. The wrong answers each mistake what R measures: 0,4R away, R below entry instead of above, and 10,7R. Expressing targets in R keeps every trade comparable regardless of price."
-      es: "1R es la distancia del stop, 1.000. 3,7R ≈ 3.700 por encima de la entrada de 60.300 ≈ 64.000. Cada respuesta errónea confunde qué mide la R: 0,4R de distancia, 1R por debajo en vez de por encima, y 10,7R. Expresar objetivos en R mantiene toda operación comparable sin importar el precio."
-  - id: context-first
+      en: "Stop-loss and take-profit are voluntary exits you control — one caps the loss, the other banks the gain. Reduce-only is a safety tag so an exit can only close, never flip or enlarge. Liquidation is the one you do not choose: a forced close by the exchange when margin is gone."
+      es: "El stop-loss y el take-profit son salidas voluntarias que tú controlas: uno limita la pérdida, el otro asegura la ganancia. Reduce-only es una etiqueta de seguridad para que una salida solo pueda cerrar, nunca darte la vuelta ni agrandar. La liquidación es la que no eliges: un cierre forzoso del exchange cuando se agota el margen."
+  - id: sl-tp-no-guarantee
+    kind: true_false
     prompt:
-      en: "Before looking for an entry, the first question of a complete trade is:"
-      es: "Antes de buscar una entrada, la primera pregunta de una operación completa es:"
-    options:
-      - id: a
-        text:
-          en: "How much leverage can I use to make the winner worth taking?"
-          es: "¿Cuánto apalancamiento uso para que la ganadora merezca la pena?"
-      - id: b
-        text:
-          en: "Which coin has the most social-media volume, since flow follows attention?"
-          es: "¿Qué moneda tiene más volumen en redes, si el flujo sigue a la atención?"
-      - id: c
-        text:
-          en: "What round number is price nearest, since round numbers attract orders?"
-          es: "¿A qué número redondo está más cerca el precio, si atraen órdenes?"
-      - id: d
-        correct: true
-        text:
-          en: "Is the market offering a clean trade at all? (Often the answer is no.)"
-          es: "¿Ofrece el mercado siquiera una operación limpia?"
+      en: "Placing a stop-loss and a take-profit together guarantees the trade will end in a profit."
+      es: "Colocar juntos un stop-loss y un take-profit garantiza que la operación acabará en beneficio."
+    answer: false
     explanation:
-      en: "Context decides whether there is a trade. In a range or against the trend the same setup is a worse bet, and most of the time the honest answer — and the best trade — is no trade. Leverage, attention and round numbers are all answers to 'how do I trade this?', a question you have not earned the right to ask yet."
-      es: "El contexto decide si hay operación. En un rango o contra la tendencia el mismo setup es peor apuesta, y la mayor parte del tiempo la respuesta honesta —y la mejor operación— es ninguna. Apalancamiento, atención y números redondos responden a «¿cómo opero esto?», una pregunta que aún no te has ganado el derecho a hacer."
-  - id: top-down-bias-entry
+      en: "They define the trade in advance — how much you lose if wrong (SL) and where you take the win (TP) — but they guarantee nothing about the outcome. If price hits the stop-loss first, the trade ends in the planned loss. No order can guarantee a profit."
+      es: "Definen la operación de antemano —cuánto pierdes si te equivocas (SL) y dónde te llevas la ganancia (TP)— pero no garantizan nada sobre el resultado. Si el precio toca antes el stop-loss, la operación acaba en la pérdida planeada. Ninguna orden puede garantizar un beneficio."
+  - id: tp-sl-numbers
     prompt:
-      en: "In the top-down protocol, which chart decides what?"
-      es: "En el protocolo de arriba abajo, ¿qué decide cada gráfico?"
+      en: "You go long at 60,000, set the SL at 58,800 and the TP at 63,000. What have you just done?"
+      es: "Te pones largo en 60.000, colocas el SL en 58.800 y el TP en 63.000. ¿Qué acabas de hacer?"
     options:
       - id: a
         text:
-          en: "The lower timeframe dictates the bias, because it shows the freshest action."
-          es: "La temporalidad inferior dicta el sesgo, porque muestra la acción reciente."
+          en: "Guaranteed a profit, on the grounds that the TP is further out than the SL."
+          es: "Garantizar beneficio, dado que el TP está más lejos que el SL."
       - id: b
-        correct: true
         text:
-          en: "The higher frame sets bias and levels, the lower one the trigger."
-          es: "El superior da sesgo y niveles; el inferior, el disparador."
+          en: "Set a 2% risk and a 5% target measured on your margin, not on price."
+          es: "Fijar un riesgo del 2% y un objetivo del 5% sobre el margen, no el precio."
       - id: c
         text:
-          en: "Whichever timeframe currently agrees with your idea gets to decide both."
-          es: "La temporalidad que coincida ahora con tu idea decide las dos cosas."
+          en: "Replaced the need to make a position-size decision at all."
+          es: "Sustituir la necesidad de decidir el tamaño de la posición."
       - id: d
+        correct: true
         text:
-          en: "Both frames must give the same signal, or the trade is invalid entirely."
-          es: "Ambos marcos deben dar la misma señal, o la operación es del todo inválida."
+          en: "Defined the trade: risking 1,200 to make 3,000, closing itself either way."
+          es: "Definir la operación: arriesgar 1.200 para ganar 3.000, y que se cierre sola."
     explanation:
-      en: "Bias and levels come from the macro frame; timing and stop placement from the micro frame. The order is not reversible — the fast chart prints signals in both directions constantly, so letting it choose the direction means always finding a reason for the trade you already wanted."
-      es: "El sesgo y los niveles salen del marco macro; el timing y la colocación del stop, del marco micro. El orden no es reversible: el gráfico rápido imprime señales en las dos direcciones constantemente, así que dejarle elegir la dirección significa encontrar siempre una razón para la operación que ya querías."
-  - id: micro-against-macro
+      en: "Placing them together defines the trade before emotion arrives: the SL says how much you will lose if wrong, the TP says where you will take the win, and it will now close itself at one end or the other whether you are watching or asleep. A wider target guarantees nothing, the levels are measured against price rather than margin, and you still have to size the position separately."
+      es: "Colocarlos juntos define la operación antes de que llegue la emoción: el SL dice cuánto perderás si te equivocas, el TP dónde tomarás la ganancia, y ahora se cerrará sola en un extremo o en el otro, estés mirando o dormido. Un objetivo más lejano no garantiza nada, los niveles se miden contra el precio y no contra el margen, y sigues teniendo que dimensionar la posición aparte."
+  - id: spot-vs-perp-flip
     prompt:
-      en: "The 4-hour chart is in a clear downtrend. On the 5-minute you get a clean long trigger at a level. What is the correct action?"
-      es: "El gráfico de 4 horas está en una tendencia bajista clara. En el de 5 minutos obtienes un trigger largo limpio en un nivel. ¿Cuál es la acción correcta?"
+      en: "Why does reduce-only exist on perpetuals but not need to on spot?"
+      es: "¿Por qué existe el reduce-only en los perpetuos y no hace falta en spot?"
     options:
       - id: a
         text:
-          en: "Take the long with a tighter stop, so the conflict costs less per attempt."
-          es: "Tomar el largo con stop más ajustado, para que el conflicto cueste menos."
+          en: "Spot exchanges apply reduce-only automatically to every order sent."
+          es: "Los exchanges de spot aplican reduce-only a cada orden enviada."
       - id: b
-        text:
-          en: "Take the long — the 5-minute is nearer the price, so it is more accurate."
-          es: "Tomar el largo: el de 5 minutos está más cerca del precio y es más preciso."
-      - id: c
         correct: true
         text:
-          en: "Skip it — the micro signal contradicts the macro bias."
-          es: "Descartarla: la señal micro contradice el sesgo macro."
+          en: "On spot you can only sell what you hold; on perps you can sell past flat."
+          es: "En spot solo vendes lo que tienes; en perps puedes vender más allá de cero."
+      - id: c
+        text:
+          en: "Because perps settle in a stablecoin, whereas spot markets do not."
+          es: "Porque los perps liquidan en una stablecoin y los mercados spot no."
       - id: d
         text:
-          en: "Take the long at half size, since each frame gets half a vote."
-          es: "Tomar el largo a mitad de tamaño, ya que cada marco tiene medio voto."
+          en: "Because spot has no stop orders, so there is nothing there to protect."
+          es: "Porque en spot no hay órdenes stop y no hay nada que proteger."
     explanation:
-      en: "The higher timeframe owns the direction, so a conflicting micro signal is a skipped trade, not a counter-trade opportunity. A tighter stop or a smaller size does not fix a trade taken against the dominant flow — it only makes the bad bet cheaper per attempt, and the frames do not vote."
-      es: "La temporalidad superior manda en la dirección, así que una señal micro que la contradice es una operación descartada, no una oportunidad de operar en contra. Un stop más ajustado o un tamaño menor no arreglan una operación tomada contra el flujo dominante: solo abaratan la mala apuesta por intento, y los marcos no votan."
-  - id: daily-stop-why-mechanical
+      en: "An oversized sell on spot just sells everything you hold and stops; on a perp, selling past flat opens a short and the position flips sign. Reduce-only restores that spot-like guarantee — that closing a position can never accidentally open the opposite one — which is why it belongs on every exit you place on a perp. Settlement currency and stop orders have nothing to do with it."
+      es: "Una venta excesiva en spot vende todo lo que tienes y se detiene; en un perp, vender más allá de cero abre un corto y la posición cambia de signo. El reduce-only restaura esa garantía propia del spot —que cerrar una posición nunca pueda abrir por accidente la contraria— y por eso corresponde a toda salida que coloques en un perp. La moneda de liquidación y las órdenes stop no tienen nada que ver."
+  - id: exit-facts
+    kind: multi_select
     prompt:
-      en: "Why is the daily stop written as a fixed number in the plan instead of being judged in the moment?"
-      es: "¿Por qué el freno diario se escribe como un número fijo en el plan en vez de decidirse en el momento?"
+      en: "Select ALL statements about exits that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre las salidas."
     options:
       - id: a
-        text:
-          en: "Because exchanges enforce daily loss limits, so your number must match theirs."
-          es: "Porque los exchanges aplican límites diarios y tu número debe coincidir."
-      - id: b
-        text:
-          en: "Because a fixed percentage guarantees you cannot have a losing week."
-          es: "Porque un porcentaje fijo garantiza que no tengas una semana perdedora."
-      - id: c
-        text:
-          en: "Because judgement is only unreliable for beginners, not for veterans."
-          es: "Porque el criterio solo falla en principiantes, no en los veteranos."
-      - id: d
         correct: true
         text:
-          en: "Because the person deciding after a −3% day is tilted and anchored on even."
-          es: "Porque quien decide tras un día de −3% está en tilt."
+          en: "A stop-loss is a voluntary exit at a level you chose."
+          es: "Un stop-loss es una salida voluntaria en un nivel que tú elegiste."
+      - id: b
+        correct: true
+        text:
+          en: "A take-profit banks the gain before the market can hand it back."
+          es: "Un take-profit asegura la ganancia antes de que el mercado la devuelva."
+      - id: c
+        correct: true
+        text:
+          en: "A well-placed stop-loss should trigger long before liquidation applies."
+          es: "Un stop bien colocado se activa mucho antes de que aplique la liquidación."
+      - id: d
+        text:
+          en: "Liquidation is just a stop-loss the exchange places at your chosen level."
+          es: "La liquidación es un stop que el exchange pone en tu nivel elegido."
+      - id: e
+        text:
+          en: "A take-profit and stop-loss pair guarantees the trade ends green."
+          es: "Un par de take-profit y stop-loss garantiza que la operación acabe en verde."
     explanation:
-      en: "This is m23's pre-commitment made mechanical: the rule is decided when nothing is at stake precisely because willpower is what fails under pressure, and the trader anchored on getting back to even is the least qualified person to judge their own state. It caps the day, not the week, and no exchange rule replaces it."
-      es: "Es el compromiso previo de m23 hecho mecánico: la regla se decide cuando no hay nada en juego precisamente porque la fuerza de voluntad es lo que falla bajo presión, y quien está anclado en volver a cero es la persona menos cualificada para juzgar su propio estado. Limita el día, no la semana, y ninguna regla del exchange lo sustituye."
+      en: "A stop-loss is you deciding to leave at a level you chose; liquidation is the exchange deciding for you when your collateral is gone, at a level set by the margin maths rather than by you. Keeping those two apart is much of what a stop is for — and neither order can promise the outcome."
+      es: "Un stop-loss es que tú decidas salir en un nivel elegido; la liquidación es que el exchange decida por ti cuando tu colateral se agota, en un nivel que fija la aritmética del margen y no tú. Mantener ambos separados es buena parte de la función del stop, y ninguna orden puede prometer el resultado."

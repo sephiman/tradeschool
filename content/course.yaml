@@ -1,6 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 # TradeSchool course manifest — course → blocks → modules → lessons → exercises (stable ids, order = list position).
 # IDs are globally unique; a future course must namespace its ids (see content/README.md).
+# `key` is the permanent identity (seeds, progress, glossary origins): chosen once, NEVER renamed.
+# It is written explicitly where it differs from the id — the 2026-08-10 renumbering — and defaults
+# to the id everywhere else.
 course:
   id: crypto-futures
   title:
@@ -379,17 +382,14 @@ blocks:
         type: quiz
       - id: m14-ex-4
         type: quiz
-  # m31 and m32 close block C, after M14. The ids are 31 and 32 because ids are never renumbered and new
-  # content appends (content/README.md); the POSITION is here because display order is list position and
-  # this is where the material belongs — everything both modules lean on is already behind them. m31
-  # needs levels and role reversal (m03-l2, m08-l1), the body-close discipline (m08-l1) and volume
-  # confirmation (m14); m32 needs m08-l2's compression candle and m17's liquidity squeeze, which it has to
-  # tell its own squeeze apart from. So the badges on the course page read M14 -> M31 -> M32, which is
-  # the one place an id and a position are allowed to disagree: nothing renders them as a sequence.
-  #
-  # A general reordering of the course by position is deliberately postponed — it is a separate change
-  # with its own review, and nothing here depends on it.
-  - id: m31
+  # m15 and m16 close block C. The position was chosen when they were m31/m32 (appended under the old
+  # ids-never-renumber rule) because this is where the material belongs — everything both modules lean
+  # on is already behind them: m15 needs levels and role reversal (m03-l2, m08-l1), the body-close
+  # discipline (m08-l1) and volume confirmation (m14); m16 needs m08-l2's compression candle and m19's
+  # liquidity squeeze, which it has to tell its own squeeze apart from. The 2026-08-10 renumbering
+  # (content/README.md) gave them the ids their position reads as; their `key` pins the old identity.
+  - id: m15
+    key: m31
     title:
       en: 'Diagonal geometry: trendlines, channels and wedges'
       es: 'Geometría diagonal: líneas de tendencia, canales y cuñas'
@@ -402,59 +402,74 @@ blocks:
     - m13
     - m14
     lessons:
-    - id: m31-l1
+    - id: m15-l1
+      key: m31-l1
       title:
         en: Trendlines and channels
         es: Líneas de tendencia y canales
       exercises:
-      - id: m31-ex-1
+      - id: m15-ex-1
+        key: m31-ex-1
         type: pattern_chart
-      - id: m31-ex-2
+      - id: m15-ex-2
+        key: m31-ex-2
         type: pattern_chart
-      - id: m31-ex-3
+      - id: m15-ex-3
+        key: m31-ex-3
         type: quiz
-      - id: m31-ex-4
+      - id: m15-ex-4
+        key: m31-ex-4
         type: quiz
-    - id: m31-l2
+    - id: m15-l2
+      key: m31-l2
       title:
         en: Wedges and directional compression
         es: Cuñas y compresión direccional
       exercises:
-      - id: m31-ex-5
+      - id: m15-ex-5
+        key: m31-ex-5
         type: pattern_chart
-      - id: m31-ex-6
+      - id: m15-ex-6
+        key: m31-ex-6
         type: pattern_chart
-      - id: m31-ex-7
+      - id: m15-ex-7
+        key: m31-ex-7
         type: quiz
-  - id: m32
+  - id: m16
+    key: m32
     title:
       en: 'Volatility cycles: compression, expansion and the squeeze'
       es: 'Ciclos de volatilidad: compresión, expansión y el squeeze'
     summary:
-      en: 'Quiet periods precede violent ones and vice versa. Bollinger and Keltner as two different rulers for the same thing, the squeeze between them, and the word ''squeeze'' pulling double duty: this one and m17''s liquidity squeeze are unrelated mechanisms sharing a name.'
-      es: 'Los periodos tranquilos preceden a los violentos y al revés. Bollinger y Keltner como dos reglas distintas para lo mismo, el squeeze entre ambas y la palabra «squeeze» haciendo doble turno: este y el squeeze de liquidez de m17 son mecanismos sin relación que comparten nombre.'
+      en: 'Quiet periods precede violent ones and vice versa. Bollinger and Keltner as two different rulers for the same thing, the squeeze between them, and the word ''squeeze'' pulling double duty: this one and m19''s liquidity squeeze are unrelated mechanisms sharing a name.'
+      es: 'Los periodos tranquilos preceden a los violentos y al revés. Bollinger y Keltner como dos reglas distintas para lo mismo, el squeeze entre ambas y la palabra «squeeze» haciendo doble turno: este y el squeeze de liquidez de m19 son mecanismos sin relación que comparten nombre.'
     assumes:
     - m11
     - m13
-    - m17
+    - m19
     lessons:
-    - id: m32-l1
+    - id: m16-l1
+      key: m32-l1
       title:
         en: 'Volatility cycles: compression, expansion and the squeeze'
         es: 'Ciclos de volatilidad: compresión, expansión y el squeeze'
       exercises:
-      - id: m32-ex-1
+      - id: m16-ex-1
+        key: m32-ex-1
         type: pattern_chart
-      - id: m32-ex-2
+      - id: m16-ex-2
+        key: m32-ex-2
         type: quiz
-      - id: m32-ex-3
+      - id: m16-ex-3
+        key: m32-ex-3
         type: quiz
 - id: block-d
   title:
     en: Market context
     es: Contexto de mercado
   modules:
-  - id: m15
+  - id: m17
+    key: m15
     title:
       en: Macro and capital flow
       es: Macro y flujo de capital
@@ -464,20 +479,26 @@ blocks:
     assumes:
     - m03
     lessons:
-    - id: m15-l1
+    - id: m17-l1
+      key: m15-l1
       title:
         en: Macro and capital flow
         es: Macro y flujo de capital
       exercises:
-      - id: m15-ex-1
+      - id: m17-ex-1
+        key: m15-ex-1
         type: quiz
-      - id: m15-ex-2
+      - id: m17-ex-2
+        key: m15-ex-2
         type: quiz
-      - id: m15-ex-3
+      - id: m17-ex-3
+        key: m15-ex-3
         type: quiz
-      - id: m15-ex-4
+      - id: m17-ex-4
+        key: m15-ex-4
         type: quiz
-  - id: m16
+  - id: m18
+    key: m16
     title:
       en: Mass sentiment
       es: Sentimiento de masas
@@ -487,20 +508,26 @@ blocks:
     assumes:
     - m03
     lessons:
-    - id: m16-l1
+    - id: m18-l1
+      key: m16-l1
       title:
         en: Mass sentiment
         es: Sentimiento de masas
       exercises:
-      - id: m16-ex-1
+      - id: m18-ex-1
+        key: m16-ex-1
         type: quiz
-      - id: m16-ex-2
+      - id: m18-ex-2
+        key: m16-ex-2
         type: quiz
-      - id: m16-ex-3
+      - id: m18-ex-3
+        key: m16-ex-3
         type: quiz
-      - id: m16-ex-4
+      - id: m18-ex-4
+        key: m16-ex-4
         type: quiz
-  - id: m17
+  - id: m19
+    key: m17
     title:
       en: Derivatives data and liquidity
       es: Datos de derivados y liquidez
@@ -511,71 +538,40 @@ blocks:
     - m05
     - m12
     lessons:
-    - id: m17-l1
+    - id: m19-l1
+      key: m17-l1
       title:
         en: Derivatives data and liquidity
         es: Datos de derivados y liquidez
       exercises:
-      - id: m17-ex-1
+      - id: m19-ex-1
+        key: m17-ex-1
         type: pattern_chart
-      - id: m17-ex-2
+      - id: m19-ex-2
+        key: m17-ex-2
         type: pattern_chart
-      - id: m17-ex-3
+      - id: m19-ex-3
+        key: m17-ex-3
         type: quiz
-    - id: m17-l2
+    - id: m19-l2
+      key: m17-l2
       title:
         en: Liquidity maps and squeezes
         es: Mapas de liquidez y squeezes
       exercises:
-      - id: m17-ex-5
+      - id: m19-ex-5
+        key: m17-ex-5
         type: quiz
-      # m17-ex-4 drills this lesson's vocabulary (liquidation clusters, squeeze direction), so it
+      # m19-ex-4 drills this lesson's vocabulary (liquidation clusters, squeeze direction), so it
       # lives here rather than in l1; ids are permanent, hence the out-of-sequence number.
-      - id: m17-ex-4
+      - id: m19-ex-4
+        key: m17-ex-4
         type: quiz
-      - id: m17-ex-6
+      - id: m19-ex-6
+        key: m17-ex-6
         type: quiz
-  # m34 follows m17 for the same kind of reason m33 follows m22, and with the same cost to the badge
-  # sequence (M17 -> M34 -> M18). Both of its lessons are the far side of something m17 taught: the
-  # carry IS m17-l1's basis and funding read from the seller's chair, and the calendar is the third and
-  # last outing of m17's "conditions, never direction" mould. Put it after m18 and the module that
-  # inhabits m17's arbitrage sits two modules away from it, with tokenomics in between.
-  #
-  # The one forward reference this creates is deliberate and small: m34-l2 reads a token unlock as a
-  # calendar event and points at m18 for the tokenomics underneath it. `assumes` is advisory only, so it
-  # names m04 and m17 — what a reader would be lost without — and not m18, which is a pointer rather
-  # than a prerequisite.
-  - id: m34
-    title:
-      en: The market around the chart
-      es: El mercado alrededor del gráfico
-    summary:
-      en: 'The two things that move price from outside the chart, both with mechanics you can read: the cash-and-carry, sold as free money and actually a thin-margin business whose short leg can be liquidated in a rally that its own spot leg is winning; and the calendar of unlocks, listings, expiries and outages, none of which predicts direction and all of which predicts conditions.'
-      es: 'Las dos cosas que mueven el precio desde fuera del gráfico, las dos con mecánica legible: el cash-and-carry, que se vende como dinero gratis y es un negocio de margen fino cuya pata corta puede liquidarse en un rally que su propia pata de spot está ganando; y el calendario de unlocks, listings, vencimientos y caídas de servicio, que no predice ninguna dirección y sí predice las condiciones.'
-    assumes:
-    - m04
-    - m06
-    - m17
-    lessons:
-    - id: m34-l1
-      title:
-        en: 'The carry: funding and basis as a strategy'
-        es: 'El carry: funding y base como estrategia'
-      exercises:
-      - id: m34-ex-1
-        type: quiz
-      - id: m34-ex-2
-        type: quiz
-    - id: m34-l2
-      title:
-        en: 'The calendar: events with known mechanics'
-        es: 'El calendario: eventos con mecánica conocida'
-      exercises:
-      - id: m34-ex-3
-        type: quiz
-      - id: m34-ex-4
-        type: quiz
-  - id: m18
+  - id: m20
+    key: m18
     title:
       en: Tokenomics
       es: Tokenomics
@@ -585,25 +581,74 @@ blocks:
     assumes:
     - m04
     lessons:
-    - id: m18-l1
+    - id: m20-l1
+      key: m18-l1
       title:
         en: Reading tokenomics
         es: Leer la tokenómica
       exercises:
-      - id: m18-ex-1
+      - id: m20-ex-1
+        key: m18-ex-1
         type: calculation
-      - id: m18-ex-2
+      - id: m20-ex-2
+        key: m18-ex-2
         type: calculation
-      - id: m18-ex-3
+      - id: m20-ex-3
+        key: m18-ex-3
         type: quiz
-      - id: m18-ex-4
+      - id: m20-ex-4
+        key: m18-ex-4
+        type: quiz
+  # m21 closes block D, after tokenomics. Both of its lessons are the far side of something m19 taught
+  # — the carry IS m19-l1's basis and funding read from the seller's chair, and the calendar is the
+  # third and last outing of m19's "conditions, never direction" mould — and m21-l2 reads a token
+  # unlock as a calendar event, leaning on m20's tokenomics. As m34 it sat BEFORE m20 and that lean was
+  # a forward reference; the 2026-08-10 renumbering moved it here, which fixed it. `assumes` stays the
+  # short advisory list (m04, m19): m20 is a pointer rather than a prerequisite.
+  - id: m21
+    key: m34
+    title:
+      en: The market around the chart
+      es: El mercado alrededor del gráfico
+    summary:
+      en: 'The two things that move price from outside the chart, both with mechanics you can read: the cash-and-carry, sold as free money and actually a thin-margin business whose short leg can be liquidated in a rally that its own spot leg is winning; and the calendar of unlocks, listings, expiries and outages, none of which predicts direction and all of which predicts conditions.'
+      es: 'Las dos cosas que mueven el precio desde fuera del gráfico, las dos con mecánica legible: el cash-and-carry, que se vende como dinero gratis y es un negocio de margen fino cuya pata corta puede liquidarse en un rally que su propia pata de spot está ganando; y el calendario de unlocks, listings, vencimientos y caídas de servicio, que no predice ninguna dirección y sí predice las condiciones.'
+    assumes:
+    - m04
+    - m06
+    - m19
+    lessons:
+    - id: m21-l1
+      key: m34-l1
+      title:
+        en: 'The carry: funding and basis as a strategy'
+        es: 'El carry: funding y base como estrategia'
+      exercises:
+      - id: m21-ex-1
+        key: m34-ex-1
+        type: quiz
+      - id: m21-ex-2
+        key: m34-ex-2
+        type: quiz
+    - id: m21-l2
+      key: m34-l2
+      title:
+        en: 'The calendar: events with known mechanics'
+        es: 'El calendario: eventos con mecánica conocida'
+      exercises:
+      - id: m21-ex-3
+        key: m34-ex-3
+        type: quiz
+      - id: m21-ex-4
+        key: m34-ex-4
         type: quiz
 - id: block-e
   title:
     en: The craft
     es: El oficio
   modules:
-  - id: m19
+  - id: m22
+    key: m19
     title:
       en: Risk management
       es: Gestión del riesgo
@@ -614,29 +659,38 @@ blocks:
     - m06
     - m07
     lessons:
-    - id: m19-l1
+    - id: m22-l1
+      key: m19-l1
       title:
         en: Managing risk
         es: Gestionar el riesgo
       exercises:
-      - id: m19-ex-1
+      - id: m22-ex-1
+        key: m19-ex-1
         type: calculation
-      - id: m19-ex-2
+      - id: m22-ex-2
+        key: m19-ex-2
         type: calculation
-      - id: m19-ex-3
+      - id: m22-ex-3
+        key: m19-ex-3
         type: quiz
-      - id: m19-ex-4
+      - id: m22-ex-4
+        key: m19-ex-4
         type: quiz
-    - id: m19-l2
+    - id: m22-l2
+      key: m19-l2
       title:
         en: Portfolio risk
         es: Riesgo de cartera
       exercises:
-      - id: m19-ex-5
+      - id: m22-ex-5
+        key: m19-ex-5
         type: quiz
-      - id: m19-ex-6
+      - id: m22-ex-6
+        key: m19-ex-6
         type: quiz
-  - id: m20
+  - id: m23
+    key: m20
     title:
       en: 'Trading styles: scalping, day trading, swing'
       es: 'Estilos de trading: scalping, day trading, swing'
@@ -646,35 +700,47 @@ blocks:
     assumes:
     - m06
     lessons:
-    - id: m20-l1
+    - id: m23-l1
+      key: m20-l1
       title:
         en: 'Trading styles: scalping, day trading, swing'
         es: 'Estilos de trading: scalping, day trading, swing'
       exercises:
-      - id: m20-ex-1
+      - id: m23-ex-1
+        key: m20-ex-1
         type: quiz
-      - id: m20-ex-2
+      - id: m23-ex-2
+        key: m20-ex-2
         type: quiz
-      - id: m20-ex-3
+      - id: m23-ex-3
+        key: m20-ex-3
         type: quiz
-      - id: m20-ex-4
+      - id: m23-ex-4
+        key: m20-ex-4
         type: quiz
-      - id: m20-ex-5
+      - id: m23-ex-5
+        key: m20-ex-5
         type: calculation
-    - id: m20-l2
+    - id: m23-l2
+      key: m20-l2
       title:
         en: Multi-timeframe analysis
         es: Análisis multitemporal
       exercises:
-      - id: m20-ex-6
+      - id: m23-ex-6
+        key: m20-ex-6
         type: pattern_chart
-      - id: m20-ex-7
+      - id: m23-ex-7
+        key: m20-ex-7
         type: pattern_chart
-      - id: m20-ex-8
+      - id: m23-ex-8
+        key: m20-ex-8
         type: quiz
-      - id: m20-ex-9
+      - id: m23-ex-9
+        key: m20-ex-9
         type: quiz
-  - id: m21
+  - id: m24
+    key: m21
     title:
       en: Execution
       es: Ejecución
@@ -684,20 +750,26 @@ blocks:
     assumes:
     - m08
     lessons:
-    - id: m21-l1
+    - id: m24-l1
+      key: m21-l1
       title:
         en: Getting the order you meant
         es: Conseguir la orden que querías
       exercises:
-      - id: m21-ex-1
+      - id: m24-ex-1
+        key: m21-ex-1
         type: quiz
-      - id: m21-ex-2
+      - id: m24-ex-2
+        key: m21-ex-2
         type: quiz
-      - id: m21-ex-3
+      - id: m24-ex-3
+        key: m21-ex-3
         type: quiz
-      - id: m21-ex-4
+      - id: m24-ex-4
+        key: m21-ex-4
         type: quiz
-  - id: m22
+  - id: m25
+    key: m22
     title:
       en: Expectancy and statistics
       es: Esperanza matemática y estadística
@@ -705,55 +777,28 @@ blocks:
       en: Win rate vs payoff, expectancy, losing streaks as normal and computable, variance and sample size.
       es: Win rate vs payoff, esperanza, rachas de pérdidas como algo normal y calculable, varianza y tamaño muestral.
     assumes:
-    - m19
+    - m22
     lessons:
-    - id: m22-l1
+    - id: m25-l1
+      key: m22-l1
       title:
         en: Whether the system actually makes money
         es: Si el sistema gana dinero de verdad
       exercises:
-      - id: m22-ex-1
+      - id: m25-ex-1
+        key: m22-ex-1
         type: calculation
-      - id: m22-ex-2
+      - id: m25-ex-2
+        key: m22-ex-2
         type: calculation
-      - id: m22-ex-3
+      - id: m25-ex-3
+        key: m22-ex-3
         type: quiz
-      - id: m22-ex-4
+      - id: m25-ex-4
+        key: m22-ex-4
         type: quiz
-  # m33 sits BETWEEN m22 and m23, and that is the first time this manifest inserts a module mid-block
-  # rather than appending to the end of one. The reason is that its position is load-bearing in a way
-  # m31's and m32's were not: m22 states expectancy as a claim, m33 is how the claim gets tested, and
-  # m23 and m24 both point BACK at it (the abandonment criterion is m23's streak psychology, the journal
-  # is m33's sample). Appending it after m24 would put the capstone in the middle of its own block and
-  # turn three backward references into forward ones.
-  #
-  # What that costs, stated rather than hidden: the module badges on the course page read
-  # M22 -> M33 -> M23 -> M24, so the id and the position disagree in a place that renders them side by
-  # side. Ids are permanent labels and order is list position (content/README.md); this is the case that
-  # made the rule's "append only" wording too strong, and the README now says so.
-  - id: m33
-    title:
-      en: Validating a system
-      es: Validar un sistema
-    summary:
-      en: 'm22''s expectancy is a testable claim, and untested it is worth nothing: the honest manual backtest, why twenty trades cannot tell a system from a coin, overfitting as the cardinal sin, forward-testing as the last filter, and an abandonment criterion fixed before the drawdown that would make you want one.'
-      es: 'La esperanza de m22 es una afirmación comprobable y, sin comprobar, no vale nada: el backtest manual honesto, por qué veinte operaciones no distinguen un sistema de una moneda, el sobreajuste como pecado capital, el forward-testing como último filtro y un criterio de abandono fijado antes del drawdown que te haría quererlo.'
-    assumes:
-    - m19
-    - m22
-    lessons:
-    - id: m33-l1
-      title:
-        en: Validating a system
-        es: Validar un sistema
-      exercises:
-      - id: m33-ex-1
-        type: quiz
-      - id: m33-ex-2
-        type: quiz
-      - id: m33-ex-3
-        type: quiz
-  - id: m23
+  - id: m26
+    key: m23
     title:
       en: Psychology and classic mistakes
       es: Psicología y errores clásicos
@@ -761,23 +806,29 @@ blocks:
       en: Revenge trading, moving the stop, over-leveraging after a win, FOMO; mistakes mapped per style.
       es: Revenge trading, mover el stop, sobreapalancarse tras ganar, FOMO; errores mapeados por estilo.
     assumes:
-    - m19
-    - m20
+    - m22
+    - m23
     lessons:
-    - id: m23-l1
+    - id: m26-l1
+      key: m23-l1
       title:
         en: When the mistake isn't the chart
         es: Cuando el error no está en el gráfico
       exercises:
-      - id: m23-ex-1
+      - id: m26-ex-1
+        key: m23-ex-1
         type: quiz
-      - id: m23-ex-2
+      - id: m26-ex-2
+        key: m23-ex-2
         type: quiz
-      - id: m23-ex-3
+      - id: m26-ex-3
+        key: m23-ex-3
         type: quiz
-      - id: m23-ex-4
+      - id: m26-ex-4
+        key: m23-ex-4
         type: quiz
-  - id: m24
+  - id: m27
+    key: m24
     title:
       en: The trading plan
       es: El plan de trading
@@ -786,37 +837,77 @@ blocks:
       es: 'Reúne estructura, confluencia, dimensionamiento, ejecución y esperanza en un proceso repetible: una operación completa del contexto al registro, el freno diario que termina un día perdedor, más el diario, la validación y el paso al dinero real.'
     assumes:
     - m08
-    - m19
-    - m21
     - m22
-    - m23
+    - m24
+    - m25
+    - m26
     lessons:
-    - id: m24-l1
+    - id: m27-l1
+      key: m24-l1
       title:
         en: Anatomy of one complete trade
         es: Anatomía de una operación completa
       exercises:
-      - id: m24-ex-1
+      - id: m27-ex-1
+        key: m24-ex-1
         type: quiz
-      - id: m24-ex-2
+      - id: m27-ex-2
+        key: m24-ex-2
         type: calculation
-      - id: m24-ex-3
+      - id: m27-ex-3
+        key: m24-ex-3
         type: quiz
-    - id: m24-l2
+    - id: m27-l2
+      key: m24-l2
       title:
         en: The journal, validation, and real money
         es: El diario, la validación y el dinero real
       exercises:
-      - id: m24-ex-4
+      - id: m27-ex-4
+        key: m24-ex-4
         type: quiz
-      - id: m24-ex-5
+      - id: m27-ex-5
+        key: m24-ex-5
+        type: quiz
+  # m28 is block E's capstone: m25 states expectancy as a claim, m28 is how the claim gets tested, and
+  # it leans on m26's streak psychology (the abandonment criterion) and m27's journal (the sample). As
+  # m33 it sat between m25 and m26 — BEFORE the two modules it treats as known — because the old
+  # ids-never-renumber rule made mid-block insertion the least-bad option; the 2026-08-10 renumbering
+  # (content/README.md) moved it after its dependencies and gave it the id the position reads as.
+  - id: m28
+    key: m33
+    title:
+      en: Validating a system
+      es: Validar un sistema
+    summary:
+      en: 'm25''s expectancy is a testable claim, and untested it is worth nothing: the honest manual backtest, why twenty trades cannot tell a system from a coin, overfitting as the cardinal sin, forward-testing as the last filter, and an abandonment criterion fixed before the drawdown that would make you want one.'
+      es: 'La esperanza de m25 es una afirmación comprobable y, sin comprobar, no vale nada: el backtest manual honesto, por qué veinte operaciones no distinguen un sistema de una moneda, el sobreajuste como pecado capital, el forward-testing como último filtro y un criterio de abandono fijado antes del drawdown que te haría quererlo.'
+    assumes:
+    - m22
+    - m25
+    lessons:
+    - id: m28-l1
+      key: m33-l1
+      title:
+        en: Validating a system
+        es: Validar un sistema
+      exercises:
+      - id: m28-ex-1
+        key: m33-ex-1
+        type: quiz
+      - id: m28-ex-2
+        key: m33-ex-2
+        type: quiz
+      - id: m28-ex-3
+        key: m33-ex-3
         type: quiz
 - id: block-f
   title:
     en: Order flow and microstructure
     es: Flujo de órdenes y microestructura
   modules:
-  - id: m25
+  - id: m29
+    key: m25
     title:
       en: What order flow adds
       es: Qué añade el flujo de órdenes
@@ -826,18 +917,23 @@ blocks:
     assumes:
     - m03
     lessons:
-    - id: m25-l1
+    - id: m29-l1
+      key: m25-l1
       title:
         en: What order flow adds
         es: Qué añade el flujo de órdenes
       exercises:
-      - id: m25-ex-1
+      - id: m29-ex-1
+        key: m25-ex-1
         type: quiz
-      - id: m25-ex-2
+      - id: m29-ex-2
+        key: m25-ex-2
         type: calculation
-      - id: m25-ex-3
+      - id: m29-ex-3
+        key: m25-ex-3
         type: quiz
-  - id: m26
+  - id: m30
+    key: m26
     title:
       en: 'CVD: construction and divergence'
       es: 'CVD: construcción y divergencia'
@@ -849,40 +945,50 @@ blocks:
     - m12
     - m14
     lessons:
-    - id: m26-l1
+    - id: m30-l1
+      key: m26-l1
       title:
         en: 'CVD: construction and divergence'
         es: 'CVD: construcción y divergencia'
       exercises:
-      - id: m26-ex-1
+      - id: m30-ex-1
+        key: m26-ex-1
         type: pattern_chart
-      - id: m26-ex-2
+      - id: m30-ex-2
+        key: m26-ex-2
         type: pattern_chart
-      - id: m26-ex-3
+      - id: m30-ex-3
+        key: m26-ex-3
         type: quiz
-      - id: m26-ex-4
+      - id: m30-ex-4
+        key: m26-ex-4
         type: quiz
-  - id: m27
+  - id: m31
+    key: m27
     title:
       en: 'The order book: depth and imbalance'
       es: 'El libro de órdenes: profundidad y desequilibrio'
     summary:
-      en: Resting orders rather than executed trades — depth and slippage, walls, spoofing and icebergs, imbalance as a crowding read, and the mechanism behind m15's thinning book before a scheduled release. Conceptual, with the real tools named.
-      es: 'Órdenes en reposo en lugar de operaciones ejecutadas: profundidad y slippage, muros, spoofing e icebergs, el desequilibrio como lectura de saturación y el mecanismo detrás del libro que se adelgaza antes de una publicación programada en m15. Conceptual, con las herramientas reales nombradas.'
+      en: Resting orders rather than executed trades — depth and slippage, walls, spoofing and icebergs, imbalance as a crowding read, and the mechanism behind m17's thinning book before a scheduled release. Conceptual, with the real tools named.
+      es: 'Órdenes en reposo en lugar de operaciones ejecutadas: profundidad y slippage, muros, spoofing e icebergs, el desequilibrio como lectura de saturación y el mecanismo detrás del libro que se adelgaza antes de una publicación programada en m17. Conceptual, con las herramientas reales nombradas.'
     assumes:
     - m08
-    - m15
+    - m17
     lessons:
-    - id: m27-l1
+    - id: m31-l1
+      key: m27-l1
       title:
         en: 'The order book: depth and imbalance'
         es: 'El libro de órdenes: profundidad y desequilibrio'
       exercises:
-      - id: m27-ex-1
+      - id: m31-ex-1
+        key: m27-ex-1
         type: quiz
-      - id: m27-ex-2
+      - id: m31-ex-2
+        key: m27-ex-2
         type: quiz
-  - id: m28
+  - id: m32
+    key: m28
     title:
       en: Premium between venues
       es: La prima entre exchanges
@@ -890,20 +996,25 @@ blocks:
       en: The same coin priced differently on two exchanges — regional demand versus transfer friction as two distinct causes, what a sustained or widening premium signals, and why arbitrage caps a premium rather than erasing it.
       es: 'La misma moneda con precios distintos en dos exchanges: demanda regional frente a fricción de transferencia como dos causas distintas, qué señala una prima sostenida o que se ensancha, y por qué el arbitraje topa una prima en vez de borrarla.'
     assumes:
-    - m17
+    - m19
     lessons:
-    - id: m28-l1
+    - id: m32-l1
+      key: m28-l1
       title:
         en: Premium between venues
         es: La prima entre exchanges
       exercises:
-      - id: m28-ex-1
+      - id: m32-ex-1
+        key: m28-ex-1
         type: calculation
-      - id: m28-ex-2
+      - id: m32-ex-2
+        key: m28-ex-2
         type: quiz
-      - id: m28-ex-3
+      - id: m32-ex-3
+        key: m28-ex-3
         type: quiz
-  - id: m29
+  - id: m33
+    key: m29
     title:
       en: Footprint charts and volume profile
       es: Gráficos de footprint y perfil de volumen
@@ -911,29 +1022,32 @@ blocks:
       en: Volume organised by price instead of by time — what a footprint shows inside a single candle, what a volume profile's POC and value area replace hand-drawn levels with, and an honest account of why this course does not generate either.
       es: 'El volumen organizado por precio en lugar de por tiempo: qué muestra un footprint dentro de una sola vela, con qué sustituyen el POC y el área de valor de un perfil de volumen a los niveles trazados a mano, y una explicación honesta de por qué este curso no genera ninguno de los dos.'
     assumes:
-    - m26
-    - m27
+    - m30
+    - m31
     lessons:
-    - id: m29-l1
+    - id: m33-l1
+      key: m29-l1
       title:
         en: Footprint charts and volume profile
         es: Gráficos de footprint y perfil de volumen
       exercises:
-      - id: m29-ex-1
+      - id: m33-ex-1
+        key: m29-ex-1
         type: quiz
-      - id: m29-ex-2
+      - id: m33-ex-2
+        key: m29-ex-2
         type: quiz
 # A trailing block of its own, because this is a translation layer rather than a new theme: it maps the
 # vocabulary the crowd uses onto mechanics every earlier block already taught. Placing it last is what
-# keeps the dependency graph clean: everything m30-l1 points at — m06, m08, m09, m10, m13, m17, m19, m20,
-# m23, m25, m28, m29 — is behind it, so the lesson makes no forward reference at all.
+# keeps the dependency graph clean: everything m34-l1 points at — m06, m08, m09, m10, m13, m19, m22, m23,
+# m26, m29, m32, m33 — is behind it, so the lesson makes no forward reference at all.
 #
 # `assumes` below is NOT that list, and deliberately. It is ADVISORY ONLY: it renders a grey "Se apoya en
 # … — contexto opcional" hint on the module card plus a longer notice on the module page (via
 # `unmet_prereqs`, whose own docstring says "Advisory only"), and it gates nothing — not navigation, not
 # exercises, not exam sampling. On that criterion the right list is the short curated one: the modules a
 # reader would be lost without, not every module cited. So m08 (structure, zones, role reversal, the
-# ladder), m09 (absorption), m13 (self-fulfilling levels) and m17 (liquidity pools and sweeps) are in;
+# ladder), m09 (absorption), m13 (self-fulfilling levels) and m19 (liquidity pools and sweeps) are in;
 # m06 and m10, cited once and twice as supporting colour, are not — putting them in would pad the hint
 # until nobody reads it.
 #
@@ -944,7 +1058,8 @@ blocks:
     en: The dialect
     es: El dialecto
   modules:
-  - id: m30
+  - id: m34
+    key: m30
     title:
       en: The SMC dialect (order blocks, FVG, BOS)
       es: El dialecto SMC (order blocks, FVG, BOS)
@@ -955,18 +1070,23 @@ blocks:
     - m08
     - m09
     - m13
-    - m17
+    - m19
     lessons:
-    - id: m30-l1
+    - id: m34-l1
+      key: m30-l1
       title:
         en: The SMC dialect (order blocks, FVG, BOS)
         es: El dialecto SMC (order blocks, FVG, BOS)
       exercises:
-      - id: m30-ex-1
+      - id: m34-ex-1
+        key: m30-ex-1
         type: pattern_chart
-      - id: m30-ex-2
+      - id: m34-ex-2
+        key: m30-ex-2
         type: pattern_chart
-      - id: m30-ex-3
+      - id: m34-ex-3
+        key: m30-ex-3
         type: quiz
-      - id: m30-ex-4
+      - id: m34-ex-4
+        key: m30-ex-4
         type: quiz

@@ -82,28 +82,28 @@ describe("which occurrence gets marked", () => {
     const premium = entry("g-premium", "premium", {
       origin: null,
       senses: [
-        { origin: "m17-l1", originTitle: null, definition: "a" },
-        { origin: "m28-l1", originTitle: null, definition: "b" },
+        { origin: "m19-l1", originTitle: null, definition: "a" },
+        { origin: "m32-l1", originTitle: null, definition: "b" },
       ],
     });
     const text = "The premium is wide.";
-    expect(annotate(text, "m17-l1", [premium]).marks).toEqual([]);
-    expect(annotate(text, "m28-l1", [premium]).marks).toEqual([]);
-    expect(annotate(text, "m20-l1", [premium]).marks).toHaveLength(1);
+    expect(annotate(text, "m19-l1", [premium]).marks).toEqual([]);
+    expect(annotate(text, "m32-l1", [premium]).marks).toEqual([]);
+    expect(annotate(text, "m23-l1", [premium]).marks).toHaveLength(1);
   });
 
   it("never marks an alias in the lesson its CANONICAL entry points back at", () => {
-    // Linking `CHoCH` to an entry that says "see change of character, taught in m30-l1" while the
-    // reader is in m30-l1 is the same loop, one hop longer.
-    const canonical = entry("g-change-of-character", "change of character", { origin: "m30-l1" });
+    // Linking `CHoCH` to an entry that says "see change of character, taught in m34-l1" while the
+    // reader is in m34-l1 is the same loop, one hop longer.
+    const canonical = entry("g-change-of-character", "change of character", { origin: "m34-l1" });
     const alias = entry("g-choch", "CHoCH", {
-      origin: "m29-l1",
+      origin: "m33-l1",
       definition: undefined,
       aliasOf: { id: "g-change-of-character", term: "change of character" },
     });
-    expect(annotate("A CHoCH prints.", "m30-l1", [canonical, alias]).marks).toEqual([]);
-    expect(annotate("A CHoCH prints.", "m29-l1", [canonical, alias]).marks).toEqual([]);
-    expect(annotate("A CHoCH prints.", "m28-l1", [canonical, alias]).marks).toHaveLength(1);
+    expect(annotate("A CHoCH prints.", "m34-l1", [canonical, alias]).marks).toEqual([]);
+    expect(annotate("A CHoCH prints.", "m33-l1", [canonical, alias]).marks).toEqual([]);
+    expect(annotate("A CHoCH prints.", "m32-l1", [canonical, alias]).marks).toHaveLength(1);
   });
 });
 
@@ -115,7 +115,7 @@ describe("what counts as an occurrence", () => {
   });
 
   it("does not mark half of a hyphenated compound, but a number-prefixed one is still the term", () => {
-    const custody = entry("g-custody", "custody", { origin: "m27-l1" });
+    const custody = entry("g-custody", "custody", { origin: "m31-l1" });
     expect(annotate("That is self-custody.", "m05-l1", [custody]).marks).toEqual([]);
     expect(annotate("Who holds custody?", "m05-l1", [custody]).marks).toHaveLength(1);
 
@@ -188,7 +188,7 @@ describe("what counts as an occurrence", () => {
 });
 
 describe("overlapping terms", () => {
-  const block = entry("g-order-block", "order block", { origin: "m30-l1" });
+  const block = entry("g-order-block", "order block", { origin: "m34-l1" });
   const order = entry("g-order", "order", { origin: "m02-l1" });
 
   it("gives the longest term the span it covers", () => {
@@ -199,14 +199,14 @@ describe("overlapping terms", () => {
   it("still shadows the shorter term when the longer one turns out to be unmarkable there", () => {
     // In `order block`'s own lesson the phrase is not linked — and `order` must not be linked inside
     // it either: a link on half a term reads as a mistake.
-    const { marks } = annotate("Price left an order block behind.", "m30-l1", [order, block]);
+    const { marks } = annotate("Price left an order block behind.", "m34-l1", [order, block]);
     expect(marks).toEqual([]);
   });
 });
 
 describe("opting out", () => {
   it("honours `link: false` — the term is never a candidate anywhere", () => {
-    const base = entry("g-base", "base", { origin: "m17-l1", link: false });
+    const base = entry("g-base", "base", { origin: "m19-l1", link: false });
     expect(buildTermIndex([base], "en")).toEqual([]);
     expect(annotate("The base widens.", "m05-l1", [base]).marks).toEqual([]);
   });
@@ -220,9 +220,9 @@ describe("opting out", () => {
   it("does NOT spend the term's slot on an excluded lesson, the way an origin does", () => {
     // `linkExcept` says the word there is a false friend — `Wall Street`, `base de datos` — so it is
     // not an occurrence at all and the book still links the term at its next real one.
-    const wall = entry("g-wall", "wall", { origin: "m27-l1", linkExcept: ["m15-l1"] });
+    const wall = entry("g-wall", "wall", { origin: "m31-l1", linkExcept: ["m17-l1"] });
     const carried = new Set<string>();
-    const pdf = ["m15-l1", "m16-l1"].map(
+    const pdf = ["m17-l1", "m18-l1"].map(
       (id) => annotate("A wall of resting size.", id, [wall], carried).marks.length,
     );
     expect(pdf).toEqual([0, 1]);

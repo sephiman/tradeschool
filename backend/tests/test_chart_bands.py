@@ -101,7 +101,7 @@ def test_no_exercise_payload_ever_carries_a_band(injector: str, label: str) -> N
         _lbl, _ann, payload = _instantiate(config, seed)
         assert "bands" not in payload, (
             f"seed {seed}: {injector}/{label} put a shaded zone in the pre-answer payload — that is the "
-            f"answer to m30's own question"
+            f"answer to m34's own question"
         )
 
 
@@ -299,7 +299,7 @@ def test_no_zone_never_breaks_structure() -> None:
 # --- 3b. the generated set is bull-only, and the prompts depend on it -----------------------------
 #
 # Both injectors plant only the bullish case. The mechanic is symmetric and the lesson says so, but the
-# generated set is not, because m30-ex-1 and m30-ex-2 describe the bullish geometry IN WORDS — "a close
+# generated set is not, because m34-ex-1 and m34-ex-2 describe the bullish geometry IN WORDS — "a close
 # clean past the high the range had been testing", "one candle's HIGH below the LOW of the candle two bars
 # later". A bearish seed served under those prompts would be graded against a question describing the
 # mirror of what is on screen: the learner reads the prompt, looks for a broken high, and the chart has a
@@ -321,7 +321,7 @@ def test_origin_zone_only_ever_plants_the_bullish_case(label: str) -> None:
             if marker in kinds:
                 assert kinds[marker] == want, (
                     f"seed {seed}: {label} marker {marker!r} is {kinds[marker]!r}, not {want!r} — a bearish "
-                    f"variant has appeared. m30-l1 and m30-ex-1 describe the bullish case in words (ES+EN); "
+                    f"variant has appeared. m34-l1 and m34-ex-1 describe the bullish case in words (ES+EN); "
                     f"make them symmetric before shipping it."
                 )
         assert float(close[int(0.66 * n)]) > float(close[int(0.47 * n)]), (
@@ -337,7 +337,7 @@ def test_imbalance_only_ever_plants_the_bullish_case(label: str) -> None:
         for i, _lo, _hi in gap_spans(s, f.warmup, len(s.close)):
             # `gap_spans` reports both directions; only the up-gap branch may ever fire here.
             assert s.low[i + 2] > s.high[i], (
-                f"seed {seed}: {label} planted a BEARISH imbalance at bar {i} — m30-l1 and m30-ex-2 describe "
+                f"seed {seed}: {label} planted a BEARISH imbalance at bar {i} — m34-l1 and m34-ex-2 describe "
                 f"the up-gap in words (ES+EN); make them symmetric before shipping it."
             )
         if label != "no_imbalance":
@@ -484,8 +484,8 @@ def test_no_two_figures_draw_the_same_zone_edge() -> None:
 
 
 def test_the_origin_zone_figure_shows_the_move_running_away_from_the_zone() -> None:
-    """m30-l1's prose claim: the zone held and the continuation is on screen. Frozen seed."""
-    p = _panels("fig-m30-origin-zone")[0]
+    """m34-l1's prose claim: the zone held and the continuation is on screen. Frozen seed."""
+    p = _panels("fig-m34-origin-zone")[0]
     _high, low, close = _hlc(p)
     lo, _hi = _edges(_bands(p)[0])
     pre = len(close) - _RESOLUTION_CANDLES
@@ -495,7 +495,7 @@ def test_the_origin_zone_figure_shows_the_move_running_away_from_the_zone() -> N
 
 def test_the_imbalance_figure_shows_the_revisit_an_exercise_cuts_off() -> None:
     """The zone is untouched before the resolution and reached inside it — the figure/exercise split."""
-    p = _panels("fig-m30-imbalance")[0]
+    p = _panels("fig-m34-imbalance")[0]
     high, low, close = _hlc(p)
     lo, hi = _edges(_bands(p)[0])
     pre = len(close) - _RESOLUTION_CANDLES

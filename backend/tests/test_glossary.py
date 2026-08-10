@@ -30,14 +30,15 @@ def _def(s: str = "d") -> LocalizedText:
 
 
 def test_real_glossary_loads_and_every_origin_is_a_real_lesson() -> None:
+    """Origins are permanent lesson KEYS (rendered as display ids by the registry)."""
     registry = load_registry(get_settings().content_dir)
-    lesson_ids = {lesson.id for _, lesson in registry.manifest.iter_lessons()}
+    lesson_keys = {lesson.key for _, lesson in registry.manifest.iter_lessons()}
     assert registry.glossary.terms, "glossary is empty"
     for term in registry.glossary.terms:
         origins = [o for o in (term.origin, *(s.origin for s in term.senses)) if o]
         assert origins, f"{term.id} has no origin at all"
         for origin in origins:
-            assert origin in lesson_ids, f"{term.id} -> {origin}"
+            assert origin in lesson_keys, f"{term.id} -> {origin}"
 
 
 def test_glossary_ids_do_not_collide_with_any_other_stable_id() -> None:
@@ -47,9 +48,13 @@ def test_glossary_ids_do_not_collide_with_any_other_stable_id() -> None:
         {manifest.course.id}
         | {b.id for b in manifest.blocks}
         | manifest.module_ids()
+        | {m.key for _, m in manifest.iter_modules()}
         | {lesson.id for _, lesson in manifest.iter_lessons()}
+        | {lesson.key for _, lesson in manifest.iter_lessons()}
         | {ex.id for _, _, ex in manifest.iter_exercises()}
+        | {ex.key for _, _, ex in manifest.iter_exercises()}
         | set(registry.figures)
+        | {spec.key for spec in registry.figures.values()}
     )
     for term in registry.glossary.terms:
         assert term.id not in taken, f"glossary id {term.id} collides"
@@ -163,7 +168,7 @@ def test_opting_out_of_linking_may_not_also_configure_linking() -> None:
 def test_a_term_can_opt_out_of_linking_in_one_locale_only() -> None:
     """ES `base` is "base de datos" everywhere; EN `basis` is unambiguous. One entry, two answers."""
     term = GlossaryTerm(
-        id="g-basis", en="basis", es="base", origin="m17-l1", definition=_def(),
+        id="g-basis", en="basis", es="base", origin="m19-l1", definition=_def(),
         link=LocaleFlags(es=False),
     )
     assert term.links("en") is True
@@ -241,19 +246,20 @@ def test_origins_collects_the_entry_and_every_sense() -> None:
         en="b",
         es="b",
         senses=[
-            GlossarySense(origin="m17-l1", definition=_def()),
-            GlossarySense(origin="m28-l1", definition=_def()),
+            GlossarySense(origin="m19-l1", definition=_def()),
+            GlossarySense(origin="m32-l1", definition=_def()),
         ],
     )
-    assert homonym.origins() == ["m17-l1", "m28-l1"]
+    assert homonym.origins() == ["m19-l1", "m32-l1"]
 
 
 def test_every_authored_exclusion_names_a_real_lesson() -> None:
+    """`link_except` names lessons by permanent KEY, like `origin`."""
     registry = load_registry(get_settings().content_dir)
-    lesson_ids = {lesson.id for _, lesson in registry.manifest.iter_lessons()}
+    lesson_keys = {lesson.key for _, lesson in registry.manifest.iter_lessons()}
     for term in registry.glossary.terms:
         for excluded in term.all_excluded_lessons():
-            assert excluded in lesson_ids, f"{term.id} excludes unknown lesson {excluded}"
+            assert excluded in lesson_keys, f"{term.id} excludes unknown lesson {excluded}"
 
 
 def test_the_glossary_never_coins_guard_fires_on_a_term_absent_from_the_prose() -> None:

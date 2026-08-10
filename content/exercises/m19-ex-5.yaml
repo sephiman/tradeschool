@@ -1,211 +1,244 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: three-longs-total
+  - id: low-stops
     prompt:
-      en: "Your account is 10,000 USDT. You open three long positions on three highly correlated alts, each sized to risk exactly 1% (100 USDT) at its own stop. A market-wide sell-off hits all three stops at once. How much do you lose in that single move?"
-      es: "Tu cuenta es de 10.000 USDT. Abres tres posiciones largas en tres altcoins muy correlacionadas, cada una dimensionada para arriesgar exactamente el 1% (100 USDT) en su propio stop. Una caída generalizada del mercado toca los tres stops a la vez. ¿Cuánto pierdes en ese único movimiento?"
+      en: "Just below a recent swing low that has held twice, what kind of resting orders tend to pile up?"
+      es: "Justo debajo de un mínimo reciente que ha aguantado dos veces, ¿qué tipo de órdenes en reposo tienden a apilarse?"
     options:
       - id: a
         text:
-          en: "100 USDT — the caps hold each position to 1%, so the total is 1% too."
-          es: "100 USDT: los límites mantienen cada posición en el 1%, y el total también."
+          en: "Short stop-losses waiting to buy, because the shorts defend the low."
+          es: "Stop-loss de cortos esperando comprar, porque los cortos defienden el mínimo."
       - id: b
         text:
-          en: "Less than 100 USDT, because three coins diversify the risk downwards."
-          es: "Menos de 100 USDT, porque tres monedas diversifican el riesgo a la baja."
+          en: "Only limit buy orders, since that is where the buyers want to enter."
+          es: "Solo órdenes limitadas de compra, ya que ahí quieren entrar los compradores."
       - id: c
         correct: true
         text:
-          en: "300 USDT — about 3% of the account, all riding on one single move."
-          es: "300 USDT: alrededor del 3% de la cuenta, todo en un movimiento."
+          en: "Long stop-losses and long liquidation prices — a shelf of sell orders."
+          es: "Stop-loss y liquidaciones de largos: una repisa de órdenes de venta."
       - id: d
         text:
-          en: "0 USDT, since three separate positions end up hedging one another out."
-          es: "0 USDT, ya que tres posiciones separadas acaban cubriéndose entre sí."
+          en: "Nothing predictable at all — orders scatter evenly across every price."
+          es: "Nada predecible: las órdenes se reparten por igual en todos los precios."
     explanation:
-      en: "Correlated positions move as one, so their risks add: 100 + 100 + 100 = 300 USDT = 3% of the account, arriving together in a single move. The three '1% bets' were really one ~3% bet in three costumes. Per-trade caps do not cap the correlated total, and three coins that fall together diversify nothing."
-      es: "Las posiciones correlacionadas se mueven como una, así que sus riesgos se suman: 100 + 100 + 100 = 300 USDT = 3% de la cuenta, y llegan juntas en un solo movimiento. Las tres «apuestas del 1%» eran en realidad una sola apuesta de ~3% con tres trajes. Los límites por operación no limitan el total correlacionado, y tres monedas que caen juntas no diversifican nada."
-  - id: exposure-true-statements
+      en: "A long's protective sell (its stop-loss) goes just under the low, and leveraged longs' liquidation prices sit below entry in the same zone. Both are sell orders, which is what makes the shelf. Shorts' stops sit above a high, not below a low, and orders are anything but evenly scattered — they bunch at exactly the obvious levels."
+      es: "La venta protectora de un largo (su stop-loss) va justo debajo del mínimo, y los precios de liquidación de los largos apalancados quedan por debajo de la entrada, en la misma zona. Ambos son órdenes de venta, y eso forma la repisa. Los stops de los cortos están encima de un máximo, no debajo de un mínimo, y las órdenes no se reparten por igual: se agrupan justo en los niveles obvios."
+  - id: high-stops
+    prompt:
+      en: "Just above a recent swing high, what kind of resting orders tend to pile up?"
+      es: "Justo encima de un máximo reciente, ¿qué tipo de órdenes en reposo tienden a apilarse?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Short stop-losses and short liquidation prices — a shelf of buy orders."
+          es: "Stop-loss y liquidaciones de cortos: una repisa de órdenes de compra."
+      - id: b
+        text:
+          en: "Only limit sell orders placed by traders taking their profits there."
+          es: "Solo órdenes limitadas de venta de quienes toman ganancias ahí."
+      - id: c
+        text:
+          en: "Long stop-losses waiting to sell, because that is where longs give up."
+          es: "Stop-loss de largos esperando vender, porque ahí es donde se rinden."
+      - id: d
+        text:
+          en: "Orders spread evenly; a high is no more special than any other price."
+          es: "Órdenes repartidas por igual; un máximo no es especial frente a otro precio."
+    explanation:
+      en: "A short's protective buy (its stop-loss) goes just above the high, and leveraged shorts' liquidation prices sit above entry in the same band. Both are buy orders. Longs' stops sit below a low, and traders crowd their orders at obvious levels — highs and lows are exactly the special ones."
+      es: "La compra protectora de un corto (su stop-loss) va justo encima del máximo, y los precios de liquidación de los cortos apalancados quedan por encima de la entrada, en la misma banda. Ambos son órdenes de compra. Los stops de los largos están debajo de un mínimo, y los traders amontonan sus órdenes en los niveles obvios: los máximos y mínimos son justo los especiales."
+  - id: why-sweep
+    prompt:
+      en: "A large player wants to accumulate a big long position. Why might price be pushed down through the shelf of stops just below an obvious low before rallying?"
+      es: "Un jugador grande quiere acumular una posición larga grande. ¿Por qué podría empujarse el precio hacia abajo a través de la repisa de stops justo debajo de un mínimo obvio antes de subir?"
+    options:
+      - id: a
+        text:
+          en: "To punish the retail longs for their poor positioning on the level."
+          es: "Para castigar a los largos minoristas por su mal posicionamiento."
+      - id: b
+        text:
+          en: "Because breaking a low always confirms that a new downtrend has begun."
+          es: "Porque romper un mínimo siempre confirma que empezó una bajista."
+      - id: c
+        correct: true
+        text:
+          en: "The stops triggered there are forced sells — cheap liquidity to buy into."
+          es: "Los stops disparados ahí son ventas forzadas: liquidez barata que comprar."
+      - id: d
+        text:
+          en: "The exchange moves price to that level in order to collect extra fees."
+          es: "El exchange lleva el precio a ese nivel para cobrar comisiones extra."
+    explanation:
+      en: "Filling a large buy needs sellers on the other side. The shelf of stops and liquidations below the low is a pool of sell orders waiting to trigger, so nudging price into it produces cheap forced selling to buy against — then, with sellers exhausted, price snaps back. It is not punishment, not a confirmed trend, and nothing to do with fees."
+      es: "Ejecutar una compra grande necesita vendedores enfrente. La repisa de stops y liquidaciones debajo del mínimo es una bolsa de órdenes de venta esperando a dispararse, así que empujar el precio hacia ella produce venta forzada barata contra la que comprar; luego, con los vendedores agotados, el precio rebota. No es un castigo, ni una tendencia confirmada, ni una cuestión de comisiones."
+  - id: terms-liquidity
+    kind: matching
+    prompt:
+      en: "Match each term to what it means."
+      es: "Empareja cada término con lo que significa."
+    pairs:
+      - id: liq
+        left:
+          en: "Liquidity"
+          es: "Liquidez"
+        right:
+          en: "Resting orders waiting to be filled"
+          es: "Órdenes en reposo esperando a ejecutarse"
+      - id: liqn
+        left:
+          en: "Liquidation"
+          es: "Liquidación"
+        right:
+          en: "The exchange forcibly closing a leveraged position"
+          es: "El cierre forzoso de una posición apalancada por el exchange"
+      - id: swp
+        left:
+          en: "Sweep"
+          es: "Barrido"
+        right:
+          en: "Poking through a level to trigger and take the pool of stops"
+          es: "Perforar un nivel para disparar y tomar la bolsa de stops"
+      - id: cls
+        left:
+          en: "Cluster"
+          es: "Clúster"
+        right:
+          en: "A shelf of orders stacked near one price"
+          es: "Una repisa de órdenes apiladas cerca de un mismo precio"
+    explanation:
+      en: "Liquidity and liquidation are not the same word: liquidity is resting orders to trade against, while a liquidation is strictly a forced close. A sweep is price poking through a level to take that resting pool; a cluster is the pool itself, stacked near one price."
+      es: "Liquidez y liquidación no son la misma palabra: la liquidez son órdenes en reposo contra las que operar, mientras que una liquidación es estrictamente un cierre forzoso. Un barrido es el precio perforando un nivel para tomar esa bolsa en reposo; un clúster es la propia bolsa, apilada cerca de un mismo precio."
+  - id: random-myth
+    kind: true_false
+    prompt:
+      en: "Stop and liquidation clusters form at the levels everyone can see, which is what makes the pools predictable rather than random."
+      es: "Los clústeres de stops y liquidaciones se forman en los niveles que todo el mundo ve, y eso hace que las bolsas sean predecibles en vez de aleatorias."
+    answer: true
+    explanation:
+      en: "True. Obvious swing highs and lows, round numbers, levels that held before: because traders reason alike and place stops just beyond those points, thousands of orders end up on the same handful of ticks."
+      es: "Cierto. Máximos y mínimos obvios, números redondos, niveles que aguantaron antes: como los traders razonan igual y ponen los stops justo pasados esos puntos, miles de órdenes acaban en los mismos pocos ticks."
+  - id: sweep-vs-break
+    kind: true_false
+    prompt:
+      en: "Price pokes a few ticks below an obvious swing low and then reclaims it within one or two candles. This behaviour fits a liquidity sweep better than a genuine breakdown."
+      es: "El precio perfora unos ticks por debajo de un mínimo obvio y luego lo recupera en una o dos velas. Este comportamiento encaja mejor con un barrido de liquidez que con una ruptura genuina."
+    answer: true
+    explanation:
+      en: "A genuine break holds beyond the level; a sweep pokes through to trigger the pool of stops and then snaps back, reclaiming the level within a candle or two. The quick reclaim is exactly the tell that the low was swept, not broken."
+      es: "Una ruptura genuina aguanta más allá del nivel; un barrido lo perfora para disparar la bolsa de stops y luego rebota, recuperando el nivel en una o dos velas. La recuperación rápida es justo la pista de que el mínimo fue barrido, no roto."
+  - id: below-low-multi
     kind: multi_select
     prompt:
-      en: "You hold three 1%-risk longs on highly correlated alts. Select ALL of the statements that are true."
-      es: "Tienes tres largos con un 1% de riesgo en altcoins muy correlacionadas. Selecciona TODAS las afirmaciones que son verdaderas."
+      en: "Select ALL of the following that add to the shelf of resting SELL orders sitting just below a recent swing low."
+      es: "Selecciona TODO lo siguiente que se suma a la repisa de órdenes de VENTA en reposo situada justo debajo de un mínimo reciente."
     options:
       - id: a
         correct: true
         text:
-          en: "In a sell-off they behave like a single bet of roughly 3%."
-          es: "En una caída se comportan como una única apuesta de aproximadamente el 3%."
+          en: "Stop-loss orders placed by longs."
+          es: "Órdenes stop-loss colocadas por los largos."
       - id: b
         correct: true
         text:
-          en: "Real risk is total exposure to one move, not the number of tickets."
-          es: "El riesgo real es la exposición total a un movimiento, no el número de tickets."
-      - id: c
-        correct: true
-        text:
-          en: "A single correlated drop can hit all three stops at the same time."
-          es: "Una sola caída correlacionada puede tocar los tres stops al mismo tiempo."
-      - id: d
-        text:
-          en: "Each stays an independent 1% risk, because each has its own stop."
-          es: "Cada uno sigue siendo un riesgo del 1% aparte, porque tiene su propio stop."
-      - id: e
-        text:
-          en: "Holding three different names diversifies the risk away."
-          es: "Tener tres nombres distintos diversifica el riesgo."
-      - id: f
-        text:
-          en: "Capping each trade at 1% guarantees the whole book risks 1% at most."
-          es: "Limitar cada operación al 1% garantiza que la cartera arriesga como mucho el 1%."
-    explanation:
-      en: "Correlated positions stack: three 1% longs that fall together are one ~3% bet, and their stops can all trigger in the same move. Real risk is total exposure to a single move, not the ticket count. Independence, diversification and per-trade caps are exactly the illusions that hide the stacked bet."
-      es: "Las posiciones correlacionadas se apilan: tres largos del 1% que caen juntos son una apuesta de ~3%, y sus stops pueden dispararse todos en el mismo movimiento. El riesgo real es la exposición total a un solo movimiento, no la cuenta de tickets. La independencia, la diversificación y los límites por operación son justo las ilusiones que esconden la apuesta apilada."
-  - id: notional-exposure
-    prompt:
-      en: "Each of three longs is sized to risk 100 USDT with its stop 10% below entry. What is the total long exposure (notional) across the three positions?"
-      es: "Cada uno de tres largos se dimensiona para arriesgar 100 USDT con su stop un 10% por debajo de la entrada. ¿Cuál es la exposición larga total (nocional) en las tres posiciones?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "3,000 USDT — 1,000 per position (100 ÷ 0.10), times three."
-          es: "3.000 USDT: 1.000 por posición (100 ÷ 0,10), multiplicado por tres."
-      - id: b
-        text:
-          en: "100 USDT — the risk budget assigned to a single one of the positions."
-          es: "100 USDT: el presupuesto de riesgo de una sola de las posiciones."
+          en: "The liquidation prices of leveraged longs."
+          es: "Los precios de liquidación de los largos apalancados."
       - id: c
         text:
-          en: "300 USDT — the total amount of money that you can actually lose."
-          es: "300 USDT: el dinero total que puedes llegar a perder."
+          en: "Stop-loss orders placed by shorts, which sit above a high."
+          es: "Stop-loss colocados por los cortos, que están encima de un máximo."
       - id: d
         text:
-          en: "30,000 USDT — ten times the account, on account of the leverage used."
-          es: "30.000 USDT: diez veces la cuenta, por el apalancamiento utilizado."
+          en: "A wave of new market buy orders arriving at the level."
+          es: "Una oleada de nuevas órdenes de compra a mercado llegando al nivel."
     explanation:
-      en: "A 100 USDT risk over a 10% stop means notional = 100 ÷ 0.10 = 1,000 USDT per position. Three of them is 3,000 USDT of directional exposure — 30% of a 10,000 account pointed the same way. The money at risk (300 USDT) and the exposure (3,000 USDT) are different numbers, and both matter."
-      es: "Un riesgo de 100 USDT sobre un stop del 10% significa nocional = 100 ÷ 0,10 = 1.000 USDT por posición. Tres de ellas son 3.000 USDT de exposición direccional: el 30% de una cuenta de 10.000 apuntando en la misma dirección. El dinero en riesgo (300 USDT) y la exposición (3.000 USDT) son cifras distintas, y ambas importan."
-  - id: aggregate-question
+      en: "Below a low, both longs' stop-losses and leveraged longs' liquidation prices are sell orders — they add to the shelf. Shorts' stops sit above a high and are buys, and market buy orders are the opposite side entirely, not resting sell pressure below the low."
+      es: "Debajo de un mínimo, tanto los stop-loss de los largos como los precios de liquidación de los largos apalancados son órdenes de venta: se suman a la repisa. Los stops de los cortos están encima de un máximo y son compras, y las órdenes de compra a mercado son justo el otro lado, no presión de venta en reposo debajo del mínimo."
+  - id: sweep-worked
     prompt:
-      en: "Which single question best reveals your aggregate directional exposure?"
-      es: "¿Qué única pregunta revela mejor tu exposición direccional agregada?"
+      en: "BTC has a swing low at 60,000 that has held twice. What sits in the band just beneath it?"
+      es: "BTC tiene un mínimo relevante en 60.000 que ha aguantado dos veces. ¿Qué hay en la banda justo por debajo?"
     options:
       - id: a
         text:
-          en: "How many different coins am I currently holding across the book?"
-          es: "¿Cuántas monedas distintas tengo ahora mismo en la cartera?"
+          en: "A shelf of resting buy orders, since buyers defended that low twice."
+          es: "Una repisa de compras en reposo, ya que los compradores lo defendieron dos veces."
       - id: b
         text:
-          en: "Is every individual trade capped at 1% risk of the account?"
-          es: "¿Está cada operación limitada al 1% de riesgo de la cuenta?"
+          en: "Nothing in particular — orders are spread evenly below the current price."
+          es: "Nada en particular: las órdenes se reparten por igual bajo el precio actual."
       - id: c
         correct: true
         text:
-          en: "If the market dropped 10% now, what would I lose in total?"
-          es: "Si el mercado cayera un 10% ahora, ¿cuánto perdería en total?"
+          en: "A dense shelf of sell orders: long stops and liquidations near 59,700–59,900."
+          es: "Una repisa densa de ventas: stops y liquidaciones de largos en 59.700-59.900."
       - id: d
         text:
-          en: "Which of the coins I hold has the cleanest-looking chart right now?"
-          es: "¿Cuál de las monedas que tengo tiene ahora el gráfico más limpio?"
+          en: "Only exchange insurance-fund orders, which are invisible to everyone."
+          es: "Solo órdenes del fondo de seguros del exchange, invisibles para todos."
     explanation:
-      en: "Portfolio risk is total exposure to a single move, so the revealing question adds up the loss from one market-wide drop across every position at once. Counting coins or checking per-trade caps hides correlation rather than measuring it, and a clean chart says nothing whatsoever about your aggregate exposure."
-      es: "El riesgo de cartera es la exposición total a un solo movimiento, así que la pregunta reveladora suma la pérdida de una única caída generalizada en todas las posiciones a la vez. Contar monedas o revisar los límites por operación esconde la correlación en vez de medirla, y un gráfico limpio no dice absolutamente nada de tu exposición agregada."
-  - id: four-longs-total
-    prompt:
-      en: "Your account is 20,000 USDT. You hold four long positions on highly correlated alts, each risking 1% (200 USDT) at its stop. A correlated sell-off hits all four stops together. What do you lose in that move?"
-      es: "Tu cuenta es de 20.000 USDT. Tienes cuatro posiciones largas en altcoins muy correlacionadas, cada una arriesgando el 1% (200 USDT) en su stop. Una caída correlacionada toca los cuatro stops juntos. ¿Cuánto pierdes en ese movimiento?"
-    options:
-      - id: a
-        text:
-          en: "200 USDT — still just 1%, because each stop is a separate one."
-          es: "200 USDT: sigue siendo solo el 1%, porque cada stop es independiente."
-      - id: b
-        text:
-          en: "400 USDT, which is the average of the four position risks."
-          es: "400 USDT, que es la media de los riesgos de las cuatro posiciones."
-      - id: c
-        correct: true
-        text:
-          en: "800 USDT — 4% of the account, since the four risks add up."
-          es: "800 USDT: el 4% de la cuenta, ya que los cuatro riesgos se suman."
-      - id: d
-        text:
-          en: "2,000 USDT — the full amount of margin used across the whole book."
-          es: "2.000 USDT: todo el margen utilizado en el conjunto de la cartera."
-    explanation:
-      en: "Four correlated 1% longs that fall together are one 4% bet: 4 × 200 = 800 USDT = 4% of 20,000, arriving in a single move rather than averaged across it. Splitting a bet across more tickets never lowers the correlated total; it just makes it harder to see."
-      es: "Cuatro largos correlacionados del 1% que caen juntos son una apuesta del 4%: 4 × 200 = 800 USDT = 4% de 20.000, y llega en un solo movimiento en vez de promediarse. Repartir una apuesta en más tickets nunca reduce el total correlacionado; solo lo hace más difícil de ver."
-  - id: long-short-relative
-    kind: true_false
-    prompt:
-      en: "A long and a short on two highly correlated coins add up to more directional exposure than either position held alone."
-      es: "Un largo y un corto en dos monedas muy correlacionadas suman más exposición direccional que cualquiera de las posiciones por separado."
-    answer: false
-    explanation:
-      en: "False. Because the coins move together, the long and the short largely cancel — that is a relative bet with far less directional exposure, not more. Stacking only happens when the positions point the same way (two longs, or two shorts) on correlated instruments."
-      es: "Falso. Como las monedas se mueven juntas, el largo y el corto se cancelan en gran parte: eso es una apuesta relativa con mucha menos exposición direccional, no más. El apilamiento solo ocurre cuando las posiciones apuntan en la misma dirección (dos largos, o dos cortos) en instrumentos correlacionados."
-  - id: cluster-sizing-steps
+      en: "Long stop-losses cluster around 59,900 and the liquidation prices of leveraged longs sit just beneath them — all sell orders. The buyers who defended the low are already positioned, so what rests below is the exit door, not more demand. The map is not random; it is built by shared, predictable reasoning: 'put your stop just beyond the level that held twice' sends thousands of orders to the same handful of ticks."
+      es: "Los stop-loss de largos se agrupan en torno a 59.900 y los precios de liquidación de los largos apalancados quedan justo debajo: todo son órdenes de venta. Los compradores que defendieron el mínimo ya están posicionados, así que lo que descansa debajo es la puerta de salida, no más demanda. El mapa no es aleatorio: lo construye un razonamiento compartido y predecible: 'pon el stop justo más allá del nivel que aguantó dos veces' envía miles de órdenes a los mismos pocos ticks."
+  - id: sweep-steps
     kind: ordering
     prompt:
-      en: "Put the steps for sizing a correlated cluster rather than a single ticker in order."
-      es: "Ordena los pasos para dimensionar un grupo correlacionado en vez de un solo ticker."
+      en: "A large player wants to accumulate a big long near 60,000. Put the stages of the sweep in order."
+      es: "Un gran participante quiere acumular un largo grande cerca de 60.000. Ordena las etapas del barrido."
     items:
-      - id: cap
+      - id: nudge
         position: 1
         text:
-          en: "Decide a maximum risk for the correlated group — for example, no more than 2% across all alt longs combined."
-          es: "Decide un riesgo máximo para el grupo correlacionado, por ejemplo no más del 2% entre todos los largos en alts."
-      - id: size
+          en: "Price is nudged down to 59,850 — below the shelf of stops."
+          es: "El precio se empuja hasta 59.850, por debajo de la plataforma de stops."
+      - id: stops
         position: 2
         text:
-          en: "Size the individual trades to fit inside that ceiling."
-          es: "Dimensiona las operaciones individuales para que quepan dentro de ese techo."
-      - id: count
+          en: "Long stop-losses trigger as market sells."
+          es: "Los stop-loss de los largos se disparan como ventas a mercado."
+      - id: liq
         position: 3
         text:
-          en: "Before adding a position, ask whether it is genuinely a new idea or the same bet in a fresh costume."
-          es: "Antes de añadir una posición, pregunta si es realmente una idea nueva o la misma apuesta con otro disfraz."
-      - id: stress
+          en: "Leveraged longs down there are liquidated, adding more forced selling."
+          es: "Los largos apalancados de esa zona son liquidados, añadiendo más venta forzosa."
+      - id: absorb
         position: 4
         text:
-          en: "Stress-test the book: 'market −10% right now, what do I lose?'"
-          es: "Somete la cartera a estrés: '¿mercado −10% ahora mismo, cuánto pierdo?'"
+          en: "All of that selling is absorbed by the large player's resting buy orders."
+          es: "Toda esa venta es absorbida por las órdenes de compra en reposo del gran participante."
+      - id: snap
+        position: 5
+        text:
+          en: "Price wicks to 59,700 and snaps straight back above 60,000."
+          es: "El precio hace una mecha hasta 59.700 y vuelve de golpe por encima de 60.000."
     explanation:
-      en: "Cap the cluster, not just the line; count independent bets, not tickers. If the answer to the stress test surprises you, you are carrying more portfolio risk than you thought."
-      es: "Limita el grupo, no solo la línea; cuenta apuestas independientes, no tickers. Si la respuesta a la prueba de estrés te sorprende, llevas más riesgo de cartera del que creías."
-  - id: beta-slippage
+      en: "The people who were stopped out and liquidated sold the exact low, and their orders were the liquidity someone else filled into. The tell is the snap-back: a genuine break holds beyond the level; a sweep pokes through and reclaims within a candle or two."
+      es: "Quienes fueron stopeados y liquidados vendieron exactamente el mínimo, y sus órdenes fueron la liquidez que otro absorbió. La señal es el regreso: una ruptura genuina se sostiene más allá del nivel; un barrido lo atraviesa y lo recupera en una o dos velas."
+  - id: stop-outside-pool
     prompt:
-      en: "Your three correlated alt longs each have a 10% stop and a 100 USDT risk budget. BTC drops 10% and the alts drop 15–25% on thin books. What actually happens to the '3% bet'?"
-      es: "Tus tres largos correlacionados en alts tienen cada uno un stop del 10% y un presupuesto de riesgo de 100 USDT. BTC cae un 10% y las alts un 15-25% con libros poco profundos. ¿Qué le pasa realmente a la 'apuesta del 3%'?"
+      en: "You are long and want to place your stop sensibly relative to an obvious swing low and round number. What is the rule?"
+      es: "Estás largo y quieres colocar el stop de forma sensata respecto a un mínimo obvio y un número redondo. ¿Cuál es la regla?"
     options:
       - id: a
         correct: true
         text:
-          en: "The stops get blown through, so the 3% quietly becomes 4% or worse."
-          es: "Los stops se atraviesan, así que el 3% se convierte en un 4% o peor."
+          en: "Put it beyond the round number and the swing extreme, outside the crowd."
+          es: "Ponlo más allá del número redondo y del extremo, fuera de la multitud."
       - id: b
         text:
-          en: "Less than 3%, because alts with a higher beta also recover faster."
-          es: "Menos del 3%, porque las alts con más beta también se recuperan antes."
+          en: "Put it exactly at the swing low, so that you are out before the sweep runs."
+          es: "Ponlo exactamente en el mínimo, para salir antes de que corra el barrido."
       - id: c
         text:
-          en: "Exactly 3% — the stops cap each position at its 100 USDT budget."
-          es: "Exactamente el 3%: los stops limitan cada posición a sus 100 USDT."
+          en: "Put it just inside the pool, where liquidity is deepest and fills are better."
+          es: "Ponlo dentro del grupo, donde hay más liquidez y mejor ejecución."
       - id: d
         text:
-          en: "Nothing at all until BTC itself breaks its own support level."
-          es: "Nada en absoluto hasta que BTC rompa su propio nivel de soporte."
+          en: "Do not use a stop at all — sweeps make stop orders counterproductive."
+          es: "No uses stop: los barridos hacen contraproducentes las órdenes de stop."
     explanation:
-      en: "Most alts have a beta above 1 to BTC — they fall harder — so a 10% BTC drop takes them 15–25% down, straight through the 10% stops. You are filled lower after slippage and each position loses more than its 100 USDT budget, all in one move. Combine that with a thin book, 24/7, possibly on a weekend when there is barely anyone to fill you, and the budget is a plan rather than a promise."
-      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC —caen más—, así que una caída del 10% en BTC las lleva un 15-25% abajo, directas a través de los stops del 10%. Te ejecutan más abajo tras el slippage y cada posición pierde más de sus 100 USDT de presupuesto, todo en un mismo movimiento. Suma un libro poco profundo, 24/7 y posiblemente un fin de semana en el que apenas hay quien te ejecute, y el presupuesto es un plan más que una promesa."
-  - id: sum-of-caps-tf
-    kind: true_false
-    prompt:
-      en: "Adding up your per-trade 1% caps tells you your portfolio risk."
-      es: "Sumar los límites del 1% por operación te dice tu riesgo de cartera."
-    answer: false
-    explanation:
-      en: "Your portfolio risk is the answer to one question — 'if the market dropped 10% right this second, what would I lose?' — summed across every correlated position. The per-trade caps only add up honestly when the trades are genuinely independent."
-      es: "Tu riesgo de cartera es la respuesta a una pregunta ('si el mercado cayera un 10% ahora mismo, cuánto perdería') sumada en todas las posiciones correlacionadas. Los límites por operación solo suman con honestidad cuando las operaciones son de verdad independientes."
+      en: "If you can see the shelf, so can whoever benefits from sweeping it. A stop parked one tick inside an obvious pool — or sitting exactly on the level everyone else used — is fuel for the sweep that takes it. Beyond the level costs a little more when you are wrong and spares you from being the liquidity someone else fills into. Abandoning the stop entirely just replaces a bounded loss with an unbounded one."
+      es: "Si tú ves la repisa, también la ve quien se beneficia de barrerla. Un stop colocado un tick dentro de un grupo obvio —o justo en el nivel que usó todo el mundo— es combustible para el barrido que lo toma. Más allá del nivel cuesta algo más cuando te equivocas y evita que seas la liquidez que otro absorbe. Renunciar al stop solo cambia una pérdida acotada por una sin límite."

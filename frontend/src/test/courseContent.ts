@@ -52,17 +52,21 @@ export interface LocalizedText {
 
 export interface ManifestExercise {
   id: string;
+  /** Permanent identity (defaults to the id at creation); seeds and stored progress hang off it. */
+  key?: string;
   type: string;
 }
 
 export interface ManifestLesson {
   id: string;
+  key?: string;
   title: LocalizedText;
   exercises?: ManifestExercise[];
 }
 
 export interface ManifestModule {
   id: string;
+  key?: string;
   title: LocalizedText;
   summary: LocalizedText;
   lessons?: ManifestLesson[];
@@ -106,12 +110,27 @@ export function manifestExerciseIds(): string[] {
   return manifestLessons().flatMap((lesson) => (lesson.exercises ?? []).map((ex) => ex.id));
 }
 
+/** The permanent key of one exercise (= its id unless the manifest pins an older one). */
+export function exerciseKey(exerciseId: string): string {
+  const keys = new Map<string, string>();
+  for (const lesson of manifestLessons()) {
+    for (const ex of lesson.exercises ?? []) keys.set(ex.id, ex.key ?? ex.id);
+  }
+  return keys.get(exerciseId) ?? exerciseId;
+}
+
 /**
  * The course as `/course/export?lang=…` serves it, but with the markdown deliberately RAW where the real
  * endpoint pre-strips it — so "no exercise reached the PDF" holds even with the upstream stripping gone.
  */
-/** The real `glossary.yaml`, shaped as the export serves it, so the PDF tests print the real terms. */
-export function glossaryFromContent(locale: Locale): GlossaryEntry[] {
+/**
+ * The real `glossary.yaml`, shaped as the export serves it, so the PDF tests print the real terms.
+ *
+ * Lesson refs in the yaml (`origin`, `link_except`) are permanent lesson KEYS; the API renders them
+ * as display ids, and `space: "display"` mirrors that. The link-report golden runs in `"key"` space
+ * so a display renumbering cannot move its lesson axis.
+ */
+export function glossaryFromContent(locale: Locale, space: "display" | "key" = "display"): GlossaryEntry[] {
   const path = resolve(CONTENT, "glossary.yaml");
   if (!existsSync(path)) return [];
   const raw = yaml.load(readFileSync(path, "utf8")) as {
@@ -137,20 +156,23 @@ export function glossaryFromContent(locale: Locale): GlossaryEntry[] {
     return value as T;
   };
   const byId = new Map(raw.terms.map((term) => [term.id, term]));
+  const keyToId = new Map(manifestLessons().map((lesson) => [lesson.key ?? lesson.id, lesson.id]));
   const titles = new Map(manifestLessons().map((lesson) => [lesson.id, lesson.title[locale]]));
+  const lessonRef = (key: string): string => (space === "key" ? key : (keyToId.get(key) ?? key));
+  const titleOf = (key: string): string | null => titles.get(keyToId.get(key) ?? key) ?? null;
   return raw.terms.map((term) => {
     const target = term.alias_of ? byId.get(term.alias_of) : undefined;
     return {
       id: term.id,
       term: term[locale],
-      origin: term.origin ?? null,
-      originTitle: term.origin ? (titles.get(term.origin) ?? null) : null,
+      origin: term.origin ? lessonRef(term.origin) : null,
+      originTitle: term.origin ? titleOf(term.origin) : null,
       ...(term.definition ? { definition: term.definition[locale] } : {}),
       ...(term.senses?.length
         ? {
             senses: term.senses.map((sense) => ({
-              origin: sense.origin,
-              originTitle: titles.get(sense.origin) ?? null,
+              origin: lessonRef(sense.origin),
+              originTitle: titleOf(sense.origin),
               definition: sense.definition[locale],
             })),
           }
@@ -162,7 +184,7 @@ export function glossaryFromContent(locale: Locale): GlossaryEntry[] {
       ...(term.match?.[locale] ? { match: term.match[locale] } : {}),
       ...((): { linkExcept?: string[] } => {
         const except = perLocale<string[]>(term.link_except, []);
-        return except.length ? { linkExcept: except } : {};
+        return except.length ? { linkExcept: except.map(lessonRef) } : {};
       })(),
     };
   });

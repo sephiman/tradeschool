@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m15-triangle
+key: fig-m31-triangle  # pre-renumber identity (2026-08-10); never renamed
+kind: chart
+caption:
+  en: 'A symmetric triangle: the same convergence, split evenly between the two lines instead
+    of carried by one. The ceiling comes down as fast as the floor comes up, so nothing about
+    the shape points anywhere — which is the honest version of what every converging pattern
+    tells you. Same mechanic as the wedge, different share of the work.'
+  es: 'Un triángulo simétrico: la misma convergencia, repartida a partes iguales entre las dos
+    líneas en lugar de cargada por una. El techo baja tan rápido como sube el suelo, así que
+    nada en la figura apunta a ningún sitio, que es la versión honesta de lo que te dice
+    cualquier patrón convergente. La misma mecánica que la cuña, con otro reparto del trabajo.'
+panels:
+- generator: pattern_chart
+  injector: converging_lines
+  target: symmetric_triangle
+  # The 480 tier.
+  seed: 21
+  n: 150
+  indicator: none
+  resolution:
+    # Flat: a symmetric triangle that resolved in a direction would be this figure making the claim
+    # its own caption denies. The compression simply runs on into the right edge.
+    direction: flat

@@ -155,7 +155,7 @@ def _net_pnl_explain(p: FormulaParams, result: Decimal) -> list[str]:
     ]
 
 
-# --- Market cap & fully-diluted value (m18) -------------------------------------------------------
+# --- Market cap & fully-diluted value (m20) -------------------------------------------------------
 # Supplies are expressed in MILLIONS of tokens, so the result is in millions of USD.
 
 
@@ -185,7 +185,7 @@ def _fdv_explain(p: FormulaParams, result: Decimal) -> list[str]:
     ]
 
 
-# --- Position size from risk (m19): the risk-first sizing formula ---------------------------------
+# --- Position size from risk (m22): the risk-first sizing formula ---------------------------------
 
 
 def _position_size_compute(p: FormulaParams) -> Decimal:
@@ -209,7 +209,7 @@ def _position_size_explain(p: FormulaParams, result: Decimal) -> list[str]:
     ]
 
 
-# --- Expectancy (m22): expected value per trade ---------------------------------------------------
+# --- Expectancy (m25): expected value per trade ---------------------------------------------------
 
 
 def _expectancy_compute(p: FormulaParams) -> Decimal:
@@ -232,7 +232,7 @@ def _expectancy_explain(p: FormulaParams, result: Decimal) -> list[str]:
     ]
 
 
-# --- Net delta (m25): the net aggressive flow of a period ----------------------------------------
+# --- Net delta (m29): the net aggressive flow of a period ----------------------------------------
 # Taker buy volume minus taker sell volume. Positive = buyers were the aggressors on balance.
 # Note this is NOT total volume: the two sides are subtracted, not added.
 
@@ -258,7 +258,7 @@ def _net_delta_explain(p: FormulaParams, result: Decimal) -> list[str]:
     ]
 
 
-# --- Premium between venues (m28): the same coin priced differently on two exchanges --------------
+# --- Premium between venues (m32): the same coin priced differently on two exchanges --------------
 # Expressed as a PERCENTAGE of the reference venue's price, which is what makes premiums comparable
 # across coins and dates. The absolute gap is the intermediate step (see `explain`).
 
@@ -365,7 +365,7 @@ def _expectancy_distractors(p: FormulaParams, result: Decimal) -> list[Distracto
     ]
 
 
-# --- Trading-style net result (m20): the same gross move costs differently per style --------------
+# --- Trading-style net result (m23): the same gross move costs differently per style --------------
 # Fees scale with the NUMBER of trades (they hit the scalper); funding scales with TIME HELD (it taxes
 # the swing trader). A day trade is one round-trip with no overnight funding.
 

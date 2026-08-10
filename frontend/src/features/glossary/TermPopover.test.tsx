@@ -46,15 +46,15 @@ const PREMIUM: GlossaryEntry = {
   origin: null,
   originTitle: null,
   senses: [
-    { origin: "m17-l1", originTitle: "The basis", definition: "A perp trading above spot." },
-    { origin: "m28-l1", originTitle: "Arbitrage", definition: "The gap between two venues." },
+    { origin: "m19-l1", originTitle: "The basis", definition: "A perp trading above spot." },
+    { origin: "m32-l1", originTitle: "Arbitrage", definition: "The gap between two venues." },
   ],
 };
 
 const CHOCH: GlossaryEntry = {
   id: "g-choch",
   term: "CHoCH",
-  origin: "m30-l1",
+  origin: "m34-l1",
   originTitle: "The SMC dialect",
   aliasOf: { id: "g-funding", term: "funding" },
 };

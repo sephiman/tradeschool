@@ -26,7 +26,7 @@ const CHART_LABELS = [
   "rejection_at_level", "overrun_at_level", "open_space", "indecision",
   "zone_respected", "zone_failed", "no_zone",
   "imbalance_unfilled", "imbalance_filled", "no_imbalance",
-  // m31: the trendline trio, the channel pair, the shapes and the resolution family.
+  // m15: the trendline trio, the channel pair, the shapes and the resolution family.
   "line_holds", "line_break", "line_fakeout",
   // Two ways a channel ends — an acceleration out of the far edge, or the rhythm giving out
   // through the line it was built on. Both are labels, because both are things a chart shows.
@@ -34,13 +34,13 @@ const CHART_LABELS = [
   "rising_wedge", "falling_wedge", "symmetric_triangle", "ascending_triangle",
   "descending_triangle", "parallel_channel",
   "break_confirmed", "break_unconfirmed", "compression_holding",
-  // m32: the two phases of the volatility cycle.
+  // m16: the two phases of the volatility cycle.
   "compression", "expansion",
 ];
 
 // Figure/chart ANNOTATION labels are also student-facing and must be localized, never rendered as the
 // raw backend enum (the `bearish_e…` / `support` leak). Marker labels live under `chartMarker.*`
-// (candle-reaction forms, the fakeout "test" marker, and the m08/m17/m06/m21/m24 figure markers); level
+// (candle-reaction forms, the fakeout "test" marker, and the m08/m19/m06/m24/m27 figure markers); level
 // titles under `level.*`. Keep in sync with the injectors' Annotation/Level labels. Pass-through keys
 // (swing "1"/"2", Wyckoff phases "A"–"E", Fibonacci ratios, and the market-structure acronyms HH / HL /
 // CHoCH, which read the same in both languages) are display-ready and intentionally absent.
@@ -48,23 +48,23 @@ const CHART_MARKERS = [
   "hammer", "shooting_star", "bullish_engulfing", "bearish_engulfing", "morning_star", "evening_star",
   "harami", "tweezers_bottom", "tweezers_top", "doji", "small_range", "test",
   "rejection", "sweep", "liquidation", "gap", "unfilled",
-  // m30: the origin-zone sequence and the imbalance. "BOS" is deliberately absent — like HH / HL /
+  // m34: the origin-zone sequence and the imbalance. "BOS" is deliberately absent — like HH / HL /
   // CHoCH it is an acronym that reads the same in both languages, so it passes through.
   "origin", "retest", "failed_break", "imbalance", "revisit", "traded_through",
-  // m31/m32: a visit to a diagonal, and the phase a volatility chart is marked at.
+  // m15/m16: a visit to a diagonal, and the phase a volatility chart is marked at.
   "touch", "compression", "expansion",
 ];
 // A level's title comes from its own LABEL first (falling back to its kind), so this list is of labels:
 // the support/resistance pair where the two coincide, plus every named line the figure injectors draw —
-// the `plan` lines of m21/m24 among them, whose whole purpose is to be read by name.
+// the `plan` lines of m24/m27 among them, whose whole purpose is to be read by name.
 const LEVEL_LABELS = [
   "support", "resistance", "shelf", "confluence", "entry", "stop", "target", "trigger", "limit",
 ];
 // A shaded ZONE is titled the same way — own label first, falling back to its kind — in its own
-// namespace, because a band is a different render primitive from a horizontal line (m30).
+// namespace, because a band is a different render primitive from a horizontal line (m34).
 const BAND_LABELS = ["origin", "imbalance"];
 // A sloped line is titled the same own-label-first way, in `diagonal.*` — its own primitive again,
-// because a trendline is a rate of advance and a level is a price (m31-l1).
+// because a trendline is a rate of advance and a level is a price (m15-l1).
 const DIAGONAL_LABELS = ["trendline", "channel", "channel_parallel", "upper", "lower"];
 // Price-pane overlay titles. `ema20`/`ema50` are deliberately absent: they are display-ready and fall
 // through, exactly as the acronym markers do.

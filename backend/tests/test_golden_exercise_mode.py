@@ -41,7 +41,7 @@ GOLDEN = {
     "candle_reaction:1": "32628a943af8bcfe",
     "candle_reaction:2": "1f5fca51b606ee96",
     "candle_reaction:3": "23ecb23c6423d573",
-    # Captured when the m26 CVD-divergence injector was ADDED. Its `cvd_full` pane series reaches the
+    # Captured when the m30 CVD-divergence injector was ADDED. Its `cvd_full` pane series reaches the
     # payload through the same CONDITIONAL key the `oi` pane uses, so every hash above stayed
     # byte-identical in the same commit — which is what proves the new pane series is purely additive.
     "cvd_divergence:0": "e1ee9199b6ab71a0",
@@ -87,8 +87,8 @@ GOLDEN = {
     "wyckoff:1": "d3d68b466af5df0b",
     "wyckoff:2": "c919e3cc3977bef1",
     "wyckoff:3": "ad00ae665d810925",
-    # Captured when the four FIGURE-ONLY injectors were ADDED (m08-l1 swing structure, m17-l2 + m06-l1
-    # liquidity sweep, m21-l1 stop-limit gap, m24-l1 trade anatomy). They are registered like any other
+    # Captured when the four FIGURE-ONLY injectors were ADDED (m08-l1 swing structure, m19-l2 + m06-l1
+    # liquidity sweep, m24-l1 stop-limit gap, m27-l1 trade anatomy). They are registered like any other
     # injector — that is what puts them under the discovered level, credibility and annotation suites —
     # but no exercise config selects them: their whole subject is the resolution a figure shows and an
     # exercise may not. Kept as one group rather than filed alphabetically, so this addition reads as the
@@ -111,7 +111,7 @@ GOLDEN = {
     "trade_anatomy:1": "29f82a1ec9e46d10",
     "trade_anatomy:2": "d8c8c4215544609c",
     "trade_anatomy:3": "92ea34b457f360e0",
-    # Captured when the m30 SMC-dialect injectors were ADDED (`origin_zone`, `imbalance`) — the first two
+    # Captured when the m34 SMC-dialect injectors were ADDED (`origin_zone`, `imbalance`) — the first two
     # to plant a shaded `Band`, and, unlike the group above, each feeding a figure AND an exercise. Kept as
     # one group for the same reason that one is: this was a single event. Every hash above stayed
     # byte-identical in the same commit, which is what proves the three additions to shared code touched
@@ -132,7 +132,7 @@ GOLDEN = {
     "origin_zone:1": "35837b9f3863204a",
     "origin_zone:2": "4fd664189c2442f1",
     "origin_zone:3": "c0a82bfb26bf6e5f",
-    # Captured when the m31/m32 injectors were ADDED (`trend_channel`, `converging_lines`,
+    # Captured when the m15/m16 injectors were ADDED (`trend_channel`, `converging_lines`,
     # `volatility_bands`) — the first three to draw a sloped `Diagonal`, and the first to drive the
     # zero-centred momentum pane. One group, one event, same as the two above.
     #
@@ -152,7 +152,7 @@ GOLDEN = {
     # Why it was added: a channel has two endings — it can ACCELERATE out through the parallel, or the
     # rhythm can GIVE OUT through the line it was built on — and `channel_broken` is defined as
     # `osc > 1`, i.e. beyond the parallel, so the generator could only ever plant the first. Both panels
-    # of `fig-m31-channel` therefore resolved with their own slope, and the first reader took the pair
+    # of `fig-m15-channel` therefore resolved with their own slope, and the first reader took the pair
     # to mean "channels break in their own direction". Re-seeding could not have fixed that: the blind
     # spot was in the injector, not in the two seeds.
     #
@@ -170,8 +170,8 @@ GOLDEN = {
     "volatility_bands:1": "8a0947912ea43f12",
     "volatility_bands:2": "8435e061dad165e4",
     "volatility_bands:3": "d076b8f4fe0e9050",
-    # Captured when the m20-l2 injector was ADDED — the first to return a SECOND candle panel, and so
-    # the first addition since m30's `bands` that puts a new key in the payload these hashes cover.
+    # Captured when the m23-l2 injector was ADDED — the first to return a SECOND candle panel, and so
+    # the first addition since m34's `bands` that puts a new key in the payload these hashes cover.
     #
     # Every hash above stayed byte-identical in the same commit, which is the load-bearing part again.
     # `PatternResult` gained `context`, `_instantiate` gained a CONDITIONAL `context` key (the

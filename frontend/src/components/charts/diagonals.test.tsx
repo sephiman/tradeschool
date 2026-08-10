@@ -3,17 +3,17 @@ import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 /**
- * The two render primitives m31 and m32 added — what the RENDERER owes them.
+ * The two render primitives m15 and m16 added — what the RENDERER owes them.
  *
- * A sloped line (m31) is drawn as a two-point LineSeries rather than as a price line, because a price
+ * A sloped line (m15) is drawn as a two-point LineSeries rather than as a price line, because a price
  * line is horizontal by construction. The two points are the anchors the backend published, and drawing
  * anything else there — a padded series, a re-derived slope — would put a line on the chart that the
  * respect contract never measured.
  *
- * The zero-centred pane (m32) is a signed histogram plus an optional state row. The row is a FLAG: it
+ * The zero-centred pane (m16) is a signed histogram plus an optional state row. The row is a FLAG: it
  * has to render as a constant-height strip whose only variable is colour, because a second real
  * histogram would read as a second quantity and a coloured direction would say which way the squeeze
- * points — the one thing m32-l1 spends its closing section refusing to say.
+ * points — the one thing m16-l1 spends its closing section refusing to say.
  *
  * The library is mocked: it renders to canvas, so only the requested options are assertable.
  */

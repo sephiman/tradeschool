@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""CVD-divergence injector (m26): cumulative volume delta read against price.
+"""CVD-divergence injector (m30): cumulative volume delta read against price.
 
 A DETECTION pattern. Every label shares the same price geometry, so only the CVD pane separates them —
 which is the drill. Two anti-leak details that are easy to undo: ``cvd_confirms`` is built in BOTH

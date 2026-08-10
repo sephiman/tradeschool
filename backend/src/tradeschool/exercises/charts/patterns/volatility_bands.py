@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Volatility-cycle injector (m32-l1): compression, expansion, and the squeeze between them.
+"""Volatility-cycle injector (m16-l1): compression, expansion, and the squeeze between them.
 
 The two labels are PHASES, not outcomes: `compression` ends the window coiled, `expansion` ends it
 travelling. Everything drawn — the Bollinger envelope, the Keltner envelope, the momentum pane and its
@@ -7,7 +7,7 @@ compression row — is COMPUTED from the candles rather than planted, which is w
 to be wrong: if the shape did not really compress, the bands say so and `test_chart_volatility.py`
 fails.
 
-What makes the two envelopes cross at all is the ruler, not the volatility (m32-l1): a Bollinger band
+What makes the two envelopes cross at all is the ruler, not the volatility (m16-l1): a Bollinger band
 is drawn from how far the CLOSES scatter, a Keltner channel from how far a BAR travels. So a squeeze is
 manufactured the way a real one happens — a stretch where price keeps moving inside each bar while the
 closes stay pinned — never by turning the volatility knob down and hoping.
@@ -50,7 +50,7 @@ _CLIP = 2.5
 _MAX_STEP = 0.040
 #: How hard the closes are pulled back to the middle of the coil. This, not the volatility, is what
 #: puts the Bollinger band inside the Keltner channel: mean reversion collapses the SCATTER of the
-#: closes while each bar still travels, which is the mechanism m32-l1 describes.
+#: closes while each bar still travels, which is the mechanism m16-l1 describes.
 _REVERT = 0.55
 #: The expansion's drift, as a per-bar fraction — a phase that goes somewhere, which is what makes the
 #: closes disperse and pushes the Bollinger band back outside.
@@ -78,7 +78,7 @@ def _phase_path(
     sign = float(rng.choice((-1.0, 1.0)))
 
     # The lead-in is the OTHER half of the cycle, so a `compression` chart opens busy and an `expansion`
-    # chart opens quiet — clustering, which is the first thing m32-l1 claims.
+    # chart opens quiet — clustering, which is the first thing m16-l1 claims.
     lead_sigma = float(rng.uniform(*(_LIVE if target == "compression" else _CALM)))
     phase_sigma = float(rng.uniform(*(_CALM if target == "compression" else _LIVE)))
     drift = 0.0 if target == "compression" else sign * float(rng.uniform(*_EXPAND_DRIFT))
@@ -161,7 +161,7 @@ class VolatilityBandsInjector(PatternInjector):
             candles_full=series,
             momentum_full=momentum,
             momentum_state_full=state,
-            # Compression says expansion is coming and not which way (m32-l1's closing reading), so the
+            # Compression says expansion is coming and not which way (m16-l1's closing reading), so the
             # figure of a compression must not resolve in a direction — that would be the lesson's own
             # error drawn as a chart. An expansion is already going somewhere and simply continues.
             resolution_hint=0.0,

@@ -1,91 +1,259 @@
 # SPDX-License-Identifier: AGPL-3.0-only
+# Conceptual only, by design — a footprint is a distribution inside one bar and a volume profile is
+# aggregated on a price axis; neither is a time series this engine can generate credibly.
 type: quiz
 variants:
-  - id: twenty-trades
+  - id: footprint-shows
     prompt:
-      en: "A trader backtests 20 trades, gets 13 winners — a 65% win rate — and concludes the system has an edge. What is wrong with that conclusion?"
-      es: "Un trader hace backtest de 20 operaciones, saca 13 aciertos —un 65% de win rate— y concluye que el sistema tiene ventaja. ¿Qué falla en esa conclusión?"
+      en: "What does a footprint chart show that an ordinary candle cannot?"
+      es: "¿Qué muestra un gráfico de footprint que una vela normal no puede?"
     options:
       - id: a
         text:
-          en: "Nothing is wrong: 65% is comfortably above the 50% a coin would give."
-          es: "No falla nada: un 65% está muy por encima del 50% que daría una moneda."
+          en: "The candle's shape over several timeframes at once, stacked on one axis."
+          es: "La forma de la vela en varias temporalidades a la vez, en un eje."
       - id: b
         correct: true
         text:
-          en: "A coin flipped 20 times reaches 60% or better one time in four."
-          es: "Una moneda lanzada 20 veces llega al 60% o más una de cada cuatro veces."
+          en: "How much traded at each price level within that one candle, by side."
+          es: "Cuánto se negoció en cada nivel dentro de esa única vela, por lado."
       - id: c
         text:
-          en: "Win rate is the wrong statistic; only the average payoff matters."
-          es: "El win rate es el estadístico equivocado; solo importa el payoff medio."
+          en: "The resting limit orders waiting above and below the candle's range."
+          es: "Las órdenes límite en reposo por encima y por debajo del rango."
       - id: d
         text:
-          en: "Backtests are worthless in principle, so no sample size would help."
-          es: "Los backtests no valen por definición, así que ninguna muestra ayudaría."
+          en: "A prediction of the next candle from this one's volume distribution."
+          es: "Una predicción de la vela siguiente desde su reparto de volumen."
     explanation:
-      en: "At 20 trades the observed win rate of a system with NO edge lands anywhere between about 28% and 72%, nineteen times out of twenty. An observed 65% therefore sits comfortably inside what a coin does, and tells you nothing about the system that produced it. Win rate is a perfectly good statistic — it is simply not measurable at this sample size, because the error band is wider than any edge you are hoping to find."
-      es: "Con 20 operaciones, el win rate observado de un sistema SIN ventaja cae en cualquier punto entre el 28% y el 72% aproximadamente, diecinueve de cada veinte veces. Un 65% observado se queda por tanto cómodamente dentro de lo que hace una moneda y no dice nada del sistema que lo produjo. El win rate es un estadístico perfectamente válido: lo que pasa es que con esa muestra no se puede medir, porque la banda de error es más ancha que cualquier ventaja que esperes encontrar."
-  - id: sample-scaling
+      en: "A footprint is the delta of m29 resolved by price level instead of summed over the period, usually split into taker buy and taker sell volume — the finest resolution in this block. Note what it is not: resting orders are the order book (m31), which is intention rather than executed flow. A footprint is entirely a record of trades that happened."
+      es: "Un footprint es el delta de m29 resuelto por nivel de precio en vez de sumado a lo largo del periodo, normalmente separado en volumen de compra taker y de venta taker: la resolución más fina de este bloque. Ojo con lo que no es: las órdenes en reposo son el libro de órdenes (m31), que es intención y no flujo ejecutado. Un footprint es enteramente un registro de operaciones que ocurrieron."
+  - id: poc-definition
     prompt:
-      en: "You have 100 backtested trades and want to halve the error band on the observed win rate. How many trades do you need?"
-      es: "Tienes 100 operaciones en backtest y quieres reducir a la mitad la banda de error del win rate observado. ¿Cuántas operaciones necesitas?"
+      en: "On a volume profile, what is the POC (point of control)?"
+      es: "En un perfil de volumen, ¿qué es el POC (point of control)?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The single price at which the most volume traded in the period."
+          es: "El precio concreto en el que se negoció más volumen del periodo."
+      - id: b
+        text:
+          en: "The midpoint between the period's high and its low price."
+          es: "El punto medio entre el máximo y el mínimo del periodo."
+      - id: c
+        text:
+          en: "The price where the largest single trade of the period occurred."
+          es: "El precio donde ocurrió la operación individual más grande."
+      - id: d
+        text:
+          en: "The level at which the period's open and close coincide exactly."
+          es: "El nivel en que coinciden exactamente la apertura y el cierre."
+    explanation:
+      en: "The POC is the price with the most *total* volume — the level where the market spent the most agreement — not the biggest individual trade and not a geometric midpoint. That is what makes it different in kind from a hand-drawn level: it is a measurement of where trade occurred, not a line you chose."
+      es: "El POC es el precio con más volumen *total* —el nivel donde el mercado pasó más tiempo de acuerdo—, no la operación individual más grande ni un punto medio geométrico. Eso es lo que lo hace distinto en naturaleza de un nivel trazado a mano: es una medición de dónde ocurrió la negociación, no una línea que elegiste."
+  - id: value-area
+    prompt:
+      en: "A volume profile's **value area** is conventionally the band containing 70% of the period's volume. What does being outside it mean?"
+      es: "El **área de valor** de un perfil de volumen es convencionalmente la banda que contiene el 70 % del volumen del periodo. ¿Qué significa estar fuera de ella?"
     options:
       - id: a
         text:
-          en: "200 — the error band is inversely proportional to the sample."
-          es: "200: la banda de error es inversamente proporcional a la muestra."
+          en: "Those prices are invalid and should be excluded from any analysis."
+          es: "Esos precios no son válidos y deben excluirse de cualquier análisis."
       - id: b
         text:
-          en: "150 — the band shrinks quickly once the sample is over a hundred."
-          es: "150: la banda encoge deprisa en cuanto se pasa de cien."
+          en: "Price is guaranteed to return inside the value area before period end."
+          es: "El precio tiene garantizado volver al área antes de acabar el periodo."
       - id: c
+        text:
+          en: "They mark where the largest participants were, since size avoids crowds."
+          es: "Marcan dónde estuvieron los grandes, ya que el tamaño evita la masa."
+      - id: d
         correct: true
         text:
-          en: "400 — the band shrinks with the square root of the sample."
-          es: "400: la banda encoge con la raíz cuadrada de la muestra."
+          en: "Prices the market was not comfortable at — it passed through them."
+          es: "Precios donde el mercado no estuvo cómodo: pasó de largo por ellos."
+    explanation:
+      en: "Inside the value area is where the market was comfortable; outside is where it traded relatively little, passing through rather than settling. That is descriptive, not predictive — nothing guarantees a return. The practical use is that the value area's edges give m09's trading-range boundaries a measured definition instead of a hand-drawn one."
+      es: "Dentro del área de valor es donde el mercado estuvo cómodo; fuera es donde negoció relativamente poco, pasando de largo en vez de asentarse. Eso es descriptivo, no predictivo: nada garantiza una vuelta. La utilidad práctica es que los bordes del área de valor le dan a las fronteras del rango de negociación de m09 una definición medida en lugar de trazada a mano."
+  - id: poc-vs-drawn-level
+    prompt:
+      en: "How does a POC relate to the support and resistance levels m03 and m08 taught you to draw?"
+      es: "¿Cómo se relaciona un POC con los niveles de soporte y resistencia que m03 y m08 te enseñaron a trazar?"
+    options:
+      - id: a
+        text:
+          en: "It replaces them: with a volume profile, drawn levels are obsolete."
+          es: "Los sustituye: con un perfil de volumen, los niveles trazados sobran."
+      - id: b
+        correct: true
+        text:
+          en: "The same idea with evidence attached: a measurement, not a chosen line."
+          es: "La misma idea con pruebas adjuntas: una medición, no una línea elegida."
+      - id: c
+        text:
+          en: "It is unrelated; a POC is a volume statistic, not a price level."
+          es: "No tiene relación; un POC es un estadístico, no un nivel de precio."
       - id: d
         text:
-          en: "It cannot be halved; the band is a property of the system, not the sample."
-          es: "No se puede reducir: la banda es del sistema, no de la muestra."
+          en: "It is a stronger guarantee — price does react at a POC, unlike lines."
+          es: "Es una garantía mayor: el precio sí reacciona en un POC, no en líneas."
     explanation:
-      en: "The error shrinks with the square root of N, so four times the trades halves it — 100 gives roughly ±5 points on a 50% system and 400 gives ±2.5. That square root is exactly why 'a few dozen more trades' never settles the question, and why dozens say nothing while hundreds begin to speak."
-      es: "El error encoge con la raíz cuadrada de N, así que cuadruplicar las operaciones lo divide entre dos: 100 dan alrededor de ±5 puntos en un sistema del 50% y 400 dan ±2,5. Esa raíz cuadrada es justo la razón de que «unas cuantas operaciones más» nunca zanje la cuestión, y de que las decenas no digan nada mientras los cientos empiezan a hablar."
-  - id: losing-streak
+      en: "m08 warned that you can always find a line that fits your bias. A POC answers that criticism by giving a reason for the level beyond 'it looks like one'. But every m08 caveat survives: a level with volume behind it is still only a level — it says a reaction is *more likely* there, not that one will happen, and it removes none of the need for confirmation, a stop, and sizing."
+      es: "m08 advertía que siempre puedes encontrar una línea que encaje con tu sesgo. Un POC responde a esa crítica dando una razón para el nivel más allá de 'parece un nivel'. Pero todas las advertencias de m08 siguen en pie: un nivel con volumen detrás sigue siendo solo un nivel; dice que una reacción ahí es *más probable*, no que vaya a ocurrir, y no elimina en absoluto la necesidad de confirmación, stop y dimensionamiento."
+  - id: poc-magnet-myth
     kind: true_false
     prompt:
-      en: "Six losses in a row in a forward test is enough on its own to conclude the system is broken."
-      es: "Seis pérdidas seguidas en un forward test bastan por sí solas para concluir que el sistema está roto."
+      en: "Price always returns to the POC, so a POC below the current price is a dependable target."
+      es: "El precio siempre vuelve al POC, así que un POC por debajo del precio actual es un objetivo fiable."
     answer: false
     explanation:
-      en: "It is the same small-sample fact as a flattering win rate, seen from the other end: m22 showed that long losing streaks are ordinary arithmetic for a perfectly valid system. Six losses is compatible with a broken system AND with a good one having a normal bad run, which is exactly why the abandonment criterion is a measured deviation from expectancy fixed in advance, not a count of consecutive losses."
-      es: "Es el mismo hecho de muestra pequeña que un win rate halagador, visto por el otro extremo: m22 enseñó que las rachas perdedoras largas son aritmética corriente en un sistema perfectamente válido. Seis pérdidas son compatibles con un sistema roto Y con uno bueno pasando una mala racha normal, que es precisamente por lo que el criterio de abandono es una desviación medida respecto a la esperanza fijada de antemano, no un recuento de pérdidas seguidas."
-  - id: what-a-sample-buys
+      en: "False — this is folklore. A high-volume node is a price with a history of agreement, which makes a reaction there more likely than at a random price: a probability, not an appointment. Trading toward a POC with no other reason, and holding without a stop because 'it has to get there', is exactly the material of m26."
+      es: "Falso: esto es folclore. Un nodo de volumen alto es un precio con un historial de acuerdo, lo que hace una reacción ahí más probable que en un precio al azar: una probabilidad, no una cita. Operar hacia un POC sin ninguna otra razón, y aguantar sin stop porque 'tiene que llegar', es exactamente el material de m26."
+  - id: low-volume-node
+    prompt:
+      en: "A volume profile shows a conspicuous gap — a price band where very little traded. What does that usually imply?"
+      es: "Un perfil de volumen muestra un hueco llamativo: una banda de precio donde se negoció muy poco. ¿Qué implica eso normalmente?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The market rejected that band fast, and price often crosses it fast."
+          es: "El mercado rechazó esa banda rápido y el precio suele cruzarla ya."
+      - id: b
+        text:
+          en: "The data for that band is incomplete and should be treated as missing."
+          es: "Los datos de esa banda están incompletos y hay que darlos por ausentes."
+      - id: c
+        text:
+          en: "Price cannot trade in that band again until the profile is reset."
+          es: "El precio no puede volver a esa banda hasta que el perfil se reinicie."
+      - id: d
+        text:
+          en: "It is the strongest support in the profile, since supply is scarce there."
+          es: "Es el soporte más fuerte del perfil, ya que ahí la oferta es escasa."
+    explanation:
+      en: "A low-volume node explains something a pure support/resistance view treats as inexplicable: the fast, uneventful travel between levels. Few participants engaged at those prices, so there is little history of interest there to slow price down. It is the counterpart to a high-volume node, where many did engage."
+      es: "Un nodo de volumen bajo explica algo que una visión de puro soporte/resistencia trata como inexplicable: el viaje rápido y sin incidentes entre niveles. Pocos participantes se implicaron a esos precios, así que hay poco historial de interés que frene al precio. Es la contraparte de un nodo de volumen alto, donde sí se implicaron muchos."
+  - id: why-not-generated
+    prompt:
+      en: "This course generates chart exercises for CVD but not for footprint charts or volume profiles. What is the actual reason?"
+      es: "Este curso genera ejercicios de gráfico para el CVD pero no para los gráficos de footprint ni los perfiles de volumen. ¿Cuál es la razón real?"
+    options:
+      - id: a
+        text:
+          en: "They are less useful than CVD, so they were left out as low priority."
+          es: "Son menos útiles que el CVD y se dejaron fuera por prioridad baja."
+      - id: b
+        text:
+          en: "The underlying data is proprietary and cannot be reproduced legally."
+          es: "Los datos subyacentes son propietarios y no se pueden reproducir."
+      - id: c
+        text:
+          en: "They only work on stocks and futures, never on crypto perpetuals."
+          es: "Solo funcionan con acciones y futuros, nunca con perpetuos cripto."
+      - id: d
+        correct: true
+        text:
+          en: "A different shape of data entirely — not the time series used here."
+          es: "Son otra forma de dato distinta: no la serie temporal usada aquí."
+    explanation:
+      en: "Every chart here is a time series — one value per period — rendered by the same engine. A footprint needs a volume distribution inside each bar; a volume profile needs volume aggregated across bars on a price axis. Faking a plausible-looking picture would teach you to read an artefact rather than the real instrument, which is worse than an honest gap clearly marked — the same stance as m08's candle-pattern dictionary and m31's order book."
+      es: "Todos los gráficos de aquí son series temporales —un valor por periodo— dibujadas por el mismo motor. Un footprint necesita una distribución de volumen dentro de cada barra; un perfil de volumen necesita el volumen agregado a lo largo de las barras sobre un eje de precio. Falsificar una imagen verosímil te enseñaría a leer un artefacto en lugar del instrumento real, y eso es peor que un hueco honesto claramente señalado: la misma postura que el diccionario de patrones de vela de m08 y el libro de órdenes de m31."
+  - id: resolution-not-certainty
+    kind: true_false
+    prompt:
+      en: "Order flow, the order book and footprint charts are each finer-resolution data than candles, and none of them turns a probability into a guarantee."
+      es: "El flujo de órdenes, el libro de órdenes y los gráficos de footprint son cada uno datos de resolución más fina que las velas, y ninguno convierte una probabilidad en una garantía."
+    answer: true
+    explanation:
+      en: "This is the lesson the whole block should leave you with. Each tool is a genuine upgrade in resolution, and the more granular the data, the higher the ratio of noise to signal — a single price level printing a lopsided imbalance is one moment of one candle, and countless such imbalances resolve into nothing. Traders blow up with a footprint chart open the same way as everyone else: size too large, stop absent, and the conviction that better data made them right."
+      es: "Esta es la lección con la que debería dejarte todo el bloque. Cada herramienta es una mejora genuina de resolución, y cuanto más granular es el dato, mayor es la proporción de ruido frente a señal: un único nivel de precio marcando un desequilibrio desigual es un momento de una vela, e incontables desequilibrios así se resuelven en nada. Los traders se arruinan con un gráfico de footprint abierto igual que todos los demás: tamaño demasiado grande, stop inexistente y la convicción de que un dato mejor les daba la razón."
+  - id: profile-vocabulary
     kind: matching
     prompt:
-      en: "Match each sample size to what it honestly supports, for a system whose true win rate is 50%."
-      es: "Empareja cada tamaño de muestra con lo que sostiene honestamente, en un sistema cuyo win rate verdadero es del 50%."
+      en: "Match each term from this module to what it means."
+      es: "Empareja cada término de este módulo con lo que significa."
     pairs:
-      - id: twenty
-        left: { en: "20 trades", es: "20 operaciones" }
+      - id: fp
+        left: { en: "Footprint chart", es: "Gráfico de footprint" }
         right:
-          en: "An observed 28% to 72% — no claim at all."
-          es: "Un observado del 28% al 72%: ninguna afirmación."
-      - id: hundred
-        left: { en: "100 trades", es: "100 operaciones" }
+          en: "One candle broken open: each price level within its range gets a row, split into taker buy and taker sell volume."
+          es: "Una vela abierta en canal: cada nivel de precio dentro de su rango tiene una fila, dividida en volumen taker de compra y de venta."
+      - id: poc
+        left: { en: "POC (point of control)", es: "POC (punto de control)" }
         right:
-          en: "Roughly ±5 points: a rough sense of direction."
-          es: "Unos ±5 puntos: una idea gruesa de por dónde va."
-      - id: threehundred
-        left: { en: "300 trades", es: "300 operaciones" }
+          en: "The single price with the most volume traded — where the market spent the most agreement."
+          es: "El único precio con más volumen negociado: donde el mercado pasó más tiempo de acuerdo."
+      - id: va
+        left: { en: "Value area", es: "Área de valor" }
         right:
-          en: "Roughly ±3 points: a win rate worth putting in a formula."
-          es: "Unos ±3 puntos: un win rate que ya vale para una fórmula."
-      - id: thousand
-        left: { en: "1000 trades", es: "1000 operaciones" }
+          en: "The band containing the bulk of the volume, conventionally 70% — where the market was comfortable."
+          es: "La banda que contiene el grueso del volumen, convencionalmente el 70%: donde el mercado estaba cómodo."
+      - id: lvn
+        left: { en: "Low-volume node", es: "Nodo de bajo volumen" }
         right:
-          en: "Roughly ±1.6 points: a number you can size against."
-          es: "Unos ±1,6 puntos: un número contra el que dimensionar."
+          en: "A price band the market rejected quickly, which price often traverses fast because there is little history of interest there."
+          es: "Una banda de precio que el mercado rechazó rápido y que el precio suele atravesar deprisa porque allí hay poco historial de interés."
     explanation:
-      en: "The band closes slowly because it closes with the square root of the sample. What the table is really saying is that expectancy inherits this uncertainty: an error of ±11 points on the win rate at twenty trades is an expectancy band wide enough to contain both 'profitable' and 'bleeding'."
-      es: "La banda se cierra despacio porque se cierra con la raíz cuadrada de la muestra. Lo que dice de verdad la tabla es que la esperanza hereda esa incertidumbre: un error de ±11 puntos en el win rate con veinte operaciones es una banda de esperanza lo bastante ancha como para contener a la vez «rentable» y «desangrándose»."
+      en: "Both tools rotate the usual axis: they organise volume by price instead of by time. A footprint does it inside one bar; a volume profile does it across a session, a week or a whole range."
+      es: "Ambas herramientas giran el eje habitual: organizan el volumen por precio en vez de por tiempo. El footprint lo hace dentro de una barra; el perfil de volumen, a lo largo de una sesión, una semana o todo un rango."
+  - id: footprint-read
+    prompt:
+      en: "A footprint of one hourly candle reads: 60,300 → 40 bought / 15 sold; 60,200 → 85 / 30; 60,100 → 120 / 310; 60,000 → 55 / 90. What story is that?"
+      es: "El footprint de una vela horaria dice: 60.300 → 40 comprados / 15 vendidos; 60.200 → 85 / 30; 60.100 → 120 / 310; 60.000 → 55 / 90. ¿Qué historia es esa?"
+    options:
+      - id: a
+        text:
+          en: "Sellers dominated every level, so the candle closed on its low."
+          es: "Los vendedores dominaron todos los niveles y la vela cerró abajo."
+      - id: b
+        correct: true
+        text:
+          en: "Buyers pushed up and met heavy selling at 60,100 that ate the effort."
+          es: "Los compradores subieron y en 60.100 una venta fuerte se lo comió."
+      - id: c
+        text:
+          en: "Nothing readable — a footprint shows totals per level, not sides."
+          es: "Nada legible: un footprint da totales por nivel, no los dos lados."
+      - id: d
+        text:
+          en: "A confirmed reversal, since one level printed far more selling."
+          es: "Una reversión confirmada, ya que un nivel imprimió mucha más venta."
+    explanation:
+      en: "This is m29's delta resolved by price level rather than summed over the period: buying dominates at 60,200 and 60,300, and the sides are exactly what a footprint reports. But note the caveat — one level printing 310 sold against 120 bought is a single moment of one candle, and countless such imbalances resolve into nothing."
+      es: "Esto es el delta de m29 resuelto por nivel de precio en vez de sumado en el periodo: la compra domina en 60.200 y 60.300, y los lados son justo lo que reporta un footprint. Pero atención a la advertencia: un nivel que imprime 310 vendidos contra 120 comprados es un momento único de una vela, y un sinfín de desequilibrios así no acaban en nada."
+  - id: profile-upgrades-structure
+    kind: multi_select
+    prompt:
+      en: "Select ALL the ways a volume profile genuinely improves on hand-drawn support and resistance."
+      es: "Selecciona TODAS las formas en que un perfil de volumen mejora realmente los soportes y resistencias dibujados a mano."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The POC is where the most trade occurred, not a line you chose."
+          es: "El POC es donde más se negoció, no una línea que elegiste."
+      - id: b
+        correct: true
+        text:
+          en: "Low-volume nodes explain the fast travel between levels."
+          es: "Los nodos de bajo volumen explican el tránsito rápido entre niveles."
+      - id: c
+        correct: true
+        text:
+          en: "The value area's edges define a range by measurement."
+          es: "Los bordes del área de valor definen un rango por medición."
+      - id: d
+        text:
+          en: "A level with volume behind it no longer needs confirmation, a stop or sizing."
+          es: "Un nivel con volumen detrás ya no necesita confirmación, stop ni tamaño."
+      - id: e
+        text:
+          en: "Price is obliged to return to the POC, which makes it a dependable target."
+          es: "El precio está obligado a volver al POC, lo que lo hace un objetivo fiable."
+    explanation:
+      en: "It gives you a reason for a level beyond 'it looks like one': the POC comes with evidence attached, low-volume nodes explain the uneventful travel a pure support/resistance view cannot, and the value area's edges replace a hand-drawn range boundary with a measured one. Every earlier caveat survives — a high-volume node makes a reaction more likely than at a random price: a probability, not an appointment."
+      es: "Te da una razón para un nivel más allá de 'parece uno': el POC viene respaldado por pruebas, los nodos de bajo volumen explican el tránsito sin incidentes que una visión de soporte/resistencia pura no puede, y los bordes del área de valor sustituyen un límite dibujado a mano por uno medido. Todas las advertencias previas siguen en pie: un nodo de alto volumen hace una reacción más probable que en un precio al azar; una probabilidad, no una cita."

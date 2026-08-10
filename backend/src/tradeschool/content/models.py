@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Course skeleton tables (stable IDs, structure, order, active) and lesson completions.
+"""Course skeleton tables (permanent keys, structure, order, active) and lesson completions.
 
-Structural facts only; progress references these stable IDs, never content (§8).
+Structural facts only; progress references these rows, never content (§8). Since 2026-08-10 the
+`id` column of every skeleton table stores the entity's permanent KEY — equal to the display id at
+creation, never renamed afterwards — so display ids can be renumbered without touching a row.
 """
 
 from __future__ import annotations
@@ -18,10 +20,11 @@ from tradeschool.exercises.types import ExerciseType
 
 
 class SkeletonModel(Base):
-    """Shared columns for every reconciled skeleton table: a stable id and an active flag."""
+    """Shared columns for every reconciled skeleton table: the permanent key and an active flag."""
 
     __abstract__ = True
 
+    # The entity's permanent KEY (courses/blocks: identical to the display id, which never moves).
     id: Mapped[str] = mapped_column(String, primary_key=True)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
 

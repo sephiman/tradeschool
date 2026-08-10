@@ -1,16 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-type: calculation
-formula: position_size_from_risk
+type: pattern_chart
+injector: derivatives
+n: 130
+indicator: oi
+targets: [rising_oi, falling_oi, flat_oi]
+choices: [rising_oi, falling_oi, flat_oi]
 prompt:
-  en: "Your account equity is **{equity}** USDT and you risk **{risk_pct}** of it on this trade. Your stop sits **{stop_distance}** away from your entry (in price). How many units should you buy so that being stopped out loses exactly your risk budget?"
-  es: "El capital de tu cuenta es de **{equity}** USDT y arriesgas **{risk_pct}** de él en esta operación. Tu stop está a **{stop_distance}** de tu entrada (en precio). ¿Cuántas unidades debes comprar para que, si te salta el stop, pierdas exactamente tu presupuesto de riesgo?"
-params:
-  equity: { kind: int_range, min: 2000, max: 20000, step: 500 }
-  risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }
-  stop_distance: { kind: choice, values: ["50", "100", "250", "500"] }
-tolerance: { rel: "0.01" }
-round: 4
-unit: units
+  en: "Price rises across this whole chart. Read the open-interest line in the lower pane against that rally: is the move backed by new positions, driven by shorts covering, or just thin participation?"
+  es: "El precio sube a lo largo de todo el gráfico. Lee la línea de open interest del panel inferior frente a esa subida: ¿el movimiento está respaldado por posiciones nuevas, impulsado por cortos que se cierran o es simplemente participación escasa?"
 explanation:
-  en: "First the risk budget in money: equity × risk %. Then divide it by the stop distance — the loss per unit if you are stopped out. That quotient is the position size: hold it, and hitting the stop costs exactly your budget. A wider stop forces a smaller size for the same risk."
-  es: "Primero el presupuesto de riesgo en dinero: capital × % de riesgo. Luego divídelo por la distancia del stop, la pérdida por unidad si te saltan. Ese cociente es el tamaño de posición: mantenlo y tocar el stop cuesta exactamente tu presupuesto. Un stop más ancho fuerza un tamaño menor para el mismo riesgo."
+  en: "Price rises the same way in every case, so the candles can't tell you anything — the tell is open interest. Rising OI under a rising price means new money is entering (the move is backed). Falling OI during a rally means old shorts are covering, not fresh buying — no conviction. Flat OI means thin participation, a low-conviction drift."
+  es: "El precio sube igual en todos los casos, así que las velas no te dicen nada: la clave es el open interest. Un OI que sube bajo un precio que sube significa que entra dinero nuevo (el movimiento está respaldado). Un OI que cae durante una subida significa que se están cerrando cortos, no que haya compra nueva: sin convicción. Un OI plano significa participación escasa, una deriva sin convicción."

@@ -1,205 +1,215 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: order-flow-types-match
+  - id: what-expectancy-means
+    prompt:
+      en: "What does a trading system's expectancy actually tell you?"
+      es: "¿Qué te dice en realidad la esperanza (expectancy) de un sistema de trading?"
+    options:
+      - id: a
+        text:
+          en: "How often the system wins — higher expectancy just means a higher win rate."
+          es: "Con qué frecuencia gana: más esperanza es solo más win rate."
+      - id: b
+        text:
+          en: "The most that you can possibly lose on any single one of its trades."
+          es: "Lo máximo que puedes perder en una sola de sus operaciones."
+      - id: c
+        text:
+          en: "The probability that the very next trade you take will be a winner."
+          es: "La probabilidad de que la próxima operación sea ganadora."
+      - id: d
+        correct: true
+        text:
+          en: "The average result of one trade, if that same trade were repeated many times."
+          es: "El resultado medio de una operación repetida muchas veces."
+    explanation:
+      en: "Expectancy = win% × average win − loss% × average loss. It blends how often you win with how much you win and lose into one per-trade average: positive means it makes money over time, negative means it loses. It is not the win rate — that is only one of its inputs — not a maximum loss, and not the odds on the next trade."
+      es: "Esperanza = win% × ganancia media − loss% × pérdida media. Combina con qué frecuencia ganas con cuánto ganas y pierdes en una media por operación: positiva significa que gana dinero con el tiempo, negativa que pierde. No es el win rate —que es solo una de sus entradas—, ni una pérdida máxima, ni las probabilidades de la próxima operación."
+  - id: low-winrate-better
+    prompt:
+      en: "System A wins 35% of trades, average win 300, average loss 100. System B wins 80% of trades, average win 40, average loss 300. Which is the better system to trade?"
+      es: "El sistema A gana el 35% de las operaciones, ganancia media 300, pérdida media 100. El sistema B gana el 80%, ganancia media 40, pérdida media 300. ¿Cuál es el mejor sistema para operar?"
+    options:
+      - id: a
+        text:
+          en: "System B — an 80% win rate clearly makes it the more profitable one."
+          es: "El sistema B: un 80% de acierto lo hace claramente más rentable."
+      - id: b
+        correct: true
+        text:
+          en: "System A — its expectancy is +40 a trade against B's −28."
+          es: "El sistema A: su esperanza es +40 por operación frente a −28 del B."
+      - id: c
+        text:
+          en: "System B — winning more often always means running a lower risk."
+          es: "El sistema B: ganar más a menudo siempre significa menos riesgo."
+      - id: d
+        text:
+          en: "Impossible to say without knowing the leverage each one is traded with."
+          es: "Imposible decirlo sin saber con qué apalancamiento se opera cada uno."
+    explanation:
+      en: "A's expectancy = 0.35 × 300 − 0.65 × 100 = +40; B's = 0.80 × 40 − 0.20 × 300 = −28. Despite its low win rate A makes money, while B loses it despite winning four times out of five: the high win rate did not save B, because its losers are far bigger than its winners. Win rate and payoff only mean something together — and leverage is irrelevant to which system has an edge."
+      es: "La esperanza de A = 0,35 × 300 − 0,65 × 100 = +40; la de B = 0,80 × 40 − 0,20 × 300 = −28. Pese a su win rate bajo, A gana dinero, mientras que B lo pierde aunque acierte cuatro de cada cinco: el win rate alto no salvó a B, porque sus perdedoras son mucho mayores que sus ganadoras. El win rate y el payoff solo significan algo juntos, y el apalancamiento no influye en qué sistema tiene edge."
+  - id: winrate-payoff-match
     kind: matching
     prompt:
-      en: "Match each order flow concept to its role in market mechanics."
-      es: "Empareja cada concepto de flujo de órdenes con su papel en la mecánica del mercado."
+      en: "Match each term to what it means."
+      es: "Empareja cada término con lo que significa."
     pairs:
-      - id: passive
-        left: { en: "Passive Liquidity", es: "Liquidez Pasiva" }
+      - id: winrate
+        left:
+          en: "Win rate"
+          es: "Win rate"
         right:
-          en: "Limit orders residing on the order book awaiting execution (provides liquidity)."
-          es: "Órdenes límite en el libro a la espera de ejecución (proporcionan liquidez)."
-      - id: aggressive
-        left: { en: "Aggressive Orders", es: "Órdenes Agresivas" }
+          en: "The fraction of trades that end in profit."
+          es: "La fracción de operaciones que acaban en ganancia."
+      - id: payoff
+        left:
+          en: "Payoff (reward-to-risk)"
+          es: "Payoff (beneficio-riesgo)"
         right:
-          en: "Market orders executing immediately against resting limit orders (consumes liquidity)."
-          es: "Órdenes a mercado ejecutadas inmediatamente contra límite existentes (consumen liquidez)."
-      - id: absorption
-        left: { en: "Order Absorption", es: "Absorción de Órdenes" }
+          en: "How big the average win is compared with the average loss."
+          es: "Cuánto mide la ganancia media frente a la pérdida media."
+      - id: expectancy
+        left:
+          en: "Expectancy"
+          es: "Esperanza (expectancy)"
         right:
-          en: "Heavy market order volume failing to push price past a large resting limit wall."
-          es: "Gran volumen de órdenes a mercado que no logra mover el precio tras un muro de límite."
+          en: "The average result of a single trade, blending win rate and payoff."
+          es: "El resultado medio de una sola operación, que combina win rate y payoff."
+      - id: variance
+        left:
+          en: "Variance"
+          es: "Varianza"
+        right:
+          en: "The spread of results around the true average, which shrinks as trades pile up."
+          es: "La dispersión de los resultados en torno a la media real, que se reduce a medida que se acumulan operaciones."
     explanation:
-      en: "Market prices move when aggressive market orders consume all resting passive limit orders at a given price level."
-      es: "Los precios se mueven cuando las órdenes a mercado agresivas consumen todas las órdenes límite pasivas existentes en un nivel."
-
-  - id: absorption-signals
-    kind: multi_select
-    prompt:
-      en: "Which of the following indicate that passive absorption is taking place?"
-      es: "¿Cuáles de los siguientes indican que está habiendo absorción pasiva?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "High volume while price stays stuck at a key level."
-          es: "Alto volumen con el precio atascado en un nivel clave."
-      - id: b
-        correct: true
-        text:
-          en: "Aggressive buy market orders failing to make Higher Highs."
-          es: "Órdenes de compra agresivas que no crean Máximos Más Altos."
-      - id: c
-        correct: false
-        text:
-          en: "Declining volume during a rapid breakout through a thin patch of liquidity."
-          es: "Volumen decreciente durante una rotura rápida por una zona de poca liquidez."
-      - id: d
-        correct: true
-        text:
-          en: "Cumulative delta rising sharply while price moves sideways."
-          es: "Delta acumulado subiendo con fuerza mientras el precio va de lado."
-    explanation:
-      en: "Absorption happens when passive buyers or sellers absorb large market orders without allowing price to progress: heavy aggression meeting an unmoved price. The thin-liquidity breakout is the opposite picture — little aggression moving price a long way — which is why it says nothing about absorption."
-      es: "La absorción ocurre cuando compradores o vendedores pasivos absorben grandes órdenes a mercado sin permitir que el precio avance: agresión intensa contra un precio que no se mueve. La rotura con poca liquidez es la imagen contraria —poca agresión moviendo mucho el precio— y por eso no dice nada sobre absorción."
-
-  - id: taker-vs-maker-truth
+      en: "Win rate is how often you win; payoff is how much you win versus lose; expectancy folds both into the per-trade average that actually decides profitability; and variance is the noise around that average, which only a large sample averages out."
+      es: "El win rate es con qué frecuencia ganas; el payoff es cuánto ganas frente a lo que pierdes; la esperanza reúne ambos en la media por operación que de verdad decide la rentabilidad; y la varianza es el ruido alrededor de esa media, que solo una muestra grande promedia hasta suavizar."
+  - id: high-winrate-profit-myth
     kind: true_false
     prompt:
-      en: "A buyer using a market order is guaranteed to be an informed institutional trader."
-      es: "Un comprador que usa una orden a mercado tiene garantizado ser un trader institucional informado."
+      en: "A high win rate always means a profitable system."
+      es: "Un win rate alto siempre significa un sistema rentable."
     answer: false
     explanation:
-      en: "Taker market order flow includes retail panic buying, stop-loss executions, and forced liquidations. Institutional size often builds via passive limit orders."
-      es: "El flujo taker a mercado incluye compras de pánico minoristas, ejecuciones de stop-loss y liquidaciones forzosas. El tamaño institucional a menudo se construye vía órdenes límite pasivas."
-
-  - id: aggressor-misconception
-    kind: single_choice
+      en: "False. Win rate is only half the picture. A system that wins 90% of the time still loses money if the rare losses are far bigger than the frequent wins. Only expectancy — win rate and payoff together — tells you whether the account grows."
+      es: "Falso. El win rate es solo la mitad de la foto. Un sistema que gana el 90% de las veces aun así pierde dinero si las pérdidas raras son mucho mayores que las ganancias frecuentes. Solo la esperanza —el win rate y el payoff juntos— te dice si la cuenta crece."
+  - id: edge-inputs-multi
+    kind: multi_select
     prompt:
-      en: "Why is a high negative delta combined with price refusing to fall a bullish signal?"
-      es: "¿Por qué un delta negativo elevado combinado con un precio que se niega a caer es una señal alcista?"
-    options:
-      - id: a
-        text:
-          en: "Negative delta means every short trader is being forced to buy back in."
-          es: "Delta negativo significa que todos los cortos están obligados a recomprar."
-      - id: b
-        text:
-          en: "Price always follows the delta, so a negative delta will drag it down."
-          es: "El precio siempre sigue al delta, así que un delta negativo lo arrastrará."
-      - id: c
-        correct: true
-        text:
-          en: "Passive limit buyers are quietly absorbing all of the sell pressure there."
-          es: "Compradores límite pasivos absorben la presión vendedora."
-      - id: d
-        text:
-          en: "Heavy selling with no fall means the venue is reporting inflated volume."
-          es: "Vender fuerte sin caída significa que el venue reporta volumen inflado."
-    explanation:
-      en: "Heavy aggressive selling that produces zero price breakdown indicates absorption on the bid side: someone with size is quietly taking every market sell without letting price through. Note the trap — delta is pressure, not a forecast, so 'price follows delta' gets this exactly backwards, and the interesting signal is precisely the divergence."
-      es: "Ventas agresivas intensas que producen cero caída de precio indican absorción en el lado de la compra: alguien con tamaño se queda en silencio con cada venta a mercado sin dejar pasar el precio. Ojo a la trampa: el delta es presión, no pronóstico, así que «el precio sigue al delta» lo entiende justo al revés, y la señal interesante es precisamente la divergencia."
-
-  - id: order-execution-sequence
-    kind: ordering
-    prompt:
-      en: "Order the mechanics of a market order filling on an exchange order book."
-      es: "Ordena la mecánica del llenado de una orden a mercado en el libro de un exchange."
-    items:
-      - id: step-1
-        position: 1
-        text:
-          en: "Trader sends aggressive market buy order to the exchange."
-          es: "El trader envía una orden de compra a mercado agresiva al exchange."
-      - id: step-2
-        position: 2
-        text:
-          en: "Engine matches the market buy with the lowest available ask limit order."
-          es: "El motor empareja la compra a mercado con la orden límite de venta más baja disponible."
-      - id: step-3
-        position: 3
-        text:
-          en: "If size exceeds the lowest ask, remaining contracts sweep higher ask price tiers (slippage)."
-          es: "Si el tamaño supera la venta más baja, los contratos restantes barren niveles de venta superiores (slippage)."
-      - id: step-4
-        position: 4
-        text:
-          en: "Trade executes, delta records net positive aggressive volume, and last price updates."
-          es: "La operación se ejecuta, el delta registra volumen agresivo positivo neto y el último precio se actualiza."
-    explanation:
-      en: "Market orders consume order book depth sequentially from best price upward, causing slippage if size exceeds top of book."
-      es: "Las órdenes a mercado consumen la profundidad del libro secuencialmente desde el mejor precio hacia arriba, causando slippage si el tamaño supera el top del libro."
-
-  - id: limit-order-wall-impact
-    kind: single_choice
-    prompt:
-      en: "How does a massive passive limit order wall on the ask side affect market aggressive buyers?"
-      es: "¿Cómo afecta un muro masivo de órdenes límite pasivas de venta a los compradores agresivos del mercado?"
-    options:
-      - id: a
-        text:
-          en: "It forces market orders to be re-routed as limit orders automatically."
-          es: "Obliga a que las órdenes a mercado se reenvíen como límite automáticamente."
-      - id: b
-        correct: true
-        text:
-          en: "Aggressive buys fill at the wall price, halting progress until it is consumed."
-          es: "Las compras agresivas se llenan al precio del muro hasta consumirlo."
-      - id: c
-        text:
-          en: "It widens the spread, so aggressive buyers pay a higher taker fee instead."
-          es: "Ensancha el spread, así que los compradores agresivos pagan más comisión."
-      - id: d
-        text:
-          en: "It prevents new short positions from opening while the wall is resting."
-          es: "Impide que se abran nuevos cortos mientras el muro esté en reposo."
-    explanation:
-      en: "A large resting limit order wall acts as an absorption barrier: every aggressive buy is filled at the wall's price, and price cannot progress upward until that liquidity is exhausted or the wall is pulled. It changes what your order fills against, not what type of order it is or what it costs."
-      es: "Un gran muro de órdenes límite en reposo actúa como barrera de absorción: cada compra agresiva se llena al precio del muro, y el precio no puede avanzar hasta que esa liquidez se agote o el muro se retire. Cambia contra qué se llena tu orden, no de qué tipo es ni cuánto cuesta."
-
-  - id: market-order-slippage-cause
-    kind: single_choice
-    prompt:
-      en: "Why do large market orders experience severe slippage during low-liquidity news releases?"
-      es: "¿Por qué las órdenes a mercado grandes sufren un slippage severo durante publicaciones de noticias con baja liquidez?"
-    options:
-      - id: a
-        text:
-          en: "The matching engine queues orders during volatility and fills them later."
-          es: "El motor encola las órdenes durante la volatilidad y las llena después."
-      - id: b
-        text:
-          en: "Taker fees rise during news events, and the extra fee shows up as slippage."
-          es: "Las comisiones taker suben con las noticias y el extra aparece como slippage."
-      - id: c
-        text:
-          en: "The liquidation engine takes priority and pushes your order back in the queue."
-          es: "El motor de liquidaciones tiene prioridad y retrasa tu orden en la cola."
-      - id: d
-        correct: true
-        text:
-          en: "Market makers pull their resting orders, thinning the book."
-          es: "Los market makers retiran sus órdenes y adelgazan el libro."
-    explanation:
-      en: "Market makers pull liquidity before major news to avoid getting picked off, so the book is thin across every price level and a market order sweeps a deep range to fill. Slippage is a fill price, not a fee or a delay — nothing about your order changed, only what was left to trade against."
-      es: "Los market makers retiran liquidez antes de noticias importantes para evitar ser atrapados, así que el libro queda fino en todos los niveles y una orden a mercado barre un rango amplio para llenarse. El slippage es un precio de ejecución, no una comisión ni un retraso: tu orden no cambió, cambió lo que quedaba enfrente."
-
-  - id: order-flow-delta-divergence-read
-    kind: single_choice
-    prompt:
-      en: "What is the order flow interpretation of positive delta accompanied by declining price?"
-      es: "¿Cuál es la interpretación de flujo de órdenes de un delta positivo acompañado de una caída de precio?"
+      en: "Select ALL the figures you need to work out a system's expectancy."
+      es: "Selecciona TODAS las cifras que necesitas para calcular la esperanza de un sistema."
     options:
       - id: a
         correct: true
         text:
-          en: "Passive sellers are overpowering the aggressive buyers with heavy limit walls."
-          es: "Los vendedores pasivos superan a los compradores agresivos."
+          en: "The win rate — how often the system wins."
+          es: "El win rate: con qué frecuencia gana el sistema."
       - id: b
+        correct: true
         text:
-          en: "The exchange has throttled limit buy orders, so the delta is misreported."
-          es: "El exchange ha limitado las compras límite y el delta está mal reportado."
+          en: "The average size of its winning trades."
+          es: "El tamaño medio de sus operaciones ganadoras."
       - id: c
+        correct: true
         text:
-          en: "Longs are being paid funding, which mechanically caps the upside in price."
-          es: "A los largos les pagan funding, lo que limita mecánicamente la subida."
+          en: "The average size of its losing trades."
+          es: "El tamaño medio de sus operaciones perdedoras."
       - id: d
         text:
-          en: "Delta lags price: it will turn negative once the prints are reclassified."
-          es: "El delta va con retraso: girará a negativo al reclasificar las impresiones."
+          en: "The leverage you happen to trade it with."
+          es: "El apalancamiento con el que resulte que la operas."
+      - id: e
+        text:
+          en: "The total balance sitting in your account."
+          es: "El saldo total que hay en tu cuenta."
+      - id: f
+        text:
+          en: "The largest single loss you have ever taken."
+          es: "La mayor pérdida individual que hayas sufrido."
     explanation:
-      en: "When aggressive buy delta fails to produce price gains, passive limit sell liquidity is dominating and absorbing the buyer interest — the mirror image of bid-side absorption. The divergence is the signal, not a data error: delta and price are measuring different things, so they are allowed to disagree."
-      es: "Cuando el delta comprador agresivo no produce ganancias de precio, la liquidez pasiva de venta límite domina y absorbe el interés comprador: la imagen especular de la absorción en el lado de la compra. La divergencia es la señal, no un error de datos: el delta y el precio miden cosas distintas, así que pueden discrepar."
+      en: "Expectancy = win% × average win − loss% × average loss, and loss% is just 1 − win%. So you need exactly three things: the win rate, the average win and the average loss. Leverage, account size and your worst-ever loss don't enter the formula — expectancy is a per-trade average, not a function of how big you bet."
+      es: "Esperanza = win% × ganancia media − loss% × pérdida media, y loss% es simplemente 1 − win%. Así que necesitas exactamente tres cosas: el win rate, la ganancia media y la pérdida media. El apalancamiento, el tamaño de la cuenta y tu peor pérdida no entran en la fórmula: la esperanza es una media por operación, no una función de cuánto apuestas."
+  - id: breakeven-winrate-payoff
+    prompt:
+      en: "Your winners average twice the size of your losers (a payoff of 2). What win rate do you need just to break even?"
+      es: "Tus ganadoras promedian el doble del tamaño de tus perdedoras (un payoff de 2). ¿Qué win rate necesitas solo para quedar en tablas?"
+    options:
+      - id: a
+        text:
+          en: "50% — you always have to win more than half of your trades."
+          es: "El 50%: siempre hay que ganar más de la mitad de las operaciones."
+      - id: b
+        text:
+          en: "About 67% — bigger winners mean you must win more often, not less."
+          es: "Un 67%: con ganadoras mayores hay que acertar más, no menos."
+      - id: c
+        text:
+          en: "It can never break even at all below a 50% win rate."
+          es: "Nunca puede quedar en tablas por debajo de un 50% de acierto."
+      - id: d
+        correct: true
+        text:
+          en: "About 33% — any win rate above that turns the system profitable."
+          es: "Alrededor del 33%: por encima de eso es beneficio."
+    explanation:
+      en: "Break-even win rate = 1 / (1 + payoff) = 1 / (1 + 2) = 1/3 ≈ 33%. With winners twice the size of losers you only need to win about a third of the time to break even. The instinct that you must win most of your trades ignores the payoff entirely — and a bigger payoff lowers the required win rate rather than raising it."
+      es: "Win rate de equilibrio = 1 / (1 + payoff) = 1 / (1 + 2) = 1/3 ≈ 33%. Con ganadoras del doble de tamaño que las perdedoras, solo necesitas ganar alrededor de un tercio de las veces para quedar en tablas. El instinto de que debes ganar la mayoría de tus operaciones ignora por completo el payoff, y un payoff mayor baja el win rate necesario en vez de subirlo."
+  - id: expectancy-worked
+    prompt:
+      en: "System A: 40% win rate, average win 300, average loss 100. System B: 80% win rate, average win 50, average loss 300. What is each one's expectancy per trade?"
+      es: "Sistema A: 40% de acierto, ganancia media 300, pérdida media 100. Sistema B: 80% de acierto, ganancia media 50, pérdida media 300. ¿Cuál es la expectativa por operación de cada uno?"
+    options:
+      - id: a
+        text:
+          en: "A: −60 USDT and B: +20 USDT — the higher win rate wins out here."
+          es: "A: −60 USDT y B: +20 USDT: gana la tasa de acierto más alta."
+      - id: b
+        correct: true
+        text:
+          en: "A: +60 USDT and B: −20 USDT, so the lower win rate is the better system."
+          es: "A: +60 USDT y B: −20 USDT, así que gana el de menor acierto."
+      - id: c
+        text:
+          en: "Both of them are positive; B is simply the smaller one per trade."
+          es: "Los dos son positivos; B es simplemente menor por operación."
+      - id: d
+        text:
+          en: "Neither can be computed without the number of trades that were taken."
+          es: "Ninguno puede calcularse sin el número de operaciones realizadas."
+    explanation:
+      en: "A: 0.40 × 300 − 0.60 × 100 = +60 USDT. B: 0.80 × 50 − 0.20 × 300 = −20 USDT — winning four out of five and still losing money. Expectancy is a weighted average, each outcome multiplied by how often it happens, so it already contains both win rate and payoff and needs no trade count. Win rate on its own would have ranked these two backwards."
+      es: "A: 0,40 × 300 − 0,60 × 100 = +60 USDT. B: 0,80 × 50 − 0,20 × 300 = −20 USDT: ganando cuatro de cinco y aun así perdiendo dinero. La expectativa es una media ponderada, cada resultado multiplicado por su frecuencia, así que ya contiene tanto la tasa de acierto como el payoff y no necesita un número de operaciones. La tasa de acierto por sí sola habría ordenado estos dos al revés."
+  - id: breakeven-table
+    kind: matching
+    prompt:
+      en: "Match each payoff to the win rate it demands just to break even."
+      es: "Empareja cada payoff con la tasa de acierto que exige solo para no perder."
+    pairs:
+      - id: p3
+        left: { en: "Payoff 3 — winners three times your losers", es: "Payoff 3: ganadoras el triple que las perdedoras" }
+        right: { en: "25% — win one in four and you break even.", es: "25%: gana una de cada cuatro y quedas en tablas." }
+      - id: p2
+        left: { en: "Payoff 2 — winners twice your losers", es: "Payoff 2: ganadoras el doble que las perdedoras" }
+        right: { en: "33.3% — win more than one in three and you profit.", es: "33,3%: gana más de una de cada tres y ganas dinero." }
+      - id: p1
+        left: { en: "Payoff 1 — equal-sized wins and losses", es: "Payoff 1: ganancias y pérdidas del mismo tamaño" }
+        right: { en: "50% — the coin-flip threshold.", es: "50%: el umbral de la moneda al aire." }
+      - id: p05
+        left: { en: "Payoff 0.5 — winners half the size of losers", es: "Payoff 0,5: ganadoras la mitad que las perdedoras" }
+        right: { en: "66.7% — two out of three just to tread water.", es: "66,7%: dos de cada tres solo para mantenerse." }
+    explanation:
+      en: "Break-even win% = 1 ÷ (1 + payoff). It turns the vague 'you need a good payoff' into a hard threshold you can check before ever placing a trade."
+      es: "Tasa de equilibrio = 1 ÷ (1 + payoff). Convierte el vago 'necesitas un buen payoff' en un umbral concreto que puedes comprobar antes de operar."
+  - id: costs-raise-floor
+    kind: true_false
+    prompt:
+      en: "The win rate you actually need is exactly 1 ÷ (1 + payoff)."
+      es: "La tasa de acierto que realmente necesitas es exactamente 1 ÷ (1 + payoff)."
+    answer: false
+    explanation:
+      en: "Break-even is the floor, and the real floor is higher than the formula says, because every trade pays fees and, in futures, funding. A payoff that break-evens on paper loses money once costs come out."
+      es: "El equilibrio es el suelo, y el suelo real es más alto de lo que dice la fórmula, porque cada operación paga comisiones y, en futuros, funding. Un payoff que empata en el papel pierde dinero cuando salen los costes."

@@ -1,91 +1,218 @@
 # SPDX-License-Identifier: AGPL-3.0-only
+# The boundary bank: where the dialect's claims stop being checkable. Same stance m29 and m33 take about
+# their own frontier — say what the tool does, say where it stops, and never let a story stand in for a
+# mechanism. Every variant here targets a specific way the vocabulary is used to smuggle certainty in.
 type: quiz
 variants:
-  - id: expiry-moves-the-perp
+  - id: intent-unfalsifiable
     prompt:
-      en: "A perpetual never expires. Why does a quarterly futures settlement move it anyway?"
-      es: "Un perpetuo no vence nunca. ¿Por qué lo mueve entonces la liquidación de un futuro trimestral?"
+      en: "Two accounts of the same wick through a swing low. Which one can you actually check?"
+      es: "Dos relatos de la misma mecha que atraviesa un mínimo de swing. ¿Cuál puedes comprobar de verdad?"
     options:
       - id: a
         text:
-          en: "The exchange settles the perpetual against the quarterly's final price."
-          es: "El exchange liquida el perpetuo contra el precio final del trimestral."
+          en: "\"Smart money engineered that wick to take retail's liquidity first.\""
+          es: "«El smart money fabricó esa mecha para tomar la liquidez del retail.»"
       - id: b
         correct: true
         text:
-          en: "Positions built on the gap must be closed, and they close on the perp."
-          es: "Las posiciones montadas sobre el hueco hay que cerrarlas, y cierran en el perpetuo."
+          en: "\"Stops cluster under an obvious low; a move there triggers selling.\""
+          es: "«Los stops se agrupan bajo un mínimo obvio; ir ahí dispara ventas.»"
       - id: c
         text:
-          en: "Funding is suspended around settlement, which frees price to move."
-          es: "El funding se suspende en la liquidación, lo que libera al precio."
+          en: "Both are equally checkable — the same event in different words."
+          es: "Las dos son igual de comprobables: el mismo evento con otras palabras."
       - id: d
         text:
-          en: "It does not: perpetual and quarterly markets are entirely independent."
-          es: "No lo mueve: el mercado perpetuo y el trimestral son independientes."
+          en: "Neither: intraday wicks are noise and carry no information at all."
+          es: "Ninguna: las mechas intradía son ruido y no llevan información."
     explanation:
-      en: "A dated contract converges to spot at settlement, so every position built on the difference between it and the perp — carry trades, calendar spreads, all of m34-l1 — has to be closed or rolled at that moment, and those closures land where the liquidity is, which is the perp. The basis re-anchors, and the flow doing it is mechanical: it happens because a date arrived, not because anybody changed their mind. Options expiries do the same thing through released market-maker hedges."
-      es: "Un contrato con fecha converge al spot en la liquidación, así que toda posición montada sobre la diferencia entre él y el perpetuo —carries, spreads de calendario, toda m34-l1— hay que cerrarla o rolarla en ese momento, y esos cierres caen donde está la liquidez, que es el perpetuo. La base se reancla, y el flujo que lo hace es mecánico: ocurre porque llegó una fecha, no porque nadie haya cambiado de opinión. Los vencimientos de opciones hacen lo mismo a través de las coberturas que sueltan los creadores de mercado."
-  - id: outage-risk
+      en: "The stops account names a mechanism with parts you can point at: where protective orders sit (m19-l2), why they cluster (everyone reads the same chart), what forced selling does to a thin book (m06-l1), and someone on the other side absorbing it. The smart-money account names an actor and a motive, and no observation can contradict it — if price reverses, they engineered it; if it does not, they were accumulating. That is what makes it a story rather than a claim, and it is why this course describes the same event without it. Dismissing the wick as pure noise overcorrects: a reclaim is real information about who lost that fight (m08-l2), just not information about anyone's intentions."
+      es: "El relato de los stops nombra un mecanismo con piezas que puedes señalar: dónde están las órdenes de protección (m19-l2), por qué se agrupan (todos miran el mismo gráfico), qué le hace la venta forzada a un libro fino (m06-l1) y alguien absorbiéndola desde el otro lado. El relato del smart money nombra un actor y un motivo, y ninguna observación puede contradecirlo: si el precio se gira, lo fabricaron; si no, estaban acumulando. Eso es lo que lo convierte en relato y no en afirmación, y es por lo que este curso describe el mismo evento sin él. Despachar la mecha como puro ruido se pasa de corrección: una recuperación es información real sobre quién perdió esa pelea (m08-l2), solo que no es información sobre las intenciones de nadie."
+  - id: hindsight-zones
     prompt:
-      en: "When is an exchange most likely to slow down or stop responding?"
-      es: "¿Cuándo es más probable que un exchange se ralentice o deje de responder?"
+      en: "A chart is posted with four order blocks marked, and price reacted at three of them. What is the first thing to ask?"
+      es: "Se publica un gráfico con cuatro order blocks marcados, y el precio reaccionó en tres de ellos. ¿Qué es lo primero que hay que preguntar?"
     options:
       - id: a
         text:
-          en: "At random — outages have no relationship to market activity."
-          es: "Al azar: las caídas no tienen relación con la actividad del mercado."
+          en: "Whether the zones sit on a high enough timeframe to be reliable ones."
+          es: "Si las zonas están en una temporalidad lo bastante alta para fiarse."
       - id: b
         text:
-          en: "During the quiet weekend hours, when maintenance is usually scheduled."
-          es: "En las horas tranquilas del fin de semana, cuando suele haber mantenimiento."
+          en: "Whether three out of four is a good enough hit rate to trade on."
+          es: "Si tres de cuatro es un acierto suficiente como para operar con él."
       - id: c
+        text:
+          en: "Nothing — three reactions out of four zones speaks for itself."
+          es: "Nada: tres reacciones de cuatro zonas hablan por sí solas."
+      - id: d
         correct: true
         text:
-          en: "When volume spikes — which is when your position needs attention."
-          es: "Cuando se dispara el volumen, que es cuando tu posición necesita atención."
-      - id: d
-        text:
-          en: "Just after a large expiry, once the mechanical flow has been processed."
-          es: "Justo después de un vencimiento grande, procesado ya el flujo mecánico."
+          en: "Were those zones drawable *before* the reactions became visible?"
+          es: "¿Eran esas zonas dibujables *antes* de que se vieran las reacciones?"
     explanation:
-      en: "Venues degrade under load, and load is highest exactly when everyone is trying to act — so 'I cannot close' arrives at the worst possible moment, by construction rather than by bad luck. The liquidation engine, meanwhile, does not go down when the app does: your margin is still being checked whether or not you can log in. That is the whole argument for a stop RESTING on the exchange rather than in your head, and for a size that survives a move you cannot react to."
-      es: "Las plataformas se degradan bajo carga, y la carga es máxima justo cuando todo el mundo intenta actuar, así que el «no puedo cerrar» llega en el peor momento posible por construcción y no por mala suerte. El motor de liquidación, mientras tanto, no se cae cuando se cae la app: tu margen se sigue comprobando puedas o no entrar. Ese es el argumento entero a favor de un stop PUESTO en el exchange en vez de en tu cabeza, y de un tamaño que sobreviva a un movimiento al que no puedas reaccionar."
-  - id: conditions-mould
+      en: "A chart marked after the fact tells you nothing about a method, because the candles that reacted are also the candles that suggested where to draw. The dialect is unusually exposed to this: a zone is a band, bands can be nudged, and every impulse has candles before it, so a diligent hindsight reader will always find one near a reaction. The test is whether the sequence was complete before the reaction — the structural break first, then the zone, then the return — which is what m34-ex-3's ordering question is drilling. Asking about the hit rate grants the premise the question is challenging: a rate measured on hand-picked examples is not a hit rate."
+      es: "Un gráfico marcado a posteriori no te dice nada sobre un método, porque las velas que reaccionaron son también las velas que sugirieron dónde dibujar. El dialecto está especialmente expuesto a esto: una zona es una banda, las bandas se pueden mover un poco y todo impulso tiene velas antes, así que un lector diligente a posteriori siempre encontrará una cerca de una reacción. La prueba es si la secuencia estaba completa antes de la reacción —primero la ruptura estructural, luego la zona, luego la vuelta—, que es lo que ejercita la pregunta de ordenar de m34-ex-3. Preguntar por el porcentaje de acierto concede la premisa que la pregunta cuestiona: un porcentaje medido sobre ejemplos escogidos a mano no es un porcentaje de acierto."
+  - id: survivorship
     kind: true_false
     prompt:
-      en: "A calendar of unlocks, listings and expiries is a schedule of price directions you can trade from."
-      es: "Un calendario de unlocks, listings y vencimientos es una agenda de direcciones de precio que se pueden operar."
+      en: "Price bounced off an order block exactly as expected, so the order-block concept is confirmed for the next trade."
+      es: "El precio rebotó en un order block exactamente como se esperaba, así que el concepto de order block queda confirmado para la próxima operación."
     answer: false
     explanation:
-      en: "It is a schedule of CONDITIONS: how liquid the book will be, how volatile the hours around a date, who is likely to be forced to trade. That is the same mould as m17's open interest and funding and m32's squeeze, and mistaking it for a direction is how calendars cost people money. What a public date does reliably tell you is that the market has had time to prepare for it."
-      es: "Es una agenda de CONDICIONES: cuánta liquidez habrá en el libro, cuánta volatilidad en las horas alrededor de una fecha, quién es probable que se vea obligado a operar. Es el mismo molde que el interés abierto y el funding de m17 y el squeeze de m32, y confundirlo con una dirección es como los calendarios le cuestan dinero a la gente. Lo que sí te dice con fiabilidad una fecha pública es que el mercado ha tenido tiempo de prepararse."
-  - id: which-risk-where
+      en: "False, and the reasoning matters more than the answer. One outcome cannot confirm a method — it is one sample, and a zone in a trending market is being tested at a price the trend was likely to bounce from anyway. The dialect's own vocabulary makes this harder to notice, because a zone that fails is often relabelled (it was \"mitigated\", or the \"real\" block was the one above), so failures leave the record and successes stay in it. m25 gives the honest standard: a method earns belief from a sample recorded in advance, wins and losses alike."
+      es: "Falso, y el razonamiento importa más que la respuesta. Un resultado no puede confirmar un método: es una muestra, y una zona en un mercado en tendencia se está testeando a un precio del que la tendencia probablemente iba a rebotar de todas formas. El vocabulario del propio dialecto hace esto más difícil de notar, porque una zona que falla se reetiqueta a menudo (estaba «mitigada», o el bloque «de verdad» era el de arriba), así que los fallos se salen del registro y los aciertos se quedan. m25 da el estándar honesto: un método se gana la confianza con una muestra registrada por adelantado, aciertos y fallos por igual."
+  - id: no-mechanic-no-trade
+    prompt:
+      en: "You have marked a zone on a chart and cannot say which mechanic makes it a zone. What does this course say to do?"
+      es: "Has marcado una zona en un gráfico y no puedes decir qué mecánica la convierte en zona. ¿Qué dice este curso que hay que hacer?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "No trade: name what would be resting there, or it is only a drawing."
+          es: "No hay operación: nombra qué habría en reposo, o es solo un dibujo."
+      - id: b
+        text:
+          en: "Trade it with a smaller size, since the zone is probably still valid."
+          es: "Opérala con tamaño más pequeño, ya que la zona seguirá siendo válida."
+      - id: c
+        text:
+          en: "Wait for a second zone to line up with it, then trade the confluence."
+          es: "Espera a que una segunda zona coincida y opera la confluencia."
+      - id: d
+        text:
+          en: "Move the stop wider so that the zone has room enough to work."
+          es: "Amplía el stop para que la zona tenga margen suficiente para funcionar."
+    explanation:
+      en: "This is m08-l2's rule, unchanged: if you cannot name the level the candle is reacting to, there is no trade. The dialect does not earn an exception — it earns the same test. Note what the wrong answers have in common: sizing down and widening the stop both keep the trade and adjust the risk, which converts an unexamined idea into a real loss, and widening specifically breaks m22's rule that the stop is read off the structure and never off how much room the idea needs. Stacking a second zone on top stacks two guesses and calls the stack evidence — m13 is explicit that confluence means levels that already mattered independently, not two drawings agreeing with each other."
+      es: "Es la regla de m08-l2, sin cambios: si no puedes nombrar el nivel al que reacciona la vela, no hay operación. El dialecto no se gana una excepción: se gana la misma prueba. Fíjate en lo que tienen en común las respuestas incorrectas: bajar el tamaño y ensanchar el stop mantienen la operación y ajustan el riesgo, lo que convierte una idea sin examinar en una pérdida real, y ensanchar rompe además la regla de m22 de que el stop se lee de la estructura y nunca de cuánto margen necesita la idea. Apilar una segunda zona encima apila dos conjeturas y llama pruebas al montón: m13 es explícito en que confluencia significa niveles que ya importaban por separado, no dos dibujos que coinciden entre sí."
+  - id: ote-numerology
+    prompt:
+      en: "A framework says the \"optimal trade entry\" is the 0.705–0.79 retracement band. How should you read that?"
+      es: "Un framework dice que la «entrada óptima» es la banda de retroceso 0,705–0,79. ¿Cómo hay que leerlo?"
+    options:
+      - id: a
+        text:
+          en: "A refinement worth adopting, since a narrower band is a better entry."
+          es: "Un refinamiento que adoptar, ya que una banda estrecha entra mejor."
+      - id: b
+        correct: true
+        text:
+          en: "m13's Fibonacci with extra decimals: no mechanism, false precision."
+          es: "El Fibonacci de m13 con más decimales: sin mecanismo, falsa precisión."
+      - id: c
+        text:
+          en: "A statistically derived band, since odd numbers imply a data fit."
+          es: "Una banda derivada estadísticamente, ya que los números raros lo implican."
+      - id: d
+        text:
+          en: "Valid on high timeframes only, where retracements come out cleaner."
+          es: "Válido solo en temporalidades altas, donde los retrocesos son limpios."
+    explanation:
+      en: "m13 already settled this for 0.618: no mechanism forces a market to respect a ratio, and what the level has going for it is that enough people watch it. A number with three decimal places has strictly less of that going for it, not more — it is watched by fewer people, and precision is the one thing a retracement zone cannot deliver (m13's *promise of precision*). The statistical reading has the inference exactly backwards: an odd-looking constant is evidence of curve-fitting, not of statistics, and a fitted number that nobody publishes a sample for is a number with nothing behind it at all."
+      es: "m13 ya zanjó esto con el 0,618: ningún mecanismo obliga a un mercado a respetar una proporción, y lo que el nivel tiene a su favor es que bastante gente lo vigila. Un número con tres decimales tiene estrictamente menos de eso a su favor, no más: lo vigila menos gente, y la precisión es justo lo que una zona de retroceso no puede dar (la *promesa de la precisión* de m13). La lectura estadística tiene la inferencia exactamente al revés: una constante de aspecto raro es evidencia de sobreajuste, no de estadística, y un número ajustado del que nadie publica una muestra es un número sin nada detrás."
+  - id: fvg-as-target
+    kind: true_false
+    prompt:
+      en: "An unfilled imbalance sits 6% below price, so it can be used as a target: price has to come back and fill it."
+      es: "Un desequilibrio sin rellenar está un 6 % por debajo del precio, así que puede usarse como objetivo: el precio tiene que volver a rellenarlo."
+    answer: false
+    explanation:
+      en: "False. \"Often comes back\" is a tendency; \"has to\" is a law, and there is no law here. Gaps stay open for months and some are never revisited, especially the ones a trend ran away from. The word *has* is where the damage is done: it turns a probabilistic magnet into a promise, and a promise justifies holding a losing position, which is m26's territory. Use it the way m19-l2 says to read a liquidity map — as a place where something is more likely to happen, not as a destination the market owes you."
+      es: "Falso. «Vuelve a menudo» es una tendencia; «tiene que» es una ley, y aquí no hay ninguna ley. Los huecos se quedan abiertos meses y algunos no se revisitan nunca, sobre todo los que una tendencia dejó atrás. El daño está en el «tiene que»: convierte un imán probabilístico en una promesa, y una promesa justifica aguantar una posición perdedora, que es el terreno de m26. Úsalo como dice m19-l2 que se lee un mapa de liquidez: como un sitio donde algo es más probable, no como un destino que el mercado te debe."
+  - id: crowded-not-correct
+    prompt:
+      en: "If none of these names adds a mechanism, why is the dialect worth learning at all?"
+      es: "Si ninguno de estos nombres añade un mecanismo, ¿para qué vale la pena aprender el dialecto?"
+    options:
+      - id: a
+        text:
+          en: "Because the terms describe phenomena the mechanical reading misses."
+          es: "Porque los términos describen fenómenos que la lectura mecánica pierde."
+      - id: b
+        text:
+          en: "It is not worth learning; the mechanical vocabulary covers everything."
+          es: "No vale la pena; el vocabulario mecánico ya es suficiente para todo."
+      - id: c
+        text:
+          en: "Because zones drawn by more traders hold more often on any given test."
+          es: "Porque las zonas que dibujan más traders aguantan más en cada test."
+      - id: d
+        correct: true
+        text:
+          en: "Because enough people watch the same zones, and you must read the crowd."
+          es: "Porque bastante gente vigila las mismas zonas y hay que leer a la masa."
+    explanation:
+      en: "Both halves matter, and they are different kinds of reason. Enough people watching the same zones means orders pile up around them — the same reason m13 gives for Fibonacci and m10-l1 for the 200-day average. That self-fulfilling effect is real because resting orders are real, and limited because it works while the level is crowded rather than because it is right, which is also its expiry date. The other half is plain literacy: half of what is written about charts is written in this dialect, and not being able to read it is a handicap with no upside. Saying crowded zones therefore hold more often is that first effect overstated into a prediction, which is precisely the step this lesson refuses to take."
+      es: "Las dos mitades importan, y son razones de distinto tipo. Que bastante gente vigile las mismas zonas hace que las órdenes se acumulen a su alrededor: la misma razón que da m13 para Fibonacci y m10-l1 para la media de 200 días. Ese efecto autocumplido es real porque las órdenes en reposo son reales, y limitado porque funciona mientras el nivel esté concurrido, no porque acierte, lo que es también su fecha de caducidad. La otra mitad es simple alfabetización: la mitad de lo que se escribe sobre gráficos está escrito en este dialecto, y no poder leerlo es una desventaja sin ninguna ventaja. Decir que por eso las zonas concurridas aguantan más es ese primer efecto exagerado hasta convertirlo en una predicción, que es exactamente el paso que esta lección se niega a dar."
+  - id: dogma-vs-mechanic
     kind: matching
     prompt:
-      en: "Match each scheduled or operational event to the mechanism behind it."
-      es: "Empareja cada evento programado u operativo con el mecanismo que lo explica."
+      en: "Match each claim to what it actually rests on."
+      es: "Empareja cada afirmación con aquello en lo que se apoya de verdad."
     pairs:
-      - id: unlock
-        left: { en: "A token unlock", es: "Un desbloqueo de tokens" }
+      - id: resting
+        left:
+          en: "\"Protective orders pile up just past an obvious swing extreme.\""
+          es: "«Las órdenes de protección se acumulan justo pasado un extremo de swing obvio.»"
         right:
-          en: "Public supply becoming transferable on a known date."
-          es: "Oferta pública que pasa a ser transferible en una fecha conocida."
-      - id: listing
-        left: { en: "'Sell the news'", es: "«Vender la noticia»" }
+          en: "A mechanism you can reason about: everyone reads the same chart, and \"put your stop just past that point\" sends thousands of orders to the same few ticks (m19-l2)."
+          es: "Un mecanismo sobre el que puedes razonar: todos miran el mismo gráfico, y «pon tu stop justo pasado ese punto» manda miles de órdenes al mismo puñado de ticks (m19-l2)."
+      - id: engineered
+        left:
+          en: "\"That wick was engineered to trap retail before the real move.\""
+          es: "«Esa mecha fue fabricada para atrapar al retail antes del movimiento de verdad.»"
         right:
-          en: "The positioned selling into the flow the event brings."
-          es: "Los posicionados vendiendo contra el flujo que trae el evento."
-      - id: expiry
-        left: { en: "A quarterly expiry", es: "Un vencimiento trimestral" }
+          en: "An intention attributed to nobody in particular, which no outcome can contradict — so it explains every chart equally well and predicts none of them."
+          es: "Una intención atribuida a nadie en concreto, que ningún resultado puede contradecir: explica todos los gráficos igual de bien y no predice ninguno."
+      - id: crowded
+        left:
+          en: "\"Price reacts at the 0.618 and at the 200-day average.\""
+          es: "«El precio reacciona en el 0,618 y en la media de 200 días.»"
         right:
-          en: "Hedges unwinding, and the basis re-anchoring on the perp."
-          es: "Coberturas deshaciéndose y la base reanclándose en el perpetuo."
-      - id: outage
-        left: { en: "An outage in volatility", es: "Una caída en plena volatilidad" }
+          en: "A self-fulfilling effect: real while the line is crowded, and worth exactly that much — not a property of the number (m13, m10-l1)."
+          es: "Un efecto autocumplido: real mientras la línea esté concurrida, y vale exactamente eso, no es una propiedad del número (m13, m10-l1)."
+      - id: fill
+        left:
+          en: "\"An unfilled gap has to be filled eventually.\""
+          es: "«Un hueco sin rellenar tiene que rellenarse tarde o temprano.»"
         right:
-          en: "Load peaking exactly when you need to close a position."
-          es: "La carga en su pico justo cuando necesitas cerrar una posición."
+          en: "A tendency restated as a law. Gaps are revisited often and not always, and the difference is the whole distance between a probability and a promise."
+          es: "Una tendencia dicha como si fuera una ley. Los huecos se revisitan a menudo y no siempre, y la diferencia es toda la distancia entre una probabilidad y una promesa."
     explanation:
-      en: "Every one of them has a mechanism you can name, which is what separates them from folklore — and not one of them names a direction. They tell you what kind of market is coming, which is enough to decide whether to be in it, at what size, and with what already resting on the exchange."
-      es: "Todos tienen un mecanismo que se puede nombrar, que es lo que los separa del folclore, y ninguno nombra una dirección. Te dicen qué clase de mercado viene, que es suficiente para decidir si estar dentro, con qué tamaño y con qué dejado ya puesto en el exchange."
+      en: "Three different footings, and telling them apart is the skill this lesson is actually teaching. A mechanism can be reasoned about and argued with. A self-fulfilling effect is real but expires with the crowd. An unfalsifiable intention and a tendency inflated into a law both feel like knowledge and buy you nothing — the first because no observation can touch it, the second because it will be right often enough to keep you holding the times it is not."
+      es: "Tres apoyos distintos, y distinguirlos es la habilidad que esta lección enseña de verdad. Un mecanismo admite razonamiento y discusión. Un efecto autocumplido es real pero caduca con la masa. Una intención infalsable y una tendencia inflada hasta ser ley las dos se sienten como conocimiento y no te compran nada: la primera porque ninguna observación puede tocarla, la segunda porque acertará lo bastante a menudo para que sigas aguantando las veces que no."
+  - id: what-changes-nothing
+    kind: multi_select
+    prompt:
+      en: "Select ALL the things that stay exactly the same once you have learned this vocabulary."
+      es: "Selecciona TODAS las cosas que se quedan exactamente igual una vez has aprendido este vocabulario."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Position size still comes from the distance to the stop (m22)."
+          es: "El tamaño sigue saliendo de la distancia al stop (m22)."
+      - id: b
+        correct: true
+        text:
+          en: "A level still needs the close, and often the retest (m08-l1)."
+          es: "Un nivel sigue necesitando el cierre, y a menudo el retest (m08-l1)."
+      - id: c
+        correct: true
+        text:
+          en: "The reaction is judged on candles at a location, not a name (m08-l2)."
+          es: "La reacción se juzga por las velas en una ubicación, no por el nombre."
+      - id: d
+        text:
+          en: "Nothing stays the same: zone entries replace level ones, so the stop moves."
+          es: "Nada se queda igual: las entradas por zona sustituyen a las de nivel."
+      - id: e
+        text:
+          en: "Confirmation becomes optional, since a zone is stronger than a line."
+          es: "La confirmación pasa a ser opcional: una zona es más fuerte que una línea."
+    explanation:
+      en: "All three of the first options, and that is the point of putting this module last: it renames things, and nothing it renames changes how the trade is built — the stop still comes from the structure, not from the vocabulary. The 'nothing stays the same' answer is worth reading twice, because half of it is fine — a stop beyond a zone's far edge is a perfectly sensible structural stop — and the framing is what is wrong: nothing was replaced, and treating the vocabulary as a new system is how a working process gets rebuilt around a dialect. Making confirmation optional inverts the lesson entirely: a wider drawing is a *less* precise claim, so it needs the same confirmation, not less of it."
+      es: "Las tres primeras, y ese es el motivo de poner este módulo al final: renombra cosas, y nada de lo que renombra cambia cómo se construye la operación; el stop sigue saliendo de la estructura, no del vocabulario. La respuesta de «nada se queda igual» merece leerse dos veces, porque la mitad está bien —un stop más allá del extremo lejano de una zona es un stop estructural perfectamente sensato— y lo que falla es el encuadre: nada fue sustituido, y tratar el vocabulario como un sistema nuevo es la forma en que un proceso que funciona se reconstruye alrededor de un dialecto. Hacer opcional la confirmación invierte la lección por completo: un dibujo más ancho es una afirmación *menos* precisa, así que necesita la misma confirmación, no menos."

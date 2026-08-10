@@ -1,16 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-type: calculation
-formula: position_size_from_risk
+type: pattern_chart
+injector: derivatives
+n: 130
+indicator: oi
+targets: [rising_oi, falling_oi, flat_oi]
+choices: [rising_oi, falling_oi, flat_oi]
 prompt:
-  en: "You keep a strict rule: never risk more than **{risk_pct}** of your **{equity}** USDT account on a single trade. On this setup the distance from your entry to your stop is **{stop_distance}** in price. What position size (in units) keeps you inside the rule?"
-  es: "Tienes una regla estricta: no arriesgar nunca más de **{risk_pct}** de tu cuenta de **{equity}** USDT en una sola operación. En este setup la distancia de tu entrada a tu stop es de **{stop_distance}** en precio. ¿Qué tamaño de posición (en unidades) te mantiene dentro de la regla?"
-params:
-  equity: { kind: int_range, min: 10000, max: 100000, step: 1000 }
-  risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }
-  stop_distance: { kind: choice, values: ["50", "100", "250", "500"] }
-tolerance: { rel: "0.01" }
-round: 4
-unit: units
+  en: "The price climbs the same way in every version of this chart, so ignore the candles and read the open interest below. What is open interest doing underneath the rally, and what does that say about the money behind the move?"
+  es: "El precio sube de la misma forma en todas las versiones de este gráfico, así que ignora las velas y lee el open interest de abajo. ¿Qué hace el open interest bajo la subida y qué dice eso sobre el dinero detrás del movimiento?"
 explanation:
-  en: "The rule sets your risk budget: equity × risk %. Divide it by the entry-to-stop distance to get the number of units whose worst case — a stop-out — equals that budget. Notice the size scales up with the account and shrinks as the stop widens."
-  es: "La regla fija tu presupuesto de riesgo: capital × % de riesgo. Divídelo por la distancia entrada-stop para obtener el número de unidades cuyo peor caso —que salte el stop— iguala ese presupuesto. Fíjate en que el tamaño escala con la cuenta y se reduce a medida que el stop se ensancha."
+  en: "Since price is identical across labels, only open interest carries the answer. OI climbing with price = fresh positions entering, a backed move. OI falling under the rally = shorts covering rather than new buyers, so no real conviction. OI barely moving = thin participation, a drift with little behind it."
+  es: "Como el precio es idéntico en todas las etiquetas, solo el open interest lleva la respuesta. Un OI que sube con el precio = posiciones nuevas que entran, un movimiento respaldado. Un OI que cae bajo la subida = cortos que se cierran en vez de compradores nuevos, así que sin convicción real. Un OI que apenas se mueve = participación escasa, una deriva con poco detrás."

@@ -410,8 +410,8 @@ def test_every_injector_that_draws_a_level_is_covered() -> None:
     drawn = {name for name, _label in _LEVEL_PAIRS}
     assert drawn >= {
         "fakeout", "volume_confirmation", "wyckoff", "fibonacci", "candle_reaction",
-        # ...and the figure injectors that draw lines: the m24 trade's four, the m17/m06 shelf, and the
-        # m21 order pair (whose `plan` kinds still owe the discovered price/guard/no-orphan checks).
+        # ...and the figure injectors that draw lines: the m27 trade's four, the m19/m06 shelf, and the
+        # m24 order pair (whose `plan` kinds still owe the discovered price/guard/no-orphan checks).
         "trade_anatomy", "liquidity_sweep", "stop_limit_gap",
     }
     assert _figure_panels(), "no figure exposes a level — level rendering lost its figure coverage"

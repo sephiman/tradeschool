@@ -1,191 +1,221 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: followed-still-lost
+  - id: slippage-def
     prompt:
-      en: "Journal excerpt: 'Took the planned entry on the reaction, stop where I planned, exited at the planned target-fail when structure broke. −1R.' Repeated over a by-the-book run, the account bleeds. This is:"
-      es: "Extracto del diario: «Tomé la entrada planificada en la reacción, stop donde planeé, salí en el fallo del objetivo planificado cuando se rompió la estructura. −1R.» Repetido en una racha de manual, la cuenta sangra. Esto es:"
+      en: "You send a market order on a thin altcoin and fill several ticks worse than the last printed price. What just happened?"
+      es: "Envías una orden de mercado en una altcoin poco líquida y te ejecutas varios ticks peor que el último precio impreso. ¿Qué acaba de pasar?"
     options:
       - id: a
         text:
-          en: "An execution failure — losses this consistent mean rules were broken."
-          es: "Un fallo de ejecución: pérdidas tan constantes implican reglas rotas."
+          en: "You were liquidated by the exchange's engine partway through the fill."
+          es: "El motor del exchange te liquidó a mitad de la ejecución."
       - id: b
         text:
-          en: "Proof the system works; a by-the-book run losing is normal, so size up."
-          es: "Prueba de que el sistema funciona; perder de manual es normal, sube tamaño."
+          en: "The exchange charged you a hidden penalty fee on the order."
+          es: "El exchange te cobró una comisión de penalización oculta."
       - id: c
         text:
-          en: "Impossible to tell, since a journal cannot record whether you obeyed it."
-          es: "Imposible de saber, ya que un diario no registra si lo obedeciste."
+          en: "Your limit price had been set too high for the order to fill cleanly."
+          es: "Tu precio límite estaba demasiado alto para ejecutarse limpiamente."
       - id: d
         correct: true
         text:
-          en: "A possible system failure — the plan was followed, so examine the edge itself."
-          es: "Un posible fallo del sistema: examina la ventaja."
+          en: "Slippage — the order walked a thin book, filling deeper and worse."
+          es: "Slippage: la orden recorrió un libro fino, ejecutando más abajo y peor."
     explanation:
-      en: "When by-the-book trades lose over a real sample, the discipline was there and the edge is what is suspect — study or adjust the system. Note that the journal is precisely what lets you say the plan was followed; without it this diagnosis would be unavailable, not obvious."
-      es: "Cuando las operaciones de manual pierden sobre una muestra real, la disciplina estuvo y la sospechosa es la ventaja: estudia o ajusta el sistema. Fíjate en que el diario es justo lo que te deja afirmar que el plan se siguió; sin él este diagnóstico sería imposible, no evidente."
-  - id: moved-stop-lost
+      en: "That gap between the expected and the actual fill is slippage, caused by a market order eating through a book with little size resting near the top. It is not a liquidation, which is a forced close by the exchange, not a hidden fee, and a market order has no limit price to mis-set in the first place."
+      es: "Esa diferencia entre la ejecución esperada y la real es el slippage, causado por una orden de mercado que se come un libro con poco volumen puesto cerca de arriba. No es una liquidación, que es un cierre forzoso del exchange, ni una comisión oculta, y una orden de mercado ni siquiera tiene precio límite que fijar mal."
+  - id: liquidity-effect
     prompt:
-      en: "Journal excerpt: 'Trade went against me, moved the stop down twice to avoid the loss, finally closed at −4R. Plan said −1R.' This is:"
-      es: "Extracto del diario: «La operación fue en mi contra, bajé el stop dos veces para evitar la pérdida, cerré al final en −4R. El plan decía −1R.» Esto es:"
+      en: "How does thin liquidity affect a market order compared with a deep, liquid book?"
+      es: "¿Cómo afecta la escasa liquidez a una orden de mercado frente a un libro profundo y líquido?"
     options:
       - id: a
         text:
-          en: "A system failure — a strategy that produces −4R trades has no edge."
-          es: "Un fallo del sistema: una estrategia que da −4R no tiene ventaja."
+          en: "Thin liquidity means the exchange will liquidate the position sooner."
+          es: "La escasa liquidez hace que el exchange liquide la posición antes."
       - id: b
         correct: true
         text:
-          en: "An execution failure — the system was never run; you were the variable."
-          es: "Un fallo de ejecución: la variable fuiste tú."
+          en: "It widens slippage — a modest order moves price several ticks."
+          es: "Ensancha el slippage: una orden modesta mueve el precio varios ticks."
       - id: c
         text:
-          en: "Bad luck: the plan was intact, the market simply ran further than usual."
-          es: "Mala suerte: el plan estaba intacto, el mercado corrió más de lo normal."
+          en: "Liquidity has no effect; the fill is always at the last printed price."
+          es: "La liquidez no influye; se ejecuta siempre al último precio impreso."
       - id: d
         text:
-          en: "A win, since you avoided the −1R stop and chose your own exit instead."
-          es: "Una victoria, ya que evitaste el stop de −1R y elegiste tu propia salida."
+          en: "A thin book always fills you at a better price than a deep one does."
+          es: "Un libro fino siempre te ejecuta mejor que uno profundo."
     explanation:
-      en: "You broke the stop rule, so what lost money was the improvisation, not the strategy — the system was never actually run, and its −1R would have been the good outcome here. The fix is discipline, not a new strategy."
-      es: "Rompiste la regla del stop, así que lo que perdió dinero fue la improvisación, no la estrategia: el sistema nunca se ejecutó de verdad, y su −1R habría sido aquí el buen resultado. El arreglo es disciplina, no una estrategia nueva."
-  - id: why-journal
-    prompt:
-      en: "Why is the 'system failure vs execution failure' distinction impossible to make reliably without a journal?"
-      es: "¿Por qué la distinción «fallo del sistema vs fallo de ejecución» es imposible de hacer de forma fiable sin un diario?"
-    options:
-      - id: a
-        text:
-          en: "Because a journal changes the outcome by making you trade more carefully."
-          es: "Porque un diario cambia el resultado al hacerte operar con más cuidado."
-      - id: b
-        text:
-          en: "It is not: you can always reconstruct exactly what you did from memory."
-          es: "No lo es: siempre puedes reconstruir de memoria exactamente qué hiciste."
-      - id: c
-        correct: true
-        text:
-          en: "Both look like the same red number afterwards, whatever actually happened."
-          es: "Ambos parecen luego el mismo número rojo."
-      - id: d
-        text:
-          en: "Because system failures are rare enough to ignore in your first year."
-          es: "Porque los fallos del sistema son bastante raros como para ignorarlos."
-    explanation:
-      en: "Memory edits itself — it keeps the wins and quietly drops the rule-breaks — so 'I remember what I did' is exactly the claim that fails. Without the written plan-vs-execution record, both failures present as the same loss, and beginners routinely misdiagnose which one they had."
-      es: "La memoria se edita: guarda las ganancias y descarta en silencio las roturas de reglas, así que «recuerdo lo que hice» es justo la afirmación que falla. Sin el registro escrito de plan-vs-ejecución, ambos fallos se presentan como la misma pérdida, y los principiantes confunden rutinariamente cuál tuvieron."
-  - id: fix-mismatch
-    prompt:
-      en: "You lost money by repeatedly chasing entries you never planned. You respond by scrapping your strategy and building a new one. What is wrong with this response?"
-      es: "Perdiste dinero persiguiendo repetidamente entradas que nunca planeaste. Respondes desechando tu estrategia y construyendo una nueva. ¿Qué falla en esta respuesta?"
-    options:
-      - id: a
-        text:
-          en: "Nothing — a losing week always means the strategy must be replaced."
-          es: "Nada: una semana perdedora siempre significa reemplazar la estrategia."
-      - id: b
-        text:
-          en: "You should have scaled size up, to recover on the same strategy."
-          es: "Deberías haber subido el tamaño, para recuperar con la misma estrategia."
-      - id: c
-        text:
-          en: "New strategies outperform old ones, so the timing is the only mistake."
-          es: "Las estrategias nuevas rinden más que las viejas; el error es el momento."
-      - id: d
-        correct: true
-        text:
-          en: "It fixes the wrong thing — the failure was execution."
-          es: "Arregla lo que no es: el fallo fue de ejecución."
-    explanation:
-      en: "Chasing unplanned entries is an execution failure; the strategy was never actually tested, so there is no evidence against it. Rebuilding drills the wrong lesson and hands you a fresh untested system to break — the real fix is following the plan you already have."
-      es: "Perseguir entradas no planificadas es un fallo de ejecución; la estrategia nunca se probó de verdad, así que no hay pruebas en su contra. Reconstruirla machaca la lección equivocada y te da un sistema nuevo sin probar que romper: el arreglo real es seguir el plan que ya tienes."
-  - id: r-not-dollars-tf
+      en: "Liquidity is how much size can trade without moving price. A deep book absorbs your order with barely a wobble; a thin book has little resting size, so the order walks the price and slippage widens — the opposite of a better fill. Liquidity is not liquidation: thin books do not, by themselves, force-close anything."
+      es: "La liquidez es cuánto volumen puede operarse sin mover el precio. Un libro profundo absorbe tu orden con apenas un temblor; un libro fino tiene poco volumen puesto, así que la orden hace caminar el precio y el slippage se ensancha, lo contrario de una mejor ejecución. La liquidez no es liquidación: un libro fino no cierra nada a la fuerza por sí solo."
+  - id: liquidity-not-liquidation
     kind: true_false
     prompt:
-      en: "Recording results in R (multiples of risk) rather than dollars makes trades of different sizes comparable across the journal."
-      es: "Registrar resultados en R (múltiplos del riesgo) en vez de en dólares hace comparables entre sí operaciones de distinto tamaño en el diario."
-    answer: true
+      en: "Thin liquidity, by itself, will liquidate your position."
+      es: "La escasa liquidez, por sí sola, liquidará tu posición."
+    answer: false
     explanation:
-      en: "R strips out position and account size, turning many trades into one clean distribution you can judge (the m22 sample). Dollars mix decision quality with how big you bet and hide the signal."
-      es: "R elimina el tamaño de posición y de cuenta, convirtiendo muchas operaciones en una distribución limpia que puedes juzgar (la muestra de m22). El dinero mezcla la calidad de la decisión con lo grande que apostaste y esconde la señal."
-  - id: journal-fields-multi
+      en: "Liquidity and liquidation are different things. Thin liquidity widens your slippage — a market order walks the price — but it does not force-close your position. Liquidation is the exchange closing a leveraged position when margin runs out, a separate event."
+      es: "La liquidez y la liquidación son cosas distintas. La escasa liquidez ensancha tu slippage —una orden de mercado hace caminar el precio— pero no cierra a la fuerza tu posición. La liquidación es el exchange cerrando una posición apalancada cuando se agota el margen, un suceso aparte."
+  - id: slippage-defence
+    prompt:
+      en: "You have to trade a thin, illiquid altcoin. What is the sensible way to limit slippage?"
+      es: "Tienes que operar una altcoin poco profunda y poco líquida. ¿Cuál es la forma sensata de limitar el slippage?"
+    options:
+      - id: a
+        text:
+          en: "Send one large market order so it fills before price can move away."
+          es: "Enviar una orden de mercado grande para ejecutar antes de que se mueva."
+      - id: b
+        correct: true
+        text:
+          en: "Use limit orders to name your price, and size down where books are thin."
+          es: "Usar órdenes límite para fijar tu precio, y reducir el tamaño."
+      - id: c
+        text:
+          en: "Assume the market order will fill near the last printed price anyway."
+          es: "Suponer que la orden se ejecutará cerca del último precio impreso."
+      - id: d
+        text:
+          en: "Add leverage, so that a smaller balance covers the same position size."
+          es: "Añadir apalancamiento para que un saldo menor cubra el mismo tamaño."
+    explanation:
+      en: "On a thin book a market order walks the price, so name your price with limit orders and keep size small enough that you are not forced deep into the book. A bigger market order sweeps more levels rather than beating them, you should never assume a fill near the last print when little is resting behind it, and leverage does nothing whatsoever to reduce slippage."
+      es: "En un libro fino, una orden de mercado hace caminar el precio, así que fija tu precio con órdenes límite y mantén un tamaño lo bastante pequeño para no adentrarte en el libro. Una orden de mercado mayor barre más niveles en vez de adelantarse a ellos, nunca deberías dar por hecha una ejecución cerca del último precio impreso si hay poco puesto detrás, y el apalancamiento no hace absolutamente nada por reducir el slippage."
+  - id: execution-terms-match
+    kind: matching
+    prompt:
+      en: "Match each execution term to its meaning."
+      es: "Empareja cada término de ejecución con su significado."
+    pairs:
+      - id: slp
+        left: { en: "Slippage", es: "Slippage" }
+        right: { en: "The gap between the price you expected and the price you got", es: "La diferencia entre el precio que esperabas y el que conseguiste" }
+      - id: liqd
+        left: { en: "Liquidity", es: "Liquidez" }
+        right: { en: "How much size can trade without moving the price", es: "Cuánto volumen puede operarse sin mover el precio" }
+      - id: thin
+        left: { en: "Thin book", es: "Libro poco profundo" }
+        right: { en: "Little resting size near price, so orders walk it several ticks", es: "Poco volumen puesto cerca del precio, así que las órdenes lo hacen caminar varios ticks" }
+      - id: liqn
+        left: { en: "Liquidation", es: "Liquidación" }
+        right: { en: "A forced close of a leveraged position by the exchange", es: "Un cierre forzoso de una posición apalancada por el exchange" }
+    explanation:
+      en: "Keep the terms straight: slippage is the fill gap, liquidity is how much can trade without moving price, a thin book is one with little resting size. Liquidation is unrelated to the other three — it is the exchange forcibly closing a position when margin runs out."
+      es: "Ten claros los términos: el slippage es la diferencia de ejecución, la liquidez es cuánto puede operarse sin mover el precio, un libro poco profundo es el que tiene poco volumen puesto. La liquidación no tiene relación con los otros tres: es el exchange cerrando a la fuerza una posición cuando se agota el margen."
+  - id: deep-vs-thin
+    prompt:
+      en: "Compared with a thin book, how does a deep, liquid book handle the same market order?"
+      es: "Frente a un libro poco profundo, ¿cómo maneja un libro profundo y líquido la misma orden de mercado?"
+    options:
+      - id: a
+        text:
+          en: "It always fills you at a worse price than a thin book would have done."
+          es: "Siempre te ejecuta a peor precio del que te habría dado uno fino."
+      - id: b
+        text:
+          en: "It fills you at exactly the last printed price, and that is guaranteed."
+          es: "Te ejecuta exactamente al último precio impreso, y está garantizado."
+      - id: c
+        text:
+          en: "It has no effect at all; the fill price depends only on order size."
+          es: "No influye en nada; el precio depende solo del tamaño de la orden."
+      - id: d
+        correct: true
+        text:
+          en: "It absorbs the order with barely a wobble, keeping your fill close."
+          es: "Absorbe la orden con apenas un temblor y deja tu ejecución cerca."
+    explanation:
+      en: "A deep book has plenty of size resting near price, so it soaks up your order with little movement and your average fill stays close to where the market is. A thin book, with little resting size, lets even a modest order walk the price and slip — so depth is exactly what decides the fill, alongside your size, and no book guarantees the last print."
+      es: "Un libro profundo tiene mucho volumen puesto cerca del precio, así que absorbe tu orden con poco movimiento y tu ejecución promedio se mantiene cerca de donde está el mercado. Un libro fino, con poco volumen puesto, deja que hasta una orden modesta haga caminar el precio y resbale: la profundidad es justo lo que decide la ejecución, junto a tu tamaño, y ningún libro garantiza el último precio impreso."
+  - id: market-fills-near-last
+    kind: true_false
+    prompt:
+      en: "A market order always fills near the last printed price, even when the book behind it is nearly empty."
+      es: "Una orden de mercado siempre se ejecuta cerca del último precio impreso, incluso cuando el libro que hay detrás está casi vacío."
+    answer: false
+    explanation:
+      en: "The last printed price is just the last trade; it says nothing about how much size is resting now. On a nearly empty book a market order eats through what little is there and fills at progressively worse prices, sometimes far from the last print."
+      es: "El último precio impreso es solo la última operación; no dice nada de cuánto volumen hay puesto ahora. En un libro casi vacío, una orden de mercado se come lo poco que haya y se ejecuta a precios cada vez peores, a veces lejos del último precio impreso."
+  - id: slippage-worked
+    prompt:
+      en: "You send a market buy for 10 contracts. The resting asks are 2 at 100.0, 3 at 100.5 and 5 at 101.0. What is your average fill, and what would a deep book have done?"
+      es: "Envías una compra a mercado de 10 contratos. Los asks en reposo son 2 a 100,0, 3 a 100,5 y 5 a 101,0. ¿Cuál es tu precio medio y qué habría hecho un libro profundo?"
+    options:
+      - id: a
+        text:
+          en: "100.0 — market orders always fill at the price that was quoted."
+          es: "100,0: las órdenes de mercado ejecutan al precio cotizado."
+      - id: b
+        text:
+          en: "101.0 — the whole order fills at the worst level that it touched."
+          es: "101,0: toda la orden ejecuta al peor nivel que tocó."
+      - id: c
+        text:
+          en: "100.5 — the midpoint of the levels the order swept through."
+          es: "100,5: el punto medio de los niveles que barrió la orden."
+      - id: d
+        correct: true
+        text:
+          en: "100.65 — and a deep book at 100.0 would have filled all ten there."
+          es: "100,65, y un libro profundo en 100,0 habría ejecutado los diez ahí."
+    explanation:
+      en: "Your order sweeps every level in turn: (2×100.0 + 3×100.5 + 5×101.0) / 10 = 100.65 — a 0.65 gap from the 100.0 you saw quoted, and neither the best nor the worst level on its own. On a deep book where 100.0 held 500 contracts, all 10 would have filled at 100.0. Slippage is a property of the book, not of your intent."
+      es: "Tu orden barre cada nivel por turno: (2×100,0 + 3×100,5 + 5×101,0) / 10 = 100,65, una diferencia de 0,65 respecto al 100,0 que veías cotizado, y ni el mejor ni el peor nivel por separado. En un libro profundo donde 100,0 tuviera 500 contratos, los 10 se habrían ejecutado a 100,0. El slippage es una propiedad del libro, no de tu intención."
+  - id: became-the-price
+    prompt:
+      en: "You fire a large market order into a shallow altcoin book and it moves several percent against you. What actually happened?"
+      es: "Lanzas una orden de mercado grande a un libro poco profundo de una altcoin y se mueve varios puntos porcentuales en tu contra. ¿Qué ocurrió realmente?"
+    options:
+      - id: a
+        text:
+          en: "The exchange repriced your order in order to protect its own book."
+          es: "El exchange reajustó tu orden para proteger su propio libro."
+      - id: b
+        correct: true
+        text:
+          en: "You swept every resting level — you became the price, and a bad one."
+          es: "Barriste todos los niveles: te convertiste en el precio, y en uno malo."
+      - id: c
+        text:
+          en: "Thin liquidity liquidated part of the position you were holding."
+          es: "La escasa liquidez liquidó parte de la posición que tenías."
+      - id: d
+        text:
+          en: "Nothing unusual at all — that is the normal cost of any market order."
+          es: "Nada raro: es el coste normal de cualquier orden de mercado."
+    explanation:
+      en: "You handed that whole move to whoever was on the other side: you did not get 'the market price', you set it. On thin books, break large orders up, use limits, or simply size down. No exchange reprices your order for you, thin liquidity widens slippage rather than liquidating anything, and a move of several percent is emphatically not the normal cost of a market order on a deep book."
+      es: "Le regalaste todo ese movimiento a quien estuviera al otro lado: no conseguiste 'el precio de mercado', lo fijaste tú. En libros finos, divide las órdenes grandes, usa límites o simplemente reduce el tamaño. Ningún exchange reajusta tu orden por ti, la escasa liquidez ensancha el slippage en vez de liquidar nada, y un movimiento de varios puntos porcentuales no es en absoluto el coste normal de una orden de mercado en un libro profundo."
+  - id: thin-book-defence
     kind: multi_select
     prompt:
-      en: "Select ALL of the following that belong in a per-trade journal entry."
-      es: "Selecciona TODO lo siguiente que pertenece a una entrada del diario por operación."
+      en: "Select ALL the sensible defences when you have to trade a thin, illiquid market."
+      es: "Selecciona TODAS las defensas sensatas cuando tienes que operar un mercado poco profundo e ilíquido."
     options:
       - id: a
         correct: true
-        text: { en: "The setup, and why it was a trade at all", es: "El setup, y por qué era una operación siquiera" }
-      - id: b
-        correct: true
-        text: { en: "The plan: entry, stop, target and size, set before entering", es: "El plan: entrada, stop, objetivo y tamaño, antes de entrar" }
-      - id: c
-        correct: true
-        text: { en: "What you actually did against the plan, and the result in R", es: "Qué hiciste de verdad frente al plan, y el resultado en R" }
-      - id: d
-        text: { en: "A prediction of where price will be next week", es: "Una predicción de dónde estará el precio la semana que viene" }
-    explanation:
-      en: "Setup, plan, execution-vs-plan and result in R (plus a screenshot) are the fields that let the weekly review separate system from execution failures — each one records a decision you made, which is the only thing you control. A price prediction records a guess about the market instead, so it can never be graded."
-      es: "Setup, plan, ejecución-frente-a-plan y resultado en R (más una captura) son los campos que permiten a la revisión semanal separar fallos de sistema de fallos de ejecución: cada uno registra una decisión tuya, que es lo único que controlas. Una predicción de precio registra una conjetura sobre el mercado, así que nunca se puede calificar."
-  - id: weekly-review
-    prompt:
-      en: "What is the single most valuable thing the weekly journal review produces?"
-      es: "¿Qué es lo más valioso que produce la revisión semanal del diario?"
-    options:
-      - id: a
-        text:
-          en: "A guarantee that next week is profitable if you follow every rule."
-          es: "Una garantía de que la próxima semana es rentable si sigues las reglas."
+        text: { en: "Prefer limit orders so you name your price.", es: "Prefiere órdenes límite para fijar tú el precio." }
       - id: b
         correct: true
         text:
-          en: "A clean split into 'followed the plan' vs 'did not'."
-          es: "Una división limpia en «seguí el plan» vs «no»."
+          en: "Size down so you are not forced to eat the whole book."
+          es: "Reduce el tamaño para no verte obligado a comerte todo el libro."
       - id: c
-        text:
-          en: "A shortlist of the coins whose setups worked, to trade next week."
-          es: "Una lista de las monedas cuyos setups funcionaron, para la semana que viene."
-      - id: d
-        text:
-          en: "Permission to raise leverage, since reviewing proves you are improving."
-          es: "Permiso para subir apalancamiento, ya que revisar prueba que mejoras."
-    explanation:
-      en: "Sorting trades into followed/not-followed is what tells a system failure apart from an execution failure, which is the difference between adjusting the strategy and drilling discipline. The review grades your decisions, not the market — it produces no coin list and no licence to size up."
-      es: "Clasificar las operaciones en seguidas/no-seguidas es lo que distingue un fallo del sistema de uno de ejecución, que es la diferencia entre ajustar la estrategia y machacar disciplina. La revisión califica tus decisiones, no el mercado: no produce listas de monedas ni permisos para subir el tamaño."
-  - id: risk-tiers-precondition
-    prompt:
-      en: "You want to move from a flat 1% per trade to risk tiers — 0,5–1% on ordinary setups, up to 2% on your best ones. What has to be true first?"
-      es: "Quieres pasar de un 1% plano por operación a niveles de riesgo: 0,5–1% en los setups normales y hasta el 2% en los mejores. ¿Qué tiene que ser cierto antes?"
-    options:
-      - id: a
-        text:
-          en: "You have to be confident you can recognise a high-quality setup on sight."
-          es: "Tienes que estar seguro de que reconoces un setup de calidad al verlo."
-      - id: b
-        text:
-          en: "Your account has to be big enough that 2% is a meaningful sum of money."
-          es: "Tu cuenta debe ser lo bastante grande para que el 2% sea una suma real."
-      - id: c
-        text:
-          en: "Nothing — sizing up on better setups is just better risk management."
-          es: "Nada: subir tamaño en los mejores setups ya es mejor gestión del riesgo."
+        correct: true
+        text: { en: "Break a large order up rather than sending it in one clip.", es: "Divide una orden grande en vez de enviarla de una vez." }
       - id: d
         correct: true
         text:
-          en: "The journal must show your 'A' grades outperform your 'B' grades."
-          es: "El diario debe mostrar que tus «A» rinden más que tus «B»."
+          en: "Never assume a market order fills near the last print on an empty book."
+          es: "Nunca supongas una ejecución cerca del último precio con el libro vacío."
+      - id: e
+        text:
+          en: "Use a larger market order, so it clears the thin levels in one move."
+          es: "Usa una orden de mercado más grande, para despejar los niveles de una vez."
     explanation:
-      en: "Grading setups presupposes you can grade, and only the journal proves it: tag trades A/B/C at entry while still risking the same 1%, then compare average R per grade over a real sample. Feeling confident is not evidence — without the record, 'risk more on better setups' is just betting more when you feel more convinced."
-      es: "Calificar setups presupone que sabes calificar, y solo el diario lo demuestra: etiqueta las operaciones A/B/C en la entrada arriesgando aún el mismo 1% y luego compara la R media por calificación sobre una muestra real. Sentirse seguro no es una prueba: sin el registro, «arriesgar más en los mejores setups» es solo apostar más cuando te sientes más convencido."
-  - id: risk-tiers-tf
-    kind: true_false
-    prompt:
-      en: "The right to risk 2% on your 'A' setups is earned by the journal showing they outperform, not by being able to describe them in writing."
-      es: "El derecho a arriesgar el 2% en tus setups «A» se gana porque el diario muestre que rinden más, no por saber describirlos por escrito."
-    answer: true
-    explanation:
-      en: "Written criteria are the starting point, not the proof. The tier is earned when the record shows the A trades actually produce a better average R than the B trades over a real sample; fixed fractional risk stays the default until then."
-      es: "Los criterios escritos son el punto de partida, no la prueba. El nivel se gana cuando el registro muestra que las operaciones A producen de verdad una R media mejor que las B sobre una muestra real; hasta entonces el riesgo fraccionario fijo sigue siendo lo predeterminado."
+      en: "How much you slip depends on how much size is resting near the price. Every defence here is a way of not needing more liquidity than the book actually has — which is exactly why a larger order makes it worse, not better: it simply sweeps further down."
+      es: "Cuánto slippage sufres depende de cuánto tamaño descansa cerca del precio. Todas estas defensas son formas de no necesitar más liquidez de la que el libro tiene, y por eso justamente una orden mayor lo empeora en vez de arreglarlo: sencillamente barre más abajo."

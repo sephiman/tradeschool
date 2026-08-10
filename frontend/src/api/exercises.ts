@@ -32,7 +32,7 @@ export interface PriceLevelPayload {
   kind: string;
 }
 
-/** A sloped line (m31). Public on the question, unlike a band — see `PriceDiagonal`. */
+/** A sloped line (m15). Public on the question, unlike a band — see `PriceDiagonal`. */
 export interface PriceDiagonalPayload {
   start: number;
   end: number;
@@ -43,7 +43,7 @@ export interface PriceDiagonalPayload {
 }
 
 /**
- * The second candle panel (m20-l2): the same stretch of price at a coarser resolution.
+ * The second candle panel (m23-l2): the same stretch of price at a coarser resolution.
  *
  * `position` is where it draws, not what it is — the two panels are the same size on purpose, so
  * "which of these contains the other" is answered off the candles and never off the layout.
@@ -69,17 +69,17 @@ export interface AttemptPayload {
   macd?: { line: number[]; signal: number[]; hist: number[] };
   oi?: number[];
   cvd?: number[];
-  // The zero-centred pane (m32): a signed series and its optional per-bar state row.
+  // The zero-centred pane (m16): a signed series and its optional per-bar state row.
   momentum?: number[];
   momentum_state?: number[];
   indicator?: "rsi" | "macd" | "oi" | "cvd" | "momentum" | "none";
   choices?: string[];
   // pattern_chart: price-pane overlays (name -> values aligned 1:1 with the series), levels and the
-  // sloped lines m31 asks its questions against.
+  // sloped lines m15 asks its questions against.
   overlays?: Record<string, number[]>;
   levels?: PriceLevelPayload[];
   diagonals?: PriceDiagonalPayload[];
-  /** A second panel of the SAME price at a coarser frame (m20-l2). Public, like `diagonals`. */
+  /** A second panel of the SAME price at a coarser frame (m23-l2). Public, like `diagonals`. */
   context?: TimeframeContext;
 }
 

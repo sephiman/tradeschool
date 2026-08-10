@@ -87,6 +87,9 @@ class FigurePanel(BaseModel):
 class FigureSpec(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
+    # Permanent identity, chosen once (defaults to the id at creation) — the same contract as the
+    # manifest's keys, so a display renumbering never touches what hangs off a figure.
+    key: str = ""
     kind: Literal["chart", "svg"] = "chart"
     svg: str | None = None  # kind=svg: a component name the frontend renders (e.g. candle anatomy)
     caption: LocalizedText
@@ -94,6 +97,8 @@ class FigureSpec(BaseModel):
 
     @model_validator(mode="after")
     def _check(self) -> Self:
+        if not self.key:
+            self.key = self.id
         if self.kind == "chart" and not self.panels:
             raise ValueError(f"figure {self.id!r}: a chart figure needs at least one panel")
         if self.kind == "svg" and not self.svg:
@@ -141,7 +146,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         overlays_raw = {k: list(v) for k, v in result.overlays.items()}
         levels = [{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels]
         # A figure DRAWS the band an exercise must withhold: the zone is the resolution being shown
-        # (m30's origin zone and imbalance), which is the same asymmetry `show_resolution` already is.
+        # (m34's origin zone and imbalance), which is the same asymmetry `show_resolution` already is.
         bands = [{"low": b.low, "high": b.high, "label": b.label, "kind": b.kind} for b in result.bands]
         level_guards = result.level_guards
         # Figure-only richer annotations (e.g. Wyckoff phase labels A-E) come from an optional
@@ -219,7 +224,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     for name in overlays_raw:  # recompute EMA overlays over the extended close (keys like "ema20")
         m = re.search(r"(\d+)$", name)
         overlays[name] = _round(ema(close_full, int(m.group(1))), 2) if m else overlays_raw[name]
-    # Overlays an EMA period cannot express — m32's Bollinger/Keltner envelopes, which need the derived
+    # Overlays an EMA period cannot express — m16's Bollinger/Keltner envelopes, which need the derived
     # OHLC, not just the close. Same optional-method precedent as `figure_annotations` above: the
     # injector recomputes them over the EXTENDED series, so the envelopes run to the right edge instead
     # of stopping where the exercise window did. Without it a squeeze figure would draw its bands over
@@ -234,7 +239,7 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         if callable(pane):
             momentum_full, momentum_state_full = pane(close_full, series)
     if context is not None:
-        # ...and the third hook, for the same reason again: the second panel (m20-l2) is an aggregation
+        # ...and the third hook, for the same reason again: the second panel (m23-l2) is an aggregation
         # OF these candles, so an aggregate built before the resolution leg would go blank across
         # exactly the stretch the figure exists to show.
         recompute_context = getattr(injector_obj, "figure_context", None)
@@ -300,6 +305,7 @@ def build_figure(spec: FigureSpec, locale: str) -> dict[str, object]:
 
 def load_figures(content_dir: Path) -> dict[str, FigureSpec]:
     figures: dict[str, FigureSpec] = {}
+    keys: set[str] = set()
     figures_dir = content_dir / "figures"
     if not figures_dir.exists():
         return figures
@@ -309,5 +315,8 @@ def load_figures(content_dir: Path) -> dict[str, FigureSpec]:
         spec = FigureSpec.model_validate(raw)
         if spec.id != path.stem:
             raise ValueError(f"figure id {spec.id!r} must match filename {path.stem!r}")
+        if spec.key in keys:
+            raise ValueError(f"duplicate figure key {spec.key!r} ({spec.id})")
+        keys.add(spec.key)
         figures[spec.id] = spec
     return figures

@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Origin-zone injector (m30-l1): what the SMC dialect calls an "order block".
+"""Origin-zone injector (m34-l1): what the SMC dialect calls an "order block".
 
 Plants a sequence, not a shape: a range whose high is tested twice -> a dip (the ORIGIN) -> an impulse
 closing clean past that high (the BOS) -> a return into the dip -> what the return does. All labels
 share their opening two thirds bar for bar, so only *did structure break* separates them.
 
-Every label is BULLISH, deliberately: m30-l1 and m30-ex-1 state the bullish case in words, so a
+Every label is BULLISH, deliberately: m34-l1 and m34-ex-1 state the bullish case in words, so a
 bearish seed would be graded against a prompt describing its mirror. Adding one fails
 `test_chart_bands.py::test_origin_zone_only_ever_plants_the_bullish_case` until the prompts and the
 lesson are made symmetric in BOTH languages — in that order.

@@ -31,7 +31,7 @@ const LIGHT = {
   marker: "#111827",
   band: "#111827",
   bandFill: "rgba(17,24,39,0.08)",
-  // m32's compression row. Two neutrals, never the up/down pair: a squeeze says expansion is coming
+  // m16's compression row. Two neutrals, never the up/down pair: a squeeze says expansion is coming
   // and not which way, so a green flag would be the lesson's own error painted onto its figure.
   squeezeOn: "#111827",
   squeezeOff: "#9ca3af",
@@ -94,7 +94,7 @@ describe("the chart palette", () => {
 
 describe("level colours on pure black", () => {
   // `plan` is the kind the brief singles out, and the one at risk: it is not red or green by design
-  // (m21/m24 — a stop line must not look like a resistance), so it borrows the marker neutral, and
+  // (m24/m27 — a stop line must not look like a resistance), so it borrows the marker neutral, and
   // that neutral is the one colour a pure-black theme is tempted to push to full white.
   it("keeps the plan line on the marker neutral, not white", () => {
     const oled = palette("oled");

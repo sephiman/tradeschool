@@ -1,259 +1,229 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: cvd-definition
+  - id: hot-streak
     prompt:
-      en: "What exactly is plotted when a chart shows a CVD line?"
-      es: "¿Qué se dibuja exactamente cuando un gráfico muestra una línea de CVD?"
+      en: "You're on a five-trade winning streak and feel like you're reading the market perfectly. You want to raise your leverage and size for the next trade. What should size be based on?"
+      es: "Llevas una racha de cinco operaciones ganadoras y sientes que estás leyendo el mercado a la perfección. Quieres subir tu apalancamiento y tu tamaño en la siguiente operación. ¿En qué debería basarse el tamaño?"
     options:
       - id: a
         text:
-          en: "A running sum of total volume, so the line only ever climbs."
-          es: "Una suma corriente del volumen total, así que la línea solo sube."
+          en: "A larger size — press your edge while you are clearly in the zone."
+          es: "Un tamaño mayor: aprieta tu ventaja mientras estás claramente en racha."
+      - id: b
+        text:
+          en: "A larger size, since the streak proves conditions suit your strategy."
+          es: "Un tamaño mayor, ya que la racha prueba que las condiciones te van bien."
+      - id: c
+        correct: true
+        text:
+          en: "A fixed percentage of account risk, unchanged by results or mood."
+          es: "Un porcentaje fijo del riesgo de la cuenta, ajeno a resultados y ánimo."
+      - id: d
+        text:
+          en: "Whatever size keeps the streak's compounding on track for the month."
+          es: "El tamaño que mantenga en marcha el interés compuesto de la racha."
+    explanation:
+      en: "A short streak is mostly variance, and overconfidence feels exactly like competence from the inside — which is why none of the other three notice anything is wrong. Size must be a fixed function of risk, not of recent results; otherwise one perfectly ordinary loss at the inflated size erases the streak and then some."
+      es: "Una racha corta es sobre todo varianza, y el exceso de confianza se siente exactamente igual que la competencia desde dentro, por eso ninguna de las otras tres nota que algo va mal. El tamaño debe ser una función fija del riesgo, no de los resultados recientes; de lo contrario, una sola pérdida perfectamente normal con el tamaño inflado borra la racha y algo más."
+  - id: why-dangerous
+    prompt:
+      en: "Why is a winning streak a dangerous moment for many traders?"
+      es: "¿Por qué una racha ganadora es un momento peligroso para muchos traders?"
+    options:
+      - id: a
+        text:
+          en: "A streak proves your edge grew, so bigger size is now justified."
+          es: "Una racha prueba que tu ventaja creció: ya se justifica más tamaño."
       - id: b
         correct: true
         text:
-          en: "A running sum of each period's delta, from some starting point."
-          es: "Una suma corriente del delta de cada periodo, desde un inicio."
+          en: "It feels like skill and tempts you into sizing up on noise."
+          es: "Se siente como habilidad y te tienta a subir el tamaño sobre ruido."
       - id: c
         text:
-          en: "A moving average of volume, smoothed the way RSI smooths price."
-          es: "Una media móvil del volumen, suavizada como el RSI el precio."
+          en: "Winning streaks always end in a crash, so stop entirely after three wins."
+          es: "Las rachas siempre acaban en desplome: para del todo tras tres ganancias."
       - id: d
         text:
-          en: "The perpetual's premium over spot, accumulated over the session."
-          es: "La prima del perpetuo sobre el spot, acumulada en la sesión."
+          en: "Exchanges quietly raise your fees after several consecutive wins."
+          es: "Los exchanges suben en silencio tus comisiones tras varias ganancias."
     explanation:
-      en: "CVD accumulates delta (taker buys minus taker sells), not volume — which is why it can fall as well as rise. A running total of volume could only ever climb and would tell you nothing about direction of pressure. Because delta subtracts the two taker sides, the accumulated line trends, consolidates and makes swings much like a price series, which is what makes structural reading work on it."
-      es: "El CVD acumula el delta (compras taker menos ventas taker), no el volumen, y por eso puede bajar además de subir. Un total corriente de volumen solo podría subir y no te diría nada sobre la dirección de la presión. Como el delta resta los dos lados taker, la línea acumulada tiene tendencia, se consolida y hace swings muy parecidos a una serie de precio, y eso es lo que hace que funcione la lectura estructural sobre ella."
-  - id: cvd-level-is-arbitrary
+      en: "The danger is psychological: a hot streak feels like proof of skill, so one normal loss at the inflated size wipes out the streak. It does not prove your edge grew, it is not a superstition about crashes, and exchanges do not penalise wins. Keep size fixed and let confidence, not position size, absorb the good run."
+      es: "El peligro es psicológico: una racha caliente se siente como prueba de habilidad, así que una pérdida normal con el tamaño inflado borra la racha. No demuestra que tu ventaja creciera, no es una superstición sobre desplomes y los exchanges no penalizan las ganancias. Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
+  - id: edge-grew-myth
     kind: true_false
     prompt:
-      en: "Today's CVD reads +48,000 and last month's read +12,000, so there is roughly four times more buying pressure now than then."
-      es: "El CVD de hoy marca +48.000 y el del mes pasado marcaba +12.000, así que ahora hay unas cuatro veces más presión compradora que entonces."
+      en: "A five-trade winning streak is good evidence that your edge has grown, so raising your size is justified."
+      es: "Una racha de cinco operaciones ganadoras es buena prueba de que tu ventaja ha crecido, así que subir el tamaño está justificado."
     answer: false
     explanation:
-      en: "False. A CVD's level depends entirely on when you started counting, so it is arbitrary — that is why a CVD pane rarely has a meaningful zero of its own. What you read is its shape: is it climbing, falling, flat, and where did it turn? Comparing where it is now against where it was at the last swing is the whole technique; comparing absolute levels across different starting points is meaningless."
-      es: "Falso. El nivel de un CVD depende por completo de cuándo empezaste a contar, así que es arbitrario; por eso un panel de CVD raramente tiene un cero propio con significado. Lo que se lee es su forma: ¿sube, baja, está plano, y dónde giró? Comparar dónde está ahora con dónde estaba en el último swing es toda la técnica; comparar niveles absolutos entre puntos de partida distintos no significa nada."
-  - id: flat-price-rising-cvd
-    prompt:
-      en: "Price has been flat for two hours while the CVD climbs steadily. What is the most useful reading?"
-      es: "El precio lleva dos horas plano mientras el CVD sube de forma sostenida. ¿Cuál es la lectura más útil?"
-    options:
-      - id: a
-        text:
-          en: "A rally is guaranteed once the accumulated pressure is released."
-          es: "Una subida está garantizada al liberarse la presión acumulada."
-      - id: b
-        text:
-          en: "The data is faulty: a climbing CVD with flat price is impossible."
-          es: "Los datos fallan: un CVD que sube con precio plano es imposible."
-      - id: c
-        text:
-          en: "Nothing; CVD only means something when it agrees with price."
-          es: "Nada; el CVD solo significa algo cuando coincide con el precio."
-      - id: d
-        correct: true
-        text:
-          en: "Buyers are pressing and something is quietly taking the other side."
-          es: "Los compradores presionan y algo se queda el otro lado, callado."
-    explanation:
-      en: "This is absorption, and it is the upgrade CVD gives you over m14. There, absorption was an inference from a tall volume bar with no range — you could not see it, because volume counts both sides identically. Here you can: buyers really are pressing, and price not moving means a large resting seller is comfortably taking all of it. That often precedes a move in the absorber's direction, which is the opposite of the naive read — and it is a clue, not a receipt."
-      es: "Esto es absorción, y es la mejora que te da el CVD frente a m14. Allí la absorción era una inferencia a partir de una barra de volumen alta sin rango: no podías verla, porque el volumen cuenta los dos lados igual. Aquí sí: los compradores están presionando de verdad, y que el precio no se mueva significa que un gran vendedor en reposo se lo está quedando todo cómodamente. Eso suele preceder a un movimiento en la dirección de quien absorbe, que es lo contrario de la lectura ingenua; y es una pista, no un recibo."
-  - id: three-cases
-    kind: matching
-    prompt:
-      en: "Match each price-and-CVD combination to its reading."
-      es: "Empareja cada combinación de precio y CVD con su lectura."
-    pairs:
-      - id: bull
-        left:
-          en: "Price makes a lower low, CVD makes a higher low"
-          es: "El precio hace un mínimo más bajo, el CVD hace un mínimo más alto"
-        right:
-          en: "Bullish divergence — the selling into that low is being absorbed"
-          es: "Divergencia alcista: la venta contra ese mínimo está siendo absorbida"
-      - id: bear
-        left:
-          en: "Price makes a higher high, CVD makes a lower high"
-          es: "El precio hace un máximo más alto, el CVD hace un máximo más bajo"
-        right:
-          en: "Bearish divergence — the new peak was bought with less aggression"
-          es: "Divergencia bajista: el nuevo techo se compró con menos agresión"
-      - id: confirm
-        left:
-          en: "Price makes a lower low, CVD makes a lower low with it"
-          es: "El precio hace un mínimo más bajo, el CVD hace un mínimo más bajo con él"
-        right:
-          en: "No divergence — a flow-backed move, nothing absorbed it"
-          es: "Sin divergencia: un movimiento respaldado por el flujo, nada lo absorbió"
-    explanation:
-      en: "A divergence is a disagreement, so you have to know what agreement looks like or you will find divergences everywhere. The third case is the most common of the three: sellers pressed, nobody meaningful stood in the way, and price went where the pressure sent it. Labelling that a divergence because you were hoping for one is the classic error."
-      es: "Una divergencia es un desacuerdo, así que tienes que saber qué aspecto tiene el acuerdo o encontrarás divergencias por todas partes. El tercer caso es el más común de los tres: los vendedores presionaron, nadie relevante se puso en medio y el precio fue donde lo mandó la presión. Etiquetar eso como divergencia porque esperabas una es el error clásico."
-  - id: cvd-vs-volume
-    prompt:
-      en: "m14 already taught you to read volume against its average. What can CVD tell you that a volume bar structurally cannot?"
-      es: "m14 ya te enseñó a leer el volumen contra su media. ¿Qué te puede decir el CVD que una barra de volumen, por su estructura, no puede?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Which side was paying for immediacy, and for how long it lasted."
-          es: "Qué lado pagaba por la inmediatez, y durante cuánto tiempo."
-      - id: b
-        text:
-          en: "How large the next move will be, since pressure must be released."
-          es: "Lo grande que será el siguiente movimiento, al liberarse la presión."
-      - id: c
-        text:
-          en: "Nothing extra: CVD is just volume with a longer lookback."
-          es: "Nada extra: el CVD es volumen con un periodo más largo."
-      - id: d
-        text:
-          en: "Where the resting limit orders are sitting in the book."
-          es: "Dónde están las órdenes límite en reposo en el libro."
-    explanation:
-      en: "Volume is a total and CVD is an accumulated difference, and that is the whole distinction. A tall volume bar means many people traded; it cannot say who was pressing, because every trade has a buyer and a seller. Accumulated pressure is not a forecast of the next move's size, and resting orders are a different subject again — that is the order book (m27), which is intention rather than executed flow."
-      es: "El volumen es un total y el CVD una diferencia acumulada, y esa es toda la distinción. Una barra de volumen alta significa que operó mucha gente; no puede decir quién presionaba, porque toda operación tiene comprador y vendedor. La presión acumulada no pronostica el tamaño del siguiente movimiento, y las órdenes en reposo son otro asunto distinto: ese es el libro de órdenes (m27), que es intención y no flujo ejecutado."
-  - id: build-a-cvd
-    kind: ordering
-    prompt:
-      en: "Put the steps in order for building a CVD line from a venue's raw trade feed."
-      es: "Ordena los pasos para construir una línea de CVD a partir del flujo de operaciones bruto de un exchange."
-    items:
-      - id: label
-        position: 1
-        text:
-          en: "For each trade, record which side was the taker (the aggressor)"
-          es: "Para cada operación, registra qué lado era el taker (el agresor)"
-      - id: bucket
-        position: 2
-        text:
-          en: "Within each period, total the taker-buy volume and the taker-sell volume separately"
-          es: "Dentro de cada periodo, suma por separado el volumen de compra taker y el de venta taker"
-      - id: delta
-        position: 3
-        text:
-          en: "Subtract to get that period's delta"
-          es: "Resta para obtener el delta de ese periodo"
-      - id: accumulate
-        position: 4
-        text:
-          en: "Keep a running sum of the deltas from your chosen starting point"
-          es: "Mantén una suma corriente de los deltas desde el punto de partida que elijas"
-      - id: plot
-        position: 5
-        text:
-          en: "Plot that running sum as a line and read it against price"
-          es: "Dibuja esa suma corriente como una línea y léela contra el precio"
-    explanation:
-      en: "The taker labelling in step 1 is what makes the whole thing possible, and it is also the step whose quality varies by venue: major exchanges label it directly, elsewhere it is estimated. Step 5 matters as much as the rest — a CVD pane read on its own is nearly useless, because the information is in the disagreement between the two lines."
-      es: "El etiquetado del taker del paso 1 es lo que hace posible todo lo demás, y es también el paso cuya calidad varía según el sitio: los exchanges grandes lo etiquetan directamente, en otros se estima. El paso 5 importa tanto como el resto: un panel de CVD leído por sí solo es casi inútil, porque la información está en el desacuerdo entre las dos líneas."
-  - id: spring-confirmation
-    prompt:
-      en: "m09 said you can only call a stab below support a 'spring' after price recovers — live, it looks identical to a genuine breakdown. How does CVD help with exactly that problem?"
-      es: "m09 decía que solo puedes llamar 'spring' a una estocada bajo el soporte después de que el precio se recupere: en vivo se ve idéntica a una ruptura bajista genuina. ¿Cómo ayuda el CVD justo con ese problema?"
-    options:
-      - id: a
-        text:
-          en: "It removes the ambiguity, so a spring is certain as it happens."
-          es: "Elimina la ambigüedad, así que el spring es seguro mientras pasa."
-      - id: b
-        correct: true
-        text:
-          en: "On a spring the CVD refuses to make the new low with price."
-          es: "En un spring el CVD se niega a hacer el mínimo nuevo con el precio."
-      - id: c
-        text:
-          en: "It doesn't: CVD only works in trends, never inside a range."
-          es: "No ayuda: el CVD solo sirve en tendencias, nunca dentro de un rango."
-      - id: d
-        text:
-          en: "It gives the exact price the spring will reverse from."
-          es: "Da el precio exacto desde el que girará el spring."
-    explanation:
-      en: "The wick looks the same in both cases; the flow does not. A spring is selling being absorbed, so the CVD should show the absorption — price takes out the low while the CVD declines to follow. A genuine breakdown has the CVD making its new low with price, because nothing absorbed anything. This is confluence in m14's sense — one more independent lens agreeing — and emphatically not certainty: it still needs the test to hold, a level, and a stop."
-      es: "La mecha se ve igual en los dos casos; el flujo no. Un spring es venta siendo absorbida, así que el CVD debería mostrar la absorción: el precio se lleva el mínimo mientras el CVD se niega a seguirlo. Una ruptura bajista genuina tiene el CVD haciendo su mínimo nuevo con el precio, porque nada absorbió nada. Esto es confluencia en el sentido de m14 —una lente independiente más que coincide— y desde luego no es certeza: sigue necesitando que el test aguante, un nivel y un stop."
-  - id: cvd-worked-hours
-    prompt:
-      en: "Five hours of deltas run +300, −300, +800, −800, +500. What does the CVD line do, and what does that show?"
-      es: "Cinco horas de deltas dan +300, −300, +800, −800, +500. ¿Qué hace la línea de CVD y qué muestra eso?"
-    options:
-      - id: a
-        text:
-          en: "It runs +300, −300, +800, −800, +500 — CVD is delta replotted."
-          es: "Va +300, −300, +800, −800, +500: el CVD es el delta redibujado."
-      - id: b
-        text:
-          en: "It ends at +2,700, the sum of the absolute values."
-          es: "Termina en +2.700, la suma de los valores absolutos."
-      - id: c
-        text:
-          en: "It cannot be computed without the session's starting price."
-          es: "No puede calcularse sin el precio inicial de la sesión."
-      - id: d
-        correct: true
-        text:
-          en: "It runs +300, 0, +800, 0, +500 — the session's position."
-          es: "Va +300, 0, +800, 0, +500: eso es la posición de la sesión."
-    explanation:
-      en: "In the negative hours the line falls back toward where it started rather than turning negative: the delta is the hour's flow, the CVD is the position of the session. It is a running sum from an arbitrary starting point, which is why its level is meaningless and its shape is everything — is it climbing, falling, flat, and where did it turn?"
-      es: "En las horas negativas la línea vuelve hacia donde empezó en vez de ponerse negativa: el delta es el flujo de la hora, el CVD es la posición de la sesión. Es una suma acumulada desde un punto de partida arbitrario, y por eso su nivel no significa nada y su forma lo es todo: ¿sube, baja, está plana, y dónde giró?"
-  - id: divergence-worked
-    prompt:
-      en: "BTC sells off to 58,200 with session CVD at −24,000. Price bounces, then grinds to a lower low at 57,400 — but CVD there reads −10,500. What happened over that second leg?"
-      es: "BTC cae a 58.200 con el CVD de la sesión en −24.000. El precio rebota y luego se arrastra a un mínimo inferior en 57.400, pero el CVD marca allí −10.500. ¿Qué ocurrió en ese segundo tramo?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Buying lifted the running total by 13,500 while price fell 800."
-          es: "La compra elevó el total acumulado 13.500 mientras el precio caía."
-      - id: b
-        text:
-          en: "Selling intensified, since price and CVD both hit new extremes."
-          es: "La venta se intensificó: precio y CVD marcaron nuevos extremos."
-      - id: c
-        text:
-          en: "Nothing readable: CVD levels within a session cannot be compared."
-          es: "Nada legible: los niveles de CVD de una sesión no se comparan."
-      - id: d
-        text:
-          en: "A bearish divergence, because price made a lower low."
-          es: "Una divergencia bajista, porque el precio hizo un mínimo inferior."
-    explanation:
-      en: "That is a bullish CVD divergence: price makes a lower low, CVD makes a higher low. Sellers got a lower price but had to give up ground in flow to get it — someone was buying everything they sold. Aggression is spent before price moves, which is why the flow can turn while price is still making its low; and note the honest word for what follows: *often*."
-      es: "Esa es una divergencia alcista de CVD: el precio hace un mínimo inferior y el CVD un mínimo superior. Los vendedores consiguieron un precio menor pero tuvieron que ceder terreno en flujo para lograrlo: alguien compraba todo lo que vendían. La agresión se gasta antes de que el precio se mueva, y por eso el flujo puede girar mientras el precio aún marca su mínimo; y ojo con la palabra honesta sobre lo que sigue: *a menudo*."
-  - id: cvd-limits
+      en: "A short streak is mostly variance, not proof your edge changed. Overconfidence is dangerous precisely because it feels like competence. Good results are allowed to change your confidence; they are not allowed to change your size."
+      es: "Una racha corta es sobre todo varianza, no una prueba de que tu ventaja cambiara. El exceso de confianza es peligroso precisamente porque se siente como competencia. A los buenos resultados se les permite cambiar tu confianza; no se les permite cambiar tu tamaño."
+  - id: sizing-habits
     kind: multi_select
     prompt:
-      en: "Select ALL the limits on what a CVD reading can tell you."
-      es: "Selecciona TODOS los límites de lo que puede decirte una lectura de CVD."
+      en: "Select ALL of the habits that keep a winning streak from blowing up your account."
+      es: "Selecciona TODOS los hábitos que evitan que una racha ganadora reviente tu cuenta."
     options:
       - id: a
         correct: true
         text:
-          en: "It is per-venue: a large buyer working another exchange is invisible."
-          es: "Es por venue: un gran comprador en otro exchange es invisible."
+          en: "Risking the same fixed percentage per trade regardless of the streak."
+          es: "Arriesgar el mismo porcentaje fijo por operación al margen de la racha."
       - id: b
         correct: true
         text:
-          en: "Perp CVD is leveraged flow, heavy with liquidations and stops."
-          es: "El CVD de perps es flujo apalancado, cargado de liquidaciones."
+          en: "Keeping leverage unchanged whether you are winning or losing."
+          es: "Mantener el apalancamiento igual tanto si ganas como si pierdes."
       - id: c
         correct: true
         text:
-          en: "A divergence on a 1-minute chart is mostly noise."
-          es: "Una divergencia en un gráfico de 1 minuto es sobre todo ruido."
+          en: "Letting good results change your confidence but not your size."
+          es: "Dejar que los buenos resultados cambien tu confianza y no tu tamaño."
       - id: d
-        correct: true
         text:
-          en: "Aggregated CVD stacks estimates, so a poor venue drags the line."
-          es: "El CVD agregado acumula estimaciones y un mal venue arrastra la línea."
+          en: "Pressing your edge with bigger size while you are 'in the zone'."
+          es: "Apretar tu ventaja con más tamaño mientras estás 'en racha'."
       - id: e
         text:
-          en: "A rising CVD line reliably means price will rise soon."
-          es: "Una línea de CVD ascendente significa fiablemente que el precio subirá."
+          en: "Sizing up to keep the streak's compounding on track."
+          es: "Subir el tamaño para mantener el interés compuesto de la racha."
+      - id: f
+        text:
+          en: "Raising leverage because conditions clearly suit your strategy now."
+          es: "Subir el apalancamiento porque las condiciones te van bien ahora."
     explanation:
-      en: "Spot CVD is closer to someone actually acquiring the coin; perp CVD is reflexive, leveraged flow. Errors accumulate along with the flow, which is why CVD is read at the timeframe you intend to trade and always against price. A CVD pane alone is nearly useless — the information is in the disagreement between the two lines, and a rising line is pressure, never a forecast."
-      es: "El CVD de spot está más cerca de alguien adquiriendo la moneda de verdad; el de perps es flujo apalancado y reflexivo. Los errores se acumulan junto con el flujo, y por eso el CVD se lee en la temporalidad que piensas operar y siempre contra el precio. Un panel de CVD solo es casi inútil: la información está en el desacuerdo entre las dos líneas, y una línea ascendente es presión, nunca un pronóstico."
+      en: "The fix is to keep your mood out of your sizing entirely: a fixed percentage of account risk and unchanged leverage, on a five-win streak or a five-loss one. The last three are overconfidence talking — one ordinary loss at the inflated size erases the streak and then some."
+      es: "La solución es mantener tu estado de ánimo completamente fuera de tu tamaño: un porcentaje fijo del riesgo de la cuenta y el mismo apalancamiento, tanto en una racha de cinco ganancias como de cinco pérdidas. Las tres últimas son el exceso de confianza hablando: una pérdida normal con el tamaño inflado borra la racha y algo más."
+  - id: variance-vs-skill
+    prompt:
+      en: "Why does a run of wins feel like skill even when it isn't a reason to size up?"
+      es: "¿Por qué una serie de ganancias se siente como habilidad aunque no sea motivo para subir el tamaño?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A short run is mostly variance, and overconfidence mimics competence."
+          es: "Una serie corta es sobre todo varianza, y el exceso de confianza imita a la competencia."
+      - id: b
+        text:
+          en: "The market rewards confidence, so acting bigger helps a streak continue."
+          es: "El mercado premia la confianza: actuar con más tamaño alarga la racha."
+      - id: c
+        text:
+          en: "Wins in a row mathematically prove your win rate has permanently risen."
+          es: "Ganar seguidas prueba matemáticamente que tu acierto ha subido para siempre."
+      - id: d
+        text:
+          en: "A streak means you have temporarily removed risk, so more size is safe."
+          es: "Una racha significa que quitaste el riesgo un tiempo: más tamaño es seguro."
+    explanation:
+      en: "From the inside, a hot streak feels like you have finally 'got it', but a handful of results is dominated by variance. It does not change your win rate, the market does not reward mood, and no streak removes risk. Keep size fixed and let confidence, not position size, absorb the good run."
+      es: "Desde dentro, una racha caliente parece que por fin 'lo has pillado', pero un puñado de resultados está dominado por la varianza. No cambia tu tasa de acierto, el mercado no premia el estado de ánimo y ninguna racha elimina el riesgo. Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
+  - id: swing-oversize
+    prompt:
+      en: "You swing trade and just had your best month ever. You're tempted to put on a much larger position for the next swing. What does the module say?"
+      es: "Haces swing trading y acabas de tener tu mejor mes. Te tienta abrir una posición mucho mayor en el siguiente swing. ¿Qué dice el módulo?"
+    options:
+      - id: a
+        text:
+          en: "A great month proves the strategy works, so scaling size up is logical."
+          es: "Un gran mes prueba que la estrategia funciona: subir tamaño es lógico."
+      - id: b
+        text:
+          en: "Bigger swings deserve bigger size to make the long wait worthwhile."
+          es: "Los swings grandes merecen más tamaño para que valga la larga espera."
+      - id: c
+        correct: true
+        text:
+          en: "Size stays a fixed function of account risk; only confidence may change."
+          es: "El tamaño sigue siendo una función fija del riesgo; solo cambia la confianza."
+      - id: d
+        text:
+          en: "Since swing trades are slower, oversizing is safer than in day trading."
+          es: "Como el swing es más lento, sobredimensionar es más seguro que en intradía."
+    explanation:
+      en: "Over-leverage after a good run is the same mistake in slow motion. A great month is still mostly the market's mood plus some variance, so it proves less than it feels like it does; more time does not protect you, it just gives you more room to rationalise. Size stays a fixed function of risk regardless of how the last month went."
+      es: "Sobreapalancarse tras una buena racha es el mismo error a cámara lenta. Un gran mes sigue siendo sobre todo el humor del mercado más algo de varianza, así que demuestra menos de lo que parece; más tiempo no te protege, solo te da más margen para racionalizar. El tamaño sigue siendo una función fija del riesgo, al margen de cómo fuera el último mes."
+  - id: sixth-trade-numbers
+    prompt:
+      en: "After five green trades at 1% risk you jump from 5× to 20× leverage and triple your size. The sixth trade is an ordinary loser. What does it cost?"
+      es: "Tras cinco operaciones verdes al 1% de riesgo, saltas de 5× a 20× de apalancamiento y triplicas el tamaño. La sexta es una perdedora normal. ¿Qué cuesta?"
+    options:
+      - id: a
+        text:
+          en: "1R, since the risk percentage per trade did not actually change."
+          es: "1R, ya que el porcentaje de riesgo por operación no cambió."
+      - id: b
+        text:
+          en: "Nothing at all — the five previous wins comfortably cover it."
+          es: "Nada en absoluto: las cinco ganancias anteriores lo cubren de sobra."
+      - id: c
+        correct: true
+        text:
+          en: "3R in one go — and liquidation now sits inside routine noise."
+          es: "3R de golpe, y la liquidación queda ahora dentro del ruido normal."
+      - id: d
+        text:
+          en: "4R, because leverage multiplies the loss by the leverage ratio itself."
+          es: "4R, porque el apalancamiento multiplica la pérdida por su propio ratio."
+    explanation:
+      en: "Tripling the size triples the loss: the risk percentage was abandoned the moment you sized on mood. The higher leverage does not multiply the loss by four — it puts the liquidation price inside routine noise, so a move that used to be a small planned loss can force you out entirely. One unremarkable trade, taken at the wrong size, gives back the whole streak."
+      es: "Triplicar el tamaño triplica la pérdida: el porcentaje de riesgo se abandonó en cuanto dimensionaste por estado de ánimo. El mayor apalancamiento no multiplica la pérdida por cuatro: sitúa el precio de liquidación dentro del ruido normal, así que un movimiento que antes era una pequeña pérdida planificada puede sacarte del todo. Una operación anodina, tomada con el tamaño equivocado, devuelve toda la racha."
+  - id: confidence-not-size
+    kind: matching
+    prompt:
+      en: "Match each thing to what a winning streak is and is not allowed to change."
+      es: "Empareja cada elemento con lo que una racha ganadora puede y no puede cambiar."
+    pairs:
+      - id: conf
+        left: { en: "Your confidence", es: "Tu confianza" }
+        right:
+          en: "Good results are allowed to change this."
+          es: "Los buenos resultados pueden cambiar esto."
+      - id: size
+        left: { en: "Your position size", es: "El tamaño de tu posición" }
+        right:
+          en: "A fixed function of account risk — the same small percentage whether you are on a five-win streak or a five-loss one."
+          es: "Una función fija del riesgo de la cuenta: el mismo porcentaje pequeño estés en una racha de cinco ganancias o de cinco pérdidas."
+      - id: evidence
+        left: { en: "A five-trade sample", es: "Una muestra de cinco operaciones" }
+        right:
+          en: "Dominated by variance — almost no evidence about whether your edge grew."
+          es: "Dominada por la varianza: casi ninguna prueba de que tu ventaja haya crecido."
+    explanation:
+      en: "The mind credits wins to skill and would have blamed losses on bad luck, so a run of noise reads as proof you have 'got it'. Keeping size mechanical is what stops that story from costing you."
+      es: "La mente atribuye las ganancias a la habilidad y habría culpado a la mala suerte de las pérdidas, así que una racha de ruido se lee como prueba de que ya 'lo tienes'. Mantener el tamaño mecánico es lo que evita que esa historia te cueste dinero."
+  - id: why-no-alarm
+    kind: multi_select
+    prompt:
+      en: "Select ALL the reasons a winning streak is a dangerous moment."
+      es: "Selecciona TODAS las razones por las que una racha ganadora es un momento peligroso."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A handful of results is dominated by variance, but the mind refuses to see it."
+          es: "Un puñado de resultados está dominado por la varianza, y la mente no lo ve."
+      - id: b
+        correct: true
+        text:
+          en: "Overconfidence feels identical to competence, so no alarm goes off."
+          es: "El exceso de confianza se siente idéntico a la competencia: no salta alarma."
+      - id: c
+        correct: true
+        text:
+          en: "The last five trades feel far more real than the thousands-of-trades truth."
+          es: "Las últimas cinco se sienten más reales que la verdad de las miles."
+      - id: d
+        text:
+          en: "Winning streaks genuinely indicate that your edge has grown."
+          es: "Las rachas ganadoras indican de verdad que tu ventaja ha crecido."
+      - id: e
+        text:
+          en: "Exchanges raise your fee tier after consecutive wins."
+          es: "Los exchanges suben tu nivel de comisiones tras ganancias consecutivas."
+    explanation:
+      en: "Because the feeling is indistinguishable from competence, the defence cannot be self-awareness in the moment — it has to be a size rule fixed in advance. A short streak is evidence about variance, not about your edge, and no venue prices your results."
+      es: "Como la sensación es indistinguible de la competencia, la defensa no puede ser la autoconciencia del momento: tiene que ser una regla de tamaño fijada por adelantado. Una racha corta es prueba sobre la varianza, no sobre tu ventaja, y ningún venue tarifa tus resultados."

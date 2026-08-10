@@ -50,7 +50,7 @@ export function ChartExercise({
       ? divergenceMarkers(result.correctAnswer)
       : patternMarkers(result.correctAnswer);
   // Shaded zones appear only once the answer is in — same rule as the markers, and for a stronger
-  // reason: the question is "find the zone", so drawing it beforehand would BE the answer (m30).
+  // reason: the question is "find the zone", so drawing it beforehand would BE the answer (m34).
   const bands = !result || isDivergence ? [] : patternBands(result.correctAnswer);
 
   const revealed =

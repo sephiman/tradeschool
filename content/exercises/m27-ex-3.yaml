@@ -1,0 +1,203 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: quiz
+variants:
+  - id: order-of-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps of one complete trade into the correct order, from first decision to last."
+      es: "Ordena los pasos de una operación completa en el orden correcto, de la primera decisión a la última."
+    items:
+      - id: ctx
+        position: 1
+        text: { en: "Read the context (trend / structure)", es: "Leer el contexto (tendencia / estructura)" }
+      - id: setup
+        position: 2
+        text: { en: "Identify the setup at a level (confluence)", es: "Identificar el setup en un nivel (confluencia)" }
+      - id: trigger
+        position: 3
+        text: { en: "Wait for the reaction (entry trigger)", es: "Esperar la reacción (detonante de entrada)" }
+      - id: stop
+        position: 4
+        text: { en: "Place the stop where the idea is wrong", es: "Colocar el stop donde la idea es errónea" }
+      - id: size
+        position: 5
+        text: { en: "Size the position from the stop", es: "Dimensionar la posición desde el stop" }
+    explanation:
+      en: "Context → setup → trigger → stop → size. The stop comes from the chart and the size comes from the stop, so risk is decided before you ever commit money. Reversing stop and size (pick a size, then a stop) is gambling."
+      es: "Contexto → setup → disparador → stop → tamaño. El stop sale del gráfico y el tamaño sale del stop, así que el riesgo se decide antes de comprometer dinero. Invertir stop y tamaño (elegir un tamaño y luego un stop) es apostar."
+  - id: stop-only-favour-tf
+    kind: true_false
+    prompt:
+      en: "The one inviolable rule of managing a live trade: the stop only ever moves in the trade's favour."
+      es: "La única regla inviolable de gestionar una operación en vivo: el stop solo se mueve a favor de la operación."
+    answer: true
+    explanation:
+      en: "Up for a long, down for a short, never away. This single rule is what keeps a planned loss capped at the amount you budgeted."
+      es: "Arriba en un largo, abajo en un corto, nunca en contra. Esta única regla es lo que mantiene una pérdida planificada topada en la cantidad que presupuestaste."
+  - id: where-stop
+    prompt:
+      en: "Where does a stop belong?"
+      es: "¿Dónde pertenece un stop?"
+    options:
+      - id: a
+        text:
+          en: "At the dollar amount you are comfortable losing on this particular trade."
+          es: "En la cantidad de dinero que te sientas cómodo perdiendo en esta operación."
+      - id: b
+        text:
+          en: "A fixed 2% below entry on every trade, so the risk stays consistent."
+          es: "Un 2% fijo bajo la entrada en toda operación, para un riesgo constante."
+      - id: c
+        text:
+          en: "Wherever leaves a round position size, so the maths stays simple."
+          es: "Donde deje un tamaño de posición redondo, para que la cuenta sea simple."
+      - id: d
+        correct: true
+        text:
+          en: "At the price that invalidates the setup — where the idea is proven wrong."
+          es: "En el precio que invalida el setup: donde la idea se demuestra falsa."
+    explanation:
+      en: "The stop marks where the idea is dead (structure), not a money figure. Placed there, being stopped means something real; the size then adjusts so that loss equals your budget. Start from the money instead and the stop lands wherever your comfort happens to be, which the market has no reason to respect."
+      es: "El stop marca dónde muere la idea (estructura), no una cifra de dinero. Colocado ahí, que te salten significa algo real; el tamaño se ajusta luego para que esa pérdida iguale tu presupuesto. Si partes del dinero, el stop cae donde esté tu comodidad, y el mercado no tiene razón alguna para respetarla."
+  - id: why-trigger
+    prompt:
+      en: "Why wait for a reaction candle at the level instead of buying the moment price touches it?"
+      es: "¿Por qué esperar una vela de reacción en el nivel en vez de comprar en cuanto el precio lo toca?"
+    options:
+      - id: a
+        text:
+          en: "It guarantees the level holds, since a reaction candle confirms the buyers."
+          es: "Garantiza que el nivel aguanta, ya que la vela de reacción confirma compras."
+      - id: b
+        correct: true
+        text:
+          en: "It makes the market prove that buyers actually showed up before you commit."
+          es: "Obliga al mercado a demostrar que los compradores aparecieron de verdad."
+      - id: c
+        text:
+          en: "It lets you enter closer to the level and so win a slightly better price."
+          es: "Te deja entrar más cerca del nivel y así conseguir un precio algo mejor."
+      - id: d
+        text:
+          en: "There is no reason; the touch is always the cheaper entry, so take it."
+          es: "No hay razón; el toque siempre es la entrada más barata, así que tómala."
+    explanation:
+      en: "Buying the touch assumes the level holds; waiting for the reaction demands evidence and lets you refuse the trade if the reaction never comes. Note what it does not do: it guarantees nothing, and it costs you a worse price than the touch. You pay that little price for proof."
+      es: "Comprar el toque da por hecho que el nivel aguanta; esperar la reacción exige pruebas y te deja rechazar la operación si la reacción nunca llega. Fíjate en lo que no hace: no garantiza nada, y te cuesta un precio peor que el toque. Pagas ese poco de precio a cambio de pruebas."
+  - id: r-multiple
+    prompt:
+      en: "You risk 1R and your target is 3,7R away. Entry 60.300, stop 59.300 (risk 1.000). Roughly where is the target?"
+      es: "Arriesgas 1R y tu objetivo está a 3,7R. Entrada 60.300, stop 59.300 (riesgo 1.000). ¿Dónde está aproximadamente el objetivo?"
+    options:
+      - id: a
+        correct: true
+        text: { en: "Around 64.000 (about 3.700 above the entry)", es: "Alrededor de 64.000 (unos 3.700 sobre la entrada)" }
+      - id: b
+        text: { en: "Around 59.300 (at the stop itself)", es: "Alrededor de 59.300 (en el propio stop)" }
+      - id: c
+        text: { en: "Around 60.700 (about 400 above entry)", es: "Alrededor de 60.700 (unos 400 sobre la entrada)" }
+      - id: d
+        text: { en: "Around 71.000 (about 10.700 above)", es: "Alrededor de 71.000 (unos 10.700 arriba)" }
+    explanation:
+      en: "1R is the stop distance, 1.000. 3,7R ≈ 3.700 above the 60.300 entry ≈ 64.000. The wrong answers each mistake what R measures: 0,4R away, R below entry instead of above, and 10,7R. Expressing targets in R keeps every trade comparable regardless of price."
+      es: "1R es la distancia del stop, 1.000. 3,7R ≈ 3.700 por encima de la entrada de 60.300 ≈ 64.000. Cada respuesta errónea confunde qué mide la R: 0,4R de distancia, 1R por debajo en vez de por encima, y 10,7R. Expresar objetivos en R mantiene toda operación comparable sin importar el precio."
+  - id: context-first
+    prompt:
+      en: "Before looking for an entry, the first question of a complete trade is:"
+      es: "Antes de buscar una entrada, la primera pregunta de una operación completa es:"
+    options:
+      - id: a
+        text:
+          en: "How much leverage can I use to make the winner worth taking?"
+          es: "¿Cuánto apalancamiento uso para que la ganadora merezca la pena?"
+      - id: b
+        text:
+          en: "Which coin has the most social-media volume, since flow follows attention?"
+          es: "¿Qué moneda tiene más volumen en redes, si el flujo sigue a la atención?"
+      - id: c
+        text:
+          en: "What round number is price nearest, since round numbers attract orders?"
+          es: "¿A qué número redondo está más cerca el precio, si atraen órdenes?"
+      - id: d
+        correct: true
+        text:
+          en: "Is the market offering a clean trade at all? (Often the answer is no.)"
+          es: "¿Ofrece el mercado siquiera una operación limpia?"
+    explanation:
+      en: "Context decides whether there is a trade. In a range or against the trend the same setup is a worse bet, and most of the time the honest answer — and the best trade — is no trade. Leverage, attention and round numbers are all answers to 'how do I trade this?', a question you have not earned the right to ask yet."
+      es: "El contexto decide si hay operación. En un rango o contra la tendencia el mismo setup es peor apuesta, y la mayor parte del tiempo la respuesta honesta —y la mejor operación— es ninguna. Apalancamiento, atención y números redondos responden a «¿cómo opero esto?», una pregunta que aún no te has ganado el derecho a hacer."
+  - id: top-down-bias-entry
+    prompt:
+      en: "In the top-down protocol, which chart decides what?"
+      es: "En el protocolo de arriba abajo, ¿qué decide cada gráfico?"
+    options:
+      - id: a
+        text:
+          en: "The lower timeframe dictates the bias, because it shows the freshest action."
+          es: "La temporalidad inferior dicta el sesgo, porque muestra la acción reciente."
+      - id: b
+        correct: true
+        text:
+          en: "The higher frame sets bias and levels, the lower one the trigger."
+          es: "El superior da sesgo y niveles; el inferior, el disparador."
+      - id: c
+        text:
+          en: "Whichever timeframe currently agrees with your idea gets to decide both."
+          es: "La temporalidad que coincida ahora con tu idea decide las dos cosas."
+      - id: d
+        text:
+          en: "Both frames must give the same signal, or the trade is invalid entirely."
+          es: "Ambos marcos deben dar la misma señal, o la operación es del todo inválida."
+    explanation:
+      en: "Bias and levels come from the macro frame; timing and stop placement from the micro frame. The order is not reversible — the fast chart prints signals in both directions constantly, so letting it choose the direction means always finding a reason for the trade you already wanted."
+      es: "El sesgo y los niveles salen del marco macro; el timing y la colocación del stop, del marco micro. El orden no es reversible: el gráfico rápido imprime señales en las dos direcciones constantemente, así que dejarle elegir la dirección significa encontrar siempre una razón para la operación que ya querías."
+  - id: micro-against-macro
+    prompt:
+      en: "The 4-hour chart is in a clear downtrend. On the 5-minute you get a clean long trigger at a level. What is the correct action?"
+      es: "El gráfico de 4 horas está en una tendencia bajista clara. En el de 5 minutos obtienes un trigger largo limpio en un nivel. ¿Cuál es la acción correcta?"
+    options:
+      - id: a
+        text:
+          en: "Take the long with a tighter stop, so the conflict costs less per attempt."
+          es: "Tomar el largo con stop más ajustado, para que el conflicto cueste menos."
+      - id: b
+        text:
+          en: "Take the long — the 5-minute is nearer the price, so it is more accurate."
+          es: "Tomar el largo: el de 5 minutos está más cerca del precio y es más preciso."
+      - id: c
+        correct: true
+        text:
+          en: "Skip it — the micro signal contradicts the macro bias."
+          es: "Descartarla: la señal micro contradice el sesgo macro."
+      - id: d
+        text:
+          en: "Take the long at half size, since each frame gets half a vote."
+          es: "Tomar el largo a mitad de tamaño, ya que cada marco tiene medio voto."
+    explanation:
+      en: "The higher timeframe owns the direction, so a conflicting micro signal is a skipped trade, not a counter-trade opportunity. A tighter stop or a smaller size does not fix a trade taken against the dominant flow — it only makes the bad bet cheaper per attempt, and the frames do not vote."
+      es: "La temporalidad superior manda en la dirección, así que una señal micro que la contradice es una operación descartada, no una oportunidad de operar en contra. Un stop más ajustado o un tamaño menor no arreglan una operación tomada contra el flujo dominante: solo abaratan la mala apuesta por intento, y los marcos no votan."
+  - id: daily-stop-why-mechanical
+    prompt:
+      en: "Why is the daily stop written as a fixed number in the plan instead of being judged in the moment?"
+      es: "¿Por qué el freno diario se escribe como un número fijo en el plan en vez de decidirse en el momento?"
+    options:
+      - id: a
+        text:
+          en: "Because exchanges enforce daily loss limits, so your number must match theirs."
+          es: "Porque los exchanges aplican límites diarios y tu número debe coincidir."
+      - id: b
+        text:
+          en: "Because a fixed percentage guarantees you cannot have a losing week."
+          es: "Porque un porcentaje fijo garantiza que no tengas una semana perdedora."
+      - id: c
+        text:
+          en: "Because judgement is only unreliable for beginners, not for veterans."
+          es: "Porque el criterio solo falla en principiantes, no en los veteranos."
+      - id: d
+        correct: true
+        text:
+          en: "Because the person deciding after a −3% day is tilted and anchored on even."
+          es: "Porque quien decide tras un día de −3% está en tilt."
+    explanation:
+      en: "This is m26's pre-commitment made mechanical: the rule is decided when nothing is at stake precisely because willpower is what fails under pressure, and the trader anchored on getting back to even is the least qualified person to judge their own state. It caps the day, not the week, and no exchange rule replaces it."
+      es: "Es el compromiso previo de m26 hecho mecánico: la regla se decide cuando no hay nada en juego precisamente porque la fuerza de voluntad es lo que falla bajo presión, y quien está anclado en volver a cero es la persona menos cualificada para juzgar su propio estado. Limita el día, no la semana, y ninguna regla del exchange lo sustituye."

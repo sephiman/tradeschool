@@ -1,224 +1,208 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: cluster-magnet
+  - id: risk-on
     prompt:
-      en: "A liquidation cluster sits just below the current price. In practice, what does that tend to mean?"
-      es: "Un clúster de liquidaciones está justo debajo del precio actual. En la práctica, ¿qué suele significar eso?"
+      en: "Over the last several years, how has Bitcoin mostly behaved relative to traditional markets?"
+      es: "En los últimos años, ¿cómo se ha comportado Bitcoin sobre todo en relación con los mercados tradicionales?"
     options:
       - id: a
         text:
-          en: "Price reliably avoids it, since the exchange protects positions parked there."
-          es: "El precio lo evita, ya que el exchange protege las posiciones de ahí."
+          en: "As a safe haven uncorrelated with stocks, rising whenever markets fall."
+          es: "Como refugio seguro sin correlación con las acciones, subiendo cuando caen."
       - id: b
-        text:
-          en: "It marks a zone of high trading volume with no effect on where price goes."
-          es: "Marca una zona de mucho volumen sin efecto sobre adónde va el precio."
-      - id: c
-        text:
-          en: "The market has run out of liquidity there, so price will stop moving."
-          es: "El mercado se ha quedado sin liquidez ahí y el precio dejará de moverse."
-      - id: d
         correct: true
         text:
-          en: "Price is often drawn toward it, and can accelerate through it."
-          es: "El precio suele verse atraído hacia él, y puede acelerarse al atravesarlo."
+          en: "Largely as a risk-on asset, in loose sympathy with tech stocks."
+          es: "En gran medida como un activo risk-on, en sintonía laxa con las tecnológicas."
+      - id: c
+        text:
+          en: "As a mechanical mirror of the S&P 500, always moving the opposite way."
+          es: "Como espejo mecánico del S&P 500, moviéndose siempre en sentido contrario."
+      - id: d
+        text:
+          en: "Completely detached from macro: rates and the dollar do not touch it."
+          es: "Del todo ajeno a la macro: los tipos y el dólar no le afectan."
     explanation:
-      en: "Liquidation clusters act like magnets: reaching one triggers forced closes whose orders pull price the last stretch in and can accelerate the move through it. It is a probability and a source of volatility, not a guarantee — the exchange protects nobody — and it is a forced-close zone, not a comment on 'liquidity' running out."
-      es: "Los clústeres de liquidación actúan como imanes: alcanzar uno dispara cierres forzosos cuyas órdenes arrastran el precio el último tramo y pueden acelerar el movimiento a través de él. Es una probabilidad y una fuente de volatilidad, no una garantía —el exchange no protege a nadie— y es una zona de cierres forzosos, no un comentario sobre que se acabe la 'liquidez'."
-  - id: short-squeeze
+      en: "Bitcoin has traded largely as a risk-on asset — rising when investors embrace risk and falling when they flee to safety, which is the opposite of a safe haven. It is a tendency and a source of context, not a mechanical inverse of any index, and it is among the assets most sensitive to rates and the dollar rather than detached from them."
+      es: "Bitcoin ha cotizado en gran medida como un activo risk-on: sube cuando los inversores asumen riesgo y baja cuando huyen hacia la seguridad, que es lo contrario de un refugio. Es una tendencia y una fuente de contexto, no el inverso mecánico de ningún índice, y está entre los activos más sensibles a los tipos y al dólar, no ajeno a ellos."
+  - id: dxy
     prompt:
-      en: "In a short squeeze, why does price accelerate upward?"
-      es: "En un short squeeze, ¿por qué se acelera el precio hacia arriba?"
+      en: "A strong, rising US dollar index (DXY) has broadly tended to coincide with what for crypto?"
+      es: "Un índice del dólar (DXY) fuerte y al alza ha tendido en general a coincidir con ¿qué para cripto?"
     options:
       - id: a
-        text:
-          en: "The short sellers sell even more aggressively, which drives the price up."
-          es: "Los vendedores en corto venden aún más fuerte, lo que sube el precio."
-      - id: b
-        text:
-          en: "The exchange raises the price to punish traders betting against the market."
-          es: "El exchange sube el precio para castigar a quien apuesta contra el mercado."
-      - id: c
         correct: true
         text:
-          en: "Shorts must buy to close, and that forced buying lifts price further."
-          es: "Los cortos deben comprar para cerrar, y esa compra forzada sube más el precio."
-      - id: d
-        text:
-          en: "New buyers step in calmly once the shorts have quietly finished closing."
-          es: "Compradores nuevos entran con calma cuando los cortos ya han cerrado."
-    explanation:
-      en: "A liquidation is a forced close, and closing a short means buying back — so a wave of short liquidations is a wave of forced buying, which lifts price, liquidates more shorts, and cascades upward. The shorts are not choosing to sell more, nobody is being punished, and the buying is anything but calm. A long squeeze is the mirror image: forced selling cascading down."
-      es: "Una liquidación es un cierre forzoso, y cerrar un corto significa recomprar: así que una oleada de liquidaciones de cortos es una oleada de compra forzada, que sube el precio, liquida más cortos y forma una cascada hacia arriba. Los cortos no eligen vender más, nadie está siendo castigado, y esa compra es de todo menos tranquila. Un long squeeze es la imagen especular: venta forzada en cascada hacia abajo."
-  - id: liquidation-def
-    prompt:
-      en: "Which of these best describes a liquidation on a futures exchange?"
-      es: "¿Cuál de estas opciones describe mejor una liquidación en un exchange de futuros?"
-    options:
-      - id: a
-        text:
-          en: "Any large wave of selling that pushes the price down sharply on the day."
-          es: "Cualquier gran oleada de ventas que hunde bruscamente el precio del día."
+          en: "Weakness in crypto and other risk assets — an inverse tendency."
+          es: "Debilidad en cripto y otros activos de riesgo: tendencia inversa."
       - id: b
         text:
-          en: "A trader choosing to sell their position in order to lock in a profit."
-          es: "Un trader que decide vender su posición para asegurar una ganancia."
+          en: "No relationship at all, since crypto ignores the dollar entirely."
+          es: "Ninguna relación, ya que cripto ignora por completo al dólar."
       - id: c
-        correct: true
         text:
-          en: "The exchange force-closing a position whose margin cannot cover the loss."
-          es: "El exchange cerrando a la fuerza una posición cuyo margen no cubre la pérdida."
+          en: "Strength in crypto — the dollar and crypto reliably rise together."
+          es: "Fortaleza en cripto: el dólar y cripto suben juntos de forma fiable."
       - id: d
         text:
-          en: "The market running out of buyers, so that orders can no longer be filled."
-          es: "El mercado quedándose sin compradores, de modo que no se ejecutan órdenes."
+          en: "A guaranteed crypto crash on the very same day that the dollar rises."
+          es: "Un desplome garantizado de cripto el mismo día en que sube el dólar."
     explanation:
-      en: "A liquidation is strictly a forced close of a leveraged position. It is not ordinary selling however large, not a voluntary profit-take, and not 'liquidity' drying up — those are three separate things that routinely get muddled with the word."
-      es: "Una liquidación es estrictamente el cierre forzoso de una posición apalancada. No es una venta corriente por grande que sea, ni una toma de ganancias voluntaria, ni que se seque la 'liquidez': son tres cosas distintas que se confunden con la palabra continuamente."
-  - id: repel-myth
+      en: "A strong dollar has broadly coincided with weakness in risk assets, crypto included. It is an inverse tendency and a piece of context — not a mechanical seesaw, and certainly not a same-day trigger you can trade off the DXY chart alone."
+      es: "Un dólar fuerte ha coincidido en general con debilidad en los activos de riesgo, cripto incluida. Es una tendencia inversa y una pieza de contexto: no un balancín mecánico, y desde luego no un detonante del mismo día que puedas operar solo con el gráfico del DXY."
+  - id: safe-haven-myth
     kind: true_false
     prompt:
-      en: "A liquidation cluster acts like a magnet: reaching it triggers forced closes whose orders can accelerate the move through it."
-      es: "Un clúster de liquidaciones actúa como un imán: alcanzarlo dispara cierres forzosos cuyas órdenes pueden acelerar el movimiento a través de él."
-    answer: true
+      en: "Over recent years, Bitcoin has behaved as an uncorrelated safe haven, reliably rising when stock markets fall."
+      es: "En los últimos años, Bitcoin se ha comportado como un refugio seguro sin correlación, subiendo de forma fiable cuando caen los mercados de acciones."
+    answer: false
     explanation:
-      en: "True — clusters attract price and add volatility; they do not repel it. That is why a map of them is a map of where the market tends to get violent, not a set of levels that hold price back."
-      es: "Cierto: los clústeres atraen el precio y añaden volatilidad, no lo repelen. Por eso un mapa de clústeres es un mapa de dónde el mercado suele volverse violento, no un conjunto de niveles que contengan el precio."
-  - id: cluster-tiers
+      en: "The opposite is closer to the truth. Bitcoin has traded largely as a risk-on asset, moving in loose sympathy with tech stocks rather than against them — it has tended to fall, not rise, when investors flee risk."
+      es: "Lo cierto es más bien lo contrario. Bitcoin ha cotizado en gran medida como un activo risk-on, en sintonía laxa con las acciones tecnológicas en vez de en su contra: ha tendido a caer, no a subir, cuando los inversores huyen del riesgo."
+  - id: interest-rates
     prompt:
-      en: "Longs opened at 60,000 at 100×, 50× and 20×, with a 0.5% maintenance margin, have liquidation prices of 59,700, 59,100 and 57,300 respectively. Price wicks down to 59,000 and recovers. Which clusters did that wick harvest?"
-      es: "Largos abiertos en 60.000 a 100×, 50× y 20×, con un margen de mantenimiento del 0,5%, tienen precios de liquidación de 59.700, 59.100 y 57.300 respectivamente. El precio hace una mecha hasta 59.000 y se recupera. ¿Qué clústeres cosechó esa mecha?"
+      en: "Central banks raise interest rates sharply. All else equal, what does the lesson say this tends to do to crypto?"
+      es: "Los bancos centrales suben los tipos de interés con fuerza. En igualdad de condiciones, ¿qué dice la lección que esto tiende a hacerle a cripto?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Money tends to leave: safe cash and bonds now pay more."
+          es: "El dinero tiende a salir: el efectivo y los bonos ahora pagan más."
+      - id: b
+        text:
+          en: "Money tends to flow in, because higher rates make crypto pay interest."
+          es: "El dinero tiende a entrar, porque con tipos altos cripto paga intereses."
+      - id: c
+        text:
+          en: "Nothing at all — crypto is immune to interest-rate policy decisions."
+          es: "Nada en absoluto: cripto es inmune a las decisiones de tipos."
+      - id: d
+        text:
+          en: "Crypto's issuance schedule speeds up in order to compensate for it."
+          es: "El calendario de emisión de cripto se acelera para compensarlo."
+    explanation:
+      en: "Higher rates make safe cash and bonds pay more, so speculative assets — crypto very much included — become relatively less attractive and money tends to leave. Crypto is among the most sensitive assets to this cost of money, it pays no yield of its own, and its issuance is fixed by protocol regardless of what any central bank does."
+      es: "Tipos más altos hacen que el efectivo seguro y los bonos paguen más, así que los activos especulativos —cripto muy incluida— se vuelven relativamente menos atractivos y el dinero tiende a salir. Cripto está entre los activos más sensibles a este coste del dinero, no paga rendimiento propio, y su emisión la fija el protocolo haga lo que haga un banco central."
+  - id: risk-off-flows
+    prompt:
+      en: "In a risk-off episode, where does capital typically flow?"
+      es: "En un episodio risk-off, ¿hacia dónde fluye normalmente el capital?"
     options:
       - id: a
         text:
-          en: "All three — a cascade force-closes every leveraged position at once."
-          es: "Los tres: una cascada cierra a la fuerza todas las posiciones a la vez."
+          en: "Toward crypto and tech stocks, the classic safe havens of the era."
+          es: "Hacia cripto y las tecnológicas, los refugios seguros clásicos de la época."
       - id: b
         text:
-          en: "Only the 100× cluster; the 50× liquidation sits at 58,800, below the wick."
-          es: "Solo el de 100×; la liquidación del 50× está en 58.800, bajo la mecha."
+          en: "Toward small-cap altcoins, which hold up best under market stress."
+          es: "Hacia las altcoins pequeñas, que mejor aguantan el estrés del mercado."
       - id: c
-        text:
-          en: "None — a 1.7% move cannot liquidate anything at any leverage at all."
-          es: "Ninguno: un movimiento del 1,7% no puede liquidar nada a ningún apalancamiento."
-      - id: d
         correct: true
         text:
-          en: "The 100× and 50× clusters, but not the 20× one, which sits much further down."
-          es: "Los clústeres de 100× y 50×, pero no el de 20×."
+          en: "Toward assets that protect capital — cash and short-term bonds."
+          es: "Hacia activos que protegen el capital: efectivo y bonos a corto plazo."
+      - id: d
+        text:
+          en: "Nowhere at all — capital simply disappears from every market at once."
+          es: "A ningún sitio: el capital desaparece de todos los mercados a la vez."
     explanation:
-      en: "The wick reached 59,000, which is past 59,700 and 59,100 but nowhere near 57,300 — and the forced selling from the first two is exactly what can carry price down toward the third. This is why clusters stack densest right under price and go off on tiny moves: the higher the leverage, the closer liquidation sits to entry. The 58,800 figure is the classic slip of dropping the maintenance-margin term, which puts the level further from price than it really is."
-      es: "La mecha llegó a 59.000, que está pasado 59.700 y 59.100 pero muy lejos de 57.300, y la venta forzosa de los dos primeros es precisamente lo que puede llevar el precio hacia el tercero. Por esto los clústeres se acumulan más densos justo debajo del precio y se disparan con movimientos mínimos: cuanto mayor el apalancamiento, más cerca de la entrada queda la liquidación. La cifra de 58.800 es el desliz clásico de olvidar el término de margen de mantenimiento, que aleja el nivel del precio más de lo que está."
-  - id: terms-match
+      en: "Risk-off means money flows toward assets that protect capital if things go badly — cash, short-term government bonds, sometimes the dollar. Crypto and tech sit firmly at the risk-on end, so they tend to be sold, not bought, and the smallest alts are hit hardest of all. The capital does not vanish; it moves."
+      es: "Risk-off significa que el dinero fluye hacia activos que protegen el capital si las cosas van mal: efectivo, bonos de Estado a corto plazo, a veces el dólar. Cripto y la tecnología están firmemente en el extremo risk-on, así que tienden a venderse, no a comprarse, y las alts más pequeñas son las más castigadas. El capital no desaparece: se mueve."
+  - id: macro-match
     kind: matching
     prompt:
-      en: "Match each term to what it describes."
-      es: "Empareja cada término con lo que describe."
+      en: "Match each macro condition to the mood it has broadly tended to coincide with for crypto."
+      es: "Empareja cada condición macro con el ánimo con el que ha tendido a coincidir en general para cripto."
     pairs:
-      - id: ss
+      - id: rates-up
         left:
-          en: "Short squeeze"
-          es: "Short squeeze"
+          en: "Central banks raising interest rates"
+          es: "Bancos centrales subiendo los tipos de interés"
         right:
-          en: "Forced buying that cascades price upward"
-          es: "Compra forzada que forma una cascada del precio hacia arriba"
-      - id: ls
+          en: "Money leaving speculative assets like crypto"
+          es: "Dinero que sale de activos especulativos como cripto"
+      - id: dxy-up
         left:
-          en: "Long squeeze"
-          es: "Long squeeze"
+          en: "A strong, rising dollar (DXY)"
+          es: "Un dólar fuerte y al alza (DXY)"
         right:
-          en: "Forced selling that cascades price downward"
-          es: "Venta forzada que forma una cascada del precio hacia abajo"
-      - id: cl
+          en: "Broad weakness in crypto and other risk assets"
+          es: "Debilidad generalizada en cripto y otros activos de riesgo"
+      - id: risk-on
         left:
-          en: "Liquidation cluster"
-          es: "Clúster de liquidaciones"
+          en: "A risk-on mood"
+          es: "Un ánimo risk-on"
         right:
-          en: "A price zone that acts like a magnet for volatile moves"
-          es: "Una zona de precio que actúa como un imán para los movimientos violentos"
+          en: "Money flowing toward stocks and crypto"
+          es: "Dinero que fluye hacia las acciones y cripto"
+      - id: risk-off
+        left:
+          en: "A risk-off mood"
+          es: "Un ánimo risk-off"
+        right:
+          en: "Money flowing to cash and short-term government bonds"
+          es: "Dinero que fluye hacia el efectivo y los bonos de Estado a corto plazo"
     explanation:
-      en: "A short squeeze is forced buying (shorts buying to close) cascading up; a long squeeze is forced selling (longs selling to close) cascading down; a liquidation cluster is the pool of would-be forced closes near one price that draws price toward it and turns volatile."
-      es: "Un short squeeze es compra forzada (cortos que compran para cerrar) en cascada hacia arriba; un long squeeze es venta forzada (largos que venden para cerrar) en cascada hacia abajo; un clúster de liquidaciones es la bolsa de cierres forzosos potenciales cerca de un mismo precio que atrae el precio hacia sí y lo vuelve volátil."
-  - id: squeeze-fuel-signs
-    kind: multi_select
+      en: "Rising rates and a strong dollar have broadly coincided with weakness in crypto; a risk-on mood sends money toward stocks and crypto, a risk-off mood toward cash and bonds. All are tendencies and context, never mechanical laws."
+      es: "Los tipos al alza y un dólar fuerte han coincidido en general con debilidad en cripto; un ánimo risk-on lleva el dinero hacia las acciones y cripto, un ánimo risk-off hacia el efectivo y los bonos. Todo son tendencias y contexto, nunca leyes mecánicas."
+  - id: event-volatility
     prompt:
-      en: "Select ALL of the following that together tell you a market is primed for a squeeze."
-      es: "Selecciona TODO lo que en conjunto te dice que un mercado está preparado para un squeeze."
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Funding has gone clearly one-sided, so the crowded side pays to hold."
-          es: "El funding se ha vuelto unilateral: el lado saturado paga por mantener."
-      - id: b
-        correct: true
-        text:
-          en: "Open interest has climbed on that same crowded side of the book."
-          es: "El interés abierto ha subido en ese mismo lado saturado del libro."
-      - id: c
-        correct: true
-        text:
-          en: "A fat cluster of stops and liquidation prices sits on the crowded side."
-          es: "Un grupo denso de stops y liquidaciones está en el lado saturado."
-      - id: d
-        text:
-          en: "The data tells you when the spark will arrive."
-          es: "Los datos te dicen cuándo llegará la chispa."
-      - id: e
-        text:
-          en: "The cluster tells you which direction the day will end."
-          es: "El grupo te dice en qué dirección terminará el día."
-    explanation:
-      en: "One-sided funding, rising open interest on that side, and a fat cluster below it are three views of the same loaded fuel. What none of them does is predict the spark or the outcome: the data shows you a market primed to burn, never when it lights or which way it runs."
-      es: "Un funding unilateral, un interés abierto creciente en ese lado y un grupo denso debajo son tres vistas del mismo combustible cargado. Lo que ninguno hace es predecir la chispa ni el resultado: los datos te muestran un mercado listo para arder, nunca cuándo prende ni hacia dónde corre."
-  - id: cluster-not-target
-    prompt:
-      en: "How should a liquidation map be used?"
-      es: "¿Cómo debería usarse un mapa de liquidaciones?"
+      en: "A scheduled macro release (an FOMC rate decision, a CPI print) is coming in an hour. In trading terms, what does that date on the calendar mark?"
+      es: "Falta una hora para una publicación macro programada (una decisión de tipos del FOMC, un dato de IPC). Desde el punto de vista del trading, ¿qué marca esa fecha en el calendario?"
     options:
       - id: a
         text:
-          en: "As price targets to trade toward, since price is drawn to the clusters."
-          es: "Como objetivos a los que operar, ya que el precio se siente atraído por ellos."
+          en: "A reliable direction — these resolve up often enough to trade the release."
+          es: "Una dirección fiable: se resuelven al alza lo bastante para operar el dato."
       - id: b
-        text:
-          en: "As support and resistance levels that reliably hold price back."
-          es: "Como niveles de soporte y resistencia que contienen el precio de forma fiable."
-      - id: c
         correct: true
         text:
-          en: "As zones of volatility and likely sweeps, never as a direction."
-          es: "Como zonas de volatilidad y probables barridos, nunca como una dirección."
+          en: "A known volatility regime: spreads widen and books thin into it."
+          es: "Un régimen de volatilidad conocido: los spreads se abren y el libro se afina."
+      - id: c
+        text:
+          en: "Nothing for crypto — macro releases move only stocks and bonds."
+          es: "Nada para cripto: las publicaciones macro solo mueven acciones y bonos."
       - id: d
         text:
-          en: "As the place to park your own stop, where the liquidity is deepest."
-          es: "Como el sitio donde poner tu propio stop, donde la liquidez es mayor."
+          en: "A guaranteed calm, because liquidity always deepens before a known event."
+          es: "Una calma garantizada, porque la liquidez siempre se profundiza antes."
     explanation:
-      en: "A cluster tells you where it may get violent, not which way the day ends: none of this predicts direction — it maps the fuel and shows you where the market tends to burn it. Clusters attract rather than repel, so they are the opposite of levels that hold. And keep your own stops outside the obvious pool, beyond the level rather than one tick inside it."
-      es: "Un grupo te dice dónde puede volverse violento, no en qué dirección termina el día: nada de esto predice la dirección, cartografía el combustible y te muestra dónde suele quemarlo el mercado. Los grupos atraen en vez de repeler, así que son lo contrario de niveles que contienen. Y mantén tus propios stops fuera del grupo obvio, más allá del nivel y no un tick por dentro."
-  - id: leverage-density
+      en: "A scheduled event is a jump in uncertainty you can see coming. Right before it, market makers pull quotes rather than get run over by the reaction, so spreads widen and books thin — the worst possible liquidity for a fill, in exactly the window everyone is watching. Which way it resolves is not something the calendar tells you, and a 24/7 market feels it as much as any other."
+      es: "Un evento programado es un salto de incertidumbre que ves venir. Justo antes, los creadores de mercado retiran cotizaciones para que la reacción no los arrolle, así que los spreads se ensanchan y los libros se afinan: la peor liquidez posible para una ejecución, justo en la ventana que todos vigilan. Hacia dónde se resuelve no lo dice el calendario, y un mercado 24/7 lo siente tanto como cualquier otro."
+  - id: event-rule
     prompt:
-      en: "Why do liquidation clusters in crypto go off on such small moves?"
-      es: "¿Por qué los grupos de liquidación en cripto se disparan con movimientos tan pequeños?"
+      en: "You cannot predict tomorrow's CPI number. What is the disciplined way to treat the print?"
+      es: "No puedes predecir el dato de IPC de mañana. ¿Cuál es la forma disciplinada de tratar la publicación?"
     options:
       - id: a
         text:
-          en: "Because exchanges deliberately trigger the clusters at fixed times of day."
-          es: "Porque los exchanges disparan los grupos a horas fijas del día a propósito."
+          en: "Size up: the extra volatility is a bigger opportunity worth a bigger position."
+          es: "Subir tamaño: la volatilidad extra es una oportunidad mayor y merece más."
       - id: b
+        text:
+          en: "Place a tight stop just beyond price and hold full size through the release."
+          es: "Poner un stop ajustado junto al precio y aguantar el tamaño completo."
+      - id: c
         correct: true
         text:
-          en: "Perps allow 50–100×, so liquidation sits right next to entry."
-          es: "Los perps permiten 50-100×, así que la liquidación queda pegada a la entrada."
-      - id: c
-        text:
-          en: "Because the maintenance margin is larger in crypto than in other markets."
-          es: "Porque el margen de mantenimiento es mayor en cripto que en otros mercados."
+          en: "Be flat or small into an event whose outcome you cannot price."
+          es: "Estar plano o pequeño ante un evento cuyo resultado no puedes valorar."
       - id: d
         text:
-          en: "Because funding is charged three times a day, and that moves the price."
-          es: "Porque el funding se cobra tres veces al día, y eso mueve el precio."
+          en: "Ignore the calendar entirely; a good setup is a good setup on any date."
+          es: "Ignorar el calendario: un buen setup es un buen setup en cualquier fecha."
     explanation:
-      en: "A roughly 1% wick can liquidate a 100× position, so the trigger needs almost nothing — and the higher the leverage on offer, the denser the shelf sitting immediately under price. Dense clusters plus no closing bell plus thin books is the whole reason cascades are worse here: they fire at 3am, run unopposed, and overshoot because there was nothing there to absorb them."
-      es: "Una mecha de en torno al 1% puede liquidar una posición a 100×, así que el disparador casi no necesita nada, y cuanto mayor es el apalancamiento ofrecido, más densa es la repisa que queda justo debajo del precio. Grupos densos, sin campana de cierre y libros finos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."
+      en: "If you can't price the outcome, don't let it price you: the reaction, not your analysis, will set the next move. A tight stop is worse than useless when the spread gaps through it on the print — you get the loss without the protection — and adding size to a coin-flip magnifies the coin-flip, not the edge. The edge is in setups you can read."
+      es: "Si no puedes valorar el resultado, no dejes que él te valore a ti: la reacción, no tu análisis, fijará el siguiente movimiento. Un stop ajustado es peor que inútil cuando el spread lo atraviesa de golpe en el dato —te llevas la pérdida sin la protección— y añadir tamaño a un cara-o-cruz amplía el cara-o-cruz, no la ventaja. La ventaja está en setups que puedes leer."
+  - id: liq-shelf-print
+    kind: true_false
+    prompt:
+      en: "Holding a leveraged position whose liquidation price sits just past a visible cluster of stops is a fine thing to carry into an FOMC announcement."
+      es: "Mantener una posición apalancada cuyo precio de liquidación queda justo pasado un cúmulo visible de stops es algo perfectamente asumible para llevar a un anuncio del FOMC."
+    answer: false
+    explanation:
+      en: "That is the worst place to be into a scheduled shock. A liquidation shelf just past a stop cluster is exactly what a violent, thin-book reaction reaches for — the print supplies the volatility, the shelf supplies the fuel. Flatten or cut leverage so a single spike can't force you out at the worst price."
+      es: "Ese es el peor sitio posible ante un shock programado. Una repisa de liquidación justo pasado un cúmulo de stops es precisamente lo que busca una reacción violenta y de libro poco profundo: el dato aporta la volatilidad y la repisa el combustible. Aplana o reduce el apalancamiento para que un solo pico no pueda expulsarte al peor precio."

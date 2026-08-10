@@ -1,124 +1,232 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: two-rulers
+  - id: absolute-vs-percentage
     prompt:
-      en: "Bollinger bands and a Keltner channel are drawn around the same moving average. What is different about them?"
-      es: "Las bandas de Bollinger y un canal de Keltner se trazan alrededor de la misma media móvil. ¿En qué se diferencian?"
+      en: "BTC is 60,000 on venue A and 60,900 on venue B. Separately, a smaller coin is 6,000 on A and 6,900 on B. Both gaps are 900 — are the two premiums comparable?"
+      es: "BTC está a 60.000 en el exchange A y a 60.900 en el B. Aparte, una moneda más pequeña está a 6.000 en A y a 6.900 en B. Los dos huecos son 900: ¿son comparables las dos primas?"
     options:
       - id: a
         text:
-          en: "The period: Keltner uses a much longer window than Bollinger does."
-          es: "El periodo: Keltner usa una ventana mucho más larga que Bollinger."
+          en: "Yes — an equal absolute gap is an equal arbitrage opportunity in both."
+          es: "Sí: un hueco absoluto igual es la misma oportunidad en los dos casos."
       - id: b
         text:
-          en: "Bollinger uses closes and Keltner uses volume-weighted prices instead."
-          es: "Bollinger usa cierres y Keltner usa en su lugar precios ponderados por volumen."
-      - id: c
-        correct: true
-        text:
-          en: "The ruler: closes scattering for one, how far a bar travels for the other."
-          es: "La regla: la dispersión de los cierres en una, cuánto recorre una barra en la otra."
-      - id: d
-        text:
-          en: "Nothing meaningful — they are two names for the same construction."
-          es: "Nada relevante: son dos nombres para la misma construcción."
-    explanation:
-      en: "Bollinger is the mean plus and minus a number of standard deviations of the CLOSE, so its width is how spread out the closes have been. Keltner is the same mean plus and minus a multiple of the ATR, which is how far a BAR travels from high to low. Same centre, two different questions — and that is exactly why they can come apart far enough for one to sit inside the other."
-      es: "Bollinger es la media más y menos un número de desviaciones típicas del CIERRE, así que su anchura es lo dispersos que han estado los cierres. Keltner es esa misma media más y menos un múltiplo del ATR, que es cuánto recorre una BARRA de máximo a mínimo. El mismo centro, dos preguntas distintas; y por eso justamente pueden separarse lo bastante como para que una quede dentro de la otra."
-  - id: why-they-diverge
-    prompt:
-      en: "Every bar swings a long way and closes back near where it opened. What do the two envelopes do?"
-      es: "Cada barra oscila mucho y cierra cerca de donde abrió. ¿Qué hacen las dos envolventes?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Keltner is wide and Bollinger is narrow, which is the squeeze condition."
-          es: "Keltner es ancho y Bollinger estrecha, que es la condición de squeeze."
-      - id: b
-        text:
-          en: "Bollinger is wide and Keltner is narrow, since the range is what scatters."
-          es: "Bollinger es ancha y Keltner estrecho, ya que el rango es lo que se dispersa."
+          en: "Yes, provided both are quoted in the same currency, which they are."
+          es: "Sí, siempre que las dos coticen en la misma moneda, como es el caso."
       - id: c
         text:
-          en: "Both widen together, because both are measures of the same volatility."
-          es: "Se ensanchan las dos, porque ambas miden la misma volatilidad."
+          en: "No, because premiums compare only between venues, never between coins."
+          es: "No, porque las primas solo se comparan entre exchanges, no entre monedas."
       - id: d
+        correct: true
         text:
-          en: "Both narrow together, because neither one sees intrabar movement at all."
-          es: "Se estrechan las dos, porque ninguna ve el movimiento dentro de la barra."
+          en: "No — 900 on 60,000 is a 1.5% premium, but 900 on 6,000 is a 15% one."
+          es: "No: 900 sobre 60.000 es una prima del 1,5 %, pero sobre 6.000 es del 15 %."
     explanation:
-      en: "The bars are travelling, so the ATR — and with it the Keltner channel — is wide. The closes are all in a heap, so the standard deviation, and with it the Bollinger band, is small. That is what puts the Bollinger band inside the Keltner channel, and it is why a squeeze is not the same thing as an ordinary quiet market: ordinary quiet shrinks both of them."
-      es: "Las barras recorren distancia, así que el ATR —y con él el canal de Keltner— es ancho. Los cierres están todos amontonados, así que la desviación típica, y con ella la banda de Bollinger, es pequeña. Eso es lo que mete la banda de Bollinger dentro del canal de Keltner, y es la razón de que un squeeze no sea lo mismo que un mercado tranquilo cualquiera: la calma corriente encoge las dos."
-  - id: upper-band
+      en: "The percentage is the figure worth quoting, and this is why. A 15% premium is an extraordinary dislocation; a 1.5% one is notable but ordinary in a market with real transfer friction. The absolute number cannot distinguish them, which is also why the percentage is what lets you compare a premium today against a premium two years ago."
+      es: "El porcentaje es la cifra que merece citarse, y esta es la razón. Una prima del 15 % es una dislocación extraordinaria; una del 1,5 % es llamativa pero corriente en un mercado con fricción de transferencia real. El número absoluto no puede distinguirlas, y por eso también el porcentaje es lo que te permite comparar una prima de hoy con una de hace dos años."
+  - id: two-causes
     prompt:
-      en: "Price is riding the upper Bollinger band in a strong uptrend. What is that?"
-      es: "El precio va pegado a la banda superior de Bollinger en una tendencia alcista fuerte. ¿Qué es eso?"
+      en: "A venue in a country with strict capital controls has traded at a 3-4% premium continuously for the past eight months. What is the most likely explanation?"
+      es: "Un exchange de un país con controles de capital estrictos lleva ocho meses cotizando de forma continua con una prima del 3-4 %. ¿Cuál es la explicación más probable?"
     options:
       - id: a
         text:
-          en: "A sell signal: two standard deviations is by definition an extreme."
-          es: "Una señal de venta: dos desviaciones típicas es por definición un extremo."
+          en: "Sustained regional demand — locals more eager than the market for months."
+          es: "Demanda regional sostenida: locales con más ganas durante meses."
       - id: b
-        text:
-          en: "A guarantee the band will contain price on the way back down as well."
-          es: "Una garantía de que la banda contendrá el precio también en la vuelta."
-      - id: c
         correct: true
         text:
-          en: "Where price lives in a trend — the m11 overbought error in an envelope."
-          es: "Donde vive el precio en tendencia: el error de sobrecompra de m11 en envolvente."
+          en: "Transfer friction — the premium prices the barrier, not enthusiasm."
+          es: "Fricción: la prima pone precio a la barrera, no al entusiasmo."
+      - id: c
+        text:
+          en: "Arbitrageurs have not noticed a gap on such a small venue yet."
+          es: "Los arbitrajistas aún no han visto el hueco en un sitio pequeño."
       - id: d
         text:
-          en: "Evidence the band's period is wrong and should be shortened until it fits."
-          es: "Prueba de que el periodo de la banda está mal y hay que acortarlo hasta que encaje."
+          en: "The venue reports false prices; a real premium cannot last months."
+          es: "El exchange reporta precios falsos; una prima real no dura meses."
     explanation:
-      en: "The band says price is two standard deviations above its own recent mean, which is precisely where a trending market spends its time. Reading that as 'too high' is the same mistake m11 named for an overbought RSI, wearing a different envelope: a strong reading means the thing is strong, and only context tells you whether it is exhausted."
-      es: "La banda dice que el precio está dos desviaciones típicas por encima de su propia media reciente, que es justo donde pasa el tiempo un mercado en tendencia. Leer eso como «demasiado alto» es el mismo error que nombró m11 para un RSI sobrecomprado, con otra envolvente encima: una lectura fuerte significa que la cosa es fuerte, y solo el contexto te dice si está agotada."
-  - id: measure-map
-    kind: matching
-    prompt:
-      en: "Match each measurement to what it is actually made of."
-      es: "Empareja cada medición con lo que realmente la compone."
-    pairs:
-      - id: bb
-        left:
-          en: "Bollinger band width"
-          es: "Anchura de la banda de Bollinger"
-        right:
-          en: "Standard deviation of the closes over the window."
-          es: "Desviación típica de los cierres en la ventana."
-      - id: atr
-        left:
-          en: "ATR"
-          es: "ATR"
-        right:
-          en: "Average distance a bar travels, counting gaps between bars."
-          es: "Distancia media que recorre una barra, contando huecos entre barras."
-      - id: sq
-        left:
-          en: "Squeeze"
-          es: "Squeeze"
-        right:
-          en: "One envelope sitting entirely inside the other one."
-          es: "Una envolvente enteramente dentro de la otra."
-      - id: hist
-        left:
-          en: "The oscillator's histogram"
-          es: "El histograma del oscilador"
-        right:
-          en: "Where price sits against its own recent range, signed."
-          es: "Dónde está el precio respecto a su propio rango reciente, con signo."
-    explanation:
-      en: "Every one of them is arithmetic over the bars already on the chart. None is a forecast, and the last two are repackagings of the first two — which is the reason the lesson insists the pane adds no information the price panel does not already carry."
-      es: "Todas ellas son aritmética sobre las barras que ya están en el gráfico. Ninguna es un pronóstico, y las dos últimas son reempaquetados de las dos primeras, que es la razón por la que la lección insiste en que el panel no añade información que el panel de precio no lleve ya."
-  - id: clustering
+      en: "Duration is the tell. A demand-driven premium is a flow reading and changes as flow changes; a premium that sits at the same level for months is closer to a structural constant — roughly the price of the barrier to moving value in and out. Arbitrage is certainly aware of it, but the fiat leg is restricted, so the gap can only be capped at the cost of getting around the restriction. Reading a friction premium as bullish enthusiasm is a straightforward mistake."
+      es: "La duración es la pista. Una prima impulsada por demanda es una lectura de flujo y cambia cuando cambia el flujo; una prima que se queda en el mismo nivel durante meses está más cerca de ser una constante estructural: aproximadamente el precio de la barrera para mover valor hacia dentro y hacia fuera. El arbitraje sin duda la conoce, pero la pata fiat está restringida, así que el hueco solo puede toparse en el coste de sortear la restricción. Leer una prima de fricción como entusiasmo alcista es un error de manual."
+  - id: premium-not-a-buy-signal
     kind: true_false
     prompt:
-      en: "'The market has been calm for three weeks' is genuine information about what is coming."
-      es: "«El mercado lleva tres semanas en calma» es información de verdad sobre lo que viene."
-    answer: true
+      en: "A venue trading at a premium means institutions are buying there, which makes it a reason to go long."
+      es: "Que un exchange cotice con prima significa que las instituciones están comprando ahí, lo que lo convierte en una razón para ponerse largo."
+    answer: false
     explanation:
-      en: "True, and unusually so — volatility clustering is one of the most robust regularities in any traded market, which is why a quiet stretch really does raise the odds of a violent one. What it is not is a direction, or a date. A quiet market is not a safe market; it is a market that has not moved yet."
-      es: "Cierto, y de forma poco habitual: la agrupación de la volatilidad es una de las regularidades más robustas de cualquier mercado negociado, y por eso un tramo tranquilo sí eleva las probabilidades de uno violento. Lo que no es es una dirección ni una fecha. Un mercado tranquilo no es un mercado seguro: es un mercado que todavía no se ha movido."
+      en: "False, and it skips every step that matters. You have not established which of the two causes you are looking at, whether the premium is widening or merely high, or whether the move it supposedly predicts has already happened. Like funding in m19, it is a positioning and flow reading: most informative at extremes, near-meaningless in the middle, and crowded positioning is fragile positioning."
+      es: "Falso, y se salta todos los pasos que importan. No has establecido cuál de las dos causas estás mirando, ni si la prima se está ensanchando o simplemente está alta, ni si el movimiento que supuestamente predice ya ha ocurrido. Como el funding en m19, es una lectura de posicionamiento y flujo: más informativa en los extremos, casi sin sentido en el medio, y un posicionamiento saturado es un posicionamiento frágil."
+  - id: why-arb-is-slow
+    kind: multi_select
+    prompt:
+      en: "Why doesn't arbitrage close a cross-venue premium instantly? Select all that apply."
+      es: "¿Por qué el arbitraje no cierra al instante una prima entre exchanges? Selecciona todas las que correspondan."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Moving coin between venues needs blockchain confirmations"
+          es: "Mover moneda entre exchanges necesita confirmaciones en cadena"
+      - id: b
+        correct: true
+        text:
+          en: "Withdrawal fees, trading fees and conversion set a floor"
+          es: "Las comisiones de retirada, de trading y de conversión ponen un suelo"
+      - id: c
+        correct: true
+        text:
+          en: "Capital controls can make the fiat leg slow or impossible"
+          es: "Los controles de capital hacen la pata fiat lenta o imposible"
+      - id: d
+        text:
+          en: "Exchanges are contractually forbidden from converging prices"
+          es: "Los exchanges tienen prohibido por contrato converger precios"
+    explanation:
+      en: "The first three are the real frictions: confirmations leave price free to move against you, fees set a floor below which the trade is not worth doing, and banking limits can cap the fiat leg outright. Together they explain the honest picture — arbitrage does not eliminate premiums, it caps them at the cost of doing it, so where that cost is high the cap is high. The fourth is invented. Worth adding that the efficient version of the trade needs capital already sitting on both venues, which means accepting both exchanges' counterparty risk in advance."
+      es: "Las tres primeras son las fricciones reales: las confirmaciones dejan al precio libre de moverse en tu contra, las comisiones ponen un suelo por debajo del cual la operación no merece la pena, y los límites bancarios pueden topar la pata fiat del todo. Juntas explican el cuadro honesto: el arbitraje no elimina las primas, las topa en el coste de hacerlo; así que donde ese coste es alto, el tope es alto. La cuarta está inventada. Merece añadir que la versión eficiente de la operación necesita capital ya sentado en los dos sitios, lo que significa aceptar por adelantado el riesgo de contraparte de los dos exchanges."
+  - id: widening-vs-level
+    prompt:
+      en: "A venue's premium has gone from 0.4% to 2.1% over three days. Another venue has sat flat at 2.0% for months. Which is telling you more, and what?"
+      es: "La prima de un exchange ha pasado del 0,4 % al 2,1 % en tres días. Otro exchange lleva meses plano en el 2,0 %. ¿Cuál te dice más, y qué?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The widening one — buying pressure is arriving through that venue."
+          es: "El que se ensancha: la presión compradora llega por ese exchange."
+      - id: b
+        text:
+          en: "The flat one — months of premium beats a three-day move as evidence."
+          es: "El plano: meses de prima son más prueba que tres días de movimiento."
+      - id: c
+        text:
+          en: "Neither — at about 2% the two are effectively the same reading."
+          es: "Ninguno: al 2 % los dos son efectivamente la misma lectura."
+      - id: d
+        text:
+          en: "The flat one, because a stable premium is reliable arbitrage income."
+          es: "El plano, porque una prima estable es un ingreso fiable de arbitraje."
+    explanation:
+      en: "This is why the premium's *change* matters more than its level. Both venues currently read about 2%, and they mean completely different things: one is a flow event in progress, the other is the standing price of a barrier, carrying little fresh information. The same venue can even show both at once — a structural base with demand-driven spikes on top — which is exactly why you track the change."
+      es: "Por esto el *cambio* de la prima importa más que su nivel. Los dos exchanges marcan ahora en torno al 2 % y significan cosas completamente distintas: uno es un suceso de flujo en marcha, el otro es el precio permanente de una barrera y aporta poca información nueva. El mismo sitio puede incluso mostrar las dos a la vez —una base estructural con picos de demanda encima—, y justo por eso sigues el cambio."
+  - id: collapsing-premium
+    prompt:
+      en: "A premium that spent weeks at 3% falls to 0.2% in two days. What are the two readings worth considering?"
+      es: "Una prima que pasó semanas al 3 % cae al 0,2 % en dos días. ¿Cuáles son las dos lecturas que merece considerar?"
+    options:
+      - id: a
+        text:
+          en: "Either price is about to crash, or the venue is about to be delisted."
+          es: "O el precio va a desplomarse, o el exchange va a ser deslistado."
+      - id: b
+        text:
+          en: "Either the arbitrageurs have left, or the coin's supply has changed."
+          es: "O los arbitrajistas se han ido, o la oferta de la moneda cambió."
+      - id: c
+        text:
+          en: "Only one: a collapsing premium always means local demand turned to selling."
+          es: "Solo una: una prima que cae siempre significa que la demanda vende."
+      - id: d
+        correct: true
+        text:
+          en: "Either the eager local buyer is finished, or the barrier has opened."
+          es: "O el comprador local ansioso ha terminado, o la barrera se abrió."
+    explanation:
+      en: "A collapsing premium is the mirror of a widening one, and it has the same two candidate causes as the premium itself — demand or friction. Either the flow that was arriving through that venue has exhausted, or the withdrawal queue reopened, the banking rail cleared, the control loosened. Which one it is changes what you should expect next, so the reading is not complete until you know."
+      es: "Una prima que se derrumba es el espejo de una que se ensancha, y tiene las mismas dos causas candidatas que la prima en sí: demanda o fricción. O el flujo que llegaba por ese sitio se ha agotado, o la cola de retiradas se reabrió, la vía bancaria se despejó, el control se relajó. Cuál de las dos sea cambia lo que deberías esperar después, así que la lectura no está completa hasta que lo sepas."
+  - id: premium-causes-matching
+    kind: matching
+    prompt:
+      en: "Match each observation to what it most likely indicates."
+      es: "Empareja cada observación con lo que más probablemente indica."
+    pairs:
+      - id: demand
+        left:
+          en: "A premium widens sharply over a few days on one venue"
+          es: "Una prima se ensancha con fuerza en unos pocos días en un exchange"
+        right:
+          en: "Regional demand — buying pressure arriving through that venue first"
+          es: "Demanda regional: presión compradora que llega primero por ese exchange"
+      - id: friction
+        left:
+          en: "A premium holds the same level for months on a capital-controlled venue"
+          es: "Una prima aguanta el mismo nivel durante meses en un exchange con controles de capital"
+        right:
+          en: "Transfer friction — the standing price of the barrier, not a demand signal"
+          es: "Fricción de transferencia: el precio permanente de la barrera, no una señal de demanda"
+      - id: small
+        left:
+          en: "A persistent premium of a few basis points on a major global venue"
+          es: "Una prima persistente de unos pocos puntos básicos en un exchange global grande"
+        right:
+          en: "Ordinary arbitrage floor — smaller than the round-trip cost of closing it"
+          es: "El suelo corriente del arbitraje: menor que el coste de ida y vuelta de cerrarla"
+    explanation:
+      en: "Three sizes, three quite different meanings. The last one is the most commonly over-read: a tiny persistent gap is not an opportunity and not information, it is simply smaller than the fees and transfer risk required to erase it. Below that threshold, premiums just sit there."
+      es: "Tres tamaños, tres significados bastante distintos. El último es el que más se sobreinterpreta: un hueco minúsculo y persistente no es una oportunidad ni información, es simplemente menor que las comisiones y el riesgo de transferencia necesarios para borrarlo. Por debajo de ese umbral, las primas simplemente se quedan ahí."
+  - id: currency-leg
+    prompt:
+      en: "You read a big premium between a USDT pair on one venue and a local-currency pair on another. What should you check before believing the number?"
+      es: "Lees una prima grande entre un par en USDT de un venue y un par en moneda local de otro. ¿Qué deberías comprobar antes de creerte la cifra?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "The conversion you used — the local rate and the peg can wobble."
+          es: "La conversión que usaste: el tipo local y la paridad pueden bailar."
+      - id: b
+        text:
+          en: "Nothing — a premium from two live feeds is exact by construction."
+          es: "Nada: una prima de dos feeds en vivo es exacta por construcción."
+      - id: c
+        text:
+          en: "Only the withdrawal fees charged by each of the two venues."
+          es: "Solo las comisiones de retiro que cobra cada uno de los dos venues."
+      - id: d
+        text:
+          en: "Whether both venues use the same maker/taker fee schedule."
+          es: "Si los dos venues usan la misma tabla de comisiones maker/taker."
+    explanation:
+      en: "Check what you are actually comparing before you believe a big number: a premium quoted across two different quote currencies inherits every error in the rate between them. And in exactly the stressed conditions where premiums blow out, the local exchange rate and the stablecoin's own peg are the things most likely to be wobbling."
+      es: "Comprueba qué estás comparando de verdad antes de creerte una cifra grande: una prima cotizada entre dos monedas de cotización distintas hereda todos los errores del tipo de cambio entre ellas. Y precisamente en las condiciones de estrés en que las primas se disparan, el tipo de cambio local y la propia paridad de la stablecoin son lo más probable que esté tambaleándose."
+  - id: manual-arb-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps of manually arbitraging a cross-venue premium in order, and notice what each one adds."
+      es: "Ordena los pasos de arbitrar manualmente una prima entre venues y fíjate en lo que añade cada uno."
+    items:
+      - id: accounts
+        position: 1
+        text:
+          en: "Open and verify accounts on both venues — accepting both exchanges' solvency risk."
+          es: "Abre y verifica cuentas en ambos venues, aceptando el riesgo de solvencia de los dos."
+      - id: fund
+        position: 2
+        text:
+          en: "Fund both sides, tying up capital in advance."
+          es: "Financia ambos lados, inmovilizando capital por adelantado."
+      - id: buy
+        position: 3
+        text: { en: "Buy on the cheap venue.", es: "Compra en el venue barato." }
+      - id: transfer
+        position: 4
+        text:
+          en: "Move the coin across, waiting on blockchain confirmations while price can move against you."
+          es: "Transfiere la moneda, esperando confirmaciones en blockchain mientras el precio puede moverse en tu contra."
+      - id: sell
+        position: 5
+        text:
+          en: "Sell on the expensive venue, paying trading fees on both sides."
+          es: "Vende en el venue caro, pagando comisiones de negociación en ambos lados."
+      - id: home
+        position: 6
+        text:
+          en: "Get the proceeds home through the fiat leg — where capital controls, banking limits or a paused withdrawal queue live."
+          es: "Trae el dinero de vuelta por la pata fiat, donde viven los controles de capital, los límites bancarios o una cola de retiros pausada."
+    explanation:
+      en: "The gap looks like free money and is not. Professional arbitrage works because capital is already sitting on both venues and the operation is automated — which is why the honest picture is 'arbitrage caps premiums at the cost of doing it', not 'arbitrage eliminates them'."
+      es: "La diferencia parece dinero gratis y no lo es. El arbitraje profesional funciona porque el capital ya está en ambos venues y la operación está automatizada, y por eso la imagen honesta es 'el arbitraje limita las primas al coste de hacerlo', no 'el arbitraje las elimina'."

@@ -1,249 +1,199 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-# Conceptual only — m27 ships no chart exercise by design (a depth ladder is an instantaneous,
-# price-indexed snapshot, not a time series this engine can generate credibly).
 type: quiz
 variants:
-  - id: resting-vs-executed
+  - id: move-stop-away
     prompt:
-      en: "What is the difference between what the order book shows you and what the volume bars show you?"
-      es: "¿Cuál es la diferencia entre lo que te muestra el libro de órdenes y lo que te muestran las barras de volumen?"
+      en: "You are long from 60.300 with a stop at 59.300. Price falls to 59.500 and looks likely to hit the stop. You slide the stop down to 58.000 to 'give it room'. What did you just do?"
+      es: "Estás largo desde 60.300 con el stop en 59.300. El precio cae a 59.500 y parece que va a tocar el stop. Deslizas el stop a 58.000 para «darle espacio». ¿Qué acabas de hacer?"
     options:
       - id: a
         text:
-          en: "They show the same thing at different resolutions: the book is volume by price."
-          es: "Muestran lo mismo a distinta resolución: el libro es volumen por precio."
+          en: "Sound risk management: a wider stop lets a good trade survive normal noise."
+          es: "Buena gestión del riesgo: un stop más ancho deja sobrevivir al ruido normal."
+      - id: b
+        text:
+          en: "Cut the risk, since price now needs a bigger move against you to close it."
+          es: "Reducir el riesgo, ya que ahora hace falta un movimiento mayor en contra."
+      - id: c
+        text:
+          en: "Nothing structural: the stop is a soft marker you re-price as context changes."
+          es: "Nada estructural: el stop es una marca blanda que repones según el contexto."
+      - id: d
+        correct: true
+        text:
+          en: "Abandoned the plan and uncapped the risk, which is the cardinal sin of live management."
+          es: "Abandonar el plan y quitar el tope al riesgo: el pecado capital en vivo."
+    explanation:
+      en: "Moving a stop away from price is the cardinal sin of live management: it turns a known, budgeted loss into an open-ended one. It does not reduce risk — the position size is unchanged, so a wider stop is a strictly bigger loss in money. The stop only ever moves in the trade's favour; widening it is how a 1% risk becomes a liquidation."
+      es: "Mover el stop en contra es el pecado capital de la gestión en vivo: convierte una pérdida conocida y presupuestada en una abierta. No reduce el riesgo: el tamaño de la posición no cambia, así que un stop más ancho es una pérdida estrictamente mayor en dinero. El stop solo se mueve a favor; ensancharlo es como un riesgo del 1% se vuelve una liquidación."
+  - id: breakeven-legit
+    prompt:
+      en: "Long from 60.300, stop 59.300. Price rises to 62.300, then pulls back and forms a clear higher low at 61.200. Moving your stop up to break-even (60.300) is:"
+      es: "Largo desde 60.300, stop 59.300. El precio sube a 62.300, luego retrocede y forma un mínimo más alto claro en 61.200. Subir tu stop a break-even (60.300) es:"
+    options:
+      - id: a
+        text:
+          en: "Fear — a stop at entry only proves you do not trust your own analysis."
+          es: "Miedo: un stop en la entrada solo demuestra que no confías en tu análisis."
       - id: b
         correct: true
         text:
-          en: "The book is unexecuted intention right now; volume is what already traded."
-          es: "El libro es intención sin ejecutar ahora mismo; el volumen, lo ya operado."
+          en: "Legitimate — the new higher low is structure that now protects the entry."
+          es: "Legítimo: la nueva estructura ahora protege la entrada."
       - id: c
         text:
-          en: "The book shows executed trades and the volume bars show pending ones."
-          es: "El libro muestra operaciones ejecutadas y el volumen las pendientes."
+          en: "The cardinal sin, since any stop move after entry abandons the written plan."
+          es: "El pecado capital, ya que mover el stop tras entrar abandona el plan escrito."
       - id: d
         text:
-          en: "The book is a longer history of the same data than the volume bars."
-          es: "El libro es un historial más largo de los mismos datos que el volumen."
+          en: "Pointless — a break-even stop can only ever produce a zero result."
+          es: "Inútil: un stop en break-even solo puede producir un resultado de cero."
     explanation:
-      en: "They are opposite kinds of data. Volume and CVD are time series — one value per period, extending back into history. A book is an instantaneous snapshot arranged by price, with no history in it at all, and a moment later it is different. The two connect directly, though: a taker's market order eats into the resting book level by level, so volume is the record of that consumption and the book is the fuel it consumed."
-      es: "Son tipos de datos opuestos. El volumen y el CVD son series temporales: un valor por periodo, extendiéndose hacia atrás en la historia. Un libro es una instantánea inmediata ordenada por precio, sin nada de historia dentro, y un momento después es distinta. Aun así, los dos conectan directamente: la orden a mercado de un taker se come el libro en reposo nivel a nivel, así que el volumen es el registro de ese consumo y el libro es el combustible que consumió."
-  - id: wall-not-commitment
+      en: "The stop moving in the trade's favour, justified by fresh structure, is exactly the legitimate case: the higher low at 61.200 is the chart's own evidence that 60.300 should no longer trade. The rule forbids moving a stop AWAY, not moving it up behind a confirmed low, and a break-even stop still leaves the whole upside to target open."
+      es: "El stop moviéndose a favor de la operación, justificado por estructura nueva, es justo el caso legítimo: el mínimo más alto en 61.200 es la prueba del propio gráfico de que 60.300 ya no debería negociarse. La regla prohíbe mover el stop EN CONTRA, no subirlo tras un mínimo confirmado, y un stop en break-even deja intacto todo el recorrido al objetivo."
+  - id: breakeven-fear
+    prompt:
+      en: "Long from 60.300, stop 59.300, target 64.000. One green candle prints to 60.600 (still well inside the range, no new structure). You snap the stop to break-even. Most likely result?"
+      es: "Largo desde 60.300, stop 59.300, objetivo 64.000. Se imprime una vela verde hasta 60.600 (aún dentro del rango, sin estructura nueva). Pegas el stop a break-even. ¿Resultado más probable?"
+    options:
+      - id: a
+        text:
+          en: "You have locked in a guaranteed profit and removed the downside entirely."
+          es: "Has asegurado un beneficio garantizado y eliminado del todo el riesgo."
+      - id: b
+        text:
+          en: "Nothing changes, because a stop only matters once price trades near it."
+          es: "Nada cambia, porque un stop solo importa cuando el precio ya lo roza."
+      - id: c
+        text:
+          en: "The trade needs a smaller move to reach target now that the risk is gone."
+          es: "La operación necesita menos recorrido al objetivo ahora que no hay riesgo."
+      - id: d
+        correct: true
+        text:
+          en: "A noise wick taps 60.300, stops you out, and the move runs without you."
+          es: "Una mecha de ruido toca 60.300 y el movimiento corre sin ti."
+    explanation:
+      en: "Moving to break-even before any new structure chokes the trade: 60.300 is still inside the band price is oscillating in, so you have placed the stop where noise alone will reach it. You exit for zero — not a profit — and the position is gone before the idea had room to play out. Break-even is earned by a higher low, not by the first green candle."
+      es: "Mover a break-even antes de cualquier estructura nueva ahoga la operación: 60.300 sigue dentro de la banda en la que oscila el precio, así que has puesto el stop donde el ruido solo ya llega. Sales por cero —no con beneficio— y la posición desaparece antes de que la idea tuviera espacio. El break-even se gana con un mínimo más alto, no con la primera vela verde."
+  - id: do-nothing
+    prompt:
+      en: "Your trade is open and drifting sideways between entry and target. Nothing about the structure has changed. What is usually the correct action?"
+      es: "Tu operación está abierta y deambula de lado entre la entrada y el objetivo. Nada de la estructura ha cambiado. ¿Cuál suele ser la acción correcta?"
+    options:
+      - id: a
+        text:
+          en: "Close it — flat price after entry means the read has already failed."
+          es: "Cerrarla: un precio plano tras entrar significa que la lectura ya falló."
+      - id: b
+        text:
+          en: "Add to the position so the average entry improves while price is cheap."
+          es: "Añadir a la posición para mejorar la entrada media mientras está barata."
+      - id: c
+        correct: true
+        text:
+          en: "Nothing — the plan is already made, and the trade needs room and time to work."
+          es: "Ninguna: el plan ya está hecho y la operación necesita espacio y tiempo."
+      - id: d
+        text:
+          en: "Tighten the stop just under price to bank the small unrealised gain."
+          es: "Apretar el stop justo bajo el precio para asegurar la ganancia latente."
+    explanation:
+      en: "Most of the time the right live-management action is none. Boredom is not a signal: the plan already set the stop and the target, and sideways drift is what the middle of a trade looks like. Closing early, averaging in, and choking the stop are all the same impulse — doing something because waiting is uncomfortable."
+      es: "La mayor parte del tiempo la acción de gestión correcta es ninguna. El aburrimiento no es una señal: el plan ya fijó el stop y el objetivo, y el vaivén lateral es el aspecto normal de la mitad de una operación. Cerrar antes, promediar y ahogar el stop son el mismo impulso: hacer algo porque esperar incomoda."
+  - id: stop-direction-tf
     kind: true_false
     prompt:
-      en: "A 400 BTC buy wall resting at 60,000 is a reliable floor: price cannot fall below it until those 400 BTC have been bought."
-      es: "Un muro de compra de 400 BTC en reposo en 60.000 es un suelo fiable: el precio no puede caer por debajo hasta que se hayan comprado esos 400 BTC."
-    answer: false
+      en: "Once a trade is live, the stop may only move in the trade's favour: up for a long, down for a short."
+      es: "Una vez que la operación está en vivo, el stop solo puede moverse a favor: arriba en un largo, abajo en un corto."
+    answer: true
     explanation:
-      en: "False, and this is the most common order-book mistake. A resting order is not a commitment — it can be cancelled in a millisecond, and walls tend to get pulled precisely when they were about to be tested. Worse, some walls were never meant to fill at all: spoofing is placing large orders purely so others see and react, then withdrawing them. A wall means 'someone is currently showing size here', never 'someone will definitely buy here'."
-      es: "Falso, y este es el error más común del libro de órdenes. Una orden en reposo no es un compromiso: se puede cancelar en un milisegundo, y los muros suelen retirarse justo cuando iban a ser testeados. Peor aún: algunos muros nunca pretendían llenarse; el spoofing consiste en colocar órdenes grandes únicamente para que otros las vean y reaccionen, y retirarlas después. Un muro significa 'alguien está mostrando ahora tamaño aquí', nunca 'alguien va a comprar aquí con seguridad'."
-  - id: spoofing
-    prompt:
-      en: "A large sell order keeps appearing just above price, then vanishing before price reaches it, over and over. What is the most likely explanation?"
-      es: "Una orden de venta grande aparece justo por encima del precio y se desvanece antes de que el precio la alcance, una y otra vez. ¿Cuál es la explicación más probable?"
-    options:
-      - id: a
-        text:
-          en: "An iceberg refilling itself, which is how large genuine size behaves."
-          es: "Un iceberg rellenándose, que es como se comporta el tamaño genuino."
-      - id: b
-        text:
-          en: "A data feed error; resting orders cannot be cancelled once placed."
-          es: "Un error de datos; las órdenes en reposo no se pueden cancelar."
-      - id: c
-        text:
-          en: "A genuine seller defending that price by re-posting after each fill."
-          es: "Un vendedor real defendiendo ese precio y reponiendo tras cada llenado."
-      - id: d
-        correct: true
-        text:
-          en: "Spoofing — the order exists to be seen and reacted to, not filled."
-          es: "Spoofing: la orden existe para verse y provocar reacción, no llenarse."
-    explanation:
-      en: "Repeatedly appearing and vanishing before it can be touched is the signature of spoofing — illegal in regulated markets, endemic in less-supervised crypto venues. Note the contrast with an iceberg, which is nearly the opposite behaviour: an iceberg shows a *small* quantity and quietly refills each time it is eaten, deliberately hiding genuine size rather than advertising fake size. A seller who genuinely wanted that price would let the order get hit."
-      es: "Aparecer y desvanecerse repetidamente antes de que se la pueda tocar es la firma del spoofing: ilegal en mercados regulados y endémico en los exchanges cripto menos supervisados. Fíjate en el contraste con un iceberg, que es casi el comportamiento opuesto: un iceberg muestra una cantidad *pequeña* y se rellena en silencio cada vez que se la comen, escondiendo deliberadamente tamaño genuino en vez de anunciar tamaño falso. Un vendedor que de verdad quisiera ese precio dejaría que le golpearan la orden."
-  - id: depth-and-slippage
-    prompt:
-      en: "You send the same large market order into a deep book and into a thin one. What differs?"
-      es: "Envías la misma orden grande a mercado a un libro profundo y a uno fino. ¿Qué cambia?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "The fill price: a thin book tears through many levels and fills worse."
-          es: "El precio de ejecución: un libro fino atraviesa niveles y llena peor."
-      - id: b
-        text:
-          en: "Nothing — a market order always fills at the price shown when sent."
-          es: "Nada: una orden a mercado siempre llena al precio que se mostraba."
-      - id: c
-        text:
-          en: "Only the fee, since thin books charge a higher taker rate to makers."
-          es: "Solo la comisión, ya que un libro fino cobra una tasa taker mayor."
-      - id: d
-        text:
-          en: "The order is rejected outright rather than filling at a worse price."
-          es: "La orden se rechaza directamente en vez de llenarse a peor precio."
-    explanation:
-      en: "This is slippage (m21) with its mechanism visible. A market order consumes resting orders level by level until it is filled, so how much is resting nearby decides your average fill: in the deep book it eats a level or two and fills near the price you saw. Same order, same number on screen, very different outcome — which is why liquidity, not just price, determines what a trade actually costs you."
-      es: "Esto es el slippage (m21) con su mecanismo a la vista. Una orden a mercado consume órdenes en reposo nivel a nivel hasta quedar llena, así que cuánto hay en reposo cerca decide tu precio medio: en el libro profundo se come uno o dos niveles y se llena cerca del precio que viste. La misma orden, el mismo número en pantalla, un resultado muy distinto; y por eso la liquidez, y no solo el precio, determina lo que de verdad te cuesta una operación."
-  - id: iceberg-hidden-size
-    prompt:
-      en: "Price sits pinned at one level while a modest-looking bid there keeps getting eaten and reappearing at the same size. What is likely happening?"
-      es: "El precio está clavado en un nivel mientras una orden de compra de aspecto modesto ahí se la comen y reaparece con el mismo tamaño una y otra vez. ¿Qué está pasando probablemente?"
-    options:
-      - id: a
-        text:
-          en: "A spoofer is at work, since the order keeps disappearing from view."
-          es: "Hay un spoofer, ya que la orden no deja de desaparecer de la vista."
-      - id: b
-        text:
-          en: "A rendering artefact: the exchange is recycling one order's display."
-          es: "Un artefacto de renderizado: el exchange recicla la misma orden."
-      - id: c
-        text:
-          en: "Nothing meaningful; resting orders always refill once they are filled."
-          es: "Nada relevante; las órdenes en reposo se rellenan solas al llenarse."
-      - id: d
-        correct: true
-        text:
-          en: "An iceberg absorbing: real size hidden behind a small displayed slice."
-          es: "Un iceberg absorbiendo: tamaño real tras una porción pequeña visible."
-    explanation:
-      en: "This is m14's and m26's absorption seen in the book itself. An iceberg deliberately displays only a fraction of its true size and replenishes as it gets hit, which is exactly why the book's visible imbalance can be so misleading: the largest participants often do not show what they are doing. Getting eaten and refilling is the opposite signature to spoofing, where the order vanishes before it can be touched."
-      es: "Esta es la absorción de m14 y m26 vista en el propio libro. Un iceberg muestra deliberadamente solo una fracción de su tamaño real y se repone a medida que lo golpean, y por eso justamente el desequilibrio visible del libro puede engañar tanto: los participantes más grandes a menudo no muestran lo que están haciendo. Ser comido y rellenarse es la firma opuesta al spoofing, donde la orden se desvanece antes de que se la pueda tocar."
-  - id: book-vocabulary
-    kind: matching
-    prompt:
-      en: "Match each order-book term to what it means."
-      es: "Empareja cada término del libro de órdenes con lo que significa."
-    pairs:
-      - id: bid
-        left:
-          en: "Bid"
-          es: "Bid"
-        right:
-          en: "A resting offer to buy, below the current price"
-          es: "Una oferta de compra en reposo, por debajo del precio actual"
-      - id: ask
-        left:
-          en: "Ask"
-          es: "Ask"
-        right:
-          en: "A resting offer to sell, above the current price"
-          es: "Una oferta de venta en reposo, por encima del precio actual"
-      - id: spread
-        left:
-          en: "Spread"
-          es: "Spread"
-        right:
-          en: "The gap between the highest bid and the lowest ask"
-          es: "El hueco entre el bid más alto y el ask más bajo"
-      - id: depth
-        left:
-          en: "Depth"
-          es: "Profundidad"
-        right:
-          en: "How much quantity is resting near the current price"
-          es: "Cuánta cantidad hay en reposo cerca del precio actual"
-    explanation:
-      en: "The current price is really just wherever the last trade happened between the best bid and the best ask. Depth is what decides slippage, and the spread is what a market maker earns for providing that depth — which is why both change together when makers step back, as they do before a scheduled release."
-      es: "El precio actual no es más que donde ocurrió la última operación entre el mejor bid y el mejor ask. La profundidad es lo que decide el slippage, y el spread es lo que gana un creador de mercado por aportar esa profundidad; por eso los dos cambian juntos cuando los makers se echan atrás, como hacen antes de una publicación programada."
-  - id: imbalance-not-direction
-    kind: true_false
-    prompt:
-      en: "A strong bid-side imbalance in the book is a reliable signal that price is about to rise."
-      es: "Un desequilibrio fuerte al lado bid en el libro es una señal fiable de que el precio va a subir."
-    answer: false
-    explanation:
-      en: "False. Imbalance is a crowding measure, read the way m17 taught you to read funding — not a direction. It says price is currently *easier to move* one way than the other, which is a statement about resistance to movement. And it is the flimsiest reading in this block: the orders can be cancelled, the biggest players deliberately hide their size behind icebergs, and the imbalance you see may be a consequence of the move that already happened rather than a cause of the next one."
-      es: "Falso. El desequilibrio es una medida de saturación, que se lee como m17 te enseñó a leer el funding, no de dirección. Dice que ahora mismo el precio es *más fácil de mover* hacia un lado que hacia el otro, que es una afirmación sobre la resistencia al movimiento. Y es la lectura más flojita de este bloque: las órdenes se pueden cancelar, los participantes más grandes esconden deliberadamente su tamaño detrás de icebergs, y el desequilibrio que ves puede ser una consecuencia del movimiento que ya ocurrió en lugar de una causa del siguiente."
-  - id: book-vs-timeseries
-    prompt:
-      en: "How is an order book a different kind of data from everything else in this course?"
-      es: "¿En qué se diferencia un libro de órdenes de todos los demás datos de este curso?"
-    options:
-      - id: a
-        text:
-          en: "It is the same shape of data, only sampled much more often than a candle."
-          es: "Es el mismo tipo de dato, solo muestreado mucho más a menudo."
-      - id: b
-        correct: true
-        text:
-          en: "It is an instantaneous snapshot by price, with no history inside it."
-          es: "Es una instantánea inmediata por precio, sin ninguna historia dentro."
-      - id: c
-        text:
-          en: "It records completed trades at a higher resolution than a candle does."
-          es: "Registra operaciones completadas con más resolución que una vela."
-      - id: d
-        text:
-          en: "It is a forecast of where price will trade over the next few minutes."
-          es: "Es una previsión de dónde cotizará el precio en los próximos minutos."
-    explanation:
-      en: "Everything else in the course is a time series extending left into history; a book is a photograph of intention in the present, and a moment later it is a different photograph. Trades and resting orders relate directly, though: a market order eats into the book level by level, and that consumption *is* the mechanism by which price moves."
-      es: "Todo lo demás en el curso es una serie temporal que se extiende hacia el pasado; un libro es una fotografía de la intención en el presente, y un momento después es otra fotografía. Aun así, operaciones y órdenes en reposo se relacionan directamente: una orden de mercado se come el libro nivel a nivel, y ese consumo *es* el mecanismo por el que se mueve el precio."
-  - id: pre-event-steps
-    kind: ordering
-    prompt:
-      en: "Put the mechanism behind the pre-release liquidity vacuum in order."
-      es: "Ordena el mecanismo que hay detrás del vacío de liquidez previo a una publicación."
-    items:
-      - id: risk
-        position: 1
-        text:
-          en: "Ahead of a known, timed event with an unknown outcome, market makers' risk of holding the wrong side spikes."
-          es: "Ante un evento conocido y con hora fija pero resultado desconocido, el riesgo de los creadores de mercado de quedarse en el lado equivocado se dispara."
-      - id: pull
-        position: 2
-        text:
-          en: "They pull their quotes — cancelling resting orders, or moving them further out and shrinking them."
-          es: "Retiran sus cotizaciones: cancelan órdenes en reposo, o las alejan y reducen."
-      - id: thin
-        position: 3
-        text:
-          en: "The book thins dramatically and the spread widens — not because anyone turned bearish."
-          es: "El libro se adelgaza drásticamente y el spread se amplía, no porque nadie se haya vuelto bajista."
-      - id: gap
-        position: 4
-        text:
-          en: "The number prints, market orders hit a nearly empty book, and price gaps several levels on modest size."
-          es: "Sale el dato, las órdenes de mercado golpean un libro casi vacío y el precio salta varios niveles con tamaño modesto."
-      - id: refill
-        position: 5
-        text:
-          en: "The makers return, depth refills, and much of that first spike retraces."
-          es: "Los creadores de mercado vuelven, la profundidad se rellena y buena parte de ese primer pico se retrae."
-    explanation:
-      en: "That is why the advice was to stand aside for the release rather than predict it. The first move frequently is not the market's opinion of the news at all — it is a thin book being crossed."
-      es: "Por eso el consejo era apartarse en la publicación en vez de predecirla. El primer movimiento a menudo no es la opinión del mercado sobre la noticia: es un libro poco profundo siendo atravesado."
-  - id: real-book-tools
+      en: "This is the one inviolable rule of live management. Moving the stop away from price, however good the story feels in the moment, uncaps your risk and breaks the plan."
+      es: "Es la única regla inviolable de la gestión en vivo. Mover el stop en contra, por muy buena que suene la historia en el momento, quita el tope al riesgo y rompe el plan."
+  - id: legit-actions-multi
     kind: multi_select
     prompt:
-      en: "Select ALL the tools that actually show you a live order book."
-      es: "Selecciona TODAS las herramientas que realmente te muestran un libro de órdenes en vivo."
+      en: "Select ALL of the following that are legitimate live-management actions (not fear or improvisation)."
+      es: "Selecciona TODAS las siguientes que sean acciones de gestión en vivo legítimas (no miedo ni improvisación)."
     options:
       - id: a
         correct: true
         text:
-          en: "A DOM or price ladder showing resting quantity per level."
-          es: "Un DOM o escalera con la cantidad en reposo por nivel."
+          en: "Trailing the stop up behind a confirmed higher low."
+          es: "Subir el stop tras un mínimo más alto confirmado."
       - id: b
         correct: true
         text:
-          en: "An order book heatmap plotting resting depth over time."
-          es: "Un mapa de calor del libro con la profundidad en el tiempo."
+          en: "Taking a partial exit at a milestone set in the plan."
+          es: "Tomar un parcial en un hito fijado en el plan."
       - id: c
         correct: true
         text:
-          en: "The exchange's own trading interface — crude but free."
-          es: "La interfaz del propio exchange: rudimentaria pero gratis."
+          en: "Doing nothing while the structure is unchanged."
+          es: "No hacer nada mientras la estructura no cambia."
       - id: d
         text:
-          en: "A candlestick chart with a volume pane beneath the price action."
-          es: "Un gráfico de velas con un panel de volumen bajo la acción del precio."
-      - id: e
-        text: { en: "A CVD line plotted under the price chart.", es: "Una línea de CVD dibujada bajo el gráfico de precio." }
+          en: "Widening the stop so a losing trade has more room to recover its ground."
+          es: "Ensanchar el stop para que una operación perdedora tenga más recorrido."
     explanation:
-      en: "A heatmap is the one that lets you watch walls appear, persist and get pulled, and the exchange's own interface is enough to build intuition. Volume and CVD are records of orders that already executed; only a depth display shows the resting orders that have not — which is why this lesson is conceptual and points you at the real instruments instead of faking a static picture."
-      es: "El mapa de calor es el que te deja ver aparecer, persistir y retirarse los muros, y la interfaz del propio exchange basta para crear intuición. El volumen y el CVD son registros de órdenes ya ejecutadas; solo una pantalla de profundidad muestra las órdenes en reposo que no lo están, y por eso esta lección es conceptual y te señala los instrumentos reales en vez de fingir una imagen estática."
+      en: "Break-even behind new structure, a planned partial, and doing nothing are all valid, because each was either decided in advance or justified by the chart. Widening the stop is the one move that is never legitimate — it is the cardinal sin, and 'more room' is the story it always tells."
+      es: "Break-even tras estructura nueva, un parcial planificado y no hacer nada son todos válidos, porque cada uno se decidió de antemano o lo justifica el gráfico. Ensanchar el stop es el único movimiento que nunca es legítimo: es el pecado capital, y «más espacio» es la historia que siempre cuenta."
+  - id: partial-tradeoff
+    prompt:
+      en: "You take half your position off at +2R and let the rest run. What is the honest trade-off of this partial exit?"
+      es: "Quitas la mitad de tu posición en +2R y dejas correr el resto. ¿Cuál es el compromiso honesto de esta salida parcial?"
+    options:
+      - id: a
+        text:
+          en: "It strictly increases expectancy, since banked profit can never be given back."
+          es: "Aumenta la esperanza sin más, ya que el beneficio asegurado no se devuelve."
+      - id: b
+        text:
+          en: "It is the same move as widening the stop, only expressed in position size."
+          es: "Es el mismo movimiento que ensanchar el stop, dicho en tamaño de posición."
+      - id: c
+        text:
+          en: "It guarantees the remaining half reaches the target, since it now rides free."
+          es: "Garantiza que la mitad restante llega al objetivo, porque ya va sin riesgo."
+      - id: d
+        correct: true
+        text:
+          en: "It banks progress and lowers the emotional stakes, but it lowers your average R too."
+          es: "Asegura avance y baja la carga emocional, pero también baja tu R media."
+    explanation:
+      en: "Partials are a legitimate tool but not a free win: they cap the upside on the portion you sold, so over many trades the average R comes down in exchange for lower emotional stakes and a smoother equity curve. That is a choice, and it belongs in the plan rather than in the heat of the moment."
+      es: "Los parciales son una herramienta legítima pero no un regalo: limitan el recorrido de la parte que vendiste, así que en muchas operaciones la R media baja a cambio de menos carga emocional y una curva más suave. Es una elección, y pertenece al plan, no al calor del momento."
+  - id: daily-stop-scenario
+    prompt:
+      en: "Your plan says: risk 1% per trade (100 USDT on a 10.000 USDT account) and a daily stop at −2% (200 USDT). Today you have taken two full stop-outs, so you are −200 USDT. An hour later a textbook setup appears. What does the plan say you do?"
+      es: "Tu plan dice: arriesgar el 1% por operación (100 USDT en una cuenta de 10.000 USDT) y un freno diario en −2% (200 USDT). Hoy has encajado dos stops completos, así que estás en −200 USDT. Una hora después aparece un setup de manual. ¿Qué dice el plan que hagas?"
+    options:
+      - id: a
+        text:
+          en: "Take it at normal size — the daily stop only caps oversized positions."
+          es: "Tomarla al tamaño normal: el freno solo limita posiciones sobredimensionadas."
+      - id: b
+        correct: true
+        text:
+          en: "Stop for the day: the daily limit is already hit, whatever this setup looks like."
+          es: "Parar por hoy: el freno diario ya está alcanzado, parezca lo que parezca."
+      - id: c
+        text:
+          en: "Take it at double size — a quality setup is the fastest way back to even."
+          es: "Tomarla al doble: un setup de calidad es la vía rápida de volver a cero."
+      - id: d
+        text:
+          en: "Take it after moving the daily stop to −4% so the risk fits the budget."
+          es: "Tomarla tras mover el freno a −4% para que el riesgo entre en el presupuesto."
+    explanation:
+      en: "The daily stop is not a suggestion and it does not judge setups: once realised PnL hits −X% you close the charts regardless of what is on screen. Its whole value is that it does not consult you at the moment you are least able to answer, and 'but this one is high quality' is exactly the argument it exists to overrule."
+      es: "El freno diario no es una sugerencia y no juzga setups: cuando el PnL realizado toca el −X%, cierras los gráficos sin importar lo que haya en pantalla. Todo su valor es que no te consulta en el momento en que menos capaz eres de responder, y «pero esta es de calidad» es justo el argumento que existe para desautorizar."
+  - id: daily-stop-adjust-tf
+    kind: true_false
+    prompt:
+      en: "The X in your daily stop is a personal number, but it is chosen in the plan before a losing day and never edited during one."
+      es: "La X de tu freno diario es un número personal, pero se elige en el plan antes de un día perdedor y nunca se edita durante él."
+    answer: true
+    explanation:
+      en: "Editing the limit while you are down is the override the rule was built to prevent: the person who just lost 3% is the least qualified person to decide how much more they may lose."
+      es: "Editar el límite mientras vas perdiendo es exactamente la excepción que la regla existe para evitar: quien acaba de perder un 3% es la persona menos cualificada para decidir cuánto más puede perder."

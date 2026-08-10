@@ -23,7 +23,7 @@ export interface GlossaryLabels {
 }
 
 /**
- * `M17-L1 · The basis` — the pointer back, which is what makes the glossary a reference, and a
+ * `M19-L1 · The basis` — the pointer back, which is what makes the glossary a reference, and a
  * link to that lesson, because every other pointer in the book is one.
  */
 function originContent(

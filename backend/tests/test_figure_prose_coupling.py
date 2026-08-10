@@ -70,7 +70,7 @@ def _resolve(panel: dict[str, Any], what: str, spec: dict[str, Any]) -> float:
     if kind in ("diagonal_start", "diagonal_end", "diagonal_at"):
         # A sloped line has no single price, so a lesson quoting one has to say WHERE. `diagonal_start`
         # and `diagonal_end` are its two drawn anchors; `diagonal_at:<label>@<bar>` is the PROJECTION at
-        # a bar, which is what a break is actually judged against and therefore what m31-l1 prints.
+        # a bar, which is what a break is actually judged against and therefore what m15-l1 prints.
         label, _, at = arg.partition("@")
         for line in panel["diagonals"]:
             if line["label"] == label:
@@ -85,7 +85,7 @@ def _resolve(panel: dict[str, Any], what: str, spec: dict[str, Any]) -> float:
             f"no diagonal labelled {label!r} (has: {[x['label'] for x in panel['diagonals']]})"
         )
     if kind in ("band_low", "band_high"):
-        # A zone has two prices and a lesson quotes both, so each edge is its own anchor (m30's origin
+        # A zone has two prices and a lesson quotes both, so each edge is its own anchor (m34's origin
         # zone and imbalance). The edges are derived from the CANDLES the injector planted — a down-leg's
         # range, a pair of wicks either side of a one-bar move — so they move if the generator moves,
         # which is exactly what this manifest exists to catch.

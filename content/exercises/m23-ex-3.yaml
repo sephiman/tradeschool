@@ -1,229 +1,195 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: hot-streak
+  - id: market-24-7-overnight
     prompt:
-      en: "You're on a five-trade winning streak and feel like you're reading the market perfectly. You want to raise your leverage and size for the next trade. What should size be based on?"
-      es: "Llevas una racha de cinco operaciones ganadoras y sientes que estás leyendo el mercado a la perfección. Quieres subir tu apalancamiento y tu tamaño en la siguiente operación. ¿En qué debería basarse el tamaño?"
+      en: "Crypto trades 24/7. What does that imply for a swing trader's open position overnight?"
+      es: "Cripto opera 24/7. ¿Qué implica eso para la posición abierta de un swing trader durante la noche?"
     options:
       - id: a
         text:
-          en: "A larger size — press your edge while you are clearly in the zone."
-          es: "Un tamaño mayor: aprieta tu ventaja mientras estás claramente en racha."
+          en: "The exchange closes it automatically at midnight and reopens it in the morning."
+          es: "El exchange la cierra automáticamente a medianoche y la reabre por la mañana."
       - id: b
         text:
-          en: "A larger size, since the streak proves conditions suit your strategy."
-          es: "Un tamaño mayor, ya que la racha prueba que las condiciones te van bien."
+          en: "Nothing at all — prices barely move outside normal business hours."
+          es: "Nada: los precios apenas se mueven fuera del horario laboral normal."
       - id: c
+        text:
+          en: "Funding is paused overnight, so the overnight risk is effectively lower."
+          es: "El funding se pausa de noche, así que el riesgo nocturno es menor."
+      - id: d
         correct: true
         text:
-          en: "A fixed percentage of account risk, unchanged by results or mood."
-          es: "Un porcentaje fijo del riesgo de la cuenta, ajeno a resultados y ánimo."
-      - id: d
-        text:
-          en: "Whatever size keeps the streak's compounding on track for the month."
-          es: "El tamaño que mantenga en marcha el interés compuesto de la racha."
+          en: "It stays live while they sleep, so the stop has to do the watching."
+          es: "Sigue viva mientras duerme: el stop tiene que hacer la vigilancia."
     explanation:
-      en: "A short streak is mostly variance, and overconfidence feels exactly like competence from the inside — which is why none of the other three notice anything is wrong. Size must be a fixed function of risk, not of recent results; otherwise one perfectly ordinary loss at the inflated size erases the streak and then some."
-      es: "Una racha corta es sobre todo varianza, y el exceso de confianza se siente exactamente igual que la competencia desde dentro, por eso ninguna de las otras tres nota que algo va mal. El tamaño debe ser una función fija del riesgo, no de los resultados recientes; de lo contrario, una sola pérdida perfectamente normal con el tamaño inflado borra la racha y algo más."
-  - id: why-dangerous
+      en: "There is no close and no session: the market runs while you sleep and the decisive move can land at 3 a.m. — the quiet hours are thinner, not calmer, and funding keeps ticking through them. Since you cannot watch, the stop and the position size carry the risk for you."
+      es: "No hay cierre ni sesión: el mercado corre mientras duermes y el movimiento decisivo puede caer a las 3 de la madrugada; las horas tranquilas son más finas, no más calmadas, y el funding sigue corriendo en ellas. Como no puedes vigilar, el stop y el tamaño de posición cargan con el riesgo por ti."
+  - id: attention-scalping
     prompt:
-      en: "Why is a winning streak a dangerous moment for many traders?"
-      es: "¿Por qué una racha ganadora es un momento peligroso para muchos traders?"
+      en: "Which style demands continuous, intense screen focus for the whole session?"
+      es: "¿Qué estilo exige concentración intensa y continua frente a la pantalla durante toda la sesión?"
     options:
       - id: a
         text:
-          en: "A streak proves your edge grew, so bigger size is now justified."
-          es: "Una racha prueba que tu ventaja creció: ya se justifica más tamaño."
-      - id: b
-        correct: true
-        text:
-          en: "It feels like skill and tempts you into sizing up on noise."
-          es: "Se siente como habilidad y te tienta a subir el tamaño sobre ruido."
-      - id: c
-        text:
-          en: "Winning streaks always end in a crash, so stop entirely after three wins."
-          es: "Las rachas siempre acaban en desplome: para del todo tras tres ganancias."
-      - id: d
-        text:
-          en: "Exchanges quietly raise your fees after several consecutive wins."
-          es: "Los exchanges suben en silencio tus comisiones tras varias ganancias."
-    explanation:
-      en: "The danger is psychological: a hot streak feels like proof of skill, so one normal loss at the inflated size wipes out the streak. It does not prove your edge grew, it is not a superstition about crashes, and exchanges do not penalise wins. Keep size fixed and let confidence, not position size, absorb the good run."
-      es: "El peligro es psicológico: una racha caliente se siente como prueba de habilidad, así que una pérdida normal con el tamaño inflado borra la racha. No demuestra que tu ventaja creciera, no es una superstición sobre desplomes y los exchanges no penalizan las ganancias. Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
-  - id: edge-grew-myth
-    kind: true_false
-    prompt:
-      en: "A five-trade winning streak is good evidence that your edge has grown, so raising your size is justified."
-      es: "Una racha de cinco operaciones ganadoras es buena prueba de que tu ventaja ha crecido, así que subir el tamaño está justificado."
-    answer: false
-    explanation:
-      en: "A short streak is mostly variance, not proof your edge changed. Overconfidence is dangerous precisely because it feels like competence. Good results are allowed to change your confidence; they are not allowed to change your size."
-      es: "Una racha corta es sobre todo varianza, no una prueba de que tu ventaja cambiara. El exceso de confianza es peligroso precisamente porque se siente como competencia. A los buenos resultados se les permite cambiar tu confianza; no se les permite cambiar tu tamaño."
-  - id: sizing-habits
-    kind: multi_select
-    prompt:
-      en: "Select ALL of the habits that keep a winning streak from blowing up your account."
-      es: "Selecciona TODOS los hábitos que evitan que una racha ganadora reviente tu cuenta."
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Risking the same fixed percentage per trade regardless of the streak."
-          es: "Arriesgar el mismo porcentaje fijo por operación al margen de la racha."
-      - id: b
-        correct: true
-        text:
-          en: "Keeping leverage unchanged whether you are winning or losing."
-          es: "Mantener el apalancamiento igual tanto si ganas como si pierdes."
-      - id: c
-        correct: true
-        text:
-          en: "Letting good results change your confidence but not your size."
-          es: "Dejar que los buenos resultados cambien tu confianza y no tu tamaño."
-      - id: d
-        text:
-          en: "Pressing your edge with bigger size while you are 'in the zone'."
-          es: "Apretar tu ventaja con más tamaño mientras estás 'en racha'."
-      - id: e
-        text:
-          en: "Sizing up to keep the streak's compounding on track."
-          es: "Subir el tamaño para mantener el interés compuesto de la racha."
-      - id: f
-        text:
-          en: "Raising leverage because conditions clearly suit your strategy now."
-          es: "Subir el apalancamiento porque las condiciones te van bien ahora."
-    explanation:
-      en: "The fix is to keep your mood out of your sizing entirely: a fixed percentage of account risk and unchanged leverage, on a five-win streak or a five-loss one. The last three are overconfidence talking — one ordinary loss at the inflated size erases the streak and then some."
-      es: "La solución es mantener tu estado de ánimo completamente fuera de tu tamaño: un porcentaje fijo del riesgo de la cuenta y el mismo apalancamiento, tanto en una racha de cinco ganancias como de cinco pérdidas. Las tres últimas son el exceso de confianza hablando: una pérdida normal con el tamaño inflado borra la racha y algo más."
-  - id: variance-vs-skill
-    prompt:
-      en: "Why does a run of wins feel like skill even when it isn't a reason to size up?"
-      es: "¿Por qué una serie de ganancias se siente como habilidad aunque no sea motivo para subir el tamaño?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "A short run is mostly variance, and overconfidence mimics competence."
-          es: "Una serie corta es sobre todo varianza, y el exceso de confianza imita a la competencia."
+          en: "Swing trading, whose positions run for days at a time."
+          es: "El swing trading, cuyas posiciones duran días seguidos."
       - id: b
         text:
-          en: "The market rewards confidence, so acting bigger helps a streak continue."
-          es: "El mercado premia la confianza: actuar con más tamaño alarga la racha."
+          en: "None — all three need only a quick check once a day."
+          es: "Ninguno: los tres solo necesitan un vistazo rápido una vez al día."
       - id: c
         text:
-          en: "Wins in a row mathematically prove your win rate has permanently risen."
-          es: "Ganar seguidas prueba matemáticamente que tu acierto ha subido para siempre."
+          en: "All three of them demand exactly the same amount of attention."
+          es: "Los tres exigen exactamente la misma cantidad de atención."
       - id: d
-        text:
-          en: "A streak means you have temporarily removed risk, so more size is safe."
-          es: "Una racha significa que quitaste el riesgo un tiempo: más tamaño es seguro."
-    explanation:
-      en: "From the inside, a hot streak feels like you have finally 'got it', but a handful of results is dominated by variance. It does not change your win rate, the market does not reward mood, and no streak removes risk. Keep size fixed and let confidence, not position size, absorb the good run."
-      es: "Desde dentro, una racha caliente parece que por fin 'lo has pillado', pero un puñado de resultados está dominado por la varianza. No cambia tu tasa de acierto, el mercado no premia el estado de ánimo y ninguna racha elimina el riesgo. Mantén el tamaño fijo y deja que sea la confianza, no el tamaño de la posición, la que absorba la buena racha."
-  - id: swing-oversize
-    prompt:
-      en: "You swing trade and just had your best month ever. You're tempted to put on a much larger position for the next swing. What does the module say?"
-      es: "Haces swing trading y acabas de tener tu mejor mes. Te tienta abrir una posición mucho mayor en el siguiente swing. ¿Qué dice el módulo?"
-    options:
-      - id: a
-        text:
-          en: "A great month proves the strategy works, so scaling size up is logical."
-          es: "Un gran mes prueba que la estrategia funciona: subir tamaño es lógico."
-      - id: b
-        text:
-          en: "Bigger swings deserve bigger size to make the long wait worthwhile."
-          es: "Los swings grandes merecen más tamaño para que valga la larga espera."
-      - id: c
         correct: true
         text:
-          en: "Size stays a fixed function of account risk; only confidence may change."
-          es: "El tamaño sigue siendo una función fija del riesgo; solo cambia la confianza."
-      - id: d
-        text:
-          en: "Since swing trades are slower, oversizing is safer than in day trading."
-          es: "Como el swing es más lento, sobredimensionar es más seguro que en intradía."
+          en: "Scalping, whose fast and frequent decisions run for the whole session."
+          es: "El scalping, cuyas decisiones rápidas ocupan toda la sesión."
     explanation:
-      en: "Over-leverage after a good run is the same mistake in slow motion. A great month is still mostly the market's mood plus some variance, so it proves less than it feels like it does; more time does not protect you, it just gives you more room to rationalise. Size stays a fixed function of risk regardless of how the last month went."
-      es: "Sobreapalancarse tras una buena racha es el mismo error a cámara lenta. Un gran mes sigue siendo sobre todo el humor del mercado más algo de varianza, así que demuestra menos de lo que parece; más tiempo no te protege, solo te da más margen para racionalizar. El tamaño sigue siendo una función fija del riesgo, al margen de cómo fuera el último mes."
-  - id: sixth-trade-numbers
-    prompt:
-      en: "After five green trades at 1% risk you jump from 5× to 20× leverage and triple your size. The sixth trade is an ordinary loser. What does it cost?"
-      es: "Tras cinco operaciones verdes al 1% de riesgo, saltas de 5× a 20× de apalancamiento y triplicas el tamaño. La sexta es una perdedora normal. ¿Qué cuesta?"
-    options:
-      - id: a
-        text:
-          en: "1R, since the risk percentage per trade did not actually change."
-          es: "1R, ya que el porcentaje de riesgo por operación no cambió."
-      - id: b
-        text:
-          en: "Nothing at all — the five previous wins comfortably cover it."
-          es: "Nada en absoluto: las cinco ganancias anteriores lo cubren de sobra."
-      - id: c
-        correct: true
-        text:
-          en: "3R in one go — and liquidation now sits inside routine noise."
-          es: "3R de golpe, y la liquidación queda ahora dentro del ruido normal."
-      - id: d
-        text:
-          en: "4R, because leverage multiplies the loss by the leverage ratio itself."
-          es: "4R, porque el apalancamiento multiplica la pérdida por su propio ratio."
-    explanation:
-      en: "Tripling the size triples the loss: the risk percentage was abandoned the moment you sized on mood. The higher leverage does not multiply the loss by four — it puts the liquidation price inside routine noise, so a move that used to be a small planned loss can force you out entirely. One unremarkable trade, taken at the wrong size, gives back the whole streak."
-      es: "Triplicar el tamaño triplica la pérdida: el porcentaje de riesgo se abandonó en cuanto dimensionaste por estado de ánimo. El mayor apalancamiento no multiplica la pérdida por cuatro: sitúa el precio de liquidación dentro del ruido normal, así que un movimiento que antes era una pequeña pérdida planificada puede sacarte del todo. Una operación anodina, tomada con el tamaño equivocado, devuelve toda la racha."
-  - id: confidence-not-size
+      en: "Scalping means fast, frequent decisions and unbroken focus for the session. Swing trading takes only minutes a day to manage; its hard part is patience, not continuous attention — which is exactly why the three styles ask for different slices of your life rather than the same one."
+      es: "El scalping son decisiones rápidas y frecuentes y foco ininterrumpido durante la sesión. El swing trading solo ocupa unos minutos al día de gestión; su parte difícil es la paciencia, no la atención continua, y por eso los tres estilos piden porciones distintas de tu vida y no la misma."
+  - id: style-attention-match
     kind: matching
     prompt:
-      en: "Match each thing to what a winning streak is and is not allowed to change."
-      es: "Empareja cada elemento con lo que una racha ganadora puede y no puede cambiar."
+      en: "Match each style to the kind of attention and temperament it asks for."
+      es: "Empareja cada estilo con el tipo de atención y temperamento que pide."
     pairs:
-      - id: conf
-        left: { en: "Your confidence", es: "Tu confianza" }
+      - id: scalp
+        left: { en: "Scalping", es: "Scalping" }
         right:
-          en: "Good results are allowed to change this."
-          es: "Los buenos resultados pueden cambiar esto."
-      - id: size
-        left: { en: "Your position size", es: "El tamaño de tu posición" }
+          en: "Continuous, intense focus and fast execution for the whole session."
+          es: "Concentración intensa y continua y ejecución rápida durante toda la sesión."
+      - id: day
+        left: { en: "Day trading", es: "Day trading" }
         right:
-          en: "A fixed function of account risk — the same small percentage whether you are on a five-win streak or a five-loss one."
-          es: "Una función fija del riesgo de la cuenta: el mismo porcentaje pequeño estés en una racha de cinco ganancias o de cinco pérdidas."
-      - id: evidence
-        left: { en: "A five-trade sample", es: "Una muestra de cinco operaciones" }
+          en: "A few hours of concentrated attention, then close out and walk away."
+          es: "Unas horas de atención concentrada y luego cerrar y marcharse."
+      - id: swing
+        left: { en: "Swing trading", es: "Swing trading" }
         right:
-          en: "Dominated by variance — almost no evidence about whether your edge grew."
-          es: "Dominada por la varianza: casi ninguna prueba de que tu ventaja haya crecido."
+          en: "Minutes a day to manage, but the patience to hold overnight without meddling."
+          es: "Unos minutos al día de gestión, pero la paciencia para mantener de un día para otro sin trastear."
     explanation:
-      en: "The mind credits wins to skill and would have blamed losses on bad luck, so a run of noise reads as proof you have 'got it'. Keeping size mechanical is what stops that story from costing you."
-      es: "La mente atribuye las ganancias a la habilidad y habría culpado a la mala suerte de las pérdidas, así que una racha de ruido se lee como prueba de que ya 'lo tienes'. Mantener el tamaño mecánico es lo que evita que esa historia te cueste dinero."
-  - id: why-no-alarm
-    kind: multi_select
+      en: "Each style asks for a different slice of your life: scalping wants unbroken focus and reflexes, day trading a concentrated few hours and the discipline to stop, and swing trading little screen time but the patience to sit with open risk."
+      es: "Cada estilo pide una porción distinta de tu vida: el scalping quiere foco ininterrumpido y reflejos, el day trading unas horas concentradas y la disciplina de parar, y el swing trading poco tiempo de pantalla pero la paciencia de convivir con el riesgo abierto."
+  - id: rely-on-watching-overnight
+    kind: true_false
     prompt:
-      en: "Select ALL the reasons a winning streak is a dangerous moment."
-      es: "Selecciona TODAS las razones por las que una racha ganadora es un momento peligroso."
+      en: "Because the move that matters can land at 3 a.m. in your timezone, a swing trader cannot rely on being awake to react to it."
+      es: "Como el movimiento que importa puede caer a las 3 de la madrugada en tu zona horaria, un swing trader no puede confiar en estar despierto para reaccionar."
+    answer: true
+    explanation:
+      en: "True — the 24/7 clock cuts against you here rather than for you. That is exactly why the stop and the position size have to do the watching in your place."
+      es: "Cierto: el reloj 24/7 juega en tu contra aquí, no a favor. Por eso justamente el stop y el tamaño de posición tienen que vigilar en tu lugar."
+  - id: day-trader-invent-session
+    prompt:
+      en: "Crypto never closes. What does the lesson say a day trader must do about their session?"
+      es: "Cripto nunca cierra. ¿Qué dice la lección que un day trader debe hacer con su sesión?"
+    options:
+      - id: a
+        text:
+          en: "Wait for the official market open and close, as on a stock exchange."
+          es: "Esperar la apertura y el cierre oficiales, como en una bolsa de valores."
+      - id: b
+        text:
+          en: "Trade around the clock so that they never miss a single move."
+          es: "Operar las 24 horas para no perderse ni un solo movimiento."
+      - id: c
+        text:
+          en: "Only trade during the hours the New York stock market is open."
+          es: "Operar solo durante las horas en que abre la bolsa de Nueva York."
+      - id: d
+        correct: true
+        text:
+          en: "Invent their own session, and stop when it ends."
+          es: "Inventarse su propia sesión, y parar cuando termina."
+    explanation:
+      en: "Because there is no closing bell, a day trader has to invent a session and, crucially, stop when it ends — instead of waiting for an open that never comes, borrowing someone else's hours, or sliding into a 14-hour screen marathon."
+      es: "Como no hay campana de cierre, un day trader tiene que inventarse una sesión y, sobre todo, parar cuando termina, en vez de esperar una apertura que nunca llega, tomar prestado el horario de otros o derivar en un maratón de 14 horas frente a la pantalla."
+  - id: always-can-overtrade
+    prompt:
+      en: "The lesson calls the 24/7 clock 'freedom and trap in one.' What is the trap?"
+      es: "La lección llama al reloj 24/7 'libertad y trampa a la vez'. ¿Cuál es la trampa?"
     options:
       - id: a
         correct: true
         text:
-          en: "A handful of results is dominated by variance, but the mind refuses to see it."
-          es: "Un puñado de resultados está dominado por la varianza, y la mente no lo ve."
+          en: "Because you can always trade, you can always over-trade."
+          es: "Como siempre puedes operar, siempre puedes sobreoperar."
       - id: b
-        correct: true
         text:
-          en: "Overconfidence feels identical to competence, so no alarm goes off."
-          es: "El exceso de confianza se siente idéntico a la competencia: no salta alarma."
+          en: "Fees are charged at a higher rate during the night-time hours."
+          es: "Las comisiones se cobran a una tasa mayor durante las horas nocturnas."
       - id: c
-        correct: true
         text:
-          en: "The last five trades feel far more real than the thousands-of-trades truth."
-          es: "Las últimas cinco se sienten más reales que la verdad de las miles."
+          en: "The exchange forces you to keep at least one position open at all times."
+          es: "El exchange te obliga a tener siempre al menos una posición abierta."
       - id: d
         text:
-          en: "Winning streaks genuinely indicate that your edge has grown."
-          es: "Las rachas ganadoras indican de verdad que tu ventaja ha crecido."
-      - id: e
-        text:
-          en: "Exchanges raise your fee tier after consecutive wins."
-          es: "Los exchanges suben tu nivel de comisiones tras ganancias consecutivas."
+          en: "Prices only ever make their big moves while you happen to be asleep."
+          es: "Los precios solo hacen sus grandes movimientos mientras duermes."
     explanation:
-      en: "Because the feeling is indistinguishable from competence, the defence cannot be self-awareness in the moment — it has to be a size rule fixed in advance. A short streak is evidence about variance, not about your edge, and no venue prices your results."
-      es: "Como la sensación es indistinguible de la competencia, la defensa no puede ser la autoconciencia del momento: tiene que ser una regla de tamaño fijada por adelantado. Una racha corta es prueba sobre la varianza, no sobre tu ventaja, y ningún venue tarifa tus resultados."
+      en: "A market with no close means opportunity is always 'on' — and so is the temptation. The freedom to trade at any hour is the same thing as the freedom to over-trade at any hour. Nothing about the venue changes overnight, and nobody forces a position on you: the trap is entirely one of appetite."
+      es: "Un mercado sin cierre significa que la oportunidad siempre está 'encendida', y también la tentación. La libertad de operar a cualquier hora es lo mismo que la libertad de sobreoperar a cualquier hora. Nada cambia en el venue de noche y nadie te impone una posición: la trampa es enteramente de apetito."
+  - id: deepest-session
+    prompt:
+      en: "Crypto never closes, but its liquidity is not spread evenly. When is the book typically deepest?"
+      es: "El cripto nunca cierra, pero su liquidez no está repartida por igual. ¿Cuándo es más profundo el libro habitualmente?"
+    options:
+      - id: a
+        text:
+          en: "Over the weekend, when retail traders finally have some free time."
+          es: "El fin de semana, cuando los minoristas tienen por fin tiempo libre."
+      - id: b
+        text:
+          en: "It is identical at every hour — that is exactly what 24/7 means."
+          es: "Es idéntico a cualquier hora: eso es justo lo que significa 24/7."
+      - id: c
+        text:
+          en: "In the small hours of the Asian session, with algorithms unopposed."
+          es: "En la madrugada asiática, con los algoritmos sin oposición."
+      - id: d
+        correct: true
+        text:
+          en: "During the London/New York overlap, roughly 13:00–16:00 UTC."
+          es: "En el solapamiento Londres/Nueva York, más o menos de 13:00 a 16:00 UTC."
+    explanation:
+      en: "Liquidity is people and their machines, and both keep office hours. London (~07:00–16:00 UTC) and New York (~13:00–21:00 UTC) carry the size, and their overlap is the deepest book of the day, when both sets of desks are staffed. The Asian session runs thinner and weekends thinner still — 'always open' is not 'always the same'."
+      es: "La liquidez son personas y sus máquinas, y ambas tienen horario de oficina. Londres (~07:00–16:00 UTC) y Nueva York (~13:00–21:00 UTC) llevan el volumen, y su solapamiento es el libro más profundo del día, cuando las mesas de ambos lados están con gente. La sesión asiática va más fina y los fines de semana aún más: \"siempre abierto\" no es \"siempre igual\"."
+  - id: weekend-range-monday
+    prompt:
+      en: "BTC ranges quietly between 59,400 and 60,600 all weekend. On Monday morning price wicks to 59,100 and closes back inside the range. What most likely happened?"
+      es: "BTC se mueve tranquilo en un rango entre 59.400 y 60.600 todo el fin de semana. El lunes por la mañana el precio hace una mecha hasta 59.100 y cierra de vuelta dentro del rango. ¿Qué ocurrió con mayor probabilidad?"
+    options:
+      - id: a
+        text:
+          en: "A genuine trend change: the range low broke, so a downtrend is confirmed."
+          es: "Un cambio de tendencia real: el mínimo se rompió y la bajista queda confirmada."
+      - id: b
+        text:
+          en: "Nothing meaningful; Monday is just another hour in a 24/7 market."
+          es: "Nada relevante; el lunes es una hora más en un mercado 24/7."
+      - id: c
+        text:
+          en: "The exchange re-opened after its scheduled weekend maintenance window."
+          es: "El exchange reabrió tras su ventana de mantenimiento del fin de semana."
+      - id: d
+        correct: true
+        text:
+          en: "Real size returned and swept the stops beyond the weekend low."
+          es: "Volvió el volumen real y barrió los stops bajo el mínimo del fin de semana."
+    explanation:
+      en: "A quiet weekend builds a low-volume range whose obvious high and low collect stops. The Monday institutional reopen is the predictable hour at which something large enough to take that liquidity arrives — a liquidity pocket scheduled by the clock, in a market that never actually closed for maintenance. The poke-and-reclaim is the sweep signature, not a trend change."
+      es: "Un fin de semana tranquilo construye un rango de poco volumen cuyos máximo y mínimo obvios acumulan stops. La reapertura institucional del lunes es la hora previsible a la que llega algo lo bastante grande para tomar esa liquidez: una bolsa de liquidez programada por el reloj, en un mercado que nunca cerró por mantenimiento. El perforar y recuperar es la firma del barrido, no un cambio de tendencia."
+  - id: weight-signal-by-session
+    kind: true_false
+    prompt:
+      en: "A breakout that prints at 04:00 UTC on a Sunday deserves the same weight as the identical breakout during the London/New York overlap."
+      es: "Una ruptura que se imprime a las 04:00 UTC de un domingo merece el mismo peso que la ruptura idéntica durante el solapamiento Londres/Nueva York."
+    answer: false
+    explanation:
+      en: "Same shape, different evidence. A level broken against a deep book means real buyers overcame real sellers; a level broken in a thin session may only mean nobody was there to defend it. A thin-session break usually needs confirmation from an active session before you act on it."
+      es: "Misma forma, pruebas distintas. Un nivel roto contra un libro profundo significa que compradores reales superaron a vendedores reales; un nivel roto en una sesión fina puede significar solo que no había nadie para defenderlo. Una ruptura en sesión fina suele necesitar la confirmación de una sesión activa antes de que actúes."

@@ -26,22 +26,36 @@ class LocalizedText(BaseModel):
         return self.es if locale == "es" else self.en
 
 
-class ManifestExercise(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+class KeyedEntity(BaseModel):
+    """An entity with a display id and a permanent `key` (defaults to the id at creation).
+
+    The key is chosen once and NEVER renamed: seeds, stored progress and glossary origins hang off
+    it, so display ids can be reorganized without a data migration. See content/README.md.
+    """
+
     id: str
+    key: str = ""
+
+    @model_validator(mode="after")
+    def _default_key(self) -> Self:
+        if not self.key:
+            self.key = self.id
+        return self
+
+
+class ManifestExercise(KeyedEntity):
+    model_config = ConfigDict(extra="forbid")
     type: ExerciseType
 
 
-class ManifestLesson(BaseModel):
+class ManifestLesson(KeyedEntity):
     model_config = ConfigDict(extra="forbid")
-    id: str
     title: LocalizedText
     exercises: list[ManifestExercise] = Field(default_factory=list)
 
 
-class ManifestModule(BaseModel):
+class ManifestModule(KeyedEntity):
     model_config = ConfigDict(extra="forbid")
-    id: str
     title: LocalizedText
     summary: LocalizedText
     assumes: list[str] = Field(default_factory=list)
@@ -102,6 +116,22 @@ class Manifest(BaseModel):
                 if identifier in seen:
                     raise ValueError(f"duplicate stable id: {identifier!r}")
                 seen.add(identifier)
+
+        # Keys form their own global namespace (course and block ids double as their keys). Ids and
+        # keys may overlap in VALUE across entities — the 2026-08-10 renumbering reused the id range —
+        # so the two sets are checked apart, never merged.
+        seen_keys: set[str] = set()
+        for level in (
+            [self.course.id],
+            [b.id for b in self.blocks],
+            [m.key for _, m in self.iter_modules()],
+            [lesson.key for _, lesson in self.iter_lessons()],
+            [ex.key for _, _, ex in self.iter_exercises()],
+        ):
+            for key in level:
+                if key in seen_keys:
+                    raise ValueError(f"duplicate stable key: {key!r}")
+                seen_keys.add(key)
 
         module_ids = self.module_ids()
         for _, module in self.iter_modules():

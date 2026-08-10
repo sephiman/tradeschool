@@ -14,12 +14,12 @@ import { divergenceMarkers, patternBands, patternMarkers } from "@/components/ch
 import { Badge, Button, Card, Input, Select, Spinner } from "@/components/ui/primitives";
 import { LessonFigure } from "@/features/course/LessonFigure";
 
-// One per render primitive the gallery exists to eyeball: divergence panes, the CVD pane, m30's
-// shaded zones, m31's sloped lines (single and channel), m32's envelopes + momentum pane and m20-l2's
+// One per render primitive the gallery exists to eyeball: divergence panes, the CVD pane, m34's
+// shaded zones, m15's sloped lines (single and channel), m16's envelopes + momentum pane and m23-l2's
 // paired frames (one with the coarser panel above, one with it below).
 const EXERCISES = [
-  "m12-ex-1", "m12-ex-2", "m26-ex-1", "m30-ex-1", "m30-ex-2",
-  "m31-ex-1", "m31-ex-2", "m31-ex-5", "m32-ex-1", "m20-ex-6", "m20-ex-7",
+  "m12-ex-1", "m12-ex-2", "m30-ex-1", "m34-ex-1", "m34-ex-2",
+  "m15-ex-1", "m15-ex-2", "m15-ex-5", "m16-ex-1", "m23-ex-6", "m23-ex-7",
 ];
 
 /** Divergence ground truth carries a `divergence` string; pattern_chart carries a `label`. */

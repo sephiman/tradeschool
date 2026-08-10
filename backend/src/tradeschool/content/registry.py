@@ -73,6 +73,14 @@ class CourseRegistry:
     # exercise_id -> lesson_id. Separate from _exercises because a module may hold two lessons,
     # so the module is not enough to route back to the page an exercise actually lives on.
     _exercise_lessons: dict[str, str] = field(default_factory=dict)
+    # display id <-> permanent key, both directions, per entity level. The DB, seeds and glossary
+    # origins live in key space; every API surface speaks display ids — these maps are the boundary.
+    _module_keys: dict[str, str] = field(default_factory=dict)
+    _module_ids: dict[str, str] = field(default_factory=dict)
+    _lesson_keys: dict[str, str] = field(default_factory=dict)
+    _lesson_ids: dict[str, str] = field(default_factory=dict)
+    _exercise_keys: dict[str, str] = field(default_factory=dict)
+    _exercise_ids: dict[str, str] = field(default_factory=dict)
 
     def get_exercise_config(self, exercise_id: str) -> tuple[ExerciseType, BaseModel] | None:
         return self.exercise_configs.get(exercise_id)
@@ -86,11 +94,37 @@ class CourseRegistry:
             }
         for block, module in self.manifest.iter_modules():
             self._modules[module.id] = (block, module)
+            self._module_keys[module.id] = module.key
+            self._module_ids[module.key] = module.id
             for lesson in module.lessons:
                 self._lessons[lesson.id] = LessonLocation(block, module, lesson)
+                self._lesson_keys[lesson.id] = lesson.key
+                self._lesson_ids[lesson.key] = lesson.id
                 for exercise in lesson.exercises:
                     self._exercises[exercise.id] = (block, module)
                     self._exercise_lessons[exercise.id] = lesson.id
+                    self._exercise_keys[exercise.id] = exercise.key
+                    self._exercise_ids[exercise.key] = exercise.id
+
+    # --- id <-> key boundary ---
+    def module_key(self, module_id: str) -> str:
+        return self._module_keys[module_id]
+
+    def lesson_key(self, lesson_id: str) -> str:
+        return self._lesson_keys[lesson_id]
+
+    def exercise_key(self, exercise_id: str) -> str:
+        return self._exercise_keys[exercise_id]
+
+    def module_id_for_key(self, key: str) -> str | None:
+        """None for a key the manifest no longer carries (deactivated content, historical rows)."""
+        return self._module_ids.get(key)
+
+    def lesson_id_for_key(self, key: str) -> str | None:
+        return self._lesson_ids.get(key)
+
+    def exercise_id_for_key(self, key: str) -> str | None:
+        return self._exercise_ids.get(key)
 
     # --- lookups ---
     def module_lesson_ids(self, module_id: str) -> list[str]:
@@ -269,11 +303,13 @@ class CourseRegistry:
         return loc.lesson.title.get(locale) if loc else None
 
     def _glossary_entry(self, term: GlossaryTerm, locale: str) -> dict[str, object]:
+        # glossary.yaml stores lesson KEYS (permanent); every surface gets the display id.
+        origin_id = self.lesson_id_for_key(term.origin) if term.origin else None
         entry: dict[str, object] = {
             "id": term.id,
             "term": term.term(locale),
-            "origin": term.origin,
-            "originTitle": self._lesson_title(term.origin, locale),
+            "origin": origin_id,
+            "originTitle": self._lesson_title(origin_id, locale),
         }
         # The annotator's inputs, carried on the entry so both surfaces read one description of what
         # may be linked. Absent keys mean "the default", which the annotator derives.
@@ -282,7 +318,9 @@ class CourseRegistry:
         if term.match is not None and term.match.get(locale) is not None:
             entry["match"] = term.match.get(locale)
         if term.excluded_lessons(locale):
-            entry["linkExcept"] = list(term.excluded_lessons(locale))
+            entry["linkExcept"] = [
+                self.lesson_id_for_key(key) for key in term.excluded_lessons(locale)
+            ]
         if term.alias_of is not None:
             target = next(t for t in self.glossary.terms if t.id == term.alias_of)
             entry["aliasOf"] = {"id": target.id, "term": target.term(locale)}
@@ -291,8 +329,8 @@ class CourseRegistry:
         if term.senses:
             entry["senses"] = [
                 {
-                    "origin": sense.origin,
-                    "originTitle": self._lesson_title(sense.origin, locale),
+                    "origin": self.lesson_id_for_key(sense.origin),
+                    "originTitle": self._lesson_title(self.lesson_id_for_key(sense.origin), locale),
                     "definition": sense.definition.get(locale),
                 }
                 for sense in term.senses
@@ -406,16 +444,21 @@ def load_registry(content_dir: Path) -> CourseRegistry:
     exercise_configs = _load_exercise_configs(content_dir, manifest)
     figures = load_figures(content_dir)
 
-    lesson_ids = {lesson.id for _, lesson in manifest.iter_lessons()}
+    # Glossary origins/exclusions are lesson KEYS; glossary ids must be free of ids AND keys.
+    lesson_keys = {lesson.key for _, lesson in manifest.iter_lessons()}
     taken_ids = (
         {manifest.course.id}
         | {b.id for b in manifest.blocks}
         | manifest.module_ids()
-        | lesson_ids
+        | {m.key for _, m in manifest.iter_modules()}
+        | {lesson.id for _, lesson in manifest.iter_lessons()}
+        | lesson_keys
         | {ex.id for _, _, ex in manifest.iter_exercises()}
+        | {ex.key for _, _, ex in manifest.iter_exercises()}
         | set(figures)
+        | {spec.key for spec in figures.values()}
     )
-    glossary = load_glossary(content_dir, lesson_ids, taken_ids)
+    glossary = load_glossary(content_dir, lesson_keys, taken_ids)
     _check_glossary_never_coins(glossary, markdown)
 
     return CourseRegistry(

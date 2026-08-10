@@ -136,7 +136,7 @@ def _chart_rows(
         }
         pcols.update({f"overlay_{k}": v for k, v in pf.overlays.items()})  # e.g. overlay_ema50
         if pf.oi:
-            pcols["oi"] = pf.oi  # open-interest series (m17 derivatives)
+            pcols["oi"] = pf.oi  # open-interest series (m19 derivatives)
         pground: dict[str, object] = {
             "label": pf.label, "annotations": pf.annotations, "levels": pf.levels
         }
@@ -210,11 +210,16 @@ async def dev_attempts(
     exercise_id: Annotated[str, Query()],
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
 ) -> list[DevAttempt]:
     """Your own attempts WITH their seeds, to reproduce a past chart. Dev-only — seeds aren't public."""
+    try:
+        exercise_key = registry.exercise_key(exercise_id)  # rows store the permanent key
+    except KeyError:
+        return []
     rows = await session.scalars(
         select(Attempt)
-        .where(Attempt.user_id == user.id, Attempt.exercise_id == exercise_id)
+        .where(Attempt.user_id == user.id, Attempt.exercise_id == exercise_key)
         .order_by(Attempt.created_at.desc())
     )
     return [

@@ -50,7 +50,7 @@ async def test_a_single_module_block_yields_a_one_question_exam(content_client: 
     await _auth(content_client)
     exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-g"})).json()
     assert exam["scope"] == "block" and exam["blockId"] == "block-g"
-    assert [q["moduleId"] for q in exam["questions"]] == ["m30"]
+    assert [q["moduleId"] for q in exam["questions"]] == ["m34"]
 
     submitted = (await content_client.post(f"/api/exams/{exam['id']}/submit")).json()
     result = submitted["result"]
@@ -66,11 +66,11 @@ async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncC
     """A new module joins the global exam by being registered — there is no exam-side list to update."""
     await _auth(content_client)
     exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
-    m30 = [q for q in exam["questions"] if q["moduleId"] == "m30"]
-    assert len(m30) == 1, "the global exam did not pick up m30"
-    assert m30[0]["blockId"] == "block-g"
-    # ...and it sampled from m30's own bank, not from somewhere else.
-    assert m30[0]["exerciseId"] in {"m30-ex-1", "m30-ex-2", "m30-ex-3", "m30-ex-4"}
+    m34 = [q for q in exam["questions"] if q["moduleId"] == "m34"]
+    assert len(m34) == 1, "the global exam did not pick up m34"
+    assert m34[0]["blockId"] == "block-g"
+    # ...and it sampled from m34's own bank, not from somewhere else.
+    assert m34[0]["exerciseId"] in {"m34-ex-1", "m34-ex-2", "m34-ex-3", "m34-ex-4"}
 
 
 async def test_bad_block_scope_rejected(content_client: AsyncClient) -> None:

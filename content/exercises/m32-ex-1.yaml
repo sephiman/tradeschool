@@ -1,13 +1,17 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-type: pattern_chart
-injector: volatility_bands
-n: 130
-indicator: momentum
-targets: [compression, expansion]
-choices: [compression, expansion]
+# round: 3 is deliberate — at 2 decimal places the "divide by the other venue" distractor collapses
+# onto the correct answer for premiums of this size and gets deduped away.
+type: calculation
+formula: venue_premium_pct
 prompt:
-  en: "This chart carries both envelopes: Bollinger (mean ± standard deviations of the close) and Keltner (mean ± ATR). Read the RIGHT-HAND edge. Which phase of the volatility cycle is the market in there — compression, with the Bollinger band inside the Keltner channel, or expansion, with it back outside?"
-  es: "Este gráfico lleva las dos envolventes: Bollinger (media ± desviaciones típicas del cierre) y Keltner (media ± ATR). Lee el borde DERECHO. ¿En qué fase del ciclo de volatilidad está ahí el mercado: compresión, con la banda de Bollinger dentro del canal de Keltner, o expansión, con ella otra vez por fuera?"
+  en: "At the same instant, BTC trades at **{price_a} USDT** on the reference venue and at **{price_b} USDT** (converted) on a regional venue. What is the regional venue's premium, as a percentage?"
+  es: "En el mismo instante, BTC cotiza a **{price_a} USDT** en el exchange de referencia y a **{price_b} USDT** (convertido) en un exchange regional. ¿Cuál es la prima del exchange regional, en porcentaje?"
+params:
+  price_a: { kind: int_range, min: 59000, max: 60000, step: 200 }
+  price_b: { kind: int_range, min: 60200, max: 61000, step: 200 }
+tolerance: { rel: "0.001" }
+round: 3
+unit: "%"
 explanation:
-  en: "The reading is the relationship between the two envelopes, never the width of either one alone. In compression the closes have bunched relative to how far the bars still travel, so the Bollinger band sits inside the Keltner channel and the dots on the pane below are lit. In expansion the closes are scattering and the Bollinger band pushes back outside. Each chart opens in the other phase, because that is what a cycle is — and note that neither phase says which WAY the next move goes."
-  es: "La lectura es la relación entre las dos envolventes, nunca la anchura de una sola. En compresión los cierres se han apiñado en relación con lo que todavía recorren las barras, así que la banda de Bollinger queda dentro del canal de Keltner y los puntos del panel de abajo están encendidos. En expansión los cierres se dispersan y la banda de Bollinger vuelve a salir. Cada gráfico empieza en la otra fase, porque eso es un ciclo; y fíjate en que ninguna de las dos fases dice hacia DÓNDE va el próximo movimiento."
+  en: "Divide the gap by the *reference* venue's price, then multiply by 100. The percentage is what makes premiums comparable at all — an absolute gap of 900 means nothing until you know whether it sits on a 60,000 coin or a 6,000 one, and comparing 1.5% today with 1.5% two years ago is meaningful in a way comparing 900 with 900 is not. What the number does not tell you is which of the two causes you are looking at: eager regional demand (informative) or the cost of getting capital in and out (structural). That distinction, not the size of the figure, is the reading."
+  es: "Divide el hueco por el precio del exchange de *referencia* y multiplica por 100. El porcentaje es lo que hace comparables las primas: un hueco absoluto de 900 no significa nada hasta que sabes si está sobre una moneda de 60.000 o de 6.000, y comparar el 1,5 % de hoy con un 1,5 % de hace dos años tiene un sentido que comparar 900 con 900 no tiene. Lo que el número no te dice es cuál de las dos causas estás mirando: demanda regional ansiosa (informativa) o el coste de meter y sacar capital (estructural). Esa distinción, y no el tamaño de la cifra, es la lectura."

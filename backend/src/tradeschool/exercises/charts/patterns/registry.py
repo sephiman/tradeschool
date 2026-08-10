@@ -38,18 +38,18 @@ _INJECTORS: dict[str, PatternInjector] = {
         DerivativesInjector(),
         CandleReactionInjector(),
         CvdDivergenceInjector(),
-        # m30-l1: the SMC dialect's two zones. Both plant a ground-truth `Band` (never drawn on an
+        # m34-l1: the SMC dialect's two zones. Both plant a ground-truth `Band` (never drawn on an
         # exercise chart — that would be the answer) and both feed a figure AND an exercise.
         OriginZoneInjector(),
         ImbalanceInjector(),
-        # m31: diagonal geometry. The first injectors to draw a `Diagonal`, and the first family born
+        # m15: diagonal geometry. The first injectors to draw a `Diagonal`, and the first family born
         # BIDIRECTIONAL — the bull-only rule the two above carry is a named exception to it, not the
         # house style (see `test_chart_bands.py` §3b and `test_chart_diagonals.py`).
         TrendChannelInjector(),
         ConvergingLinesInjector(),
-        # m32: the volatility cycle, and the first injector to drive the zero-centred momentum pane.
+        # m16: the volatility cycle, and the first injector to drive the zero-centred momentum pane.
         VolatilityBandsInjector(),
-        # m20-l2: the first injector to return a SECOND candle panel — the same stretch aggregated to a
+        # m23-l2: the first injector to return a SECOND candle panel — the same stretch aggregated to a
         # coarser frame, which is the only way to ask a question about the relationship between two.
         MultiTimeframeInjector(),
         # Figure-only injectors: shapes whose whole point is the resolution, so no exercise uses them.

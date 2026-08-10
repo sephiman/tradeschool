@@ -25,7 +25,7 @@ const GLOSSARY: Glossary = {
     {
       id: "g-choch",
       term: "CHoCH",
-      origin: "m30-l1",
+      origin: "m34-l1",
       originTitle: "El dialecto SMC",
       aliasOf: { id: "g-change-of-character", term: "cambio de carácter" },
     },
@@ -35,14 +35,14 @@ const GLOSSARY: Glossary = {
       origin: null,
       originTitle: null,
       senses: [
-        { origin: "m17-l1", originTitle: "Datos de derivados", definition: "Perpetuo sobre el spot." },
-        { origin: "m28-l1", originTitle: "La prima entre exchanges", definition: "Entre plataformas." },
+        { origin: "m19-l1", originTitle: "Datos de derivados", definition: "Perpetuo sobre el spot." },
+        { origin: "m32-l1", originTitle: "La prima entre exchanges", definition: "Entre plataformas." },
       ],
     },
     {
       id: "g-emision",
       term: "emisión",
-      origin: "m18-l1",
+      origin: "m20-l1",
       originTitle: "Leer la tokenómica",
       definition: "El ritmo al que entran tokens nuevos.",
     },
@@ -161,8 +161,8 @@ describe("the glossary page", () => {
     expect(text).toContain("1. Perpetuo sobre el spot.");
     expect(text).toContain("2. Entre plataformas.");
     const found = links(entry).map((l) => l.href);
-    expect(found).toContain(coursePath("/lessons/m17-l1"));
-    expect(found).toContain(coursePath("/lessons/m28-l1"));
+    expect(found).toContain(coursePath("/lessons/m19-l1"));
+    expect(found).toContain(coursePath("/lessons/m32-l1"));
   });
 
   it("gives every entry an anchor id, so an alias pointer has somewhere to land", () => {

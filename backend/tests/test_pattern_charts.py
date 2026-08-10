@@ -290,7 +290,7 @@ def test_wyckoff_structure_matches_label() -> None:
     assert all(v > 0 for v in seen.values()), f"not all labels surfaced: {seen}"
 
 
-# --- derivatives (m17) correctness: OI trend matches the label; price is identical across labels --
+# --- derivatives (m19) correctness: OI trend matches the label; price is identical across labels --
 
 
 def test_derivatives_oi_matches_label() -> None:
@@ -325,7 +325,7 @@ def test_derivatives_price_is_label_independent() -> None:
     assert seeds_price["rising_oi"] == seeds_price["falling_oi"] == seeds_price["flat_oi"]
 
 
-# --- cvd_divergence (m26) correctness: the CVD pane reads as labelled at the two swings ----------
+# --- cvd_divergence (m30) correctness: the CVD pane reads as labelled at the two swings ----------
 
 _CVD_LABELS = ("cvd_bullish_divergence", "cvd_bearish_divergence", "cvd_confirms")
 _PRICE_EPS = 0.002  # a new extreme must clear this fraction of price to count as read-able
@@ -440,8 +440,8 @@ def test_candle_reaction_form_and_location_match_label() -> None:
 
 # --- the four figure-only injectors ---------------------------------------------------------------
 #
-# `market_structure` (m08-l1), `liquidity_sweep` (m17-l2 + m06-l1), `stop_limit_gap` (m21-l1) and
-# `trade_anatomy` (m24-l1) get the same treatment as everything above — the credibility test at the top
+# `market_structure` (m08-l1), `liquidity_sweep` (m19-l2 + m06-l1), `stop_limit_gap` (m24-l1) and
+# `trade_anatomy` (m27-l1) get the same treatment as everything above — the credibility test at the top
 # of this file is parametrised over every registered injector, so it already covers them — but their
 # structure-matches-label tests live in `test_chart_annotations.py` instead of here.
 #

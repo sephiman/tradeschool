@@ -1,204 +1,114 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: what-is-capitulation
+  - id: not-a-direction
     prompt:
-      en: "What is 'capitulation'?"
-      es: "¿Qué es la \"capitulación\"?"
+      en: "The Bollinger band has been inside the Keltner channel for three weeks and has just pushed back outside. What does that tell you?"
+      es: "La banda de Bollinger lleva tres semanas dentro del canal de Keltner y acaba de salir. ¿Qué te dice eso?"
     options:
       - id: a
         text:
-          en: "The exchange force-closing leveraged positions once their margin runs out."
-          es: "El exchange cerrando posiciones apalancadas cuando se agota su margen."
+          en: "That a rally is starting, since compression resolves upward more often."
+          es: "Que empieza un rally, ya que la compresión se resuelve al alza más a menudo."
       - id: b
-        text:
-          en: "A scheduled halving of the Bitcoin block reward paid to miners."
-          es: "Un halving programado de la recompensa por bloque que cobran los mineros."
-      - id: c
         correct: true
         text:
-          en: "Scared holders giving up and selling at a loss to stop the pain."
-          es: "Tenedores asustados que se rinden y venden con pérdidas para dejar de sufrir."
+          en: "That an expansion is under way, and nothing at all about its direction."
+          es: "Que hay una expansión en marcha, y nada en absoluto sobre su dirección."
+      - id: c
+        text:
+          en: "That the trend before the compression is now confirmed to be resuming."
+          es: "Que la tendencia previa a la compresión queda confirmada como reanudada."
       - id: d
         text:
-          en: "The moment the crowd turns euphoric and buys the very top."
-          es: "El momento en que la masa se vuelve eufórica y compra el techo."
+          en: "Nothing: the exit is a lagging artefact of the two moving averages."
+          es: "Nada: la salida es un artefacto con retardo de las dos medias móviles."
     explanation:
-      en: "Capitulation is the emotional surrender at the low, and once it has run, selling pressure is largely spent. It is not a mechanical force-close: that is liquidation, a different thing entirely, where the exchange closes a leveraged position because margin is exhausted. Euphoric buying is the opposite end of the same emotional scale."
-      es: "La capitulación es la rendición emocional en el mínimo y, una vez consumada, la presión vendedora queda casi agotada. No es un cierre forzoso mecánico: eso es la liquidación, algo del todo distinto, donde el exchange cierra una posición apalancada porque el margen se agotó. La compra eufórica es el extremo contrario de la misma escala emocional."
-  - id: fear-location
+      en: "The squeeze is a statement about the SIZE of the next move, never its direction — the same mould as m19's open interest, which tells you positions are being added without saying by whom, and funding, which tells you who is paying without saying who is right. The direction you read from the break, with the body-close and participation discipline m08-l1 and m14 ask for everywhere else."
+      es: "El squeeze es una afirmación sobre el TAMAÑO del próximo movimiento, nunca sobre su dirección: el mismo molde que el interés abierto de m19, que te dice que se están añadiendo posiciones sin decirte de quién, y el funding, que te dice quién paga sin decirte quién tiene razón. La dirección la lees de la ruptura, con la disciplina de cierre de cuerpo y participación que m08-l1 y m14 piden en todas partes."
+  - id: homonym
     prompt:
-      en: "Where on the price chart does the deepest extreme fear tend to appear?"
-      es: "¿En qué parte del gráfico de precio tiende a aparecer el miedo extremo más profundo?"
+      en: "Someone says 'there's a squeeze building'. What are the two unrelated things they could mean?"
+      es: "Alguien dice «se está formando un squeeze». ¿Cuáles son las dos cosas sin relación que puede querer decir?"
     options:
       - id: a
         text:
-          en: "Near market tops, right before a big rally is about to begin."
-          es: "Cerca de los techos, justo antes de que empiece un gran rally."
+          en: "A squeeze on the spot side and the same squeeze on the perpetual side."
+          es: "Un squeeze en el spot y ese mismo squeeze en el perpetuo."
       - id: b
+        text:
+          en: "A narrow Bollinger band and a narrow Keltner channel, which differ by period."
+          es: "Una banda de Bollinger estrecha y un canal de Keltner estrecho, que difieren en periodo."
+      - id: c
         correct: true
         text:
-          en: "Near market lows, once the panic sellers have largely gone."
-          es: "Cerca de los mínimos, cuando los vendedores en pánico ya se han ido."
-      - id: c
-        text:
-          en: "Randomly across the chart, with no relation to where price is."
-          es: "Al azar por el gráfico, sin relación con dónde está el precio."
+          en: "Compressed bands on a chart, or shorts being forcibly bought back into a rally."
+          es: "Bandas comprimidas en un gráfico, o cortos recomprados a la fuerza en un rally."
       - id: d
         text:
-          en: "Only during scheduled news events on the macro calendar."
-          es: "Solo durante eventos de noticias programados del calendario macro."
+          en: "A widening spread, or a market maker pulling quotes from the book."
+          es: "Un spread ensanchándose, o un creador de mercado retirando cotizaciones."
     explanation:
-      en: "Deep fear clusters near bottoms: once capitulation has run and the panic sellers are out, selling pressure is largely spent and price is often near a low. That makes extreme fear a zone of interest — not a dated buy signal, and not something that needs a calendar event to appear."
-      es: "El miedo profundo se concentra cerca de los suelos: una vez consumada la capitulación y fuera los vendedores presa del pánico, la presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo. Eso convierte el miedo extremo en una zona de interés, no en una señal de compra con fecha, ni en algo que necesite un evento del calendario para aparecer."
-  - id: capitulation-vs-liquidation
+      en: "One is a measurement artefact: the Bollinger band inside the Keltner channel, describing how compressed price has been, with nobody forced to do anything. The other is m19-l2's liquidity squeeze, a market event with real forced orders in it — shorts liquidated into a rising price, whose forced buying raises it further. They share a word and nothing else, and the two possible meanings differ on whether anything is happening at all."
+      es: "Uno es un artefacto de medición: la banda de Bollinger dentro del canal de Keltner, que describe lo comprimido que ha estado el precio, sin nadie forzado a hacer nada. El otro es el squeeze de liquidez de m19-l2, un suceso de mercado con órdenes forzadas de verdad dentro: cortos liquidados contra un precio que sube, cuya compra forzada lo sube más. Comparten una palabra y nada más, y los dos significados posibles difieren en si está pasando algo siquiera."
+  - id: oracle
     kind: true_false
     prompt:
-      en: "\"Capitulation\" and \"liquidation\" are two names for the same event."
-      es: "\"Capitulación\" y \"liquidación\" son dos nombres para el mismo suceso."
+      en: "The squeeze momentum pane tells you things the Bollinger and Keltner lines above it do not."
+      es: "El panel de squeeze momentum te dice cosas que las líneas de Bollinger y Keltner de arriba no."
     answer: false
     explanation:
-      en: "They are different. Capitulation is holders emotionally giving up and selling at a loss to stop the pain. Liquidation is the exchange force-closing a leveraged position when its margin runs out. Panic-driven capitulation can trigger liquidations, but the two are not the same thing."
-      es: "Son distintos. La capitulación es que los tenedores se rinden emocionalmente y venden con pérdidas para dejar de sufrir. La liquidación es el exchange cerrando forzosamente una posición apalancada cuando se agota su margen. La capitulación por pánico puede desencadenar liquidaciones, pero no son lo mismo."
-  - id: capitulation-effect
+      en: "The dots ARE the Bollinger-inside-Keltner condition and the histogram is a smoothed measure of where price sits against its own recent range. The pane is a convenience — one panel instead of four lines — and reading it as an oracle is reading a repackaging of two averages as though it knew something. When the dots go dim, the bands had already told you."
+      es: "Los puntos SON la condición de Bollinger-dentro-de-Keltner y el histograma es una medida suavizada de dónde está el precio respecto a su propio rango reciente. El panel es una comodidad —uno en vez de cuatro líneas— y leerlo como un oráculo es leer el reempaquetado de dos medias como si supiera algo. Cuando los puntos se apagan, las bandas ya te lo habían dicho."
+  - id: sizing
     prompt:
-      en: "Once capitulation has run its course, what happens to selling pressure?"
-      es: "Una vez consumada la capitulación, ¿qué le ocurre a la presión vendedora?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "It is largely spent — those who were going to panic-sell already have."
-          es: "Queda casi agotada: quienes iban a vender en pánico ya lo han hecho."
-      - id: b
-        text:
-          en: "It accelerates, since capitulation guarantees weeks of forced selling."
-          es: "Se acelera, ya que la capitulación garantiza semanas de venta forzada."
-      - id: c
-        text:
-          en: "The exchange takes over and keeps selling on the holders' behalf."
-          es: "El exchange toma el relevo y sigue vendiendo por cuenta de los tenedores."
-      - id: d
-        text:
-          en: "Nothing changes: capitulation has no effect on the sellers who remain."
-          es: "No cambia nada: la capitulación no afecta a los vendedores que quedan."
-    explanation:
-      en: "That is the point of capitulation as a signal: when the sellers who were going to give up have given up, the supply of frightened selling dries up, and price is often near a low. That is why it marks a zone of interest — not a precise buy moment, and nobody keeps selling on your behalf afterwards."
-      es: "Ese es el sentido de la capitulación como señal: cuando los vendedores que iban a rendirse ya se han rendido, la oferta de venta asustada se seca y el precio suele estar cerca de un mínimo. Por eso marca una zona de interés, no un momento preciso de compra, y después nadie sigue vendiendo en tu nombre."
-  - id: fear-sequence
-    kind: ordering
-    prompt:
-      en: "Put the stages of a fear-driven sell-off in order, first to last."
-      es: "Ordena las fases de una caída impulsada por el miedo, de la primera a la última."
-    items:
-      - id: drop
-        position: 1
-        text:
-          en: "Price falls and the mood turns fearful."
-          es: "El precio cae y el ánimo se vuelve temeroso."
-      - id: deepen
-        position: 2
-        text:
-          en: "Fear deepens toward extreme as the drop continues."
-          es: "El miedo se agrava hacia el extremo a medida que sigue la caída."
-      - id: capitulate
-        position: 3
-        text:
-          en: "Holders capitulate — selling at a loss to stop the pain."
-          es: "Los tenedores capitulan: venden con pérdidas para dejar de sufrir."
-      - id: spent
-        position: 4
-        text:
-          en: "Selling pressure is largely spent and price is often near a low."
-          es: "La presión vendedora queda casi agotada y el precio suele estar cerca de un mínimo."
-    explanation:
-      en: "Fear builds, peaks in capitulation, and then selling exhausts itself near a low. The sequence explains why the deepest fear clusters near bottoms — but it still tells you nothing about the exact day price turns."
-      es: "El miedo se acumula, culmina en la capitulación y después la venta se agota cerca de un mínimo. La secuencia explica por qué el miedo más profundo se concentra cerca de los suelos, pero sigue sin decirte el día exacto en que gira el precio."
-  - id: fear-buy-too-early
-    prompt:
-      en: "A trader buys the moment the index first prints extreme fear, yet price keeps bleeding for weeks. What was the mistake?"
-      es: "Un trader compra en cuanto el índice marca por primera vez miedo extremo, pero el precio sigue sangrando durante semanas. ¿Cuál fue el error?"
+      en: "You want to trade the expansion out of a squeeze. What does the squeeze itself contribute to the position's size?"
+      es: "Quieres operar la expansión que sale de un squeeze. ¿Qué aporta el propio squeeze al tamaño de la posición?"
     options:
       - id: a
         text:
-          en: "The index was broken: extreme fear never appears within a downtrend."
-          es: "El índice estaba roto: el miedo extremo nunca aparece en una bajista."
+          en: "A larger size, since a coiled market pays more when it finally moves."
+          es: "Un tamaño mayor, ya que un mercado comprimido paga más cuando por fin se mueve."
       - id: b
         text:
-          en: "They should have shorted — fear always means lower prices from there."
-          es: "Deberían haber cortado: el miedo siempre significa precios más bajos."
+          en: "A wider stop, because the expansion needs room to work through the noise."
+          es: "Un stop más ancho, porque la expansión necesita margen para atravesar el ruido."
       - id: c
         text:
-          en: "Sentiment matters only in equities, so it should have been ignored."
-          es: "El sentimiento solo importa en acciones, así que debió ignorarse."
+          en: "A smaller size, because a squeeze makes any entry statistically worse."
+          es: "Un tamaño menor, porque un squeeze empeora estadísticamente cualquier entrada."
       - id: d
         correct: true
         text:
-          en: "Treating extreme fear as a timed bottom, when it is only a zone."
-          es: "Tratar el miedo extremo como un suelo con fecha, siendo una zona."
+          en: "Nothing at all: size comes from the distance to the stop, as it always has."
+          es: "Nada en absoluto: el tamaño sale de la distancia al stop, como siempre."
     explanation:
-      en: "Extreme fear marks a contrarian zone of interest, not a moment, and fear can stay extreme through long bear markets — so entries need their own confirmation. It appears in downtrends by definition, it is not an instruction to short, and it applies to crypto as much as anywhere else."
-      es: "El miedo extremo marca una zona contraria de interés, no un momento, y el miedo puede seguir extremo durante largos mercados bajistas: las entradas necesitan su propia confirmación. Aparece en tendencias bajistas por definición, no es una orden de cortar, y aplica al cripto tanto como a cualquier otro sitio."
-  - id: capitulation-scene
+      en: "m22 is unchanged by any of this — size comes from the distance to the stop and the stop comes from the structure. What the squeeze does change is that the expansion out of one is often violent, so a trade on the wrong side of it loses quickly. 'The squeeze is about to fire' is not a direction, and a position sized as though it were is sized on nothing, which is m26."
+      es: "m22 no cambia por nada de esto: el tamaño sale de la distancia al stop y el stop sale de la estructura. Lo que sí cambia el squeeze es que la expansión que sale de uno suele ser violenta, así que una operación en el lado equivocado pierde rápido. «El squeeze está a punto de dispararse» no es una dirección, y una posición dimensionada como si lo fuera está dimensionada a partir de nada, que es m26."
+  - id: which-squeeze
     kind: multi_select
     prompt:
-      en: "Select ALL of the following that describe what a capitulation low typically looks like."
-      es: "Selecciona TODO lo siguiente que describa cómo suele verse un mínimo de capitulación."
+      en: "Select ALL the statements that are true of the LIQUIDITY squeeze (m19-l2) and not of the volatility one."
+      es: "Selecciona TODAS las afirmaciones ciertas del squeeze de LIQUIDEZ (m19-l2) y no del de volatilidad."
     options:
       - id: a
         correct: true
-        text: { en: "A single violent session — BTC dropping 15% in a few hours.", es: "Una única sesión violenta: BTC cayendo un 15% en pocas horas." }
-      - id: b
-        correct: true
-        text: { en: "Enormous volume as holders finally give up.", es: "Volumen enorme cuando los holders por fin se rinden." }
-      - id: c
-        correct: true
         text:
-          en: "A cascade of liquidations dumping more supply into a thin book."
-          es: "Una cascada de liquidaciones vertiendo más oferta en un libro fino."
-      - id: d
-        correct: true
-        text:
-          en: "The index gapping to single digits as social flips to 'it's over'."
-          es: "El índice cayendo a un dígito mientras las redes dicen 'se acabó'."
-      - id: e
-        text:
-          en: "A slow, quiet drift lower on shrinking volume over several months."
-          es: "Una deriva lenta y tranquila a la baja con volumen decreciente durante meses."
-    explanation:
-      en: "Panic, forced selling and a spike of fear all at once — that flush is what exhausts the supply of frightened holders, and it is loud by nature. A slow quiet drift is the opposite: nobody has surrendered yet, so the selling is still ahead. Either way it is a zone of interest, a place to look for setups, not a command to buy."
-      es: "Pánico, venta forzosa y un pico de miedo a la vez: ese lavado es lo que agota la oferta de holders asustados, y es ruidoso por naturaleza. Una deriva lenta y tranquila es lo contrario: nadie se ha rendido todavía, así que la venta aún está por llegar. En cualquier caso es una zona de interés, un lugar donde buscar setups, no una orden de comprar."
-  - id: overnight-swing
-    prompt:
-      en: "Crypto never closes. What does that do to a sentiment reading you check at breakfast?"
-      es: "El cripto nunca cierra. ¿Qué le hace eso a una lectura de sentimiento que consultas en el desayuno?"
-    options:
-      - id: a
-        text:
-          en: "Nothing at all — the index only updates during weekday hours."
-          es: "Nada en absoluto: el índice solo se actualiza en horario laboral."
+          en: "Somebody is being forced to trade, in a known direction."
+          es: "Alguien está siendo obligado a operar, en una dirección conocida."
       - id: b
         correct: true
         text:
-          en: "An extreme can be reached and unwound while you sleep."
-          es: "Un extremo puede alcanzarse y deshacerse mientras duermes."
+          en: "It is a feedback loop: the forced orders cause more forced orders."
+          es: "Es un bucle: las órdenes forzadas provocan más órdenes forzadas."
       - id: c
         text:
-          en: "It makes the reading more reliable, because it never gets reset."
-          es: "Hace la lectura más fiable, porque nunca se reinicia."
+          en: "It is read off two envelopes drawn around a moving average."
+          es: "Se lee a partir de dos envolventes trazadas alrededor de una media móvil."
       - id: d
         text:
-          en: "It guarantees the extreme will still be in place when you act on it."
-          es: "Garantiza que el extremo seguirá ahí cuando actúes sobre él."
+          en: "It says a large move is coming without naming its direction."
+          es: "Dice que viene un movimiento grande sin nombrar su dirección."
     explanation:
-      en: "Sentiment compounds through overnight and weekend sessions on thin liquidity, and the mood never gets a nightly reset — so the number you see may be lagging both the swing out and the swing back. Combined with the index's already-lagging inputs, a reading can describe a state the market moved on from hours ago."
-      es: "El sentimiento se acumula en sesiones nocturnas y de fin de semana con escasa liquidez, y el ánimo no tiene reinicio nocturno, así que el número que ves puede ir por detrás tanto del movimiento de ida como del de vuelta. Combinado con las entradas ya retrasadas del índice, una lectura puede describir un estado que el mercado dejó atrás horas antes."
-  - id: fear-persists
-    kind: true_false
-    prompt:
-      en: "Extreme fear can stay extreme for months while price keeps bleeding."
-      es: "El miedo extremo puede seguir extremo durante meses mientras el precio sigue sangrando."
-    answer: true
-    explanation:
-      en: "True — fear stayed extreme through long grinding bear markets. A contrarian who bought the *first* extreme-fear print got run over: the crowd stayed lopsided far longer than their account could survive."
-      es: "Cierto: el miedo se mantuvo extremo durante mercados bajistas largos y desgastantes. Quien compró la *primera* lectura de miedo extremo fue arrollado: la multitud siguió desequilibrada mucho más de lo que su cuenta podía aguantar."
+      en: "The liquidity squeeze is a market event with participants in it: shorts liquidated into a rising price, whose forced buying pushes price higher and liquidates more of them. It has a direction by construction. The last two describe the volatility squeeze instead — a measurement over the chart, which names a size and refuses to name a side."
+      es: "El squeeze de liquidez es un suceso de mercado con participantes dentro: cortos liquidados contra un precio que sube, cuya compra forzada empuja el precio más arriba y liquida a más. Tiene dirección por construcción. Las dos últimas describen en cambio el squeeze de volatilidad: una medición sobre el gráfico, que nombra un tamaño y se niega a nombrar un lado."

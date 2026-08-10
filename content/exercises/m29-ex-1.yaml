@@ -1,259 +1,241 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-# Conceptual only, by design — a footprint is a distribution inside one bar and a volume profile is
-# aggregated on a price axis; neither is a time series this engine can generate credibly.
 type: quiz
 variants:
-  - id: footprint-shows
+  - id: taker-is-aggressor
     prompt:
-      en: "What does a footprint chart show that an ordinary candle cannot?"
-      es: "¿Qué muestra un gráfico de footprint que una vela normal no puede?"
+      en: "Two traders complete a trade: one had a limit order resting in the book, the other sent a market order that hit it. Who is the aggressor, and what does that tell you?"
+      es: "Dos traders completan una operación: uno tenía una orden limitada en reposo en el libro, el otro envió una orden a mercado que la golpeó. ¿Quién es el agresor y qué te dice eso?"
     options:
       - id: a
         text:
-          en: "The candle's shape over several timeframes at once, stacked on one axis."
-          es: "La forma de la vela en varias temporalidades a la vez, en un eje."
+          en: "The maker — they set the price the trade happened at, so they led it."
+          es: "El maker: fijó el precio al que ocurrió la operación, así que la dirigió."
       - id: b
-        correct: true
         text:
-          en: "How much traded at each price level within that one candle, by side."
-          es: "Cuánto se negoció en cada nivel dentro de esa única vela, por lado."
+          en: "Whichever of the two ends up in profit; the outcome defines the aggressor."
+          es: "El que de los dos acabe en ganancia; al agresor lo define el resultado."
       - id: c
         text:
-          en: "The resting limit orders waiting above and below the candle's range."
-          es: "Las órdenes límite en reposo por encima y por debajo del rango."
+          en: "Both equally, since every trade has two sides and one shared volume."
+          es: "Los dos por igual, ya que toda operación tiene dos lados y un volumen."
       - id: d
+        correct: true
         text:
-          en: "A prediction of the next candle from this one's volume distribution."
-          es: "Una predicción de la vela siguiente desde su reparto de volumen."
+          en: "The taker: they chose to trade now rather than wait for a better price to come."
+          es: "El taker: eligió operar ahora mismo en vez de esperar un precio mejor."
     explanation:
-      en: "A footprint is the delta of m25 resolved by price level instead of summed over the period, usually split into taker buy and taker sell volume — the finest resolution in this block. Note what it is not: resting orders are the order book (m27), which is intention rather than executed flow. A footprint is entirely a record of trades that happened."
-      es: "Un footprint es el delta de m25 resuelto por nivel de precio en vez de sumado a lo largo del periodo, normalmente separado en volumen de compra taker y de venta taker: la resolución más fina de este bloque. Ojo con lo que no es: las órdenes en reposo son el libro de órdenes (m27), que es intención y no flujo ejecutado. Un footprint es enteramente un registro de operaciones que ocurrieron."
-  - id: poc-definition
+      en: "The taker accepts an existing price and pays for immediacy; the maker offers a price and waits. That asymmetry is the whole basis of order flow: volume counts both sides of every trade equally, but exactly one party chose to be impatient. Note that being the aggressor is not a sign of being right — much taker flow is retail market orders, stops firing and forced liquidations."
+      es: "El taker acepta un precio existente y paga por la inmediatez; el maker ofrece un precio y espera. Esa asimetría es la base entera del flujo de órdenes: el volumen cuenta por igual los dos lados de cada operación, pero exactamente una de las partes eligió ser impaciente. Ojo: ser el agresor no es señal de tener razón; buena parte del flujo taker son órdenes a mercado de minoristas, stops saltando y liquidaciones forzadas."
+  - id: delta-not-volume
     prompt:
-      en: "On a volume profile, what is the POC (point of control)?"
-      es: "En un perfil de volumen, ¿qué es el POC (point of control)?"
+      en: "Period A: 3,000 contracts of taker buying and 2,800 of taker selling. Period B: 600 of taker buying and 100 of taker selling. Which period had the more one-sided aggression, and why?"
+      es: "Periodo A: 3.000 contratos de compra taker y 2.800 de venta taker. Periodo B: 600 de compra taker y 100 de venta taker. ¿Qué periodo tuvo la agresión más unilateral y por qué?"
     options:
       - id: a
         correct: true
         text:
-          en: "The single price at which the most volume traded in the period."
-          es: "El precio concreto en el que se negoció más volumen del periodo."
+          en: "Period B — its delta is +500 against A's +200, on a fraction of the volume."
+          es: "El periodo B: su delta es +500 frente al +200 de A, con menos volumen."
       - id: b
         text:
-          en: "The midpoint between the period's high and its low price."
-          es: "El punto medio entre el máximo y el mínimo del periodo."
+          en: "They are equally one-sided, since buyers outnumbered sellers in both."
+          es: "Son igual de unilaterales, ya que en ambos los compradores superaron."
       - id: c
         text:
-          en: "The price where the largest single trade of the period occurred."
-          es: "El precio donde ocurrió la operación individual más grande."
+          en: "Period A — it traded 5,800 contracts against B's 700, so far more aggression."
+          es: "El periodo A: negoció 5.800 contratos frente a los 700 de B, mucha más agresión."
       - id: d
         text:
-          en: "The level at which the period's open and close coincide exactly."
-          es: "El nivel en que coinciden exactamente la apertura y el cierre."
+          en: "Neither — with both sides trading, aggression is balanced by definition."
+          es: "Ninguno: al operar los dos lados, la agresión se equilibra por definición."
     explanation:
-      en: "The POC is the price with the most *total* volume — the level where the market spent the most agreement — not the biggest individual trade and not a geometric midpoint. That is what makes it different in kind from a hand-drawn level: it is a measurement of where trade occurred, not a line you chose."
-      es: "El POC es el precio con más volumen *total* —el nivel donde el mercado pasó más tiempo de acuerdo—, no la operación individual más grande ni un punto medio geométrico. Eso es lo que lo hace distinto en naturaleza de un nivel trazado a mano: es una medición de dónde ocurrió la negociación, no una línea que elegiste."
-  - id: value-area
-    prompt:
-      en: "A volume profile's **value area** is conventionally the band containing 70% of the period's volume. What does being outside it mean?"
-      es: "El **área de valor** de un perfil de volumen es convencionalmente la banda que contiene el 70 % del volumen del periodo. ¿Qué significa estar fuera de ella?"
-    options:
-      - id: a
-        text:
-          en: "Those prices are invalid and should be excluded from any analysis."
-          es: "Esos precios no son válidos y deben excluirse de cualquier análisis."
-      - id: b
-        text:
-          en: "Price is guaranteed to return inside the value area before period end."
-          es: "El precio tiene garantizado volver al área antes de acabar el periodo."
-      - id: c
-        text:
-          en: "They mark where the largest participants were, since size avoids crowds."
-          es: "Marcan dónde estuvieron los grandes, ya que el tamaño evita la masa."
-      - id: d
-        correct: true
-        text:
-          en: "Prices the market was not comfortable at — it passed through them."
-          es: "Precios donde el mercado no estuvo cómodo: pasó de largo por ellos."
-    explanation:
-      en: "Inside the value area is where the market was comfortable; outside is where it traded relatively little, passing through rather than settling. That is descriptive, not predictive — nothing guarantees a return. The practical use is that the value area's edges give m09's trading-range boundaries a measured definition instead of a hand-drawn one."
-      es: "Dentro del área de valor es donde el mercado estuvo cómodo; fuera es donde negoció relativamente poco, pasando de largo en vez de asentarse. Eso es descriptivo, no predictivo: nada garantiza una vuelta. La utilidad práctica es que los bordes del área de valor le dan a las fronteras del rango de negociación de m09 una definición medida en lugar de trazada a mano."
-  - id: poc-vs-drawn-level
-    prompt:
-      en: "How does a POC relate to the support and resistance levels m03 and m08 taught you to draw?"
-      es: "¿Cómo se relaciona un POC con los niveles de soporte y resistencia que m03 y m08 te enseñaron a trazar?"
-    options:
-      - id: a
-        text:
-          en: "It replaces them: with a volume profile, drawn levels are obsolete."
-          es: "Los sustituye: con un perfil de volumen, los niveles trazados sobran."
-      - id: b
-        correct: true
-        text:
-          en: "The same idea with evidence attached: a measurement, not a chosen line."
-          es: "La misma idea con pruebas adjuntas: una medición, no una línea elegida."
-      - id: c
-        text:
-          en: "It is unrelated; a POC is a volume statistic, not a price level."
-          es: "No tiene relación; un POC es un estadístico, no un nivel de precio."
-      - id: d
-        text:
-          en: "It is a stronger guarantee — price does react at a POC, unlike lines."
-          es: "Es una garantía mayor: el precio sí reacciona en un POC, no en líneas."
-    explanation:
-      en: "m08 warned that you can always find a line that fits your bias. A POC answers that criticism by giving a reason for the level beyond 'it looks like one'. But every m08 caveat survives: a level with volume behind it is still only a level — it says a reaction is *more likely* there, not that one will happen, and it removes none of the need for confirmation, a stop, and sizing."
-      es: "m08 advertía que siempre puedes encontrar una línea que encaje con tu sesgo. Un POC responde a esa crítica dando una razón para el nivel más allá de 'parece un nivel'. Pero todas las advertencias de m08 siguen en pie: un nivel con volumen detrás sigue siendo solo un nivel; dice que una reacción ahí es *más probable*, no que vaya a ocurrir, y no elimina en absoluto la necesidad de confirmación, stop y dimensionamiento."
-  - id: poc-magnet-myth
+      en: "A's delta is 3,000 − 2,800 = +200 on 5,800 volume: enormous activity, almost perfectly balanced aggression. B's is 600 − 100 = +500 on 700 volume: far less activity, far more one-sided. This is exactly what delta adds — volume answers how many showed up, delta answers which side was pressing and by how much."
+      es: "El delta de A es 3.000 − 2.800 = +200 sobre 5.800 de volumen: actividad enorme y agresión casi perfectamente equilibrada. El de B es 600 − 100 = +500 sobre 700 de volumen: mucha menos actividad, mucho más unilateral. Esto es justo lo que añade el delta: el volumen responde cuántos aparecieron, el delta responde qué lado presionaba y cuánto."
+  - id: candle-hides-flow
     kind: true_false
     prompt:
-      en: "Price always returns to the POC, so a POC below the current price is a dependable target."
-      es: "El precio siempre vuelve al POC, así que un POC por debajo del precio actual es un objetivo fiable."
+      en: "If two one-hour candles have identical open, high, low, close and volume, the order flow inside them must have been essentially the same."
+      es: "Si dos velas de una hora tienen la misma apertura, máximo, mínimo, cierre y volumen, el flujo de órdenes dentro de ellas tuvo que ser esencialmente el mismo."
     answer: false
     explanation:
-      en: "False — this is folklore. A high-volume node is a price with a history of agreement, which makes a reaction there more likely than at a random price: a probability, not an appointment. Trading toward a POC with no other reason, and holding without a stop because 'it has to get there', is exactly the material of m23."
-      es: "Falso: esto es folclore. Un nodo de volumen alto es un precio con un historial de acuerdo, lo que hace una reacción ahí más probable que en un precio al azar: una probabilidad, no una cita. Operar hacia un POC sin ninguna otra razón, y aguantar sin stop porque 'tiene que llegar', es exactamente el material de m23."
-  - id: low-volume-node
-    prompt:
-      en: "A volume profile shows a conspicuous gap — a price band where very little traded. What does that usually imply?"
-      es: "Un perfil de volumen muestra un hueco llamativo: una banda de precio donde se negoció muy poco. ¿Qué implica eso normalmente?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "The market rejected that band fast, and price often crosses it fast."
-          es: "El mercado rechazó esa banda rápido y el precio suele cruzarla ya."
-      - id: b
-        text:
-          en: "The data for that band is incomplete and should be treated as missing."
-          es: "Los datos de esa banda están incompletos y hay que darlos por ausentes."
-      - id: c
-        text:
-          en: "Price cannot trade in that band again until the profile is reset."
-          es: "El precio no puede volver a esa banda hasta que el perfil se reinicie."
-      - id: d
-        text:
-          en: "It is the strongest support in the profile, since supply is scarce there."
-          es: "Es el soporte más fuerte del perfil, ya que ahí la oferta es escasa."
-    explanation:
-      en: "A low-volume node explains something a pure support/resistance view treats as inexplicable: the fast, uneventful travel between levels. Few participants engaged at those prices, so there is little history of interest there to slow price down. It is the counterpart to a high-volume node, where many did engage."
-      es: "Un nodo de volumen bajo explica algo que una visión de puro soporte/resistencia trata como inexplicable: el viaje rápido y sin incidentes entre niveles. Pocos participantes se implicaron a esos precios, así que hay poco historial de interés que frene al precio. Es la contraparte de un nodo de volumen alto, donde sí se implicaron muchos."
-  - id: why-not-generated
-    prompt:
-      en: "This course generates chart exercises for CVD but not for footprint charts or volume profiles. What is the actual reason?"
-      es: "Este curso genera ejercicios de gráfico para el CVD pero no para los gráficos de footprint ni los perfiles de volumen. ¿Cuál es la razón real?"
-    options:
-      - id: a
-        text:
-          en: "They are less useful than CVD, so they were left out as low priority."
-          es: "Son menos útiles que el CVD y se dejaron fuera por prioridad baja."
-      - id: b
-        text:
-          en: "The underlying data is proprietary and cannot be reproduced legally."
-          es: "Los datos subyacentes son propietarios y no se pueden reproducir."
-      - id: c
-        text:
-          en: "They only work on stocks and futures, never on crypto perpetuals."
-          es: "Solo funcionan con acciones y futuros, nunca con perpetuos cripto."
-      - id: d
-        correct: true
-        text:
-          en: "A different shape of data entirely — not the time series used here."
-          es: "Son otra forma de dato distinta: no la serie temporal usada aquí."
-    explanation:
-      en: "Every chart here is a time series — one value per period — rendered by the same engine. A footprint needs a volume distribution inside each bar; a volume profile needs volume aggregated across bars on a price axis. Faking a plausible-looking picture would teach you to read an artefact rather than the real instrument, which is worse than an honest gap clearly marked — the same stance as m08's candle-pattern dictionary and m27's order book."
-      es: "Todos los gráficos de aquí son series temporales —un valor por periodo— dibujadas por el mismo motor. Un footprint necesita una distribución de volumen dentro de cada barra; un perfil de volumen necesita el volumen agregado a lo largo de las barras sobre un eje de precio. Falsificar una imagen verosímil te enseñaría a leer un artefacto en lugar del instrumento real, y eso es peor que un hueco honesto claramente señalado: la misma postura que el diccionario de patrones de vela de m08 y el libro de órdenes de m27."
-  - id: resolution-not-certainty
-    kind: true_false
-    prompt:
-      en: "Order flow, the order book and footprint charts are each finer-resolution data than candles, and none of them turns a probability into a guarantee."
-      es: "El flujo de órdenes, el libro de órdenes y los gráficos de footprint son cada uno datos de resolución más fina que las velas, y ninguno convierte una probabilidad en una garantía."
-    answer: true
-    explanation:
-      en: "This is the lesson the whole block should leave you with. Each tool is a genuine upgrade in resolution, and the more granular the data, the higher the ratio of noise to signal — a single price level printing a lopsided imbalance is one moment of one candle, and countless such imbalances resolve into nothing. Traders blow up with a footprint chart open the same way as everyone else: size too large, stop absent, and the conviction that better data made them right."
-      es: "Esta es la lección con la que debería dejarte todo el bloque. Cada herramienta es una mejora genuina de resolución, y cuanto más granular es el dato, mayor es la proporción de ruido frente a señal: un único nivel de precio marcando un desequilibrio desigual es un momento de una vela, e incontables desequilibrios así se resuelven en nada. Los traders se arruinan con un gráfico de footprint abierto igual que todos los demás: tamaño demasiado grande, stop inexistente y la convicción de que un dato mejor les daba la razón."
-  - id: profile-vocabulary
+      en: "False, and this is the reason the block exists. Two candles can be identical in all five numbers while one was buyers pressing all hour into a seller who absorbed them, and the other the exact reverse. Those are opposite situations — demand absorbing supply versus supply distributing into demand — and no arithmetic on OHLCV can separate them, because the difference was never in those five numbers."
+      es: "Falso, y esta es la razón de que exista el bloque. Dos velas pueden ser idénticas en los cinco números mientras una fue compradores presionando toda la hora contra un vendedor que los absorbió, y la otra exactamente lo contrario. Son situaciones opuestas —demanda absorbiendo oferta frente a oferta distribuyéndose sobre la demanda— y ninguna aritmética sobre el OHLCV puede separarlas, porque la diferencia nunca estuvo en esos cinco números."
+  - id: flow-vocabulary
     kind: matching
     prompt:
-      en: "Match each term from this module to what it means."
-      es: "Empareja cada término de este módulo con lo que significa."
+      en: "Match each order-flow term to what it means."
+      es: "Empareja cada término del flujo de órdenes con lo que significa."
     pairs:
-      - id: fp
-        left: { en: "Footprint chart", es: "Gráfico de footprint" }
+      - id: maker
+        left:
+          en: "Maker"
+          es: "Maker"
         right:
-          en: "One candle broken open: each price level within its range gets a row, split into taker buy and taker sell volume."
-          es: "Una vela abierta en canal: cada nivel de precio dentro de su rango tiene una fila, dividida en volumen taker de compra y de venta."
-      - id: poc
-        left: { en: "POC (point of control)", es: "POC (punto de control)" }
+          en: "Places a resting order and waits — offers a price"
+          es: "Coloca una orden en reposo y espera: ofrece un precio"
+      - id: taker
+        left:
+          en: "Taker"
+          es: "Taker"
         right:
-          en: "The single price with the most volume traded — where the market spent the most agreement."
-          es: "El único precio con más volumen negociado: donde el mercado pasó más tiempo de acuerdo."
-      - id: va
-        left: { en: "Value area", es: "Área de valor" }
+          en: "Hits an order already resting — accepts a price, pays for immediacy"
+          es: "Golpea una orden que ya está en reposo: acepta un precio, paga por la inmediatez"
+      - id: volume
+        left:
+          en: "Volume"
+          es: "Volumen"
         right:
-          en: "The band containing the bulk of the volume, conventionally 70% — where the market was comfortable."
-          es: "La banda que contiene el grueso del volumen, convencionalmente el 70%: donde el mercado estaba cómodo."
-      - id: lvn
-        left: { en: "Low-volume node", es: "Nodo de bajo volumen" }
+          en: "Both sides added together — how much participation there was"
+          es: "Los dos lados sumados: cuánta participación hubo"
+      - id: delta
+        left:
+          en: "Delta"
+          es: "Delta"
         right:
-          en: "A price band the market rejected quickly, which price often traverses fast because there is little history of interest there."
-          es: "Una banda de precio que el mercado rechazó rápido y que el precio suele atravesar deprisa porque allí hay poco historial de interés."
+          en: "Taker buys minus taker sells — which side was pressing"
+          es: "Compras taker menos ventas taker: qué lado presionaba"
     explanation:
-      en: "Both tools rotate the usual axis: they organise volume by price instead of by time. A footprint does it inside one bar; a volume profile does it across a session, a week or a whole range."
-      es: "Ambas herramientas giran el eje habitual: organizan el volumen por precio en vez de por tiempo. El footprint lo hace dentro de una barra; el perfil de volumen, a lo largo de una sesión, una semana o todo un rango."
-  - id: footprint-read
+      en: "The maker/taker split is what makes order flow possible: volume treats both sides of a trade identically, so it can only ever measure participation. Delta subtracts the two taker sides instead of adding them, which is why it can say something about direction of pressure that volume structurally cannot."
+      es: "La división maker/taker es lo que hace posible el flujo de órdenes: el volumen trata los dos lados de una operación de forma idéntica, así que solo puede medir participación. El delta resta los dos lados taker en vez de sumarlos, y por eso puede decir algo sobre la dirección de la presión que el volumen, por su estructura, no puede."
+  - id: delta-not-a-forecast
+    kind: true_false
     prompt:
-      en: "A footprint of one hourly candle reads: 60,300 → 40 bought / 15 sold; 60,200 → 85 / 30; 60,100 → 120 / 310; 60,000 → 55 / 90. What story is that?"
-      es: "El footprint de una vela horaria dice: 60.300 → 40 comprados / 15 vendidos; 60.200 → 85 / 30; 60.100 → 120 / 310; 60.000 → 55 / 90. ¿Qué historia es esa?"
+      en: "A clearly positive delta over the last hour tells you aggressive buyers were pressing, but not that price is likely to rise."
+      es: "Un delta claramente positivo en la última hora te dice que los compradores agresivos presionaban, pero no que sea probable que el precio suba."
+    answer: true
+    explanation:
+      en: "Delta reports pressure, not result. Buyers can spend an hour lifting offers into a large resting seller who never yields, and price ends flat or lower: that is absorption, and it is one of the most useful things order flow shows. 'Buyers were aggressive' and 'price went up' are different claims, and the gap between them is where the information lives."
+      es: "El delta reporta presión, no resultado. Los compradores pueden pasarse una hora barriendo la oferta contra un gran vendedor en reposo que no cede, y el precio acaba plano o más abajo: eso es absorción, y es una de las cosas más útiles que muestra el flujo de órdenes. «Los compradores fueron agresivos» y «el precio subió» son afirmaciones distintas, y en el hueco entre las dos está la información."
+  - id: aggressor-not-smart-money
+    prompt:
+      en: "A trader argues that following the taker side is following the informed money, since takers are the ones actually moving price. What's the honest correction?"
+      es: "Un trader sostiene que seguir el lado taker es seguir al dinero informado, ya que los takers son quienes de verdad mueven el precio. ¿Cuál es la corrección honesta?"
     options:
       - id: a
         text:
-          en: "Sellers dominated every level, so the candle closed on its low."
-          es: "Los vendedores dominaron todos los niveles y la vela cerró abajo."
+          en: "It's correct — takers pay the higher fee and the spread, so only the confident bother."
+          es: "Es correcto: los takers pagan más comisión y el spread, así que solo van los seguros."
       - id: b
         correct: true
         text:
-          en: "Buyers pushed up and met heavy selling at 60,100 that ate the effort."
-          es: "Los compradores subieron y en 60.100 una venta fuerte se lo comió."
+          en: "Impatience isn't insight: much taker flow is stops and liquidations."
+          es: "La impaciencia no es criterio: mucho flujo taker son stops y liquidados."
       - id: c
         text:
-          en: "Nothing readable — a footprint shows totals per level, not sides."
-          es: "Nada legible: un footprint da totales por nivel, no los dos lados."
+          en: "It's correct on perpetuals but wrong on spot, where the maker is the informed side."
+          es: "Es correcto en perpetuos pero falso en spot, donde el maker es el lado informado."
       - id: d
         text:
-          en: "A confirmed reversal, since one level printed far more selling."
-          es: "Una reversión confirmada, ya que un nivel imprimió mucha más venta."
+          en: "Neither side carries information; taker and maker are just labels used for fees."
+          es: "Ningún lado lleva información; taker y maker son solo etiquetas para comisiones."
     explanation:
-      en: "This is m25's delta resolved by price level rather than summed over the period: buying dominates at 60,200 and 60,300, and the sides are exactly what a footprint reports. But note the caveat — one level printing 310 sold against 120 bought is a single moment of one candle, and countless such imbalances resolve into nothing."
-      es: "Esto es el delta de m25 resuelto por nivel de precio en vez de sumado en el periodo: la compra domina en 60.200 y 60.300, y los lados son justo lo que reporta un footprint. Pero atención a la advertencia: un nivel que imprime 310 vendidos contra 120 comprados es un momento único de una vela, y un sinfín de desequilibrios así no acaban en nada."
-  - id: profile-upgrades-structure
+      en: "Being the aggressor means you paid for immediacy, not that you were right. A liquidated long is force-sold as a taker; a stop-loss fires as a taker. Meanwhile the participant quietly absorbing all of it with resting orders is frequently the one who knows what they are doing — that is precisely m14's absorption. Read delta as pressure, never as a verdict."
+      es: "Ser el agresor significa que pagaste por la inmediatez, no que tuvieras razón. Un largo liquidado se vende a la fuerza como taker; un stop salta como taker. Mientras tanto, el participante que absorbe en silencio todo eso con órdenes en reposo es con frecuencia el que sabe lo que hace: eso es precisamente la absorción de m14. Lee el delta como presión, nunca como veredicto."
+  - id: cross-venue-quality
+    prompt:
+      en: "You're looking at a delta figure aggregated across a dozen exchanges. How much should you trust the exact number?"
+      es: "Estás mirando una cifra de delta agregada de una docena de exchanges. ¿Cuánto deberías fiarte del número exacto?"
+    options:
+      - id: a
+        text:
+          en: "Completely — aggregating many venues averages the errors out, so it is exact."
+          es: "Completamente: agregar muchos venues promedia los errores, así que es exacta."
+      - id: b
+        text:
+          en: "Not at all — delta is a derived indicator like RSI, so no venue reports it."
+          es: "En absoluto: el delta es un indicador derivado como el RSI y nadie lo reporta."
+      - id: c
+        text:
+          en: "Exactly as much as one venue's figure; aggregation changes nothing at all."
+          es: "Igual que la cifra de un solo venue; agregar no cambia nada en la calidad."
+      - id: d
+        correct: true
+        text:
+          en: "Use it for the shape — whether aggression is building or fading — not to the contract."
+          es: "Úsalo para la forma —si la agresión crece o se apaga—, nunca al contrato."
+    explanation:
+      en: "Delta is genuinely reported data, not a derived indicator — major venues label the taker side on their trade feeds. But elsewhere it is estimated (classically by the tick rule: a print at the ask counts as a taker buy), and aggregating stacks several such estimates while m14's wash-trading warning still applies to the volumes underneath. Treat one good venue as data and the aggregate as a well-informed approximation: read whether aggression is building or fading, and never quote it to the contract."
+      es: "El delta son datos reportados de verdad, no un indicador derivado: los exchanges grandes etiquetan el lado taker en su flujo de operaciones. Pero en otros se estima (clásicamente con la regla del tick: una impresión al precio de venta cuenta como compra taker), y agregar apila varias de esas estimaciones mientras la advertencia sobre el wash trading de m14 sigue valiendo para los volúmenes de debajo. Trata un buen sitio como dato y el agregado como una aproximación bien informada: lee si la agresión crece o se apaga, y nunca lo cites al contrato."
+  - id: delta-worked
+    prompt:
+      en: "Over one hour a perp trades 2,400 contracts on the taker-buy side and 1,750 on the taker-sell side. What does a volume bar show, and what does delta add?"
+      es: "En una hora, un perp negocia 2.400 contratos en el lado taker-compra y 1.750 en el lado taker-venta. ¿Qué muestra una barra de volumen y qué añade el delta?"
+    options:
+      - id: a
+        text:
+          en: "Volume shows 650 and delta shows 4,150 — delta is the larger, cumulative one."
+          es: "El volumen muestra 650 y el delta 4.150: el delta es la cifra mayor y acumulada."
+      - id: b
+        text:
+          en: "Both show 4,150, because delta is just another name for the same total."
+          es: "Ambos muestran 4.150, porque el delta es otro nombre para el mismo total."
+      - id: c
+        correct: true
+        text:
+          en: "Volume shows 4,150; delta is +650, so buyers were the aggressors on balance."
+          es: "El volumen muestra 4.150; el delta es +650: presionaron los compradores."
+      - id: d
+        text:
+          en: "Volume shows 2,400, since only the buy side of a trade counts as volume."
+          es: "El volumen muestra 2.400, ya que solo el lado comprador cuenta como volumen."
+    explanation:
+      en: "Volume adds the two sides (2,400 + 1,750 = 4,150); delta subtracts them (2,400 − 1,750 = +650), about 16% of the hour's activity. Volume answers how many showed up; delta answers which side was pressing, and by how much."
+      es: "El volumen suma los dos lados (2.400 + 1.750 = 4.150); el delta los resta (2.400 − 1.750 = +650), en torno al 16% de la actividad de la hora. El volumen responde cuántos aparecieron; el delta, qué lado presionaba y con cuánta fuerza."
+  - id: taker-buy-terminology
+    prompt:
+      en: "What exactly does 'taker buy volume' mean?"
+      es: "¿Qué significa exactamente 'volumen taker de compra'?"
+    options:
+      - id: a
+        text:
+          en: "All volume that ended in a purchase, which is in fact every single trade."
+          es: "Todo el volumen que acabó en una compra, es decir, absolutamente toda operación."
+      - id: b
+        correct: true
+        text:
+          en: "The taker was the buyer — someone lifted the offer."
+          es: "El taker era el comprador: alguien levantó la oferta."
+      - id: c
+        text:
+          en: "Volume from limit buy orders resting unfilled in the order book."
+          es: "Volumen de órdenes límite de compra en reposo sin llenar en el libro."
+      - id: d
+        text:
+          en: "Buy volume attributable to registered market makers only."
+          es: "Volumen de compra atribuible solo a creadores de mercado registrados."
+    explanation:
+      en: "Every trade has a buyer and a seller, so 'volume that was bought' would be all of it — which is why volume can never be bullish or bearish by itself. The taker side is the asymmetric part: on any single trade, exactly one party paid for immediacy, and taker buy volume is the part where that party was the buyer."
+      es: "Toda operación tiene comprador y vendedor, así que 'volumen que se compró' sería todo, y por eso el volumen nunca puede ser alcista o bajista por sí mismo. El lado taker es la parte asimétrica: en cada operación, exactamente una parte pagó por la inmediatez, y el volumen taker de compra es la parte en que esa parte era el comprador."
+  - id: delta-quality
     kind: multi_select
     prompt:
-      en: "Select ALL the ways a volume profile genuinely improves on hand-drawn support and resistance."
-      es: "Selecciona TODAS las formas en que un perfil de volumen mejora realmente los soportes y resistencias dibujados a mano."
+      en: "Select ALL statements about where delta data comes from that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre de dónde vienen los datos de delta."
     options:
       - id: a
         correct: true
         text:
-          en: "The POC is where the most trade occurred, not a line you chose."
-          es: "El POC es donde más se negoció, no una línea que elegiste."
+          en: "It is real reported data, not a derived indicator."
+          es: "Son datos reales reportados, no un indicador derivado."
       - id: b
         correct: true
         text:
-          en: "Low-volume nodes explain the fast travel between levels."
-          es: "Los nodos de bajo volumen explican el tránsito rápido entre niveles."
+          en: "Major exchanges label the taker side on their feeds."
+          es: "Los grandes exchanges etiquetan el lado taker en sus feeds."
       - id: c
         correct: true
         text:
-          en: "The value area's edges define a range by measurement."
-          es: "Los bordes del área de valor definen un rango por medición."
+          en: "Elsewhere it is estimated with the tick rule."
+          es: "En otros se estima con la regla del tick."
       - id: d
+        correct: true
         text:
-          en: "A level with volume behind it no longer needs confirmation, a stop or sizing."
-          es: "Un nivel con volumen detrás ya no necesita confirmación, stop ni tamaño."
+          en: "Aggregating venues stacks several such estimates."
+          es: "Agregar venues acumula varias de esas estimaciones."
       - id: e
         text:
-          en: "Price is obliged to return to the POC, which makes it a dependable target."
-          es: "El precio está obligado a volver al POC, lo que lo hace un objetivo fiable."
+          en: "Cross-venue delta is the most precise figure available."
+          es: "El delta entre venues es la cifra más precisa disponible."
     explanation:
-      en: "It gives you a reason for a level beyond 'it looks like one': the POC comes with evidence attached, low-volume nodes explain the uneventful travel a pure support/resistance view cannot, and the value area's edges replace a hand-drawn range boundary with a measured one. Every earlier caveat survives — a high-volume node makes a reaction more likely than at a random price: a probability, not an appointment."
-      es: "Te da una razón para un nivel más allá de 'parece uno': el POC viene respaldado por pruebas, los nodos de bajo volumen explican el tránsito sin incidentes que una visión de soporte/resistencia pura no puede, y los bordes del área de valor sustituyen un límite dibujado a mano por uno medido. Todas las advertencias previas siguen en pie: un nodo de alto volumen hace una reacción más probable que en un precio al azar; una probabilidad, no una cita."
+      en: "The tick rule assumes a trade printed at the ask was a taker buy and one at the bid a taker sell — decent, but not exact. So coverage and precision pull in opposite directions: treat delta from one good venue as data and cross-venue delta as a well-informed approximation. Use it for the shape — is aggression building or fading — and never quote it to the contract."
+      es: "La regla del tick asume que una operación impresa en el ask fue compra taker y una en el bid, venta taker: aceptable, pero no exacto. Así que cobertura y precisión tiran en direcciones opuestas: trata el delta de un buen venue como dato y el delta entre venues como una aproximación bien informada. Úsalo para la forma (¿la agresión crece o se apaga?) y nunca lo cites al contrato."

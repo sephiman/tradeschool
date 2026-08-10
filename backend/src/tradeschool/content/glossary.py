@@ -183,11 +183,13 @@ def _sort_key(value: str) -> str:
     return "".join(c for c in stripped if unicodedata.category(c) != "Mn")
 
 
-def load_glossary(content_dir: Path, lesson_ids: set[str], taken_ids: set[str]) -> Glossary:
+def load_glossary(content_dir: Path, lesson_keys: set[str], taken_ids: set[str]) -> Glossary:
     """Parse the glossary and check it against the manifest it refers into.
 
-    `taken_ids` is every other stable id in the repo: glossary ids share that one namespace, so a
-    collision here would be as permanent a mistake as a duplicate lesson id.
+    `origin` and `link_except` store permanent lesson KEYS, never display ids — the registry renders
+    them as display ids on the way out. `taken_ids` is every other stable id and key in the repo:
+    glossary ids share that one namespace, so a collision here would be as permanent a mistake as a
+    duplicate lesson id.
     """
     path = content_dir / "glossary.yaml"
     if not path.exists():
@@ -200,9 +202,9 @@ def load_glossary(content_dir: Path, lesson_ids: set[str], taken_ids: set[str]) 
         if term.id in taken_ids:
             raise ValueError(f"glossary id {term.id!r} collides with an existing content id")
         for origin in term.origins():
-            if origin not in lesson_ids:
+            if origin not in lesson_keys:
                 raise ValueError(f"glossary {term.id!r}: unknown origin lesson {origin!r}")
         for excluded in term.all_excluded_lessons():
-            if excluded not in lesson_ids:
+            if excluded not in lesson_keys:
                 raise ValueError(f"glossary {term.id!r}: unknown lesson {excluded!r} in link_except")
     return glossary

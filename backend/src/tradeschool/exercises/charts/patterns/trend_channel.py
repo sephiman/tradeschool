@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Trendline / channel injector (m31-l1): the horizontal level's moving twin.
+"""Trendline / channel injector (m15-l1): the horizontal level's moving twin.
 
 Five labels in two families over one geometry — three about a single diagonal (`line_holds`,
 `line_break`, `line_fakeout`, the m08 fakeout trio with the level in motion) and two about the channel
 its parallel makes (`channel_intact`, `channel_broken`).
 
-BIDIRECTIONAL FROM BIRTH. The bull-only rule the m30 injectors carry (`test_chart_bands.py`, §3b) is a
+BIDIRECTIONAL FROM BIRTH. The bull-only rule the m34 injectors carry (`test_chart_bands.py`, §3b) is a
 consequence of their prompts describing the bullish geometry in words, and this family's prompts are
 written symmetric instead — "the line", "beyond it", never "the high". So `rng` picks rising or falling
 per seed and both must render and pass every contract; `test_chart_diagonals.py` sweeps for both.
@@ -43,7 +43,7 @@ _BASE_PRICES = (120.0, 480.0, 1850.0, 9500.0, 27000.0)
 _BASE_VOLUME = 1000.0
 
 # Where the line is anchored, where price comes back to it, and where it runs to the far edge between
-# those visits. Four designed touches: two define the candidate line, the third validates it (m31-l1),
+# those visits. Four designed touches: two define the candidate line, the third validates it (m15-l1),
 # and the fourth is the margin that keeps a seed whose noise eats one touch from failing the contract.
 _TOUCH_F = (0.06, 0.30, 0.54, 0.72)
 _PUSH_F = (0.18, 0.42, 0.63)
@@ -75,7 +75,7 @@ _PLATEAU = 0.018
 _HOLD_D = 0.045
 #: The poke a `line_fakeout` makes before reclaiming, and the close a `line_break` settles at, in osc
 #: units. Both are real BODY closes beyond the line — a wick through a diagonal is not a break at all
-#: (m31-l1), so a label that turned on one would teach the opposite of the lesson.
+#: (m15-l1), so a label that turned on one would teach the opposite of the lesson.
 _POKE_OSC = -0.17
 _BREAK_OSC = -0.20
 #: Volume window carrying the participation tell, as window fractions, and the multipliers. Same shape
@@ -261,7 +261,7 @@ def _resolution_hint(target: str, sign: float) -> float:
     Note what the two channel endings do here, because it is the whole reason `channel_failed` exists:
     `channel_broken` continues WITH the slope and `channel_failed` runs against it. A figure that showed
     only the first would be teaching "channels break in their own direction" by example — which is not a
-    rule this course endorses, and `fig-m31-channel` now draws one of each.
+    rule this course endorses, and `fig-m15-channel` now draws one of each.
     """
     if target in ("line_break", "channel_failed"):
         return -sign  # through the line and away from the trend it supported

@@ -47,6 +47,9 @@ for both locales or one per locale, because the two languages meet different hom
   link_except: [m02-l1]      # …or only in these lessons ("smart contracts" is not the contract)
 ```
 
+`origin` and `link_except` name lessons by their permanent **key**, not their display id (identical
+for anything created after the 2026-08-10 renumbering; the registry renders keys as display ids).
+
 **The two exclusions are not the same thing.** A term is never marked in its own **origin** lesson —
 and that occurrence still *spends* the term's one slot in the book, which is why a term the course
 first uses inside the lesson that teaches it carries no PDF link anywhere (correct: the reader met it
@@ -73,33 +76,51 @@ the top level. There is one course today — `crypto-futures` — and the struct
 
 **Content IDs are globally unique across the entire repository** — not per-course. The manifest
 validator rejects any duplicate id at any level (course, block, module, lesson, exercise), and figure
-ids share the same namespace. Reconciliation and all progress/attempts data key on these ids, so they
-are permanent.
+ids share the same namespace. Since 2026-08-10 every module, lesson, exercise and figure also carries
+a permanent **`key`** in that same namespace — and it is the key, not the id, that reconciliation,
+progress/attempts data, print seeds and glossary origins hang off.
 
 Rules:
 
-- **Existing un-prefixed ids belong to `crypto-futures` forever.** `m01`, `m06-l1`, `m12-ex-2`,
-  `fig-m09-accumulation`, `block-a` — never rename or reuse them. Renaming an id orphans a learner's
-  progress.
+- **`key` is the permanent identity: chosen once at creation, NEVER renamed.** It defaults to the id
+  (so most entries never write it), and a new entity SHOULD get a human-chosen semantic slug
+  (`validation`, `carry`, `multi-timeframe`) so it never tempts anyone to "fix" it. Everything durable
+  hangs off it: `print_seed`, the DB skeleton and all learner progress, exam-result blobs, glossary
+  `origin`/`link_except` (which store lesson keys, rendered as display ids), and the
+  `glossary-links.*.txt` goldens' lesson column.
+- **Ids are display labels, permanent again from here on.** Display order is list position, and since
+  the 2026-08-10 renumbering id order == display order. Keep it that way: new content APPENDS to its
+  block (or as a new block) and takes the next free number; if a future module's position is ever
+  load-bearing enough to break numeric order, say why in the manifest — the key layer means no data
+  moves either way, but the badge cost is real and the comment is the price.
+- **Existing un-prefixed ids and keys belong to `crypto-futures` forever** — never reuse one for
+  something else.
 - **Any future course must namespace all of its ids** with a short course prefix, e.g. a spot-trading
   course uses `spot-m01`, `spot-m01-l1`, `spot-m01-ex-3`, `fig-spot-m01-…`, `spot-block-a`. This keeps
   the global namespace collision-free without ever touching the crypto-futures ids.
 - The course id itself is also globally unique (`crypto-futures`, `spot`, …) and is likewise permanent.
-- **Ids are never renumbered, and display order is list position — not the id.** The id is a permanent
-  label and the position is the order; where a new module goes is a teaching decision, not an
-  arithmetic one. `block-g` (one module, `m30`) is the first block added under this rule, and `m31`/
-  `m32` are the first modules appended to the end of an existing block (`block-c`, after `m14`).
-- **Prefer appending; insert mid-block only when the position is load-bearing, and say why in the
-  manifest.** An earlier version of this rule forbade mid-sequence insertion outright, because it
-  leaves the id badge on the course page reading `M22 → M33 → M23`. That cost is real and it is still
-  the reason to prefer appending. It stopped being decisive when a module arrived whose *whole point*
-  was where it sat: `m33` tests the claim `m22` makes and is pointed back at by `m23` and `m24`, and
-  `m34` inhabits an arbitrage `m17` mentions in passing. Appending either one would have turned several
-  backward references into forward ones — a worse defect than a badge out of numeric order, and one the
-  reader actually trips over. Both carry a comment in `course.yaml` explaining the placement; a future
-  insertion without one is a bug.
-- The same id-versus-position licence covers ids out of sequence *inside* a lesson (`m17-ex-4`, with
+- The id-versus-position licence still covers ids out of sequence *inside* a lesson (`m19-ex-4`, with
   the reason on file in the manifest).
+
+### The 2026-08-10 renumbering (one-time, deliberate)
+
+The original rule was "ids are never renumbered", and it produced badges reading `M22 → M33 → M23`
+after the mid-block insertions of m31–m34. On 2026-08-10 the ids were renumbered ONCE so that id
+order equals reading order — also fixing two dependency bugs the old display order had (old `m34-l2`
+pointed *forward* at tokenomics as taught, and old `m33` leaned on m23/m24 before the reader met
+them; both now sit after their dependencies). Every renumbered entity's old id lives on as its `key`,
+so every seed, every printed exercise instance and every learner's progress survived unchanged. The
+full module map (lessons, exercises and `fig-*` ids followed their module):
+
+| old | new | | old | new | | old | new | | old | new |
+|-----|-----|-|-----|-----|-|-----|-----|-|-----|-----|
+| m31 | m15 | | m17 | m19 | | m20 | m23 | | m24 | m27 | 
+| m32 | m16 | | m18 | m20 | | m21 | m24 | | m33 | m28 |
+| m15 | m17 | | m34 | m21 | | m22 | m25 | | m25 | m29 |
+| m16 | m18 | | m19 | m22 | | m23 | m26 | | m26 | m30 |
+
+…and m27→m31, m28→m32, m29→m33, m30→m34. This was the LAST renumbering: the `key` layer exists so a
+future reorder is a pure display change, and ids are permanent from here on regardless.
 
 ### Ids are globally unique — confirmed, and permanent
 
@@ -108,7 +129,7 @@ it: **content ids are unique across the whole repository, not per course.** A se
 self-namespaces (`spot-m01`, `g-spot-funding`) rather than relying on its directory to disambiguate.
 
 The reason it cannot change now: `attempts.exercise_id` and `lesson_completions.lesson_id` store the
-bare id. Per-course uniqueness would mean adding a course column to every id reference and migrating
+bare key. Per-course uniqueness would mean adding a course column to every key reference and migrating
 existing learner progress — for no gain, since the namespace has room for every course we will write.
 
 The one place a course id IS stored alongside is `exam_sessions.course_id`, which exists so a
@@ -151,7 +172,7 @@ Two escape hatches, both deliberate:
   gains a lead-in **before** the figure telling the reader it is a generated instance carrying its own
   prices.
 - **Panels that share a seed.** When a two-panel figure exists to say "identical chart, one
-  difference" (m08's breakout vs fakeout, m14's volume read, m17's OI read), both panels run the *same*
+  difference" (m08's breakout vs fakeout, m14's volume read, m19's OI read), both panels run the *same*
   seed, so the comparison is literally true rather than merely suggestive. The duplicate-level-price
   test exempts panels within one figure precisely for this.
 
@@ -161,3 +182,9 @@ moves fails the test with the list of lessons needing a prose pass, and prose ed
 figure fails it too. **Reseeding a coupled figure, or changing an injector that feeds one, means
 re-running the worked-number pass for the lessons the manifest names** — the test will not let that
 step be skipped.
+
+Coupling also crosses lessons: where one lesson *reuses* another's worked numbers by name (m04-l1
+quotes m06-l1's entry, 10× liquidation and cascade wick), `backend/tests/test_cross_lesson_numbers.py`
+derives the reused values from the same coupled anchors and demands both lessons print them — so a
+re-anchor of the source lesson fails naming the borrower, instead of quietly stranding it (which is
+exactly what the 2026-08-02 pass did to m04 until 2026-08-10).

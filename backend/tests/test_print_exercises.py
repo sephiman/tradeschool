@@ -111,7 +111,7 @@ def test_print_numbers_are_derived_from_ids_and_stay_unique() -> None:
 def test_print_seed_is_stable_and_derived_from_the_id() -> None:
     """Frozen values, so a switch to a salted or reordered hash cannot pass quietly."""
     assert print_seed("m01-ex-1") == 3075867866203629967
-    assert print_seed("m30-ex-4") == print_seed("m30-ex-4")
+    assert print_seed("m34-ex-4") == print_seed("m34-ex-4")
     assert print_seed("m01-ex-1") != print_seed("m01-ex-2")
 
 

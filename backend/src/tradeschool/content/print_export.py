@@ -37,13 +37,14 @@ class PrintExerciseError(RuntimeError):
     """This exercise cannot be printed. The message is the reason the reader and the log both get."""
 
 
-def print_seed(exercise_id: str) -> int:
-    """The one seed this exercise is always printed at.
+def print_seed(exercise_key: str) -> int:
+    """The one seed this exercise is always printed at — a function of the permanent KEY, never the
+    display id, so a display renumbering cannot silently reprint the book with new instances.
 
     blake2b, not ``hash()``: PYTHONHASHSEED is per-process, so that would print a different book on
     every restart while every in-process determinism test still passed.
     """
-    digest = hashlib.blake2b(exercise_id.encode("utf-8"), digest_size=8).digest()
+    digest = hashlib.blake2b(exercise_key.encode("utf-8"), digest_size=8).digest()
     return int.from_bytes(digest, "big") % PRINT_SEED_SPACE
 
 
@@ -95,7 +96,7 @@ def _anchor(
 def _zones(
     series: Mapping[str, Sequence[float]], bands: object
 ) -> list[dict[str, object]]:
-    """Shaded ground-truth zones (m30), checked to name prices the printed chart actually reaches.
+    """Shaded ground-truth zones (m34), checked to name prices the printed chart actually reaches.
 
     A band lives in price space and is absent from the payload, so it cannot be indexed out of the
     series the way an anchor can.
@@ -233,7 +234,7 @@ def build_print_exercise(
     if adapter is None:
         raise PrintExerciseError(f"no print form for type {exercise_type.value!r}")
 
-    seed = print_seed(exercise_id)
+    seed = print_seed(registry.exercise_key(exercise_id))
     generator = get_generator(exercise_type)
     instance = generator.generate(config, seed, locale)
     try:

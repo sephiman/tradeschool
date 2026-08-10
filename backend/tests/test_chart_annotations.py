@@ -176,7 +176,7 @@ def test_choch_marker_is_the_first_lower_low() -> None:
         )
 
 
-# --- 3. liquidity_sweep (m17-l2, m06-l1): one wick through the shelf, and the reclaim -------------
+# --- 3. liquidity_sweep (m19-l2, m06-l1): one wick through the shelf, and the reclaim -------------
 
 
 @pytest.mark.parametrize("label", ["liquidity_sweep", "liquidation_cascade"])
@@ -221,7 +221,7 @@ def test_the_cascade_spikes_harder_than_the_plain_sweep() -> None:
     assert float(np.mean(cascades)) > 1.4 * float(np.mean(sweeps))
 
 
-# --- 4. stop_limit_gap (m21-l1): the plan lines the market never came back to ---------------------
+# --- 4. stop_limit_gap (m24-l1): the plan lines the market never came back to ---------------------
 
 
 def test_one_candle_slices_through_both_order_lines() -> None:
@@ -264,7 +264,7 @@ def test_the_limit_order_never_fills_after_the_gap() -> None:
         assert s["close"][-1] < s["close"][g], f"seed {seed}: the loss should still be running"
 
 
-# --- 5. trade_anatomy (m24-l1): the four lines are pinned to the geometry -------------------------
+# --- 5. trade_anatomy (m27-l1): the four lines are pinned to the geometry -------------------------
 
 
 def test_entry_line_is_the_entry_bar_close() -> None:
@@ -314,7 +314,7 @@ def test_target_line_is_the_prior_high() -> None:
 
 def test_the_figure_shows_the_trade_reaching_its_target() -> None:
     """The appended resolution actually reaches the target — a fact about the published frozen seed."""
-    panels = build_figure(load_figures(_CONTENT)["fig-m24-trade-anatomy"], "en")["panels"]
+    panels = build_figure(load_figures(_CONTENT)["fig-m27-trade-anatomy"], "en")["panels"]
     assert isinstance(panels, list)
     p = panels[0]
     s = _series(p)

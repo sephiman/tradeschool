@@ -1,13 +1,243 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-type: pattern_chart
-injector: cvd_divergence
-n: 130
-indicator: cvd
-targets: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
-choices: [cvd_bullish_divergence, cvd_bearish_divergence, cvd_confirms]
-prompt:
-  en: "Price makes a second extreme of the same kind late in this window. Compare the **CVD** in the lower pane at those two swings: does the aggression refuse to follow price into its new extreme, or does it make its own new extreme with it?"
-  es: "El precio hace un segundo extremo del mismo tipo cerca del final de esta ventana. Compara el **CVD** del panel inferior en esos dos swings: ¿se niega la agresión a seguir al precio hasta su extremo nuevo, o hace su propio extremo nuevo con él?"
-explanation:
-  en: "Read the two swings, not the line's overall slope. Price makes a lower low while CVD makes a higher low = bullish divergence: sellers reached further and gave up ground in flow to do it, so their supply is being absorbed. Price makes a higher high while CVD makes a lower high = bearish divergence: the new peak was bought with less aggression than the last one. If CVD makes its new extreme alongside price there is no divergence at all — that is a flow-backed move, the most common of the three, and calling it a divergence because you wanted one is the mistake this exercise trains out."
-  es: "Lee los dos swings, no la pendiente general de la línea. El precio hace un mínimo más bajo mientras el CVD hace un mínimo más alto = divergencia alcista: los vendedores llegaron más lejos y cedieron terreno en flujo para conseguirlo, así que su oferta está siendo absorbida. El precio hace un máximo más alto mientras el CVD hace un máximo más bajo = divergencia bajista: el nuevo techo se compró con menos agresión que el anterior. Si el CVD hace su extremo nuevo junto al precio no hay divergencia ninguna: es un movimiento respaldado por el flujo, el más común de los tres, y llamarlo divergencia porque querías una es el error que este ejercicio te quita."
+type: quiz
+variants:
+  - id: after-two-losses
+    prompt:
+      en: "You've taken two stop-outs in a row and you're down for the day. You feel a strong pull to put on a bigger position and win it back in one trade. What does a sound pre-commitment rule tell you to do?"
+      es: "Has saltado dos stops seguidos y vas en pérdida en el día. Sientes un fuerte impulso de abrir una posición más grande y recuperarlo todo en una sola operación. ¿Qué te dice una buena regla de precompromiso?"
+    options:
+      - id: a
+        text:
+          en: "Put on a larger position now — one good trade gets you back to even."
+          es: "Abre ya una posición mayor: una buena operación te devuelve a cero."
+      - id: b
+        text:
+          en: "Drop to a faster timeframe so you can make it back before the close."
+          es: "Baja a una temporalidad rápida para recuperarlo antes del cierre."
+      - id: c
+        correct: true
+        text:
+          en: "Respect your daily loss limit and stop trading for the rest of the day."
+          es: "Respeta tu límite de pérdida diaria y para por hoy."
+      - id: d
+        text:
+          en: "Keep your size but remove the next stop so the trade has room to work."
+          es: "Mantén el tamaño pero quita el siguiente stop para dar margen."
+    explanation:
+      en: "Revenge trading is trying to force a loss back with bigger size. The market owes you nothing and the next setup's odds haven't improved — they're worse, because you're now sizing on emotion. A losing day is a reason to size down or stop, never up, and a faster timeframe or a missing stop simply adds ways to lose. The pre-commitment is a daily loss limit plus a cooldown."
+      es: "El revenge trading es intentar forzar la recuperación de una pérdida con más tamaño. El mercado no te debe nada y las probabilidades de la siguiente oportunidad no han mejorado: son peores, porque ahora dimensionas por emoción. Un día en pérdida es motivo para reducir el tamaño o parar, nunca para subirlo, y una temporalidad más rápida o un stop ausente solo añaden formas de perder. El precompromiso es un límite de pérdida diaria más un enfriamiento."
+  - id: best-rule
+    prompt:
+      en: "Which rule best prevents revenge trading?"
+      es: "¿Qué regla previene mejor el revenge trading?"
+    options:
+      - id: a
+        text:
+          en: "Always take the trade after a loss bigger, since a bounce back is due."
+          es: "Tomar siempre mayor la operación tras una pérdida: toca un rebote."
+      - id: b
+        text:
+          en: "Keep trading until you are back to break-even for the day."
+          es: "Seguir operando hasta volver al equilibrio del día."
+      - id: c
+        correct: true
+        text:
+          en: "A fixed daily loss limit, plus never increasing size after a loss."
+          es: "Un límite fijo de pérdida diaria, y no subir nunca el tamaño tras perder."
+      - id: d
+        text:
+          en: "Delete your stop after a loss so the recovery trade isn't stopped early."
+          es: "Borrar el stop tras perder para que la recuperación no salte antes."
+    explanation:
+      en: "The other three are rationalisations dressed as rules. 'A bounce is due' is the gambler's fallacy; 'trade until break-even' is the core revenge impulse; deleting the stop just turns a small loss into an unbounded one. A daily loss limit that ends the session and a fixed size are what actually break the loop."
+      es: "Las otras tres son racionalizaciones disfrazadas de reglas. 'Toca un rebote' es la falacia del jugador; 'operar hasta el punto de equilibrio' es el impulso de venganza en estado puro; borrar el stop solo convierte una pérdida pequeña en una ilimitada. Un límite de pérdida diaria que cierra la sesión y un tamaño fijo son lo que de verdad rompe el bucle."
+  - id: one-good-trade-myth
+    kind: true_false
+    prompt:
+      en: "After a losing trade, putting on one bigger trade to 'get back to even' is a sound way to manage a red day."
+      es: "Tras una operación perdedora, abrir una operación más grande para 'recuperar lo perdido' es una buena forma de gestionar un día rojo."
+    answer: false
+    explanation:
+      en: "This is the core revenge-trading rationalization. 'Even' is a number that matters to your ego, not to the next setup, whose odds haven't improved — they're worse, because you're now sizing on emotion. The fix is a daily loss limit and never sizing up after a loss."
+      es: "Esta es la racionalización central del revenge trading. 'Recuperar lo perdido' es una cifra que le importa a tu ego, no a la siguiente oportunidad, cuyas probabilidades no han mejorado: son peores, porque ahora dimensionas por emoción. La solución es un límite de pérdida diaria y no subir nunca el tamaño tras una pérdida."
+  - id: revenge-habits
+    kind: multi_select
+    prompt:
+      en: "Select ALL of the habits that genuinely reduce revenge trading."
+      es: "Selecciona TODOS los hábitos que de verdad reducen el revenge trading."
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "A fixed daily loss limit that ends the session when it is hit."
+          es: "Un límite de pérdida diaria fijo que cierra la sesión al alcanzarlo."
+      - id: b
+        correct: true
+        text:
+          en: "A short mandatory cooldown after any loss."
+          es: "Un breve enfriamiento obligatorio después de cualquier pérdida."
+      - id: c
+        correct: true
+        text:
+          en: "Never sizing up after a loss — it is a reason to size down."
+          es: "No subir nunca el tamaño tras perder: es motivo para reducirlo."
+      - id: d
+        text:
+          en: "Re-entering bigger to win the loss back in a single trade."
+          es: "Reentrar con más tamaño para recuperar la pérdida de una vez."
+      - id: e
+        text:
+          en: "Dropping to a faster timeframe to make it back before the close."
+          es: "Bajar a una temporalidad más rápida para recuperarlo antes del cierre."
+      - id: f
+        text:
+          en: "Removing the next stop so the recovery trade has room to work."
+          es: "Quitar el siguiente stop para que la recuperación tenga margen."
+    explanation:
+      en: "The first three are pre-commitments you write while calm and flat; they remove the decision at the moment you'd make it worst. The rest are the revenge impulse dressed as tactics — bigger size, a faster timeframe, or no stop all make a red day worse."
+      es: "Los tres primeros son precompromisos que escribes en calma y fuera del mercado; eliminan la decisión en el momento en que peor la tomarías. El resto es el impulso de venganza disfrazado de táctica: más tamaño, un marco más rápido o quitar el stop solo empeoran un día rojo."
+  - id: scalping-revenge
+    prompt:
+      en: "You scalp. After a few quick losses you notice you're firing off re-entries seconds apart, faster than your usual pace. What is this most likely, and what should you do?"
+      es: "Haces scalping. Tras unas pérdidas rápidas te das cuenta de que estás lanzando reentradas con segundos de diferencia, más rápido de lo normal. ¿Qué es esto con mayor probabilidad y qué deberías hacer?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Revenge trading in scalping clothes — hit your loss limit and stop."
+          es: "Revenge trading disfrazado de scalping: aplica tu límite y para."
+      - id: b
+        text:
+          en: "Perfectly fine, on the grounds that each re-entry is small on its own."
+          es: "Perfectamente normal, ya que cada reentrada es pequeña por separado."
+      - id: c
+        text:
+          en: "A hot streak of setups appearing — keep firing while the pace is high."
+          es: "Una racha caliente de setups: sigue lanzando mientras el ritmo sea alto."
+      - id: d
+        text:
+          en: "A sign the market is trending, so you should raise size to catch it."
+          es: "Señal de tendencia, así que deberías subir tamaño para aprovecharla."
+    explanation:
+      en: "Revenge doesn't only look like one huge trade; in scalping it looks like machine-gun re-entries seconds apart, and the tell is your frequency climbing whenever you're frustrated. Small individually is not small in aggregate, and a rising pace is a mood, not a market signal. The rule is the same: a daily loss limit and a cooldown, never sizing or speeding up out of emotion."
+      es: "La venganza no solo tiene forma de una operación enorme; en scalping tiene forma de reentradas a ráfagas con segundos de diferencia, y la señal es que tu frecuencia sube cada vez que te frustras. Pequeñas por separado no es pequeño en conjunto, y un ritmo creciente es un estado de ánimo, no una señal del mercado. La regla es la misma: un límite de pérdida diaria y un enfriamiento, sin subir el tamaño ni acelerar por emoción."
+  - id: mistakes-to-rationalizations
+    kind: matching
+    prompt:
+      en: "Match each classic mistake to the rationalization that usually comes with it."
+      es: "Empareja cada error clásico con la racionalización que suele acompañarlo."
+    pairs:
+      - id: rev
+        left: { en: "Revenge trading", es: "Revenge trading" }
+        right:
+          en: "\"I just need one good trade to get back to even.\""
+          es: "\"Solo necesito una buena operación para recuperar lo perdido\"."
+      - id: stop
+        left: { en: "Moving or removing the stop", es: "Mover o quitar el stop" }
+        right:
+          en: "\"Let me give it room — the level's basically fine, it'll bounce.\""
+          es: "\"Voy a darle margen, el nivel está básicamente bien, va a rebotar\"."
+      - id: lev
+        left: { en: "Over-leverage after a winning streak", es: "Sobreapalancarse tras una racha ganadora" }
+        right:
+          en: "\"I'm reading it perfectly right now.\""
+          es: "\"Ahora mismo lo estoy leyendo perfecto\"."
+      - id: fomo
+        left: { en: "FOMO / chasing green candles", es: "FOMO / perseguir velas verdes" }
+        right:
+          en: "\"I'm missing it, I have to get in.\""
+          es: "\"Me lo estoy perdiendo, tengo que entrar\"."
+    explanation:
+      en: "Every one of these mistakes arrives dressed as a sensible decision, backed by a sentence you half-believe. Learning to hear the sentence is how you catch the mistake before it costs you — the fix is always a rule written down in advance, not more willpower in the moment."
+      es: "Cada uno de estos errores llega disfrazado de decisión sensata, respaldado por una frase que te crees a medias. Aprender a oír la frase es como atrapas el error antes de que te cueste: la solución siempre es una regla escrita por adelantado, no más fuerza de voluntad en el momento."
+  - id: revenge-numbers
+    prompt:
+      en: "Your account is 2,000 USDT and you normally risk 1% — 20 USDT. Two stop-outs leave you down 40 USDT. You decide to win it back in one shot at five times normal size, risking 100 USDT, and it loses. Where are you?"
+      es: "Tu cuenta es de 2.000 USDT y normalmente arriesgas el 1%: 20 USDT. Dos stops te dejan con −40 USDT. Decides recuperarlo de una vez con cinco veces tu tamaño habitual, arriesgando 100 USDT, y pierde. ¿Dónde estás?"
+    options:
+      - id: a
+        text:
+          en: "Down 100 USDT — the larger trade replaced the two smaller losses."
+          es: "Con −100 USDT: la operación grande sustituyó a las dos pequeñas."
+      - id: b
+        text:
+          en: "Back to even, since the bigger size covered the earlier losses."
+          es: "En tablas, ya que el tamaño mayor cubrió las pérdidas anteriores."
+      - id: c
+        correct: true
+        text:
+          en: "Down 140 USDT — a 7% hole dug out of a survivable 2% day."
+          es: "Con −140 USDT: un agujero del 7% cavado sobre un día del 2%."
+      - id: d
+        text:
+          en: "Down 60 USDT — the third trade risked 1% of the reduced balance."
+          es: "Con −60 USDT: la tercera arriesgó el 1% del saldo reducido."
+    explanation:
+      en: "40 + 100 = 140 USDT: the big trade adds to the earlier losses rather than replacing or cancelling them, and it was sized on emotion, not on 1% of anything. That is the loop — each attempt to erase the loss deepens it and tightens the grip, with the pull to do it again, bigger, stronger than ever. Ordinary trades lose all the time; the oversizing is what turns a normal red day into a hole."
+      es: "40 + 100 = 140 USDT: la operación grande se suma a las pérdidas anteriores en vez de sustituirlas o cancelarlas, y se dimensionó por emoción, no por el 1% de nada. Ese es el bucle: cada intento de borrar la pérdida la agranda y aprieta más, con el impulso de repetirlo, más grande, más fuerte que nunca. Las operaciones normales pierden constantemente; sobredimensionar es lo que convierte un día rojo normal en un agujero."
+  - id: bounce-due
+    kind: true_false
+    prompt:
+      en: "After two losing trades in a row, a winning trade is 'due' — so the next entry has better odds."
+      es: "Después de dos operaciones perdedoras seguidas, una ganadora 'toca', así que la siguiente entrada tiene mejores probabilidades."
+    answer: false
+    explanation:
+      en: "That is the gambler's fallacy. The market has no memory of your two losses and owes you no third win — and 'a bounce is due' is exactly the sentence that talks you into sizing up."
+      es: "Es la falacia del jugador. El mercado no recuerda tus dos pérdidas y no te debe una tercera victoria, y 'toca un rebote' es exactamente la frase que te convence de subir el tamaño."
+  - id: no-closing-bell
+    prompt:
+      en: "A stock market's closing bell ends a revenge spiral whether you like it or not. What replaces it on perpetuals?"
+      es: "La campana de cierre de una bolsa termina una espiral de revancha te guste o no. ¿Qué la sustituye en los perpetuos?"
+    options:
+      - id: a
+        text:
+          en: "The funding window, which forces positions closed every eight hours."
+          es: "La ventana de funding, que obliga a cerrar cada ocho horas."
+      - id: b
+        text:
+          en: "Exchange-imposed cooling-off periods after consecutive losses."
+          es: "Periodos de enfriamiento que impone el exchange tras pérdidas seguidas."
+      - id: c
+        correct: true
+        text:
+          en: "Nothing external — only the daily loss limit you build yourself."
+          es: "Nada externo: solo el límite de pérdida diaria que construyas tú."
+      - id: d
+        text:
+          en: "Nothing is needed: a 24/7 market gives you time to recover calmly."
+          es: "No hace falta nada: un mercado 24/7 da tiempo para recuperarse."
+    explanation:
+      en: "At 03:00 on a Sunday the market is still open and your tilt still has somewhere to go — funding does not close anything and no venue watches your losing streak for you. So build the bell: a fixed daily loss limit that ends the session when hit, no exceptions, plus a short mandatory cooldown after any loss. Your next position is never larger than normal."
+      es: "A las 03:00 de un domingo el mercado sigue abierto y tu tilt aún tiene a dónde ir: el funding no cierra nada y ningún venue vigila tu racha perdedora por ti. Así que constrúyete la campana: un límite fijo de pérdida diaria que cierra la sesión al alcanzarse, sin excepciones, más un enfriamiento obligatorio corto tras cualquier pérdida. Tu siguiente posición nunca es mayor de lo normal."
+  - id: revenge-loop-order
+    kind: ordering
+    prompt:
+      en: "Put the revenge-trading loop in the order it actually runs."
+      es: "Ordena el bucle del revenge trading en el orden en que realmente ocurre."
+    items:
+      - id: loss
+        position: 1
+        text: { en: "You take an ordinary loss at your stop.", es: "Sufres una pérdida normal en tu stop." }
+      - id: wound
+        position: 2
+        text:
+          en: "It registers as a wound rather than a neutral fact, and you want it back now — not eventually."
+          es: "Se registra como una herida y no como un hecho neutro, y quieres recuperarlo ya, no con el tiempo."
+      - id: bigger
+        position: 3
+        text:
+          en: "You re-enter bigger, to recover it in one trade."
+          es: "Vuelves a entrar con más tamaño, para recuperarlo en una sola operación."
+      - id: deeper
+        position: 4
+        text:
+          en: "That trade loses too — ordinary trades lose all the time — and the hole is now several times deeper."
+          es: "Esa operación también pierde (las operaciones normales pierden constantemente) y el agujero es ahora varias veces más profundo."
+      - id: grip
+        position: 5
+        text:
+          en: "The pull to do it again, bigger, is stronger than ever."
+          es: "El impulso de repetirlo, con más tamaño, es más fuerte que nunca."
+    explanation:
+      en: "Each attempt to erase the loss deepens it and tightens the grip. The tell is the urgency: a sound trade is never something you *need* to happen right now — which is why the fix is a daily loss limit decided in advance, not resolve summoned in the moment."
+      es: "Cada intento de borrar la pérdida la agranda y aprieta más. La señal es la urgencia: una operación sensata nunca es algo que *necesites* que ocurra ahora mismo, y por eso la solución es un límite de pérdida diaria decidido de antemano, no fuerza de voluntad invocada en el momento."

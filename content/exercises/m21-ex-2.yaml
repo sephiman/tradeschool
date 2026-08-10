@@ -1,224 +1,91 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: stop-limit-nofill
+  - id: leg-liquidation
     prompt:
-      en: "You hold a losing long with a stop-limit protecting it: trigger 100, limit 99.9. Price crashes straight through to 97. What happens?"
-      es: "Tienes un largo en pérdidas protegido por un stop-limit: trigger 100, límite 99,9. El precio se desploma de golpe hasta 97. ¿Qué ocurre?"
+      en: "You are long 1 BTC spot and short 1 BTC of perpetual, with 20,000 USDT of collateral behind the short. BTC rallies 30%. What happens?"
+      es: "Tienes 1 BTC en spot y un corto de 1 BTC de perpetuo, con 20.000 USDT de colateral detrás del corto. El BTC sube un 30%. ¿Qué pasa?"
     options:
       - id: a
         text:
-          en: "It fills at 99.9 regardless, on the grounds that the trigger was hit."
-          es: "Se ejecuta en 99,9 igualmente, dado que se alcanzó el trigger."
+          en: "Nothing: the position is delta-neutral, so the two legs cancel out."
+          es: "Nada: la posición es delta neutral, así que las dos patas se anulan."
       - id: b
         text:
-          en: "It fills at 97, which is the best available price at that moment."
-          es: "Se ejecuta en 97, el mejor precio disponible en ese momento."
+          en: "The exchange moves the spot into the short's margin automatically."
+          es: "El exchange mete el spot en el margen del corto automáticamente."
       - id: c
-        text:
-          en: "The exchange converts it into a market order to guarantee the exit."
-          es: "El exchange la convierte en orden de mercado para garantizar la salida."
-      - id: d
         correct: true
         text:
-          en: "It may not fill at all, leaving you in the position and losing more."
-          es: "Puede no ejecutarse, dejándote en la posición y perdiendo más."
+          en: "The short is liquidated and you are left holding an accidental naked long."
+          es: "El corto se liquida y te quedas con un largo desnudo por accidente."
+      - id: d
+        text:
+          en: "Funding turns strongly positive, which covers the short's losses."
+          es: "El funding se vuelve muy positivo y eso cubre las pérdidas del corto."
     explanation:
-      en: "A stop-limit only fills at its limit or better. In a fast gap, price prints below 99.9 without ever trading there, so the resting limit is skipped and never touched — and no exchange rewrites your order type for you. That is the fill risk of a protective stop-limit."
-      es: "Un stop-limit solo se ejecuta a su límite o mejor. En un hueco rápido, el precio se imprime por debajo de 99,9 sin llegar a operar ahí, así que el límite puesto se salta y nunca se toca, y ningún exchange te reescribe el tipo de orden. Ese es el riesgo de ejecución de un stop-limit de protección."
-  - id: which-stop
+      en: "The exchange does not liquidate wholes. It liquidates positions, against the margin in their own account, and it does not know your spot exists — m06's mechanics unchanged. The short is 18,000 down against 20,000 of collateral, so it goes long before the rally ends, and the spot never rescues it. You end up holding the winning leg of a hedge whose losing leg was closed at the worst possible price. Delta-neutral is not margin-neutral."
+      es: "El exchange no liquida conjuntos. Liquida posiciones, contra el margen de su propia cuenta, y no sabe que tu spot existe: la mecánica de m06 sin cambios. El corto pierde 18.000 contra 20.000 de colateral, así que se va mucho antes de que el rally termine, y el spot no lo rescata nunca. Acabas con la pata ganadora de una cobertura cuya pata perdedora se cerró al peor precio posible. Delta neutral no es margen neutral."
+  - id: how-to-survive-it
     prompt:
-      en: "For a protective stop whose only job is to cap a loss, which order type is the safer default?"
-      es: "Para un stop de protección cuyo único trabajo es limitar una pérdida, ¿qué tipo de orden es la opción segura por defecto?"
+      en: "How do you actually protect a cash-and-carry against the short leg being liquidated?"
+      es: "¿Cómo se protege de verdad un cash-and-carry frente a la liquidación de la pata corta?"
     options:
       - id: a
         correct: true
         text:
-          en: "Stop-market — it fires a market order, so it gets you out."
-          es: "Stop-market: lanza una orden de mercado, así que te saca."
+          en: "Post far more collateral than the arithmetic needs, and accept less yield."
+          es: "Poner bastante más colateral del que pide la aritmética y aceptar menos rendimiento."
       - id: b
         text:
-          en: "Either one; in a fast move the two of them behave identically anyway."
-          es: "Cualquiera; en un movimiento rápido los dos se comportan igual."
+          en: "Add a second short on another venue, so the hedge is doubled."
+          es: "Añadir un segundo corto en otra plataforma, para doblar la cobertura."
       - id: c
         text:
-          en: "Stop-limit — it always fills and protects your exact price on the way out."
-          es: "Stop-limit: siempre se ejecuta y protege tu precio exacto al salir."
+          en: "Set a stop on the short leg, so it closes before liquidation does it."
+          es: "Poner un stop en la pata corta, para que cierre antes de que la liquide."
       - id: d
         text:
-          en: "A plain limit order with no trigger attached to it at all."
-          es: "Una orden de límite simple, sin ningún trigger asociado."
+          en: "Nothing is needed: the spot leg is the collateral for the short."
+          es: "No hace falta nada: la pata de spot es el colateral del corto."
     explanation:
-      en: "For an exit whose purpose is to cap the loss, prefer stop-market: filling at a slightly worse price is acceptable, but being skipped by a stop-limit and trapped in a runaway loss is the disaster — and the two types differ most precisely in the fast moves where it matters. Save stop-limit for entries where not filling is fine."
-      es: "Para una salida cuyo propósito es limitar la pérdida, prefiere stop-market: ejecutarte a un precio algo peor es aceptable, pero que un stop-limit te salte y te deje atrapado en una pérdida descontrolada es el desastre, y los dos tipos se diferencian precisamente en los movimientos rápidos, que es cuando importa. Reserva el stop-limit para entradas donde no ejecutarse sea aceptable."
-  - id: stop-limit-always-fills
+      en: "The fix is unglamorous and it costs yield: more margin behind the short, so a 30% or 50% rally does not reach the liquidation price. Doubling the short doubles the exposure rather than hedging it. A stop is worse than useless here — closing the short deliberately leaves the same naked long the liquidation would have, only sooner. And the spot leg is collateral only if the exchange is actually treating it as such, which is a specific product, not an assumption."
+      es: "El arreglo no tiene glamur y cuesta rendimiento: más margen detrás del corto, para que un rally del 30% o del 50% no llegue al precio de liquidación. Doblar el corto dobla la exposición en vez de cubrirla. Un stop aquí es peor que inútil: cerrar el corto a propósito deja el mismo largo desnudo que dejaría la liquidación, solo que antes. Y la pata de spot es colateral únicamente si el exchange la trata como tal, que es un producto concreto y no una suposición."
+  - id: two-venues
     kind: true_false
     prompt:
-      en: "A stop-limit order always fills once its trigger price is touched."
-      es: "Una orden stop-limit siempre se ejecuta en cuanto se toca su precio trigger."
+      en: "Splitting the two legs across two exchanges removes the counterparty risk, since no single venue holds the whole position."
+      es: "Repartir las dos patas entre dos exchanges elimina el riesgo de contraparte, ya que ninguna plataforma tiene la posición entera."
     answer: false
     explanation:
-      en: "The trigger only activates the order; it then places a limit that fills at that price or better. In a fast gap the market can print straight past the limit without trading there, leaving the order unfilled — the classic protective-stop trap."
-      es: "El trigger solo activa la orden; entonces coloca un límite que se ejecuta a ese precio o mejor. En un hueco rápido, el mercado puede cotizar más allá del límite sin operar ahí, dejando la orden sin ejecutar: la clásica trampa del stop de protección."
-  - id: stop-market-fires
-    prompt:
-      en: "Your stop-market order triggers during a sharp move. What does it do the instant it activates?"
-      es: "Tu orden stop-market se dispara durante un movimiento brusco. ¿Qué hace en el instante en que se activa?"
-    options:
-      - id: a
-        text:
-          en: "Fills at exactly the trigger price, however fast the market is moving."
-          es: "Se ejecuta justo al precio trigger, se mueva como se mueva el mercado."
-      - id: b
-        text:
-          en: "Places a resting limit order and waits for price to come back to it."
-          es: "Coloca una orden límite en reposo y espera a que el precio vuelva."
-      - id: c
-        correct: true
-        text:
-          en: "Fires a market order that fills at once, at whatever the book offers."
-          es: "Lanza una orden de mercado que ejecuta ya, al precio que dé el libro."
-      - id: d
-        text:
-          en: "Cancels itself if price has already moved beyond the trigger level."
-          es: "Se cancela sola si el precio ya ha rebasado el nivel del trigger."
-    explanation:
-      en: "A stop-market fires a market order the moment its trigger is touched, so it fills right away — but at whatever price the book offers, which in a fast move can be worse than the trigger. It never rests and never cancels itself, and that guaranteed fill is exactly why it is the safer default for a protective stop."
-      es: "Un stop-market lanza una orden de mercado en cuanto se toca su trigger, así que se ejecuta enseguida, pero al precio que ofrezca el libro, que en un movimiento rápido puede ser peor que el trigger. Nunca queda en reposo ni se cancela sola, y esa ejecución garantizada es justo por lo que es la opción segura por defecto para un stop de protección."
-  - id: order-type-behaviour
+      en: "It doubles the number of counterparties rather than removing any, and it adds the transfer between them — needed at exactly the moment you least want a transfer to be slow. Keeping both legs on one venue removes the transfer and concentrates the risk instead of splitting it. There is no arrangement without a cost; the choice is which cost you prefer."
+      es: "Duplica el número de contrapartes en vez de quitar ninguna, y además añade la transferencia entre ellas, que hace falta justo en el momento en que menos te apetece que una transferencia vaya lenta. Tener las dos patas en una sola plataforma quita la transferencia y concentra el riesgo en lugar de repartirlo. No hay montaje sin coste: la elección es qué coste prefieres."
+  - id: shape-of-the-trade
     kind: matching
     prompt:
-      en: "Match each order type to its behaviour."
-      es: "Empareja cada tipo de orden con su comportamiento."
+      en: "Match each part of the carry to what it actually is."
+      es: "Empareja cada parte del carry con lo que realmente es."
     pairs:
-      - id: mkt
-        left: { en: "Market", es: "Market" }
-        right: { en: "Fills now, taking any price the book offers", es: "Se ejecuta ya, tomando el precio que ofrezca el libro" }
-      - id: lmt
-        left: { en: "Limit", es: "Limit" }
-        right: { en: "Fills at your price or better, or not at all", es: "Se ejecuta a tu precio o mejor, o no se ejecuta" }
-      - id: sm
-        left: { en: "Stop-market", es: "Stop-market" }
-        right: { en: "Dormant until triggered, then fills at market", es: "Dormida hasta dispararse; entonces se ejecuta a mercado" }
-      - id: sl
-        left: { en: "Stop-limit", es: "Stop-limit" }
-        right: { en: "Dormant until triggered, then rests a limit that a gap can skip", es: "Dormida hasta dispararse; entonces deja un límite que un hueco puede saltarse" }
-      - id: ro
-        left: { en: "Reduce-only", es: "Reduce-only" }
-        right: { en: "Can only shrink an open position, never open or grow one", es: "Solo puede reducir una posición abierta, nunca abrir ni agrandar una" }
+      - id: upside
+        left: { en: "The upside", es: "La ganancia" }
+        right:
+          en: "Bounded by construction — a small rate, collected."
+          es: "Acotada por construcción: una tasa pequeña, cobrada."
+      - id: downside
+        left: { en: "The downside", es: "La pérdida" }
+        right:
+          en: "Open-ended, and operational rather than directional."
+          es: "Sin techo, y operativa más que direccional."
+      - id: crowding
+        left: { en: "More capital arriving", es: "Más capital entrando" }
+        right:
+          en: "A smaller premium, so a smaller rate for everyone."
+          es: "Una prima menor, o sea una tasa menor para todos."
+      - id: mania
+        left: { en: "A leverage mania", es: "Una manía de apalancamiento" }
+        right:
+          en: "Funding over 0.1% per 8h — the carry's best conditions."
+          es: "Funding por encima del 0,1% cada 8h: las mejores condiciones."
     explanation:
-      en: "Market takes any price for immediacy; limit protects price but may not fill. A stop stays dormant until its trigger: stop-market then fills at market (a reliable exit), stop-limit rests a limit that a fast gap can skip. Reduce-only is a tag that caps an order at your position size so it can only close, never flip or enlarge."
-      es: "El de mercado toma cualquier precio por inmediatez; el de límite protege el precio pero puede no ejecutarse. Un stop permanece dormido hasta su trigger: el stop-market se ejecuta entonces a mercado (una salida fiable), el stop-limit deja un límite que un hueco rápido puede saltar. Reduce-only es una etiqueta que limita la orden al tamaño de tu posición para que solo pueda cerrar, nunca darte la vuelta ni agrandarla."
-  - id: trigger-meaning
-    prompt:
-      en: "In a stop order, what exactly is the trigger?"
-      es: "En una orden stop, ¿qué es exactamente el trigger (trigger)?"
-    options:
-      - id: a
-        text:
-          en: "The price at which the order is guaranteed to be filled for you."
-          es: "El precio al que la orden tiene garantizada su ejecución."
-      - id: b
-        text:
-          en: "The maximum loss the exchange allows before it liquidates you."
-          es: "La pérdida máxima que el exchange permite antes de liquidarte."
-      - id: c
-        correct: true
-        text:
-          en: "The price level that wakes the dormant order and activates it."
-          es: "El nivel de precio que despierta la orden dormida y la activa."
-      - id: d
-        text:
-          en: "The fee that gets charged at the moment the order is placed."
-          es: "La comisión que se cobra en el momento de colocar la orden."
-    explanation:
-      en: "The trigger is only the price that activates a dormant stop. What happens next depends on the type: a stop-market then fills at market, a stop-limit places a limit that may or may not fill. Touching the trigger never guarantees a fill by itself, and it has nothing to do with liquidation levels or fees."
-      es: "El trigger es solo el precio que activa un stop dormido. Lo que pasa después depende del tipo: un stop-market se ejecuta entonces a mercado, un stop-limit coloca un límite que puede ejecutarse o no. Tocar el trigger nunca garantiza por sí solo la ejecución, y no tiene nada que ver con niveles de liquidación ni con comisiones."
-  - id: stop-limit-when-ok
-    prompt:
-      en: "When is a stop-limit a reasonable choice rather than a stop-market?"
-      es: "¿Cuándo es un stop-limit una opción razonable en lugar de un stop-market?"
-    options:
-      - id: a
-        text:
-          en: "For a protective stop whose only job is to cap a running loss."
-          es: "Para un stop de protección cuyo único trabajo es limitar una pérdida."
-      - id: b
-        text:
-          en: "Whenever the market is moving fast and gapping through levels."
-          es: "Siempre que el mercado vaya rápido y atraviese niveles con huecos."
-      - id: c
-        text:
-          en: "Never — a stop-limit has no legitimate use of any kind."
-          es: "Nunca: un stop-limit no tiene ningún uso legítimo."
-      - id: d
-        correct: true
-        text:
-          en: "For entries where not filling is acceptable and price matters."
-          es: "Para entradas donde no ejecutarse es aceptable y el precio importa."
-    explanation:
-      en: "Save the stop-limit for entries or cases where being skipped is acceptable and price control matters. For a protective stop that must get you out of a runaway loss, the stop-market's guaranteed fill is worth the slightly worse price — and a fast, gapping market is precisely the condition in which a stop-limit fails."
-      es: "Reserva el stop-limit para entradas o casos donde saltarse la orden sea aceptable y el control del precio importe. Para un stop de protección que debe sacarte de una pérdida descontrolada, la ejecución garantizada del stop-market compensa el precio algo peor, y un mercado rápido y con huecos es justamente la condición en la que un stop-limit falla."
-  - id: stop-limit-steps
-    kind: ordering
-    prompt:
-      en: "You protect a losing long with a stop-limit: trigger 100, limit 99.9. Price crashes. Put what happens in order."
-      es: "Proteges un largo perdedor con un stop-limit: disparo en 100, límite en 99,9. El precio se desploma. Ordena lo que ocurre."
-    items:
-      - id: gap
-        position: 1
-        text:
-          en: "Price gaps straight through the trigger — the next trades print at 98, then 97."
-          es: "El precio atraviesa el disparo de golpe: las siguientes operaciones imprimen en 98 y luego en 97."
-      - id: fire
-        position: 2
-        text:
-          en: "The stop fires and drops a sell limit at 99.9 into the book."
-          es: "El stop se activa y deja una orden límite de venta en 99,9 en el libro."
-      - id: nobody
-        position: 3
-        text:
-          en: "Nobody buys from you at 99.9 when the market lets them buy at 97."
-          es: "Nadie te compra a 99,9 cuando el mercado les permite comprar a 97."
-      - id: stranded
-        position: 4
-        text:
-          en: "Your order sits above the market, untouched — and you are still in the position."
-          es: "Tu orden queda por encima del mercado, sin tocar, y sigues dentro de la posición."
-    explanation:
-      en: "A stop-limit protects your price and, in exactly the moment you most need out, can fail to protect you at all. For a protective stop, prefer stop-market: getting out at a slightly worse price is the point."
-      es: "Un stop-limit protege tu precio y, justo en el momento en que más necesitas salir, puede no protegerte en absoluto. Para un stop protector, prefiere stop de mercado: salir a un precio algo peor es precisamente el objetivo."
-  - id: unbounded-loss
-    prompt:
-      en: "A stop-limit is the only protection on your leveraged long, and price gaps clean past the limit. What is your loss now bounded by?"
-      es: "Un stop-limit es la única protección de tu largo apalancado, y el precio se salta el límite por completo. ¿Por qué está limitada ahora tu pérdida?"
-    options:
-      - id: a
-        text:
-          en: "By the limit price you set, which the exchange honours later on."
-          es: "Por el precio límite que fijaste, que el exchange respeta más tarde."
-      - id: b
-        text:
-          en: "By your initial margin, which caps the loss automatically for you."
-          es: "Por tu margen inicial, que limita la pérdida automáticamente."
-      - id: c
-        correct: true
-        text:
-          en: "Only by how far price falls — there is no automatic exit left."
-          es: "Solo por cuánto caiga el precio: ya no queda ninguna salida automática."
-      - id: d
-        text:
-          en: "By the exchange's insurance fund, which absorbs the shortfall."
-          es: "Por el fondo de seguros del exchange, que absorbe el déficit."
-    explanation:
-      en: "That is an effectively unbounded loss where you thought you had a floor: the skipped limit sits above the market and nobody is obliged to honour it later. This is the most dangerous mistake in the lesson because it fails silently in the exact scenario you placed the stop to survive — the fix is the rule that protective stops are stop-market."
-      es: "Eso es una pérdida efectivamente ilimitada donde creías tener un suelo: el límite saltado queda por encima del mercado y nadie está obligado a respetarlo después. Es el error más peligroso de la lección porque falla en silencio precisamente en el escenario para el que colocaste el stop: la solución es la regla de que los stops protectores son de mercado."
-  - id: fill-risk-routine
-    kind: true_false
-    prompt:
-      en: "On perpetuals, the stop-limit fill risk is an edge case that rarely matters in practice."
-      es: "En los perpetuos, el riesgo de no ejecución del stop-limit es un caso extremo que rara vez importa en la práctica."
-    answer: false
-    explanation:
-      en: "Traditional markets gap once, at the open, where you can react. Perpetuals never close: a thin Sunday-night book can gap several percent in seconds with nobody around — the fill risk that looks like an edge case on a liquid weekday is a routine weekend event here."
-      es: "Los mercados tradicionales hacen gap una vez, en la apertura, donde puedes reaccionar. Los perpetuos nunca cierran: un libro poco profundo de un domingo por la noche puede saltar varios puntos porcentuales en segundos sin nadie alrededor. El riesgo que parece extremo en un día laborable líquido es aquí un evento rutinario de fin de semana."
+      en: "Thin margin, fat tails. The return is a percentage you collect, capped by what the market will pay; the losses are open-ended because they come from operational failure — a liquidated leg, a venue you cannot withdraw from, funding that stays negative — rather than from price. That combination makes it a business, not a yield product, and 'risk-free yield' is a misdescription of the same family as 'more trades means more profit'."
+      es: "Margen fino, colas gordas. El retorno es un porcentaje que cobras, topado por lo que el mercado esté dispuesto a pagar; las pérdidas no tienen techo porque vienen de fallos operativos —una pata liquidada, una plataforma de la que no puedes retirar, un funding que se queda en negativo— y no del precio. Esa combinación lo convierte en un negocio, no en un producto de rendimiento, y «rendimiento sin riesgo» es una descripción tramposa de la misma familia que «más operaciones es más beneficio»."

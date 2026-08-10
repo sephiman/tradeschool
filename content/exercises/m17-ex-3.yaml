@@ -1,210 +1,224 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: who-pays
+  - id: sequence
     prompt:
-      en: "The funding rate on a perpetual is clearly positive. What does that tell you?"
-      es: "El funding rate de un perpetuo es claramente positivo. ¿Qué te dice eso?"
+      en: "What is the classic order of capital rotation in a crypto cycle?"
+      es: "¿Cuál es el orden clásico de la rotación de capital en un ciclo cripto?"
     options:
       - id: a
         text:
-          en: "Shorts pay longs, since a positive number rewards the long side."
-          es: "Los cortos pagan a los largos, ya que un número positivo premia al largo."
+          en: "Small-cap alts → large-cap alts → ETH → BTC, climbing toward safety."
+          es: "Alts pequeñas → alts grandes → ETH → BTC, subiendo hacia la seguridad."
       - id: b
-        correct: true
         text:
-          en: "Longs pay shorts, which tells you the crowd is leaning long right now."
-          es: "Los largos pagan a los cortos, y la masa se inclina al lado largo."
+          en: "Stablecoins → small-cap alts → BTC → ETH, ending in the majors."
+          es: "Stablecoins → alts pequeñas → BTC → ETH, acabando en los grandes."
       - id: c
         text:
-          en: "Price is guaranteed to keep rising while funding stays positive."
-          es: "El precio tiene garantizado subir mientras el funding siga positivo."
+          en: "Everything rises together at the same time, in no particular order."
+          es: "Todo sube a la vez, al mismo tiempo y sin ningún orden concreto."
       - id: d
+        correct: true
         text:
-          en: "The exchange is charging a flat fee on every trade, whatever the side."
-          es: "El exchange cobra una comisión fija en cada operación, sea el lado que sea."
+          en: "BTC → ETH → large-cap alts → small-cap alts, outward along the risk curve."
+          es: "BTC → ETH → alts de gran capitalización → alts de pequeña capitalización."
     explanation:
-      en: "Positive funding means the perp trades above spot, so longs pay shorts to keep the perp tethered near spot — positioning is tilted to the upside. It is a positioning reading, not a promise price will keep rising, and it has nothing to do with trading fees: the payment moves between traders, not to the venue."
-      es: "Un funding positivo significa que el perpetuo cotiza por encima del spot, así que los largos pagan a los cortos para mantener el perpetuo anclado cerca del spot: el posicionamiento se inclina al alza. Es una lectura de posicionamiento, no una promesa de que el precio seguirá subiendo, y no tiene nada que ver con las comisiones: el pago va entre traders, no al venue."
-  - id: crowded-extreme
+      en: "New money tends to arrive through Bitcoin, then rotate into Ether, then the large alts, and finally the small speculative ones — appetite for risk builds gradually, which is why capital travels in that order rather than all at once. The reverse sequence is what happens when fear returns, and it is a tendency, never a timetable."
+      es: "El dinero nuevo suele entrar por Bitcoin, luego rota hacia Ether, después a las alts grandes y por último a las pequeñas especulativas: el apetito por el riesgo se construye poco a poco, y por eso el capital viaja en ese orden y no todo de golpe. La secuencia inversa es lo que ocurre cuando vuelve el miedo, y es una tendencia, nunca un calendario."
+  - id: last-stage
     prompt:
-      en: "Funding has been strongly positive for days and keeps climbing. A beginner reads this as a reason to add longs. What's the more honest read?"
-      es: "El funding lleva días fuertemente positivo y sigue subiendo. Un principiante lo lee como una razón para sumar largos. ¿Cuál es la lectura más honesta?"
+      en: "In the classic rotation, which assets tend to receive money last, in the most euphoric and riskiest phase?"
+      es: "En la rotación clásica, ¿qué activos tienden a recibir dinero los últimos, en la fase más eufórica y arriesgada?"
     options:
       - id: a
         correct: true
         text:
-          en: "The long side is crowded and paying to stay in — fragile, not confirming."
-          es: "El lado largo está saturado y paga por quedarse: frágil, no confirmatorio."
+          en: "Small-cap, speculative altcoins, which are the last stop of the sequence."
+          es: "Altcoins pequeñas y especulativas, la última parada del ciclo."
       - id: b
         text:
-          en: "Only negative funding is ever a warning; positive funding is a sign of health."
-          es: "Solo el funding negativo avisa; el positivo es señal de salud."
+          en: "Bitcoin, in its role as the safe reserve asset of the space."
+          es: "Bitcoin, en su papel de activo de reserva seguro del espacio."
       - id: c
         text:
-          en: "Strong positive funding confirms the uptrend, so adding longs is high-probability."
-          es: "Un funding muy positivo confirma la alcista: sumar largos es alta probabilidad."
+          en: "Ether, which is the first alt in the rotation sequence."
+          es: "Ether, que es la primera alt de la secuencia de rotación."
       - id: d
         text:
-          en: "Funding levels have no connection at all to how crowded positioning is."
-          es: "Los niveles de funding no tienen relación con lo saturado del posicionamiento."
+          en: "Stablecoins, where everybody parks their cash between trades."
+          es: "Las stablecoins, donde todos aparcan el efectivo entre operaciones."
     explanation:
-      en: "Extreme positive funding means almost everyone is already long and paying for it — crowded, one-sided positioning. That is fragile: little new buying is left and many longs are one bad candle from being forced out. It is a caution flag, not an entry, and the reading is precisely a measure of crowding rather than an unrelated number."
-      es: "Un funding extremadamente positivo significa que casi todos ya están largos y pagando por ello: un posicionamiento concurrido y unilateral. Eso es frágil: queda poca compra nueva y muchos largos están a una vela mala de ser expulsados. Es una señal de precaución, no una entrada, y la lectura es precisamente una medida de saturación, no un número ajeno."
-  - id: fee-myth
+      en: "The smallest, most speculative tokens tend to move last, exactly when the crowd feels most certain and risk is highest. Bitcoin and Ether are the early stops in the sequence, not the late ones, and when fear returns the small caps bleed first and worst."
+      es: "Los tokens más pequeños y especulativos suelen moverse los últimos, justo cuando la multitud se siente más segura y el riesgo es más alto. Bitcoin y Ether son las paradas tempranas de la secuencia, no las tardías, y cuando vuelve el miedo los small caps sangran primero y peor."
+  - id: rotation-order
+    kind: ordering
+    prompt:
+      en: "Arrange the classic capital rotation of a crypto cycle in order, from where new money tends to arrive first to where it arrives last."
+      es: "Ordena la rotación clásica de capital de un ciclo cripto, desde donde suele llegar primero el dinero nuevo hasta donde llega el último."
+    items:
+      - id: btc
+        position: 1
+        text:
+          en: "Bitcoin"
+          es: "Bitcoin"
+      - id: eth
+        position: 2
+        text:
+          en: "Ether (ETH)"
+          es: "Ether (ETH)"
+      - id: large
+        position: 3
+        text:
+          en: "Large-cap alts"
+          es: "Alts de gran capitalización"
+      - id: small
+        position: 4
+        text:
+          en: "Small-cap, speculative alts"
+          es: "Alts pequeñas y especulativas"
+    explanation:
+      en: "New money tends to arrive through Bitcoin, rotate into Ether as confidence grows, then into the large established alts, and finally into the small speculative ones in the euphoric phase — a tendency, never a timetable."
+      es: "El dinero nuevo suele entrar por Bitcoin, rota hacia Ether a medida que crece la confianza, luego hacia las alts grandes y establecidas y por último hacia las pequeñas especulativas en la fase eufórica: una tendencia, nunca un calendario."
+  - id: first-stage
+    prompt:
+      en: "According to the rotation, where does fresh money entering the market tend to go first?"
+      es: "Según la rotación, ¿hacia dónde tiende a ir primero el dinero nuevo que entra en el mercado?"
+    options:
+      - id: a
+        text:
+          en: "Into the small-cap alts, where the very biggest gains are found."
+          es: "Hacia las alts pequeñas, donde están las mayores ganancias posibles."
+      - id: b
+        text:
+          en: "Into Ether, which is the first stop for all incoming capital."
+          es: "Hacia Ether, que es la primera parada de todo el capital entrante."
+      - id: c
+        correct: true
+        text:
+          en: "Into Bitcoin first, which is why dominance rises early in a fresh cycle."
+          es: "Hacia Bitcoin primero, y por eso la dominancia sube al principio."
+      - id: d
+        text:
+          en: "Spread evenly across every coin in the market at the same time."
+          es: "Repartido por igual entre todas las monedas del mercado a la vez."
+    explanation:
+      en: "New money tends to arrive through Bitcoin first, pushing dominance up; only as confidence grows does it rotate outward into ETH, then the large alts, then the small ones. The small caps are the last stop, not the first, and the whole point of the rotation is that capital does not arrive everywhere at once."
+      es: "El dinero nuevo suele entrar primero por Bitcoin, empujando la dominancia al alza; solo a medida que crece la confianza rota hacia fuera, hacia ETH, luego las alts grandes y luego las pequeñas. Los small caps son la última parada, no la primera, y todo el sentido de la rotación es que el capital no llega a todas partes a la vez."
+  - id: reverse-rotation
+    prompt:
+      en: "When fear returns and the rotation runs in reverse, which tokens tend to bleed first and worst?"
+      es: "Cuando vuelve el miedo y la rotación funciona a la inversa, ¿qué tokens tienden a sangrar primero y peor?"
+    options:
+      - id: a
+        text:
+          en: "Bitcoin, because it is the biggest position anyone has to exit."
+          es: "Bitcoin, porque es la posición más grande de la que hay que salir."
+      - id: b
+        text:
+          en: "Every coin falls by exactly the same percentage as every other."
+          es: "Todas las monedas caen exactamente el mismo porcentaje que las demás."
+      - id: c
+        correct: true
+        text:
+          en: "The smallest, least liquid tokens, which were the last ones to be bought."
+          es: "Los tokens más pequeños y menos líquidos, los últimos en comprarse."
+      - id: d
+        text:
+          en: "Stablecoins, which are the first thing to lose their dollar peg."
+          es: "Las stablecoins, lo primero que pierde su paridad con el dólar."
+    explanation:
+      en: "In reverse, money climbs back up the curve toward Bitcoin, and the smallest, least liquid tokens — the last to be bought — are the first and hardest hit. Bitcoin is where the money is heading, not what it is fleeing, and the whole point is that the fall is not evenly distributed."
+      es: "A la inversa, el dinero sube de nuevo por la curva hacia Bitcoin, y los tokens más pequeños y menos líquidos —los últimos en comprarse— son los primeros y más golpeados. Bitcoin es a donde va el dinero, no de lo que huye, y todo el sentido es que la caída no se reparte por igual."
+  - id: tendency-not-timetable
     kind: true_false
     prompt:
-      en: "A positive funding rate means the exchange is charging you a fee on your trade."
-      es: "Un funding rate positivo significa que el exchange te cobra una comisión por tu operación."
+      en: "The rotation is a reliable timetable: once one stage happens, the next always follows on schedule."
+      es: "La rotación es un calendario fiable: una vez que ocurre una etapa, la siguiente llega siempre en su plazo."
     answer: false
     explanation:
-      en: "Funding is a payment between traders, not a fee paid to the exchange. Positive funding means the perp trades above spot, so longs pay shorts to keep the perp tethered near spot. The exchange isn't a party to that payment — trading fees are a separate thing."
-      es: "El funding es un pago entre traders, no una comisión que se paga al exchange. Un funding positivo significa que el perpetuo cotiza por encima del spot, así que los largos pagan a los cortos para mantener el perpetuo anclado cerca del spot. El exchange no es parte de ese pago: las comisiones de trading son otra cosa distinta."
-  - id: funding-signs
+      en: "The rotation is a tendency, not a timetable. It does not complete every cycle, the stages overlap, and many predicted alt seasons never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding them for years."
+      es: "La rotación es una tendencia, no un calendario. No se completa en cada ciclo, las etapas se solapan y muchas alt seasons anunciadas nunca llegaron. A los traders que compraron alts pequeñas porque 'la rotación dice que van a continuación' les ha tocado sostenerlas durante años."
+  - id: thin-book-final-leg
+    prompt:
+      en: "Why is the final leg of the rotation — into small, speculative tokens — so violent?"
+      es: "¿Por qué el último tramo de la rotación, hacia tokens pequeños y especulativos, es tan violento?"
+    options:
+      - id: a
+        text:
+          en: "Because small caps are granted higher leverage limits than the majors."
+          es: "Porque los small caps tienen límites de apalancamiento mayores que los grandes."
+      - id: b
+        correct: true
+        text:
+          en: "Their books are thin, so a modest inflow can double a micro-cap."
+          es: "Sus libros son finos, así que un flujo modesto puede duplicar un micro-cap."
+      - id: c
+        text:
+          en: "Because their fundamentals improve fastest late in the market cycle."
+          es: "Porque sus fundamentales mejoran más rápido al final del ciclo."
+      - id: d
+        text:
+          en: "Because market makers are obliged to quote them more aggressively."
+          es: "Porque los creadores de mercado deben cotizarlos más agresivamente."
+    explanation:
+      en: "A small-cap has little capital sitting in it, so the same inflow that nudges Bitcoin a few percent can double it. That is exactly why small tokens moon last, hardest, and most seductively — and why they bleed first and worst in reverse: the thin book that amplified the rise amplifies the fall, and there is often no bid to sell into. Nothing about it is a fundamental improvement or a rule imposed by the venue."
+      es: "Un small-cap tiene poco capital dentro, así que el mismo flujo que mueve a Bitcoin unos puntos porcentuales puede duplicarlo. Por eso los tokens pequeños suben al final, con más fuerza y de forma más seductora, y por eso sangran primero y peor a la inversa: el libro fino que amplificó la subida amplifica la caída, y a menudo no hay demanda a la que vender. Nada de esto es una mejora fundamental ni una regla impuesta por el venue."
+  - id: stylised-cycle-match
     kind: matching
     prompt:
-      en: "Match each funding-rate reading to what it means."
-      es: "Empareja cada lectura del funding rate con lo que significa."
+      en: "Match each stage of the stylised cycle to what is happening in it."
+      es: "Empareja cada etapa del ciclo estilizado con lo que ocurre en ella."
     pairs:
-      - id: pos
+      - id: btc
         left:
-          en: "Positive funding"
-          es: "Funding positivo"
+          en: "Dominance grinds up from 40% into the high 40s"
+          es: "La dominancia sube poco a poco del 40% hasta cerca del 50%"
+        right: { en: "New money pouring into BTC first.", es: "Dinero nuevo entrando primero en BTC." }
+      - id: eth
+        left: { en: "Dominance stalls and ETH/BTC turns up", es: "La dominancia se estanca y ETH/BTC gira al alza" }
         right:
-          en: "Perp trades above spot; longs pay shorts"
-          es: "El perpetuo cotiza por encima del spot; los largos pagan a los cortos"
-      - id: neg
+          en: "The first profits rotating out of Bitcoin into Ether."
+          es: "Los primeros beneficios rotando de Bitcoin a Ether."
+      - id: small
         left:
-          en: "Negative funding"
-          es: "Funding negativo"
+          en: "Obscure small caps triple while the crowd declares the alt season permanent"
+          es: "Small caps oscuros se triplican mientras la multitud declara permanente la alt season"
         right:
-          en: "Perp trades below spot; shorts pay longs"
-          es: "El perpetuo cotiza por debajo del spot; los cortos pagan a los largos"
-      - id: ext
-        left:
-          en: "Funding strongly positive for days"
-          es: "Funding fuertemente positivo durante días"
-        right:
-          en: "The long side is overcrowded and fragile"
-          es: "El lado largo está saturado y es frágil"
+          en: "Dominance bottoming just as risk actually peaks."
+          es: "La dominancia hace suelo justo cuando el riesgo alcanza su máximo."
     explanation:
-      en: "The sign tells you which way the perp is pricing versus spot, and therefore who pays whom: positive means longs pay shorts (crowd leaning long), negative means shorts pay longs (crowd leaning short). A sustained extreme is the real signal — it flags one-sided, fragile positioning, not a direction to trade."
-      es: "El signo te dice hacia qué lado cotiza el perpetuo respecto al spot y, por tanto, quién paga a quién: positivo significa que los largos pagan a los cortos (la masa se inclina al lado largo) y negativo que los cortos pagan a los largos (la masa se inclina al lado corto). Un extremo sostenido es la verdadera señal: avisa de un posicionamiento unilateral y frágil, no de una dirección para operar."
-  - id: negative-funding
+      en: "The crowd feels most certain exactly where risk is highest. Then something spooks the market and the whole ladder is climbed back down in a fraction of the time it took to go up."
+      es: "La multitud se siente más segura precisamente donde el riesgo es mayor. Luego algo asusta al mercado y toda la escalera se baja en una fracción del tiempo que costó subirla."
+  - id: rotation-facts
+    kind: multi_select
     prompt:
-      en: "The funding rate on a perpetual has turned clearly negative. What does that tell you?"
-      es: "El funding rate de un perpetuo se ha vuelto claramente negativo. ¿Qué te dice eso?"
+      en: "Select ALL statements about the rotation that are TRUE."
+      es: "Selecciona TODAS las afirmaciones ciertas sobre la rotación."
     options:
       - id: a
         correct: true
         text:
-          en: "The perp trades below spot, so shorts pay longs — the crowd leans short."
-          es: "El perpetuo cotiza bajo el spot, así que los cortos pagan: la masa está corta."
-      - id: b
-        text:
-          en: "Shorts are winning their bets, and the exchange rewards them with a payment."
-          es: "Los cortos ganan sus apuestas y el exchange los premia con un pago."
-      - id: c
-        text:
-          en: "Price is guaranteed to keep falling while funding remains negative."
-          es: "El precio tiene garantizado caer mientras el funding siga negativo."
-      - id: d
-        text:
-          en: "Longs pay shorts, since a funding payment always flows to the short side."
-          es: "Los largos pagan a los cortos, ya que el funding va siempre al lado corto."
-    explanation:
-      en: "Negative funding means the perp trades below spot, so shorts pay longs to pull the perp back up toward spot — the sign flips with the basis, it does not always favour one side. It reads as the crowd leaning short: a positioning gauge, not a promise price keeps falling, and not a reward paid by the venue for being 'right'."
-      es: "Un funding negativo significa que el perpetuo cotiza por debajo del spot, así que los cortos pagan a los largos para tirar del perpetuo hacia el spot: el signo cambia con la base, no favorece siempre al mismo lado. Se lee como que la masa se inclina al lado corto: un medidor de posicionamiento, no una promesa de que el precio seguirá cayendo ni un premio del venue por 'acertar'."
-  - id: funding-purpose
-    prompt:
-      en: "Perpetual futures never expire. Why do exchanges use a funding rate at all?"
-      es: "Los futuros perpetuos nunca vencen. ¿Por qué usan los exchanges un funding rate?"
-    options:
-      - id: a
-        text:
-          en: "To predict which direction the price will move next on the contract."
-          es: "Para predecir hacia qué dirección se moverá el precio del contrato."
+          en: "It is a tendency, not a timetable — it does not complete every cycle."
+          es: "Es una tendencia, no un calendario: no se completa en cada ciclo."
       - id: b
         correct: true
         text:
-          en: "To tether the perpetual to spot with a small periodic payment."
-          es: "Para anclar el perpetuo al spot con un pequeño pago periódico."
-      - id: c
-        text:
-          en: "So the exchange can collect a commission on every open position."
-          es: "Para que el exchange cobre una comisión por cada posición abierta."
-      - id: d
-        text:
-          en: "To pay a dividend to the long-term holders of the contract."
-          es: "Para pagar un dividendo a los tenedores del contrato a largo plazo."
-    explanation:
-      en: "Because a perp never settles at an expiry, the funding payment is the mechanism that keeps its price tethered to spot: when the perp drifts above spot, longs pay shorts; below spot, shorts pay longs. It is a tethering tool that moves between the two sides — not a forecast, not an exchange fee, and not a dividend."
-      es: "Como un perpetuo nunca liquida a vencimiento, el pago de funding es el mecanismo que mantiene su precio anclado al spot: cuando el perpetuo se aleja por encima del spot, los largos pagan a los cortos; por debajo, los cortos pagan a los largos. Es una herramienta de anclaje que se mueve entre los dos lados: no un pronóstico, ni una comisión del exchange, ni un dividendo."
-  - id: basis-definition
-    prompt:
-      en: "Spot BTC is 60,000 and the BTC perpetual trades 60,300. What is that gap, and what does it usually come with?"
-      es: "El BTC spot está en 60.000 y el perpetuo de BTC cotiza a 60.300. ¿Qué es ese hueco y con qué suele venir acompañado?"
-    options:
-      - id: a
-        text:
-          en: "A 0.5% discount, which would mean the shorts are paying the longs."
-          es: "Un descuento del 0,5%, lo que significaría que los cortos pagan a los largos."
-      - id: b
-        correct: true
-        text:
-          en: "A basis of +300, a 0.5% premium — expect positive funding with it."
-          es: "Una base de +300, una prima del 0,5%: espera funding positivo con ella."
-      - id: c
-        text:
-          en: "An arbitrage impossible in crypto, since perp and spot always match."
-          es: "Un arbitraje imposible en cripto, ya que perpetuo y spot siempre coinciden."
-      - id: d
-        text:
-          en: "The exchange's trading fee on the perpetual, expressed in price terms."
-          es: "La comisión de trading del exchange en el perpetuo, expresada en precio."
-    explanation:
-      en: "The basis is perp minus spot: 60,300 − 60,000 = 300, or 0.5% of spot — the perp is rich over spot, which is a premium rather than a discount. Perp above spot is exactly what makes funding positive, so the two readings arrive together: the basis measures how much the crowd overpays for leverage, funding measures what that overpayment costs per interval."
-      es: "La base es el perpetuo menos el spot: 60.300 − 60.000 = 300, o el 0,5% del spot: el perpetuo está caro sobre el spot, lo que es una prima y no un descuento. Que el perpetuo esté por encima del spot es justo lo que hace positivo el funding, así que las dos lecturas llegan juntas: la base mide cuánto paga de más la masa por el apalancamiento y el funding mide lo que ese sobreprecio cuesta por intervalo."
-  - id: basis-premium-not-direction
-    kind: true_false
-    prompt:
-      en: "A perpetual trading at a sustained premium over spot is a bullish signal, because it shows the market expects higher prices."
-      es: "Un perpetuo que cotiza con una prima sostenida sobre el spot es una señal alcista, porque muestra que el mercado espera precios más altos."
-    answer: false
-    explanation:
-      en: "A sustained premium says the leveraged long side is crowded and paying up for the privilege — a positioning reading, exactly like funding, not a forecast. Crowded positioning is fragile positioning. The small, steady premium of a calm bull market is just the ordinary price of leverage; only the extreme carries information."
-      es: "Una prima sostenida dice que el lado largo apalancado está concurrido y pagando de más por el privilegio: una lectura de posicionamiento, igual que el funding, no un pronóstico. El posicionamiento concurrido es posicionamiento frágil. La prima pequeña y constante de un mercado alcista tranquilo es solo el precio corriente del apalancamiento; solo el extremo lleva información."
-  - id: basis-dislocation
-    prompt:
-      en: "During a fast upward move the perpetual suddenly trades 1.5% above spot while spot itself barely budges. What is the honest read?"
-      es: "Durante un movimiento rápido al alza, el perpetuo pasa de golpe a cotizar un 1,5% por encima del spot mientras el spot apenas se mueve. ¿Cuál es la lectura honesta?"
-    options:
-      - id: a
-        text:
-          en: "Organic demand for the asset has arrived; the dislocation confirms the break."
-          es: "Ha llegado demanda orgánica del activo; la dislocación confirma la ruptura."
-      - id: b
-        text:
-          en: "The spot market is broken here and its price should simply be ignored."
-          es: "El mercado spot está roto aquí y su precio debería ignorarse sin más."
+          en: "The stages overlap with one another rather than running cleanly."
+          es: "Las etapas se solapan entre sí en vez de sucederse limpiamente."
       - id: c
         correct: true
         text:
-          en: "Forced flow on the contract — squeeze mechanics, so read local exhaustion."
-          es: "Flujo forzado sobre el contrato: mecánica de squeeze, léelo como agotamiento."
+          en: "Risk appetite builds gradually, so capital travels in this order."
+          es: "El apetito por el riesgo crece poco a poco: por eso el capital va en ese orden."
       - id: d
         text:
-          en: "Nothing: perp and spot routinely sit 1.5% apart on the major coins."
-          es: "Nada: el perpetuo y el spot suelen estar a un 1,5% en las monedas grandes."
+          en: "Once stage N has happened, stage N+1 duly follows on schedule."
+          es: "Una vez ocurrida la etapa N, la N+1 llega puntualmente según el calendario."
+      - id: e
+        text:
+          en: "Buying illiquid small caps early is safe, since they are next in line."
+          es: "Comprar small caps ilíquidos pronto es seguro, ya que son los siguientes."
     explanation:
-      en: "Forced closes land on the perpetual, not on spot: a liquidated short is force-bought on the contract, so the perp overshoots while the coin barely moves. Organic demand would show in spot and pull the perp behind it, and a 1.5% gap on a major is a dislocation rather than a normal state. Forced bids come from a finite pool of trapped positions, so a wild premium spike is a late-stage, exhaustion signature — and the basis usually collapses back toward zero as the cascade finishes."
-      es: "Los cierres forzados caen sobre el perpetuo, no sobre el spot: un corto liquidado es una compra forzada del contrato, así que el perpetuo se pasa mientras la moneda apenas se mueve. La demanda orgánica se vería en el spot y arrastraría al perpetuo detrás, y un hueco del 1,5% en una moneda grande es una dislocación, no un estado normal. La demanda forzada sale de una bolsa finita de posiciones atrapadas, así que un pico salvaje de prima es una firma tardía, de agotamiento, y la base suele derrumbarse hacia cero cuando la cascada termina."
-  - id: daily-vs-extreme
-    kind: true_false
-    prompt:
-      en: "Day to day the funding payment is usually tiny; it's mainly at extremes that funding becomes a useful read on crowding."
-      es: "Día a día el pago de funding suele ser minúsculo; es sobre todo en los extremos donde el funding se vuelve una lectura útil de la saturación."
-    answer: true
-    explanation:
-      en: "Correct. Ordinary funding is just a small cost of holding a position and says little on its own. The information is in the extreme: sustained, deeply one-sided funding flags crowded, fragile positioning — that's when it's worth watching."
-      es: "Correcto. El funding corriente es solo un pequeño coste de mantener la posición y por sí mismo dice poco. La información está en el extremo: un funding sostenido y muy unilateral avisa de un posicionamiento saturado y frágil; ahí es cuando merece la pena vigilarlo."
+      en: "Plenty of 'alt seasons' have been called that never arrived. Traders who bought small alts because 'the rotation says they're next' have been left holding a thin, bleeding book for years — the sequence describes how appetite tends to build, and it promises nobody a turn."
+      es: "Se han anunciado muchas 'alt seasons' que nunca llegaron. Los traders que compraron alts pequeñas porque 'la rotación dice que son las siguientes' se han quedado años con un libro poco profundo y sangrando: la secuencia describe cómo suele construirse el apetito, y no le promete el turno a nadie."

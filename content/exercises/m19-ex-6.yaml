@@ -1,231 +1,249 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: five-coins-myth
+  - id: phases-order
+    kind: ordering
+    prompt:
+      en: "Put the four phases of a squeeze in order, first to last."
+      es: "Ordena las cuatro fases de un squeeze, de la primera a la última."
+    items:
+      - id: build
+        position: 1
+        text:
+          en: "Build — one leveraged side crowds in, funding goes one-sided, OI climbs."
+          es: "Acumulación: un lado apalancado se amontona, el funding se vuelve unilateral, el OI sube."
+      - id: trig
+        position: 2
+        text:
+          en: "Trigger — price reaches the cluster and the first liquidations fire."
+          es: "Disparo: el precio alcanza el clúster y se disparan las primeras liquidaciones."
+      - id: casc
+        position: 3
+        text:
+          en: "Cascade — each forced close pushes price into the next cluster of forced closes."
+          es: "Cascada: cada cierre forzoso empuja el precio hasta el siguiente clúster de cierres forzosos."
+      - id: exh
+        position: 4
+        text:
+          en: "Exhaustion — the crowded side empties and the move stalls or snaps back."
+          es: "Agotamiento: el lado concurrido se vacía y el movimiento se estanca o rebota."
+    explanation:
+      en: "A squeeze loads before it fires: a crowded, leveraged side builds (1), price reaching the cluster triggers the first liquidations (2), those forced closes cascade into more (3), and once the crowded side is emptied the mechanical move exhausts (4)."
+      es: "Un squeeze se carga antes de dispararse: un lado concurrido y apalancado se acumula (1), el precio al alcanzar el clúster dispara las primeras liquidaciones (2), esos cierres forzosos forman una cascada de más (3) y, una vez vaciado el lado concurrido, el movimiento mecánico se agota (4)."
+  - id: exhaustion-tell
+    prompt:
+      en: "A short squeeze has run 15% in an hour and is still climbing. Which reading tells you it is reaching exhaustion rather than starting a trend?"
+      es: "Un short squeeze ha subido un 15% en una hora y sigue trepando. ¿Qué lectura te dice que se acerca al agotamiento en vez de empezar una tendencia?"
+    options:
+      - id: a
+        text:
+          en: "The speed of the move itself — 15% in an hour confirms real conviction."
+          es: "La velocidad del movimiento: un 15% en una hora confirma convicción real."
+      - id: b
+        text:
+          en: "Price printing new highs on the largest volume seen all day."
+          es: "El precio marcando nuevos máximos con el mayor volumen del día."
+      - id: c
+        text:
+          en: "The liquidation map showing a fresh cluster of shorts above current price."
+          es: "El mapa mostrando un clúster nuevo de cortos por encima del precio."
+      - id: d
+        correct: true
+        text:
+          en: "Funding has flipped positive and open interest has fallen."
+          es: "El funding se ha vuelto positivo y el interés abierto ha caído."
+    explanation:
+      en: "The fuel was forced buying from a finite pool, so the tell is the pool emptying: funding that was deeply negative flipping sign, and open interest falling as those shorts get closed out — the forced buyers behind price are gone. Volume proves nothing, because forced flow prints volume too, and a cluster still above price is fuel rather than exhaustion."
+      es: "El combustible era compra forzosa de una reserva finita, así que la señal es que esa reserva se vacía: el funding, que estaba muy negativo, cambiando de signo, y el interés abierto cayendo a medida que esos cortos se cierran; los compradores forzosos que había detrás del precio han desaparecido. El volumen no prueba nada, porque el flujo forzoso también imprime volumen, y un clúster todavía por encima del precio es combustible, no agotamiento."
+  - id: durable-trend-myth
     kind: true_false
     prompt:
-      en: "Holding five different coins means your portfolio is diversified."
-      es: "Tener cinco monedas distintas significa que tu cartera está diversificada."
+      en: "A squeeze is a durable new trend: once it starts, you can safely hold in its direction for weeks."
+      es: "Un squeeze es una nueva tendencia duradera: una vez que empieza, puedes mantener con seguridad en su dirección durante semanas."
     answer: false
     explanation:
-      en: "False. Diversification depends on correlation, not on the number of names. Five alts that fall together in a sell-off are one correlated bet in five costumes — the count of tickers is not the count of independent bets."
-      es: "Falso. La diversificación depende de la correlación, no del número de nombres. Cinco alts que caen juntas en una caída son una apuesta correlacionada con cinco trajes: la cuenta de tickers no es la cuenta de apuestas independientes."
-  - id: correlation-scale-match
+      en: "A squeeze is a mechanical cascade of forced closes drawn from a finite, crowded side. When that side is emptied there is no forced flow left, so the move exhausts and usually snaps back — it is the opposite of a durable trend."
+      es: "Un squeeze es una cascada mecánica de cierres forzosos que sale de un lado concurrido y finito. Cuando ese lado se vacía no queda flujo forzado, así que el movimiento se agota y normalmente rebota: es lo contrario de una tendencia duradera."
+  - id: phase-match
     kind: matching
     prompt:
-      en: "Match each correlation value to what it means for two positions."
-      es: "Empareja cada valor de correlación con lo que significa para dos posiciones."
+      en: "Match each phase of a squeeze to what happens in it."
+      es: "Empareja cada fase de un squeeze con lo que ocurre en ella."
     pairs:
-      - id: plus1
-        left: { en: "+1", es: "+1" }
+      - id: bld
+        left:
+          en: "Build"
+          es: "Acumulación"
         right:
-          en: "Move in lockstep — effectively one position held twice."
-          es: "Se mueven al unísono: en la práctica, una posición mantenida dos veces."
-      - id: zero
-        left: { en: "0", es: "0" }
+          en: "The crowded, leveraged side loads up (one-sided funding, rising OI)"
+          es: "El lado concurrido y apalancado se carga (funding unilateral, OI que sube)"
+      - id: trg
+        left:
+          en: "Trigger"
+          es: "Disparo"
         right:
-          en: "Independent — one tells you nothing about the other."
-          es: "Independientes: una no te dice nada de la otra."
-      - id: minus1
-        left: { en: "−1", es: "−1" }
+          en: "Price reaches the cluster and the first liquidations fire"
+          es: "El precio alcanza el clúster y se disparan las primeras liquidaciones"
+      - id: csc
+        left:
+          en: "Cascade"
+          es: "Cascada"
         right:
-          en: "Move exactly opposite — a perfect hedge."
-          es: "Se mueven exactamente al revés: una cobertura perfecta."
-      - id: plus09
-        left: { en: "+0.9 (typical crypto alts)", es: "+0,9 (alts de cripto típicas)" }
+          en: "Forced closes push price into the next cluster of forced closes"
+          es: "Los cierres forzosos empujan el precio hasta el siguiente clúster de cierres forzosos"
+      - id: exs
+        left:
+          en: "Exhaustion"
+          es: "Agotamiento"
         right:
-          en: "Almost the same bet — barely diversified at all."
-          es: "Casi la misma apuesta: apenas diversificada."
+          en: "The crowded side is emptied and the move stalls or snaps back"
+          es: "El lado concurrido se vacía y el movimiento se estanca o rebota"
     explanation:
-      en: "Correlation runs from +1 (lockstep, one bet twice) through 0 (independent) to −1 (a perfect hedge). Most crypto alts sit near +0.9 to BTC, so a basket of them is barely diversified — and in a drawdown that figure climbs even closer to +1."
-      es: "La correlación va de +1 (al unísono, una apuesta dos veces) pasando por 0 (independientes) hasta −1 (cobertura perfecta). La mayoría de las alts de cripto rondan +0,9 frente a BTC, así que una cesta de ellas apenas está diversificada, y en un drawdown esa cifra sube aún más cerca de +1."
-  - id: diversification-when
+      en: "The four phases are distinct: fuel is loaded (build), the first forced closes fire (trigger), they feed on each other (cascade), and the finite crowded side runs out (exhaustion). Knowing which phase you are in is the whole point — the danger and the edge are in different phases."
+      es: "Las cuatro fases son distintas: se carga el combustible (acumulación), se disparan los primeros cierres forzosos (disparo), se alimentan entre sí (cascada) y el lado concurrido y finito se acaba (agotamiento). Saber en qué fase estás es lo importante: el peligro y el filo están en fases diferentes."
+  - id: chasing-trap
     prompt:
-      en: "You want extra positions to actually lower your portfolio risk. When does that happen?"
-      es: "Quieres que las posiciones adicionales reduzcan de verdad el riesgo de tu cartera. ¿Cuándo ocurre eso?"
+      en: "ETH just ran 15% straight up in an hour on a short squeeze and sits at the highs. A beginner buys, expecting the trend to continue. What is the flaw?"
+      es: "ETH acaba de subir un 15% de golpe en una hora por un short squeeze y está en máximos. Un principiante compra esperando que la tendencia continúe. ¿Cuál es el fallo?"
     options:
       - id: a
         text:
-          en: "Always — every extra coin is one more layer of diversification."
-          es: "Siempre: cada moneda de más es una capa más de diversificación."
+          en: "There is no flaw — a 15% hour confirms a strong uptrend worth joining."
+          es: "No hay fallo: un 15% en una hora confirma una alcista fuerte a la que sumarse."
       - id: b
         text:
-          en: "Whenever you reach at least five names, the usual rule of thumb."
-          es: "En cuanto llegas a al menos cinco nombres, la regla general habitual."
+          en: "The only real risk is that trading fees rise during volatile periods."
+          es: "El único riesgo real es que las comisiones suben en periodos volátiles."
       - id: c
         correct: true
         text:
-          en: "Only when the holdings do not tend to fall together."
-          es: "Solo cuando lo que tienes no tiende a caer junto."
+          en: "The forced bid came from a finite short pool that is now nearly empty."
+          es: "La demanda forzada salía de una bolsa finita de cortos ya casi vacía."
       - id: d
         text:
-          en: "Whenever each position is capped at 1%, since caps make the total safe."
-          es: "Siempre que cada posición esté limitada al 1%: los límites hacen seguro el total."
+          en: "Squeezes always continue the next day, so the entry is only slightly early."
+          es: "Los squeezes siempre siguen al día siguiente: la entrada es solo temprana."
     explanation:
-      en: "Diversification lowers risk only when the pieces are genuinely uncorrelated. Adding correlated names, reaching a magic count, or capping each line does nothing about correlation — the risks still stack in a shared move, which is exactly what a per-trade cap cannot see."
-      es: "La diversificación reduce el riesgo solo cuando las piezas están genuinamente descorrelacionadas. Añadir nombres correlacionados, llegar a un número mágico o limitar cada línea no hace nada contra la correlación: los riesgos se siguen sumando en un movimiento compartido, que es justo lo que un límite por operación no puede ver."
-  - id: drawdown-correlation
+      en: "Chasing a spent squeeze is the classic trap. The violent leg was mechanical — forced buying from a crowded short side that is now emptied — so buying here means buying just as the mechanical bid disappears, providing the liquidity that early longs take profit into. The move that looked strongest was ending, and its speed was the symptom, not the confirmation."
+      es: "Perseguir un squeeze gastado es la trampa clásica. El tramo violento era mecánico —compra forzada de un lado corto concurrido que ahora está vacío—, así que comprar aquí es comprar justo cuando la demanda mecánica desaparece, aportando la liquidez con la que los primeros largos toman ganancias. El movimiento que parecía más fuerte estaba terminando, y su velocidad era el síntoma, no la confirmación."
+  - id: forced-direction
+    kind: matching
+    prompt:
+      en: "Match each event to the forced order flow it creates."
+      es: "Empareja cada evento con el flujo de órdenes forzadas que crea."
+    pairs:
+      - id: sfc
+        left:
+          en: "A short being force-closed"
+          es: "Un corto que se cierra por la fuerza"
+        right:
+          en: "Buys to close, pushing price up"
+          es: "Compra para cerrar, empujando el precio hacia arriba"
+      - id: lfc
+        left:
+          en: "A long being force-closed"
+          es: "Un largo que se cierra por la fuerza"
+        right:
+          en: "Sells to close, pushing price down"
+          es: "Vende para cerrar, empujando el precio hacia abajo"
+      - id: emt
+        left:
+          en: "The crowded side fully emptied"
+          es: "El lado concurrido totalmente vaciado"
+        right:
+          en: "Forced flow stops; price tends to stall or snap back"
+          es: "El flujo forzado se detiene; el precio tiende a estancarse o rebotar"
+    explanation:
+      en: "A liquidation forces an order in the painful direction: closing a short is a forced buy (lifts price), closing a long is a forced sell (drops price). When the crowded side is gone, that forced flow disappears — which is exactly why the cascade exhausts and often reverses."
+      es: "Una liquidación fuerza una orden en la dirección dolorosa: cerrar un corto es una compra forzada (sube el precio), cerrar un largo es una venta forzada (baja el precio). Cuando el lado concurrido desaparece, ese flujo forzado se acaba: por eso justamente la cascada se agota y a menudo se da la vuelta."
+  - id: fuel-tf
     kind: true_false
     prompt:
-      en: "In a hard crypto sell-off, correlations between alts snap toward +1, so the diversification you measured in calm weather evaporates."
-      es: "En una caída dura de cripto, las correlaciones entre alts saltan hacia +1, así que la diversificación que mediste con el mercado tranquilo se evapora."
+      en: "A short squeeze keeps running only while there are crowded shorts left to force-close; once that side is emptied it tends to stall or reverse."
+      es: "Un short squeeze sigue corriendo solo mientras quedan cortos concurridos que cerrar por la fuerza; una vez vaciado ese lado, tiende a estancarse o darse la vuelta."
     answer: true
     explanation:
-      en: "True. Everyone de-risks at once and the per-coin narratives stop mattering, so the basket behaves like one leveraged long exactly when you need it not to."
-      es: "Cierto. Todos reducen riesgo a la vez y las narrativas de cada moneda dejan de importar, así que la cesta se comporta como un único largo apalancado justo cuando necesitas que no lo haga."
-  - id: alt-beta
+      en: "The forced buying that drives a short squeeze comes from short positions being liquidated — a finite pool. When it is exhausted there is nothing forced left to lift price, so the mechanical move stalls and frequently snaps back."
+      es: "La compra forzada que impulsa un short squeeze viene de posiciones cortas que se liquidan: una bolsa finita. Cuando se agota no queda nada forzado que suba el precio, así que el movimiento mecánico se estanca y con frecuencia rebota."
+  - id: eth-squeeze-numbers
     prompt:
-      en: "Most alts have a beta above 1 to BTC. On a day BTC falls 10%, what typically happens to those alts?"
-      es: "La mayoría de las alts tienen una beta superior a 1 frente a BTC. En un día en que BTC cae un 10%, ¿qué suele pasar con esas alts?"
-    options:
-      - id: a
-        text:
-          en: "They fall less than BTC does, because BTC is the one leading the way down."
-          es: "Caen menos que BTC, porque es BTC quien lidera la bajada."
-      - id: b
-        text:
-          en: "They are unaffected — alts trade purely on their own narratives."
-          es: "No se ven afectadas: las alts cotizan solo por sus narrativas."
-      - id: c
-        correct: true
-        text:
-          en: "They fall harder — often 15% to 25% — blowing through 10% stops."
-          es: "Caen más fuerte —a menudo un 15-25%— y atraviesan los stops del 10%."
-      - id: d
-        text:
-          en: "They rise, as money rotates out of BTC and into the altcoins."
-          es: "Suben, ya que el dinero rota de BTC hacia las altcoins."
-    explanation:
-      en: "A beta above 1 means bigger moves than BTC in both directions. When BTC drops 10%, higher-beta alts commonly drop 15–25%, so a 10% stop on a thin alt book fills lower after slippage and loses more than its planned budget. Rotation out of BTC happens in calm markets, not in a broad sell-off."
-      es: "Una beta superior a 1 significa movimientos mayores que BTC en ambas direcciones. Cuando BTC cae un 10%, las alts de beta más alta caen a menudo un 15-25%, así que un stop del 10% en un libro fino se ejecuta más abajo tras el deslizamiento y pierde más que su presupuesto previsto. La rotación desde BTC ocurre en mercados tranquilos, no en una caída generalizada."
-  - id: book-profile-match
-    kind: matching
-    prompt:
-      en: "Match each two-position book to its real risk profile (assume BTC and the alt are highly correlated)."
-      es: "Empareja cada cartera de dos posiciones con su perfil de riesgo real (supón que BTC y la alt están muy correlacionadas)."
-    pairs:
-      - id: two-longs
-        left: { en: "Long BTC + long a correlated alt", es: "Largo en BTC + largo en una alt correlacionada" }
-        right:
-          en: "Stacked — nearly one directional bet, risks add up."
-          es: "Apilada: casi una sola apuesta direccional, los riesgos se suman."
-      - id: long-short
-        left: { en: "Long BTC + short a correlated alt", es: "Largo en BTC + corto en una alt correlacionada" }
-        right:
-          en: "Hedged — a relative bet with low directional risk."
-          es: "Cubierta: una apuesta relativa con bajo riesgo direccional."
-      - id: uncorrelated
-        left: { en: "Long BTC + long an asset uncorrelated to crypto", es: "Largo en BTC + largo en un activo descorrelacionado de cripto" }
-        right:
-          en: "Genuinely diversified — the two risks are partly independent."
-          es: "Genuinamente diversificada: los dos riesgos son en parte independientes."
-    explanation:
-      en: "Direction plus correlation sets the profile. Two longs on correlated names stack into one bet; a long against a short on correlated names largely cancels into a relative bet; only a genuinely uncorrelated pairing spreads the risk. Counting positions tells you none of this."
-      es: "La dirección más la correlación fijan el perfil. Dos largos en nombres correlacionados se apilan en una apuesta; un largo contra un corto en nombres correlacionados se cancela en gran parte en una apuesta relativa; solo un emparejamiento genuinamente descorrelacionado reparte el riesgo. Contar posiciones no te dice nada de esto."
-  - id: calm-vs-crash
-    prompt:
-      en: "Why can a basket of alts look nicely diversified in calm markets yet behave like a single position in a crash?"
-      es: "¿Por qué una cesta de alts puede parecer bien diversificada en mercados tranquilos y comportarse como una sola posición en un desplome?"
+      en: "ETH bled for days with deeply negative funding and rising OI. Spot buying lifts it through 3,000, and short liquidation shelves at 3,050, 3,150 and 3,300 fire in turn — ETH runs to 3,450 in under an hour on no news. What was that move?"
+      es: "ETH sangró durante días con funding muy negativo y OI creciente. Compras en spot lo elevan por encima de 3.000, y las plataformas de liquidación de cortos en 3.050, 3.150 y 3.300 se disparan una tras otra: ETH sube a 3.450 en menos de una hora sin noticias. ¿Qué fue ese movimiento?"
     options:
       - id: a
         correct: true
         text:
-          en: "In a sell-off everyone de-risks at once and correlations snap toward +1."
-          es: "En una caída todos reducen riesgo a la vez y las correlaciones saltan a +1."
+          en: "The crowded short side being emptied by forced buying — mechanics."
+          es: "El lado corto saturado vaciándose por compra forzosa: mecánica."
       - id: b
         text:
-          en: "Because correlation is a fixed property, so it was never diversified at all."
-          es: "Porque la correlación es fija, así que nunca estuvo diversificada."
+          en: "Spot demand alone, on the grounds that the buying started in spot."
+          es: "Solo demanda spot, dado que la compra empezó en el mercado spot."
       - id: c
         text:
-          en: "Because exchanges raise fees during crashes, which links the coins together."
-          es: "Porque los exchanges suben comisiones en los desplomes y enlazan las monedas."
+          en: "A durable new uptrend, confirmed by the sheer speed of the move."
+          es: "Una nueva tendencia alcista duradera, confirmada por la velocidad."
       - id: d
         text:
-          en: "Because calm markets have no correlation at all between any of the coins."
-          es: "Porque en mercados tranquilos no hay ninguna correlación entre monedas."
+          en: "A long squeeze, given how violently the price moved in the hour."
+          es: "Un long squeeze, dada la violencia con que se movió el precio."
     explanation:
-      en: "Correlation is not constant, which is the whole point. In calm markets alts drift on separate stories and genuinely look independent; in a drawdown people sell everything at once, the stories stop mattering, and correlations climb toward +1 — so the basket behaves like one leveraged long exactly when it hurts. Nothing about the venue's fees is involved."
-      es: "La correlación no es constante, y ese es todo el punto. En mercados tranquilos las alts se mueven por historias separadas y parecen de verdad independientes; en un drawdown la gente vende todo a la vez, las historias dejan de importar y las correlaciones suben hacia +1, así que la cesta se comporta como un único largo apalancado justo cuando duele. Las comisiones del venue no pintan nada aquí."
-  - id: independent-bets
+      en: "About 15% of the move was the crowded short side being closed out, not fresh conviction: the spot buying was only the spark that reached the first shelf. By 3,450 the crowded shorts are gone and funding has flipped positive, so with no forced buyers left behind price it stalls and bleeds back toward 3,150. The violent leg was mechanical, and mechanics run out — and it was shorts being squeezed, which drives price up, not longs."
+      es: "Un 15% del movimiento fue el lado corto saturado cerrándose, no convicción nueva: la compra spot solo fue la chispa que alcanzó la primera plataforma. En 3.450 los cortos saturados han desaparecido y el funding se ha vuelto positivo, así que sin compradores forzosos detrás el precio se estanca y retrocede hacia 3.150. El tramo violento era mecánico, y la mecánica se agota, y quienes fueron exprimidos eran cortos, lo que empuja el precio arriba, no largos."
+  - id: crypto-cascade-facts
     kind: multi_select
     prompt:
-      en: "Select ALL statements about counting risk that are TRUE."
-      es: "Selecciona TODAS las afirmaciones ciertas sobre cómo contar el riesgo."
+      en: "Select ALL the reasons cascades run further in crypto than in other leveraged markets."
+      es: "Selecciona TODAS las razones por las que las cascadas van más lejos en cripto que en otros mercados apalancados."
     options:
       - id: a
         correct: true
         text:
-          en: "Risk only diversifies away when correlation is below +1."
-          es: "El riesgo solo se diversifica cuando la correlación está por debajo de +1."
+          en: "24/7 trading — no overnight pause, so cascades fire at 3am unopposed."
+          es: "Operar 24/7: sin pausa nocturna, las cascadas se disparan sin oposición."
       - id: b
         correct: true
         text:
-          en: "Ten longs on ten coins that move together is one bet in ten costumes."
-          es: "Diez largos en diez monedas que se mueven juntas son una apuesta con diez trajes."
+          en: "Extreme leverage puts liquidation prices right next to the entry."
+          es: "El apalancamiento extremo pone las liquidaciones junto a la entrada."
       - id: c
         correct: true
         text:
-          en: "A long and a short in correlated instruments partly cancel out."
-          es: "Un largo y un corto en instrumentos correlacionados se cancelan en parte."
+          en: "Thin books mean the same forced flow moves price much further."
+          es: "Los libros finos hacen que el mismo flujo forzoso mueva mucho más."
       - id: d
         text:
-          en: "The number of tickets open in your account determines diversification."
-          es: "El número de posiciones abiertas determina la diversificación."
+          en: "Exchanges halt trading during cascades, which concentrates the move."
+          es: "Los exchanges detienen la negociación en cascadas y concentran el movimiento."
       - id: e
         text:
-          en: "Splitting one 3% idea across three coins turns it into three 1% ideas."
-          es: "Repartir una idea del 3% en tres monedas la convierte en tres del 1%."
+          en: "Forced orders are limit orders, which stack the book in that direction."
+          es: "Las órdenes forzosas son límite y apilan el libro en esa dirección."
     explanation:
-      en: "Diversification is about independent risks, never about the number of tickers on your screen. A long against a short on correlated names is a relative bet with far less directional risk, while splitting one idea across three coins just makes the 3% harder to see."
-      es: "La diversificación va de riesgos independientes, nunca del número de tickers en tu pantalla. Un largo contra un corto en nombres correlacionados es una apuesta relativa con mucho menos riesgo direccional, mientras que repartir una idea en tres monedas solo hace más difícil ver el 3%."
-  - id: cluster-cap-practice
+      en: "Dense clusters, no closing bell and thin books all push the same way, and the wick overshoots because there was nothing there to absorb it. Nothing halts a 24/7 market mid-cascade, and forced closes are market orders that take liquidity rather than limit orders that supply it — which is exactly why they move price so far."
+      es: "Grupos densos, sin campana de cierre y libros finos empujan todos en la misma dirección, y la mecha se excede porque no había nada que la absorbiera. Nada detiene un mercado 24/7 en plena cascada, y los cierres forzosos son órdenes a mercado que toman liquidez, no órdenes límite que la aportan: por eso mueven tanto el precio."
+  - id: fade-not-chase
     prompt:
-      en: "You want a rule that stops the diversification illusion from creeping back in. Which one does the job?"
-      es: "Quieres una regla que evite que la ilusión de diversificación vuelva a colarse. ¿Cuál lo consigue?"
+      en: "A squeeze is running right now. What is the honest edge — and what if you cannot tell which phase you are in?"
+      es: "Un squeeze está en marcha ahora mismo. ¿Cuál es la ventaja honesta, y qué hacer si no sabes en qué fase estás?"
     options:
       - id: a
         text:
-          en: "Cap the number of open positions at three, regardless of what they are."
-          es: "Limita las posiciones abiertas a tres, sean las que sean."
+          en: "Chase the cascade — momentum this strong tends to continue for days."
+          es: "Perseguir la cascada: un momentum así suele continuar durante días."
       - id: b
         text:
-          en: "Require every position to use isolated margin, removing correlation risk."
-          es: "Exige margen aislado en todas: elimina el riesgo de correlación."
+          en: "Enter in the direction of whichever cluster the map shows next."
+          es: "Entrar en la dirección del siguiente grupo que muestre el mapa."
       - id: c
         correct: true
         text:
-          en: "Cap the cluster: a maximum risk for the whole correlated group."
-          es: "Limita el grupo: un riesgo máximo para todo el conjunto correlacionado."
+          en: "Fade exhaustion, never chase; if unsure of the phase, trade nothing."
+          es: "Operar el agotamiento, nunca perseguir; si dudas de la fase, no operes."
       - id: d
         text:
-          en: "Keep each trade at 1% and let the position count take care of itself."
-          es: "Mantén cada operación al 1% y deja que el número se resuelva solo."
+          en: "Add to the crowded side, on the grounds that funding is paying it."
+          es: "Añadir al lado saturado, con el argumento de que el funding lo paga."
     explanation:
-      en: "Set a maximum for the correlated group — say 2% across all alt longs combined — and size the individual trades to fit inside it. Cap the cluster, not just the line: a position limit says nothing about direction, isolated margin bounds each loss without making the losses independent, and per-trade caps are precisely what the illusion hides behind."
-      es: "Fija un máximo para el conjunto correlacionado —por ejemplo el 2% entre todos los largos en alts— y dimensiona las operaciones para que quepan dentro. Limita el grupo, no solo la línea: un límite de posiciones no dice nada sobre la dirección, el margen aislado acota cada pérdida sin hacerlas independientes, y los límites por operación son justo aquello tras lo que se esconde la ilusión."
-  - id: cross-margin-cascade
-    prompt:
-      en: "Your correlated positions all share one cross-margin pool. What does a correlated drop do?"
-      es: "Tus posiciones correlacionadas comparten un mismo pool de margen cruzado. ¿Qué hace una caída correlacionada?"
-    options:
-      - id: a
-        text:
-          en: "Nothing extra — each position is liquidated against its own margin."
-          es: "Nada adicional: cada posición se liquida contra su propio margen."
-      - id: b
-        correct: true
-        text:
-          en: "Draws them all down against the same collateral at once."
-          es: "Las arrastra todas a la vez contra el mismo colateral."
-      - id: c
-        text:
-          en: "It protects them, since winners in the pool subsidise losers indefinitely."
-          es: "Las protege, ya que las ganadoras subvencionan indefinidamente a las perdedoras."
-      - id: d
-        text:
-          en: "It converts them automatically to isolated margin at the maintenance level."
-          es: "Las convierte automáticamente a margen aislado en el nivel de mantenimiento."
-    explanation:
-      en: "That can push several toward liquidation simultaneously, so positions that looked independent fail as a single cascade. Cross margin buys depth of cushion by pooling collateral — which is exactly what turns several correlated losses into one shared drawdown against that pool, and the subsidy only lasts as long as the pool does."
-      es: "Eso puede empujar varias hacia la liquidación al mismo tiempo, así que posiciones que parecían independientes fallan como una sola cascada. El margen cruzado compra colchón agrupando el colateral, y eso es precisamente lo que convierte varias pérdidas correlacionadas en un único drawdown compartido contra ese pool, y la subvención dura lo que dure el pool."
+      en: "The cascade looks exactly like a powerful breakout, which is why chasing it is the classic mistake: you buy precisely as the mechanical bid disappears and become the liquidity the early sellers take profit into. A cluster on the map is fuel, not a direction, and the crowded side is the one that gets liquidated — funding is what it pays for the privilege, not a reward for joining."
+      es: "La cascada se parece exactamente a una ruptura potente, y por eso perseguirla es el error clásico: compras justo cuando desaparece la demanda mecánica y te conviertes en la liquidez con la que los primeros vendedores toman beneficio. Un grupo en el mapa es combustible, no una dirección, y el lado saturado es el que acaba liquidado: el funding es lo que paga por el privilegio, no un premio por sumarse."

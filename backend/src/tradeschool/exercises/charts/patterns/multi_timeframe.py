@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Multi-timeframe injector (m20-l2): ONE stretch of price, drawn twice at two resolutions.
+"""Multi-timeframe injector (m23-l2): ONE stretch of price, drawn twice at two resolutions.
 
 The only injector that returns a second candle panel. Every other one plants a feature and asks what
 it is; this one plants a RELATIONSHIP BETWEEN TWO PANELS — what the lower frame is doing *inside* the
 higher one — which is unanswerable with a single chart on screen.
 
 The higher frame is never generated. It is `aggregate`d out of the lower one, bar for bar: first open,
-last close, extreme high, extreme low, summed volume. That is m20-l2's opening claim ("one 4h candle IS
+last close, extreme high, extreme low, summed volume. That is m23-l2's opening claim ("one 4h candle IS
 four 1h candles — aggregation, not new information") made literally true of the chart that teaches it,
 and `tests/test_chart_timeframes.py` re-derives it to the cent from the published lower panel.
 
@@ -19,7 +19,7 @@ Two label families over one geometry, the `converging_lines` precedent:
   panels with the aggregate drawn above or below. Only its POSITION moves, so the answer is read off
   the candles (the same path in fewer bars) and off nothing else.
 
-Bidirectional from birth, like every family since m31: `rng` mirrors the whole construction, so a
+Bidirectional from birth, like every family since m15: `rng` mirrors the whole construction, so a
 pullback inside a downtrend is as ordinary here as one inside an uptrend.
 """
 
@@ -174,7 +174,7 @@ class MultiTimeframeInjector(PatternInjector):
             context=ContextPanel(
                 series=upper,
                 ratio=RATIO,
-                # Context above, trigger below — the sequence m20-l2 teaches — for every label except
+                # Context above, trigger below — the sequence m23-l2 teaches — for every label except
                 # the one whose whole question is "and what if it is not?".
                 position="below" if target == "bottom_is_higher_frame" else "above",
             ),

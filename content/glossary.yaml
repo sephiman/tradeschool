@@ -8,7 +8,8 @@
 # Rules baked into the loader (backend/src/tradeschool/content/glossary.py):
 #   - ids are permanent and globally unique across the whole repo (see content/README.md);
 #     never renumber or reuse one.
-#   - `origin` must name a lesson that exists in the manifest.
+#   - `origin` and `link_except` name lessons by their permanent KEY, never the display id (the two
+#     differ only for content renumbered on 2026-08-10; the registry renders keys as display ids).
 #   - an entry carries `definition` (one sense) and/or `senses` (a homonym, numbered in order); an
 #     entry with a lead `definition` AND `senses` is the "one mechanic, several instruments" shape.
 #     `alias_of` (a second name for another entry, which owns the definition) excludes both.
@@ -64,10 +65,10 @@ terms:
   definition:
     en: >-
       Price multiplied by circulating supply. It measures what the circulating part is worth, not
-      what it would cost to buy the asset out, and m18 contrasts it with FDV.
+      what it would cost to buy the asset out, and m20 contrasts it with FDV.
     es: >-
       El precio multiplicado por la oferta circulante. Mide lo que vale la parte en circulación, no
-      lo que costaría comprar el activo entero; m18 la contrasta con la FDV.
+      lo que costaría comprar el activo entero; m20 la contrasta con la FDV.
 
 - id: g-narrative
   en: narrative
@@ -150,10 +151,10 @@ terms:
   definition:
     en: >-
       The live list of resting buy and sell orders at each price. It shows what people are willing
-      to do, which m27 separates carefully from what they have done.
+      to do, which m31 separates carefully from what they have done.
     es: >-
       La lista viva de órdenes de compra y venta en reposo a cada precio. Muestra lo que la gente está
-      dispuesta a hacer, que m27 distingue con cuidado de lo que ya ha hecho.
+      dispuesta a hacer, que m31 distingue con cuidado de lo que ya ha hecho.
 
 - id: g-bid
   en: bid
@@ -205,10 +206,10 @@ terms:
   definition:
     en: >-
       How much size rests at each price away from the top of the book. Thin depth is why a modest
-      order can move price a long way; m27 reads it properly.
+      order can move price a long way; m31 reads it properly.
     es: >-
       Cuánto volumen descansa a cada precio según te alejas de la cima del libro. La poca profundidad
-      es la razón de que una orden modesta mueva mucho el precio; m27 la lee a fondo.
+      es la razón de que una orden modesta mueva mucho el precio; m31 la lee a fondo.
   link_except:
     es: [m22-l1]  # "qué profundidad de racha perdedora"
 
@@ -243,10 +244,10 @@ terms:
   definition:
     en: >-
       One bar summarising a period of trading as four numbers — open, high, low, close — plus the
-      volume behind them. m25 is the reminder that it is an aggregate, not a record.
+      volume behind them. m29 is the reminder that it is an aggregate, not a record.
     es: >-
       Una barra que resume un periodo de negociación en cuatro números —apertura, máximo, mínimo,
-      cierre— más el volumen detrás. m25 recuerda que es un agregado, no un registro.
+      cierre— más el volumen detrás. m29 recuerda que es un agregado, no un registro.
 
 - id: g-ohlc
   en: OHLC
@@ -291,10 +292,10 @@ terms:
   definition:
     en: >-
       How much time one candle covers. The same price action tells a different story on each, which
-      is why m24 fixes which chart decides what before anything else.
+      is why m27 fixes which chart decides what before anything else.
     es: >-
       Cuánto tiempo abarca una vela. La misma acción del precio cuenta una historia distinta en cada
-      una, por eso m24 fija qué gráfico decide qué antes que nada.
+      una, por eso m27 fija qué gráfico decide qué antes que nada.
 
 - id: g-volume
   en: volume
@@ -332,9 +333,9 @@ terms:
     es: >-
       El precio rotando entre un suelo y un techo sin secuencia que lo ordene. m09 es la lección que
       trata el rango como un proceso y no como una pausa.
-  # m31-l2 and m32-l1 mean a CANDLE's range and the ATR's ("average true range"), never a market
+  # m15-l2 and m16-l1 mean a CANDLE's range and the ATR's ("average true range"), never a market
   # rotating between a floor and a ceiling.
-  # ...and m33-l1 means a range of NUMBERS ("this range contains every system").
+  # ...and m28-l1 means a range of NUMBERS ("this range contains every system").
   link_except: [m01-l1, m31-l2, m32-l1, m33-l1]  # "the quality range" / "el rango de calidad"
 
 - id: g-support
@@ -489,10 +490,10 @@ terms:
   definition:
     en: >-
       A periodic payment between longs and shorts that keeps a perpetual near spot: whichever side is
-      crowded pays the other. m17-l1 reads it as positioning.
+      crowded pays the other. m19-l1 reads it as positioning.
     es: >-
       Un pago periódico entre largos y cortos que mantiene el perpetuo cerca del spot: el lado
-      concurrido paga al otro. m17-l1 lo lee como posicionamiento.
+      concurrido paga al otro. m19-l1 lo lee como posicionamiento.
 
 - id: g-funding-rate
   en: funding rate
@@ -519,7 +520,7 @@ terms:
       La distancia entre el precio del perpetuo y el spot, leída como porcentaje del spot. Compara el
       perpetuo con el spot de su propia plataforma; un hueco entre dos exchanges es fricción
       operativa, no posicionamiento.
-  # m32-l1 calls a Bollinger band's midline "the basis", which is the conventional name for it and has
+  # m16-l1 calls a Bollinger band's midline "the basis", which is the conventional name for it and has
   # nothing to do with the perp/spot gap. ES is unaffected: that lesson says "la base", and this entry
   # is already unlinked in Spanish.
   link_except: {en: [m32-l1]}
@@ -551,7 +552,7 @@ terms:
       El dinero que de verdad depositas para abrir y mantener una posición. Pequeño al lado del
       nocional, y la parte que te pueden quitar.
   # ES `margen` is polysemous prose: "al margen de", "darle margen", "margen para reaccionar" — and in
-  # m34-l1 "margen fino" is the profit margin. EN says it as a hyphenated compound ("thin-margin
+  # m21-l1 "margen fino" is the profit margin. EN says it as a hyphenated compound ("thin-margin
   # business"), which is not an occurrence at all, so that locale needs no rule for it.
   link_except:
     es: [m01-l1, m12-l1, m19-l2, m23-l1, m27-l1, m30-l1, m34-l1]
@@ -609,10 +610,10 @@ terms:
   definition:
     en: >-
       The ratio of notional to margin. It does not change your risk by itself — it changes how close
-      your liquidation price sits; m19-l1 is emphatic that the stop, not the leverage, sets risk.
+      your liquidation price sits; m22-l1 is emphatic that the stop, not the leverage, sets risk.
     es: >-
       La razón entre nocional y margen. Por sí solo no cambia tu riesgo: cambia lo cerca que queda tu
-      precio de liquidación; m19-l1 insiste en que el riesgo lo fija el stop, no el apalancamiento.
+      precio de liquidación; m22-l1 insiste en que el riesgo lo fija el stop, no el apalancamiento.
 
 - id: g-inverse-contract
   en: inverse contract
@@ -654,10 +655,10 @@ terms:
   definition:
     en: >-
       The price at which that force-close triggers, computed from your margin and maintenance
-      requirement. m19-l1's rule is to keep it comfortably beyond the stop you already placed.
+      requirement. m22-l1's rule is to keep it comfortably beyond the stop you already placed.
     es: >-
       El precio al que se dispara ese cierre forzoso, calculado a partir de tu margen y del
-      requisito de mantenimiento. La regla de m19-l1 es dejarlo cómodamente más allá de tu stop.
+      requisito de mantenimiento. La regla de m22-l1 es dejarlo cómodamente más allá de tu stop.
 
 - id: g-cascade
   en: cascade
@@ -666,10 +667,10 @@ terms:
   definition:
     en: >-
       Liquidations feeding the move that causes the next ones: forced selling pushes price into more
-      liquidation prices. m17-l2 is where this becomes a thing you can anticipate.
+      liquidation prices. m19-l2 is where this becomes a thing you can anticipate.
     es: >-
       Liquidaciones que alimentan el movimiento que provoca las siguientes: la venta forzada empuja
-      el precio hacia más precios de liquidación. m17-l2 la convierte en algo previsible.
+      el precio hacia más precios de liquidación. m19-l2 la convierte en algo previsible.
 
 - id: g-pnl
   en: PnL
@@ -710,10 +711,10 @@ terms:
   definition:
     en: >-
       An order that rests in the book and waits to be filled, adding liquidity — usually the cheaper
-      fee. m25 reads the maker as the passive side of every trade.
+      fee. m29 reads the maker as the passive side of every trade.
     es: >-
       Una orden que descansa en el libro esperando a que la ejecuten, aportando liquidez; suele
-      pagar menos comisión. m25 lee al maker como el lado pasivo de cada operación.
+      pagar menos comisión. m29 lee al maker como el lado pasivo de cada operación.
 
 - id: g-taker
   en: taker
@@ -722,10 +723,10 @@ terms:
   definition:
     en: >-
       An order that crosses the spread and executes immediately, removing liquidity — usually the
-      dearer fee. The aggressor whose direction m25 and m26 count.
+      dearer fee. The aggressor whose direction m29 and m30 count.
     es: >-
       Una orden que cruza el spread y se ejecuta al momento, retirando liquidez; suele pagar más
-      comisión. El agresor cuya dirección cuentan m25 y m26.
+      comisión. El agresor cuya dirección cuentan m29 y m30.
 
 - id: g-fee
   en: fee
@@ -734,10 +735,10 @@ terms:
   definition:
     en: >-
       What the venue charges per trade, maker or taker. Small per trade and decisive across a
-      strategy — m20 prices the same move under three styles.
+      strategy — m23 prices the same move under three styles.
     es: >-
       Lo que la plataforma cobra por operación, sea maker o taker. Pequeña por operación y decisiva a
-      lo largo de una estrategia; m20 tarifa el mismo movimiento en tres estilos.
+      lo largo de una estrategia; m23 tarifa el mismo movimiento en tres estilos.
 
 # --- Block C · anchors referenced by the SMC dialect ------------------------------------------
   link_except: [m02-l1]  # "network fees" / "comisión de red", not the venue's trading fee
@@ -810,12 +811,12 @@ terms:
   definition:
     en: >-
       The claim inside the name: that an identifiable class of institutional participants moves price
-      deliberately against everyone else, and that these patterns are its footprints. m30 keeps the
+      deliberately against everyone else, and that these patterns are its footprints. m34 keeps the
       mechanics and drops the claim.
     es: >-
       La afirmación que encierra el nombre: que existe una clase identificable de participantes
       institucionales que mueve el precio deliberadamente contra los demás, y que estos patrones son
-      sus huellas. m30 se queda la mecánica y descarta la afirmación.
+      sus huellas. m34 se queda la mecánica y descarta la afirmación.
 
 - id: g-origin-zone
   en: origin zone
@@ -879,7 +880,7 @@ terms:
       de vuelta en una o dos velas. Un nivel que aguanta se queda más allá; un barrido lo perfora y
       lo recupera.
   link_except:
-    en: [m03-l2, m06-l1, m09-l1, m21-l1]  # the verb "sweep a level"; the noun is m20 and m30
+    en: [m03-l2, m06-l1, m09-l1, m21-l1]  # the verb "sweep a level"; the noun is m23 and m34
 
 - id: g-liquidity-grab
   en: liquidity grab
@@ -1081,7 +1082,7 @@ terms:
     es: >-
       Una vela cuyo cuerpo cubre por completo al de la anterior. Un patrón con nombre, y lo que dice
       m08-l2 es que el nombre no vale nada lejos de un nivel.
-  # ES only: m32-l1's "envolvente" is the band drawn around a moving average, not the candle pattern.
+  # ES only: m16-l1's "envolvente" is the band drawn around a moving average, not the candle pattern.
   # English has two words for those and needs no exclusion.
   link_except: {es: [m32-l1]}
 
@@ -1091,10 +1092,10 @@ terms:
   origin: m08-l2
   definition:
     en: >-
-      A price band a move crossed so fast that it was skipped rather than traded. m30 relabels the
+      A price band a move crossed so fast that it was skipped rather than traded. m34 relabels the
       same thing a fair value gap.
     es: >-
-      Una banda de precio que un movimiento cruzó tan rápido que se saltó en vez de negociarla. m30
+      Una banda de precio que un movimiento cruzó tan rápido que se saltó en vez de negociarla. m34
       reetiqueta lo mismo como fair value gap.
 
 - id: g-wyckoff
@@ -1143,10 +1144,10 @@ terms:
   definition:
     en: >-
       A false break below a range's support that recovers quickly back inside, tripping stops and
-      tempting shorts on the way. m26 shows the same event in the order flow.
+      tempting shorts on the way. m30 shows the same event in the order flow.
     es: >-
       Una falsa ruptura por debajo del soporte de un rango que se recupera rápido hacia dentro,
-      activando stops y tentando cortos de paso. m26 enseña el mismo suceso en el flujo de órdenes.
+      activando stops y tentando cortos de paso. m30 enseña el mismo suceso en el flujo de órdenes.
   link_except:
     en: [m21-l1]  # "it springs" — the stop-limit verb
 
@@ -1357,10 +1358,10 @@ terms:
   definition:
     en: >-
       Price and an oscillator disagreeing about a move: one makes a new extreme, the other does not.
-      m26 reads the same disagreement in the CVD, where it is sharper.
+      m30 reads the same disagreement in the CVD, where it is sharper.
     es: >-
       El precio y un oscilador en desacuerdo sobre un movimiento: uno marca un nuevo extremo y el
-      otro no. m26 lee el mismo desacuerdo en el CVD, donde es más nítido.
+      otro no. m30 lee el mismo desacuerdo en el CVD, donde es más nítido.
 
 - id: g-regular-divergence
   en: regular divergence
@@ -1393,10 +1394,10 @@ terms:
   definition:
     en: >-
       A set of retracement levels drawn between a swing low and a swing high, 0.5 and 0.618 the ones
-      that matter. It works to the extent that enough people watch it, and m30 says the same of SMC.
+      that matter. It works to the extent that enough people watch it, and m34 says the same of SMC.
     es: >-
       Un conjunto de niveles de retroceso trazados entre un mínimo y un máximo de giro, con 0,5 y
-      0,618 como los que importan. Funciona en la medida en que mucha gente lo mira, y m30 dice lo
+      0,618 como los que importan. Funciona en la medida en que mucha gente lo mira, y m34 dice lo
       mismo del SMC.
 
 - id: g-golden-zone
@@ -1417,13 +1418,13 @@ terms:
   origin: m14-l1
   definition:
     en: >-
-      Several independent reasons pointing at the same price. The whole method of m24: structure,
+      Several independent reasons pointing at the same price. The whole method of m27: structure,
       level and reaction agreeing before anything is risked.
     es: >-
-      Varias razones independientes apuntando al mismo precio. Todo el método de m24: estructura,
+      Varias razones independientes apuntando al mismo precio. Todo el método de m27: estructura,
       nivel y reacción de acuerdo antes de arriesgar nada.
 
-# --- Block C · m31/m32, at the end of the block ------------------------------------------------
+# --- Block C · m15/m16, at the end of the block ------------------------------------------------
 
 - id: g-trendline
   en: trendline
@@ -1510,12 +1511,12 @@ terms:
   definition:
     en: >-
       Average true range — how far a typical bar travels from high to low, counting any gap from the
-      previous close. What a Keltner channel is drawn from, and the width floor m19-l1 checks a
+      previous close. What a Keltner channel is drawn from, and the width floor m22-l1 checks a
       structural stop against.
     es: >-
       Rango verdadero medio: cuánto recorre una barra típica de máximo a mínimo, contando cualquier
       hueco desde el cierre anterior. Aquello con lo que se traza un canal de Keltner, y el suelo de
-      anchura con el que m19-l1 comprueba un stop estructural.
+      anchura con el que m22-l1 comprueba un stop estructural.
 
 # --- Block D · Market context ------------------------------------------------------------------
 
@@ -1574,10 +1575,10 @@ terms:
   definition:
     en: >-
       An index scoring crowd mood from 0 to 100 out of volatility, volume and social signals. A zone
-      for caution, never a trigger — m16 is emphatic that extremes are not timing.
+      for caution, never a trigger — m18 is emphatic that extremes are not timing.
     es: >-
       Un índice que puntúa el humor de la masa de 0 a 100 a partir de volatilidad, volumen y señales
-      sociales. Una zona de cautela, nunca un gatillo: m16 insiste en que los extremos no dan timing.
+      sociales. Una zona de cautela, nunca un gatillo: m18 insiste en que los extremos no dan timing.
 
 - id: g-capitulation
   en: capitulation
@@ -1619,7 +1620,7 @@ terms:
   en: squeeze
   es: squeeze
   # A genuine HOMONYM, not one mechanic seen through several instruments: the two senses below share a
-  # word and nothing else, and m32-l1 spends a section saying so. Hence no lead `definition` — there is
+  # word and nothing else, and m16-l1 spends a section saying so. Hence no lead `definition` — there is
   # no common mechanic for one to describe.
   senses:
   - origin: m17-l2
@@ -1653,7 +1654,7 @@ terms:
       Un mapa de calor que estima dónde se apilan los stops y los precios de liquidación. Una
       estimación de dónde está el combustible: se opera alrededor del mapa, no en él.
 
-# m34 sits between m17 and m18 in display order, so its entries do too — this file is maintained in
+# m21 sits between m19 and m20 in display order, so its entries do too — this file is maintained in
 # origin-lesson order, which is reading order, not id order.
 
 - id: g-carry
@@ -1681,10 +1682,10 @@ terms:
   definition:
     en: >-
       The carry's usual shape: long spot and short the perpetual against it, in equal size. Sold as
-      free money, and m34-l1 is the half about what can go wrong with it.
+      free money, and m21-l1 is the half about what can go wrong with it.
     es: >-
       La forma habitual del carry: largo en spot y corto en el perpetuo contra él, al mismo tamaño.
-      Se vende como dinero gratis, y m34-l1 es la mitad que cuenta qué puede salir mal.
+      Se vende como dinero gratis, y m21-l1 es la mitad que cuenta qué puede salir mal.
 
 - id: g-delta-neutral
   en: delta-neutral
@@ -1774,11 +1775,11 @@ terms:
   definition:
     en: >-
       "Fully Diluted Valuation": price times total eventual supply — what the project would be worth
-      if every token existed today. A high FDV on a small float is the trap m18 is built around.
+      if every token existed today. A high FDV on a small float is the trap m20 is built around.
     es: >-
       "Fully Diluted Valuation": el precio por la oferta total futura, lo que valdría el proyecto si
       todos los tokens existieran hoy. Una FDV alta sobre un float pequeño es la trampa sobre la que
-      se construye m18.
+      se construye m20.
 
 - id: g-emission
   en: emission
@@ -1839,10 +1840,10 @@ terms:
   definition:
     en: >-
       A result measured in units of the risk taken: 1R is the amount the stop was worth. Portable
-      across account sizes, which is what lets m22 compute expectancy at all.
+      across account sizes, which is what lets m25 compute expectancy at all.
     es: >-
       Un resultado medido en unidades del riesgo asumido: 1R es lo que valía el stop. Portable entre
-      tamaños de cuenta, que es lo que permite a m22 calcular la esperanza.
+      tamaños de cuenta, que es lo que permite a m25 calcular la esperanza.
 
 - id: g-drawdown
   en: drawdown
@@ -1911,10 +1912,10 @@ terms:
   origin: m20-l1
   definition:
     en: >-
-      Trading on holding periods of seconds to minutes. Fees dominate, and m23 notes it is the style
+      Trading on holding periods of seconds to minutes. Fees dominate, and m26 notes it is the style
       most exposed to revenge and FOMO because the speed removes the pause.
     es: >-
-      Operar con horizontes de segundos a minutos. Las comisiones mandan, y m23 señala que es el
+      Operar con horizontes de segundos a minutos. Las comisiones mandan, y m26 señala que es el
       estilo más expuesto a la venganza y al FOMO porque la velocidad elimina la pausa.
 
 - id: g-day-trading
@@ -1948,10 +1949,10 @@ terms:
   definition:
     en: >-
       The gap between the price you expected and the price you were filled at. It grows as depth
-      thins, which is why m27 reads the book before size goes in.
+      thins, which is why m31 reads the book before size goes in.
     es: >-
       La diferencia entre el precio que esperabas y aquel al que te ejecutaron. Crece según se
-      adelgaza la profundidad, por eso m27 lee el libro antes de meter tamaño.
+      adelgaza la profundidad, por eso m31 lee el libro antes de meter tamaño.
 
 - id: g-stop-market
   en: stop-market
@@ -1995,11 +1996,11 @@ terms:
   origin: m21-l1
   definition:
     en: >-
-      The order that closes a position when the idea is wrong. Where it goes decides the size (m19-l1)
-      and moving it is the classic mistake m23 is about.
+      The order that closes a position when the idea is wrong. Where it goes decides the size (m22-l1)
+      and moving it is the classic mistake m26 is about.
     es: >-
-      La orden que cierra una posición cuando la idea es errónea. Dónde va decide el tamaño (m19-l1),
-      y moverla es el error clásico del que trata m23.
+      La orden que cierra una posición cuando la idea es errónea. Dónde va decide el tamaño (m22-l1),
+      y moverla es el error clásico del que trata m26.
 
 - id: g-reduce-only
   en: reduce-only
@@ -2076,7 +2077,7 @@ terms:
       El win rate que un payoff dado necesita solo para dejar de perder dinero. Convierte "¿es
       suficiente?" en una cuenta.
 
-# m33 sits between m22 and m23 in display order, so its entries do too.
+# m28 sits between m25 and m26 in display order, so its entries do too.
 
 - id: g-backtest
   en: backtest
@@ -2085,10 +2086,10 @@ terms:
   definition:
     en: >-
       Walking pre-written rules over price history bar by bar and logging what would have happened.
-      Without the rules written first it is m31-l1's redrawn trendline: it describes the past forever.
+      Without the rules written first it is m15-l1's redrawn trendline: it describes the past forever.
     es: >-
       Recorrer vela a vela un histórico de precios con reglas escritas de antemano y anotar lo que
-      habría pasado. Sin las reglas escritas antes es la línea redibujada de m31-l1: describe el
+      habría pasado. Sin las reglas escritas antes es la línea redibujada de m15-l1: describe el
       pasado para siempre.
 
 - id: g-overfitting
@@ -2274,11 +2275,11 @@ terms:
   origin: m27-l1
   definition:
     en: >-
-      Markedly more resting size on one side of the book than the other. A crowding read, and m30
+      Markedly more resting size on one side of the book than the other. A crowding read, and m34
       borrows the same word for the gap a fast move leaves behind.
     es: >-
       Bastante más volumen en reposo en un lado del libro que en el otro. Una lectura de saturación, y
-      m30 toma la misma palabra para el hueco que deja un movimiento rápido.
+      m34 toma la misma palabra para el hueco que deja un movimiento rápido.
 
 - id: g-footprint
   en: footprint
@@ -2313,7 +2314,7 @@ terms:
   definition:
     en: >-
       "Point of Control": the price with the most traded volume in a profile. A level like any other,
-      and treating it as a magnet price must return to is the first mistake m29 names.
+      and treating it as a magnet price must return to is the first mistake m33 names.
     es: >-
       "Point of Control": el precio con más volumen negociado de un perfil. Un nivel como cualquier
-      otro, y tratarlo como un imán al que el precio debe volver es el primer error que nombra m29.
+      otro, y tratarlo como un imán al que el precio debe volver es el primer error que nombra m33.

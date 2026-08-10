@@ -1,202 +1,124 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: greed-reading
+  - id: two-rulers
     prompt:
-      en: "The index is showing extreme greed. What does the contrarian reading suggest?"
-      es: "El índice marca codicia extrema. ¿Qué sugiere la lectura contraria?"
+      en: "Bollinger bands and a Keltner channel are drawn around the same moving average. What is different about them?"
+      es: "Las bandas de Bollinger y un canal de Keltner se trazan alrededor de la misma media móvil. ¿En qué se diferencian?"
     options:
       - id: a
         text:
-          en: "It confirms the uptrend is safe, so add leverage and buy more of it."
-          es: "Confirma que la alcista es segura: añade apalancamiento y compra más."
+          en: "The period: Keltner uses a much longer window than Bollinger does."
+          es: "El periodo: Keltner usa una ventana mucho más larga que Bollinger."
       - id: b
+        text:
+          en: "Bollinger uses closes and Keltner uses volume-weighted prices instead."
+          es: "Bollinger usa cierres y Keltner usa en su lugar precios ponderados por volumen."
+      - id: c
         correct: true
         text:
-          en: "Get cautious: size down and stop chasing a crowded side."
-          es: "Ponte cauto: reduce tamaño y deja de perseguir un lado saturado."
-      - id: c
-        text:
-          en: "Sell everything immediately — extreme greed is a precise top signal."
-          es: "Vende todo de inmediato: la codicia extrema es una señal precisa de techo."
+          en: "The ruler: closes scattering for one, how far a bar travels for the other."
+          es: "La regla: la dispersión de los cierres en una, cuánto recorre una barra en la otra."
       - id: d
         text:
-          en: "The index is broken at these levels and should be ignored entirely."
-          es: "El índice está roto en estos niveles y hay que ignorarlo por completo."
+          en: "Nothing meaningful — they are two names for the same construction."
+          es: "Nada relevante: son dos nombres para la misma construcción."
     explanation:
-      en: "Extreme greed marks a crowded, one-sided zone: the crowd is euphoric and heavily long, so few buyers may be left. That warrants caution, not excitement — tighten risk on the crowded side. It is not a precise 'sell now' trigger either, because extremes can persist for weeks, so you neither blindly short nor blindly add."
-      es: "La codicia extrema marca una zona saturada y unilateral: la masa está eufórica y muy larga, así que pueden quedar pocos compradores. Eso pide cautela, no euforia: aprieta el riesgo en el lado saturado. Tampoco es un detonante preciso de 'vende ya', porque los extremos pueden persistir semanas, así que ni cortas a ciegas ni añades a ciegas."
-  - id: why-caution
+      en: "Bollinger is the mean plus and minus a number of standard deviations of the CLOSE, so its width is how spread out the closes have been. Keltner is the same mean plus and minus a multiple of the ATR, which is how far a BAR travels from high to low. Same centre, two different questions — and that is exactly why they can come apart far enough for one to sit inside the other."
+      es: "Bollinger es la media más y menos un número de desviaciones típicas del CIERRE, así que su anchura es lo dispersos que han estado los cierres. Keltner es esa misma media más y menos un múltiplo del ATR, que es cuánto recorre una BARRA de máximo a mínimo. El mismo centro, dos preguntas distintas; y por eso justamente pueden separarse lo bastante como para que una quede dentro de la otra."
+  - id: why-they-diverge
     prompt:
-      en: "Why does extreme greed warrant caution rather than excitement?"
-      es: "¿Por qué la codicia extrema pide cautela en lugar de entusiasmo?"
+      en: "Every bar swings a long way and closes back near where it opened. What do the two envelopes do?"
+      es: "Cada barra oscila mucho y cierra cerca de donde abrió. ¿Qué hacen las dos envolventes?"
     options:
       - id: a
         correct: true
         text:
-          en: "Few buyers are left, and many nervous late longs will sell a dip."
-          es: "Quedan pocos compradores, y muchos largos tardíos venderán una caída."
+          en: "Keltner is wide and Bollinger is narrow, which is the squeeze condition."
+          es: "Keltner es ancho y Bollinger estrecha, que es la condición de squeeze."
       - id: b
         text:
-          en: "Because exchanges raise their trading fees during greedy periods."
-          es: "Porque los exchanges suben sus comisiones en periodos de codicia."
+          en: "Bollinger is wide and Keltner is narrow, since the range is what scatters."
+          es: "Bollinger es ancha y Keltner estrecho, ya que el rango es lo que se dispersa."
       - id: c
         text:
-          en: "Because greed always flips over into fear within twenty-four hours."
-          es: "Porque la codicia siempre se convierte en miedo en veinticuatro horas."
+          en: "Both widen together, because both are measures of the same volatility."
+          es: "Se ensanchan las dos, porque ambas miden la misma volatilidad."
       - id: d
         text:
-          en: "Because euphoria guarantees an immediate crash follows it."
-          es: "Porque la euforia garantiza que le sigue un desplome inmediato."
+          en: "Both narrow together, because neither one sees intrabar movement at all."
+          es: "Se estrechan las dos, porque ninguna ve el movimiento dentro de la barra."
     explanation:
-      en: "The contrarian logic is about who is left to act: if almost everyone who wanted to buy has already bought, a fully-bought, euphoric crowd has little buying power in reserve and plenty of shaky longs. That makes the upside crowded — a reason for caution, not a guarantee of a timed crash, and nothing to do with what the venue charges."
-      es: "La lógica contraria trata de quién queda por actuar: si casi todo el que quería comprar ya ha comprado, una masa totalmente comprada y eufórica tiene poca capacidad de compra en reserva y muchos largos frágiles. Eso satura el lado alcista: un motivo de cautela, no la garantía de un desplome con fecha, y nada que ver con lo que cobre el venue."
-  - id: terms-meaning
+      en: "The bars are travelling, so the ATR — and with it the Keltner channel — is wide. The closes are all in a heap, so the standard deviation, and with it the Bollinger band, is small. That is what puts the Bollinger band inside the Keltner channel, and it is why a squeeze is not the same thing as an ordinary quiet market: ordinary quiet shrinks both of them."
+      es: "Las barras recorren distancia, así que el ATR —y con él el canal de Keltner— es ancho. Los cierres están todos amontonados, así que la desviación típica, y con ella la banda de Bollinger, es pequeña. Eso es lo que mete la banda de Bollinger dentro del canal de Keltner, y es la razón de que un squeeze no sea lo mismo que un mercado tranquilo cualquiera: la calma corriente encoge las dos."
+  - id: upper-band
+    prompt:
+      en: "Price is riding the upper Bollinger band in a strong uptrend. What is that?"
+      es: "El precio va pegado a la banda superior de Bollinger en una tendencia alcista fuerte. ¿Qué es eso?"
+    options:
+      - id: a
+        text:
+          en: "A sell signal: two standard deviations is by definition an extreme."
+          es: "Una señal de venta: dos desviaciones típicas es por definición un extremo."
+      - id: b
+        text:
+          en: "A guarantee the band will contain price on the way back down as well."
+          es: "Una garantía de que la banda contendrá el precio también en la vuelta."
+      - id: c
+        correct: true
+        text:
+          en: "Where price lives in a trend — the m11 overbought error in an envelope."
+          es: "Donde vive el precio en tendencia: el error de sobrecompra de m11 en envolvente."
+      - id: d
+        text:
+          en: "Evidence the band's period is wrong and should be shortened until it fits."
+          es: "Prueba de que el periodo de la banda está mal y hay que acortarlo hasta que encaje."
+    explanation:
+      en: "The band says price is two standard deviations above its own recent mean, which is precisely where a trending market spends its time. Reading that as 'too high' is the same mistake m11 named for an overbought RSI, wearing a different envelope: a strong reading means the thing is strong, and only context tells you whether it is exhausted."
+      es: "La banda dice que el precio está dos desviaciones típicas por encima de su propia media reciente, que es justo donde pasa el tiempo un mercado en tendencia. Leer eso como «demasiado alto» es el mismo error que nombró m11 para un RSI sobrecomprado, con otra envolvente encima: una lectura fuerte significa que la cosa es fuerte, y solo el contexto te dice si está agotada."
+  - id: measure-map
     kind: matching
     prompt:
-      en: "Match each sentiment term to what it means."
-      es: "Empareja cada término de sentimiento con su significado."
+      en: "Match each measurement to what it is actually made of."
+      es: "Empareja cada medición con lo que realmente la compone."
     pairs:
-      - id: greed
-        left: { en: "Extreme greed", es: "Codicia extrema" }
+      - id: bb
+        left:
+          en: "Bollinger band width"
+          es: "Anchura de la banda de Bollinger"
         right:
-          en: "The crowd is euphoric, leveraged and already long — a crowded zone that calls for caution."
-          es: "La masa está eufórica, apalancada y ya larga: una zona saturada que pide cautela."
-      - id: euphoria
-        left: { en: "Euphoria", es: "Euforia" }
+          en: "Standard deviation of the closes over the window."
+          es: "Desviación típica de los cierres en la ventana."
+      - id: atr
+        left:
+          en: "ATR"
+          es: "ATR"
         right:
-          en: "Buying because price is rising and being unable to imagine it falling."
-          es: "Comprar porque el precio sube y ser incapaz de imaginar que baje."
-      - id: fear
-        left: { en: "Extreme fear", es: "Miedo extremo" }
+          en: "Average distance a bar travels, counting gaps between bars."
+          es: "Distancia media que recorre una barra, contando huecos entre barras."
+      - id: sq
+        left:
+          en: "Squeeze"
+          es: "Squeeze"
         right:
-          en: "The crowd is scared and close to giving up — a zone of interest near possible lows."
-          es: "La masa está asustada y cerca de rendirse: una zona de interés cerca de posibles mínimos."
-      - id: capitulation
-        left: { en: "Capitulation", es: "Capitulación" }
+          en: "One envelope sitting entirely inside the other one."
+          es: "Una envolvente enteramente dentro de la otra."
+      - id: hist
+        left:
+          en: "The oscillator's histogram"
+          es: "El histograma del oscilador"
         right:
-          en: "Holders surrender and sell at a loss just to stop the pain."
-          es: "Los tenedores se rinden y venden con pérdidas solo para dejar de sufrir."
+          en: "Where price sits against its own recent range, signed."
+          es: "Dónde está el precio respecto a su propio rango reciente, con signo."
     explanation:
-      en: "Greed and fear describe the mood of the crowd; euphoria and capitulation are the emotional peaks at each end. None of them is a timing signal — they describe how one-sided the crowd is, not when it will turn."
-      es: "La codicia y el miedo describen el ánimo de la masa; la euforia y la capitulación son los picos emocionales de cada extremo. Ninguno es una señal de timing: describen cuán desequilibrada está la masa, no cuándo girará."
-  - id: euphoria-def
-    prompt:
-      en: "What does \"euphoria\" mean in this lesson?"
-      es: "¿Qué significa la \"euforia\" en esta lección?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Buying because price is rising, and being unable to imagine it falling."
-          es: "Comprar porque el precio sube, sin poder imaginar que caiga."
-      - id: b
-        text:
-          en: "A calm, patient mood in which traders wait for their confirmation."
-          es: "Un ánimo tranquilo y paciente en el que se espera la confirmación."
-      - id: c
-        text:
-          en: "The exchange's celebration when trading volume reaches a record."
-          es: "La celebración del exchange cuando el volumen alcanza un récord."
-      - id: d
-        text:
-          en: "A guaranteed signal that the top of the move is exactly here."
-          es: "Una señal garantizada de que el techo del movimiento está justo aquí."
-    explanation:
-      en: "Euphoria is the peak of greed: confidence so high that a fall feels impossible — the opposite of a patient, confirmation-seeking mood. That is precisely when late, nervous longs pile in, which is a reason for caution rather than a dated top call."
-      es: "La euforia es el pico de la codicia: una confianza tan alta que una caída parece imposible, lo contrario de un ánimo paciente que busca confirmación. Es justo cuando se amontonan los largos tardíos y nerviosos, lo que es un motivo de cautela más que una llamada de techo con fecha."
-  - id: greed-not-sell-trigger
+      en: "Every one of them is arithmetic over the bars already on the chart. None is a forecast, and the last two are repackagings of the first two — which is the reason the lesson insists the pane adds no information the price panel does not already carry."
+      es: "Todas ellas son aritmética sobre las barras que ya están en el gráfico. Ninguna es un pronóstico, y las dos últimas son reempaquetados de las dos primeras, que es la razón por la que la lección insiste en que el panel no añade información que el panel de precio no lleve ya."
+  - id: clustering
     kind: true_false
     prompt:
-      en: "When the index reaches extreme greed, the right move is to short immediately, because it marks the exact top."
-      es: "Cuando el índice llega a codicia extrema, lo correcto es cortar de inmediato, porque marca el techo exacto."
-    answer: false
+      en: "'The market has been calm for three weeks' is genuine information about what is coming."
+      es: "«El mercado lleva tres semanas en calma» es información de verdad sobre lo que viene."
+    answer: true
     explanation:
-      en: "Extreme greed is a crowded zone, not a timed top. It has lasted through entire bull runs; shorting the first extreme print is how contrarians get run over. Reduce risk on the crowded side and wait for your own confirmation."
-      es: "La codicia extrema es una zona saturada, no un techo con fecha. Ha durado rallies alcistas enteros; cortar en la primera lectura extrema es como acaban arrollados los contrarios. Reduce riesgo en el lado saturado y espera tu propia confirmación."
-  - id: crowded-long-scenario
-    prompt:
-      en: "The index is at 90 and everyone in your feed is leveraged long and posting green candles. What is the sober takeaway?"
-      es: "El índice está en 90 y todo tu feed está apalancado en largo y publicando velas verdes. ¿Cuál es la conclusión sensata?"
-    options:
-      - id: a
-        text:
-          en: "Everyone agrees, so the trend is confirmed: add leverage and follow it."
-          es: "Todos coinciden, luego la tendencia está confirmada: apalanca y síguela."
-      - id: b
-        text:
-          en: "Short with full size right now; agreement this strong is an exact top."
-          es: "Corta con tamaño completo ya; tanto acuerdo es un techo exacto."
-      - id: c
-        correct: true
-        text:
-          en: "The long side is crowded, and crowded is exactly where to get careful."
-          es: "El lado largo está saturado, así que sé más prudente ahí."
-      - id: d
-        text:
-          en: "It means nothing at all — what other traders feel never affects price."
-          es: "No significa nada: lo que sienten otros traders nunca afecta al precio."
-    explanation:
-      en: "When almost everyone is already long, few buyers are left and many shaky longs will sell on a dip. That makes the upside crowded and risky — a reason to size down and stop chasing, not a green light to pile in. It flags danger, not timing, so it is not a dated top either; and what the crowd is positioned in is precisely what moves price."
-      es: "Cuando casi todos ya están largos, quedan pocos compradores y muchos largos frágiles venderán a la primera caída. Eso satura y hace arriesgado el lado alcista: un motivo para reducir tamaño y dejar de perseguir, no una luz verde para amontonarse. Señala peligro, no timing, así que tampoco es un techo con fecha; y cómo está posicionada la masa es justo lo que mueve el precio."
-  - id: greedy-top-symptoms
-    kind: multi_select
-    prompt:
-      en: "Select ALL of the following that are symptoms of the same fact — that the buy side is already all-in."
-      es: "Selecciona TODO lo siguiente que sean síntomas del mismo hecho: que el lado comprador ya está todo dentro."
-    options:
-      - id: a
-        correct: true
-        text: { en: "The index has sat above 90 for a week.", es: "El índice lleva una semana por encima de 90." }
-      - id: b
-        correct: true
-        text:
-          en: "Funding is deeply positive — longs pay shorts just to keep holding."
-          es: "El funding es muy positivo: los largos pagan a los cortos solo por mantener."
-      - id: c
-        correct: true
-        text: { en: "Your feed is wall-to-wall price targets.", es: "Tu feed está lleno de objetivos de precio." }
-      - id: d
-        correct: true
-        text: { en: "Every dip is bought within minutes.", es: "Cada caída se compra en minutos." }
-      - id: e
-        text:
-          en: "Volume has dried up and volatility has collapsed to multi-month lows."
-          es: "El volumen se ha secado y la volatilidad ha caído a mínimos de meses."
-    explanation:
-      en: "Every one of the first four is the same condition seen from a different angle: a buy side with nothing left in reserve. That is the moment to be smaller and more careful, not braver. Dead volume and collapsed volatility describe a sleepy, uncrowded market — the opposite state entirely."
-      es: "Cada uno de los cuatro primeros es la misma condición vista desde otro ángulo: un lado comprador sin nada en reserva. Ese es el momento de ser más pequeño y prudente, no más valiente. Un volumen muerto y una volatilidad hundida describen un mercado dormido y sin saturar: justo el estado contrario."
-  - id: fresh-money
-    prompt:
-      en: "What is the honest mechanism behind the contrarian reading of extreme greed?"
-      es: "¿Cuál es el mecanismo honesto detrás de la lectura contraria de la codicia extrema?"
-    options:
-      - id: a
-        text:
-          en: "Greed readings above 90 have historically marked the exact top."
-          es: "Las lecturas por encima de 90 han marcado históricamente el techo exacto."
-      - id: b
-        correct: true
-        text:
-          en: "A market rises only while fresh money still lifts the offer."
-          es: "Un mercado sube solo mientras dinero nuevo siga levantando la oferta."
-      - id: c
-        text:
-          en: "The index itself causes traders to sell once it reaches an extreme."
-          es: "El propio índice hace vender a los traders al llegar a un extremo."
-      - id: d
-        text:
-          en: "Sentiment always reverts to the midpoint of 50 within a week."
-          es: "El sentimiento siempre vuelve al punto medio de 50 en una semana."
-    explanation:
-      en: "Extreme greed is the condition where that fresh money is running out — and where a lot of nervous late longs will sell fast on the first dip. It is a statement about the supply of buyers, not about the date of the turn, and the index is a thermometer that describes the crowd rather than a force that moves it."
-      es: "La codicia extrema es la condición en que ese dinero nuevo se agota, y en que muchos largos tardíos y nerviosos venderán rápido en la primera caída. Es una afirmación sobre la oferta de compradores, no sobre la fecha del giro, y el índice es un termómetro que describe a la masa, no una fuerza que la mueva."
-  - id: euphoria-can-last
-    kind: true_false
-    prompt:
-      en: "Because extreme greed means buyers are close to exhausted, a euphoric market cannot stay euphoric for long."
-      es: "Como la codicia extrema significa que los compradores están casi agotados, un mercado eufórico no puede seguir eufórico mucho tiempo."
-    answer: false
-    explanation:
-      en: "Greed has stayed extreme through entire bull runs. Persistent positive funding can bankroll it: as long as longs are willing to keep paying to hold, the crowded state can last far longer than 'it must be exhausted' suggests."
-      es: "La codicia se ha mantenido extrema durante rallies enteros. Un funding positivo persistente puede financiarla: mientras los largos estén dispuestos a seguir pagando por mantener, el estado saturado puede durar mucho más de lo que sugiere 'ya debe estar agotado'."
+      en: "True, and unusually so — volatility clustering is one of the most robust regularities in any traded market, which is why a quiet stretch really does raise the odds of a violent one. What it is not is a direction, or a date. A quiet market is not a safe market; it is a market that has not moved yet."
+      es: "Cierto, y de forma poco habitual: la agrupación de la volatilidad es una de las regularidades más robustas de cualquier mercado negociado, y por eso un tramo tranquilo sí eleva las probabilidades de uno violento. Lo que no es es una dirección ni una fecha. Un mercado tranquilo no es un mercado seguro: es un mercado que todavía no se ha movido."

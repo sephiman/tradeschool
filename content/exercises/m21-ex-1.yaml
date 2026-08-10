@@ -1,209 +1,87 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: market-tradeoff
+  - id: carry-yield
     prompt:
-      en: "You use a market order instead of a limit order. What are you choosing?"
-      es: "Usas una orden de mercado en lugar de una de límite. ¿Qué estás eligiendo?"
+      en: "You hold 1 BTC spot at 60,000 and short 1 BTC of perpetual against it. Funding runs at 0.01% per 8h in your favour. Roughly what does the position earn in a day?"
+      es: "Tienes 1 BTC en spot a 60.000 y un corto de 1 BTC de perpetuo contra él. El funding va al 0,01% cada 8h a tu favor. ¿Cuánto gana la posición al día, más o menos?"
     options:
       - id: a
         text:
-          en: "A guaranteed better price than the one the market is showing now."
-          es: "Un precio garantizado mejor que el que muestra ahora el mercado."
+          en: "6 USDT — the funding rate is charged once a day on the notional."
+          es: "6 USDT: el funding se cobra una vez al día sobre el nocional."
       - id: b
-        text:
-          en: "To wait in the book until price comes down to your chosen level."
-          es: "Esperar en el libro hasta que el precio baje a tu nivel elegido."
-      - id: c
-        text:
-          en: "Lower fees, because market orders are always the cheaper option."
-          es: "Menos comisiones, porque las órdenes de mercado son siempre más baratas."
-      - id: d
         correct: true
         text:
-          en: "Immediacy — you fill now, at whatever the book offers."
-          es: "Inmediatez: te ejecutas ya, al precio que ofrezca el libro."
+          en: "18 USDT — 6 per interval, and there are three intervals a day."
+          es: "18 USDT: 6 por intervalo y hay tres intervalos al día."
+      - id: c
+        text:
+          en: "Nothing — a delta-neutral position by definition earns nothing."
+          es: "Nada: una posición delta neutral no gana nada por definición."
+      - id: d
+        text:
+          en: "600 USDT — 0.01% of the position, three times, on 60,000 of leverage."
+          es: "600 USDT: el 0,01% de la posición, tres veces, sobre 60.000 apalancados."
     explanation:
-      en: "A market order trades price control for immediacy: it fills right away at whatever the book offers. It gives no price guarantee, it does not rest waiting for a level, and as a taker it usually costs more in fees, not less."
-      es: "Una orden de mercado cambia control del precio por inmediatez: se ejecuta al instante al precio que ofrezca el libro. No garantiza precio, no espera puesta en el libro a un nivel y, como taker, suele costar más en comisiones, no menos."
-  - id: maker-taker
+      en: "60,000 × 0.0001 = 6 USDT per interval, three intervals a day, so 18 USDT — about 6,570 a year, which on the roughly 120,000 the whole position ties up (spot plus the short's collateral) is around 5.5% annualised. Delta-neutral means no exposure to PRICE, not no return: the return is the funding the leveraged longs pay you for being on the other side."
+      es: "60.000 × 0,0001 = 6 USDT por intervalo, tres intervalos al día, o sea 18 USDT: unos 6.570 al año, que sobre los aproximadamente 120.000 que inmoviliza la posición entera (spot más el colateral del corto) son alrededor de un 5,5% anualizado. Delta neutral significa sin exposición al PRECIO, no sin retorno: el retorno es el funding que te pagan los largos apalancados por estar en el otro lado."
+  - id: funding-flip
     prompt:
-      en: "A resting limit order that adds liquidity to the book makes you a…"
-      es: "Una orden de límite puesta en el libro que aporta liquidez te convierte en…"
+      en: "You have been collecting 0.01% per 8h on the carry for a full month. The market crashes and funding goes to −0.05% per 8h. What happens?"
+      es: "Llevas un mes entero cobrando el 0,01% cada 8h con el carry. El mercado se desploma y el funding se va al −0,05% cada 8h. ¿Qué pasa?"
     options:
       - id: a
         text:
-          en: "Taker — you remove liquidity from the book and fill immediately."
-          es: "Taker: retiras liquidez del libro y te ejecutas de inmediato."
+          en: "Nothing — the hedge is delta-neutral, so funding cannot reach it."
+          es: "Nada: la cobertura es delta neutral, así que el funding no la alcanza."
       - id: b
+        text:
+          en: "Your spot leg's losses are offset by the funding, as designed."
+          es: "Las pérdidas de la pata de spot las compensa el funding, como estaba previsto."
+      - id: c
         correct: true
         text:
-          en: "Maker — price control, but no guarantee of being filled."
-          es: "Maker: control del precio, pero sin garantía de ejecutarte."
-      - id: c
-        text:
-          en: "Maker — and you are guaranteed to fill at exactly your price."
-          es: "Maker, y tienes garantizada la ejecución exactamente a tu precio."
+          en: "You now PAY, and five days of it wipes out five sixths of the month."
+          es: "Ahora PAGAS, y cinco días de eso se llevan cinco sextos del mes."
       - id: d
         text:
-          en: "Neither — orders resting in the book are cancelled automatically."
-          es: "Ninguno: las órdenes en reposo se cancelan automáticamente."
+          en: "The position auto-closes: exchanges unwind carries at negative funding."
+          es: "La posición se cierra sola: los exchanges deshacen los carries en negativo."
     explanation:
-      en: "Adding liquidity with a resting limit order makes you a maker: you control the price, but the market may never reach it, so there is no fill guarantee. A taker, by contrast, removes liquidity and fills at once — and a resting order stays put until it fills or you cancel it."
-      es: "Aportar liquidez con una orden de límite puesta te convierte en maker: controlas el precio, pero el mercado puede no alcanzarlo nunca, así que no hay garantía de ejecución. El taker, en cambio, retira liquidez y se ejecuta al instante, y una orden en reposo se queda ahí hasta ejecutarse o hasta que la canceles."
-  - id: limit-tradeoff
+      en: "Negative funding means shorts pay longs, and you are the short: 60,000 × 0.0005 × 3 = 90 USDT a day against the 18 you were collecting. Five days of that is 450 USDT against the 540 a whole month of collecting brings in — five sixths of it, gone in five days. That is the strategy's true shape — small reliable collections and occasional large payments — and nothing in your position changed to cause it. The market changed sides."
+      es: "Funding negativo significa que los cortos pagan a los largos, y el corto eres tú: 60.000 × 0,0005 × 3 = 90 USDT al día frente a los 18 que cobrabas. Cinco días de eso son 450 USDT frente a los 540 que trae un mes entero de cobros: cinco sextos, en cinco días. Esa es la forma real de la estrategia —cobros pequeños y fiables y pagos grandes de vez en cuando— y no cambió nada en tu posición para provocarlo. Cambió de lado el mercado."
+  - id: why-the-gap-persists
     prompt:
-      en: "You use a limit order instead of a market order. What are you accepting in exchange for price control?"
-      es: "Usas una orden de límite en lugar de una de mercado. ¿Qué aceptas a cambio del control del precio?"
+      en: "If the carry is a positive expected return with no directional risk, why has the premium not been arbitraged to zero?"
+      es: "Si el carry es un retorno esperado positivo sin riesgo direccional, ¿por qué no se ha arbitrado la prima hasta cero?"
     options:
       - id: a
         text:
-          en: "Guaranteed immediacy — a limit order always fills right away."
-          es: "Inmediatez garantizada: una orden límite siempre se ejecuta al momento."
+          en: "Because retail traders are not allowed to short the perpetual."
+          es: "Porque los traders minoristas no pueden ponerse cortos en el perpetuo."
       - id: b
         text:
-          en: "A worse price than the one the market is currently showing you."
-          es: "Un precio peor que el que te muestra ahora mismo el mercado."
+          en: "Because exchanges cap funding, which keeps a permanent gap open."
+          es: "Porque los exchanges topan el funding, y eso deja un hueco permanente abierto."
       - id: c
         text:
-          en: "Higher fees, because a resting limit order counts as a taker order."
-          es: "Más comisiones, porque una orden límite en reposo cuenta como taker."
+          en: "It has been: the premium on majors is zero except during outages."
+          es: "Sí se ha arbitrado: la prima de las grandes es cero salvo en caídas del servicio."
       - id: d
         correct: true
         text:
-          en: "The risk of not filling at all if price never reaches you."
-          es: "El riesgo de no ejecutarte si el precio nunca llega a ti."
+          en: "Capital is not free, the legs cost something to hold, and nobody can do it infinitely."
+          es: "El capital no es gratis, sostener las patas cuesta y nadie puede hacerlo infinitamente."
     explanation:
-      en: "A limit order gives price control but no certainty of filling: if price never reaches your level, you sit unfilled while the move happens without you. The price you name is your own, usually better than market, and a resting limit order is a maker order, which normally pays lower fees rather than higher."
-      es: "Una orden de límite da control del precio pero ninguna certeza de ejecución: si el precio nunca llega a tu nivel, te quedas sin ejecutar mientras el movimiento ocurre sin ti. El precio que fijas es el tuyo, normalmente mejor que el de mercado, y una orden límite en reposo es maker, que suele pagar comisiones más bajas y no más altas."
-  - id: taker-maker-fees
+      en: "Desks do run it at size, which is exactly why the premium on majors normally sits well inside a tenth of a percent — but the arbitrage is bounded by collateral, by the yield the same capital could earn elsewhere and by the counterparty and transfer costs of holding two legs. And the residual widens precisely when the crowd is maddest, which is why the carry's yield doubles as a leverage-mania thermometer."
+      es: "Hay mesas haciéndolo con tamaño, que es justo por lo que la prima de las grandes suele quedarse muy por debajo de una décima de punto porcentual, pero el arbitraje está limitado por el colateral, por lo que ese mismo capital podría rendir en otro sitio y por los costes de contraparte y de transferencia de sostener dos patas. Y el residuo se ensancha precisamente cuando la masa está más loca, y por eso el rendimiento del carry sirve además de termómetro de la manía del apalancamiento."
+  - id: crowded-carry
     kind: true_false
     prompt:
-      en: "On most exchanges a taker pays more than a maker — but a fee saved on a limit order that never fills is no saving at all."
-      es: "En la mayoría de exchanges el taker paga más que el maker, pero una comisión ahorrada en una orden límite que nunca se ejecuta no es ningún ahorro."
-    answer: true
-    explanation:
-      en: "True on both halves. Most venues charge takers more and sometimes rebate makers, and the gap adds up over hundreds of trades — but price control is only worth what it costs you in fills you never get."
-      es: "Cierto en ambas mitades. La mayoría de venues cobran más al taker y a veces bonifican al maker, y la diferencia se acumula a lo largo de cientos de operaciones, pero el control del precio solo vale lo que te cuesta en ejecuciones que nunca consigues."
-  - id: order-role-match
-    kind: matching
-    prompt:
-      en: "Match each execution concept to its behaviour."
-      es: "Empareja cada concepto de ejecución con su comportamiento."
-    pairs:
-      - id: mkt
-        left: { en: "Market order", es: "Orden de mercado" }
-        right: { en: "Fills now at whatever the book offers; you give up price control", es: "Se ejecuta ya al precio que ofrezca el libro; renuncias al control del precio" }
-      - id: lmt
-        left: { en: "Limit order", es: "Orden de límite" }
-        right: { en: "Fills only at your price or better; may never fill", es: "Se ejecuta solo a tu precio o mejor; puede no ejecutarse nunca" }
-      - id: mkr
-        left: { en: "Maker", es: "Maker" }
-        right: { en: "Adds liquidity with a resting order", es: "Aporta liquidez con una orden puesta en el libro" }
-      - id: tkr
-        left: { en: "Taker", es: "Taker" }
-        right: { en: "Removes liquidity by filling against resting orders", es: "Retira liquidez ejecutándose contra las órdenes puestas" }
-    explanation:
-      en: "A market order takes immediacy and gives up price control; a limit order names your price but may never fill. Resting a limit order makes you a maker (you add liquidity); filling against the book makes you a taker (you remove it)."
-      es: "Una orden de mercado toma inmediatez y renuncia al control del precio; una orden de límite fija tu precio pero puede no ejecutarse nunca. Poner una orden de límite en el libro te hace maker (aportas liquidez); ejecutarte contra el libro te hace taker (la retiras)."
-  - id: limit-missed-move
-    prompt:
-      en: "You place a limit buy just below the market and wait. Price jumps up and runs without ever dipping to your level. What did the limit order cost you?"
-      es: "Colocas una compra de límite justo por debajo del mercado y esperas. El precio salta y se dispara sin bajar nunca a tu nivel. ¿Qué te costó la orden de límite?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "The trade itself — you never filled and missed the move."
-          es: "La operación misma: no te ejecutaste y perdiste el movimiento."
-      - id: b
-        text:
-          en: "Extra taker fees charged on the order that was eventually cancelled."
-          es: "Comisiones taker extra por la orden que acabó cancelándose."
-      - id: c
-        text:
-          en: "Nothing — a limit order guarantees a fill once price comes close enough."
-          es: "Nada: una orden límite garantiza ejecución si el precio se acerca."
-      - id: d
-        text:
-          en: "A forced liquidation of the rest of your account's positions."
-          es: "Una liquidación forzosa del resto de posiciones de tu cuenta."
-    explanation:
-      en: "A limit order controls your price but carries no fill guarantee. If the market never trades at your level, you simply do not get in, and the move happens without you while your order sits there. That missed entry — not a fee and not a liquidation — is the cost of insisting on price."
-      es: "Una orden de límite controla tu precio pero no da garantía de ejecución. Si el mercado nunca opera a tu nivel, sencillamente no entras, y el movimiento ocurre sin ti mientras tu orden sigue ahí. Esa entrada perdida —no una comisión ni una liquidación— es el coste de insistir en el precio."
-  - id: market-price-guarantee
-    kind: true_false
-    prompt:
-      en: "A market order guarantees you fill at the price shown on your screen at the moment you click."
-      es: "Una orden de mercado garantiza que te ejecutas al precio que muestra tu pantalla en el momento en que haces clic."
+      en: "The more capital piles into the cash-and-carry, the more it pays."
+      es: "Cuanto más capital se amontona en el cash-and-carry, más paga."
     answer: false
     explanation:
-      en: "A market order guarantees a fill, not a price. It takes whatever the book offers, which can differ from the last printed price — especially in a thin book, where it walks through resting orders and fills at progressively worse prices."
-      es: "Una orden de mercado garantiza la ejecución, no el precio. Toma lo que ofrezca el libro, que puede diferir del último precio impreso, sobre todo en un libro poco profundo, donde atraviesa las órdenes puestas y se ejecuta a precios cada vez peores."
-  - id: btc-order-choice
-    prompt:
-      en: "You want to buy 1 BTC and the best ask is 60,000. What does each order type actually get you?"
-      es: "Quieres comprar 1 BTC y el mejor ask está en 60.000. ¿Qué consigue realmente cada tipo de orden?"
-    options:
-      - id: a
-        text:
-          en: "Both fill at 60,000; the limit order simply pays the lower fee."
-          es: "Ambas se ejecutan en 60.000; la límite solo paga la comisión menor."
-      - id: b
-        text:
-          en: "The limit order fills first, because it is placed inside the spread."
-          es: "La límite se ejecuta primero, porque se coloca dentro del spread."
-      - id: c
-        correct: true
-        text:
-          en: "Market fills now near 60,000; a limit at 59,850 fills only on a dip."
-          es: "La de mercado ejecuta ya cerca de 60.000; una límite en 59.850, solo si baja."
-      - id: d
-        text:
-          en: "A market order fills at the last printed price, whatever the book holds."
-          es: "La de mercado ejecuta al último precio impreso, tenga lo que tenga el libro."
-    explanation:
-      en: "The market order fills instantly at 60,000 — a little worse if 1 BTC exceeds the size at the top ask — while the limit buy at 59,850 saves 150 if price dips and never fills if price runs away. Same idea, two outcomes chosen entirely by the order type: cheaper-or-nothing versus now-at-market. That trade-off, immediacy against price, is the whole distinction."
-      es: "La orden de mercado se ejecuta al instante en 60.000 —algo peor si 1 BTC supera el tamaño del mejor ask—, mientras que la compra límite en 59.850 ahorra 150 si el precio baja y no se ejecuta nunca si el precio se escapa. La misma idea, dos resultados elegidos únicamente por el tipo de orden: más barato o nada, frente a ahora a mercado. Ese equilibrio, inmediatez contra precio, es toda la distinción."
-  - id: order-roles
-    kind: multi_select
-    prompt:
-      en: "Select ALL statements about makers and takers that are TRUE."
-      es: "Selecciona TODAS las afirmaciones ciertas sobre makers y takers."
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Every order you send either takes a resting order or becomes one."
-          es: "Cada orden que envías o toma una orden en reposo o se convierte en una."
-      - id: b
-        correct: true
-        text:
-          en: "A market order makes you a taker: immediacy, no price control."
-          es: "Una orden de mercado te hace taker: inmediatez, sin control del precio."
-      - id: c
-        correct: true
-        text:
-          en: "A resting limit order makes you a maker: price control, no certainty."
-          es: "Una límite en reposo te hace maker: control del precio, sin certeza."
-      - id: d
-        correct: true
-        text:
-          en: "Most exchanges charge takers more, sometimes rebating makers."
-          es: "La mayoría de exchanges cobran más al taker y a veces bonifican al maker."
-      - id: e
-        text:
-          en: "A limit order is always the better choice, because the fee is lower."
-          es: "Una orden límite siempre es mejor opción, porque la comisión es menor."
-    explanation:
-      en: "The fee gap is small per trade and large over hundreds of trades — one reason scalpers fight to use limit orders. But a fee saved on an order that never fills is not a saving, so 'always better' is exactly the conclusion the trade-off forbids."
-      es: "La diferencia de comisiones es pequeña por operación y grande a lo largo de cientos: una razón por la que los scalpers luchan por usar órdenes límite. Pero una comisión ahorrada en una orden que nunca se ejecuta no es un ahorro, así que 'siempre mejor' es justo la conclusión que el compromiso prohíbe."
-  - id: fee-saved-nofill
-    kind: true_false
-    prompt:
-      en: "Choosing a limit order to capture the lower maker fee is a saving even when the order never fills."
-      es: "Elegir una orden límite para aprovechar la comisión maker más baja es un ahorro incluso si la orden no se ejecuta nunca."
-    answer: false
-    explanation:
-      en: "A fee saved on an order that never fills is not a saving — it is a missed trade. Price control is only worth what it costs you in fills you do not get."
-      es: "Una comisión ahorrada en una orden que nunca se ejecuta no es un ahorro: es una operación perdida. El control del precio solo vale lo que te cuesta en ejecuciones que no consigues."
+      en: "It is the other way round, and by construction: every carry sells the perp against spot, which compresses the premium, which lowers the funding everybody is collecting. A crowded carry is a carry paying less — m19-l1's premium read from the other side of the table — and it is why advertised yields always belong to the period before everybody arrived."
+      es: "Es al revés, y por construcción: cada carry vende perpetuo contra spot, lo que comprime la prima, lo que baja el funding que cobra todo el mundo. Un carry concurrido es un carry que paga menos —la prima de m19-l1 leída desde el otro lado de la mesa— y por eso los rendimientos que se anuncian son siempre los del periodo anterior a que llegara todo el mundo."

@@ -147,6 +147,20 @@ def _canonical_order(registry: CourseRegistry) -> dict[str, int]:
     return {module.id: i for i, (_, module) in enumerate(registry.manifest.iter_modules())}
 
 
+def _result_for_view(registry: CourseRegistry, result: dict[str, object]) -> dict[str, object]:
+    """A stored result blob speaks keys (`moduleId`); the view speaks display ids."""
+    out = dict(result)
+    modules = result.get("modules")
+    if isinstance(modules, list):
+        out["modules"] = [
+            {**m, "moduleId": registry.module_id_for_key(str(m.get("moduleId"))) or m.get("moduleId")}
+            if isinstance(m, dict)
+            else m
+            for m in modules
+        ]
+    return out
+
+
 def _build_view(
     session_obj: ExamSession,
     registry: CourseRegistry,
@@ -156,8 +170,11 @@ def _build_view(
 ) -> ExamView:
     order = _canonical_order(registry)
 
+    def display_id(a: Attempt) -> str:
+        return registry.exercise_id_for_key(a.exercise_id) or a.exercise_id
+
     def sort_key(a: Attempt) -> int:
-        loc = registry.exercise_location(a.exercise_id)
+        loc = registry.exercise_location(display_id(a))
         return order.get(loc[1], 10_000) if loc else 10_000
 
     rules = _rules(session_obj)
@@ -166,9 +183,10 @@ def _build_view(
     block_id_str = str(block_id) if isinstance(block_id, str) else None
     questions: list[ExamQuestionView] = []
     for index, attempt in enumerate(sorted(attempts, key=sort_key)):
-        loc = registry.exercise_location(attempt.exercise_id)
+        exercise_id = display_id(attempt)
+        loc = registry.exercise_location(exercise_id)
         b_id, m_id = loc if loc else ("", "")
-        config = registry.get_exercise_config(attempt.exercise_id)
+        config = registry.get_exercise_config(exercise_id)
         if config is None:
             continue  # exercise deactivated since the exam ran — skip defensively
         exercise_type, cfg = config
@@ -182,7 +200,7 @@ def _build_view(
             module_title=registry.module_title(m_id, locale) or m_id,
             block_id=b_id,
             block_title=registry.block_title(b_id, locale) or b_id,
-            exercise_id=attempt.exercise_id,
+            exercise_id=exercise_id,
             exercise_type=exercise_type,
             instance=instance,
             given_answer=attempt.given_answer,
@@ -211,7 +229,7 @@ def _build_view(
         created_at=session_obj.created_at,
         finished_at=session_obj.finished_at,
         questions=questions,
-        result=result if isinstance(result, dict) else None,
+        result=_result_for_view(registry, result) if isinstance(result, dict) else None,
     )
 
 
@@ -261,7 +279,7 @@ async def start_exam(
         session.add(
             Attempt(
                 user_id=user_id,
-                exercise_id=exercise_id,
+                exercise_id=registry.exercise_key(exercise_id),  # rows store the permanent key
                 seed=seed,
                 instance_snapshot={
                     "type": exercise_type.value,
@@ -343,10 +361,13 @@ async def submit_exam(
     block_correct: dict[str, int] = {}
     block_total: dict[str, int] = {}
 
+    def display_id(a: Attempt) -> str:
+        return registry.exercise_id_for_key(a.exercise_id) or a.exercise_id
+
     for attempt in sorted(
-        attempts, key=lambda a: order.get((registry.exercise_location(a.exercise_id) or ("", ""))[1], 10_000)
+        attempts, key=lambda a: order.get((registry.exercise_location(display_id(a)) or ("", ""))[1], 10_000)
     ):
-        config = registry.get_exercise_config(attempt.exercise_id)
+        config = registry.get_exercise_config(display_id(attempt))
         answered = attempt.given_answer is not None
         is_correct = False
         if answered and config is not None:
@@ -362,11 +383,13 @@ async def submit_exam(
         attempt.state = AttemptState.ANSWERED
         attempt.answered_at = now
 
-        loc = registry.exercise_location(attempt.exercise_id)
+        loc = registry.exercise_location(display_id(attempt))
         b_id, m_id = loc if loc else ("", "")
         per_module.append(
             {
-                "moduleId": m_id,
+                # Stored in the session's rules blob, so this is a KEY — display ids are resolved
+                # at view time (`_result_for_view`), which is also what keeps pre-renumber exams true.
+                "moduleId": registry.module_key(m_id) if m_id else m_id,
                 "title": registry.module_title(m_id, locale) or m_id,
                 "blockId": b_id,
                 "correct": is_correct,

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Stop-limit gap injector (m21-l1): the protective order that never fills.
+"""Stop-limit gap injector (m24-l1): the protective order that never fills.
 
-Plants m21-l1's warning as a sequence: one candle's body slices through both trigger and limit, leaving
+Plants m24-l1's warning as a sequence: one candle's body slices through both trigger and limit, leaving
 the sell-limit resting above the market where nobody will lift it.
 
 Both lines are `plan` levels, so the "every drawn level was tested" contract does not apply; they carry

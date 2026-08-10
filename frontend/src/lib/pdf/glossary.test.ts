@@ -57,8 +57,8 @@ describe("the printed glossary", () => {
         origin: null,
         originTitle: null,
         senses: [
-          { origin: "m17-l1", originTitle: "Derivatives", definition: "Perp above spot." },
-          { origin: "m28-l1", originTitle: "Premium", definition: "Between venues." },
+          { origin: "m19-l1", originTitle: "Derivatives", definition: "Perp above spot." },
+          { origin: "m32-l1", originTitle: "Premium", definition: "Between venues." },
         ],
       }),
     ];
@@ -67,8 +67,8 @@ describe("the printed glossary", () => {
     expect(printed).toContain("2. ");
     expect(printed).toContain("Perp above spot.");
     // Each sense points at its OWN lesson, id upper-cased and joined to the lesson title.
-    expect(printed).toContain("M17-L1 · Derivatives");
-    expect(printed).toContain("M28-L1 · Premium");
+    expect(printed).toContain("M19-L1 · Derivatives");
+    expect(printed).toContain("M32-L1 · Premium");
   });
 
   it("gives every entry a keep-whole id, so a term never splits from its definition", () => {

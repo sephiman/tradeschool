@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Indicator maths (NumPy, float — scenario data, not financial grading §8).
 
-RSI and MACD, plus the volatility family m32 reads: Bollinger (mean ± standard deviations), Keltner
+RSI and MACD, plus the volatility family m16 reads: Bollinger (mean ± standard deviations), Keltner
 (mean ± ATR), and the squeeze momentum they are packaged into. Every one of them is defined over the
 FULL series including warm-up, and every one is `len(close)` long, filled forward at the left edge so
 a pane never opens on a NaN.
@@ -102,7 +102,7 @@ def keltner(
     """(basis, upper, lower) = mean ± `mult` ATRs.
 
     Same mean, a different ruler: the ATR reacts to how far a bar TRAVELS, the standard deviation to how
-    far closes SCATTER, which is why the two envelopes cross at all (m32-l1).
+    far closes SCATTER, which is why the two envelopes cross at all (m16-l1).
     """
     basis = sma(close, period)
     band = mult * atr(high, low, close, period)
@@ -121,7 +121,7 @@ def squeeze_momentum(high: Floats, low: Floats, close: Floats, period: int = 20)
     Deviation of the close from the midpoint between the period's donchian mid and its mean, fitted
     with a rolling linear regression and read at the last bar — i.e. *where the deviation is heading*,
     not where it stands. Zero-centred by construction, which is the whole of its reading: sign says
-    which way, magnitude says how hard. m32-l1 presents it as a packaging of the two envelopes above.
+    which way, magnitude says how hard. m16-l1 presents it as a packaging of the two envelopes above.
     """
     donchian = (_rolling(high, period).max(axis=1) + _rolling(low, period).min(axis=1)) / 2.0
     deviation = close - (donchian + sma(close, period)) / 2.0

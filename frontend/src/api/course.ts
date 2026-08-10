@@ -265,18 +265,18 @@ export interface FigurePanel {
   macd?: { line: number[]; signal: number[]; hist: number[] };
   oi?: number[];
   cvd?: number[];
-  /** The zero-centred pane (m32): a signed series and its optional per-bar state row. */
+  /** The zero-centred pane (m16): a signed series and its optional per-bar state row. */
   momentum?: number[];
   momentum_state?: number[];
   overlays?: Record<string, number[]>;
   levels?: { price: number; label: string; kind: string }[];
-  /** Sloped lines (m31), projected to the figure's own right edge so the break is judged against them. */
+  /** Sloped lines (m15), projected to the figure's own right edge so the break is judged against them. */
   diagonals?: { start: number; end: number; start_price: number; end_price: number; label: string; kind: string }[];
-  /** Shaded zones. A figure draws them; an exercise payload never carries them (m30). */
+  /** Shaded zones. A figure draws them; an exercise payload never carries them (m34). */
   bands?: { low: number; high: number; label: string; kind: string }[];
   indicator: "rsi" | "macd" | "oi" | "cvd" | "momentum" | "none";
   annotations: { index: number; kind: string; label: string }[];
-  /** A second panel of the SAME price at a coarser frame (m20-l2), aggregated from the one above. */
+  /** A second panel of the SAME price at a coarser frame (m23-l2), aggregated from the one above. */
   context?: {
     series: { time: number[]; open: number[]; high: number[]; low: number[]; close: number[]; volume: number[] };
     position: "above" | "below";

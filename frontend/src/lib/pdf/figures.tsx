@@ -102,7 +102,7 @@ export async function mount(stage: HTMLElement, node: ReactNode): Promise<Mounte
   return { root, failure: () => thrown.error };
 }
 
-/** Height of each panel when a chart is drawn with its multi-timeframe companion (m20-l2). */
+/** Height of each panel when a chart is drawn with its multi-timeframe companion (m23-l2). */
 export const PAIRED_STAGE_HEIGHT = 210;
 
 /** A degenerate bitmap makes the typesetter SPIN rather than complain, so reject it while it has a name. */
@@ -141,7 +141,7 @@ export async function captureChart(node: (onReady: (c: IChartApi) => void) => Re
 }
 
 /**
- * Stack two captured panels into one bitmap (m20-l2's paired frames).
+ * Stack two captured panels into one bitmap (m23-l2's paired frames).
  *
  * One image rather than two, so nothing downstream has to learn about pairs: a figure keeps one entry
  * per panel and `ExerciseChartLookup` keeps returning one image per exercise — which is what keeps the

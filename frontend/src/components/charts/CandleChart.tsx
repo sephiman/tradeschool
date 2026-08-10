@@ -58,7 +58,7 @@ export interface PriceLevel {
   kind: string;
 }
 
-/** A shaded price ZONE — m30's origin zone and imbalance. Two prices, because that is what it is. */
+/** A shaded price ZONE — m34's origin zone and imbalance. Two prices, because that is what it is. */
 export interface PriceBand {
   low: number;
   high: number;
@@ -67,10 +67,10 @@ export interface PriceBand {
 }
 
 /**
- * A SLOPED line — m31's trendlines, channel edges and wedge boundaries. Two anchors, because a diagonal
+ * A SLOPED line — m15's trendlines, channel edges and wedge boundaries. Two anchors, because a diagonal
  * is a rate rather than a price, and the backend hands over the bar indices it was drawn between.
  *
- * Unlike a `PriceBand` this is PUBLIC on an exercise chart: the zone is m30's answer, the line is m31's
+ * Unlike a `PriceBand` this is PUBLIC on an exercise chart: the zone is m34's answer, the line is m15's
  * question, and a question you cannot see is not one.
  */
 export interface PriceDiagonal {
@@ -82,7 +82,7 @@ export interface PriceDiagonal {
   kind: string;
 }
 
-/** The zero-centred pane (m32): a signed histogram, plus an optional per-bar on/off state row. */
+/** The zero-centred pane (m16): a signed histogram, plus an optional per-bar on/off state row. */
 export interface MomentumData {
   values: number[];
   state?: number[];
@@ -92,7 +92,7 @@ export interface MomentumData {
  * The drawing palette. OLED is the dark palette plus a delta, never a third branch, so the two shipped
  * themes cannot drift while the third is tuned.
  *
- * The delta touches CHROME only (grid, axis borders, crosshair). Every SIGNAL colour is kept, so m21's
+ * The delta touches CHROME only (grid, axis borders, crosshair). Every SIGNAL colour is kept, so m24's
  * stop line is not a different colour depending on the reader's preference.
  */
 const OLED_INK = {
@@ -126,16 +126,16 @@ export const palette = (theme: ResolvedTheme) => {
     marker: dark ? "#e5e7eb" : "#111827",
     // A shaded zone follows the `plan` colour precedent: the SAME high-contrast neutral the markers use,
     // deliberately not red/green. An origin zone can be demand or supply and an imbalance can point either
-    // way, so a green band would import exactly the "bullish order block" semantics m30-l1 refuses. The
+    // way, so a green band would import exactly the "bullish order block" semantics m34-l1 refuses. The
     // fill is that neutral at low alpha — enough to read as an area, not enough to tint the candles.
     band: dark ? "#e5e7eb" : "#111827",
     bandFill: dark ? "rgba(229,231,235,0.10)" : "rgba(17,24,39,0.08)",
     // A DIAGONAL follows the level palette rather than the band one, because that is what it is: a
     // support/resistance that moves. Same green/red pair a horizontal level gets, so a reader does not
-    // have to learn a second colour language for the same claim (m31-l1's whole framing).
+    // have to learn a second colour language for the same claim (m15-l1's whole framing).
     // The compression row under the momentum pane is the marker neutral: a state flag is not a
     // direction, and colouring it green or red would say the squeeze points somewhere — the one thing
-    // m32-l1 spends its closing section refusing to say.
+    // m16-l1 spends its closing section refusing to say.
     squeezeOn: dark ? "#e5e7eb" : "#111827",
     squeezeOff: dark ? "#4b5563" : "#9ca3af",
     // Distinct thin-line colors for price-pane overlays (e.g. moving averages), cycled by order.
@@ -186,10 +186,10 @@ export function CandleChart({
   markers?: SwingMarker[];
   overlays?: Record<string, number[]>;
   levels?: PriceLevel[];
-  // Sloped lines (m31). Public, unlike `bands` — see `PriceDiagonal`.
+  // Sloped lines (m15). Public, unlike `bands` — see `PriceDiagonal`.
   diagonals?: PriceDiagonal[];
   // Shaded zones. Ground truth on the backend, so an exercise chart only ever receives these AFTER
-  // grading — drawing the zone on the question would be the answer (m30).
+  // grading — drawing the zone on the question would be the answer (m34).
   bands?: PriceBand[];
   height?: number;
   // Empty bars of margin on the right so a marker planted near the last candle isn't clipped by the
@@ -222,7 +222,7 @@ export function CandleChart({
   // things to a reader even when both are drawn as a rising support, so the LABEL leads here too.
   const diagonalText = (d: PriceDiagonal): string =>
     t(`diagonal.${d.label}`, { defaultValue: t(`diagonal.${d.kind}`, { defaultValue: d.label }) });
-  // Overlay titles: `ema20` and `ema50` are display-ready and fall through, m32's envelope edges are
+  // Overlay titles: `ema20` and `ema50` are display-ready and fall through, m16's envelope edges are
   // named in the catalog. Defined out here with the others because the effect shadows `t`.
   const overlayText = (name: string): string => t(`overlay.${name}`, { defaultValue: name });
 
@@ -266,7 +266,7 @@ export function CandleChart({
       },
     });
 
-    // Shaded price zones (m30's origin zone / imbalance), added FIRST so the candles draw on top of the
+    // Shaded price zones (m34's origin zone / imbalance), added FIRST so the candles draw on top of the
     // tint rather than under it — lightweight-charts z-orders series by creation order.
     //
     // A band is a BaselineSeries pinned at its lower edge with every bar valued at its upper edge, which
@@ -345,7 +345,7 @@ export function CandleChart({
     // Values align 1:1 with the visible series; non-finite entries render as gaps (whitespace).
     if (overlays) {
       // Colour is keyed to the part of the name BEFORE any underscore, not to insertion order, so an
-      // envelope's two edges share one colour (m32 draws `bb_upper`/`bb_lower` and `kc_upper`/
+      // envelope's two edges share one colour (m16 draws `bb_upper`/`bb_lower` and `kc_upper`/
       // `kc_lower`, and four unrelated colours would read as four unrelated lines rather than two
       // bands). Names without an underscore — `ema20`, `ema50` — are their own family, so the moving
       // averages keep exactly the colours they had.
@@ -373,7 +373,7 @@ export function CandleChart({
       });
     }
 
-    // Sloped lines on the price pane (m31). A LineSeries with exactly two points — lightweight-charts
+    // Sloped lines on the price pane (m15). A LineSeries with exactly two points — lightweight-charts
     // draws the straight segment between them, which is precisely what a diagonal is, and matches the
     // backend's own linear-in-price projection bar for bar.
     //
@@ -477,7 +477,7 @@ export function CandleChart({
     } else if (indicator === "momentum" && momentum) {
       // A ZERO-CENTRED pane: a signed histogram read against zero, plus an optional per-bar state row.
       // Generic on purpose — the backend calls the series `momentum` and any injector may supply one;
-      // m32's squeeze indicator is the first, not the definition.
+      // m16's squeeze indicator is the first, not the definition.
       const hist = chart.addSeries(
         HistogramSeries,
         { priceLineVisible: false, lastValueVisible: false },

@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Drawn-DIAGONAL integrity (m31), for every injector that draws one and every figure that renders one.
+"""Drawn-DIAGONAL integrity (m15), for every injector that draws one and every figure that renders one.
 
 The moving-level twin of `test_chart_levels.py`, and it needs its own file for the reason the diagonal
 needs its own primitive: a horizontal level is enforced by moving wicks (`LevelGuard`), and a diagonal
-cannot be — a wick through a trendline is the ordinary case m31-l1 teaches you to ignore, so repairing
+cannot be — a wick through a trendline is the ordinary case m15-l1 teaches you to ignore, so repairing
 it would enforce the opposite of the lesson. The contract is therefore ASSERTED on the CLOSES over
 hundreds of seeds, the way a `Band`'s is.
 
@@ -124,7 +124,7 @@ def test_exercise_and_full_export_agree_on_every_diagonal(injector: str, label: 
 
 
 def test_a_diagonal_is_public_where_a_band_is_withheld() -> None:
-    """The asymmetry stated once: the zone IS the answer (m30), the line is the QUESTION (m31)."""
+    """The asymmetry stated once: the zone IS the answer (m34), the line is the QUESTION (m15)."""
     for injector, label in _DIAGONAL_PAIRS[:1] + _DIAGONAL_PAIRS[-1:]:
         _lbl, _ann, payload = _instantiate(_config(injector, [label]), 0)
         assert _drawn(payload), f"{injector}/{label} withheld the line its own question is asked about"
@@ -152,7 +152,7 @@ def test_diagonal_is_part_of_the_injector_contract() -> None:
 def test_every_drawn_diagonal_is_validated_before_the_decision(injector: str, label: str) -> None:
     """Three separated touches and no close through it: `diagonals.respected`, the whole contract.
 
-    Two touches define a candidate line and the THIRD validates it (m31-l1), so a chart that draws one
+    Two touches define a candidate line and the THIRD validates it (m15-l1), so a chart that draws one
     with two is a chart teaching the discipline it just broke.
     """
     inj = get_injector(injector)
@@ -178,7 +178,7 @@ def test_every_drawn_diagonal_is_validated_before_the_decision(injector: str, la
 def test_the_measured_floor_the_touch_margin_was_set_from() -> None:
     """Re-measure, never trust: the closest bar of a designed visit against `TOUCH_MARGIN`.
 
-    The margin is a *measured* bound, the discipline m30's 2%-against-a-3.40%-floor established. This
+    The margin is a *measured* bound, the discipline m34's 2%-against-a-3.40%-floor established. This
     recomputes the floor on every run, so an injector edit that drifts the visits away from the line
     fails here with the number rather than silently spending the headroom.
     """
@@ -321,7 +321,7 @@ def test_every_trend_channel_label_settles_the_same_distance_from_its_line() -> 
 
 
 def test_the_break_brings_participation_and_the_fakeout_does_not() -> None:
-    """m31-l1 reads a diagonal break with m14's rule, so the generated volume has to agree with it."""
+    """m15-l1 reads a diagonal break with m14's rule, so the generated volume has to agree with it."""
     inj = get_injector("trend_channel")
     ratios: dict[str, list[float]] = {}
     for label in ("line_break", "line_fakeout", "line_holds"):
@@ -340,11 +340,11 @@ def test_the_break_brings_participation_and_the_fakeout_does_not() -> None:
 
 # --- 4. the DIRECTIONALITY exception, stated where the guard it excepts can be read ---------------
 #
-# `test_chart_bands.py` §3b pins the m30 injectors to the bullish case, and says why: m30-ex-1 and
-# m30-ex-2 describe that geometry IN WORDS, so a bearish seed would be graded against a question
+# `test_chart_bands.py` §3b pins the m34 injectors to the bullish case, and says why: m34-ex-1 and
+# m34-ex-2 describe that geometry IN WORDS, so a bearish seed would be graded against a question
 # describing the mirror of what is on screen.
 #
-# The m31 family is the NAMED EXCEPTION to that guard, and it is an exception because the reason does
+# The m15 family is the NAMED EXCEPTION to that guard, and it is an exception because the reason does
 # not apply rather than because the rule was inconvenient: its prompts and its prose say "the line" and
 # "beyond it", never "the high", so a falling channel answers the same question a rising one does.
 # These two tests are the other side of that deal — they fail if the family ever stops shipping both
@@ -444,7 +444,7 @@ def _bar_range_ratio(label: str, seeds: int = 120) -> float:
 
 @pytest.mark.parametrize("label", [s for s in _SHAPE_LABELS if s != "parallel_channel"])
 def test_the_candles_narrow_with_the_lines(label: str) -> None:
-    """"Each bar's range narrows" (m31-l2) is a claim about the CANDLES, so it is checked on them.
+    """"Each bar's range narrows" (m15-l2) is a claim about the CANDLES, so it is checked on them.
 
     The lines are linear by construction, so their own convergence is arithmetic and the test above is
     nearly a tautology. This is the half that can actually be false, and was: at the original width the
@@ -474,7 +474,7 @@ def test_a_coil_narrows_measurably_more_than_the_control() -> None:
 
 @pytest.mark.parametrize("label", _SHAPE_LABELS)
 def test_both_converging_lines_are_validated(label: str) -> None:
-    """Three touches EACH: a coil drawn through two points on one side is a drawing (m31-l1)."""
+    """Three touches EACH: a coil drawn through two points on one side is a drawing (m15-l1)."""
     inj = get_injector("converging_lines")
     config = _config("converging_lines", [label])
     for seed in range(_SEEDS):
@@ -539,7 +539,7 @@ def _figure_diagonal_panels() -> list[tuple[str, int]]:
 
 @pytest.mark.parametrize(("figure_id", "panel"), _figure_diagonal_panels())
 def test_a_figure_projects_its_diagonals_to_its_own_right_edge(figure_id: str, panel: int) -> None:
-    """The break is only visible against the line carried PAST the bars that drew it (m31-l1).
+    """The break is only visible against the line carried PAST the bars that drew it (m15-l1).
 
     A figure appends its resolution, so a diagonal that stopped where the injector's window did would
     leave the whole point of the figure drawn over empty space.
@@ -569,7 +569,7 @@ def test_a_figure_diagonal_is_still_the_line_the_injector_drew(figure_id: str, p
         line = Diagonal(start=start, end=end, start_price=p0, end_price=p1, kind=str(d["kind"]))
         # The pre-resolution stretch is where the rhythm lives, so the line has to sit among those bars
         # rather than have been swung away by the extension. Counted on the CLOSES, with the same
-        # `touches` the contract uses — NOT on the wicks. m31-l1 declares the anchoring criterion and
+        # `touches` the contract uses — NOT on the wicks. m15-l1 declares the anchoring criterion and
         # keeps it: this course anchors diagonals on bodies, so a support line sits just under the
         # closes and the wicks dip through it. Requiring a wick to straddle the line would be asserting
         # the criterion the lesson explicitly did not choose.
@@ -602,7 +602,7 @@ def test_no_two_figures_draw_the_same_diagonal_anchor() -> None:
 
 # --- 7. RED FIRST: the two contracts of §2 and §3, shown saying no ---------------------------------
 #
-# Owed from the m31/m32 build and produced here. Everything above asserts that correct output passes,
+# Owed from the m15/m16 build and produced here. Everything above asserts that correct output passes,
 # which is only half a proof: a `respected()` that returned True unconditionally, or a `channel_failed`
 # check that could not tell the anchor from the parallel, would sail through every one of them.
 #
@@ -649,7 +649,7 @@ def test_the_respect_contract_fails_when_a_body_closes_through_the_line() -> Non
 def test_the_respect_contract_fails_when_the_line_was_never_touched() -> None:
     """RED FIRST, clause 2: the same candles, the line re-anchored away from all of them.
 
-    Two touches propose a line and the third validates it (m31-l1). A line price never came back to
+    Two touches propose a line and the third validates it (m15-l1). A line price never came back to
     has none, and a contract that only checked for breaches would certify it — which is precisely the
     "draw whatever you want to see" failure the lesson names.
     """

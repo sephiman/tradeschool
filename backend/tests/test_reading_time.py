@@ -107,8 +107,8 @@ def test_adding_a_figure_moves_the_estimate_by_exactly_figure_seconds() -> None:
 def test_estimates_are_per_locale_and_differ_between_es_and_en() -> None:
     """ES and EN estimate differently, and both nonzero — a locale at 0 would show no time at all."""
     registry = load_registry(get_settings().content_dir)
-    en = registry.lesson_reading_seconds("m30-l1", "en")
-    es = registry.lesson_reading_seconds("m30-l1", "es")
+    en = registry.lesson_reading_seconds("m34-l1", "en")
+    es = registry.lesson_reading_seconds("m34-l1", "es")
     assert en > 0 and es > 0
     assert en != es, "identical estimates would mean one locale's markdown was measured twice"
     # Every authored lesson is estimated in both languages, with no missing entries.
@@ -151,8 +151,8 @@ async def test_every_view_serves_the_same_per_lesson_seconds(content_client: Asy
         assert detail["readingSeconds"] == seconds
 
     # ...and the localized payload carries the localized estimate.
-    es = (await content_client.get("/api/lessons/m30-l1?lang=es")).json()
-    en = (await content_client.get("/api/lessons/m30-l1?lang=en")).json()
+    es = (await content_client.get("/api/lessons/m34-l1?lang=es")).json()
+    en = (await content_client.get("/api/lessons/m34-l1?lang=en")).json()
     assert es["readingSeconds"] > 0 and es["readingSeconds"] != en["readingSeconds"]
 
 

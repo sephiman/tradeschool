@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m16-squeeze
+key: fig-m32-squeeze  # pre-renumber identity (2026-08-10); never renamed
+kind: chart
+caption:
+  en: 'The volatility cycle, with both rulers on the chart. The Bollinger band is the mean plus
+    and minus two standard deviations of the CLOSES; the Keltner channel is the same mean plus
+    and minus one and a half average true ranges — how far a BAR travels. The window opens
+    busy and the Bollinger band sits outside the Keltner one. Then the closes pin themselves
+    together while the bars keep moving, the Bollinger band slides inside the Keltner
+    channel — that is the squeeze — and the closing stretch is the expansion coming out of
+    it. Which WAY it came out is a property of this instance and of nothing else.'
+  es: 'El ciclo de volatilidad, con las dos reglas en el gráfico. La banda de Bollinger es la
+    media más y menos dos desviaciones típicas de los CIERRES; el canal de Keltner es esa misma
+    media más y menos un ATR y medio, es decir, cuánto recorre una BARRA. La ventana empieza
+    agitada y la banda de Bollinger queda por fuera de la de Keltner. Luego los cierres se
+    juntan mientras las barras siguen moviéndose, la banda de Bollinger se mete dentro del
+    canal de Keltner —eso es el squeeze— y el tramo final es la expansión saliendo de ahí.
+    Hacia DÓNDE salió es una propiedad de esta instancia y de nada más.'
+panels:
+- generator: pattern_chart
+  injector: volatility_bands
+  target: compression
+  # The 1,850 tier; the momentum figure beside it takes 9,500.
+  seed: 1
+  n: 150
+  # The bands alone here. The oscillator that packages them gets its own figure, so the reader meets
+  # the thing before its packaging rather than the other way round.
+  indicator: none
+  resolution:
+    # DOWN, and chosen for that reason. The compression says an expansion is coming and not which way
+    # (m16-l1's closing reading), so the one figure that shows an expansion resolving must not be the
+    # upward one a reader would file as "compression is bullish".
+    direction: down
+    strength: 0.16

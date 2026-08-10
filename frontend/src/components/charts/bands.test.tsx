@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 /**
- * The shaded-zone primitive (m30's origin zone and imbalance) — what the RENDERER owes.
+ * The shaded-zone primitive (m34's origin zone and imbalance) — what the RENDERER owes.
  *
  * A band must be a FILL between its two prices (not two more dashed lines, which read as mystery
  * levels), drawn UNDER the candles, in the neutral annotation colour (never the up/down pair — a green

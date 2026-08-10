@@ -75,3 +75,53 @@ describe("page URLs carry the course", () => {
     expect(mountAt("/")).toBe(HOME_PATH);
   });
 });
+
+/** Same reproduction rule as above: the vacated-id table App.tsx implements, not App.tsx itself. */
+function mountRenumbered(entry: string): string {
+  host = document.createElement("div");
+  document.body.appendChild(host);
+  const modules: Record<string, string> = { m31: "m15", m32: "m16", m33: "m28", m34: "m21" };
+  const lessons: Record<string, string> = { "m31-l2": "m15-l2", "m34-l2": "m21-l2" };
+  const tree: ReactElement = (
+    <MemoryRouter initialEntries={[entry]}>
+      <Routes>
+        {Object.entries(modules).map(([old, now]) => (
+          <Route
+            key={old}
+            path={coursePath(`/modules/${old}`)}
+            element={<Navigate to={coursePath(`/modules/${now}`)} replace />}
+          />
+        ))}
+        {Object.entries(lessons).map(([old, now]) => (
+          <Route
+            key={old}
+            path={coursePath(`/lessons/${old}`)}
+            element={<Navigate to={coursePath(`/lessons/${now}`)} replace />}
+          />
+        ))}
+        <Route path={coursePath("/modules/:moduleId")} element={<Where />} />
+        <Route path={coursePath("/lessons/:lessonId")} element={<Where />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  act(() => {
+    createRoot(host).render(tree);
+  });
+  return host.querySelector('[data-testid="where"]')?.textContent ?? "";
+}
+
+describe("the 2026-08-10 renumbering's vacated ids", () => {
+  it.each([
+    ["/modules/m31", "/modules/m15"],
+    ["/modules/m34", "/modules/m21"],
+    ["/lessons/m31-l2", "/lessons/m15-l2"],
+    ["/lessons/m34-l2", "/lessons/m21-l2"],
+  ])("a bookmark of %s lands on %s", (old, now) => {
+    expect(mountRenumbered(coursePath(old))).toBe(coursePath(now));
+  });
+
+  it("a REUSED old id is a live page, not a redirect (the permutation makes it ambiguous)", () => {
+    // Old m17 (derivatives) was renumbered to m19, and macro now owns m17: the URL stays.
+    expect(mountRenumbered(coursePath("/modules/m17"))).toBe(coursePath("/modules/m17"));
+  });
+});

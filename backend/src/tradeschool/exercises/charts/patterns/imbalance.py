@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Imbalance injector (m30-l1): what the SMC dialect calls a "fair value gap" (FVG).
+"""Imbalance injector (m34-l1): what the SMC dialect calls a "fair value gap" (FVG).
 
 Plants the standard three-candle detector: bar *i*'s high below bar *i+2*'s low, so exactly one candle
 crossed the span. Every chart carries at most one — `_close_stray_gaps` repairs incidental gaps, so the

@@ -78,6 +78,7 @@ async def list_attempts(
     exercise_id: Annotated[str, Query()],
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
 ) -> list[AttemptSummary]:
-    attempts = await service.user_attempts(session, user.id, exercise_id)
-    return [AttemptSummary.build(a) for a in attempts]
+    attempts = await service.user_attempts(session, registry, user.id, exercise_id)
+    return [AttemptSummary.build(a, exercise_id) for a in attempts]

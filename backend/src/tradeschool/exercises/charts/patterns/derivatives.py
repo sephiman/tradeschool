@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Derivatives-data injector (m17): open interest read against price.
+"""Derivatives-data injector (m19): open interest read against price.
 
 Price rises the SAME way for every label, so the candles can never betray the answer and the learner
 must read the OI line in the lower pane.

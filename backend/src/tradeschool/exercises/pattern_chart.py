@@ -73,10 +73,10 @@ class FullPatternChart:
     macd_hist: list[float]
     overlays: dict[str, list[float]]  # full-length lines over the close series
     levels: list[dict[str, object]]
-    #: sloped lines (m31), bar indices already converted to VISIBLE coords like `annotations`.
+    #: sloped lines (m15), bar indices already converted to VISIBLE coords like `annotations`.
     diagonals: list[dict[str, object]]
     annotations: list[dict[str, object]]  # visible coords
-    #: shaded price zones (m30). Ground truth: `_instantiate` drops them from the pre-answer payload and
+    #: shaded price zones (m34). Ground truth: `_instantiate` drops them from the pre-answer payload and
     #: `grade` reveals them. Price-space, so unlike `annotations` there is no warm-up coord to convert.
     bands: list[dict[str, object]]
     oi: list[float]  # full-length open-interest series (empty unless the injector supplies it)
@@ -84,7 +84,7 @@ class FullPatternChart:
     #: full-length zero-centred pane series and its optional state row (empty unless supplied).
     momentum: list[float]
     momentum_state: list[float]
-    #: the second candle panel (m20-l2), still carrying its own warm-up prefix. Public, unlike `bands`
+    #: the second candle panel (m23-l2), still carrying its own warm-up prefix. Public, unlike `bands`
     #: — see `ContextPanel`.
     context: ContextPanel | None
 
@@ -165,7 +165,7 @@ def _instantiate(
         "overlays": {k: v[w:] for k, v in f.overlays.items()},
         "levels": f.levels,
         # `f.bands` is deliberately absent: a shaded zone drawn on the chart IS the answer to the
-        # question that asks the learner to find it (m30). Bands reach the client only through
+        # question that asks the learner to find it (m34). Bands reach the client only through
         # `grade()`'s `correct_answer`, and `test_chart_bands.py` asserts this key can never appear.
     }
     if f.oi:
@@ -182,7 +182,7 @@ def _instantiate(
         # draws none keeps exactly the payload keys it always had.
         payload["diagonals"] = f.diagonals
     if f.context is not None:
-        # The second panel (m20-l2), trimmed at the same instant the main one is — which is why its
+        # The second panel (m23-l2), trimmed at the same instant the main one is — which is why its
         # `ratio` divides the warm-up exactly. `ratio` itself stays out of the payload: it would say
         # in JSON which panel is the aggregate, and that is the question one of the exercises asks.
         c = f.context.series

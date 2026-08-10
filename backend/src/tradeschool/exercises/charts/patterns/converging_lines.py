@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Wedge / triangle injector (m31-l2): compression between two lines that are closing on each other.
+"""Wedge / triangle injector (m15-l2): compression between two lines that are closing on each other.
 
 Two label families over one geometry, because they are two readings of the same chart and an exercise
 picks whichever it asks about:
 
 * SHAPE — `rising_wedge`, `falling_wedge`, `symmetric_triangle`, `ascending_triangle`,
-  `descending_triangle`, and `parallel_channel` as the negative control (the m30 injectors' `no_zone` /
+  `descending_triangle`, and `parallel_channel` as the negative control (the m34 injectors' `no_zone` /
   `no_imbalance` role: the chart that looks like the family and is not a member of it, without which
   "converging" is a word no answer can be wrong about).
 * RESOLUTION — `break_confirmed`, `break_unconfirmed`, `compression_holding`: the same convergence,
@@ -46,7 +46,7 @@ _BASE_VOLUME = 1000.0
 #: The opening width of the shape, and how much of it survives to the right edge.
 #:
 #: The width looks large for a coil, and it is load-bearing at exactly that size. "Each bar's range
-#: narrows" (m31-l2) is a claim about the CANDLES, and `build_series` floors the volatility it draws
+#: narrows" (m15-l2) is a claim about the CANDLES, and `build_series` floors the volatility it draws
 #: wicks from at 0.4% — so once a swing moves less than that per bar, the bars stop shrinking with the
 #: shape. At (0.085, 0.115) the late swings travelled 0.22%/bar, under the floor, and measured over 80
 #: seeds the closing bars were 1.03x the opening ones: a coil whose lines converged and whose candles
@@ -62,7 +62,7 @@ _DECIDE = 0.82  # where the resolution family resolves
 _HOLD = 0.90
 _PRE_DECIDE = 0.79
 #: The swings, as window fractions. EIGHT visits alternating between the lines, so each is touched four
-#: times: three is the minimum that validates a line (m31-l1) and leaving no margin above it means one
+#: times: three is the minimum that validates a line (m15-l1) and leaving no margin above it means one
 #: seed whose noise lifts a visit off the line prints a coil the contract has to reject.
 _SWING_F = (0.07, 0.17, 0.27, 0.37, 0.47, 0.57, 0.66, 0.74)
 _PLATEAU = 0.016  # half-width of a visit — a vertex would be smoothed away (see `trend_channel`)
@@ -234,7 +234,7 @@ class ConvergingLinesInjector(PatternInjector):
             annotations=annotations,
             diagonals=diagonals,
             volume_full=volume,
-            # Compression resolves into expansion; which WAY is the part m31-l2 refuses to promise, so
+            # Compression resolves into expansion; which WAY is the part m15-l2 refuses to promise, so
             # the hint states only what the chart already shows — a confirmed break runs on, a rejected
             # one goes back the other way, a coil still coiling goes nowhere.
             resolution_hint=(

@@ -1,205 +1,214 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: cvd-divergence-order
-    kind: ordering
+  - id: green-candles
     prompt:
-      en: "Sequence the steps to identify a bearish CVD (Cumulative Volume Delta) divergence."
-      es: "Ordena los pasos para identificar una divergencia bajista de CVD (Delta de Volumen Acumulado)."
-    items:
-      - id: step-1
-        position: 1
+      en: "A coin is running hard without you and every candle feels like money you're missing. You didn't plan this trade. What's the disciplined response?"
+      es: "Una moneda se dispara con fuerza sin ti y cada vela parece dinero que te estás perdiendo. No planificaste esta operación. ¿Cuál es la respuesta disciplinada?"
+    options:
+      - id: a
+        correct: true
         text:
-          en: "Price prints a Higher High at a resistance level."
-          es: "El precio marca un Máximo Más Alto en un nivel de resistencia."
-      - id: step-2
-        position: 2
+          en: "Skip it — with no entry, stop and invalidation, it is a chase."
+          es: "Déjala pasar: sin entrada, stop e invalidación, es una persecución."
+      - id: b
         text:
-          en: "CVD prints a Lower High over the exact same timeframe."
-          es: "El CVD marca un Máximo Más Bajo durante el mismo marco temporal."
-      - id: step-3
-        position: 3
+          en: "Enter with a very wide stop, since a strong trend won't revisit a tight one."
+          es: "Entra con un stop muy amplio: una tendencia fuerte no vuelve a uno ajustado."
+      - id: c
         text:
-          en: "Deduce that aggressive buyers are exhausting while passive sellers absorb the rally."
-          es: "Deducir que los compradores agresivos se agotan mientras vendedores pasivos absorben la subida."
-      - id: step-4
-        position: 4
+          en: "Get in now at market; with a move this strong, missing it is the real risk."
+          es: "Entra ya a mercado; con un movimiento así, perdértelo es el riesgo real."
+      - id: d
         text:
-          en: "Look for price breakdown below local market structure as trade confirmation."
-          es: "Buscar la rotura del precio por debajo de la estructura local como confirmación."
+          en: "Buy a small amount now and 'average up' as it keeps on running."
+          es: "Compra un poco ahora y 'promedia al alza' mientras siga subiendo."
     explanation:
-      en: "When price makes Higher Highs but CVD fails to follow, aggressive buying power is fading into passive selling resistance."
-      es: "Cuando el precio hace Máximos Más Altos pero el CVD no lo sigue, la fuerza compradora se agota contra la resistencia pasiva."
-
-  - id: cvd-behavior-truth
+      en: "A FOMO entry has no plan by definition — the reason is 'price went up', not that a setup appeared — and you arrive at the worst price, exactly where earlier buyers are ready to sell to you. Widening the stop, or averaging up into the move so your largest size sits at your worst price, just compounds it. There is always another setup."
+      es: "Una entrada por FOMO no tiene plan por definición —el motivo es 'el precio subió', no que apareciera un setup— y llegas al peor precio, justo donde los compradores anteriores están listos para vendértelo. Ensanchar el stop, o promediar al alza dentro del movimiento de modo que tu mayor tamaño quede al peor precio, solo lo agrava. Siempre hay otra oportunidad."
+  - id: fomo-rule
+    prompt:
+      en: "Which single rule most directly defuses FOMO entries?"
+      es: "¿Qué regla, por sí sola, desactiva de forma más directa las entradas por FOMO?"
+    options:
+      - id: a
+        text:
+          en: "Always enter the moment price breaks to a new high, so you never miss out."
+          es: "Entrar siempre al romper a un nuevo máximo, para no perderte nada."
+      - id: b
+        text:
+          en: "Increase your size on fast-moving coins to catch up on missed profit."
+          es: "Subir el tamaño en monedas rápidas para recuperar el beneficio perdido."
+      - id: c
+        text:
+          en: "Trust that a big green candle confirms the move is safe to chase."
+          es: "Confiar en que una gran vela verde confirma que es seguro perseguir."
+      - id: d
+        correct: true
+        text:
+          en: "No entry unless you can state its entry, stop and invalidation first."
+          es: "Sin entrada salvo que puedas decir antes entrada, stop e invalidación."
+    explanation:
+      en: "The cure for FOMO is a pre-commitment that a valid trade must be describable before you click. The other three are the chase disguised as strategy: entering on every breakout, sizing up to 'catch up', and treating a green candle as confirmation are all ways of trading because price moved, not because a setup exists."
+      es: "La cura para el FOMO es un precompromiso: una operación válida tiene que poder describirse antes de hacer clic. Las otras tres son la persecución disfrazada de estrategia: entrar en cada ruptura, subir el tamaño para 'recuperar' y tratar una vela verde como confirmación son todas maneras de operar porque el precio se movió, no porque exista un setup."
+  - id: price-moving-myth
     kind: true_false
     prompt:
-      en: "CVD measures the total number of limit orders resting on the order book."
-      es: "El CVD mide el número total de órdenes límite en el libro de órdenes."
+      en: "When a coin is running hard, the fact that price is moving fast is by itself a good enough reason to enter."
+      es: "Cuando una moneda se dispara con fuerza, que el precio se mueva rápido es por sí solo motivo suficiente para entrar."
     answer: false
     explanation:
-      en: "CVD tracks the cumulative difference between aggressive buy market orders and aggressive sell market orders executed over time. Resting limit orders are the order book — intention rather than executed flow."
-      es: "El CVD rastrea la diferencia acumulada entre órdenes de compra a mercado y órdenes de venta a mercado ejecutadas a lo largo del tiempo. Las órdenes límite en reposo son el libro: intención, no flujo ejecutado."
-
-  - id: cvd-divergence-match
-    kind: matching
-    prompt:
-      en: "Match each CVD market condition to its order flow interpretation."
-      es: "Empareja cada condición de mercado de CVD con su interpretación de flujo de órdenes."
-    pairs:
-      - id: bull-div
-        left: { en: "Price Lower Low + CVD Higher Low", es: "Precio Mínimo Más Bajo + CVD Mínimo Más Alto" }
-        right:
-          en: "Bullish Divergence: Aggressive selling pressure is decreasing at the support level."
-          es: "Divergencia Alcista: La presión vendedora agresiva disminuye en el nivel de soporte."
-      - id: bear-div
-        left: { en: "Price Higher High + CVD Lower High", es: "Precio Máximo Más Alto + CVD Máximo Más Bajo" }
-        right:
-          en: "Bearish Divergence: Aggressive buying pressure is decreasing at the resistance level."
-          es: "Divergencia Bajista: La presión compradora agresiva disminuye en el nivel de resistencia."
-      - id: absorption-bear
-        left: { en: "Price Flat + CVD Spiking High", es: "Precio Plano + CVD Subiendo Fuerte" }
-        right:
-          en: "Passive Bearish Absorption: Heavy buy aggression absorbed by limit sell wall."
-          es: "Absorción Bajista Pasiva: Fuerte agresión compradora absorbida por muro de venta límite."
-    explanation:
-      en: "CVD reveals whether volume aggression is aligned with price movement or being absorbed by passive liquidity."
-      es: "El CVD revela si la agresión de volumen está alineada con el movimiento de precio o siendo absorbida por liquidez pasiva."
-
-  - id: cvd-multi-timeframe
+      en: "A FOMO trade has no plan by definition: the reason is 'price went up', not that a setup appeared. You arrive at the worst price of the move, exactly where earlier buyers are getting ready to sell to you. There is always another setup."
+      es: "Una operación por FOMO no tiene plan por definición: el motivo es 'el precio subió', no que apareciera un setup. Llegas al peor precio del movimiento, justo donde los compradores anteriores se preparan para vendértelo. Siempre hay otra oportunidad."
+  - id: fomo-habits
     kind: multi_select
     prompt:
-      en: "Select all valid principles when reading CVD across different venues and timeframes."
-      es: "Selecciona todos los principios válidos al leer el CVD en diferentes venues y temporalidades."
+      en: "Select ALL of the habits that protect you from FOMO entries."
+      es: "Selecciona TODOS los hábitos que te protegen de las entradas por FOMO."
     options:
       - id: a
         correct: true
         text:
-          en: "Spot and perp CVD can diverge, since perps carry leveraged flow."
-          es: "El CVD spot y el de perps pueden divergir por el apalancamiento."
+          en: "Requiring a stated entry, stop and invalidation before you click."
+          es: "Exigir una entrada, un stop y una invalidación dichos antes de hacer clic."
       - id: b
         correct: true
         text:
-          en: "Higher timeframe CVD divergences are structurally more reliable."
-          es: "Las divergencias de CVD en marcos mayores son más fiables."
+          en: "Accepting there is always another setup, and letting the runner go."
+          es: "Aceptar que siempre hay otra oportunidad y dejar marchar el movimiento."
       - id: c
-        correct: false
-        text:
-          en: "A 1-minute CVD should be relied on to predict multi-week trend reversals."
-          es: "Hay que fiarse del CVD de 1 minuto para prever giros de varias semanas."
-      - id: d
         correct: true
         text:
-          en: "Aggregating exchanges smooths out single-venue reporting anomalies."
-          es: "Agregar exchanges suaviza las anomalías de reporte de un solo venue."
+          en: "Waiting for a setup you planned instead of reacting to a candle."
+          es: "Esperar un setup que planificaste en vez de reaccionar a una vela."
+      - id: d
+        text:
+          en: "Entering at market the moment you feel that you are missing out."
+          es: "Entrar a mercado en cuanto sientes que te lo estás perdiendo."
+      - id: e
+        text:
+          en: "Sizing up on fast-moving coins to catch up on the missed profit."
+          es: "Subir el tamaño en monedas rápidas para recuperar lo que te perdiste."
+      - id: f
+        text:
+          en: "Treating a big green candle as confirmation it is safe to chase."
+          es: "Tratar una gran vela verde como confirmación de que es seguro perseguir."
     explanation:
-      en: "Perps vs spot CVD comparisons and higher timeframe alignment give robust market structure context. A minute of flow is a minute of flow: read CVD at the timeframe you intend to trade, and never let a one-minute divergence carry a multi-week thesis."
-      es: "Las comparaciones de CVD perps vs spot y la alineación de temporalidades mayores dan un contexto sólido de estructura de mercado. Un minuto de flujo es un minuto de flujo: lee el CVD en la temporalidad que piensas operar y nunca dejes que una divergencia de un minuto sostenga una tesis de semanas."
-
-  - id: cvd-absorption-read
-    kind: single_choice
+      en: "The cure for FOMO is pre-commitment: a valid trade must be describable — entry, stop, invalidation — before you click, and you accept there's always another setup. The last three are the chase disguised as strategy, all of them trading because price moved rather than because a setup exists."
+      es: "La cura para el FOMO es el precompromiso: una operación válida tiene que poder describirse —entrada, stop, invalidación— antes de hacer clic, y aceptas que siempre hay otra oportunidad. Las tres últimas son la persecución disfrazada de estrategia, todas operando porque el precio se movió y no porque exista un setup."
+  - id: worst-price
     prompt:
-      en: "What does it mean when CVD makes a sharp new high while price fails to breach key resistance?"
-      es: "¿Qué significa cuando el CVD hace un nuevo máximo brusco mientras el precio no logra superar una resistencia clave?"
+      en: "Why is chasing a coin that has already run hard usually a poor entry?"
+      es: "¿Por qué perseguir una moneda que ya se ha disparado suele ser una mala entrada?"
     options:
       - id: a
         text:
-          en: "Aggressive buyers have exhausted the resting sell orders at that level."
-          es: "Los compradores agresivos ya agotaron las ventas límite del nivel."
+          en: "Late entries are fine, because a genuinely strong trend always keeps going."
+          es: "Las entradas tardías van bien, porque una tendencia fuerte siempre sigue."
       - id: b
         correct: true
         text:
-          en: "Passive sellers are absorbing the aggressive buyers at resistance."
-          es: "Vendedores pasivos absorben la compra agresiva en la resistencia."
+          en: "You arrive at the worst price, where earlier buyers are ready to sell."
+          es: "Llegas al peor precio, donde los compradores previos ya quieren vender."
       - id: c
         text:
-          en: "Every limit sell order has been pulled from the book at resistance."
-          es: "Todas las órdenes límite de venta se han retirado del libro."
+          en: "The only real downside is that fees are higher on fast-moving coins."
+          es: "El único inconveniente real es que las comisiones suben en monedas rápidas."
       - id: d
         text:
-          en: "The CVD is stale: it will re-sync once price clears resistance."
-          es: "El CVD está desfasado: se resincronizará al superar la resistencia."
+          en: "It is safe as long as you use high leverage to make the late entry pay."
+          es: "Es seguro mientras uses mucho apalancamiento para rentabilizarla."
     explanation:
-      en: "High-volume buying unable to push price higher indicates limit order absorption at resistance — and it is the opposite of exhausted sellers: the sell orders are winning, which is exactly why price will not move. That creates reversal risk in the absorber's direction, a clue rather than a receipt."
-      es: "Compras de alto volumen incapaces de empujar el precio más arriba indican absorción con órdenes límite en la resistencia, y es lo contrario de vendedores agotados: las órdenes de venta están ganando, y por eso el precio no se mueve. Eso crea riesgo de giro en la dirección de quien absorbe: una pista, no un recibo."
-
-  - id: spot-vs-perp-cvd-divergence
-    kind: single_choice
+      en: "Chasing means buying late, with no entry logic and no invalidation, right where the earlier buyers are ready to sell to you. Trends do not 'always continue', the problem is not the fee schedule, and leverage makes a bad entry worse rather than safer."
+      es: "Perseguir es comprar tarde, sin lógica de entrada ni invalidación, justo donde los compradores anteriores están listos para vendértelo. Las tendencias no 'siempre siguen', el problema no es la tarifa de comisiones, y el apalancamiento empeora una mala entrada en vez de hacerla más segura."
+  - id: trade-vs-chase
     prompt:
-      en: "What does it indicate when Spot CVD is rising steadily while Perp CVD is falling?"
-      es: "¿Qué indica cuando el CVD Spot sube de forma constante mientras el CVD Perp está cayendo?"
+      en: "What is the defining difference between a trade and a chase?"
+      es: "¿Cuál es la diferencia que define una operación frente a una persecución?"
     options:
       - id: a
         text:
-          en: "Perp traders are taking profit into spot buyers, so the rally is over."
-          es: "Los perps toman beneficio contra compradores spot, la subida acabó."
+          en: "A trade uses leverage, whereas a chase does not use any at all."
+          es: "Una operación usa apalancamiento y una persecución no usa ninguno."
       - id: b
         text:
-          en: "The two feeds disagree, which means one venue is misreporting its delta."
-          es: "Los dos feeds discrepan: un venue está reportando mal su delta."
+          en: "A trade is on Bitcoin, whereas a chase happens on the altcoins."
+          es: "Una operación es en Bitcoin y una persecución ocurre en altcoins."
       - id: c
-        text:
-          en: "Funding has gone negative, which mechanically pushes perp CVD down."
-          es: "El funding se ha vuelto negativo, lo que baja el CVD perp."
-      - id: d
         correct: true
         text:
-          en: "Spot is being accumulated while leveraged traders short or get liquidated."
-          es: "Se acumula spot mientras los apalancados cortan o son liquidados."
+          en: "A trade has entry, stop and invalidation stated before you click."
+          es: "Una operación tiene entrada, stop e invalidación dichos antes del clic."
+      - id: d
+        text:
+          en: "A trade ends in profit and a chase in a loss — you only know afterwards."
+          es: "Una acaba en ganancia y otra en pérdida: solo lo sabes después."
     explanation:
-      en: "Spot CVD represents genuine demand for the asset without leverage, which is why spot-led rallies are structurally stronger than perp-led ones. The two series measuring different populations is the point, not a data fault — and funding is a consequence of positioning, not a mechanism that moves a CVD line."
-      es: "El CVD Spot representa demanda real del activo sin apalancamiento, y por eso las subidas lideradas por spot son estructuralmente más fuertes que las lideradas por perpetuos. Que las dos series midan poblaciones distintas es el sentido del ejercicio, no un fallo de datos; y el funding es consecuencia del posicionamiento, no un mecanismo que mueva una línea de CVD."
-
-  - id: cvd-breakout-fakeout-read
-    kind: single_choice
+      en: "The line is not the instrument, the leverage or the outcome — it is whether you could state the entry, stop and invalidation before clicking. If you cannot, the reason for the trade is just that price went up, which is the definition of a chase, and you skip it. A chase that happens to win was still a chase."
+      es: "La línea no es el instrumento, ni el apalancamiento, ni el resultado: es si podías decir la entrada, el stop y la invalidación antes de hacer clic. Si no puedes, el motivo de la operación es solo que el precio subió, que es la definición de una persecución, y la dejas pasar. Una persecución que casualmente gana seguía siendo una persecución."
+  - id: fomo-numbers
     prompt:
-      en: "How can CVD help identify a fakeout at a key price resistance level?"
-      es: "¿Cómo puede ayudar el CVD a identificar un fakeout en un nivel clave de resistencia de precio?"
+      en: "A coin rips +40% in an hour. Three green candles in, you buy at the top with no stop and no plan, and minutes later it mean-reverts 15%. What is the worst part of the situation?"
+      es: "Una moneda sube un 40% en una hora. Tres velas verdes después, compras en máximos sin stop y sin plan, y minutos más tarde revierte un 15%. ¿Qué es lo peor de la situación?"
     options:
       - id: a
+        text:
+          en: "The 15% loss itself, which a stop would have prevented entirely."
+          es: "La pérdida del 15% en sí, que un stop habría evitado por completo."
+      - id: b
         correct: true
         text:
-          en: "Price breaks resistance on declining CVD — thin liquidity, not buying."
-          es: "El precio rompe con CVD decreciente: liquidez fina, no compra."
-      - id: b
-        text:
-          en: "The CVD flips its colour from green to red the moment a fakeout starts."
-          es: "El CVD cambia de verde a rojo en cuanto empieza el fakeout."
+          en: "With no invalidation defined, you cannot tell whether to hold or fold."
+          es: "Sin invalidación definida, no puedes saber si mantener o cerrar."
       - id: c
         text:
-          en: "A fakeout always shows a CVD spike, so a flat CVD rules one out."
-          es: "Un fakeout siempre da un pico de CVD, y un CVD plano lo descarta."
+          en: "That you only bought three candles in, rather than right at the start."
+          es: "Que compraste tres velas después y no justo al principio."
       - id: d
         text:
-          en: "CVD cannot see breakouts, since it only accumulates inside a range."
-          es: "El CVD no ve roturas, ya que solo acumula dentro de un rango."
+          en: "The fees on the entry, which run higher during volatile moves."
+          es: "Las comisiones de la entrada, más altas en movimientos volátiles."
     explanation:
-      en: "A breakout that clears resistance without aggressive buying behind it moved because there was nothing in the way, not because anyone wanted the price — so it is prone to immediate rejection once passive liquidity steps back in. This is m14's low-volume-breakout warning made visible: the CVD shows you the missing aggression instead of leaving you to infer it."
-      es: "Una rotura que supera la resistencia sin compra agresiva detrás se movió porque no había nada delante, no porque alguien quisiera ese precio, así que es propensa a un rechazo inmediato en cuanto la liquidez pasiva vuelve. Es la advertencia de m14 sobre roturas con poco volumen hecha visible: el CVD te enseña la agresión que falta en vez de dejarte deducirla."
-
-  - id: cvd-reset-misconception
-    kind: single_choice
+      en: "You are underwater at the single worst price of the move, and because you never defined an invalidation there is no way to manage what follows — that is worse than the loss itself, which a stop would have bounded rather than prevented. You bought a feeling, not a setup, and buying earlier would have been the same mistake at a better price."
+      es: "Estás en pérdidas al peor precio del movimiento y, como nunca definiste una invalidación, no hay forma de gestionar lo que viene: eso es peor que la propia pérdida, que un stop habría acotado, no evitado. Compraste una sensación, no un setup, y comprar antes habría sido el mismo error a mejor precio."
+  - id: fomo-drivers
+    kind: multi_select
     prompt:
-      en: "Why is the absolute numerical value of CVD less important than its relative slope and swing pattern?"
-      es: "¿Por qué el valor numérico absoluto del CVD es menos importante que su pendiente relativa y patrón de swings?"
+      en: "Select ALL of the things that make FOMO so persuasive in the moment."
+      es: "Selecciona TODO lo que hace que el FOMO sea tan persuasivo en el momento."
     options:
       - id: a
+        correct: true
         text:
-          en: "Exchange APIs re-baseline the CVD every hour, so the number resets."
-          es: "Las API de los exchanges rebasan el CVD cada hora y se reinicia."
+          en: "It is really fear of future regret, which feels larger than the real risk."
+          es: "Es miedo al arrepentimiento futuro, que se siente mayor que el riesgo real."
       - id: b
         correct: true
         text:
-          en: "CVD accumulates from an arbitrary start, so only the shape carries."
-          es: "El CVD acumula desde un inicio arbitrario: solo la forma vale."
+          en: "The herd amplifies it: the move itself starts to feel like evidence."
+          es: "La manada lo amplifica: el propio movimiento empieza a parecer una prueba."
       - id: c
+        correct: true
         text:
-          en: "CVD is denominated in coins, so the number changes with price."
-          es: "El CVD se denomina en monedas, así que cambia con el precio."
+          en: "A feed of other people's wins — almost never their losses — pressures you."
+          es: "Un feed con las ganancias ajenas, casi nunca sus pérdidas, te presiona."
       - id: d
         text:
-          en: "The absolute value is only meaningful on spot, never on perps."
-          es: "El valor absoluto solo tiene sentido en spot, nunca en perps."
+          en: "A fast move is genuine evidence the next move will continue upward."
+          es: "Un movimiento rápido prueba de verdad que el siguiente seguirá al alza."
+      - id: e
+        text:
+          en: "Entering late reduces the risk, because the trend is already confirmed."
+          es: "Entrar tarde reduce el riesgo, porque la tendencia ya está confirmada."
     explanation:
-      en: "CVD starting values depend on when recording began — nobody randomises them and no denomination trick is involved. The key information is whether delta is making higher or lower swings relative to price, which is why the pane rarely has a meaningful zero of its own."
-      es: "Los valores iniciales del CVD dependen de cuándo comenzó la grabación: nadie los aleatoriza y no hay ningún truco de denominación. La información clave es si el delta hace swings más altos o más bajos en relación al precio, y por eso el panel raramente tiene un cero propio con significado."
+      en: "The anticipated pain of watching it run on without you feels larger than the real risk in front of you, and when price and everyone around you are moving, the move starts to look like proof. But all a fast move proves is that price already went up, a timeline showing only winners is not evidence about the trade in front of you, and entering later means a worse price rather than a safer one."
+      es: "El dolor anticipado de verlo correr sin ti se siente mayor que el riesgo real que tienes delante, y cuando el precio y todos a tu alrededor se mueven, el movimiento empieza a parecer una prueba. Pero todo lo que prueba un movimiento rápido es que el precio ya subió, un timeline que solo muestra ganadores no es prueba sobre la operación que tienes delante, y entrar más tarde significa peor precio, no más seguridad."
+  - id: averaging-up
+    kind: true_false
+    prompt:
+      en: "Buying 'a little' and averaging up as the move keeps running is a more disciplined way to join a runaway rally."
+      es: "Comprar 'un poco' e ir promediando al alza mientras el movimiento sigue es una forma más disciplinada de subirse a un rally desbocado."
+    answer: false
+    explanation:
+      en: "It is the same chase paid in installments — and it means your worst-priced size is your largest. If you cannot state your entry, your stop and your invalidation before you click, it is not a trade, it is a chase."
+      es: "Es la misma persecución pagada a plazos, y hace que tu mayor tamaño esté al peor precio. Si no puedes decir tu entrada, tu stop y tu invalidación antes de hacer clic, no es una operación: es una persecución."

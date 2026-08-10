@@ -17,7 +17,7 @@ interface PatternAnnotation {
   label: string;
 }
 
-/** Map a pattern_chart ground truth to CandleChart bands (m30's origin zone / imbalance).
+/** Map a pattern_chart ground truth to CandleChart bands (m34's origin zone / imbalance).
  *
  * Bands live in the GRADED answer only — the pre-answer payload has no `bands` key — so this is the one
  * path by which an exercise chart ever draws one. */

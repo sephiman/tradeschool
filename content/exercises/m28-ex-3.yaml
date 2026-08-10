@@ -1,205 +1,82 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: premium-basis-match
-    kind: matching
+  - id: abandonment-criterion
     prompt:
-      en: "Match each futures pricing term to its market state."
-      es: "Empareja cada término de precio de futuros con su estado de mercado."
-    pairs:
-      - id: basis
-        left: { en: "Futures Basis", es: "Basis de Futuros" }
-        right:
-          en: "The price difference between the futures contract and the underlying spot index."
-          es: "La diferencia de precio entre el contrato de futuros y el índice spot subyacente."
-      - id: contango
-        left: { en: "Contango", es: "Contango" }
-        right:
-          en: "Futures price trades at a premium above the spot index (positive basis)."
-          es: "El precio de futuros cotiza con prima por encima del índice spot (basis positivo)."
-      - id: backwardation
-        left: { en: "Backwardation", es: "Backwardation" }
-        right:
-          en: "Futures price trades at a discount below the spot index (negative basis)."
-          es: "El precio de futuros cotiza con descuento por debajo del índice spot (basis negativo)."
-    explanation:
-      en: "Basis measures the premium or discount of futures versus spot. High contango signals bullish leverage demand, while backwardation signals extreme bearishness or spot scarcity."
-      es: "El basis mide la prima o descuento de los futuros frente al spot. Un contango elevado señala demanda alcista apalancada, mientras que el backwardation señala pesimismo o escasez spot."
-
-  - id: arbitrage-mechanics
-    kind: multi_select
-    prompt:
-      en: "Which statements correctly describe cash-and-carry arbitrage?"
-      es: "¿Qué afirmaciones describen correctamente el arbitraje cash-and-carry?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Buying spot while shorting the perp when funding is strongly positive."
-          es: "Comprar spot y vender el perp cuando el funding es muy positivo."
-      - id: b
-        correct: true
-        text:
-          en: "Capturing market-neutral yield from the funding longs pay."
-          es: "Capturar rendimiento neutral del funding que pagan los largos."
-      - id: c
-        correct: false
-        text:
-          en: "Taking unhedged long directional exposure on high leverage."
-          es: "Tomar exposición direccional alcista sin cobertura y apalancada."
-      - id: d
-        correct: true
-        text:
-          en: "The yield narrows as arbitrageurs compete and drive the perp back."
-          es: "El rendimiento se estrecha cuando los arbitrajistas devuelven el perp."
-    explanation:
-      en: "Cash-and-carry locks in market-neutral yield by going long spot and short futures when futures trade at a high premium — the whole point is that the two legs cancel, so direction no longer matters. An unhedged leveraged long is the opposite trade: it keeps every bit of the direction risk the hedge exists to remove."
-      es: "El cash-and-carry asegura un rendimiento neutral al mercado comprando spot y vendiendo futuros cuando cotizan con prima alta: todo su sentido es que las dos patas se cancelan y la dirección deja de importar. Un largo apalancado sin cobertura es la operación contraria: conserva todo el riesgo direccional que la cobertura existe para eliminar."
-
-  - id: basis-convergence-truth
-    kind: true_false
-    prompt:
-      en: "Dated futures contracts are guaranteed to converge to the spot price upon expiry."
-      es: "Se garantiza que los contratos de futuros con fecha vencen al precio spot en el momento de la expiración."
-    answer: true
-    explanation:
-      en: "At contract settlement, the futures settlement price is pegged directly to the underlying spot index, forcing basis to zero."
-      es: "En la liquidación del contrato, el precio de liquidación de futuros se fija directamente al índice spot subyacente, forzando a que el basis sea cero."
-
-  - id: premium-driver-identification
-    kind: single_choice
-    prompt:
-      en: "What does a sudden widening of the Korean Kimchi Premium (high BTC price on Korean exchanges vs global spot) indicate?"
-      es: "¿Qué indica un ensanchamiento repentino de la Prima Kimchi (precio alto de BTC en exchanges coreanos vs spot global)?"
+      en: "What makes a usable criterion for abandoning a system?"
+      es: "¿Qué hace que un criterio para abandonar un sistema sea utilizable?"
     options:
       - id: a
         text:
-          en: "Bitcoin block times have lengthened, so transfers between venues stall."
-          es: "Los bloques de Bitcoin tardan más y las transferencias se atascan."
+          en: "A run of losses long enough that continuing stops feeling defensible."
+          es: "Una racha de pérdidas lo bastante larga como para no poder defenderla."
       - id: b
         correct: true
         text:
-          en: "Strong local retail demand plus fiat transfer and withdrawal friction."
-          es: "Demanda minorista local fuerte más fricción de fiat y de retirada."
+          en: "A measured deviation from expectancy, written down before you start."
+          es: "Una desviación medida respecto a la esperanza, escrita antes de empezar."
       - id: c
         text:
-          en: "Global spot venues are quoting stale prices while Korea quotes live ones."
-          es: "El spot global cotiza precios rancios mientras Corea cotiza en vivo."
+          en: "Any drawdown at all, since a working system should not lose money."
+          es: "Cualquier drawdown, ya que un sistema que funciona no debería perder."
       - id: d
         text:
-          en: "Korean shorts are being paid an unusually large funding rate right now."
-          es: "A los cortos coreanos les pagan ahora un funding inusualmente alto."
+          en: "A month without new highs on the equity curve, whatever the trade count."
+          es: "Un mes sin máximos nuevos en la curva de capital, sean las que sean."
     explanation:
-      en: "Cross-exchange premiums persist when capital flow friction prevents arbitrageurs from quickly moving fiat or crypto between venues — the demand is what opens the gap, the friction is what keeps it open. Block times affect everyone equally and no venue's feed is stale here; both readings would apply globally rather than to one country's exchanges."
-      es: "Las primas entre exchanges persisten cuando la fricción del flujo de capital impide que los arbitrajistas muevan rápido fiat o cripto entre sitios: la demanda abre el hueco, la fricción lo mantiene abierto. El tiempo de bloque afecta a todos por igual y aquí ningún feed está rancio; las dos lecturas valdrían globalmente, no para los exchanges de un solo país."
-
-  - id: basis-arbitrage-sequence
+      en: "In the short run a valid system having a bad run is indistinguishable from a broken one — both are losses and both feel identical — so the decision cannot be made while it hurts, by the person it is hurting. What works is a number fixed in advance: a drawdown deeper than the backtest's worst, or an observed expectancy that has sat below its claimed value over a sample large enough to mean something. And keep the third possibility in view: most often the system is fine and you stopped following it, which only the journal can tell you."
+      es: "A corto plazo, un sistema válido en mala racha no se distingue de uno roto —los dos son pérdidas y los dos se sienten igual—, así que la decisión no puede tomarse mientras duele ni puede tomarla quien lo está sufriendo. Lo que funciona es un número fijado de antemano: un drawdown más profundo que el peor del backtest, o una esperanza observada que lleva por debajo de la declarada durante una muestra lo bastante grande como para significar algo. Y no pierdas de vista la tercera posibilidad: lo más frecuente es que el sistema esté bien y hayas dejado de seguirlo, y eso solo te lo puede decir el diario."
+  - id: why-forward-test
+    prompt:
+      en: "A system passed a clean train/test split on years of history. Why run it forward on demo or minimum size before real money?"
+      es: "Un sistema ha pasado una partición limpia de entrenamiento y prueba sobre años de histórico. ¿Por qué ponerlo a rodar en demo o a tamaño mínimo antes del dinero real?"
+    options:
+      - id: a
+        text:
+          en: "To gather the hundreds of extra trades a valid win rate needs."
+          es: "Para reunir los cientos de operaciones extra que pide un win rate válido."
+      - id: b
+        text:
+          en: "Because a backtest cannot cover the most recent market regime."
+          es: "Porque un backtest no puede cubrir el régimen de mercado más reciente."
+      - id: c
+        correct: true
+        text:
+          en: "The live market has frictions and a trader in it; the history had neither."
+          es: "El mercado real tiene fricciones y un trader dentro; el histórico no tenía ninguno."
+      - id: d
+        text:
+          en: "It is a formality most professionals skip once the split is clean."
+          es: "Es un trámite que casi todos los profesionales se saltan si la partición está limpia."
+    explanation:
+      en: "A simulation has no frictions and no you. Forward-testing is where the stop-limit that does not fill (m24), the spread you actually cross, the slippage and the accumulated funding all show up — and where you discover that live you skip the trade after two losses and widen a stop at 3 a.m. Demo has an honest limit of its own: costing nothing, it does not test the psychology, which is exactly why m27-l2 steps to minimum REAL size rather than staying on demo."
+      es: "Una simulación no tiene fricciones ni te tiene a ti. El forward-testing es donde aparecen el stop-limit que no se ejecuta (m24), el spread que cruzas de verdad, el slippage y el funding acumulado, y donde descubres que el tú real se salta la operación tras dos pérdidas y amplía un stop a las tres de la mañana. La demo tiene su propio límite honesto: como no cuesta nada, no pone a prueba la psicología, y por eso justamente m27-l2 pasa a tamaño REAL mínimo en lugar de quedarse en demo."
+  - id: which-explanation
     kind: ordering
     prompt:
-      en: "Sequence the execution steps of a cash-and-carry basis arbitrage trade."
-      es: "Ordena los pasos de ejecución de una operación de arbitraje de basis cash-and-carry."
+      en: "Your system is 12R below where its expectancy said it would be. Order the checks, from the one that costs nothing to the one that ends the system."
+      es: "Tu sistema va 12R por debajo de donde decía su esperanza. Ordena las comprobaciones, de la que no cuesta nada a la que termina con el sistema."
     items:
-      - id: step-1
+      - id: followed
         position: 1
         text:
-          en: "Identify perpetual futures trading at a substantial premium above spot with high positive funding."
-          es: "Identificar futuros perpetuos cotizando con prima sustancial sobre spot con funding positivo alto."
-      - id: step-2
+          en: "Read the journal: were these trades actually the system's rules?"
+          es: "Lee el diario: ¿esas operaciones eran de verdad las reglas del sistema?"
+      - id: sample
         position: 2
         text:
-          en: "Buy spot asset on spot venue and transfer as collateral to futures venue."
-          es: "Comprar activo en el mercado spot y transferirlo como colateral al mercado de futuros."
-      - id: step-3
+          en: "Count the trades: is the sample big enough to mean anything yet?"
+          es: "Cuenta las operaciones: ¿la muestra ya es lo bastante grande para significar algo?"
+      - id: criterion
         position: 3
         text:
-          en: "Open an equivalent short position on perpetual futures (1x hedge)."
-          es: "Abrir una posición corta equivalente en futuros perpetuos (cobertura 1x)."
-      - id: step-4
+          en: "Compare against the criterion you wrote down before you started."
+          es: "Compara con el criterio que escribiste antes de empezar."
+      - id: stop
         position: 4
         text:
-          en: "Collect periodic funding yield until premium normalizes, then close both legs."
-          es: "Cobrar el rendimiento periódico de funding hasta que la prima se normalice y cerrar ambas patas."
+          en: "Stop trading it, and take it back to a backtest on data it has not seen."
+          es: "Deja de operarlo y llévalo de vuelta a un backtest con datos que no haya visto."
     explanation:
-      en: "Cash-and-carry locks in market-neutral yield by balancing spot long against futures short."
-      es: "El cash-and-carry bloquea rendimiento neutral al mercado equilibrando spot largo contra futuros corto."
-
-  - id: funding-arb-risk
-    kind: single_choice
-    prompt:
-      en: "What is the principal risk in a delta-neutral cash-and-carry trade (long spot, short perp)?"
-      es: "¿Cuál es el riesgo principal en una operación de cash-and-carry delta-neutral (long spot, short perp)?"
-    options:
-      - id: a
-        text:
-          en: "The asset price rising 50%, since the spot leg cannot cover the short."
-          es: "Que el precio suba un 50 %, ya que el spot no cubre el corto."
-      - id: b
-        text:
-          en: "Liquidation of the spot position, which carries no margin buffer."
-          es: "La liquidación de la posición spot, que no tiene colchón de margen."
-      - id: c
-        text:
-          en: "The order book deepening, which erodes the spread the trade earns."
-          es: "Que el libro gane profundidad y erosione el spread que gana la operación."
-      - id: d
-        correct: true
-        text:
-          en: "Funding flipping negative, turning the yield into a recurring cost."
-          es: "Que el funding se vuelva negativo y el ingreso pase a ser gasto."
-    explanation:
-      en: "Price moves are hedged by construction — that is what delta-neutral means, so a 50% rally costs nothing net and an unleveraged spot holding cannot be liquidated. What is not hedged is the funding rate itself: if sentiment shifts, the yield can shrink to nothing or reverse into a payment you owe every interval."
-      es: "Los movimientos de precio están cubiertos por construcción —eso significa delta-neutral—, así que una subida del 50 % no cuesta nada en neto y una posición spot sin apalancar no se puede liquidar. Lo que no está cubierto es el propio funding: si cambia el sentimiento, el rendimiento puede reducirse a nada o invertirse en un pago que debes cada intervalo."
-
-  - id: spot-perp-basis-expansion
-    kind: single_choice
-    prompt:
-      en: "Why does perpetual futures basis expand to high positive levels during euphoric bull markets?"
-      es: "¿Por qué el basis de futuros perpetuos se expande a niveles positivos altos durante mercados alcistas eufóricos?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "Leveraged long demand arrives faster than spot liquidity can keep up."
-          es: "La demanda de largos apalancados va más rápido que la liquidez spot."
-      - id: b
-        text:
-          en: "Exchanges charge longs a higher maker fee, which lifts the perp price."
-          es: "Los exchanges cobran más comisión a los largos y eso sube el perp."
-      - id: c
-        text:
-          en: "The underlying chain congests, so the perp cannot track spot closely."
-          es: "La cadena se congestiona y el perp no puede seguir de cerca al spot."
-      - id: d
-        text:
-          en: "Shorts are given zero margin requirement, so nobody sells the premium."
-          es: "A los cortos no se les exige margen y nadie vende la prima."
-    explanation:
-      en: "High leverage demand drives perpetual prices above spot, creating high positive basis and elevating funding payments to shorts. The perp does not need the chain at all to track spot — funding is the mechanism that tethers it, and a fee schedule is far too small to open a basis of this size."
-      es: "La alta demanda de apalancamiento empuja los perpetuos por encima del spot, creando un basis positivo alto y elevando los pagos de funding a los cortos. El perp no necesita la cadena para seguir al spot: el funding es el mecanismo que lo ata, y una tabla de comisiones es demasiado pequeña para abrir un basis de este tamaño."
-
-  - id: cross-venue-transfer-friction
-    kind: single_choice
-    prompt:
-      en: "Why do price premiums between two exchanges fail to close immediately when wallet withdrawals are suspended on one venue?"
-      es: "¿Por qué las primas de precio entre dos exchanges no se cierran inmediatamente cuando se suspenden las retiradas de wallet en uno de ellos?"
-    options:
-      - id: a
-        text:
-          en: "The order books stop displaying bids until withdrawals are restored."
-          es: "Los libros dejan de mostrar bids hasta que vuelvan las retiradas."
-      - id: b
-        text:
-          en: "Global trading volume falls to zero, so no price can be discovered."
-          es: "El volumen global cae a cero y no se puede descubrir ningún precio."
-      - id: c
-        text:
-          en: "Funding rates are forced to zero on every venue during a suspension."
-          es: "El funding se fuerza a cero en todos los exchanges durante la pausa."
-      - id: d
-        correct: true
-        text:
-          en: "Arbitrageurs cannot move assets across to sell on the dearer venue."
-          es: "Los arbitrajistas no pueden llevar activos al exchange más caro."
-    explanation:
-      en: "Arbitrage relies on physically transporting assets or fiat between exchanges; closing the withdrawal rails traps capital and preserves the divergence. Trading itself continues normally on both venues — that is exactly why the two prices can stay apart while each book keeps quoting."
-      es: "El arbitraje depende de transportar físicamente activos o fiat entre exchanges; cerrar la vía de retiradas atrapa capital y mantiene la divergencia. La negociación sigue con normalidad en los dos sitios: por eso justamente los dos precios pueden quedarse separados mientras cada libro sigue cotizando."
+      en: "Cheapest first: most 'broken systems' are systems that stopped being followed, and only the journal can tell those apart. Then sample size, because a couple of dozen trades below expectancy is inside the noise. Only then does the pre-written criterion get consulted — and only if it is met does the system come off the market. Reversing this order means abandoning a working system in a normal drawdown, which is the most expensive way to end up with no system at all."
+      es: "Lo más barato primero: la mayoría de los «sistemas rotos» son sistemas que se dejaron de seguir, y eso solo lo distingue el diario. Después el tamaño de la muestra, porque un par de docenas de operaciones por debajo de la esperanza está dentro del ruido. Solo entonces se consulta el criterio escrito de antemano, y solo si se cumple sale el sistema del mercado. Invertir ese orden significa abandonar un sistema que funciona en un drawdown normal, que es la forma más cara de acabar sin ningún sistema."

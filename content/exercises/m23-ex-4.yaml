@@ -1,214 +1,208 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: green-candles
+  - id: constraint-full-time-job
     prompt:
-      en: "A coin is running hard without you and every candle feels like money you're missing. You didn't plan this trade. What's the disciplined response?"
-      es: "Una moneda se dispara con fuerza sin ti y cada vela parece dinero que te estás perdiendo. No planificaste esta operación. ¿Cuál es la respuesta disciplinada?"
+      en: "You work a full-time job during the hours the market is most active. Which style realistically fits your constraints?"
+      es: "Trabajas a tiempo completo durante las horas en que el mercado está más activo. ¿Qué estilo encaja de forma realista con tus limitaciones?"
+    options:
+      - id: a
+        text:
+          en: "Scalping — more trades a day means more profit, so drop other things for it."
+          es: "Scalping: más operaciones al día es más beneficio; deja otras cosas por él."
+      - id: b
+        text:
+          en: "Day trading — you can watch the 5-minute chart from your desk between tasks."
+          es: "Day trading: puedes vigilar el gráfico de 5 minutos entre tareas."
+      - id: c
+        text:
+          en: "It makes no difference; every style needs the same amount of screen time."
+          es: "Da igual; todos los estilos necesitan el mismo tiempo de pantalla."
+      - id: d
+        correct: true
+        text:
+          en: "Swing trading — it can be managed in minutes a day, around a job."
+          es: "Swing trading: se gestiona en minutos al día, alrededor de un empleo."
+    explanation:
+      en: "Scalping and day trading need attention during market hours a full-time job does not leave free, and more trades is a cost rather than extra profit — half-watching a 5-minute chart between tasks is exactly the distracted, sloppy version of day trading. Swing trading, decided on higher timeframes and checked briefly, fits around a job."
+      es: "El scalping y el day trading necesitan atención en horas de mercado que un empleo a tiempo completo no deja libres, y más operaciones es un coste, no beneficio extra: mirar a medias un gráfico de 5 minutos entre tareas es justo la versión distraída y descuidada del day trading. El swing trading, decidido en temporalidades altas y revisado brevemente, encaja alrededor de un empleo."
+  - id: best-style-statement
+    prompt:
+      en: "Which statement about choosing a trading style is correct?"
+      es: "¿Qué afirmación sobre elegir un estilo de trading es correcta?"
     options:
       - id: a
         correct: true
         text:
-          en: "Skip it — with no entry, stop and invalidation, it is a chase."
-          es: "Déjala pasar: sin entrada, stop e invalidación, es una persecución."
+          en: "No style is inherently more profitable; the best one fits your life."
+          es: "Ningún estilo es más rentable de por sí; el mejor encaja con tu vida."
       - id: b
         text:
-          en: "Enter with a very wide stop, since a strong trend won't revisit a tight one."
-          es: "Entra con un stop muy amplio: una tendencia fuerte no vuelve a uno ajustado."
+          en: "Swing trading is objectively most profitable, because it collects funding."
+          es: "El swing es objetivamente el más rentable, porque cobra funding."
       - id: c
         text:
-          en: "Get in now at market; with a move this strong, missing it is the real risk."
-          es: "Entra ya a mercado; con un movimiento así, perdértelo es el riesgo real."
+          en: "Scalping earns more, because it makes by far the most trades."
+          es: "El scalping gana más, porque hace muchas más operaciones."
       - id: d
         text:
-          en: "Buy a small amount now and 'average up' as it keeps on running."
-          es: "Compra un poco ahora y 'promedia al alza' mientras siga subiendo."
+          en: "The style that uses the highest leverage is always the best choice."
+          es: "El estilo que usa más apalancamiento es siempre la mejor elección."
     explanation:
-      en: "A FOMO entry has no plan by definition — the reason is 'price went up', not that a setup appeared — and you arrive at the worst price, exactly where earlier buyers are ready to sell to you. Widening the stop, or averaging up into the move so your largest size sits at your worst price, just compounds it. There is always another setup."
-      es: "Una entrada por FOMO no tiene plan por definición —el motivo es 'el precio subió', no que apareciera un setup— y llegas al peor precio, justo donde los compradores anteriores están listos para vendértelo. Ensanchar el stop, o promediar al alza dentro del movimiento de modo que tu mayor tamaño quede al peor precio, solo lo agrava. Siempre hay otra oportunidad."
-  - id: fomo-rule
-    prompt:
-      en: "Which single rule most directly defuses FOMO entries?"
-      es: "¿Qué regla, por sí sola, desactiva de forma más directa las entradas por FOMO?"
-    options:
-      - id: a
-        text:
-          en: "Always enter the moment price breaks to a new high, so you never miss out."
-          es: "Entrar siempre al romper a un nuevo máximo, para no perderte nada."
-      - id: b
-        text:
-          en: "Increase your size on fast-moving coins to catch up on missed profit."
-          es: "Subir el tamaño en monedas rápidas para recuperar el beneficio perdido."
-      - id: c
-        text:
-          en: "Trust that a big green candle confirms the move is safe to chase."
-          es: "Confiar en que una gran vela verde confirma que es seguro perseguir."
-      - id: d
-        correct: true
-        text:
-          en: "No entry unless you can state its entry, stop and invalidation first."
-          es: "Sin entrada salvo que puedas decir antes entrada, stop e invalidación."
-    explanation:
-      en: "The cure for FOMO is a pre-commitment that a valid trade must be describable before you click. The other three are the chase disguised as strategy: entering on every breakout, sizing up to 'catch up', and treating a green candle as confirmation are all ways of trading because price moved, not because a setup exists."
-      es: "La cura para el FOMO es un precompromiso: una operación válida tiene que poder describirse antes de hacer clic. Las otras tres son la persecución disfrazada de estrategia: entrar en cada ruptura, subir el tamaño para 'recuperar' y tratar una vela verde como confirmación son todas maneras de operar porque el precio se movió, no porque exista un setup."
-  - id: price-moving-myth
-    kind: true_false
-    prompt:
-      en: "When a coin is running hard, the fact that price is moving fast is by itself a good enough reason to enter."
-      es: "Cuando una moneda se dispara con fuerza, que el precio se mueva rápido es por sí solo motivo suficiente para entrar."
-    answer: false
-    explanation:
-      en: "A FOMO trade has no plan by definition: the reason is 'price went up', not that a setup appeared. You arrive at the worst price of the move, exactly where earlier buyers are getting ready to sell to you. There is always another setup."
-      es: "Una operación por FOMO no tiene plan por definición: el motivo es 'el precio subió', no que apareciera un setup. Llegas al peor precio del movimiento, justo donde los compradores anteriores se preparan para vendértelo. Siempre hay otra oportunidad."
-  - id: fomo-habits
+      en: "Frequency is a cost, not an edge, so scalping does not earn more just by trading more; funding is often paid rather than received; and leverage raises risk, not quality. The right style is the one your schedule, sleep and temperament can actually sustain."
+      es: "La frecuencia es un coste, no una ventaja, así que el scalping no gana más solo por operar más; el funding a menudo se paga en vez de cobrarse; y el apalancamiento sube el riesgo, no la calidad. El estilo correcto es el que tu horario, tu sueño y tu temperamento pueden sostener de verdad."
+  - id: what-to-weigh
     kind: multi_select
     prompt:
-      en: "Select ALL of the habits that protect you from FOMO entries."
-      es: "Selecciona TODOS los hábitos que te protegen de las entradas por FOMO."
+      en: "Select ALL the factors the lesson says should drive your choice of trading style."
+      es: "Selecciona TODOS los factores que la lección dice que deben guiar tu elección de estilo de trading."
     options:
       - id: a
         correct: true
         text:
-          en: "Requiring a stated entry, stop and invalidation before you click."
-          es: "Exigir una entrada, un stop y una invalidación dichos antes de hacer clic."
+          en: "Your schedule and how much time you can actually give the screen."
+          es: "Tu horario y cuánto tiempo puedes dedicar de verdad a la pantalla."
       - id: b
         correct: true
         text:
-          en: "Accepting there is always another setup, and letting the runner go."
-          es: "Aceptar que siempre hay otra oportunidad y dejar marchar el movimiento."
+          en: "Whether holding open risk overnight would wreck your sleep."
+          es: "Si mantener riesgo abierto de un día para otro te destrozaría el sueño."
       - id: c
         correct: true
         text:
-          en: "Waiting for a setup you planned instead of reacting to a candle."
-          es: "Esperar un setup que planificaste en vez de reaccionar a una vela."
+          en: "Your temperament — patience versus being impulsive or easily bored."
+          es: "Tu temperamento: paciencia frente a ser impulsivo o aburrirte con facilidad."
       - id: d
         text:
-          en: "Entering at market the moment you feel that you are missing out."
-          es: "Entrar a mercado en cuanto sientes que te lo estás perdiendo."
+          en: "Which style lets you use the highest available leverage."
+          es: "Qué estilo te permite usar el mayor apalancamiento disponible."
       - id: e
         text:
-          en: "Sizing up on fast-moving coins to catch up on the missed profit."
-          es: "Subir el tamaño en monedas rápidas para recuperar lo que te perdiste."
-      - id: f
-        text:
-          en: "Treating a big green candle as confirmation it is safe to chase."
-          es: "Tratar una gran vela verde como confirmación de que es seguro perseguir."
+          en: "Which style places the most trades over the course of a day."
+          es: "Qué estilo coloca más operaciones a lo largo de un día."
     explanation:
-      en: "The cure for FOMO is pre-commitment: a valid trade must be describable — entry, stop, invalidation — before you click, and you accept there's always another setup. The last three are the chase disguised as strategy, all of them trading because price moved rather than because a setup exists."
-      es: "La cura para el FOMO es el precompromiso: una operación válida tiene que poder describirse —entrada, stop, invalidación— antes de hacer clic, y aceptas que siempre hay otra oportunidad. Las tres últimas son la persecución disfrazada de estrategia, todas operando porque el precio se movió y no porque exista un setup."
-  - id: worst-price
+      en: "Pick the style your real constraints can sustain: your schedule, your sleep and your temperament. Highest leverage and most trades are not virtues — leverage adds risk and frequency adds cost, so neither should decide your style."
+      es: "Elige el estilo que tus limitaciones reales puedan sostener: tu horario, tu sueño y tu temperamento. El mayor apalancamiento y el mayor número de operaciones no son virtudes: el apalancamiento añade riesgo y la frecuencia añade coste, así que ninguno debería decidir tu estilo."
+  - id: overnight-sleep-daytrade
     prompt:
-      en: "Why is chasing a coin that has already run hard usually a poor entry?"
-      es: "¿Por qué perseguir una moneda que ya se ha disparado suele ser una mala entrada?"
+      en: "Holding open risk overnight keeps you awake at night. Which style is most likely to suit you?"
+      es: "Mantener riesgo abierto de un día para otro te quita el sueño. ¿Qué estilo es más probable que te convenga?"
     options:
       - id: a
         text:
-          en: "Late entries are fine, because a genuinely strong trend always keeps going."
-          es: "Las entradas tardías van bien, porque una tendencia fuerte siempre sigue."
-      - id: b
-        correct: true
-        text:
-          en: "You arrive at the worst price, where earlier buyers are ready to sell."
-          es: "Llegas al peor precio, donde los compradores previos ya quieren vender."
-      - id: c
-        text:
-          en: "The only real downside is that fees are higher on fast-moving coins."
-          es: "El único inconveniente real es que las comisiones suben en monedas rápidas."
-      - id: d
-        text:
-          en: "It is safe as long as you use high leverage to make the late entry pay."
-          es: "Es seguro mientras uses mucho apalancamiento para rentabilizarla."
-    explanation:
-      en: "Chasing means buying late, with no entry logic and no invalidation, right where the earlier buyers are ready to sell to you. Trends do not 'always continue', the problem is not the fee schedule, and leverage makes a bad entry worse rather than safer."
-      es: "Perseguir es comprar tarde, sin lógica de entrada ni invalidación, justo donde los compradores anteriores están listos para vendértelo. Las tendencias no 'siempre siguen', el problema no es la tarifa de comisiones, y el apalancamiento empeora una mala entrada en vez de hacerla más segura."
-  - id: trade-vs-chase
-    prompt:
-      en: "What is the defining difference between a trade and a chase?"
-      es: "¿Cuál es la diferencia que define una operación frente a una persecución?"
-    options:
-      - id: a
-        text:
-          en: "A trade uses leverage, whereas a chase does not use any at all."
-          es: "Una operación usa apalancamiento y una persecución no usa ninguno."
+          en: "Swing trading — you collect funding while you sleep, offsetting the risk."
+          es: "Swing trading: cobras funding mientras duermes y compensa el riesgo."
       - id: b
         text:
-          en: "A trade is on Bitcoin, whereas a chase happens on the altcoins."
-          es: "Una operación es en Bitcoin y una persecución ocurre en altcoins."
-      - id: c
-        correct: true
-        text:
-          en: "A trade has entry, stop and invalidation stated before you click."
-          es: "Una operación tiene entrada, stop e invalidación dichos antes del clic."
-      - id: d
-        text:
-          en: "A trade ends in profit and a chase in a loss — you only know afterwards."
-          es: "Una acaba en ganancia y otra en pérdida: solo lo sabes después."
-    explanation:
-      en: "The line is not the instrument, the leverage or the outcome — it is whether you could state the entry, stop and invalidation before clicking. If you cannot, the reason for the trade is just that price went up, which is the definition of a chase, and you skip it. A chase that happens to win was still a chase."
-      es: "La línea no es el instrumento, ni el apalancamiento, ni el resultado: es si podías decir la entrada, el stop y la invalidación antes de hacer clic. Si no puedes, el motivo de la operación es solo que el precio subió, que es la definición de una persecución, y la dejas pasar. Una persecución que casualmente gana seguía siendo una persecución."
-  - id: fomo-numbers
-    prompt:
-      en: "A coin rips +40% in an hour. Three green candles in, you buy at the top with no stop and no plan, and minutes later it mean-reverts 15%. What is the worst part of the situation?"
-      es: "Una moneda sube un 40% en una hora. Tres velas verdes después, compras en máximos sin stop y sin plan, y minutos más tarde revierte un 15%. ¿Qué es lo peor de la situación?"
-    options:
-      - id: a
-        text:
-          en: "The 15% loss itself, which a stop would have prevented entirely."
-          es: "La pérdida del 15% en sí, que un stop habría evitado por completo."
-      - id: b
-        correct: true
-        text:
-          en: "With no invalidation defined, you cannot tell whether to hold or fold."
-          es: "Sin invalidación definida, no puedes saber si mantener o cerrar."
+          en: "Scalping — it needs so little sleep that overnight risk stops mattering."
+          es: "Scalping: necesita tan poco sueño que el riesgo nocturno deja de importar."
       - id: c
         text:
-          en: "That you only bought three candles in, rather than right at the start."
-          es: "Que compraste tres velas después y no justo al principio."
+          en: "Any style at all; overnight risk is exactly the same for all three."
+          es: "Cualquiera; el riesgo nocturno es exactamente el mismo en los tres."
       - id: d
+        correct: true
         text:
-          en: "The fees on the entry, which run higher during volatile moves."
-          es: "Las comisiones de la entrada, más altas en movimientos volátiles."
+          en: "Day trading — you are flat by the end of your own session."
+          es: "Day trading: quedas plano al final de tu propia sesión."
     explanation:
-      en: "You are underwater at the single worst price of the move, and because you never defined an invalidation there is no way to manage what follows — that is worse than the loss itself, which a stop would have bounded rather than prevented. You bought a feeling, not a setup, and buying earlier would have been the same mistake at a better price."
-      es: "Estás en pérdidas al peor precio del movimiento y, como nunca definiste una invalidación, no hay forma de gestionar lo que viene: eso es peor que la propia pérdida, que un stop habría acotado, no evitado. Compraste una sensación, no un setup, y comprar antes habría sido el mismo error a mejor precio."
-  - id: fomo-drivers
-    kind: multi_select
-    prompt:
-      en: "Select ALL of the things that make FOMO so persuasive in the moment."
-      es: "Selecciona TODO lo que hace que el FOMO sea tan persuasivo en el momento."
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "It is really fear of future regret, which feels larger than the real risk."
-          es: "Es miedo al arrepentimiento futuro, que se siente mayor que el riesgo real."
-      - id: b
-        correct: true
-        text:
-          en: "The herd amplifies it: the move itself starts to feel like evidence."
-          es: "La manada lo amplifica: el propio movimiento empieza a parecer una prueba."
-      - id: c
-        correct: true
-        text:
-          en: "A feed of other people's wins — almost never their losses — pressures you."
-          es: "Un feed con las ganancias ajenas, casi nunca sus pérdidas, te presiona."
-      - id: d
-        text:
-          en: "A fast move is genuine evidence the next move will continue upward."
-          es: "Un movimiento rápido prueba de verdad que el siguiente seguirá al alza."
-      - id: e
-        text:
-          en: "Entering late reduces the risk, because the trend is already confirmed."
-          es: "Entrar tarde reduce el riesgo, porque la tendencia ya está confirmada."
-    explanation:
-      en: "The anticipated pain of watching it run on without you feels larger than the real risk in front of you, and when price and everyone around you are moving, the move starts to look like proof. But all a fast move proves is that price already went up, a timeline showing only winners is not evidence about the trade in front of you, and entering later means a worse price rather than a safer one."
-      es: "El dolor anticipado de verlo correr sin ti se siente mayor que el riesgo real que tienes delante, y cuando el precio y todos a tu alrededor se mueven, el movimiento empieza a parecer una prueba. Pero todo lo que prueba un movimiento rápido es que el precio ya subió, un timeline que solo muestra ganadores no es prueba sobre la operación que tienes delante, y entrar más tarde significa peor precio, no más seguridad."
-  - id: averaging-up
+      en: "A day trader closes out before the session ends, so there is no overnight position to lose sleep over. Swing trading is the opposite — the position stays live while you sleep — and funding is often paid, not a reward for holding. Scalping is flat overnight too, but it asks for a whole session of unbroken focus, which is a different constraint entirely."
+      es: "Un day trader cierra antes de que acabe la sesión, así que no hay posición nocturna por la que perder el sueño. El swing trading es lo contrario —la posición sigue viva mientras duermes— y el funding a menudo se paga, no es una recompensa por mantener. El scalping también queda plano de noche, pero exige una sesión entera de foco ininterrumpido, que es otra limitación muy distinta."
+  - id: impulsive-high-frequency
     kind: true_false
     prompt:
-      en: "Buying 'a little' and averaging up as the move keeps running is a more disciplined way to join a runaway rally."
-      es: "Comprar 'un poco' e ir promediando al alza mientras el movimiento sigue es una forma más disciplinada de subirse a un rally desbocado."
+      en: "For an impulsive or easily bored trader, a high-frequency style is the worst fit rather than the safest one."
+      es: "Para un trader impulsivo o que se aburre con facilidad, un estilo de alta frecuencia es el que peor encaja, no el más seguro."
+    answer: true
+    explanation:
+      en: "True. High frequency will bleed such a trader through fees and forced trades faster than any single bad call — being 'kept busy' is exactly the trap, not the cure."
+      es: "Cierto. La alta frecuencia desangrará a ese trader por comisiones y operaciones forzadas más rápido que cualquier mala decisión suelta: 'mantenerse ocupado' es justo la trampa, no el remedio."
+  - id: constraint-style-match
+    kind: matching
+    prompt:
+      en: "Match each personal constraint to the style the lesson says fits it best."
+      es: "Empareja cada limitación personal con el estilo que la lección dice que encaja mejor."
+    pairs:
+      - id: job
+        left:
+          en: "You work a full-time job during market hours."
+          es: "Trabajas a tiempo completo en horario de mercado."
+        right:
+          en: "Swing trading — managed in minutes a day, around the job."
+          es: "Swing trading: se gestiona en minutos al día, alrededor del empleo."
+      - id: sleep
+        left:
+          en: "Holding open risk overnight ruins your sleep."
+          es: "Mantener riesgo abierto de un día para otro te arruina el sueño."
+        right:
+          en: "Day trading — flat by the end of the session."
+          es: "Day trading: plano al final de la sesión."
+      - id: focus
+        left:
+          en: "You can give a whole session intense, unbroken focus and fast execution."
+          es: "Puedes dedicar a toda una sesión un foco intenso e ininterrumpido y una ejecución rápida."
+        right:
+          en: "Scalping — continuous attention and clean, fast execution."
+          es: "Scalping: atención continua y ejecución limpia y rápida."
+    explanation:
+      en: "Match the style to the life you actually have: swing trading fits around a job, day trading spares you overnight risk, and scalping suits someone who can sustain intense focus for a session. Fit, not excitement, is what keeps you inside your own rules."
+      es: "Ajusta el estilo a la vida que de verdad tienes: el swing encaja alrededor de un empleo, el day trading te ahorra el riesgo nocturno y el scalping conviene a quien puede sostener un foco intenso durante una sesión. El encaje, no la emoción, es lo que te mantiene dentro de tus propias reglas."
+  - id: thin-hours-only
+    prompt:
+      en: "The only hours you can watch the market are the thin ones — the Asian session and weekends. What does the lesson conclude?"
+      es: "Las únicas horas en que puedes seguir el mercado son las finas: la sesión asiática y los fines de semana. ¿Qué concluye la lección?"
+    options:
+      - id: a
+        text:
+          en: "Scalp those hours anyway — fewer participants means cleaner moves."
+          es: "Haz scalping en esas horas igual: menos gente, movimientos más limpios."
+      - id: b
+        text:
+          en: "Trade a larger size in order to compensate for the thinner book."
+          es: "Opera con más tamaño para compensar el libro más fino."
+      - id: c
+        correct: true
+        text:
+          en: "That is an argument for a slower style, not for trading them harder."
+          es: "Es un argumento a favor de un estilo más lento, no de operarlas más fuerte."
+      - id: d
+        text:
+          en: "It makes no difference — liquidity is even across the 24-hour clock."
+          es: "No hay diferencia: la liquidez es uniforme en el reloj de 24 horas."
+    explanation:
+      en: "A scalper needs hours where the book is deep and the moves are real; hunting ticks in a dead 03:00 book means paying the full fee toll for the worst liquidity of the day, and sizing up into a thin book makes the slippage worse rather than better. A swing trader barely cares, because the position spans every session anyway."
+      es: "Un scalper necesita horas con libro profundo y movimientos reales; cazar ticks en un libro muerto a las 03:00 es pagar el peaje completo de comisiones por la peor liquidez del día, y subir el tamaño en un libro fino empeora el deslizamiento en vez de compensarlo. A un swing apenas le afecta, porque la posición abarca todas las sesiones."
+  - id: attention-vs-patience
+    prompt:
+      en: "Why is 'just try both and see' a weaker plan than it sounds when choosing between scalping and swing trading?"
+      es: "¿Por qué 'prueba los dos y ya verás' es un plan más débil de lo que parece al elegir entre scalping y swing?"
+    options:
+      - id: a
+        text:
+          en: "Because switching styles resets your fee tier at the exchange."
+          es: "Porque cambiar de estilo reinicia tu tramo de comisiones en el exchange."
+      - id: b
+        text:
+          en: "Because swing trading requires considerably more capital than scalping."
+          es: "Porque el swing exige bastante más capital que el scalping."
+      - id: c
+        correct: true
+        text:
+          en: "One is hard on attention, the other on patience — rarely the same person."
+          es: "Uno cuesta atención y el otro paciencia: rara vez la misma persona."
+      - id: d
+        text:
+          en: "Because only one of the two can be profitable in a given market."
+          es: "Porque solo uno de los dos puede ser rentable en un mercado dado."
+    explanation:
+      en: "They are not degrees of the same thing. Scalping wants continuous intense focus; swing trading wants the stomach to hold open risk overnight without meddling — each asks for a different kind of person and a different slice of your life. Both can be profitable, neither needs special capital, and the fee schedule has nothing to do with it."
+      es: "No son grados de lo mismo. El scalping quiere foco intenso continuo; el swing quiere el estómago de mantener riesgo abierto de noche sin toquetear: cada uno pide un tipo de persona distinto y una porción distinta de tu vida. Los dos pueden ser rentables, ninguno necesita un capital especial, y la tarifa de comisiones no tiene nada que ver."
+  - id: style-fights-schedule
+    kind: true_false
+    prompt:
+      en: "A style that fights your schedule or temperament is merely uncomfortable — it does not change your results."
+      es: "Un estilo que choca con tu horario o tu temperamento es solo incómodo: no cambia tus resultados."
     answer: false
     explanation:
-      en: "It is the same chase paid in installments — and it means your worst-priced size is your largest. If you cannot state your entry, your stop and your invalidation before you click, it is not a trade, it is a chase."
-      es: "Es la misma persecución pagada a plazos, y hace que tu mayor tamaño esté al peor precio. Si no puedes decir tu entrada, tu stop y tu invalidación antes de hacer clic, no es una operación: es una persecución."
+      en: "It walks you straight into broken rules and forced trades. Scalp with a full-time job and you take the sloppy entries distraction produces; swing trade when overnight risk keeps you up and you panic-close good positions at 3 a.m."
+      es: "Te lleva directo a romper reglas y a operaciones forzadas. Haz scalping con un trabajo a tiempo completo y tomarás las entradas descuidadas que produce la distracción; haz swing si el riesgo nocturno te desvela y cerrarás en pánico buenas posiciones a las 3 de la madrugada."

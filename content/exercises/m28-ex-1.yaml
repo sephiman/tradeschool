@@ -1,17 +1,91 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-# round: 3 is deliberate — at 2 decimal places the "divide by the other venue" distractor collapses
-# onto the correct answer for premiums of this size and gets deduped away.
-type: calculation
-formula: venue_premium_pct
-prompt:
-  en: "At the same instant, BTC trades at **{price_a} USDT** on the reference venue and at **{price_b} USDT** (converted) on a regional venue. What is the regional venue's premium, as a percentage?"
-  es: "En el mismo instante, BTC cotiza a **{price_a} USDT** en el exchange de referencia y a **{price_b} USDT** (convertido) en un exchange regional. ¿Cuál es la prima del exchange regional, en porcentaje?"
-params:
-  price_a: { kind: int_range, min: 59000, max: 60000, step: 200 }
-  price_b: { kind: int_range, min: 60200, max: 61000, step: 200 }
-tolerance: { rel: "0.001" }
-round: 3
-unit: "%"
-explanation:
-  en: "Divide the gap by the *reference* venue's price, then multiply by 100. The percentage is what makes premiums comparable at all — an absolute gap of 900 means nothing until you know whether it sits on a 60,000 coin or a 6,000 one, and comparing 1.5% today with 1.5% two years ago is meaningful in a way comparing 900 with 900 is not. What the number does not tell you is which of the two causes you are looking at: eager regional demand (informative) or the cost of getting capital in and out (structural). That distinction, not the size of the figure, is the reading."
-  es: "Divide el hueco por el precio del exchange de *referencia* y multiplica por 100. El porcentaje es lo que hace comparables las primas: un hueco absoluto de 900 no significa nada hasta que sabes si está sobre una moneda de 60.000 o de 6.000, y comparar el 1,5 % de hoy con un 1,5 % de hace dos años tiene un sentido que comparar 900 con 900 no tiene. Lo que el número no te dice es cuál de las dos causas estás mirando: demanda regional ansiosa (informativa) o el coste de meter y sacar capital (estructural). Esa distinción, y no el tamaño de la cifra, es la lectura."
+type: quiz
+variants:
+  - id: twenty-trades
+    prompt:
+      en: "A trader backtests 20 trades, gets 13 winners — a 65% win rate — and concludes the system has an edge. What is wrong with that conclusion?"
+      es: "Un trader hace backtest de 20 operaciones, saca 13 aciertos —un 65% de win rate— y concluye que el sistema tiene ventaja. ¿Qué falla en esa conclusión?"
+    options:
+      - id: a
+        text:
+          en: "Nothing is wrong: 65% is comfortably above the 50% a coin would give."
+          es: "No falla nada: un 65% está muy por encima del 50% que daría una moneda."
+      - id: b
+        correct: true
+        text:
+          en: "A coin flipped 20 times reaches 60% or better one time in four."
+          es: "Una moneda lanzada 20 veces llega al 60% o más una de cada cuatro veces."
+      - id: c
+        text:
+          en: "Win rate is the wrong statistic; only the average payoff matters."
+          es: "El win rate es el estadístico equivocado; solo importa el payoff medio."
+      - id: d
+        text:
+          en: "Backtests are worthless in principle, so no sample size would help."
+          es: "Los backtests no valen por definición, así que ninguna muestra ayudaría."
+    explanation:
+      en: "At 20 trades the observed win rate of a system with NO edge lands anywhere between about 28% and 72%, nineteen times out of twenty. An observed 65% therefore sits comfortably inside what a coin does, and tells you nothing about the system that produced it. Win rate is a perfectly good statistic — it is simply not measurable at this sample size, because the error band is wider than any edge you are hoping to find."
+      es: "Con 20 operaciones, el win rate observado de un sistema SIN ventaja cae en cualquier punto entre el 28% y el 72% aproximadamente, diecinueve de cada veinte veces. Un 65% observado se queda por tanto cómodamente dentro de lo que hace una moneda y no dice nada del sistema que lo produjo. El win rate es un estadístico perfectamente válido: lo que pasa es que con esa muestra no se puede medir, porque la banda de error es más ancha que cualquier ventaja que esperes encontrar."
+  - id: sample-scaling
+    prompt:
+      en: "You have 100 backtested trades and want to halve the error band on the observed win rate. How many trades do you need?"
+      es: "Tienes 100 operaciones en backtest y quieres reducir a la mitad la banda de error del win rate observado. ¿Cuántas operaciones necesitas?"
+    options:
+      - id: a
+        text:
+          en: "200 — the error band is inversely proportional to the sample."
+          es: "200: la banda de error es inversamente proporcional a la muestra."
+      - id: b
+        text:
+          en: "150 — the band shrinks quickly once the sample is over a hundred."
+          es: "150: la banda encoge deprisa en cuanto se pasa de cien."
+      - id: c
+        correct: true
+        text:
+          en: "400 — the band shrinks with the square root of the sample."
+          es: "400: la banda encoge con la raíz cuadrada de la muestra."
+      - id: d
+        text:
+          en: "It cannot be halved; the band is a property of the system, not the sample."
+          es: "No se puede reducir: la banda es del sistema, no de la muestra."
+    explanation:
+      en: "The error shrinks with the square root of N, so four times the trades halves it — 100 gives roughly ±5 points on a 50% system and 400 gives ±2.5. That square root is exactly why 'a few dozen more trades' never settles the question, and why dozens say nothing while hundreds begin to speak."
+      es: "El error encoge con la raíz cuadrada de N, así que cuadruplicar las operaciones lo divide entre dos: 100 dan alrededor de ±5 puntos en un sistema del 50% y 400 dan ±2,5. Esa raíz cuadrada es justo la razón de que «unas cuantas operaciones más» nunca zanje la cuestión, y de que las decenas no digan nada mientras los cientos empiezan a hablar."
+  - id: losing-streak
+    kind: true_false
+    prompt:
+      en: "Six losses in a row in a forward test is enough on its own to conclude the system is broken."
+      es: "Seis pérdidas seguidas en un forward test bastan por sí solas para concluir que el sistema está roto."
+    answer: false
+    explanation:
+      en: "It is the same small-sample fact as a flattering win rate, seen from the other end: m25 showed that long losing streaks are ordinary arithmetic for a perfectly valid system. Six losses is compatible with a broken system AND with a good one having a normal bad run, which is exactly why the abandonment criterion is a measured deviation from expectancy fixed in advance, not a count of consecutive losses."
+      es: "Es el mismo hecho de muestra pequeña que un win rate halagador, visto por el otro extremo: m25 enseñó que las rachas perdedoras largas son aritmética corriente en un sistema perfectamente válido. Seis pérdidas son compatibles con un sistema roto Y con uno bueno pasando una mala racha normal, que es precisamente por lo que el criterio de abandono es una desviación medida respecto a la esperanza fijada de antemano, no un recuento de pérdidas seguidas."
+  - id: what-a-sample-buys
+    kind: matching
+    prompt:
+      en: "Match each sample size to what it honestly supports, for a system whose true win rate is 50%."
+      es: "Empareja cada tamaño de muestra con lo que sostiene honestamente, en un sistema cuyo win rate verdadero es del 50%."
+    pairs:
+      - id: twenty
+        left: { en: "20 trades", es: "20 operaciones" }
+        right:
+          en: "An observed 28% to 72% — no claim at all."
+          es: "Un observado del 28% al 72%: ninguna afirmación."
+      - id: hundred
+        left: { en: "100 trades", es: "100 operaciones" }
+        right:
+          en: "Roughly ±5 points: a rough sense of direction."
+          es: "Unos ±5 puntos: una idea gruesa de por dónde va."
+      - id: threehundred
+        left: { en: "300 trades", es: "300 operaciones" }
+        right:
+          en: "Roughly ±3 points: a win rate worth putting in a formula."
+          es: "Unos ±3 puntos: un win rate que ya vale para una fórmula."
+      - id: thousand
+        left: { en: "1000 trades", es: "1000 operaciones" }
+        right:
+          en: "Roughly ±1.6 points: a number you can size against."
+          es: "Unos ±1,6 puntos: un número contra el que dimensionar."
+    explanation:
+      en: "The band closes slowly because it closes with the square root of the sample. What the table is really saying is that expectancy inherits this uncertainty: an error of ±11 points on the win rate at twenty trades is an expectancy band wide enough to contain both 'profitable' and 'bleeding'."
+      es: "La banda se cierra despacio porque se cierra con la raíz cuadrada de la muestra. Lo que dice de verdad la tabla es que la esperanza hereda esa incertidumbre: un error de ±11 puntos en el win rate con veinte operaciones es una banda de esperanza lo bastante ancha como para contener a la vez «rentable» y «desangrándose»."

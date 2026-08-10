@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: calculation
-formula: expectancy
+formula: position_size_from_risk
 prompt:
-  en: "Over many trades your **win rate is {win_rate}** (the fraction of trades that end in profit). Your average winning trade makes **{avg_win} USDT** and your average losing trade loses **{avg_loss} USDT**. What is the expectancy per trade?"
-  es: "A lo largo de muchas operaciones tu **win rate es {win_rate}** (la fracción de operaciones que acaban en ganancia). Tu operación ganadora media gana **{avg_win} USDT** y tu operación perdedora media pierde **{avg_loss} USDT**. ¿Cuál es la esperanza (expectancy) por operación?"
+  en: "Your account equity is **{equity}** USDT and you risk **{risk_pct}** of it on this trade. Your stop sits **{stop_distance}** away from your entry (in price). How many units should you buy so that being stopped out loses exactly your risk budget?"
+  es: "El capital de tu cuenta es de **{equity}** USDT y arriesgas **{risk_pct}** de él en esta operación. Tu stop está a **{stop_distance}** de tu entrada (en precio). ¿Cuántas unidades debes comprar para que, si te salta el stop, pierdas exactamente tu presupuesto de riesgo?"
 params:
-  win_rate: { kind: choice, values: ["0.45", "0.5", "0.55"] }
-  avg_win: { kind: int_range, min: 120, max: 320, step: 10 }
-  avg_loss: { kind: int_range, min: 90, max: 240, step: 10 }
-tolerance: { abs: "1" }
-round: 2
-unit: USDT
+  equity: { kind: int_range, min: 2000, max: 20000, step: 500 }
+  risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }
+  stop_distance: { kind: choice, values: ["50", "100", "250", "500"] }
+tolerance: { rel: "0.01" }
+round: 4
+unit: units
 explanation:
-  en: "Expectancy = win% × average win − loss% × average loss, where loss% = 1 − win%. It is the average result of one trade repeated over many. A positive number means the system makes money over time; a negative one means it bleeds, however good any single trade felt. Notice that a win rate near 50% is not enough on its own — the payoff decides the sign."
-  es: "Esperanza = win% × ganancia media − loss% × pérdida media, donde loss% = 1 − win%. Es el resultado medio de una operación repetida muchas veces. Un número positivo significa que el sistema gana dinero con el tiempo; uno negativo, que sangra, por buena que se sintiera cualquier operación aislada. Fíjate en que un win rate cercano al 50% no basta por sí solo: el payoff decide el signo."
+  en: "First the risk budget in money: equity × risk %. Then divide it by the stop distance — the loss per unit if you are stopped out. That quotient is the position size: hold it, and hitting the stop costs exactly your budget. A wider stop forces a smaller size for the same risk."
+  es: "Primero el presupuesto de riesgo en dinero: capital × % de riesgo. Luego divídelo por la distancia del stop, la pérdida por unidad si te saltan. Ese cociente es el tamaño de posición: mantenlo y tocar el stop cuesta exactamente tu presupuesto. Un stop más ancho fuerza un tamaño menor para el mismo riesgo."

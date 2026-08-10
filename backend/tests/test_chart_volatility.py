@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""The volatility family (m32): the two envelopes, the squeeze between them, and the momentum pane.
+"""The volatility family (m16): the two envelopes, the squeeze between them, and the momentum pane.
 
 Two things are under test and they are deliberately separated. §1 is the INDICATOR MATHS, checked
 against hand-built series where the right answer is known by construction rather than by generation —
@@ -7,7 +7,7 @@ without it, an envelope that is subtly wrong would simply move the injector's tu
 `volatility_bands` contract: the label names a phase, and the phase has to be visible IN THE BANDS,
 which are computed from the candles and can therefore disagree with it.
 
-§3 covers the zero-centred pane as a GENERIC framework capability rather than as m32's indicator — it
+§3 covers the zero-centred pane as a GENERIC framework capability rather than as m16's indicator — it
 is the first pane in this codebase to carry a state row, and what that row owes the renderer is checked
 here for any injector that ever ships one.
 """
@@ -71,7 +71,7 @@ def test_true_range_sees_a_gap_that_high_minus_low_misses() -> None:
 
 
 def test_bollinger_is_drawn_from_scatter_and_keltner_from_travel() -> None:
-    """m32-l1's claim, made false-able: a series with tight closes and wide bars puts BB inside KC.
+    """m16-l1's claim, made false-able: a series with tight closes and wide bars puts BB inside KC.
 
     Same closes, same mean; only the bars' RANGE differs between the two constructions, and only the
     Keltner moves. If this ever stops holding, the lesson's core distinction has gone with it.
@@ -143,7 +143,7 @@ def test_no_seed_ever_needs_the_unplantable_escape() -> None:
 
 @pytest.mark.parametrize(("label", "widens"), [("compression", False), ("expansion", True)])
 def test_the_band_width_moves_the_way_the_cycle_says(label: str, widens: bool) -> None:
-    """Volatility clusters (m32-l1): each chart opens in the OTHER phase, so the width has to travel."""
+    """Volatility clusters (m16-l1): each chart opens in the OTHER phase, so the width has to travel."""
     config = _config("volatility_bands", [label])
     ratios = []
     for seed in range(_SEEDS):
@@ -244,7 +244,7 @@ def test_every_injector_that_drives_the_pane_is_covered() -> None:
     """Fails if the parametrised suites' discovery silently finds nothing.
 
     Two different things are counted, and the difference is deliberate. A panel CARRIES the pane series
-    whenever its injector supplies one — m32's bands figure does, even though it draws no pane — which is
+    whenever its injector supplies one — m16's bands figure does, even though it draws no pane — which is
     what the recompute test above sweeps. A panel that DECLARES `indicator: momentum` is the one that
     actually renders it, and at least one figure has to, or the render path has no coverage at all.
     """

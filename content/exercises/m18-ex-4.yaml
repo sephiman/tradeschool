@@ -1,197 +1,206 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: unlock-vs-breakout
+  - id: extreme-fear-print
     prompt:
-      en: "You spot a clean bullish breakout on a token, but a large unlock releasing 20% of the supply is scheduled for tomorrow. How should the unlock affect your read?"
-      es: "Detectas una ruptura alcista limpia en un token, pero mañana está programado un desbloqueo grande que libera el 20% de la oferta. ¿Cómo debería afectar el desbloqueo a tu lectura?"
+      en: "The index prints an extreme reading of 8 (extreme fear). What is the correct way to use it?"
+      es: "El índice marca una lectura extrema de 8 (miedo extremo). ¿Cuál es la forma correcta de usarla?"
     options:
       - id: a
         text:
-          en: "Ignore it — unlocks are always priced in, so only the chart matters here."
-          es: "Ignóralo: los desbloqueos siempre se descuentan y solo importa el gráfico."
+          en: "Buy immediately with size — an extreme reading is a precise entry trigger."
+          es: "Comprar de inmediato y con tamaño: una lectura extrema es un trigger preciso."
       - id: b
         text:
-          en: "It does not matter, because market cap and FDV are the same thing anyway."
-          es: "Da igual, porque el market cap y la FDV son lo mismo de todas formas."
+          en: "Short immediately, since fear means price will keep falling from here."
+          es: "Cortar de inmediato, ya que el miedo significa que el precio seguirá cayendo."
       - id: c
         correct: true
         text:
-          en: "With caution — a wave of fresh supply can invalidate the breakout entirely."
-          es: "Con cautela: la oferta nueva puede invalidar la ruptura."
+          en: "Treat it as a contrarian zone and wait for your own confirmation."
+          es: "Tratarla como zona contraria y esperar tu propia confirmación."
       - id: d
         text:
-          en: "It makes the breakout safer, since more tokens means more buyers arriving."
-          es: "Hace la ruptura más segura, ya que más tokens implica más compradores."
+          en: "Ignore it entirely — sentiment is never useful for anything at all."
+          es: "Ignorarla del todo: el sentimiento no sirve nunca para nada."
     explanation:
-      en: "A scheduled unlock is a fundamental force the chart cannot show: a big tranche of new supply hitting the market can cap or reverse an otherwise clean breakout, regardless of what the pattern says. There is no guarantee it is priced in, market cap and FDV are not the same number — that confusion is exactly what hides the incoming supply — and more tokens is more potential sellers, not more buyers."
-      es: "Un desbloqueo programado es una fuerza fundamental que el gráfico no puede mostrar: un tramo grande de oferta nueva llegando al mercado puede frenar o girar una ruptura por lo demás limpia, diga lo que diga el patrón. No hay garantía de que esté descontado, el market cap y la FDV no son el mismo número —esa confusión es justo lo que oculta la oferta que llega— y más tokens son más vendedores potenciales, no más compradores."
-  - id: why-in-ta
+      en: "An extreme reading marks a contrarian zone, not a moment. Extremes can stay extreme for weeks, so buying on the number alone gets you run over — and it is certainly not an instruction to short with the crowd either. The number frames which side is dangerous; the entry still comes from structure, a level, your own confirmation."
+      es: "Una lectura extrema marca una zona contraria, no un momento. Los extremos pueden seguir extremos durante semanas, así que comprar solo por el número te arrolla, y desde luego tampoco es una orden de cortar con la masa. El número enmarca qué lado es peligroso; la entrada sigue viniendo de la estructura, de un nivel, de tu propia confirmación."
+  - id: zone-not-timing
     prompt:
-      en: "Why does a token's unlock calendar belong inside your technical analysis rather than beside it?"
-      es: "¿Por qué el calendario de desbloqueo de un token forma parte de tu análisis técnico en lugar de ir aparte?"
+      en: "Why is an extreme sentiment reading a zone rather than a timing trigger?"
+      es: "¿Por qué una lectura extrema de sentimiento es una zona y no un trigger de timing?"
     options:
       - id: a
-        text:
-          en: "It does not: tokenomics and technical analysis should never be mixed at all."
-          es: "No forma parte: la tokenómica y el análisis técnico nunca deben mezclarse."
-      - id: b
-        text:
-          en: "Because an unlock raises the max supply, so the chart's levels move up too."
-          es: "Porque un desbloqueo eleva la oferta máxima y los niveles del gráfico suben."
-      - id: c
         correct: true
         text:
-          en: "It adds sell-side supply that can override a clean chart pattern."
-          es: "Añade oferta vendedora que puede anular un patrón limpio del gráfico."
+          en: "Extremes can persist for months while price keeps trending."
+          es: "Los extremos pueden persistir meses mientras el precio sigue en tendencia."
+      - id: b
+        text:
+          en: "Because the exact value, such as 90, pinpoints the top to the very day."
+          es: "Porque el valor exacto, como 90, señala el techo al día concreto."
+      - id: c
+        text:
+          en: "Because the index updates too slowly, though it still marks the turn."
+          es: "Porque el índice se actualiza muy despacio, aunque marque igual el giro."
       - id: d
         text:
-          en: "Because once an unlock happens, market cap and FDV become one number."
-          es: "Porque tras un desbloqueo el market cap y la FDV pasan a ser un solo número."
+          en: "Because sentiment matters only in stock markets and never in crypto."
+          es: "Porque el sentimiento solo importa en las bolsas y nunca en cripto."
     explanation:
-      en: "An unlock moves tokens from locked to circulating — it does not change the max supply, and market cap and FDV remain distinct. What it does add is real sell-side supply, a fundamental force that can invalidate a technically clean setup. That is exactly why it belongs in the analysis rather than in a separate box beside it."
-      es: "Un desbloqueo mueve tokens de bloqueados a circulantes: no cambia la oferta máxima, y el market cap y la FDV siguen siendo distintos. Lo que sí añade es oferta vendedora real, una fuerza fundamental que puede invalidar un setup técnicamente limpio. Por eso precisamente forma parte del análisis y no de una casilla aparte."
-  - id: unlock-raises-maxsupply
+      en: "Extreme greed has lasted through entire bull runs and extreme fear through long bear markets. The reading tells you the crowd is lopsided and one side is dangerous — it says nothing about the exact moment of the turn, whatever value it prints, so the timing must come from your own tools."
+      es: "La codicia extrema ha durado rallies alcistas enteros y el miedo extremo, mercados bajistas largos. La lectura te dice que la masa está desequilibrada y que un lado es peligroso; no dice nada sobre el momento exacto del giro, marque el valor que marque, así que el timing debe venir de tus propias herramientas."
+  - id: precise-trigger-myth
     kind: true_false
     prompt:
-      en: "A scheduled token unlock raises the token's maximum supply."
-      es: "Un desbloqueo programado de tokens eleva el oferta máxima del token."
+      en: "An extreme sentiment reading is, by itself, a precise buy or sell trigger."
+      es: "Una lectura extrema de sentimiento es, por sí sola, un trigger preciso de compra o venta."
     answer: false
     explanation:
-      en: "An unlock only moves tokens from locked to circulating — the max supply (and the FDV built on it) already counted those tokens. What changes is the tradable supply hitting the market, which is why an unlock can add real sell-side pressure."
-      es: "Un desbloqueo solo mueve tokens de bloqueados a circulantes: el oferta máxima (y la FDV que se apoya en él) ya contaban esos tokens. Lo que cambia es la oferta negociable que llega al mercado, y por eso un desbloqueo puede añadir presión vendedora real."
-  - id: unlock-priced-in
-    kind: true_false
+      en: "This is the classic trap. An extreme reading marks a crowded, contrarian zone — never a moment. Extremes can persist for weeks or months, so the trigger must come from your own tools: structure, a level, confirmation."
+      es: "Esta es la trampa clásica. Una lectura extrema marca una zona contraria y saturada, nunca un momento. Los extremos pueden persistir semanas o meses, así que el disparador debe venir de tus propias herramientas: estructura, un nivel, confirmación."
+  - id: greed-persist-scenario
     prompt:
-      en: "A large scheduled unlock can put more supply on the market in a day than normal trading absorbs, whatever the chart shows."
-      es: "Un desbloqueo grande programado puede volcar al mercado en un día más oferta de la que absorbe el trading normal, muestre lo que muestre el gráfico."
-    answer: true
+      en: "You short the first \"extreme greed\" print at 90, but price climbs another 40% over two months while greed stays extreme. What is the lesson?"
+      es: "Te pones corto en la primera lectura de \"codicia extrema\" en 90, pero el precio sube otro 40 % en dos meses mientras la codicia sigue extrema. ¿Cuál es la lección?"
+    options:
+      - id: a
+        text:
+          en: "The index lied about the state of the market and should be thrown away."
+          es: "El índice mintió sobre el estado del mercado y hay que tirarlo."
+      - id: b
+        correct: true
+        text:
+          en: "Extremes persist: sentiment marks the crowded side, not the moment."
+          es: "Los extremos persisten: el sentimiento marca el lado, no el momento."
+      - id: c
+        text:
+          en: "You simply needed more leverage in order to survive the move against you."
+          es: "Solo necesitabas más apalancamiento para sobrevivir al movimiento en contra."
+      - id: d
+        text:
+          en: "Extreme greed always means the top arrives on that very same day."
+          es: "La codicia extrema siempre significa que el techo llega ese mismo día."
     explanation:
-      en: "True, and there is no guarantee it is priced in ahead of time. That is a fundamental force the candles cannot display: it can cap or reverse an otherwise clean setup on the day it lands."
-      es: "Cierto, y no hay garantía de que esté descontado con antelación. Es una fuerza fundamental que las velas no pueden mostrar: puede frenar o girar un setup por lo demás limpio el día en que llega."
-  - id: unlock-effects
+      en: "Greed stayed extreme through entire bull runs. Shorting the first extreme print treats a zone as a moment — the exact mistake that gets contrarians run over. The reading itself was fine and the index was working; the timing has to come from elsewhere, and more leverage against a persisting extreme only shortens how long you survive."
+      es: "La codicia se mantuvo extrema durante rallies alcistas enteros. Cortar en la primera lectura extrema trata una zona como un momento: justo el error que arrolla a los contrarios. La lectura estaba bien y el índice funcionaba; el timing tiene que venir de otro sitio, y más apalancamiento contra un extremo que persiste solo acorta lo que aguantas."
+  - id: where-trigger-comes-from
+    prompt:
+      en: "If sentiment only tells you which side is dangerous, where does the actual entry trigger come from?"
+      es: "Si el sentimiento solo te dice qué lado es peligroso, ¿de dónde viene el detonante real de entrada?"
+    options:
+      - id: a
+        text:
+          en: "From the index number crossing a round value such as 90 or 10."
+          es: "De que el número del índice cruce un valor redondo como 90 o 10."
+      - id: b
+        text:
+          en: "From whatever the loudest consensus on social media says that day."
+          es: "De lo que diga ese día el consenso más ruidoso de las redes sociales."
+      - id: c
+        correct: true
+        text:
+          en: "From your own tools — structure, a level, confirmation."
+          es: "De tus propias herramientas: estructura, un nivel, confirmación."
+      - id: d
+        text:
+          en: "From the index crossing back through the midpoint at 50."
+          es: "De que el índice vuelva a cruzar el punto medio en 50."
+    explanation:
+      en: "Sentiment is context, not a signal generator. It frames which side is crowded and risky; the decision to actually enter still has to be confirmed by your own analysis of price and structure. No threshold on the index — 90, 10 or 50 — converts a mood reading into a moment, and the loudest consensus is the crowd the reading is measuring."
+      es: "El sentimiento es contexto, no un generador de señales. Enmarca qué lado está saturado y es arriesgado; la decisión de entrar de verdad todavía tiene que confirmarla tu propio análisis del precio y la estructura. Ningún umbral del índice —90, 10 o 50— convierte una lectura de ánimo en un momento, y el consenso más ruidoso es justamente la masa que la lectura está midiendo."
+  - id: correct-use-of-extreme
     kind: multi_select
     prompt:
-      en: "A large token unlock (a 'cliff') is about to land. Select ALL the statements about it that are true."
-      es: "Está a punto de llegar un desbloqueo grande (un 'cliff'). Selecciona TODAS las afirmaciones ciertas sobre él."
+      en: "Select ALL the correct ways to use an extreme sentiment reading."
+      es: "Selecciona TODAS las formas correctas de usar una lectura extrema de sentimiento."
     options:
       - id: a
         correct: true
         text:
-          en: "It moves tokens from locked to circulating, so more becomes tradable."
-          es: "Mueve tokens de bloqueados a circulantes: pasa a ser negociable más oferta."
+          en: "Treat it as a contrarian zone where risk/reward starts to shift."
+          es: "Tratarla como una zona contraria donde el riesgo/beneficio empieza a cambiar."
       - id: b
         correct: true
         text:
-          en: "It can add more supply than normal trading absorbs, capping a clean move."
-          es: "Puede añadir más oferta de la que absorbe el trading y frenar un movimiento."
+          en: "Get more careful on the crowded side — size down, tighten risk."
+          es: "Ser más prudente en el lado saturado: reducir tamaño, apretar el riesgo."
       - id: c
+        correct: true
         text:
-          en: "It guarantees that the price will crash on the unlock date itself."
-          es: "Garantiza que el precio se desplomará en la propia fecha del desbloqueo."
+          en: "Wait for your own confirmation before entering."
+          es: "Esperar tu propia confirmación antes de entrar."
       - id: d
         text:
-          en: "It makes a bullish setup safer, since more tokens means more buyers."
-          es: "Hace más seguro un setup alcista, ya que más tokens implica más compradores."
+          en: "Use the exact number as an entry button the instant it prints."
+          es: "Usar el número exacto como botón de entrada en cuanto aparece."
+      - id: e
+        text:
+          en: "Short the first extreme-greed print with full size."
+          es: "Cortar la primera lectura de codicia extrema con tamaño completo."
+      - id: f
+        text:
+          en: "Assume the reading pinpoints the turn to the exact day."
+          es: "Dar por hecho que la lectura señala el giro al día exacto."
     explanation:
-      en: "An unlock shifts locked tokens into the tradable float and can add heavy sell-side supply — enough to override a clean chart. But nothing is guaranteed: most unlocks pass quietly, and more tokens is more potential supply, not more buyers."
-      es: "Un desbloqueo pasa tokens bloqueados al float negociable y puede añadir mucha oferta vendedora, la suficiente para anular un gráfico limpio. Pero nada está garantizado: la mayoría de los desbloqueos pasan sin ruido, y más tokens es más oferta potencial, no más compradores."
-  - id: emission-inflation
+      en: "An extreme reading is a zone, not a moment: use it to lean cautious on the crowded side and to look for setups, but let your own confirmation time the entry. Using the number as an instant entry button, shorting the first extreme print, or assuming it pinpoints the turn are all the trap that gets people run over."
+      es: "Una lectura extrema es una zona, no un momento: úsala para volverte prudente en el lado saturado y para buscar setups, pero deja que tu propia confirmación marque el momento de entrar. Usar el número como botón de entrada instantáneo, cortar en la primera lectura extrema o dar por hecho que señala el giro exacto son la trampa que arrolla a la gente."
+  - id: double-counting
     prompt:
-      en: "A token's emission schedule inflates its circulating supply by about 30% a year. All else equal, what does price have to do just to hold the same total market value?"
-      es: "El calendario de emisión de un token infla su oferta circulante alrededor de un 30% al año. En igualdad de condiciones, ¿qué tiene que hacer el precio solo para mantener el mismo valor total de mercado?"
+      en: "A trader confirms a bullish price breakout by pointing at a rising greed reading. What is wrong with that?"
+      es: "Un trader confirma una ruptura alcista del precio señalando una lectura de codicia al alza. ¿Qué falla en eso?"
     options:
       - id: a
         text:
-          en: "Nothing at all — inflation affects max supply, not the market value."
-          es: "Nada: la inflación afecta a la oferta máxima, no al valor de mercado."
+          en: "Nothing at all — sentiment is a genuine second witness to what price says."
+          es: "Nada: el sentimiento es un segundo testigo genuino de lo que dice el precio."
       - id: b
-        text:
-          en: "Fall about 30%, because more supply always drags price down in step."
-          es: "Bajar un 30%, porque más oferta siempre arrastra el precio en la misma medida."
-      - id: c
-        text:
-          en: "Rise about 30%, which already shows as a downtrend on the candles."
-          es: "Subir un 30%, algo que ya se ve como una bajista en las velas."
-      - id: d
         correct: true
         text:
-          en: "Rise about 30%, just to offset the new supply arriving."
-          es: "Subir alrededor de un 30%, solo para compensar la oferta nueva."
-    explanation:
-      en: "Market value is price × circulating supply, so if supply grows 30%, price must climb ~30% just to keep the same total — an inflation headwind you only see by reading the schedule. It is not automatically a price drop, and it does not show up on a candlestick chart by itself, which is precisely what makes it easy to miss."
-      es: "El valor de mercado es precio × oferta circulante, así que si la oferta crece un 30%, el precio debe subir ~30% solo para mantener el mismo total: un viento en contra que solo ves leyendo el calendario. No es automáticamente una caída del precio, y no aparece por sí solo en un gráfico de velas, que es justo lo que lo hace fácil de pasar por alto."
-  - id: cliff-numbers
-    prompt:
-      en: "A token has 100 million circulating at $2.00 and trades about 8 million tokens a day. A cliff unlocks a 20-million-token investor tranche on one date. What has just happened to the book?"
-      es: "Un token tiene 100 millones circulando a 2,00 $ y negocia unos 8 millones de tokens al día. Un desbloqueo de golpe libera un tramo de 20 millones de tokens de inversores en una sola fecha. ¿Qué le acaba de pasar al libro?"
-    options:
-      - id: a
-        text:
-          en: "Nothing measurable — 20 million is small next to 100 million circulating."
-          es: "Nada medible: 20 millones es poco frente a 100 millones circulando."
-      - id: b
-        text:
-          en: "The max supply of the token rose by exactly 20 million tokens."
-          es: "La oferta máxima del token subió en exactamente 20 millones de tokens."
+          en: "Half the index is price in disguise: it is one reason counted twice."
+          es: "Media puntuación es precio disfrazado: es una razón contada dos veces."
       - id: c
-        correct: true
         text:
-          en: "The float jumped 20% overnight — two and a half days of volume at once."
-          es: "El float saltó un 20% de golpe: dos días y medio de volumen a la vez."
+          en: "Greed readings are always contrarian, so the breakout is bound to fail."
+          es: "Las lecturas de codicia son siempre contrarias: la ruptura fallará seguro."
       - id: d
         text:
-          en: "The market cap fell by 20%, while the float itself is unchanged."
-          es: "La capitalización cayó un 20%, mientras el float no ha cambiado."
+          en: "The index lags, so it should be read as bearish confirmation instead."
+          es: "El índice va con retardo, así que debe leerse como confirmación bajista."
     explanation:
-      en: "Even if only a third of the tranche sells, ~6.7 million tokens hunt for bids against a book that clears 8 million in a day — price gets pushed down by the arithmetic of supply, not by anything the pattern did wrong. The max supply already counted those tokens, and the market cap does not fall on its own; the float is exactly what changed. That is why tokenomics belongs inside your technical analysis, not beside it."
-      es: "Incluso si solo vende un tercio del tramo, ~6,7 millones de tokens buscan demanda contra un libro que absorbe 8 millones al día: el precio baja por la aritmética de la oferta, no porque el patrón hiciera nada mal. La oferta máxima ya contaba esos tokens, y la capitalización no cae por sí sola; lo que cambió es justamente el float. Por eso la tokenómica va dentro de tu análisis técnico, no al lado."
-  - id: unlock-front-run
-    prompt:
-      en: "The unlock calendar is published to the day and everyone has it. What does that do to when the price weakness shows up?"
-      es: "El calendario de desbloqueos se publica al día y todo el mundo lo tiene. ¿Qué efecto tiene eso en cuándo aparece la debilidad del precio?"
-    options:
-      - id: a
-        text:
-          en: "Nothing until the tokens hit wallets, since only real selling moves price."
-          es: "Nada hasta que los tokens llegan a las wallets: solo la venta real mueve."
-      - id: b
-        text:
-          en: "The weakness arrives exactly on the unlock date, to the hour, every time."
-          es: "La debilidad llega exactamente en la fecha, a la hora, siempre."
-      - id: c
-        correct: true
-        text:
-          en: "It tends to be front-run: price often weakens in the days before."
-          es: "Tiende a anticiparse: el precio suele debilitarse en los días previos."
-      - id: d
-        text:
-          en: "Being public means it is fully priced in and never moves price at all."
-          es: "Ser público significa que está descontado y nunca mueve el precio."
-    explanation:
-      en: "Because the shock is known, informed players position ahead of it and the move can be half over before the tokens actually move. Front-running is a tendency, not a guarantee that the event is harmless — the unlock still hits a live 24/7 order book at whatever hour it lands, with no session to digest it, and 'public' is a long way from 'fully priced in'."
-      es: "Como el shock es conocido, los participantes informados se posicionan antes y el movimiento puede estar medio hecho antes de que los tokens se muevan. Anticiparse es una tendencia, no una garantía de que el evento sea inocuo: el desbloqueo golpea igualmente un libro vivo 24/7 a la hora que caiga, sin sesión que lo digiera, y 'público' está lejos de 'totalmente descontado'."
-  - id: supply-source-match
+      en: "Volatility and momentum — both computed from price — are together about half the score, so they think they have two independent reasons when they really have one. The index is not a second witness to what price is already telling you. That does not make it a reversed signal either: it simply is not independent evidence."
+      es: "La volatilidad y el momentum, ambos calculados a partir del precio, son juntos la mitad de la puntuación, así que creen tener dos razones independientes cuando solo tienen una. El índice no es un segundo testigo de lo que el precio ya te dice. Eso tampoco lo convierte en una señal invertida: sencillamente no es evidencia independiente."
+  - id: sentiment-role-match
     kind: matching
     prompt:
-      en: "Match each source of new supply to how it hits the market."
-      es: "Empareja cada fuente de nueva oferta con cómo golpea el mercado."
+      en: "Match each tool to the question it can actually answer."
+      es: "Empareja cada herramienta con la pregunta que puede responder realmente."
     pairs:
-      - id: cliff
-        left: { en: "A cliff unlock", es: "Un desbloqueo de golpe (cliff)" }
+      - id: sent
+        left: { en: "A sentiment extreme", es: "Un extremo de sentimiento" }
         right:
-          en: "A big tranche releasing on a single date — more supply in a day than normal trading absorbs."
-          es: "Un tramo grande liberado en una sola fecha: más oferta en un día de la que absorbe la negociación normal."
-      - id: emissions
-        left: { en: "Staking and mining emissions", es: "Emisiones de staking y minería" }
+          en: "Which side is dangerous — how crowded and one-sided the mood is right now."
+          es: "Qué lado es peligroso: lo saturado y unilateral que está el ánimo ahora mismo."
+      - id: struct
+        left: { en: "Structure, a level, confirmation", es: "Estructura, un nivel, confirmación" }
         right:
-          en: "Minted continuously, with farmers routinely selling to cover costs — a steady, mechanical background sell independent of sentiment."
-          es: "Se emiten continuamente, y los farmers suelen vender para cubrir costes: una venta de fondo constante y mecánica, independiente del sentimiento."
-      - id: thin
-        left: { en: "The same tranche landing on a thin alt book", es: "El mismo tramo cayendo en un libro poco profundo de alts" }
+          en: "When to act — the actual entry trigger."
+          es: "Cuándo actuar: el detonante real de entrada."
+      - id: zone
+        left: { en: "The contrarian zone itself", es: "La zona contraria en sí" }
         right:
-          en: "What a deep BTC-scale book would absorb can gap a small alt several percent in minutes."
-          es: "Lo que un libro profundo de escala BTC absorbería puede hacer que una alt pequeña salte varios puntos porcentuales en minutos."
+          en: "A region where the odds and risk/reward start to shift — never a moment."
+          es: "Una región donde las probabilidades y el riesgo/beneficio empiezan a cambiar; nunca un momento."
     explanation:
-      en: "A scheduled unlock is a supply shock the chart cannot show. When a large one is near it overrides the technicals — treat the pattern as provisional until the new supply has been absorbed."
-      es: "Un desbloqueo programado es un shock de oferta que el gráfico no puede mostrar. Cuando hay uno grande cerca, se impone sobre lo técnico: trata el patrón como provisional hasta que la nueva oferta se haya absorbido."
+      en: "Sentiment tells you which side is dangerous; it never tells you when. The trigger has to come from your own tools."
+      es: "El sentimiento te dice qué lado es peligroso; nunca te dice cuándo. El trigger tiene que venir de tus propias herramientas."
+  - id: size-for-extremes
+    kind: true_false
+    prompt:
+      en: "Because the odds have shifted at an extreme reading, a full-size contrarian position is justified there."
+      es: "Como las probabilidades han cambiado en una lectura extrema, ahí se justifica una posición contraria a tamaño completo."
+    answer: false
+    explanation:
+      en: "An extreme can deepen and stay extreme for a long time, and a fixed-size contrarian bet placed *at* the extreme has to survive all of it. Size for the fact that the extreme can get more extreme."
+      es: "Un extremo puede profundizarse y mantenerse mucho tiempo, y una apuesta contraria de tamaño fijo colocada *en* el extremo tiene que sobrevivir a todo ello. Dimensiona partiendo de que el extremo puede volverse más extremo."

@@ -1,265 +1,259 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-# The map itself: each dialect term against the mechanic it renames and the module that taught it. The
-# mix follows the terrain rather than a quota — a vocabulary map is naturally a `matching` question, a
-# setup is naturally an `ordering` one, and the two definitions that people get wrong get their own
-# single-choice drills.
 type: quiz
 variants:
-  - id: order-block-is
+  - id: cvd-definition
     prompt:
-      en: "Mechanically, what is an \"order block\"?"
-      es: "Mecánicamente, ¿qué es un «order block»?"
+      en: "What exactly is plotted when a chart shows a CVD line?"
+      es: "¿Qué se dibuja exactamente cuando un gráfico muestra una línea de CVD?"
     options:
       - id: a
         text:
-          en: "A block of orders an institution announced, visible on the order book."
-          es: "Un bloque de órdenes que una institución anunció, visible en el libro."
+          en: "A running sum of total volume, so the line only ever climbs."
+          es: "Una suma corriente del volumen total, así que la línea solo sube."
       - id: b
         correct: true
         text:
-          en: "The last opposing candles before the impulse that broke the structure."
-          es: "Las últimas velas contrarias antes del impulso que rompió la estructura."
+          en: "A running sum of each period's delta, from some starting point."
+          es: "Una suma corriente del delta de cada periodo, desde un inicio."
       - id: c
         text:
-          en: "Any candle with an unusually large body, wherever it sits on the chart."
-          es: "Cualquier vela de cuerpo inusualmente grande, esté donde esté."
+          en: "A moving average of volume, smoothed the way RSI smooths price."
+          es: "Una media móvil del volumen, suavizada como el RSI el precio."
       - id: d
         text:
-          en: "A price level calculated from the range's 61.8% retracement level."
-          es: "Un nivel calculado a partir del retroceso del 61,8 % del rango."
+          en: "The perpetual's premium over spot, accumulated over the session."
+          es: "La prima del perpetuo sobre el spot, acumulada en la sesión."
     explanation:
-      en: "It is m08-l1's shelf of resting orders and m09's absorbing buyer under a new name: the area where the size that caused the move was working and could not all get filled. Nothing is announced and nothing is visible — the *inference* is that size which moved price that hard was unlikely to have filled in one place, so a return to where it was working may find the remainder. That inference is ordinary order-flow reasoning. Two things it is not: a big candle by itself (location does the work — m08-l2), and anything derived from a ratio."
-      es: "Es la repisa de órdenes en reposo de m08-l1 y el comprador que absorbe de m09 con otro nombre: la zona donde estaba trabajando el tamaño que causó el movimiento y no pudo llenarse del todo. Nada se anuncia y nada es visible: la *inferencia* es que un tamaño capaz de mover el precio así difícilmente se llenó en un solo sitio, así que una vuelta a donde estaba trabajando puede encontrar el resto. Esa inferencia es razonamiento de flujo de órdenes corriente. Dos cosas que no es: una vela grande por sí sola (el trabajo lo hace la ubicación, m08-l2) y nada derivado de una proporción."
-  - id: break-first
-    prompt:
-      en: "You spot a clean dip, then a rally, then price coming back to the dip. What has to be true before that dip can be called an origin zone at all?"
-      es: "Ves una caída limpia, luego un rebote y luego el precio volviendo a la caída. ¿Qué tiene que ser cierto para que esa caída pueda llamarse zona de origen?"
-    options:
-      - id: a
-        text:
-          en: "The dip has to span at least three candles to count as a zone."
-          es: "La caída tiene que durar al menos tres velas para contar como zona."
-      - id: b
-        text:
-          en: "The rally has to have happened on higher volume than the dip did."
-          es: "El rebote tiene que haber ocurrido con más volumen que la caída."
-      - id: c
-        text:
-          en: "Nothing further — a dip followed by a rally is a zone by definition."
-          es: "Nada más: una caída seguida de un rebote ya es una zona por definición."
-      - id: d
-        correct: true
-        text:
-          en: "The rally must have broken structure — closed past the swing high."
-          es: "El rebote debe haber roto estructura: cerrar sobre el máximo de swing."
-    explanation:
-      en: "It has to close clean past the swing high the market had been respecting. Without that break there is no impulse that broke anything, and the dip is an ordinary pullback of the kind m08-l1 describes — every trend is full of them. This is the single most common error in the dialect: the zone gets drawn first and the structure is never checked, which means a zone can be found on any chart at all. Volume is corroboration you would welcome, not the qualifying condition, and candle count has nothing to do with it."
-      es: "Tiene que cerrar limpiamente por encima del máximo de swing que el mercado venía respetando. Sin esa ruptura no hay ningún impulso que haya roto nada, y la caída es un retroceso corriente de los que describe m08-l1: toda tendencia está llena de ellos. Este es el error más común del dialecto: la zona se dibuja primero y la estructura no se comprueba nunca, lo que significa que se puede encontrar una zona en cualquier gráfico. El volumen es una corroboración bienvenida, no la condición que cualifica, y el número de velas no tiene nada que ver."
-  - id: fvg-test
-    prompt:
-      en: "What exactly makes a three-candle stretch a \"fair value gap\"?"
-      es: "¿Qué convierte exactamente un tramo de tres velas en un «fair value gap»?"
-    options:
-      - id: a
-        correct: true
-        text:
-          en: "The first candle's high sits below the low of the candle two bars later."
-          es: "El máximo de la primera vela queda bajo el mínimo de dos barras después."
-      - id: b
-        text:
-          en: "The middle candle's body is at least twice the size of its neighbours'."
-          es: "El cuerpo de la vela central es al menos el doble que el de sus vecinas."
-      - id: c
-        text:
-          en: "The market was closed between the two candles, leaving a real gap."
-          es: "El mercado estuvo cerrado entre las dos velas y dejó un hueco real."
-      - id: d
-        text:
-          en: "Volume on the middle candle came in below the chart's own average."
-          es: "El volumen de la vela central quedó por debajo de la media del gráfico."
-    explanation:
-      en: "The test is about the *neighbours*, not the big candle: only when the earlier high sits below the later low was a span skipped, crossed inside a single bar, and a span crossed within one bar is a span where almost anything resting simply did not get hit. Note the honest wording — *almost* nothing traded there, since the middle candle did trade through it. A closed market describes a session gap, which crypto's 24/7 book essentially never produces (m10-l1); this is an imbalance *inside* a continuous series."
-      es: "El test va de las *vecinas*, no de la vela grande: solo cuando el máximo anterior queda por debajo del mínimo posterior se saltó un tramo, cruzado dentro de una sola barra, y un tramo cruzado dentro de una barra es un tramo donde casi nada de lo que estuviera en reposo llegó a ejecutarse. Fíjate en la formulación honesta: ahí *casi* no se negoció nada, porque la vela central sí lo atravesó. Un mercado cerrado describe un hueco de sesión, que el libro 24/7 del cripto prácticamente nunca produce (m10-l1); esto es un desequilibrio *dentro* de una serie continua."
-  - id: bos-vs-choch
+      en: "CVD accumulates delta (taker buys minus taker sells), not volume — which is why it can fall as well as rise. A running total of volume could only ever climb and would tell you nothing about direction of pressure. Because delta subtracts the two taker sides, the accumulated line trends, consolidates and makes swings much like a price series, which is what makes structural reading work on it."
+      es: "El CVD acumula el delta (compras taker menos ventas taker), no el volumen, y por eso puede bajar además de subir. Un total corriente de volumen solo podría subir y no te diría nada sobre la dirección de la presión. Como el delta resta los dos lados taker, la línea acumulada tiene tendencia, se consolida y hace swings muy parecidos a una serie de precio, y eso es lo que hace que funcione la lectura estructural sobre ella."
+  - id: cvd-level-is-arbitrary
     kind: true_false
     prompt:
-      en: "A BOS and a CHoCH are both breaks of a swing level, and the difference is only which direction the break went relative to the trend: a BOS continues the pattern, a CHoCH breaks it."
-      es: "Un BOS y un CHoCH son los dos rupturas de un nivel de swing, y la diferencia es solo en qué dirección fue la ruptura respecto a la tendencia: un BOS continúa el patrón y un CHoCH lo rompe."
-    answer: true
+      en: "Today's CVD reads +48,000 and last month's read +12,000, so there is roughly four times more buying pressure now than then."
+      es: "El CVD de hoy marca +48.000 y el del mes pasado marcaba +12.000, así que ahora hay unas cuatro veces más presión compradora que entonces."
+    answer: false
     explanation:
-      en: "True, and that is the whole content of the two acronyms. m08-l1 already taught the ladder and named the break that *ends* it — the change of character, the first lower low in an uptrend. Its twin never got a name there: an uptrend making yet another higher high is a break of structure too, just one that confirms the pattern instead of contradicting it. One ladder, two kinds of break, and the second acronym adds a word rather than an idea."
-      es: "Verdadero, y en eso se agota el contenido de los dos acrónimos. m08-l1 ya enseñaba la escalera y nombraba la ruptura que la *termina*: el cambio de carácter, el primer mínimo más bajo en una tendencia alcista. Su gemelo no recibió nombre allí: una tendencia alcista haciendo otro máximo más alto también es una ruptura de estructura, solo que una que confirma el patrón en vez de contradecirlo. Una escalera, dos clases de ruptura, y el segundo acrónimo añade una palabra, no una idea."
-  - id: dialect-map
+      en: "False. A CVD's level depends entirely on when you started counting, so it is arbitrary — that is why a CVD pane rarely has a meaningful zero of its own. What you read is its shape: is it climbing, falling, flat, and where did it turn? Comparing where it is now against where it was at the last swing is the whole technique; comparing absolute levels across different starting points is meaningless."
+      es: "Falso. El nivel de un CVD depende por completo de cuándo empezaste a contar, así que es arbitrario; por eso un panel de CVD raramente tiene un cero propio con significado. Lo que se lee es su forma: ¿sube, baja, está plano, y dónde giró? Comparar dónde está ahora con dónde estaba en el último swing es toda la técnica; comparar niveles absolutos entre puntos de partida distintos no significa nada."
+  - id: flat-price-rising-cvd
+    prompt:
+      en: "Price has been flat for two hours while the CVD climbs steadily. What is the most useful reading?"
+      es: "El precio lleva dos horas plano mientras el CVD sube de forma sostenida. ¿Cuál es la lectura más útil?"
+    options:
+      - id: a
+        text:
+          en: "A rally is guaranteed once the accumulated pressure is released."
+          es: "Una subida está garantizada al liberarse la presión acumulada."
+      - id: b
+        text:
+          en: "The data is faulty: a climbing CVD with flat price is impossible."
+          es: "Los datos fallan: un CVD que sube con precio plano es imposible."
+      - id: c
+        text:
+          en: "Nothing; CVD only means something when it agrees with price."
+          es: "Nada; el CVD solo significa algo cuando coincide con el precio."
+      - id: d
+        correct: true
+        text:
+          en: "Buyers are pressing and something is quietly taking the other side."
+          es: "Los compradores presionan y algo se queda el otro lado, callado."
+    explanation:
+      en: "This is absorption, and it is the upgrade CVD gives you over m14. There, absorption was an inference from a tall volume bar with no range — you could not see it, because volume counts both sides identically. Here you can: buyers really are pressing, and price not moving means a large resting seller is comfortably taking all of it. That often precedes a move in the absorber's direction, which is the opposite of the naive read — and it is a clue, not a receipt."
+      es: "Esto es absorción, y es la mejora que te da el CVD frente a m14. Allí la absorción era una inferencia a partir de una barra de volumen alta sin rango: no podías verla, porque el volumen cuenta los dos lados igual. Aquí sí: los compradores están presionando de verdad, y que el precio no se mueva significa que un gran vendedor en reposo se lo está quedando todo cómodamente. Eso suele preceder a un movimiento en la dirección de quien absorbe, que es lo contrario de la lectura ingenua; y es una pista, no un recibo."
+  - id: three-cases
     kind: matching
     prompt:
-      en: "Match each term from the dialect to the mechanic it renames."
-      es: "Empareja cada término del dialecto con la mecánica que renombra."
+      en: "Match each price-and-CVD combination to its reading."
+      es: "Empareja cada combinación de precio y CVD con su lectura."
     pairs:
-      - id: ob
-        left: { en: "Order block", es: "Order block" }
+      - id: bull
+        left:
+          en: "Price makes a lower low, CVD makes a higher low"
+          es: "El precio hace un mínimo más bajo, el CVD hace un mínimo más alto"
         right:
-          en: "The origin zone of an impulse: the last opposing candles before the move that broke structure (m08-l1's role reversal, m09's absorption)."
-          es: "La zona de origen de un impulso: las últimas velas contrarias antes del movimiento que rompió la estructura (la inversión de roles de m08-l1, la absorción de m09)."
-      - id: fvg
-        left: { en: "Fair value gap (FVG)", es: "Fair value gap (FVG)" }
+          en: "Bullish divergence — the selling into that low is being absorbed"
+          es: "Divergencia alcista: la venta contra ese mínimo está siendo absorbida"
+      - id: bear
+        left:
+          en: "Price makes a higher high, CVD makes a lower high"
+          es: "El precio hace un máximo más alto, el CVD hace un máximo más bajo"
         right:
-          en: "A span crossed inside one candle, so almost nothing traded there — m08-l2's *liquidity void*, taught as a zone instead of only as a warning."
-          es: "Un tramo cruzado dentro de una sola vela, así que ahí casi no se negoció nada: el *vacío de liquidez* de m08-l2, enseñado como zona y no solo como advertencia."
-      - id: grab
-        left: { en: "Liquidity grab / sweep", es: "Toma de liquidez / barrido" }
+          en: "Bearish divergence — the new peak was bought with less aggression"
+          es: "Divergencia bajista: el nuevo techo se compró con menos agresión"
+      - id: confirm
+        left:
+          en: "Price makes a lower low, CVD makes a lower low with it"
+          es: "El precio hace un mínimo más bajo, el CVD hace un mínimo más bajo con él"
         right:
-          en: "m17-l2's *barrido*: a pocket of resting stops taken out by one wick that reclaims the level straight back."
-          es: "El *barrido* de m17-l2: una bolsa de stops en reposo barrida por una mecha que recupera el nivel de inmediato."
-      - id: bos
-        left: { en: "BOS / CHoCH", es: "BOS / CHoCH" }
-        right:
-          en: "m08-l1's ladder: the break that continues the sequence of higher highs and higher lows, and the one that ends it."
-          es: "La escalera de m08-l1: la ruptura que continúa la secuencia de máximos y mínimos más altos, y la que la termina."
-      - id: pd
-        left: { en: "Premium / discount", es: "Premium / discount" }
-        right:
-          en: "Above or below the midpoint of a range you drew yourself — m13's 0.5 line, and nothing beyond it."
-          es: "Por encima o por debajo del punto medio de un rango que dibujaste tú: la línea del 0,5 de m13, y nada más allá."
+          en: "No divergence — a flow-backed move, nothing absorbed it"
+          es: "Sin divergencia: un movimiento respaldado por el flujo, nada lo absorbió"
     explanation:
-      en: "Five terms, three mechanics and a midline. This is the same conclusion m08-l2 reaches about candle names: there are not sixty patterns, there are a few mechanics with sixty names. Knowing the dialect lets you read what the crowd writes; it does not add a reading you did not already have."
-      es: "Cinco términos, tres mecánicas y una línea media. Es la misma conclusión a la que llega m08-l2 con los nombres de las velas: no hay sesenta patrones, hay unas pocas mecánicas con sesenta nombres. Saber el dialecto te permite leer lo que escribe la masa; no añade una lectura que no tuvieras ya."
-  - id: origin-zone-sequence
+      en: "A divergence is a disagreement, so you have to know what agreement looks like or you will find divergences everywhere. The third case is the most common of the three: sellers pressed, nobody meaningful stood in the way, and price went where the pressure sent it. Labelling that a divergence because you were hoping for one is the classic error."
+      es: "Una divergencia es un desacuerdo, así que tienes que saber qué aspecto tiene el acuerdo o encontrarás divergencias por todas partes. El tercer caso es el más común de los tres: los vendedores presionaron, nadie relevante se puso en medio y el precio fue donde lo mandó la presión. Etiquetar eso como divergencia porque esperabas una es el error clásico."
+  - id: cvd-vs-volume
+    prompt:
+      en: "m14 already taught you to read volume against its average. What can CVD tell you that a volume bar structurally cannot?"
+      es: "m14 ya te enseñó a leer el volumen contra su media. ¿Qué te puede decir el CVD que una barra de volumen, por su estructura, no puede?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Which side was paying for immediacy, and for how long it lasted."
+          es: "Qué lado pagaba por la inmediatez, y durante cuánto tiempo."
+      - id: b
+        text:
+          en: "How large the next move will be, since pressure must be released."
+          es: "Lo grande que será el siguiente movimiento, al liberarse la presión."
+      - id: c
+        text:
+          en: "Nothing extra: CVD is just volume with a longer lookback."
+          es: "Nada extra: el CVD es volumen con un periodo más largo."
+      - id: d
+        text:
+          en: "Where the resting limit orders are sitting in the book."
+          es: "Dónde están las órdenes límite en reposo en el libro."
+    explanation:
+      en: "Volume is a total and CVD is an accumulated difference, and that is the whole distinction. A tall volume bar means many people traded; it cannot say who was pressing, because every trade has a buyer and a seller. Accumulated pressure is not a forecast of the next move's size, and resting orders are a different subject again — that is the order book (m31), which is intention rather than executed flow."
+      es: "El volumen es un total y el CVD una diferencia acumulada, y esa es toda la distinción. Una barra de volumen alta significa que operó mucha gente; no puede decir quién presionaba, porque toda operación tiene comprador y vendedor. La presión acumulada no pronostica el tamaño del siguiente movimiento, y las órdenes en reposo son otro asunto distinto: ese es el libro de órdenes (m31), que es intención y no flujo ejecutado."
+  - id: build-a-cvd
     kind: ordering
     prompt:
-      en: "Put the origin-zone setup in the order it has to happen for the zone to mean anything."
-      es: "Ordena el setup de zona de origen en el orden en que tiene que ocurrir para que la zona signifique algo."
+      en: "Put the steps in order for building a CVD line from a venue's raw trade feed."
+      es: "Ordena los pasos para construir una línea de CVD a partir del flujo de operaciones bruto de un exchange."
     items:
-      - id: structure
+      - id: label
         position: 1
         text:
-          en: "A swing level the market has visibly been respecting."
-          es: "Un nivel de swing que el mercado viene respetando de forma visible."
-      - id: origin
+          en: "For each trade, record which side was the taker (the aggressor)"
+          es: "Para cada operación, registra qué lado era el taker (el agresor)"
+      - id: bucket
         position: 2
         text:
-          en: "The last opposing candles before the move — the zone itself."
-          es: "Las últimas velas contrarias antes del movimiento: la zona en sí."
-      - id: bos
+          en: "Within each period, total the taker-buy volume and the taker-sell volume separately"
+          es: "Dentro de cada periodo, suma por separado el volumen de compra taker y el de venta taker"
+      - id: delta
         position: 3
         text:
-          en: "An impulse that closes clean past that level: the break."
-          es: "Un impulso que cierra limpiamente más allá de ese nivel: la ruptura."
-      - id: retest
+          en: "Subtract to get that period's delta"
+          es: "Resta para obtener el delta de ese periodo"
+      - id: accumulate
         position: 4
         text:
-          en: "Price returning to the zone."
-          es: "El precio volviendo a la zona."
-      - id: decision
+          en: "Keep a running sum of the deltas from your chosen starting point"
+          es: "Mantén una suma corriente de los deltas desde el punto de partida que elijas"
+      - id: plot
         position: 5
         text:
-          en: "What the return does there — which is the only part you get to trade."
-          es: "Lo que hace la vuelta ahí, que es la única parte que puedes operar."
+          en: "Plot that running sum as a line and read it against price"
+          es: "Dibuja esa suma corriente como una línea y léela contra el precio"
     explanation:
-      en: "The order is the argument. Read it backwards and every step is available in hindsight on any chart: pick a reaction, call the candles before it a zone, and the story assembles itself. Read it forwards and each step has to be there before the next one is allowed to mean anything — which is exactly m08-l1's discipline of waiting for the close and the confirmation rather than acting on the first thing that looks like a signal."
-      es: "El orden es el argumento. Léelo al revés y cada paso está disponible a posteriori en cualquier gráfico: eliges una reacción, llamas zona a las velas anteriores y la historia se monta sola. Léelo hacia delante y cada paso tiene que estar ahí antes de que el siguiente pueda significar algo, que es exactamente la disciplina de m08-l1 de esperar al cierre y a la confirmación en vez de actuar con lo primero que parece una señal."
-  - id: premium-discount
+      en: "The taker labelling in step 1 is what makes the whole thing possible, and it is also the step whose quality varies by venue: major exchanges label it directly, elsewhere it is estimated. Step 5 matters as much as the rest — a CVD pane read on its own is nearly useless, because the information is in the disagreement between the two lines."
+      es: "El etiquetado del taker del paso 1 es lo que hace posible todo lo demás, y es también el paso cuya calidad varía según el sitio: los exchanges grandes lo etiquetan directamente, en otros se estima. El paso 5 importa tanto como el resto: un panel de CVD leído por sí solo es casi inútil, porque la información está en el desacuerdo entre las dos líneas."
+  - id: spring-confirmation
     prompt:
-      en: "Someone says ETH is \"in premium, so I'm looking for shorts\". What does *premium* honestly amount to?"
-      es: "Alguien dice que ETH está «en premium, así que busco cortos». ¿A qué equivale honestamente *premium*?"
+      en: "m09 said you can only call a stab below support a 'spring' after price recovers — live, it looks identical to a genuine breakdown. How does CVD help with exactly that problem?"
+      es: "m09 decía que solo puedes llamar 'spring' a una estocada bajo el soporte después de que el precio se recupere: en vivo se ve idéntica a una ruptura bajista genuina. ¿Cómo ayuda el CVD justo con ese problema?"
     options:
       - id: a
         text:
-          en: "ETH trades above its price on other venues, so arbitrage pulls it down."
-          es: "ETH cotiza sobre su precio en otros venues y el arbitraje lo bajará."
+          en: "It removes the ambiguity, so a spring is certain as it happens."
+          es: "Elimina la ambigüedad, así que el spring es seguro mientras pasa."
       - id: b
-        text:
-          en: "The perpetual is trading above spot, which is the basis turning positive."
-          es: "El perpetuo cotiza por encima del spot: la base volviéndose positiva."
-      - id: c
         correct: true
         text:
-          en: "Price is in the upper half of a range that person drew themselves."
-          es: "El precio está en la mitad superior de un rango que dibujó él mismo."
+          en: "On a spring the CVD refuses to make the new low with price."
+          es: "En un spring el CVD se niega a hacer el mínimo nuevo con el precio."
+      - id: c
+        text:
+          en: "It doesn't: CVD only works in trends, never inside a range."
+          es: "No ayuda: el CVD solo sirve en tendencias, nunca dentro de un rango."
       - id: d
         text:
-          en: "Price entered the 0.705–0.79 band, where reversals concentrate."
-          es: "El precio entró en la banda 0,705–0,79, donde se concentran los giros."
-      - id: e
-        text:
-          en: "Open interest is above its 30-day average, so positioning is crowded."
-          es: "El open interest supera su media de 30 días: posicionamiento saturado."
+          en: "It gives the exact price the spring will reverse from."
+          es: "Da el precio exacto desde el que girará el spring."
     explanation:
-      en: "It is the range midline of m13 restated, and no more: it says where you are in a range, not which way it breaks. Worth knowing because it is a real observation — buying nearer the bottom of a range you have identified is better than buying nearer the top — and worth deflating because the word makes it sound like a measurement of value. Watch out for two collisions this term causes in a crypto course: the inter-venue premium is m28's and the perp-over-spot basis is m20's, both genuinely different things with real mechanisms. And the retracement band is where this vocabulary tips into numerology: no such band has a mechanism behind it beyond m13's crowding, and adding decimal places does not add one."
-      es: "Es la línea media del rango de m13 dicha de otra forma, y nada más: dice dónde estás dentro de un rango, no hacia qué lado rompe. Vale la pena saberlo porque es una observación real —comprar más cerca del suelo de un rango que has identificado es mejor que comprar más cerca del techo— y vale la pena desinflarlo porque la palabra hace que suene a una medición de valor. Cuidado con dos colisiones que provoca este término en un curso de cripto: la prima entre exchanges es la de m28 y la base del perpetuo sobre el spot es la de m20, dos cosas genuinamente distintas y con mecanismos reales. Y la banda de retroceso es donde este vocabulario cae en la numerología: ninguna banda así tiene detrás más mecanismo que la masificación de m13, y añadir decimales no le añade ninguno."
-  - id: zone-not-line
+      en: "The wick looks the same in both cases; the flow does not. A spring is selling being absorbed, so the CVD should show the absorption — price takes out the low while the CVD declines to follow. A genuine breakdown has the CVD making its new low with price, because nothing absorbed anything. This is confluence in m14's sense — one more independent lens agreeing — and emphatically not certainty: it still needs the test to hold, a level, and a stop."
+      es: "La mecha se ve igual en los dos casos; el flujo no. Un spring es venta siendo absorbida, así que el CVD debería mostrar la absorción: el precio se lleva el mínimo mientras el CVD se niega a seguirlo. Una ruptura bajista genuina tiene el CVD haciendo su mínimo nuevo con el precio, porque nada absorbió nada. Esto es confluencia en el sentido de m14 —una lente independiente más que coincide— y desde luego no es certeza: sigue necesitando que el test aguante, un nivel y un stop."
+  - id: cvd-worked-hours
+    prompt:
+      en: "Five hours of deltas run +300, −300, +800, −800, +500. What does the CVD line do, and what does that show?"
+      es: "Cinco horas de deltas dan +300, −300, +800, −800, +500. ¿Qué hace la línea de CVD y qué muestra eso?"
+    options:
+      - id: a
+        text:
+          en: "It runs +300, −300, +800, −800, +500 — CVD is delta replotted."
+          es: "Va +300, −300, +800, −800, +500: el CVD es el delta redibujado."
+      - id: b
+        text:
+          en: "It ends at +2,700, the sum of the absolute values."
+          es: "Termina en +2.700, la suma de los valores absolutos."
+      - id: c
+        text:
+          en: "It cannot be computed without the session's starting price."
+          es: "No puede calcularse sin el precio inicial de la sesión."
+      - id: d
+        correct: true
+        text:
+          en: "It runs +300, 0, +800, 0, +500 — the session's position."
+          es: "Va +300, 0, +800, 0, +500: eso es la posición de la sesión."
+    explanation:
+      en: "In the negative hours the line falls back toward where it started rather than turning negative: the delta is the hour's flow, the CVD is the position of the session. It is a running sum from an arbitrary starting point, which is why its level is meaningless and its shape is everything — is it climbing, falling, flat, and where did it turn?"
+      es: "En las horas negativas la línea vuelve hacia donde empezó en vez de ponerse negativa: el delta es el flujo de la hora, el CVD es la posición de la sesión. Es una suma acumulada desde un punto de partida arbitrario, y por eso su nivel no significa nada y su forma lo es todo: ¿sube, baja, está plana, y dónde giró?"
+  - id: divergence-worked
+    prompt:
+      en: "BTC sells off to 58,200 with session CVD at −24,000. Price bounces, then grinds to a lower low at 57,400 — but CVD there reads −10,500. What happened over that second leg?"
+      es: "BTC cae a 58.200 con el CVD de la sesión en −24.000. El precio rebota y luego se arrastra a un mínimo inferior en 57.400, pero el CVD marca allí −10.500. ¿Qué ocurrió en ese segundo tramo?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Buying lifted the running total by 13,500 while price fell 800."
+          es: "La compra elevó el total acumulado 13.500 mientras el precio caía."
+      - id: b
+        text:
+          en: "Selling intensified, since price and CVD both hit new extremes."
+          es: "La venta se intensificó: precio y CVD marcaron nuevos extremos."
+      - id: c
+        text:
+          en: "Nothing readable: CVD levels within a session cannot be compared."
+          es: "Nada legible: los niveles de CVD de una sesión no se comparan."
+      - id: d
+        text:
+          en: "A bearish divergence, because price made a lower low."
+          es: "Una divergencia bajista, porque el precio hizo un mínimo inferior."
+    explanation:
+      en: "That is a bullish CVD divergence: price makes a lower low, CVD makes a higher low. Sellers got a lower price but had to give up ground in flow to get it — someone was buying everything they sold. Aggression is spent before price moves, which is why the flow can turn while price is still making its low; and note the honest word for what follows: *often*."
+      es: "Esa es una divergencia alcista de CVD: el precio hace un mínimo inferior y el CVD un mínimo superior. Los vendedores consiguieron un precio menor pero tuvieron que ceder terreno en flujo para lograrlo: alguien compraba todo lo que vendían. La agresión se gasta antes de que el precio se mueva, y por eso el flujo puede girar mientras el precio aún marca su mínimo; y ojo con la palabra honesta sobre lo que sigue: *a menudo*."
+  - id: cvd-limits
     kind: multi_select
     prompt:
-      en: "Select ALL the reasons an origin zone and an imbalance are drawn as **bands** rather than lines."
-      es: "Selecciona TODAS las razones por las que una zona de origen y un desequilibrio se dibujan como **bandas** y no como líneas."
+      en: "Select ALL the limits on what a CVD reading can tell you."
+      es: "Selecciona TODOS los límites de lo que puede decirte una lectura de CVD."
     options:
       - id: a
         correct: true
         text:
-          en: "Each is defined by candle extremes that genuinely span a range."
-          es: "Cada una la definen extremos de vela que abarcan de verdad un rango."
+          en: "It is per-venue: a large buyer working another exchange is invisible."
+          es: "Es por venue: un gran comprador en otro exchange es invisible."
       - id: b
         correct: true
         text:
-          en: "The claim is a reaction somewhere inside, not at one exact price."
-          es: "La afirmación es reaccionar dentro de la zona, no en un precio exacto."
+          en: "Perp CVD is leveraged flow, heavy with liquidations and stops."
+          es: "El CVD de perps es flujo apalancado, cargado de liquidaciones."
       - id: c
+        correct: true
         text:
-          en: "A band is a stronger signal than a line, so it needs no confirmation."
-          es: "Una banda es señal más fuerte que una línea y no necesita confirmación."
-      - id: d
-        text:
-          en: "Bands are drawn wide so price is guaranteed to reach them eventually."
-          es: "Las bandas se dibujan anchas para garantizar que el precio llegue."
-    explanation:
-      en: "A down-leg's high and low, or the two wicks either side of a fast candle, really do span a range — and expecting a turn at one exact price is the precision error m08-l1 and m13 both warn about. The band is honest about its own resolution, the same point m08-l1 makes when it says a support is 58,000–58,400 and not 58,150. What a wider zone is not is more reliable: it still needs the same confirmation any level does, and widening it until price must eventually reach it is fitting the drawing to the outcome. A zone so wide it cannot be wrong is telling you nothing."
-      es: "El máximo y el mínimo de un tramo bajista, o las dos mechas a cada lado de una vela rápida, abarcan de verdad un rango; y esperar un giro en un precio exacto es el error de precisión del que avisan tanto m08-l1 como m13. La banda es honesta sobre su propia resolución: el mismo punto que hace m08-l1 cuando dice que un soporte es 58.000–58.400 y no 58.150. Lo que una zona más ancha no es, es más fiable: sigue necesitando la misma confirmación que cualquier nivel, y ensancharla hasta que el precio tenga que llegar es ajustar el dibujo al resultado. Una zona tan ancha que no puede estar equivocada no te está diciendo nada."
-  - id: filled-gap
-    prompt:
-      en: "An imbalance formed three weeks ago; price has since traded all the way back through it and moved on. What is it now?"
-      es: "Un desequilibrio se formó hace tres semanas; desde entonces el precio ha vuelto a atravesarlo por completo y ha seguido su camino. ¿Qué es ahora?"
-    options:
-      - id: a
-        text:
-          en: "Stronger than before — a zone tested and survived is more reliable."
-          es: "Más fuerte: una zona testeada que ha sobrevivido es más fiable."
-      - id: b
-        text:
-          en: "Still live, since it stays valid until a candle closes beyond its edge."
-          es: "Sigue vivo, ya que vale hasta que una vela cierre más allá del borde."
-      - id: c
-        text:
-          en: "Inverted — it now acts with the same strength in the other direction."
-          es: "Invertido: ahora actúa con la misma fuerza en la dirección contraria."
+          en: "A divergence on a 1-minute chart is mostly noise."
+          es: "Una divergencia en un gráfico de 1 minuto es sobre todo ruido."
       - id: d
         correct: true
         text:
-          en: "Spent — what made it a zone was that almost nothing traded there."
-          es: "Gastado: lo que lo hacía zona era que allí casi nada se negoció."
+          en: "Aggregated CVD stacks estimates, so a poor venue drags the line."
+          es: "El CVD agregado acumula estimaciones y un mal venue arrastra la línea."
+      - id: e
+        text:
+          en: "A rising CVD line reliably means price will rise soon."
+          es: "Una línea de CVD ascendente significa fiablemente que el precio subirá."
     explanation:
-      en: "This one follows straight from the definition, which is why it is worth asking: the zone was never a magic price, it was the *absence* of trade in a span. Something has traded there now, so the thing being pointed at is gone — fill the span and the absence is what got filled. Calling it stronger confuses it with a support, which genuinely is built from repeated tests (m08-l1) — the opposite construction. And an inverted zone is the dialect at its loosest: a rule with no mechanism, added so that a zone which failed can be recorded as a zone that worked in reverse."
-      es: "Esta se sigue directamente de la definición, y por eso vale la pena preguntarla: la zona nunca fue un precio mágico, fue la *ausencia* de negociación en un tramo. Ahora sí se ha negociado ahí, así que lo que se señalaba ya no está: rellena el tramo y lo que se ha rellenado es la ausencia. Llamarlo más fuerte lo confunde con un soporte, que sí se construye a base de tests repetidos (m08-l1): la construcción contraria. Y una zona invertida es el dialecto en su versión más laxa: una regla sin mecanismo, añadida para que una zona que falló pueda anotarse como una zona que funcionó al revés."
-  - id: sweep-into-zone
-    prompt:
-      en: "A long wick pierces a swing low, closes back above it, and price then runs up and closes past the swing high. In this vocabulary, what just happened?"
-      es: "Una mecha larga perfora un mínimo de swing, cierra de vuelta por encima y luego el precio sube y cierra más allá del máximo de swing. En este vocabulario, ¿qué acaba de pasar?"
-    options:
-      - id: a
-        text:
-          en: "A change of character, since the swing low was the level broken first."
-          es: "Un cambio de carácter, ya que el mínimo de swing se rompió primero."
-      - id: b
-        correct: true
-        text:
-          en: "A liquidity grab followed by a break of structure, leaving a zone."
-          es: "Una toma de liquidez seguida de una ruptura, que deja una zona."
-      - id: c
-        text:
-          en: "A fair value gap, since a long wick means little traded in that range."
-          es: "Un fair value gap, ya que una mecha larga negocia poco en ese rango."
-      - id: d
-        text:
-          en: "Nothing nameable — the two events are unrelated and read separately."
-          es: "Nada nombrable: los dos eventos no se relacionan y se leen aparte."
-    explanation:
-      en: "This is the dialect's most-repeated sequence, and it is three things you already know in a row: m17-l2's sweep, m08-l1's break, and the origin zone the impulse left behind — the candles that did the sweeping. Two near misses worth separating. A wick through a low that is *reclaimed* is not a change of character: a CHoCH needs a low that holds as a lower low, which is why m08-l1 insists the close and never the extreme decides. And a long wick is not an imbalance either, though the two are easy to run together — m08-l2 calls a thin-book wick a *liquidity void* precisely because little changed hands out at its tip. The difference is not how much traded, it is the geometry: a wick is one candle's own range, price traversing it and coming back inside the same bar, while an imbalance is a span the NEIGHBOURING candles never reach into. One is a shape inside a bar; the other is a gap between bars."
-      es: "Es la secuencia más repetida del dialecto, y son tres cosas que ya conoces seguidas: el barrido de m17-l2, la ruptura de m08-l1 y la zona de origen que dejó el impulso, las velas que hicieron el barrido. Dos casi-aciertos que conviene separar. Una mecha que atraviesa un mínimo y lo *recupera* no es un cambio de carácter: un CHoCH necesita un mínimo que aguante como mínimo más bajo, y por eso m08-l1 insiste en que decide el cierre y nunca el extremo. Y una mecha larga tampoco es un desequilibrio, aunque es fácil confundirlos: m08-l2 llama *vacío de liquidez* a una mecha en un libro fino precisamente porque en su punta cambió de manos muy poco. La diferencia no está en cuánto se negoció, está en la geometría: una mecha es el recorrido de una sola vela, el precio yendo y volviendo dentro de la misma barra, mientras que un desequilibrio es un tramo al que las velas VECINAS no llegan. Una es una forma dentro de una barra; el otro es un hueco entre barras."
+      en: "Spot CVD is closer to someone actually acquiring the coin; perp CVD is reflexive, leveraged flow. Errors accumulate along with the flow, which is why CVD is read at the timeframe you intend to trade and always against price. A CVD pane alone is nearly useless — the information is in the disagreement between the two lines, and a rising line is pressure, never a forecast."
+      es: "El CVD de spot está más cerca de alguien adquiriendo la moneda de verdad; el de perps es flujo apalancado y reflexivo. Los errores se acumulan junto con el flujo, y por eso el CVD se lee en la temporalidad que piensas operar y siempre contra el precio. Un panel de CVD solo es casi inútil: la información está en el desacuerdo entre las dos líneas, y una línea ascendente es presión, nunca un pronóstico."

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Whole-trade injector (m24-l1): one setup with its four lines drawn on it.
+"""Whole-trade injector (m27-l1): one setup with its four lines drawn on it.
 
-Draws m24-l1's narrated anatomy. The role reversal it teaches earns the level its corroboration
+Draws m27-l1's narrated anatomy. The role reversal it teaches earns the level its corroboration
 honestly: the level ships one `LevelGuard` per role rather than an exemption.
 
 Three of the four lines are `plan` levels — an entry, stop and target are prices the TRADER chose, so

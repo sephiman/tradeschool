@@ -16,11 +16,11 @@
 #
 # Anchor `what` grammar (all indices are into the RENDERED series, warm-up already trimmed):
 #   level:<label>        the drawn level's price
-#   band_low|band_high:<label>  one edge of a shaded zone (m30's origin zone / imbalance). A zone has two
+#   band_low|band_high:<label>  one edge of a shaded zone (m34's origin zone / imbalance). A zone has two
 #                        prices and the prose quotes both, so each edge is its own anchor.
-#   diagonal_start|diagonal_end:<label>   an anchor price of a sloped line (m31)
+#   diagonal_start|diagonal_end:<label>   an anchor price of a sloped line (m15)
 #   diagonal_at:<label>@<i>               ...or its PROJECTION at bar i, which is what a break is
-#                        judged against and therefore the number m31-l1 actually prints
+#                        judged against and therefore the number m15-l1 actually prints
 #   open|high|low|close:<i>   an OHLC value at bar i
 #   rsi|oi|cvd:<i>       a value in the indicator pane at bar i
 #   volume_ratio:<a>-<b> median volume over bars [a,b) divided by the median over `volume_baseline`
@@ -73,8 +73,8 @@ figures:
       - {what: "high:147",         prose: 29350}  # highest post-upthrust bounce: resistance is never regained
       - {what: "close:173",        prose: 23900}  # the markdown
 
-  fig-m17-liquidity-sweep:
-    lessons: [m17-l2]
+  fig-m19-liquidity-sweep:
+    lessons: [m19-l2]
     anchors:
       - {what: "level:shelf", prose: 25900}
       - {what: "close:119",   prose: 26200}  # where price was trading before the sweep candle
@@ -134,8 +134,8 @@ figures:
       - {what: "low:102", prose: 28250}
       - {what: "rsi:102", prose: 28, abstol: 1, in_prose: false}
 
-  fig-m17-oi-quadrants:
-    lessons: [m17-l1]
+  fig-m19-oi-quadrants:
+    lessons: [m19-l1]
     identical_through: 149        # "la misma serie de precio, vela por vela"
     anchors:
       - {what: "close:0",   panel: 0, prose: 2000}
@@ -146,8 +146,8 @@ figures:
       - {what: "oi:149",    panel: 1, prose: 7750}
       - {what: "close:173", panel: 1, prose: 2020}
 
-  fig-m26-cvd-divergence:
-    lessons: [m26-l1]
+  fig-m30-cvd-divergence:
+    lessons: [m30-l1]
     anchors:
       - {what: "low:68",   prose: 24400}
       - {what: "cvd:68",   prose: -18800}
@@ -164,8 +164,8 @@ figures:
       - {what: "high:122",         panel: 1, prose: 2166}  # the fakeout's furthest poke
       - {what: "close:140",        panel: 1, prose: 2035}  # and where it ends up instead
 
-  fig-m30-origin-zone:
-    lessons: [m30-l1]
+  fig-m34-origin-zone:
+    lessons: [m34-l1]
     # The lesson walks this chart as a sequence — the high the range had tested, the zone the last down
     # candles left, the close that broke past the high, and the return that traded into the zone — so
     # every step of that walk is pinned. Registered with the figure rather than after it, which is what
@@ -182,8 +182,8 @@ figures:
       - {what: "low:120",           prose: 1834}   # the return's low, inside the zone
       - {what: "close:173",         prose: 2100}   # where the continuation the figure shows ends up
 
-  fig-m30-imbalance:
-    lessons: [m30-l1]
+  fig-m34-imbalance:
+    lessons: [m34-l1]
     anchors:
       - {what: "open:66",             prose: 26780}  # the impulse candle opens...
       - {what: "close:66",            prose: 28320}  # ...and closes almost 6% higher, in one bar
@@ -198,9 +198,9 @@ figures:
       # number the lesson prints still rounds to the number the figure draws.
       - {what: "low:170",             prose: 27320}
 
-  fig-m31-trendline:
-    lessons: [m31-l1]
-    # m31-l1 walks this chart the way m30-l1 walks its origin zone: four visits to the line, the line
+  fig-m15-trendline:
+    lessons: [m15-l1]
+    # m15-l1 walks this chart the way m34-l1 walks its origin zone: four visits to the line, the line
     # itself, the body that closed through the projection, and where the resolution ended up. Every
     # step of that walk is pinned, registered with the figure rather than after it.
     anchors:
@@ -217,8 +217,8 @@ figures:
       - {what: "diagonal_at:trendline@123",  prose: 10740}
       - {what: "close:173",                  prose: 9290}   # where the continuation the figure shows ends
 
-  fig-m31-channel:
-    lessons: [m31-l1]
+  fig-m15-channel:
+    lessons: [m15-l1]
     # Nothing is quoted from this one. It is the bidirectional figure and the prose treats it as such —
     # "the same construction, mirrored" — so it carries a claim about SHAPE rather than about prices,
     # and inventing numbers for it would put six four-digit figures in the lesson to teach nothing.
@@ -226,8 +226,8 @@ figures:
     # by the lessons it names" check still covers it.
     anchors: []
 
-  fig-m20-timeframes:
-    lessons: [m20-l2]
+  fig-m23-timeframes:
+    lessons: [m23-l2]
     # Every anchor is on the LOWER panel, and that is not a gap in the grammar: the upper panel is this
     # one aggregated, so an upper close IS a lower close (the fourth of its group) and quoting it twice
     # would be quoting the same generated number under two names. The lesson says which frame it is
@@ -238,15 +238,15 @@ figures:
       - {what: "close:159", prose: 9460}   # the 1h "rally" at the right edge of the exercise window
       - {what: "close:183", prose: 8360}   # ...and the resolution only a figure shows: the trend resumes
 
-  fig-m32-squeeze:
-    lessons: [m32-l1]
+  fig-m16-squeeze:
+    lessons: [m16-l1]
     anchors:
       - {what: "close:0",   prose: 2014}  # the busy opening, with the Bollinger band outside Keltner
       - {what: "close:121", prose: 1902}  # ...the compression, going nowhere...
       - {what: "close:173", prose: 1589}  # ...and where the expansion out of it ended up
 
-  fig-m32-squeeze-momentum:
-    lessons: [m32-l1]
+  fig-m16-squeeze-momentum:
+    lessons: [m16-l1]
     anchors:
       - {what: "close:0",   prose: 10361}
       - {what: "close:121", prose: 10551}
@@ -254,16 +254,16 @@ figures:
 
 exceptions:
 
-  fig-m21-stop-limit-gap:
-    lessons: [m21-l1]
+  fig-m24-stop-limit-gap:
+    lessons: [m24-l1]
     why: >-
       The figure deliberately exaggerates the trigger/limit separation so the two lines are
       distinguishable, and the caption says so. The prose keeps 100 / 99,9 because "in practice they
       sit a tick apart" IS the lesson's point; adapting would destroy it.
     guard_phrase: {en: "generated instance", es: "instancia generada"}
 
-  fig-m24-trade-anatomy:
-    lessons: [m24-l1]
+  fig-m27-trade-anatomy:
+    lessons: [m27-l1]
     why: >-
       The sizing chain (1% of 10.000 = 100 USDT; risk 1.000 -> 0,1 BTC; 3,7R) is arithmetic chosen to
       teach cleanly. The figure's own prices make it unreadable, so the lesson states the shape is
@@ -292,19 +292,19 @@ exceptions:
     guard_phrase: {en: "generated instance", es: "instancia generada"}
 
 
-  fig-m31-wedge:
-    lessons: [m31-l2]
+  fig-m15-wedge:
+    lessons: [m15-l2]
     why: >-
-      m31-l2 teaches the coil as a SHAPE — how the convergence is split between the two lines, and how
+      m15-l2 teaches the coil as a SHAPE — how the convergence is split between the two lines, and how
       much of the opening width survives — never as a location. No number in that lesson is a price, and
       rounding the panel's own prices into it would replace a proportion anybody can carry in their head
       with four arbitrary five-digit figures. One lead-in covers both of the lesson's figures.
     guard_phrase: {en: "generated instances", es: "instancias generadas"}
 
-  fig-m31-triangle:
-    lessons: [m31-l2]
+  fig-m15-triangle:
+    lessons: [m15-l2]
     why: >-
-      The same reason as `fig-m31-wedge` above, and the same lead-in sentence: the two are read side by
+      The same reason as `fig-m15-wedge` above, and the same lead-in sentence: the two are read side by
       side precisely so the reader compares their shapes, and a price quoted from either would be a
       number about the instance rather than about the pattern.
     guard_phrase: {en: "generated instances", es: "instancias generadas"}

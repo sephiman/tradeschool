@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+id: fig-m34-imbalance
+key: fig-m30-imbalance  # pre-renumber identity (2026-08-10); never renamed
+kind: chart
+caption:
+  en: 'An imbalance — the dialect''s "fair value gap" — and the revisit. One candle carries the
+    whole move, so the shaded span between the candle before it and the candle after it was
+    crossed inside a single bar: almost nothing changed hands there. Price then spends the rest
+    of the window well above it, leaving the gap open, and the closing stretch is it coming back
+    for it. An exercise stops before that return; here it is shown.'
+  es: 'Un desequilibrio —el "fair value gap" del dialecto— y la revisita. Una sola vela carga
+    con todo el movimiento, así que el tramo sombreado entre la vela anterior y la posterior se
+    cruzó dentro de una única barra: ahí casi no cambió nada de manos. El precio pasa el resto
+    de la ventana bastante por encima, dejando el hueco abierto, y el tramo final es él
+    volviendo a por él. Un ejercicio se corta antes de esa vuelta; aquí se muestra.'
+panels:
+- generator: pattern_chart
+  injector: imbalance
+  target: imbalance_unfilled
+  # The 27,000 tier — see the tier note on `fig-m34-origin-zone`.
+  seed: 20
+  n: 150
+  indicator: none
+  resolution:
+    # Down, and far enough to actually reach into the span. The injector's window ends with the gap still
+    # open (that IS the `imbalance_unfilled` label an exercise grades); the figure's job is to show the
+    # magnet working, so the appended leg is the revisit. `test_chart_bands.py` asserts it gets there.
+    direction: down
+    # Tuned so the leg reaches WELL into the span and stops there rather than blasting clean through it:
+    # the didactic point is the magnet, and a revisit that punches straight out the bottom is the
+    # `imbalance_filled` picture, which is a different chart and a different label.
+    strength: 0.035

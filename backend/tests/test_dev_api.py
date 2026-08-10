@@ -58,7 +58,7 @@ async def test_dev_instances_pattern_chart(content_client: AsyncClient) -> None:
 
 async def test_dev_chart_data_pattern_oi_reproduces(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    resp = await content_client.get("/api/dev/charts/data?exercise_id=m17-ex-1&seed=3&fmt=json")
+    resp = await content_client.get("/api/dev/charts/data?exercise_id=m19-ex-1&seed=3&fmt=json")
     assert resp.status_code == 200
     data = resp.json()
     assert data["indicator"] == "oi" and data["warmup"] > 0

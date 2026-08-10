@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""The cross-frame contract (m20-l2): the upper panel IS the lower one, aggregated.
+"""The cross-frame contract (m23-l2): the upper panel IS the lower one, aggregated.
 
-m20-l2's first claim is that a timeframe change adds no information — "one 4h candle IS four 1h
+m23-l2's first claim is that a timeframe change adds no information — "one 4h candle IS four 1h
 candles" — so the figure that teaches it must not merely look aggregated. Every upper bar is checked
 against its four lower ones TO THE CENT, out of the payload the client actually receives.
 
@@ -265,7 +265,7 @@ def test_the_context_ratio_never_reaches_the_client() -> None:
 
 
 def test_the_shape_labels_all_put_the_context_above() -> None:
-    """Context above, trigger below — the sequence discipline m20-l2 teaches, drawn rather than said."""
+    """Context above, trigger below — the sequence discipline m23-l2 teaches, drawn rather than said."""
     for label in _SHAPE_LABELS:
         for seed in range(10):
             _lbl, _ann, payload = _instantiate(_config([label]), seed)

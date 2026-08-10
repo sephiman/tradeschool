@@ -1,208 +1,143 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 type: quiz
 variants:
-  - id: risk-on
+  - id: third-touch
     prompt:
-      en: "Over the last several years, how has Bitcoin mostly behaved relative to traditional markets?"
-      es: "En los últimos años, ¿cómo se ha comportado Bitcoin sobre todo en relación con los mercados tradicionales?"
+      en: "Price has touched your candidate trendline twice. What does the third touch add that the first two could not?"
+      es: "El precio ha tocado tu línea candidata dos veces. ¿Qué añade el tercer toque que no podían añadir los dos primeros?"
     options:
       - id: a
         text:
-          en: "As a safe haven uncorrelated with stocks, rising whenever markets fall."
-          es: "Como refugio seguro sin correlación con las acciones, subiendo cuando caen."
+          en: "A third data point, which makes the slope statistically significant."
+          es: "Un tercer dato, que vuelve la pendiente estadísticamente significativa."
       - id: b
         correct: true
         text:
-          en: "Largely as a risk-on asset, in loose sympathy with tech stocks."
-          es: "En gran medida como un activo risk-on, en sintonía laxa con las tecnológicas."
+          en: "Evidence: two points always fit a line, three had to be predicted by it."
+          es: "Evidencia: dos puntos siempre encajan en una recta, tres tuvo que predecirlos."
       - id: c
         text:
-          en: "As a mechanical mirror of the S&P 500, always moving the opposite way."
-          es: "Como espejo mecánico del S&P 500, moviéndose siempre en sentido contrario."
+          en: "Permission to steepen the line so it fits the third low more exactly."
+          es: "Permiso para inclinar más la línea y que encaje mejor con el tercer mínimo."
       - id: d
         text:
-          en: "Completely detached from macro: rates and the dollar do not touch it."
-          es: "Del todo ajeno a la macro: los tipos y el dólar no le afectan."
+          en: "Nothing at all — two touches is the standard definition of a trendline."
+          es: "Nada en absoluto: dos toques es la definición estándar de línea de tendencia."
     explanation:
-      en: "Bitcoin has traded largely as a risk-on asset — rising when investors embrace risk and falling when they flee to safety, which is the opposite of a safe haven. It is a tendency and a source of context, not a mechanical inverse of any index, and it is among the assets most sensitive to rates and the dollar rather than detached from them."
-      es: "Bitcoin ha cotizado en gran medida como un activo risk-on: sube cuando los inversores asumen riesgo y baja cuando huyen hacia la seguridad, que es lo contrario de un refugio. Es una tendencia y una fuente de contexto, no el inverso mecánico de ningún índice, y está entre los activos más sensibles a los tipos y al dólar, no ajeno a ellos."
-  - id: dxy
+      en: "Any two points define a line, so the first two touches are geometry rather than information — you would have got a line from any two lows you picked. The third visit is the first thing the line predicted rather than fitted: price came back to roughly where the line said and turned there. Until then, what you have is a candidate."
+      es: "Dos puntos cualesquiera definen una recta, así que los dos primeros toques son geometría, no información: habrías obtenido una línea con dos mínimos cualesquiera. La tercera visita es lo primero que la línea predijo en vez de ajustar: el precio volvió aproximadamente adonde decía la línea y giró ahí. Hasta entonces, lo que tienes es una candidata."
+  - id: anchoring
     prompt:
-      en: "A strong, rising US dollar index (DXY) has broadly tended to coincide with what for crypto?"
-      es: "Un índice del dólar (DXY) fuerte y al alza ha tendido en general a coincidir con ¿qué para cripto?"
+      en: "You are drawing a rising support line. Some lows have long wicks, others do not. How do you anchor?"
+      es: "Estás trazando un soporte ascendente. Unos mínimos tienen mechas largas y otros no. ¿Cómo te anclas?"
     options:
       - id: a
-        correct: true
         text:
-          en: "Weakness in crypto and other risk assets — an inverse tendency."
-          es: "Debilidad en cripto y otros activos de riesgo: tendencia inversa."
+          en: "Wick on the deep lows, body on the shallow ones, so the line stays clean."
+          es: "Mecha en los mínimos profundos y cuerpo en los suaves, para que la línea quede limpia."
       - id: b
         text:
-          en: "No relationship at all, since crypto ignores the dollar entirely."
-          es: "Ninguna relación, ya que cripto ignora por completo al dólar."
+          en: "Whichever gives the line the most touches — touches are what validate it."
+          es: "Lo que dé más toques a la línea: los toques son lo que la valida."
       - id: c
+        correct: true
         text:
-          en: "Strength in crypto — the dollar and crypto reliably rise together."
-          es: "Fortaleza en cripto: el dólar y cripto suben juntos de forma fiable."
+          en: "Pick one criterion before you start drawing, and use it at every anchor."
+          es: "Elige un criterio antes de empezar a trazar y úsalo en todos los anclajes."
       - id: d
         text:
-          en: "A guaranteed crypto crash on the very same day that the dollar rises."
-          es: "Un desplome garantizado de cripto el mismo día en que sube el dólar."
+          en: "Always wicks: they are the true extremes of what the market actually traded."
+          es: "Siempre mechas: son los extremos verdaderos de lo que el mercado negoció."
     explanation:
-      en: "A strong dollar has broadly coincided with weakness in risk assets, crypto included. It is an inverse tendency and a piece of context — not a mechanical seesaw, and certainly not a same-day trigger you can trade off the DXY chart alone."
-      es: "Un dólar fuerte ha coincidido en general con debilidad en los activos de riesgo, cripto incluida. Es una tendencia inversa y una pieza de contexto: no un balancín mecánico, y desde luego no un detonante del mismo día que puedas operar solo con el gráfico del DXY."
-  - id: safe-haven-myth
+      en: "Wicks or bodies are both defensible; mixing them is not, because mixing is precisely how a line gets fitted to a thesis — you take the wick where the wick is convenient and the body where the body is. Declare the criterion first and keep it, and the line becomes something that can disagree with you. This course anchors on closes and says so, which is what makes that choice checkable."
+      es: "Mechas o cuerpos son las dos defendibles; mezclarlas no, porque mezclar es exactamente como se ajusta una línea a una tesis: coges la mecha donde te conviene la mecha y el cuerpo donde te conviene el cuerpo. Declara el criterio antes y mantenlo, y la línea pasa a ser algo que puede llevarte la contraria. Este curso se ancla en los cierres y lo dice, que es lo que hace comprobable esa elección."
+  - id: redraw
     kind: true_false
     prompt:
-      en: "Over recent years, Bitcoin has behaved as an uncorrelated safe haven, reliably rising when stock markets fall."
-      es: "En los últimos años, Bitcoin se ha comportado como un refugio seguro sin correlación, subiendo de forma fiable cuando caen los mercados de acciones."
+      en: "A trendline you have had to move three times this month is fine, as long as the current version fits the recent lows."
+      es: "Una línea de tendencia que has tenido que mover tres veces este mes está bien, mientras la versión actual encaje con los mínimos recientes."
     answer: false
     explanation:
-      en: "The opposite is closer to the truth. Bitcoin has traded largely as a risk-on asset, moving in loose sympathy with tech stocks rather than against them — it has tended to fall, not rise, when investors flee risk."
-      es: "Lo cierto es más bien lo contrario. Bitcoin ha cotizado en gran medida como un activo risk-on, en sintonía laxa con las acciones tecnológicas en vez de en su contra: ha tendido a caer, no a subir, cuando los inversores huyen del riesgo."
-  - id: interest-rates
+      en: "A line refitted whenever it stops fitting will describe the past forever and predict nothing, because you are re-deriving it from the data it is supposed to be tested against. The test is whether the line you drew a month ago still describes what has happened since. If it does not, the answer is that the rhythm ended — not that you need better anchors."
+      es: "Una línea reajustada cada vez que deja de encajar describirá el pasado eternamente y no predecirá nada, porque la estás volviendo a derivar de los mismos datos contra los que debería contrastarse. La prueba es si la línea que trazaste hace un mes sigue describiendo lo que ha pasado desde entonces. Si no lo hace, la respuesta es que el ritmo se acabó, no que te hacen falta mejores anclajes."
+  - id: channel-bet
     prompt:
-      en: "Central banks raise interest rates sharply. All else equal, what does the lesson say this tends to do to crypto?"
-      es: "Los bancos centrales suben los tipos de interés con fuerza. En igualdad de condiciones, ¿qué dice la lección que esto tiende a hacerle a cripto?"
+      en: "You have drawn a clean channel: four touches on the floor, three on the ceiling. What exactly are you betting on if you trade it?"
+      es: "Has trazado un canal limpio: cuatro toques en el suelo y tres en el techo. ¿A qué estás apostando exactamente si lo operas?"
+    options:
+      - id: a
+        text:
+          en: "That the parallel is correctly placed, which the seven touches already show."
+          es: "A que la paralela está bien colocada, que es lo que ya muestran los siete toques."
+      - id: b
+        text:
+          en: "That price is currently nearer the floor than the ceiling of the channel."
+          es: "A que el precio está ahora más cerca del suelo que del techo del canal."
+      - id: c
+        text:
+          en: "That the market has more buyers than sellers for as long as the channel lasts."
+          es: "A que el mercado tiene más compradores que vendedores mientras dure el canal."
+      - id: d
+        correct: true
+        text:
+          en: "That a regularity which has held so far carries on holding after you act."
+          es: "A que una regularidad cumplida hasta ahora siga cumpliéndose después de entrar."
+    explanation:
+      en: "Everything the seven touches establish sits to the left of your decision; everything you get paid for sits to the right of it. The channel describes a regularity that HAS held, and trading it assumes that regularity persists — an assumption nothing on the chart can support, because a chart only contains the past. A well-drawn channel is unusually good at hiding this, because it looks like a machine."
+      es: "Todo lo que establecen los siete toques está a la izquierda de tu decisión; todo lo que te pagan está a la derecha. El canal describe una regularidad que SÍ se ha cumplido, y operarlo supone que esa regularidad continúa: una suposición que nada del gráfico puede sostener, porque un gráfico solo contiene el pasado. Un canal bien trazado es especialmente bueno escondiendo esto, porque parece una máquina."
+  - id: drawing-steps
+    kind: ordering
+    prompt:
+      en: "Put the steps for drawing and then using a trendline in order."
+      es: "Ordena los pasos para trazar y luego usar una línea de tendencia."
+    items:
+      - id: rhythm
+        position: 1
+        text:
+          en: "Check there is a rhythm at all — a range has no rate of advance to describe."
+          es: "Comprueba que hay ritmo: un rango no tiene ritmo de avance que describir."
+      - id: criterion
+        position: 2
+        text:
+          en: "Declare the anchor, wicks or bodies, and hold to it for every touch."
+          es: "Declara el anclaje, mechas o cuerpos, y mantenlo en todos los toques."
+      - id: validate
+        position: 3
+        text:
+          en: "Wait for the third visit before calling the candidate a line."
+          es: "Espera a la tercera visita antes de llamar línea a la candidata."
+      - id: project
+        position: 4
+        text:
+          en: "Project it forward, and judge a break on the body and the volume."
+          es: "Proyéctala y juzga la ruptura por el cuerpo y por el volumen."
+    explanation:
+      en: "The order is the discipline. Every step exists to stop you drawing what you already believe: the first refuses the tool where it has nothing to describe, the second removes the freedom that lets a line be fitted to a thesis, the third makes the line predict something, and the fourth borrows the break test from m08-l1 and m14 unchanged."
+      es: "El orden es la disciplina. Cada paso existe para impedirte dibujar lo que ya dabas por sentado: el primero rechaza la herramienta donde no tiene nada que describir, el segundo quita la libertad que permite ajustar una línea a una tesis, el tercero obliga a la línea a predecir algo y el cuarto toma prestada la prueba de ruptura de m08-l1 y m14 sin cambiarla."
+  - id: break-evidence
+    kind: multi_select
+    prompt:
+      en: "Price has moved through a validated trendline. Select ALL the observations that count as evidence of a genuine break."
+      es: "El precio ha atravesado una línea de tendencia validada. Selecciona TODAS las observaciones que cuentan como evidencia de una ruptura genuina."
     options:
       - id: a
         correct: true
         text:
-          en: "Money tends to leave: safe cash and bonds now pay more."
-          es: "El dinero tiende a salir: el efectivo y los bonos ahora pagan más."
-      - id: b
-        text:
-          en: "Money tends to flow in, because higher rates make crypto pay interest."
-          es: "El dinero tiende a entrar, porque con tipos altos cripto paga intereses."
-      - id: c
-        text:
-          en: "Nothing at all — crypto is immune to interest-rate policy decisions."
-          es: "Nada en absoluto: cripto es inmune a las decisiones de tipos."
-      - id: d
-        text:
-          en: "Crypto's issuance schedule speeds up in order to compensate for it."
-          es: "El calendario de emisión de cripto se acelera para compensarlo."
-    explanation:
-      en: "Higher rates make safe cash and bonds pay more, so speculative assets — crypto very much included — become relatively less attractive and money tends to leave. Crypto is among the most sensitive assets to this cost of money, it pays no yield of its own, and its issuance is fixed by protocol regardless of what any central bank does."
-      es: "Tipos más altos hacen que el efectivo seguro y los bonos paguen más, así que los activos especulativos —cripto muy incluida— se vuelven relativamente menos atractivos y el dinero tiende a salir. Cripto está entre los activos más sensibles a este coste del dinero, no paga rendimiento propio, y su emisión la fija el protocolo haga lo que haga un banco central."
-  - id: risk-off-flows
-    prompt:
-      en: "In a risk-off episode, where does capital typically flow?"
-      es: "En un episodio risk-off, ¿hacia dónde fluye normalmente el capital?"
-    options:
-      - id: a
-        text:
-          en: "Toward crypto and tech stocks, the classic safe havens of the era."
-          es: "Hacia cripto y las tecnológicas, los refugios seguros clásicos de la época."
-      - id: b
-        text:
-          en: "Toward small-cap altcoins, which hold up best under market stress."
-          es: "Hacia las altcoins pequeñas, que mejor aguantan el estrés del mercado."
-      - id: c
-        correct: true
-        text:
-          en: "Toward assets that protect capital — cash and short-term bonds."
-          es: "Hacia activos que protegen el capital: efectivo y bonos a corto plazo."
-      - id: d
-        text:
-          en: "Nowhere at all — capital simply disappears from every market at once."
-          es: "A ningún sitio: el capital desaparece de todos los mercados a la vez."
-    explanation:
-      en: "Risk-off means money flows toward assets that protect capital if things go badly — cash, short-term government bonds, sometimes the dollar. Crypto and tech sit firmly at the risk-on end, so they tend to be sold, not bought, and the smallest alts are hit hardest of all. The capital does not vanish; it moves."
-      es: "Risk-off significa que el dinero fluye hacia activos que protegen el capital si las cosas van mal: efectivo, bonos de Estado a corto plazo, a veces el dólar. Cripto y la tecnología están firmemente en el extremo risk-on, así que tienden a venderse, no a comprarse, y las alts más pequeñas son las más castigadas. El capital no desaparece: se mueve."
-  - id: macro-match
-    kind: matching
-    prompt:
-      en: "Match each macro condition to the mood it has broadly tended to coincide with for crypto."
-      es: "Empareja cada condición macro con el ánimo con el que ha tendido a coincidir en general para cripto."
-    pairs:
-      - id: rates-up
-        left:
-          en: "Central banks raising interest rates"
-          es: "Bancos centrales subiendo los tipos de interés"
-        right:
-          en: "Money leaving speculative assets like crypto"
-          es: "Dinero que sale de activos especulativos como cripto"
-      - id: dxy-up
-        left:
-          en: "A strong, rising dollar (DXY)"
-          es: "Un dólar fuerte y al alza (DXY)"
-        right:
-          en: "Broad weakness in crypto and other risk assets"
-          es: "Debilidad generalizada en cripto y otros activos de riesgo"
-      - id: risk-on
-        left:
-          en: "A risk-on mood"
-          es: "Un ánimo risk-on"
-        right:
-          en: "Money flowing toward stocks and crypto"
-          es: "Dinero que fluye hacia las acciones y cripto"
-      - id: risk-off
-        left:
-          en: "A risk-off mood"
-          es: "Un ánimo risk-off"
-        right:
-          en: "Money flowing to cash and short-term government bonds"
-          es: "Dinero que fluye hacia el efectivo y los bonos de Estado a corto plazo"
-    explanation:
-      en: "Rising rates and a strong dollar have broadly coincided with weakness in crypto; a risk-on mood sends money toward stocks and crypto, a risk-off mood toward cash and bonds. All are tendencies and context, never mechanical laws."
-      es: "Los tipos al alza y un dólar fuerte han coincidido en general con debilidad en cripto; un ánimo risk-on lleva el dinero hacia las acciones y cripto, un ánimo risk-off hacia el efectivo y los bonos. Todo son tendencias y contexto, nunca leyes mecánicas."
-  - id: event-volatility
-    prompt:
-      en: "A scheduled macro release (an FOMC rate decision, a CPI print) is coming in an hour. In trading terms, what does that date on the calendar mark?"
-      es: "Falta una hora para una publicación macro programada (una decisión de tipos del FOMC, un dato de IPC). Desde el punto de vista del trading, ¿qué marca esa fecha en el calendario?"
-    options:
-      - id: a
-        text:
-          en: "A reliable direction — these resolve up often enough to trade the release."
-          es: "Una dirección fiable: se resuelven al alza lo bastante para operar el dato."
+          en: "A candle body closed beyond the projected line."
+          es: "Un cuerpo de vela cerró al otro lado de la línea proyectada."
       - id: b
         correct: true
         text:
-          en: "A known volatility regime: spreads widen and books thin into it."
-          es: "Un régimen de volatilidad conocido: los spreads se abren y el libro se afina."
+          en: "Volume on that candle clearly exceeded the recent baseline."
+          es: "El volumen de esa vela superó claramente la referencia reciente."
       - id: c
         text:
-          en: "Nothing for crypto — macro releases move only stocks and bonds."
-          es: "Nada para cripto: las publicaciones macro solo mueven acciones y bonos."
+          en: "A long wick reached well past the line before closing back."
+          es: "Una mecha larga llegó bastante más allá antes de volver a cerrar dentro."
       - id: d
         text:
-          en: "A guaranteed calm, because liquidity always deepens before a known event."
-          es: "Una calma garantizada, porque la liquidez siempre se profundiza antes."
+          en: "The line had been touched many times, so a lot was riding on it."
+          es: "La línea se había tocado muchas veces, así que había mucho en juego."
     explanation:
-      en: "A scheduled event is a jump in uncertainty you can see coming. Right before it, market makers pull quotes rather than get run over by the reaction, so spreads widen and books thin — the worst possible liquidity for a fill, in exactly the window everyone is watching. Which way it resolves is not something the calendar tells you, and a 24/7 market feels it as much as any other."
-      es: "Un evento programado es un salto de incertidumbre que ves venir. Justo antes, los creadores de mercado retiran cotizaciones para que la reacción no los arrolle, así que los spreads se ensanchan y los libros se afinan: la peor liquidez posible para una ejecución, justo en la ventana que todos vigilan. Hacia dónde se resuelve no lo dice el calendario, y un mercado 24/7 lo siente tanto como cualquier otro."
-  - id: event-rule
-    prompt:
-      en: "You cannot predict tomorrow's CPI number. What is the disciplined way to treat the print?"
-      es: "No puedes predecir el dato de IPC de mañana. ¿Cuál es la forma disciplinada de tratar la publicación?"
-    options:
-      - id: a
-        text:
-          en: "Size up: the extra volatility is a bigger opportunity worth a bigger position."
-          es: "Subir tamaño: la volatilidad extra es una oportunidad mayor y merece más."
-      - id: b
-        text:
-          en: "Place a tight stop just beyond price and hold full size through the release."
-          es: "Poner un stop ajustado junto al precio y aguantar el tamaño completo."
-      - id: c
-        correct: true
-        text:
-          en: "Be flat or small into an event whose outcome you cannot price."
-          es: "Estar plano o pequeño ante un evento cuyo resultado no puedes valorar."
-      - id: d
-        text:
-          en: "Ignore the calendar entirely; a good setup is a good setup on any date."
-          es: "Ignorar el calendario: un buen setup es un buen setup en cualquier fecha."
-    explanation:
-      en: "If you can't price the outcome, don't let it price you: the reaction, not your analysis, will set the next move. A tight stop is worse than useless when the spread gaps through it on the print — you get the loss without the protection — and adding size to a coin-flip magnifies the coin-flip, not the edge. The edge is in setups you can read."
-      es: "Si no puedes valorar el resultado, no dejes que él te valore a ti: la reacción, no tu análisis, fijará el siguiente movimiento. Un stop ajustado es peor que inútil cuando el spread lo atraviesa de golpe en el dato —te llevas la pérdida sin la protección— y añadir tamaño a un cara-o-cruz amplía el cara-o-cruz, no la ventaja. La ventaja está en setups que puedes leer."
-  - id: liq-shelf-print
-    kind: true_false
-    prompt:
-      en: "Holding a leveraged position whose liquidation price sits just past a visible cluster of stops is a fine thing to carry into an FOMC announcement."
-      es: "Mantener una posición apalancada cuyo precio de liquidación queda justo pasado un cúmulo visible de stops es algo perfectamente asumible para llevar a un anuncio del FOMC."
-    answer: false
-    explanation:
-      en: "That is the worst place to be into a scheduled shock. A liquidation shelf just past a stop cluster is exactly what a violent, thin-book reaction reaches for — the print supplies the volatility, the shelf supplies the fuel. Flatten or cut leverage so a single spike can't force you out at the worst price."
-      es: "Ese es el peor sitio posible ante un shock programado. Una repisa de liquidación justo pasado un cúmulo de stops es precisamente lo que busca una reacción violenta y de libro poco profundo: el dato aporta la volatilidad y la repisa el combustible. Aplana o reduce el apalancamiento para que un solo pico no pueda expulsarte al peor precio."
+      en: "The two that count are the two m08-l1 and m14 already asked for: the body decides, and participation has to be behind it. A wick past the line is not evidence in either direction, and here it is worth even less than it would be at a horizontal level. And the number of prior touches makes the line more watched, not more likely to hold — a crowded line is where the stops are."
+      es: "Las dos que cuentan son las dos que ya pedían m08-l1 y m14: decide el cuerpo, y tiene que haber participación detrás. Una mecha más allá de la línea no es evidencia en ninguna dirección, y aquí vale aún menos de lo que valdría en un nivel horizontal. Y el número de toques previos hace la línea más mirada, no más probable de aguantar: una línea concurrida es donde están los stops."
