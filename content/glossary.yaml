@@ -614,6 +614,25 @@ terms:
       La razón entre nocional y margen. Por sí solo no cambia tu riesgo: cambia lo cerca que queda tu
       precio de liquidación; m19-l1 insiste en que el riesgo lo fija el stop, no el apalancamiento.
 
+- id: g-inverse-contract
+  en: inverse contract
+  es: contrato inverso
+  origin: m05-l1
+  # ES pluralises the noun, not the tail, so the derived `contrato inversos` would be wrong.
+  match:
+    en: [inverse contract, inverse contracts]
+    es: [contrato inverso, contratos inversos]
+  definition:
+    en: >-
+      A perpetual margined and settled in the coin itself rather than a stablecoin (BTCUSD, not
+      BTCUSDT), which makes the collateral a volatile asset. This course teaches the linear contract
+      throughout, and m06-l1's liquidation arithmetic does not transfer to an inverse one unchanged.
+    es: >-
+      Un perpetuo con el margen y el resultado en la propia moneda en vez de en una stablecoin
+      (BTCUSD, no BTCUSDT), lo que convierte el colateral en un activo volátil. Este curso enseña el
+      contrato lineal de principio a fin, y la aritmética de liquidación de m06-l1 no se traslada sin
+      cambios a uno inverso.
+
 - id: g-liquidation
   en: liquidation
   es: liquidación
@@ -1491,10 +1510,12 @@ terms:
   definition:
     en: >-
       Average true range — how far a typical bar travels from high to low, counting any gap from the
-      previous close. What a Keltner channel is drawn from.
+      previous close. What a Keltner channel is drawn from, and the width floor m19-l1 checks a
+      structural stop against.
     es: >-
       Rango verdadero medio: cuánto recorre una barra típica de máximo a mínimo, contando cualquier
-      hueco desde el cierre anterior. Aquello con lo que se traza un canal de Keltner.
+      hueco desde el cierre anterior. Aquello con lo que se traza un canal de Keltner, y el suelo de
+      anchura con el que m19-l1 comprueba un stop estructural.
 
 # --- Block D · Market context ------------------------------------------------------------------
 

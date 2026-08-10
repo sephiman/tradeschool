@@ -474,8 +474,8 @@ rule with two lifetimes:
 A term is never linked in the lesson it points back at — a link to an entry that points back at the
 page you are reading is a loop. That occurrence still **spends** the term's one slot in the book, so
 a term the course first uses inside its own lesson gets no PDF link at all while remaining a tooltip
-everywhere else in the app. Today that is 100 of 161 terms in EN and 108 in ES: the book carries 61
-term links (EN) / 51 (ES) against 538 / 468 tooltips.
+everywhere else in the app. Today that is 108 of 178 terms in EN and 117 in ES: the book carries 70
+term links (EN) / 59 (ES) against 643 / 562 tooltips.
 
 Every decision is recorded in `content/glossary-links.<locale>.txt`, a **frozen golden** that a
 content change diffs loudly instead of moving links in silence — that diff is where a false positive
@@ -532,7 +532,7 @@ The PDF is navigable, not just printable, and every one of these is a pdfmake fe
 post-processing step:
 
 * **A document outline** (bookmarks) that mirrors `course.yaml` exactly — block › module › lesson,
-  with the glossary and the answer key beside the blocks. The 177 glossary entries stay out of it: a
+  with the glossary and the answer key beside the blocks. The 178 glossary entries stay out of it: a
   bookmark pane listing every term is a second glossary, not a way around the book.
 * **A clickable table of contents.** This one already worked — pdfmake gives every `tocItem` row a
   `linkToDestination` — so what changed is that every heading now carries a **content id** instead of

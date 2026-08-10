@@ -102,8 +102,8 @@ describe("a tracker that has seen nothing", () => {
 
 describe("what the footer prints on the left", () => {
   it("is the book, then where in it the reader is", () => {
-    expect(runningTitle("Futuros de cripto, desde cero", "Fundamentos")).toBe(
-      "Futuros de cripto, desde cero · Fundamentos",
+    expect(runningTitle("De cero a operar futuros perpetuos", "Fundamentos")).toBe(
+      "De cero a operar futuros perpetuos · Fundamentos",
     );
   });
 

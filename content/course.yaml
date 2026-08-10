@@ -5,10 +5,10 @@ course:
   id: crypto-futures
   title:
     en: Crypto Futures, from Zero
-    es: Futuros de cripto, desde cero
+    es: De cero a operar futuros perpetuos
   description:
     en: From absolute zero to a complete trading plan for crypto perpetual futures — read the market, size positions, manage risk, and run a disciplined process.
-    es: 'Desde cero absoluto hasta un plan de trading completo para futuros perpetuos de cripto: leer el mercado, dimensionar posiciones, gestionar el riesgo y seguir un proceso disciplinado.'
+    es: 'Un plan de trading completo para futuros perpetuos: leer el mercado, dimensionar posiciones, gestionar el riesgo y ejecutar con disciplina.'
 blocks:
 - id: block-a
   title:

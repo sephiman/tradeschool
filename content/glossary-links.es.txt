@@ -4,7 +4,7 @@
 # content change that moves a link shows up here as a diff. Do not hand-edit — fix the prose or
 # the entry's `match` / `link` / `link_except` in glossary.yaml and regenerate.
 #
-# 557 web marks · 59 of them also a PDF link · 116 linkable terms the book never links
+# 562 web marks · 59 of them also a PDF link · 117 linkable terms the book never links
 #
 # lesson   policy  term id                      context, with the marked words in «»
 m01-l1   WP      g-emission                   …"llamar a Bitcoin" y pedir que se duplique la «emisión»; cambiar una regla básica exige convencer a t…
@@ -53,11 +53,14 @@ m04-l1   W       g-leverage                   …idación: un largo abierto a 20
 m04-l1   WP      g-funding-rate               «tasa de funding»
 m04-l1   WP      g-fee                        "El funding es una «comisión» que cobra el exchange." No lo es. El funding …
 m04-l1   W       g-candle                     …debajo de su nivel de liquidación durante una «vela» violenta y cierra él mismo la posición, presa…
+m05-l1   W       g-stablecoin                 …s a su vez un activo con su propio riesgo —la «stablecoin» que lo guarda puede perder su paridad, y el b…
 m05-l1   W       g-liquidation                …a; el margen de mantenimiento es el umbral de «liquidación» forzosa. El
 m05-l1   WP      g-liquidation-price          … de que la posición se liquide. (Calcular ese «precio de liquidación» exacto es el próximo módulo.)
 m05-l1   W       g-pullback                   …cial sobre el papel es la razón por la que un «retroceso» del 5% —ruido, en la mayoría de los activos— …
 m05-l1   W       g-cascade                    «Cascadas» de liquidación.
 m05-l1   W       g-wick                       …ntación se pasa de frenada con violencia: la "«mecha» de liquidación" que se dispara y se recupera …
+m05-l1   W       g-contract                   Este curso enseña de principio a fin el «contrato»
+m05-l1   W       g-long                       … volátil que se mueve con la posición. Mantén «un largo» en un contrato inverso y una caída del precio…
 m06-l1   W       g-margin                     …ge cerrando tu posición a la fuerza porque tu «margen» ya no puede cubrir tus pérdidas. No es un cas…
 m06-l1   W       g-leverage                   …tes de entrar, controlas tu riesgo. Si no, el «apalancamiento» te controla a ti.
 m06-l1   W       g-notional                   : una fracción del valor «nocional» de la posición. A medida que el precio va en …
@@ -333,11 +336,13 @@ m18-l1   W       g-cascade                    … mismas condiciones que vuelven
 m18-l1   W       g-liquidation                …iciones que vuelven feroces a las cascadas de «liquidación» vuelven feroces a los volcados de desbloqueo.
 m19-l1   W       g-margin                     …ca tu stop, no el tamaño de la posición ni el «margen» que depositas para abrirla.
 m19-l1   WP      g-daily-stop                 «freno diario»
+m19-l1   W       g-atr                        …dea queda realmente invalidada, nunca en "1,5 «ATR»" porque lo diga un múltiplo. Pero un stop pue…
+m19-l1   W       g-timeframe                  de la «temporalidad» en la que entraste —la regla de
+m19-l1   W       g-liquidation-price          …ia aquí es que llega a tu stop en vez de a tu «precio de liquidación». La aritmética de arriba te entrega las dos r…
 m19-l1   W       g-leverage                   … de todo el curso es creer que el selector de «apalancamiento»
 m19-l1   W       g-notional                   , un «nocional» de
 m19-l1   W       g-liquidation                Dónde queda la «liquidación» respecto a tu stop.
 m19-l1   W       g-long                       Con la fórmula de m06 para «un largo»,
-m19-l1   W       g-liquidation-price          , y el «precio de liquidación» queda ahora
 m19-l1   W       g-setup                      Un «setup» cuyo objetivo está a tres distancias de stop …
 m19-l1   WP      g-payoff                     —tasa de acierto frente a «payoff»— en lugar de por si la última operación resul…
 m19-l1   W       g-altcoin                    …ento del 10–15% en un día es corriente en una «altcoin» y sería una sacudida de las que se ven una ve…
@@ -613,6 +618,7 @@ m30-l1   W       g-footprint                  con el «footprint»: decir qué h
 #   g-higher-high-hh
 #   g-histogram
 #   g-initial-margin
+#   g-inverse-contract
 #   g-isolated-margin
 #   g-keltner
 #   g-last-price
