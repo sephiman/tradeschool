@@ -81,6 +81,8 @@
     "readingTimeHoursMinutes": "~{{hours}} h {{minutes}} min",
     "markComplete": "Mark lesson complete",
     "markedComplete": "Lesson marked complete",
+    "markIncomplete": "Mark as not completed",
+    "markedIncomplete": "Lesson marked as not completed",
     "markCompleteHint": "This is the only thing Progress counts as \"read\" — we don't measure reading.",
     "markCompleteConfirm": "You haven't tried all the exercises in this lesson yet. Mark it complete anyway?",
     "next": "Next: {{step}}",

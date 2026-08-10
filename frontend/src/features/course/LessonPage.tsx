@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { completeLesson, getCourse, getGlossary, getLesson, type ExerciseType } from "@/api/course";
+import { completeLesson, getCourse, getGlossary, getLesson, uncompleteLesson, type ExerciseType } from "@/api/course";
 import { listAttempts } from "@/api/exercises";
 import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
@@ -51,6 +51,15 @@ export function LessonPage() {
   const complete = useMutation({
     mutationFn: () => completeLesson(lessonId),
     meta: { successMessage: "course.markedComplete" },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["lesson", lessonId] });
+      void queryClient.invalidateQueries({ queryKey: ["course"] });
+    },
+  });
+
+  const uncomplete = useMutation({
+    mutationFn: () => uncompleteLesson(lessonId),
+    meta: { successMessage: "course.markedIncomplete" },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["lesson", lessonId] });
       void queryClient.invalidateQueries({ queryKey: ["course"] });
@@ -142,7 +151,18 @@ export function LessonPage() {
       <div className="mt-8 rounded-lg border border-border p-4 dark:border-gray-800 oled:border-oled-line">
         <div className="flex flex-wrap items-center gap-3">
           {lesson.completed ? (
-            <Badge tone="green">{t("course.completed")}</Badge>
+            <>
+              <Badge tone="green">{t("course.completed")}</Badge>
+              {/* The undo is quiet on purpose: unmarking is rare, and the badge stays the headline. */}
+              <button
+                type="button"
+                onClick={() => uncomplete.mutate()}
+                disabled={uncomplete.isPending}
+                className="text-xs text-gray-500 underline-offset-2 hover:underline dark:text-gray-400"
+              >
+                {t("course.markIncomplete")}
+              </button>
+            </>
           ) : (
             <Button onClick={() => void onMarkComplete()} disabled={complete.isPending}>
               {t("course.markComplete")}

@@ -216,6 +216,30 @@ async def test_complete_is_idempotent(content_client: AsyncClient) -> None:
     assert _module(course, "m01")["lessonsCompleted"] == 1
 
 
+async def test_uncomplete_reverses_the_mark_and_restores_the_prereq(content_client: AsyncClient) -> None:
+    """DELETE is the POST's exact inverse: progress, the advisory prereq and the lesson flag all revert."""
+    await _auth(content_client)
+    await content_client.post("/api/lessons/m01-l1/complete")
+
+    undone = await content_client.delete("/api/lessons/m01-l1/complete")
+    assert undone.status_code == 200 and undone.json()["completed"] is False
+
+    course = (await content_client.get("/api/course")).json()
+    assert _module(course, "m01")["lessonsCompleted"] == 0
+    # The advisory notice on m02 returns with the mark gone — unmet again, exactly as before.
+    assert _module(course, "m02")["unmetPrereqs"] == ["m01"]
+    lesson = (await content_client.get("/api/lessons/m01-l1")).json()
+    assert lesson["completed"] is False
+
+
+async def test_uncomplete_is_idempotent_and_checks_the_lesson_exists(content_client: AsyncClient) -> None:
+    await _auth(content_client)
+    # Unmarking a lesson that was never marked is a no-op, not an error — the state is the answer.
+    assert (await content_client.delete("/api/lessons/m01-l1/complete")).status_code == 200
+    assert (await content_client.delete("/api/lessons/m01-l1/complete")).status_code == 200
+    assert (await content_client.delete("/api/lessons/nope-l1/complete")).status_code == 404
+
+
 async def test_module_detail_prereqs(content_client: AsyncClient) -> None:
     await _auth(content_client)
     detail = (await content_client.get("/api/modules/m06?lang=en")).json()

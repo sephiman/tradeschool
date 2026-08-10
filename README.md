@@ -313,7 +313,7 @@ Everything whose data belongs to a course hangs off the course:
 /api/courses/{course}/export               whole-course theory (see below)
 /api/courses/{course}/print/exercises      the printed exercises + answer key
 /api/courses/{course}/glossary             the glossary
-/api/courses/{course}/lessons/{id}         …/complete, /modules/{id}, /figures/{id}
+/api/courses/{course}/lessons/{id}         …/complete (POST marks, DELETE unmarks), /modules/{id}, /figures/{id}
 /api/courses/{course}/exams                …/current, /{exam_id}, /{exam_id}/submit, …
 /api/courses/{course}/attempts             …/{attempt_id}, /exercises/{id}/attempts
 /api/courses/{course}/stats/me             …/stats/global (anonymous aggregate, within the course)

@@ -81,6 +81,8 @@
     "readingTimeHoursMinutes": "~{{hours}} h {{minutes}} min",
     "markComplete": "Marcar lección como completada",
     "markedComplete": "Lección marcada como completada",
+    "markIncomplete": "Marcar como no completada",
+    "markedIncomplete": "Lección marcada como no completada",
     "markCompleteHint": "Es lo único que cuenta como «leída» en Progreso: no medimos la lectura.",
     "markCompleteConfirm": "Aún no has probado todos los ejercicios de esta lección. ¿Marcarla como completada igualmente?",
     "next": "Siguiente: {{step}}",

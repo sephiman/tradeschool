@@ -11,7 +11,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -227,6 +227,26 @@ async def complete_lesson(
     )
     await session.commit()
     return CompleteResponse(lessonId=lesson_id, completed=True)
+
+
+@router.delete("/lessons/{lesson_id}/complete", response_model=CompleteResponse)
+async def uncomplete_lesson(
+    lesson_id: str,
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+) -> CompleteResponse:
+    """Undo a completion mark. Idempotent, like its POST twin — unmarking twice is not an error."""
+    if registry.lesson_detail(lesson_id, "en", set()) is None:
+        raise AppError("LESSON_NOT_FOUND", f"No lesson {lesson_id!r}.", status_code=404)
+    await session.execute(
+        delete(LessonCompletion).where(
+            LessonCompletion.user_id == user.id,
+            LessonCompletion.lesson_id == registry.lesson_key(lesson_id),
+        )
+    )
+    await session.commit()
+    return CompleteResponse(lessonId=lesson_id, completed=False)
 
 
 @router.get("/modules/{module_id}")

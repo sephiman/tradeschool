@@ -103,6 +103,11 @@ export async function completeLesson(lessonId: string): Promise<void> {
   await apiClient.post(`${COURSE_PATH}/lessons/${lessonId}/complete`);
 }
 
+/** The exact inverse: unmark a lesson, e.g. to re-read it with the "continue" flow intact. */
+export async function uncompleteLesson(lessonId: string): Promise<void> {
+  await apiClient.delete(`${COURSE_PATH}/lessons/${lessonId}/complete`);
+}
+
 export async function getModule(moduleId: string): Promise<ModuleDetail> {
   const { data } = await apiClient.get<ModuleDetail>(`${COURSE_PATH}/modules/${moduleId}`);
   return data;
