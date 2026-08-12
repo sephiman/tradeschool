@@ -95,7 +95,7 @@ variants:
         correct: true
         text:
           en: "Somebody is being forced to trade, in a known direction."
-          es: "Alguien está siendo obligado a operar, en una dirección conocida."
+          es: "Alguien al que están obligando a operar, en una dirección conocida."
       - id: b
         correct: true
         text:

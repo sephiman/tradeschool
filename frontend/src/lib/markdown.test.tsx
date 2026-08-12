@@ -13,6 +13,10 @@ Be careful here.
 ::exercise{id=m01-ex-1}
 
 ::figure{id=fig-demo}
+
+| Estilo | Contexto |
+|---|---|
+| **Scalper** | 15m – 1h |
 `;
 
 describe("LessonMarkdown", () => {
@@ -41,5 +45,12 @@ describe("LessonMarkdown", () => {
 
   it("renders ::figure via the injected renderer", () => {
     expect(html).toContain("FIGURE:fig-demo");
+  });
+
+  it("renders a GFM table as a styled table inside a scroll wrapper", () => {
+    expect(html).toContain("<table");
+    expect(html).toContain("<th");
+    expect(html).not.toContain("|---|");
+    expect(html).toContain("overflow-x-auto");
   });
 });

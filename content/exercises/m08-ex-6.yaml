@@ -79,7 +79,7 @@ variants:
           es: "Ambos por igual: la forma de la vela es idéntica, y su significado también."
     explanation:
       en: "Same wick, completely different value — because the level, not the candle, does the work. A rejection at a demonstrated level tells you buyers defended a price that already mattered; the identical wick in open space tells you someone was rejected at a price nobody was watching. Location is 90% of the signal."
-      es: "La misma mecha, un valor completamente distinto, porque quien hace el trabajo es el nivel, no la vela. Un rechazo en un nivel demostrado te dice que los compradores defendieron un precio que ya importaba; la misma mecha en espacio abierto te dice que alguien fue rechazado en un precio que nadie miraba. La ubicación es el 90 % de la señal."
+      es: "La misma mecha, un valor completamente distinto, porque el trabajo lo hace el nivel, no la vela. Un rechazo en un nivel demostrado te dice que los compradores defendieron un precio que ya importaba; la misma mecha en espacio abierto te dice que alguien fue rechazado en un precio que nadie miraba. La ubicación es el 90 % de la señal."
   - id: what-decides
     prompt:
       en: "You spot a textbook bullish engulfing candle. What most decides whether it means anything?"

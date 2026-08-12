@@ -88,6 +88,33 @@ function buildComponents(
         {children}
       </a>
     ),
+    // GFM tables. Same rule as the PDF's tables and SharedLedger's data tables: horizontal rules
+    // only, the header rule a step stronger than the row rules. The wrapper scrolls so a wide table
+    // never widens the page on phone widths.
+    table: ({ children }) => (
+      <div className="my-4 overflow-x-auto">
+        <table className="w-full text-sm">{children}</table>
+      </div>
+    ),
+    thead: ({ children }) => (
+      <thead className="border-b border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-400 oled:border-oled-line-strong">
+        {children}
+      </thead>
+    ),
+    tbody: ({ children }) => (
+      <tbody className="divide-y divide-border dark:divide-gray-800 oled:divide-oled-line">{children}</tbody>
+    ),
+    // `align` carries a `|:---:|` column marker; left is the default only while none is set.
+    th: ({ align, children }) => (
+      <th align={align} className={cn("py-2 pr-4 last:pr-0", !align && "text-left")}>
+        {children}
+      </th>
+    ),
+    td: ({ align, children }) => (
+      <td align={align} className="py-2 pr-4 align-top text-gray-700 last:pr-0 dark:text-gray-300">
+        {children}
+      </td>
+    ),
     div: (props) => {
       const attrs = props as Record<string, unknown> & { children?: ReactNode };
       const exerciseId = attrs["data-exercise-id"];

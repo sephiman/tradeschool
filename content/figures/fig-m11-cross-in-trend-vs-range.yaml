@@ -16,7 +16,7 @@ caption:
     marca su reanudación; la continuación llega y el histograma crece. Derecha: el mismo
     cruce alcista dentro de un rango. Aquí la línea MACD sierra el cero, este cruce es
     uno de muchos y cada uno de los anteriores se dio la vuelta directo hacia el siguiente.
-    El mismo evento, valor opuesto: el contexto, no el cruce, es lo que hace el trabajo.'
+    El mismo evento, valor opuesto: el trabajo lo hace el contexto, no el cruce.'
 panels:
 - generator: pattern_chart
   injector: macd_cross
