@@ -31,7 +31,9 @@ def _lesson(lesson_id: str, with_exercise: bool = False) -> ManifestLesson:
 
 def _manifest(modules: list[ManifestModule]) -> Manifest:
     return Manifest(
-        course=ManifestCourse(id="c1", title=_t("Course 1"), subtitle=_t("Course 1"), description=_t("A test course.")),
+        course=ManifestCourse(
+            id="c1", title=_t("Course 1"), subtitle=_t("Course 1"), description=_t("A test course.")
+        ),
         blocks=[ManifestBlock(id="b1", title=_t("Block 1"), modules=modules)],
     )
 
