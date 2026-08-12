@@ -38,7 +38,7 @@ const heading = (props: Partial<Node> & { page?: number; at?: number } = {}) =>
 const paragraph = (props: Partial<Node> & { page?: number; at?: number } = {}) =>
   node({ text: "Body text", style: "p", ...props });
 const footer = (props: Partial<Node> & { page?: number; at?: number } = {}) =>
-  node({ text: "Crypto Futures, from Zero", style: "footer", at: 1, ...props });
+  node({ text: "The Beginner's Guide", style: "footer", at: 1, ...props });
 const callout = (props: Partial<Node> & { page?: number; at?: number } = {}) =>
   node({ id: "note-m08-l1-0", table: { body: [] }, style: "note", ...props });
 /** A container: a stack has no ink of its own — its children carry it. */

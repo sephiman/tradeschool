@@ -155,6 +155,8 @@ async def test_course_tree_shape(content_client: AsyncClient) -> None:
     # Root course identity for the header (localized; sourced from the manifest).
     assert course["course"]["id"] == "crypto-futures"
     assert course["course"]["title"] and course["course"]["description"]
+    # The short name the PDF's running footer prints in place of the full title.
+    assert course["course"]["subtitle"]
     assert "started" in course
 
     m01 = _module(course, "m01")

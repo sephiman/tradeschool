@@ -46,6 +46,8 @@ export interface PdfLabels extends ExerciseLabels, GlossaryLabels {
 
 export interface BuildCourseDocumentOptions {
   courseTitle: string;
+  /** The book's short name, for the running footer: the full title wraps at this size. */
+  courseSubtitle: string;
   courseDescription: string;
   export: CourseExport;
   figures: Map<string, CapturedFigure>;
@@ -151,9 +153,13 @@ function renderers(figures: Map<string, CapturedFigure>): MarkdownRenderers {
   };
 }
 
-/** The footer's left side: the book, plus the current section once the first block has started. */
-export function runningTitle(courseTitle: string, section: string | undefined): string {
-  return section ? `${courseTitle} · ${section}` : courseTitle;
+/**
+ * The footer's left side: the book, plus the current section once the first block has started.
+ *
+ * The book is its subtitle, not its full title — one line at footer size, on every page.
+ */
+export function runningTitle(courseSubtitle: string, section: string | undefined): string {
+  return section ? `${courseSubtitle} · ${section}` : courseSubtitle;
 }
 
 /** The captured chart for one exercise, or a stop — a chartless question is unanswerable. */
@@ -321,7 +327,7 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
         ? { text: "" }
         : {
             columns: [
-              { text: runningTitle(o.courseTitle, sections.at(currentPage)), style: "footer" },
+              { text: runningTitle(o.courseSubtitle, sections.at(currentPage)), style: "footer" },
               { text: o.labels.page(currentPage, pageCount), style: "footer", alignment: "right" },
             ],
             margin: [PAGE.margins[0], 18, PAGE.margins[2], 0],

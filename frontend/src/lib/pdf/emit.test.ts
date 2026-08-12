@@ -39,6 +39,7 @@ describe.runIf(OUT)("emit a PDF for review", () => {
         locale: LOCALE,
         courseId: course.id,
         courseTitle: course.title[LOCALE],
+        courseSubtitle: course.subtitle[LOCALE],
         courseDescription: course.description[LOCALE],
         labels: testPdfLabels(LOCALE),
         date: new Date(2026, 7, 8),

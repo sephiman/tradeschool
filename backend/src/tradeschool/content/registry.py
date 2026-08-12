@@ -186,6 +186,7 @@ class CourseRegistry:
         return {
             "id": course.id,
             "title": course.title.get(locale),
+            "subtitle": course.subtitle.get(locale),
             "description": course.description.get(locale),
         }
 

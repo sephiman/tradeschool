@@ -75,6 +75,8 @@ class ManifestCourse(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
     title: LocalizedText
+    #: The book's short name, for surfaces the full title is too long for (the PDF's running footer).
+    subtitle: LocalizedText
     description: LocalizedText
 
 

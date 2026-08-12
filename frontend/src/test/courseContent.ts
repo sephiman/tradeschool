@@ -79,7 +79,7 @@ export interface ManifestBlock {
 }
 
 export interface Manifest {
-  course: { id: string; title: LocalizedText; description: LocalizedText };
+  course: { id: string; title: LocalizedText; subtitle: LocalizedText; description: LocalizedText };
   blocks: ManifestBlock[];
 }
 

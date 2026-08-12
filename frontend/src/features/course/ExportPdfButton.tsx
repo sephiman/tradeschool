@@ -35,6 +35,7 @@ export function ExportPdfButton({ course }: { course: CourseMeta }) {
         locale,
         courseId: course.id,
         courseTitle: course.title,
+        courseSubtitle: course.subtitle,
         courseDescription: course.description,
         labels,
         date: new Date(),

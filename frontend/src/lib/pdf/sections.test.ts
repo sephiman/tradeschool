@@ -102,12 +102,12 @@ describe("a tracker that has seen nothing", () => {
 
 describe("what the footer prints on the left", () => {
   it("is the book, then where in it the reader is", () => {
-    expect(runningTitle("De cero a operar futuros perpetuos", "Fundamentos")).toBe(
-      "De cero a operar futuros perpetuos · Fundamentos",
+    expect(runningTitle("La guía de iniciación", "Fundamentos")).toBe(
+      "La guía de iniciación · Fundamentos",
     );
   });
 
   it("is the book alone before the first block", () => {
-    expect(runningTitle("Crypto Futures, from Zero", undefined)).toBe("Crypto Futures, from Zero");
+    expect(runningTitle("The Beginner's Guide", undefined)).toBe("The Beginner's Guide");
   });
 });

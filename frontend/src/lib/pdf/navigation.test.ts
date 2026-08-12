@@ -55,6 +55,7 @@ function build(locale: Locale): TDocumentDefinitions {
   const exercises = printExercisesFromContent(locale);
   const doc = buildCourseDocument({
     courseTitle: "T",
+    courseSubtitle: "S",
     courseDescription: "D",
     export: courseExportFromContent(locale),
     figures: stubFigures(figureDirectives(locale)),

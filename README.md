@@ -561,7 +561,7 @@ with their summaries, every lesson's prose, callouts and figures, **the lesson's
 prose, and an answer key at the back**, and it is **navigable**: bookmarks, a clickable contents, term
 links into the glossary and exercise ↔ answer cross-links (see below). ~261 pages (EN) / ~274 (ES):
 43 lessons, 34 figures, 147 exercises, 30 of which print a chart. Every lesson starts on a new page,
-and the answer key is a table-of-contents entry with a resolved page number. The running footer carries the course title, the
+and the answer key is a table-of-contents entry with a resolved page number. The running footer carries the course **subtitle** (`course.subtitle`, the book's short name — the full title would wrap), the
 **top-level section the page belongs to** (the block, or the answer key) and the page number, so a page
 found loose still says where it came from; the cover and the contents precede the first block and name
 no section. The file is named `tradeschool-<course>-<locale>-<YYYY-MM-DD>.pdf`.

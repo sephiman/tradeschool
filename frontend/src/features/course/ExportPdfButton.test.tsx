@@ -33,7 +33,12 @@ const { ExportPdfButton } = await import("./ExportPdfButton");
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
-const COURSE = { id: "crypto-futures", title: "Crypto Futures, from Zero", description: "From zero." };
+const COURSE = {
+  id: "crypto-futures",
+  title: "Crypto Perpetual Futures: The Beginner's Guide",
+  subtitle: "The Beginner's Guide",
+  description: "From zero.",
+};
 
 let host: HTMLDivElement;
 

@@ -78,6 +78,7 @@ async function generate(
     locale,
     courseId: course.id,
     courseTitle: course.title[locale],
+    courseSubtitle: course.subtitle[locale],
     courseDescription: course.description[locale],
     labels: testPdfLabels(locale),
     date: new Date(2026, 7, 3),
@@ -235,6 +236,7 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
     const doc = buildCourseDocument({
       sections,
       courseTitle: course.title[locale],
+      courseSubtitle: course.subtitle[locale],
       courseDescription: course.description[locale],
       export: courseExportFromContent(locale),
       figures: stubFigures(figureDirectives(locale)),
@@ -352,12 +354,12 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
       const next = found[index + 1];
       // The page a section starts on already carries its name...
       expect(footerTitle(doc, section.page), `first page of ${section.title}`).toBe(
-        `${course.title[locale]} · ${section.title}`,
+        `${course.subtitle[locale]} · ${section.title}`,
       );
       // ...and it keeps it to the last page before the next one begins.
       const last = next ? next.page - 1 : section.page;
       expect(footerTitle(doc, last), `last page of ${section.title}`).toBe(
-        `${course.title[locale]} · ${section.title}`,
+        `${course.subtitle[locale]} · ${section.title}`,
       );
       // The page before a section starts belongs to whatever came before, never to it.
       expect(footerTitle(doc, section.page - 1)).not.toContain(section.title);
@@ -371,7 +373,9 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
     expect(firstBlockPage).toBeGreaterThan(1);
     expect(footerTitle(doc, 1)).toBe(""); // the cover carries no footer at all
     for (let page = 2; page < firstBlockPage; page++) {
-      expect(footerTitle(doc, page), `page ${page} precedes the first block`).toBe(course.title[locale]);
+      expect(footerTitle(doc, page), `page ${page} precedes the first block`).toBe(
+        course.subtitle[locale],
+      );
     }
   }, 600_000);
 
@@ -381,6 +385,7 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
     const { observed, moved } = await laid;
     const doc = buildCourseDocument({
       courseTitle: "T",
+      courseSubtitle: "S",
       courseDescription: "D",
       export: courseExportFromContent(locale),
       figures: stubFigures(figureDirectives(locale)),
@@ -422,6 +427,7 @@ describe("pagination in the produced file", () => {
       locale: "en",
       courseId: "tiny",
       courseTitle: "T",
+      courseSubtitle: "S",
       courseDescription: "D",
       labels: testPdfLabels("en"),
       date: new Date(2026, 7, 3),

@@ -43,6 +43,7 @@ function buildFor(locale: Locale) {
   const course = readManifest().course;
   const doc = buildCourseDocument({
     courseTitle: course.title[locale],
+    courseSubtitle: course.subtitle[locale],
     courseDescription: course.description[locale],
     export: courseExportFromContent(locale),
     figures: stubFigures(figureDirectives(locale)),
@@ -221,6 +222,7 @@ describe("figure layout", () => {
   function build(embeddedId: string, rendered: CapturedFigure[]) {
     return buildCourseDocument({
       courseTitle: "T",
+      courseSubtitle: "S",
       courseDescription: "D",
       export: {
         locale: "en",
@@ -330,6 +332,7 @@ describe("generating the same book twice", () => {
       const exercises = printExercisesFromContent(locale);
       return buildCourseDocument({
         courseTitle: course.title[locale],
+        courseSubtitle: course.subtitle[locale],
         courseDescription: course.description[locale],
         export: courseExportFromContent(locale),
         figures: stubFigures(figureDirectives(locale)),
@@ -356,6 +359,7 @@ describe("exercises that could not be printed", () => {
       exercises,
       doc: buildCourseDocument({
         courseTitle: course.title[locale],
+        courseSubtitle: course.subtitle[locale],
         courseDescription: course.description[locale],
         export: courseExportFromContent(locale),
         figures: stubFigures(figureDirectives(locale)),
@@ -402,6 +406,7 @@ describe("a chart exercise with no chart", () => {
     expect(() =>
       buildCourseDocument({
         courseTitle: course.title[locale],
+        courseSubtitle: course.subtitle[locale],
         courseDescription: course.description[locale],
         export: courseExportFromContent(locale),
         figures: stubFigures(figureDirectives(locale)),

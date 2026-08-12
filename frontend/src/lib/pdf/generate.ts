@@ -34,9 +34,11 @@ export interface GeneratedPdf {
 
 export interface GenerateCoursePdfOptions {
   locale: string;
-  /** For the cover and the filename — the course page already has all three. */
+  /** For the cover and the filename — the course page already has all four. */
   courseId: string;
   courseTitle: string;
+  /** The running footer's title segment; the cover keeps the full title. */
+  courseSubtitle: string;
   courseDescription: string;
   labels: PdfLabels;
   /** Injected, never read from the clock in here. */
@@ -123,6 +125,7 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
   const oversized: OversizedBlock[] = [];
   const definition = buildCourseDocument({
     courseTitle: o.courseTitle,
+    courseSubtitle: o.courseSubtitle,
     courseDescription: o.courseDescription,
     export: exported,
     figures,

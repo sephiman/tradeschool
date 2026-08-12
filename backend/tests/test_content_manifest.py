@@ -29,7 +29,7 @@ def _t(s: str) -> LocalizedText:
 
 
 def _course() -> ManifestCourse:
-    return ManifestCourse(id="c1", title=_t("Course"), description=_t("desc"))
+    return ManifestCourse(id="c1", title=_t("Course"), subtitle=_t("Course"), description=_t("desc"))
 
 
 def test_real_manifest_loads_and_lessons_have_both_languages() -> None:

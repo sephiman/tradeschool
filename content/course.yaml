@@ -7,11 +7,15 @@
 course:
   id: crypto-futures
   title:
-    en: Crypto Futures, from Zero
-    es: De cero a operar futuros perpetuos
+    en: "Crypto Perpetual Futures: The Beginner's Guide"
+    es: 'Futuros perpetuos cripto: la guía de iniciación'
+  # The book's short name: the cover and the app print the full title, the PDF's running footer prints this.
+  subtitle:
+    en: The Beginner's Guide
+    es: La guía de iniciación
   description:
-    en: From absolute zero to a complete trading plan for crypto perpetual futures — read the market, size positions, manage risk, and run a disciplined process.
-    es: 'Un plan de trading completo para futuros perpetuos: leer el mercado, dimensionar posiciones, gestionar el riesgo y ejecutar con disciplina.'
+    en: 'From zero to your first trading plan: reading the market, sizing positions, and managing risk.'
+    es: 'De cero a tu primer plan de trading: leer el mercado, dimensionar posiciones y gestionar el riesgo.'
 blocks:
 - id: block-a
   title:

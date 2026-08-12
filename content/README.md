@@ -91,8 +91,10 @@ mention. Regenerate with:
 cd frontend && UPDATE_LESSON_REFS=1 npx vitest run src/lib/refs/report.test.ts
 ```
 
-The manifest's root is a single **course** (`course: { id, title, description }`); its blocks follow at
-the top level. There is one course today — `crypto-futures` — and the structure is ready for more.
+The manifest's root is a single **course** (`course: { id, title, subtitle, description }`); its blocks
+follow at the top level. There is one course today — `crypto-futures` — and the structure is ready for
+more. `subtitle` is the book's short name: the cover, the app header and the PDF's document properties
+print the full title, and the PDF's running footer prints the subtitle, which fits on one line.
 
 ## ID convention (read before adding content)
 

@@ -51,6 +51,8 @@ export interface CourseBlock {
 export interface CourseMeta {
   id: string;
   title: string;
+  /** The book's short name — what the PDF's running footer prints in place of the full title. */
+  subtitle: string;
   description: string;
 }
 

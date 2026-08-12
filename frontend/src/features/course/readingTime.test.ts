@@ -70,7 +70,7 @@ function course(blocks: CourseBlock[]): Course {
   return {
     locale: "en",
     started: true,
-    course: { id: "c", title: "Course", description: "" },
+    course: { id: "c", title: "Course", subtitle: "Course", description: "" },
     blocks,
   };
 }
