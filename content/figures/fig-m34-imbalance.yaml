@@ -11,8 +11,8 @@ caption:
   es: 'Un desequilibrio —el "fair value gap" del dialecto— y la revisita. Una sola vela carga
     con todo el movimiento, así que el tramo sombreado entre la vela anterior y la posterior se
     cruzó dentro de una única barra: ahí casi no cambió nada de manos. El precio pasa el resto
-    de la ventana bastante por encima, dejando el hueco abierto, y el tramo final es él
-    volviendo a por él. Un ejercicio se corta antes de esa vuelta; aquí se muestra.'
+    de la ventana bastante por encima, dejando el hueco abierto, y el tramo final
+    es la vuelta a por él. Un ejercicio se corta antes de esa vuelta; aquí se muestra.'
 panels:
 - generator: pattern_chart
   injector: imbalance

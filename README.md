@@ -494,6 +494,33 @@ gets caught before a reader meets it, and there were plenty ("base de datos", "a
 Street", "the summed footprints"). See `content/README.md` for the per-entry keys and how to
 regenerate it.
 
+#### The prose points across the course
+
+Lesson prose also names other lessons by id — "una costura limpia con m22, la gestión del riesgo" —
+and every `mXX` / `mXX-lN` mention becomes a link too: in the app a discreet dotted link that
+navigates, titled on mouse hover / keyboard focus through the same one-panel popover the glossary
+uses ("M22 · Gestión del riesgo"; on touch the tap simply navigates, and the title is the first thing
+on the page that opens); in the PDF an internal jump to the module or lesson heading, in the same
+quiet dotted cross-reference dress as a term link, with the printed text exactly as authored. The
+first mention of another module in a lesson carries its short topic in the prose itself — that
+apposition is what backs the reference on paper, where there is nothing to hover.
+
+It is the same **one annotator** grown a second mark type — same walk, same word-boundary rules
+(`fig-m11-…` and `m08-ex-6` are not mentions of m11 or m08), same structural blindness to headings
+and code — and `lib/refs/registry.ts` is the ONE place a mention resolves to a target: a lesson
+mention to that lesson, a module mention to the module page, or straight to its only lesson when the
+module has just one (the same rule the lesson page's back link already follows). Every mention links
+on every surface — a reference is navigation, not vocabulary, so there is no first-occurrence policy —
+except a mention of the very page it sits on, which stays plain text. The registry is built from
+whatever course structure each surface already holds, all of it rendered from the id↔key registry at
+the API boundary, so a future display renumbering reaches every link by rebuilding, never by editing
+a resolver.
+
+The record is `content/lesson-refs.<locale>.txt`, a frozen golden under the same discipline, with
+both axes in permanent **key** space; its suite also asserts **zero dangling references** — every
+id-shaped mention in every lesson must name a module or lesson that exists, in both locales,
+mention for mention — which is a prose-integrity guard the course never had before.
+
 Auth (session cookie) is required, like the rest of the content API. The registry is built **once at
 startup**, so newly authored content needs a backend restart before it appears in an export.
 

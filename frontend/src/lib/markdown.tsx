@@ -3,8 +3,9 @@ import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
 import type { Root } from "mdast";
-import { annotateLesson } from "@/lib/glossary/annotate";
+import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
 import type { TermMatcher } from "@/lib/glossary/terms";
+import type { RefKind, RefRegistry } from "@/lib/refs/registry";
 import { cn } from "@/lib/cn";
 
 /** Turn remark-directive nodes into plain elements carrying data-* hints for the `components` map. */
@@ -61,6 +62,7 @@ function buildComponents(
   renderExercise: (exerciseId: string) => ReactNode,
   renderFigure: (figureId: string) => ReactNode,
   renderTerm: (termId: string, children: ReactNode) => ReactNode,
+  renderLessonRef: (kind: RefKind, refId: string, children: ReactNode) => ReactNode,
 ): Components {
   return {
     span: (props) => {
@@ -68,6 +70,11 @@ function buildComponents(
       const termId = attrs["data-term-id"];
       // Planted by the glossary annotator; anything else is a span the markdown itself asked for.
       if (typeof termId === "string") return <>{renderTerm(termId, attrs.children)}</>;
+      const refId = attrs["data-ref-id"];
+      const refKind = attrs["data-ref-kind"];
+      if (typeof refId === "string" && (refKind === "module" || refKind === "lesson")) {
+        return <>{renderLessonRef(refKind, refId, attrs.children)}</>;
+      }
       return <span>{attrs.children}</span>;
     },
     h1: ({ children }) => <h1 className="mt-2 mb-4 text-2xl font-bold">{children}</h1>,
@@ -131,30 +138,36 @@ function buildComponents(
 /**
  * A lesson's prose.
  *
- * `glossary` is the ONE annotator, run as a remark plugin over the same mdast the print renderer
- * annotates: the app never detects a term on its own. Its `marked` set is created per run, which is
- * exactly the web's policy — first occurrence of each term in THIS lesson.
+ * `glossary` and `refs` are the ONE annotator's two mark types, run as a remark plugin over the same
+ * mdast the print renderer annotates: the app never detects a term or a lesson reference on its own.
+ * The glossary's `marked` set is created per run, which is exactly the web's policy — first
+ * occurrence of each term in THIS lesson; references carry no policy and mark every mention.
  */
 export function LessonMarkdown({
   markdown,
   renderExercise,
   renderFigure,
   renderTerm = (_id, children) => children,
+  renderLessonRef = (_kind, _refId, children) => children,
   glossary,
+  refs,
 }: {
   markdown: string;
   renderExercise: (exerciseId: string) => ReactNode;
   renderFigure: (figureId: string) => ReactNode;
   renderTerm?: (termId: string, children: ReactNode) => ReactNode;
+  renderLessonRef?: (kind: RefKind, refId: string, children: ReactNode) => ReactNode;
   glossary?: { lessonId: string; terms: TermMatcher[] };
+  refs?: { lessonId: string; registry: RefRegistry };
 }) {
   const annotate = () => (tree: Root) => {
     if (glossary) annotateLesson(tree, { ...glossary, marked: new Set<string>() });
+    if (refs) annotateLessonRefs(tree, refs);
   };
   return (
     <Markdown
       remarkPlugins={[remarkGfm, remarkDirective, annotate, remarkDirectiveToHast]}
-      components={buildComponents(renderExercise, renderFigure, renderTerm)}
+      components={buildComponents(renderExercise, renderFigure, renderTerm, renderLessonRef)}
     >
       {markdown}
     </Markdown>
@@ -166,7 +179,7 @@ export function Prose({ markdown }: { markdown: string }) {
   return (
     <Markdown
       remarkPlugins={[remarkGfm]}
-      components={buildComponents(() => null, () => null, (_id, children) => children)}
+      components={buildComponents(() => null, () => null, (_id, children) => children, (_kind, _refId, children) => children)}
     >
       {markdown}
     </Markdown>

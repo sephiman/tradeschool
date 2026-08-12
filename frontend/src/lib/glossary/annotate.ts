@@ -1,5 +1,13 @@
 import type { Nodes, Parent, PhrasingContent, Root, Text } from "mdast";
-import { compileTerms, normalize, type CompiledTerms, type TermMatcher } from "@/lib/glossary/terms";
+import {
+  compileTerms,
+  normalize,
+  NOT_HYPHENATED,
+  WORD,
+  type CompiledTerms,
+  type TermMatcher,
+} from "@/lib/glossary/terms";
+import type { RefKind, RefRegistry } from "@/lib/refs/registry";
 
 /**
  * The ONE annotator: which glossary terms in a lesson's prose become a link, on every surface.
@@ -32,12 +40,26 @@ export interface GlossaryTermNode extends Parent {
   data: { hName: "span"; hProperties: { "data-term-id": string } };
 }
 
+/** The second mark type: a lesson/module mention (`m22`, `m19-l2`) that resolved to a real target. */
+export const LESSON_REF = "lessonRef";
+
+export interface LessonRefNode extends Parent {
+  type: "lessonRef";
+  refKind: RefKind;
+  /** The mentioned entity's display id — each surface derives its own link from it. */
+  refId: string;
+  children: Text[];
+  data: { hName: "span"; hProperties: { "data-ref-kind": RefKind; "data-ref-id": string } };
+}
+
 declare module "mdast" {
   interface PhrasingContentMap {
     glossaryTerm: GlossaryTermNode;
+    lessonRef: LessonRefNode;
   }
   interface RootContentMap {
     glossaryTerm: GlossaryTermNode;
+    lessonRef: LessonRefNode;
   }
 }
 
@@ -74,6 +96,7 @@ const SKIP = new Set([
   "yaml",
   "toml",
   GLOSSARY_TERM,
+  LESSON_REF,
 ]);
 
 interface Hit {
@@ -88,7 +111,7 @@ function flatten(value: string): string {
   return value.replace(/\s+/g, " ").trim();
 }
 
-function contextOf(value: string, hit: Hit): string {
+function contextOf(value: string, hit: { start: number; end: number }): string {
   const before = value.slice(Math.max(0, hit.start - CONTEXT), hit.start);
   const after = value.slice(hit.end, hit.end + CONTEXT);
   const lead = hit.start > CONTEXT ? "…" : "";
@@ -153,17 +176,21 @@ function annotateText(
   return { nodes, marks };
 }
 
-/** Every text node the annotator may touch, in reading order, with where it sits. */
-function eligibleText(tree: Root): { parent: Parent; index: number; node: Text }[] {
-  const found: { parent: Parent; index: number; node: Text }[] = [];
-  const walk = (parent: Parent): void => {
+/** Every text node the annotator may touch, in reading order, with where it sits.
+ *
+ *  `block` is the prose unit the node belongs to — the paragraph or table cell — so a report can
+ *  quote a sentence of context around a mark that is alone in its own inline node (`**m22**`). */
+function eligibleText(tree: Root): { parent: Parent; index: number; node: Text; block: Parent }[] {
+  const found: { parent: Parent; index: number; node: Text; block: Parent }[] = [];
+  const walk = (parent: Parent, block: Parent): void => {
     parent.children.forEach((child, index) => {
       if (SKIP.has(child.type)) return;
-      if (child.type === "text") found.push({ parent, index, node: child });
-      else if ("children" in child) walk(child as Parent);
+      const inner = child.type === "paragraph" || child.type === "tableCell" ? (child as Parent) : block;
+      if (child.type === "text") found.push({ parent, index, node: child, block });
+      else if ("children" in child) walk(child as Parent, inner);
     });
   };
-  walk(tree);
+  walk(tree, tree);
   return found;
 }
 
@@ -180,6 +207,142 @@ function present(terms: TermMatcher[], haystack: string): TermMatcher[] {
   return terms.filter((matcher) =>
     matcher.variants.some((variant) => lowered.includes(variant.split(/\s+/)[0].toLowerCase())),
   );
+}
+
+/**
+ * Every id-shaped token in prose: `m22`, `m19-l2` — same boundary rules as the term pattern, so
+ * `fig-m11-…` and `m08-ex-6` are not mentions of m11 or m08. This is the ONE detector for lesson
+ * references; the dangling guard works because detection is by SHAPE and resolution then has to
+ * answer for every hit, rather than a resolver-driven scan that could not see what it missed.
+ */
+const REF_PATTERN = new RegExp(
+  `(?<![${WORD}])${NOT_HYPHENATED.before}m\\d{2}(?:-l\\d+)?(?![${WORD}])${NOT_HYPHENATED.after}`,
+  "giu",
+);
+
+/** One reference decision, as the golden report records it — linked, self-skipped, or dangling. */
+export interface RefMark {
+  /** The lesson the mention sits in, as the caller addressed it (display id). */
+  lessonId: string;
+  /** The mention as written. */
+  mention: string;
+  /** What it resolved to; absent on a dangling mention. */
+  refKind?: RefKind;
+  refId?: string;
+  refKey?: string;
+  context: string;
+}
+
+export interface AnnotateRefsResult {
+  /** Mentions now carrying a link, in reading order. */
+  marks: RefMark[];
+  /** Mentions of the page they sit on — real, deliberately not linked. */
+  self: RefMark[];
+  /** Id-shaped tokens no entity answers to. The suite asserts this stays empty. */
+  dangling: RefMark[];
+}
+
+export interface AnnotateRefsOptions {
+  /** The DISPLAY id of the lesson being annotated — mentions are display ids, and self is exact. */
+  lessonId: string;
+  registry: RefRegistry;
+}
+
+function refNode(text: string, kind: RefKind, refId: string): LessonRefNode {
+  return {
+    type: LESSON_REF,
+    refKind: kind,
+    refId,
+    children: [{ type: "text", value: text }],
+    data: { hName: "span", hProperties: { "data-ref-kind": kind, "data-ref-id": refId } },
+  };
+}
+
+/** A block's prose flattened back together, so a mark alone in its inline node still gets a sentence
+ *  of context — `**m22**` is a text node of six characters, and six characters review nothing. */
+interface BlockPose {
+  value: string;
+  offsets: Map<Text, number>;
+}
+
+function poseBlocks(targets: { node: Text; block: Parent }[]): Map<Parent, BlockPose> {
+  const blocks = new Map<Parent, BlockPose>();
+  for (const { node, block } of targets) {
+    const pose = blocks.get(block) ?? { value: "", offsets: new Map() };
+    pose.offsets.set(node, pose.value.length);
+    pose.value += node.value;
+    blocks.set(block, pose);
+  }
+  return blocks;
+}
+
+function annotateRefText(
+  node: Text,
+  o: AnnotateRefsOptions,
+  out: AnnotateRefsResult,
+  pose: BlockPose,
+): PhrasingContent[] | null {
+  const value = node.value;
+  const at = pose.offsets.get(node) ?? 0;
+  const nodes: PhrasingContent[] = [];
+  let cut = 0;
+  for (const match of value.matchAll(REF_PATTERN)) {
+    const hit = { start: match.index, end: match.index + match[0].length };
+    const mention = match[0];
+    const mark: RefMark = {
+      lessonId: o.lessonId,
+      mention,
+      context: contextOf(pose.value, { start: at + hit.start, end: at + hit.end }),
+    };
+    const target = o.registry.resolve(mention);
+    if (!target) {
+      out.dangling.push(mark);
+      continue;
+    }
+    mark.refKind = target.kind;
+    mark.refId = target.id;
+    mark.refKey = target.key;
+    // Self is by landing page, not by spelling: a single-lesson module's mention inside that very
+    // lesson would link the reader to where they already are, exactly like naming the lesson itself.
+    if (target.path === `/lessons/${o.lessonId}`) {
+      out.self.push(mark);
+      continue;
+    }
+    if (hit.start > cut) nodes.push({ type: "text", value: value.slice(cut, hit.start) });
+    nodes.push(refNode(mention, target.kind, target.id));
+    cut = hit.end;
+    out.marks.push(mark);
+  }
+  if (nodes.length === 0) return null;
+  if (cut < value.length) nodes.push({ type: "text", value: value.slice(cut) });
+  return nodes;
+}
+
+/**
+ * Marks every resolvable lesson/module mention in place and reports every decision.
+ *
+ * No first-occurrence policy here, unlike the terms: a reference is navigation, not vocabulary, so
+ * each mention carries its link on every surface. What is skipped is skipped structurally, by the
+ * same `eligibleText` walk the terms use — code spans, headings, links and directives never match.
+ */
+export function annotateLessonRefs(tree: Root, o: AnnotateRefsOptions): AnnotateRefsResult {
+  const out: AnnotateRefsResult = { marks: [], self: [], dangling: [] };
+  const targets = eligibleText(tree);
+  const blocks = poseBlocks(targets);
+  const replacements = new Map<Parent, Map<number, PhrasingContent[]>>();
+  for (const { parent, index, node, block } of targets) {
+    const split = annotateRefText(node, o, out, blocks.get(block) as BlockPose);
+    if (!split) continue;
+    const byIndex = replacements.get(parent) ?? new Map<number, PhrasingContent[]>();
+    byIndex.set(index, split);
+    replacements.set(parent, byIndex);
+  }
+  for (const [parent, byIndex] of replacements) {
+    parent.children = parent.children.flatMap(
+      (child, index) => (byIndex.get(index) ?? [child]) as Nodes[],
+    ) as Parent["children"];
+  }
+  return out;
 }
 
 /** Marks the tree in place and reports what it marked, in reading order. */

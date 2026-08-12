@@ -25,13 +25,15 @@ export interface CompiledTerms {
   byVariant: Map<string, TermMatcher>;
 }
 
-/** A word character for boundary purposes: any letter or digit, in any script, plus `_`. */
-const WORD = "\\p{L}\\p{N}_";
+/** A word character for boundary purposes: any letter or digit, in any script, plus `_`.
+ *  Exported with `NOT_HYPHENATED` so the lesson-reference pattern is built from the SAME boundary
+ *  rules as the term pattern — one detection dialect, two mark types. */
+export const WORD = "\\p{L}\\p{N}_";
 
 /** Neither end of a match may sit inside a hyphenated compound: `self-custody` is one word, and a
  *  link on its second half reads as a typesetting accident. `50-EMA` still matches — a digit is not
  *  the other half of a compound. */
-const NOT_HYPHENATED = { before: "(?<!\\p{L}-)", after: "(?!-\\p{L})" };
+export const NOT_HYPHENATED = { before: "(?<!\\p{L}-)", after: "(?!-\\p{L})" };
 
 function escape(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

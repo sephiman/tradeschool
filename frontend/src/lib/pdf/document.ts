@@ -1,8 +1,9 @@
 import type { Content, ContentStack, TDocumentDefinitions } from "pdfmake/interfaces";
 import type { Root } from "mdast";
-import type { CourseExport, GlossaryEntry, PrintExercise, PrintExercises } from "@/api/course";
-import { annotateLesson } from "@/lib/glossary/annotate";
+import type { CourseExport, PrintExercise, PrintExercises } from "@/api/course";
+import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
 import { buildTermIndex } from "@/lib/glossary/terms";
+import { buildRefRegistry, refModulesFromExport } from "@/lib/refs/registry";
 import {
   answerKeySection,
   lessonExercises,
@@ -165,18 +166,20 @@ function exerciseChart(charts: Map<string, string>): ExerciseChartLookup {
 }
 
 /**
- * The book's glossary links: one pass over the course in reading order, one shared `marked` set.
+ * The book's prose links, both mark types in one annotate step, terms first as the app runs them.
  *
- * That shared set IS the PDF's policy — the first occurrence of a term in the whole book claims its
- * slot. Returns null when there is no glossary section to link into, so the book never carries a
- * link to a page it does not print.
+ * Glossary links are one pass over the course in reading order with one shared `marked` set — that
+ * shared set IS the PDF's policy, the first occurrence of a term in the whole book claims its slot.
+ * A course with no glossary still gets its lesson references; only the term half stands down, so the
+ * book never carries a link to a glossary page it does not print.
  */
-function termAnnotator(glossary: GlossaryEntry[], locale: string) {
-  if (glossary.length === 0) return null;
-  const terms = buildTermIndex(glossary, locale);
+function proseAnnotator(doc: CourseExport) {
+  const terms = doc.glossary.length > 0 ? buildTermIndex(doc.glossary, doc.locale) : null;
   const marked = new Set<string>();
+  const registry = buildRefRegistry(refModulesFromExport(doc));
   return (lessonId: string) => (tree: Root) => {
-    annotateLesson(tree, { lessonId, terms, marked });
+    if (terms) annotateLesson(tree, { lessonId, terms, marked });
+    annotateLessonRefs(tree, { lessonId, registry });
   };
 }
 
@@ -184,7 +187,7 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
   const sections = o.sections ?? createSectionTracker();
   const keepPagesTogether = keepTogether({ onOversizedBlock: o.onOversizedBlock });
   const render = renderers(o.figures);
-  const annotator = termAnnotator(o.export.glossary, o.export.locale);
+  const annotator = proseAnnotator(o.export);
   const chart = exerciseChart(o.exerciseCharts);
   const byLesson = new Map(o.exercises.lessons.map((lesson) => [lesson.lessonId, lesson.exercises]));
   const excludedByLesson = new Map<string, number>();

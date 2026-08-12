@@ -4,10 +4,18 @@ import { describe, expect, it } from "vitest";
 import type { Content } from "pdfmake/interfaces";
 import { LessonMarkdown } from "@/lib/markdown";
 import { lessonToContent } from "@/lib/pdf/markdown";
-import { annotateLesson } from "@/lib/glossary/annotate";
+import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
 import { buildTermIndex } from "@/lib/glossary/terms";
+import { buildRefRegistry } from "@/lib/refs/registry";
 import { DEST } from "@/lib/pdf/pagination";
-import { glossaryFromContent, lessonMarkdown, manifestLessons, LOCALES, type Locale } from "@/test/courseContent";
+import {
+  glossaryFromContent,
+  lessonMarkdown,
+  manifestLessons,
+  refModulesFromManifest,
+  LOCALES,
+  type Locale,
+} from "@/test/courseContent";
 
 /**
  * The two surfaces mark the same words. This is the drift test.
@@ -73,6 +81,41 @@ function theoryOnly(markdown: string): string {
   return markdown.replace(/^::exercise\{[^}]*\}[ \t]*$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
 }
 
+/** The lesson-reference ids the app links, in reading order. */
+function webRefs(markdown: string, lessonId: string, locale: Locale): string[] {
+  document.body.innerHTML = "";
+  const host = mount(
+    <LessonMarkdown
+      markdown={markdown}
+      renderExercise={() => null}
+      renderFigure={() => null}
+      refs={{ lessonId, registry: buildRefRegistry(refModulesFromManifest(locale)) }}
+      renderLessonRef={(_kind, refId, children) => <span data-web-ref={refId}>{children}</span>}
+    />,
+  );
+  return [...host.querySelectorAll("[data-web-ref]")].map((node) => node.getAttribute("data-web-ref") ?? "");
+}
+
+/** The lesson-reference ids the book links, in reading order. */
+function printRefs(markdown: string, lessonId: string, locale: Locale): string[] {
+  const registry = buildRefRegistry(refModulesFromManifest(locale));
+  const content = lessonToContent(markdown, { figure: () => ({ text: "" }) }, lessonId, (tree) => {
+    annotateLessonRefs(tree, { lessonId, registry });
+  });
+  const found: string[] = [];
+  const walk = (node: unknown): void => {
+    if (Array.isArray(node)) return node.forEach(walk);
+    if (typeof node !== "object" || node === null) return;
+    const run = node as { linkToDestination?: string };
+    if (typeof run.linkToDestination === "string" && run.linkToDestination.startsWith("odest-")) {
+      found.push(run.linkToDestination.slice(DEST.outline("").length));
+    }
+    for (const value of Object.values(node)) walk(value);
+  };
+  walk(content as Content[]);
+  return found;
+}
+
 describe.each(LOCALES)("the app and the book mark the same words (%s)", (locale) => {
   it.each(SAMPLE)("agrees on %s, term for term and in the same order", (lessonId) => {
     const markdown = lessonMarkdown(locale, lessonId);
@@ -80,6 +123,20 @@ describe.each(LOCALES)("the app and the book mark the same words (%s)", (locale)
     expect(web.length, `${lessonId} marks nothing, so agreeing is meaningless`).toBeGreaterThan(3);
     expect(printMarks(markdown, lessonId, locale)).toEqual(web);
   }, 60_000);
+
+  it("agrees on every lesson reference in every lesson, in the same order", () => {
+    let seen = 0;
+    for (const lesson of manifestLessons()) {
+      const markdown = lessonMarkdown(locale, lesson.id);
+      const web = webRefs(markdown, lesson.id, locale);
+      seen += web.length;
+      expect(
+        printRefs(markdown, lesson.id, locale),
+        `${lesson.id} links different references on the two surfaces`,
+      ).toEqual(web);
+    }
+    expect(seen, "no lesson references anywhere, so agreeing is meaningless").toBeGreaterThan(150);
+  }, 120_000);
 
   it("is unchanged by the export stripping the exercise directives out", () => {
     // The book is built from theory-only prose and the app from the full lesson. Annotation is a

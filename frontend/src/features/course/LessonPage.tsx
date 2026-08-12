@@ -8,7 +8,9 @@ import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
 import { LessonFigure } from "@/features/course/LessonFigure";
 import { GlossaryTerm, TermPopoverHost } from "@/features/glossary/TermPopover";
+import { LessonRefLink } from "@/features/course/LessonRefLink";
 import { buildTermIndex } from "@/lib/glossary/terms";
+import { buildRefRegistry, refModulesFromCourse } from "@/lib/refs/registry";
 import { currentAndNext, flattenLessons, stepLabel } from "@/features/course/courseNav";
 import { formatReadingTime } from "@/features/course/readingTime";
 import { LessonMarkdown } from "@/lib/markdown";
@@ -46,6 +48,13 @@ export function LessonPage() {
   const nav = useMemo(
     () => (course ? currentAndNext(flattenLessons(course), lessonId) : null),
     [course, lessonId],
+  );
+
+  // What an `m22` in the prose points at, from the same course payload the nav reads. While the
+  // course query is in flight the prose simply has no reference links yet, like the term marks.
+  const refRegistry = useMemo(
+    () => (course ? buildRefRegistry(refModulesFromCourse(course)) : null),
+    [course],
   );
 
   const complete = useMutation({
@@ -143,6 +152,12 @@ export function LessonPage() {
             renderFigure={(id) => <LessonFigure id={id} />}
             glossary={{ lessonId, terms }}
             renderTerm={(termId, children) => <GlossaryTerm termId={termId}>{children}</GlossaryTerm>}
+            refs={refRegistry ? { lessonId, registry: refRegistry } : undefined}
+            renderLessonRef={(_kind, refId, children) => {
+              // The same resolve that decided to mark it; a race with a stale registry falls back to text.
+              const target = refRegistry?.resolve(refId);
+              return target ? <LessonRefLink target={target}>{children}</LessonRefLink> : children;
+            }}
           />
         </TermPopoverHost>
       </div>

@@ -5,6 +5,7 @@ import { buildCourseDocument, lessonSections } from "@/lib/pdf/document";
 import { DEST } from "@/lib/pdf/pagination";
 import { PRINT } from "@/lib/pdf/page";
 import { buildLinkReport } from "@/lib/glossary/report";
+import { buildRefReport } from "@/lib/refs/report";
 import {
   courseExportFromContent,
   figureDirectives,
@@ -12,6 +13,7 @@ import {
   lessonMarkdown,
   manifestLessons,
   readManifest,
+  refModulesFromManifest,
   stubFigures,
   LOCALES,
   type Locale,
@@ -132,6 +134,43 @@ describe.each(LOCALES)("internal links (%s)", (locale) => {
     const expected = report.rows.filter((row) => row.flag === "WP").map((row) => DEST.term(row.termId));
     expect([...linked].sort()).toEqual([...expected].sort());
   }, SLOW);
+
+  it("links exactly the lesson references the golden report says it links", () => {
+    // Same drift rule as the terms: the report and the book are two readings of one annotator.
+    // Scoped to the lesson sections, where `odest-` targets can only be prose reference marks — the
+    // glossary section's own origin pointers are `odest-` links too, and they are not prose.
+    const linked = lessonSections(build(locale))
+      .flatMap(walkNodes)
+      .map((node) => node.linkToDestination)
+      .filter((target): target is string => target?.startsWith("odest-") ?? false);
+    const modules = refModulesFromManifest(locale);
+    const displayByKey = new Map(
+      modules.flatMap((m) => [[m.key ?? m.id, m.id] as const, ...m.lessons.map((l) => [l.key ?? l.id, l.id] as const)]),
+    );
+    const report = buildRefReport(
+      manifestLessons().map((lesson) => ({
+        id: lesson.id,
+        key: lesson.key ?? lesson.id,
+        markdown: lessonMarkdown(locale, lesson.id),
+      })),
+      modules,
+      locale,
+    );
+    const expected = report.rows.map((row) => DEST.outline(displayByKey.get(row.targetKey) as string));
+    expect([...linked].sort()).toEqual([...expected].sort());
+    expect(expected.length).toBeGreaterThan(150);
+  }, SLOW);
+
+  it("styles a lesson reference as a printed cross-reference, never as a web link", () => {
+    const ref = lessonSections(build(locale))
+      .flatMap(walkNodes)
+      .find((node) => node.linkToDestination?.startsWith("odest-"));
+    expect(ref).toBeDefined();
+    expect(ref?.decoration).toBe("underline");
+    expect(ref?.decorationStyle).toBe("dotted");
+    expect(ref?.decorationColor).toBe(PRINT.muted);
+    expect(ref?.color).not.toBe(PRINT.link);
+  });
 
   it("styles a term link as a printed cross-reference, never as a web link", () => {
     const term = links(build(locale)).find((node) =>

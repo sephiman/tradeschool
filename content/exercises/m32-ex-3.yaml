@@ -88,7 +88,7 @@ variants:
       - id: d
         text:
           en: "Korean shorts are being paid an unusually large funding rate right now."
-          es: "A los cortos coreanos les pagan ahora un funding inusualmente alto."
+          es: "A los cortos coreanos les pagan ahora un funding especialmente alto."
     explanation:
       en: "Cross-exchange premiums persist when capital flow friction prevents arbitrageurs from quickly moving fiat or crypto between venues — the demand is what opens the gap, the friction is what keeps it open. Block times affect everyone equally and no venue's feed is stale here; both readings would apply globally rather than to one country's exchanges."
       es: "Las primas entre exchanges persisten cuando la fricción del flujo de capital impide que los arbitrajistas muevan rápido fiat o cripto entre sitios: la demanda abre el hueco, la fricción lo mantiene abierto. El tiempo de bloque afecta a todos por igual y aquí ningún feed está rancio; las dos lecturas valdrían globalmente, no para los exchanges de un solo país."

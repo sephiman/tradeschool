@@ -15,15 +15,18 @@ import { coursePath } from "@/components/layout/nav";
 import { cn } from "@/lib/cn";
 
 /**
- * The definition a marked term shows: hovered on a mouse, tapped on a touch screen.
+ * The card a marked term — or any other in-prose affordance — shows: hovered on a mouse, tapped on a
+ * touch screen.
  *
- * ONE panel for the whole page, positioned over the term that asked for it — a lesson marks dozens of
- * terms and a popover each would be dozens of subscriptions and dozens of nodes. The split between
+ * ONE panel for the whole page, positioned over the element that asked for it — a lesson marks dozens
+ * of terms and a popover each would be dozens of subscriptions and dozens of nodes. The split between
  * hover and tap is read off the pointer EVENT rather than a media query, so a hybrid laptop gets
  * whichever the reader actually used.
  *
  * A hovered panel follows the pointer away; a tapped one is pinned and stays until it is dismissed,
- * which is the whole difference between the two surfaces.
+ * which is the whole difference between the two surfaces. The host shows whatever content it is
+ * handed — the glossary's definition card, a lesson reference's title line — so a second affordance
+ * reuses the machinery instead of growing its own.
  */
 
 const PANEL_ID = "glossary-term-popover";
@@ -32,21 +35,31 @@ const PANEL_WIDTH = 320;
 const EDGE = 8;
 
 interface Shown {
-  entry: GlossaryEntry;
+  /** What the panel is showing, so a toggle on the same anchor closes rather than reopens. */
+  key: string;
+  content: ReactNode;
   anchor: DOMRect;
   /** Tapped, not hovered: it survives the pointer leaving and needs an explicit dismissal. */
   pinned: boolean;
 }
 
 interface TermPopoverApi {
-  shownId: string | null;
-  show(entry: GlossaryEntry, anchor: HTMLElement, pinned: boolean): void;
+  shownKey: string | null;
+  show(key: string, content: ReactNode, anchor: HTMLElement, pinned: boolean): void;
   hide(force: boolean): void;
-  toggle(entry: GlossaryEntry, anchor: HTMLElement): void;
+  toggle(key: string, content: ReactNode, anchor: HTMLElement): void;
   entries: Map<string, GlossaryEntry>;
 }
 
 const TermPopoverContext = createContext<TermPopoverApi | null>(null);
+
+/** The one panel's API, for affordances outside this file (the lesson-reference links). */
+export function usePopover(): TermPopoverApi | null {
+  return useContext(TermPopoverContext);
+}
+
+/** The id the panel renders under, so a trigger can point `aria-describedby` at it while shown. */
+export const POPOVER_PANEL_ID = PANEL_ID;
 
 /** Where the panel goes: under the term, flipped above when the term sits low, clamped on both sides. */
 function place(anchor: DOMRect): { left: number; top?: number; bottom?: number } {
@@ -121,8 +134,8 @@ export function TermPopoverHost({
   const [shown, setShown] = useState<Shown | null>(null);
   const panel = useRef<HTMLDivElement>(null);
 
-  const show = useCallback((entry: GlossaryEntry, anchor: HTMLElement, pinned: boolean) => {
-    setShown({ entry, anchor: anchor.getBoundingClientRect(), pinned });
+  const show = useCallback((key: string, content: ReactNode, anchor: HTMLElement, pinned: boolean) => {
+    setShown({ key, content, anchor: anchor.getBoundingClientRect(), pinned });
   }, []);
 
   // `force` is what separates the two surfaces: a pointer leaving must not close a pinned panel.
@@ -130,11 +143,11 @@ export function TermPopoverHost({
     setShown((current) => (current === null || force || !current.pinned ? null : current));
   }, []);
 
-  const toggle = useCallback((entry: GlossaryEntry, anchor: HTMLElement) => {
+  const toggle = useCallback((key: string, content: ReactNode, anchor: HTMLElement) => {
     setShown((current) =>
-      current?.pinned && current.entry.id === entry.id
+      current?.pinned && current.key === key
         ? null
-        : { entry, anchor: anchor.getBoundingClientRect(), pinned: true },
+        : { key, content, anchor: anchor.getBoundingClientRect(), pinned: true },
     );
   }, []);
 
@@ -164,7 +177,7 @@ export function TermPopoverHost({
   }, [shown, hide]);
 
   const api = useMemo<TermPopoverApi>(
-    () => ({ shownId: shown?.entry.id ?? null, show, hide, toggle, entries }),
+    () => ({ shownKey: shown?.key ?? null, show, hide, toggle, entries }),
     [shown, show, hide, toggle, entries],
   );
 
@@ -179,7 +192,7 @@ export function TermPopoverHost({
           style={{ position: "fixed", width: PANEL_WIDTH, maxWidth: `calc(100vw - ${EDGE * 2}px)`, ...place(shown.anchor) }}
           className="z-50 rounded-lg border border-border bg-white p-3 shadow-lg dark:border-gray-700 dark:bg-gray-900 oled:border-oled-line-strong oled:bg-oled-bg"
         >
-          <TermCard entry={shown.entry} entries={entries} />
+          {shown.content}
           {shown.pinned && (
             // Touch has no "move the pointer away", so a pinned panel carries its own way out.
             <button
@@ -210,18 +223,19 @@ export function GlossaryTerm({ termId, children }: { termId: string; children: R
   const entry = popover?.entries.get(termId);
   if (!popover || !entry) return <>{children}</>;
 
-  const open = (pinned: boolean) => ref.current && popover.show(entry, ref.current, pinned);
+  const card = <TermCard entry={entry} entries={popover.entries} />;
+  const open = (pinned: boolean) => ref.current && popover.show(termId, card, ref.current, pinned);
   return (
     <button
       ref={ref}
       type="button"
       data-glossary-term={termId}
-      aria-describedby={popover.shownId === termId ? PANEL_ID : undefined}
+      aria-describedby={popover.shownKey === termId ? PANEL_ID : undefined}
       onPointerEnter={(event) => event.pointerType === "mouse" && open(false)}
       onPointerLeave={(event) => event.pointerType === "mouse" && popover.hide(false)}
       onFocus={() => open(false)}
       onBlur={() => popover.hide(false)}
-      onClick={() => ref.current && popover.toggle(entry, ref.current)}
+      onClick={() => ref.current && popover.toggle(termId, card, ref.current)}
       className={cn(
         "cursor-help border-b border-dotted border-gray-400 bg-transparent p-0 text-left font-[inherit] text-[inherit]",
         "hover:border-gray-600 focus:outline-none focus-visible:rounded-xs focus-visible:ring-2 focus-visible:ring-primary",

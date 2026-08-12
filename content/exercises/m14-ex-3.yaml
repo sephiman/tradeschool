@@ -79,7 +79,7 @@ variants:
       - id: c
         text:
           en: "The breakout candle is unusually tall — a big single-candle price move."
-          es: "La vela de ruptura es inusualmente alta: un gran movimiento en una sola vela."
+          es: "La vela de ruptura es especialmente alta: un gran movimiento en una sola vela."
       - id: d
         text:
           en: "The RSI pushes above 70 at the moment price clears the level."

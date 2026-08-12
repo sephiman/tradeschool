@@ -22,7 +22,7 @@ variants:
       - id: c
         text:
           en: "Any candle with an unusually large body, wherever it sits on the chart."
-          es: "Cualquier vela de cuerpo inusualmente grande, esté donde esté."
+          es: "Cualquier vela de cuerpo especialmente grande, esté donde esté."
       - id: d
         text:
           en: "A price level calculated from the range's 61.8% retracement level."
@@ -54,7 +54,7 @@ variants:
           es: "El rebote debe haber roto estructura: cerrar sobre el máximo de swing."
     explanation:
       en: "It has to close clean past the swing high the market had been respecting. Without that break there is no impulse that broke anything, and the dip is an ordinary pullback of the kind m08-l1 describes — every trend is full of them. This is the single most common error in the dialect: the zone gets drawn first and the structure is never checked, which means a zone can be found on any chart at all. Volume is corroboration you would welcome, not the qualifying condition, and candle count has nothing to do with it."
-      es: "Tiene que cerrar limpiamente por encima del máximo de swing que el mercado venía respetando. Sin esa ruptura no hay ningún impulso que haya roto nada, y la caída es un retroceso corriente de los que describe m08-l1: toda tendencia está llena de ellos. Este es el error más común del dialecto: la zona se dibuja primero y la estructura no se comprueba nunca, lo que significa que se puede encontrar una zona en cualquier gráfico. El volumen es una corroboración bienvenida, no la condición que cualifica, y el número de velas no tiene nada que ver."
+      es: "Tiene que cerrar limpiamente por encima del máximo de swing que el mercado venía respetando. Sin esa ruptura no hay ningún impulso que haya roto nada, y la caída es un retroceso corriente de los que describe m08-l1: toda tendencia está llena de ellos. Este es el error más común del dialecto: la zona se dibuja primero y la estructura no se comprueba nunca, lo que significa que se puede encontrar una zona en cualquier gráfico. El volumen es una corroboración bienvenida, no la condición que lo convierte en zona, y el número de velas no tiene nada que ver."
   - id: fvg-test
     prompt:
       en: "What exactly makes a three-candle stretch a \"fair value gap\"?"
@@ -148,7 +148,7 @@ variants:
         position: 4
         text:
           en: "Price returning to the zone."
-          es: "El precio volviendo a la zona."
+          es: "La vuelta del precio a la zona."
       - id: decision
         position: 5
         text:
@@ -156,7 +156,7 @@ variants:
           es: "Lo que hace la vuelta ahí, que es la única parte que puedes operar."
     explanation:
       en: "The order is the argument. Read it backwards and every step is available in hindsight on any chart: pick a reaction, call the candles before it a zone, and the story assembles itself. Read it forwards and each step has to be there before the next one is allowed to mean anything — which is exactly m08-l1's discipline of waiting for the close and the confirmation rather than acting on the first thing that looks like a signal."
-      es: "El orden es el argumento. Léelo al revés y cada paso está disponible a posteriori en cualquier gráfico: eliges una reacción, llamas zona a las velas anteriores y la historia se monta sola. Léelo hacia delante y cada paso tiene que estar ahí antes de que el siguiente pueda significar algo, que es exactamente la disciplina de m08-l1 de esperar al cierre y a la confirmación en vez de actuar con lo primero que parece una señal."
+      es: "El orden es el argumento. Léelo al revés y cada paso aparece a posteriori en cualquier gráfico: eliges una reacción, llamas zona a las velas anteriores y la historia se monta sola. Léelo hacia delante y cada paso tiene que estar ahí antes de que el siguiente pueda significar algo, que es exactamente la disciplina de m08-l1 de esperar al cierre y a la confirmación en vez de actuar con lo primero que parece una señal."
   - id: premium-discount
     prompt:
       en: "Someone says ETH is \"in premium, so I'm looking for shorts\". What does *premium* honestly amount to?"
@@ -212,7 +212,7 @@ variants:
           es: "Las bandas se dibujan anchas para garantizar que el precio llegue."
     explanation:
       en: "A down-leg's high and low, or the two wicks either side of a fast candle, really do span a range — and expecting a turn at one exact price is the precision error m08-l1 and m13 both warn about. The band is honest about its own resolution, the same point m08-l1 makes when it says a support is 58,000–58,400 and not 58,150. What a wider zone is not is more reliable: it still needs the same confirmation any level does, and widening it until price must eventually reach it is fitting the drawing to the outcome. A zone so wide it cannot be wrong is telling you nothing."
-      es: "El máximo y el mínimo de un tramo bajista, o las dos mechas a cada lado de una vela rápida, abarcan de verdad un rango; y esperar un giro en un precio exacto es el error de precisión del que avisan tanto m08-l1 como m13. La banda es honesta sobre su propia resolución: el mismo punto que hace m08-l1 cuando dice que un soporte es 58.000–58.400 y no 58.150. Lo que una zona más ancha no es, es más fiable: sigue necesitando la misma confirmación que cualquier nivel, y ensancharla hasta que el precio tenga que llegar es ajustar el dibujo al resultado. Una zona tan ancha que no puede estar equivocada no te está diciendo nada."
+      es: "El máximo y el mínimo de un tramo bajista, o las dos mechas a cada lado de una vela rápida, abarcan de verdad un rango; y esperar un giro en un precio exacto es el error de precisión del que avisan tanto m08-l1 como m13. La banda es honesta sobre su propia resolución: el mismo punto que hace m08-l1 cuando dice que un soporte es 58.000–58.400 y no 58.150. Lo que no gana una zona más ancha es fiabilidad: sigue necesitando la misma confirmación que cualquier nivel, y ensancharla hasta que el precio tenga que llegar es ajustar el dibujo al resultado. Una zona tan ancha que no puede estar equivocada no te está diciendo nada."
   - id: filled-gap
     prompt:
       en: "An imbalance formed three weeks ago; price has since traded all the way back through it and moved on. What is it now?"

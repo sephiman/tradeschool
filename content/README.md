@@ -13,6 +13,8 @@ figures/*.yaml        lesson figure specs embedded via ::figure{id=…}
 figure-coupling.yaml  which lesson numbers are approximations of which figure's generated values
 glossary.yaml         the bilingual term list: one or two sentences per term, plus its origin lesson
 glossary-links.*.txt  GENERATED, reviewed, frozen: every term occurrence the annotator marks, per locale
+lesson-refs.*.txt     GENERATED, reviewed, frozen: every mXX / mXX-lN mention in lesson prose and the
+                      module/lesson it links to, per locale — zero dangling, asserted in suite
 ```
 
 ## The glossary
@@ -68,6 +70,26 @@ cd frontend && UPDATE_GLOSSARY_LINKS=1 npx vitest run src/lib/glossary/report.te
 
 and read the diff. Never hand-edit the file: fix the prose, or the entry's `match`/`link`/
 `link_except`, and regenerate.
+
+### Lesson cross-references in prose
+
+Prose that names another module or lesson by id (`m22`, `m19-l2`) becomes a link on both surfaces —
+a titled navigation link in the app, an internal jump in the PDF — detected by the same annotator
+that marks glossary terms and resolved in one place (`frontend/src/lib/refs/registry.ts`): a lesson
+mention to that lesson, a module mention to the module page, or straight to its only lesson when the
+module has just one. A mention of the page it sits on stays plain text. Editorially, the FIRST
+mention of another module within a lesson carries the module's short topic as an apposition in the
+prose ("m22, la gestión del riesgo") unless the sentence already names what the reference teaches —
+that apposition is the affordance the printed book gets, where there is no hover.
+
+`lesson-refs.<locale>.txt` records every mention (source lesson and target both by permanent key),
+under the same generated-reviewed-frozen discipline as the glossary links. Its suite asserts there
+are **zero dangling references** and that the two locales carry the same references mention for
+mention. Regenerate with:
+
+```
+cd frontend && UPDATE_LESSON_REFS=1 npx vitest run src/lib/refs/report.test.ts
+```
 
 The manifest's root is a single **course** (`course: { id, title, description }`); its blocks follow at
 the top level. There is one course today — `crypto-futures` — and the structure is ready for more.

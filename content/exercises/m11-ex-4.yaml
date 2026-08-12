@@ -64,7 +64,7 @@ variants:
     kind: true_false
     prompt:
       en: "A powerful downtrend can pin RSI below 30 for days while price prints new lows the whole way."
-      es: "Una tendencia bajista potente puede clavar el RSI por debajo de 30 durante días mientras el precio imprime nuevos mínimos todo el camino."
+      es: "Una tendencia bajista potente puede clavar el RSI por debajo de 30 durante días mientras el precio imprime nuevos mínimos uno tras otro."
     answer: true
     explanation:
       en: "True, and it is the overbought trap in reverse. 'Oversold' means one-sided selling, not that a bottom is in — buying into it just hands your stop to the trend."

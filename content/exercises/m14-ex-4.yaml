@@ -4,7 +4,7 @@ variants:
   - id: absorption
     prompt:
       en: "At one price level an unusually large volume trades, yet price barely moves. What is the most likely explanation?"
-      es: "En un nivel de precio se negocia un volumen inusualmente grande y, sin embargo, el precio apenas se mueve. ¿Cuál es la explicación más probable?"
+      es: "En un nivel de precio se negocia un volumen especialmente grande y, sin embargo, el precio apenas se mueve. ¿Cuál es la explicación más probable?"
     options:
       - id: a
         text:
@@ -100,7 +100,7 @@ variants:
   - id: heavy-volume-meaning
     prompt:
       en: "A candle closes on unusually heavy volume. Taken on its own, what does that heavy volume actually tell you?"
-      es: "Una vela cierra con un volumen inusualmente alto. Por sí solo, ¿qué te dice de verdad ese volumen alto?"
+      es: "Una vela cierra con un volumen especialmente alto. Por sí solo, ¿qué te dice de verdad ese volumen alto?"
     options:
       - id: a
         text:

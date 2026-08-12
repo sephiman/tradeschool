@@ -47,7 +47,7 @@ variants:
       - id: d
         text:
           en: "The candle crossing the zone is unusually large, even though it closes lower."
-          es: "La vela que cruza la zona es inusualmente grande, aunque cierre más abajo."
+          es: "La vela que cruza la zona es especialmente grande, aunque cierre más abajo."
     explanation:
       en: "A genuine breakout is confirmed by a close beyond the level that holds and retests, ideally with a volume increase. Wicks are the least reliable part of a candle; an overbought RSI usually just means a strong move that can equally keep going or fail; and a large candle that closes back on the wrong side is evidence *against* the break, however dramatic it looks."
       es: "Una ruptura genuina se confirma con un cierre más allá del nivel que aguanta y retestea, idealmente con un aumento de volumen. Las mechas son la parte menos fiable de una vela; un RSI sobrecomprado suele indicar solo un movimiento fuerte que puede seguir o fallar por igual; y una vela grande que cierra de vuelta en el lado equivocado es prueba *en contra* de la ruptura, por espectacular que parezca."

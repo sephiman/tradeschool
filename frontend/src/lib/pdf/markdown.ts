@@ -6,7 +6,7 @@ import type { Content, ContentStack, ContentText, TableCell } from "pdfmake/inte
 import type { PhrasingContent, Root, RootContent, TableContent } from "mdast";
 // Type-only import: this is what teaches mdast about `containerDirective` / `leafDirective` nodes.
 import type {} from "mdast-util-directive";
-import { GLOSSARY_TERM } from "@/lib/glossary/annotate";
+import { GLOSSARY_TERM, LESSON_REF } from "@/lib/glossary/annotate";
 import { CALLOUT_ID, DEST, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
 import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
 
@@ -90,6 +90,17 @@ function runs(nodes: PhrasingContent[], marks: Marks = {}): ContentText[] {
             ...marks,
             ...CROSS_REF,
             linkToDestination: DEST.term(node.termId),
+          }),
+        );
+        break;
+      case LESSON_REF:
+        // The same annotator's second mark: an internal jump to the heading the outline already
+        // anchors, module or lesson, with the print text exactly as authored.
+        out.push(
+          ...runs(node.children, {
+            ...marks,
+            ...CROSS_REF,
+            linkToDestination: DEST.outline(node.refId),
           }),
         );
         break;

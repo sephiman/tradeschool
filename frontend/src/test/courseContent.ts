@@ -110,6 +110,20 @@ export function manifestExerciseIds(): string[] {
   return manifestLessons().flatMap((lesson) => (lesson.exercises ?? []).map((ex) => ex.id));
 }
 
+/** The manifest as the reference registry reads it: display ids to resolve, permanent keys to report. */
+export function refModulesFromManifest(locale: Locale) {
+  return manifestModules().map((module) => ({
+    id: module.id,
+    key: module.key ?? module.id,
+    title: module.title[locale],
+    lessons: (module.lessons ?? []).map((lesson) => ({
+      id: lesson.id,
+      key: lesson.key ?? lesson.id,
+      title: lesson.title[locale],
+    })),
+  }));
+}
+
 /** The permanent key of one exercise (= its id unless the manifest pins an older one). */
 export function exerciseKey(exerciseId: string): string {
   const keys = new Map<string, string>();
