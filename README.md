@@ -15,7 +15,8 @@ grading stays server-side, so what the statistics measure is unchanged.)
   (username identity, cookie + database strategy, Argon2, no JWT) · slowapi · NumPy · `decimal.Decimal`
   for every financial formula · pytest + testcontainers (real Postgres)
 - **Frontend:** React 19 · TypeScript (strict) · Vite · react-router · TanStack Query · axios · Tailwind ·
-  react-i18next · lightweight-charts · react-markdown (+ remark-gfm, remark-directive) · pdfmake
+  react-i18next · lightweight-charts · react-markdown (+ remark-gfm and a block-only directive
+  dialect) · pdfmake
   (whole-course PDF, lazy-loaded on demand)
 - **Infrastructure:** Docker Compose, external Postgres 17 on a shared Docker network, multi-stage builds,
   frontend published on `127.0.0.1` only, behind external nginx + Cloudflare.
@@ -675,6 +676,17 @@ frontend/src/lib/pdf/
   generate.ts        orchestration (export -> exercises -> figures -> charts -> typeset), with progress
   runtime.ts         loads the ~1 MB PDF engine on first use, never in the app's initial chunk
 ```
+
+**The directive dialect is block-only, and that is not cosmetic either.** The course writes three
+directives — `:::note`, `::figure`, `::exercise` — all of them block-level, so `lib/directives.ts`
+installs the micromark extension with its **inline** `:name` construct deleted and every parser in the
+codebase (app, print, and both golden reports) shares that one plugin. With the inline dialect on,
+`03:00` parses as a childless `:00` directive: the prose said "a las 03:00 de un domingo" and both
+surfaces printed "a las 03", `3:1` printed as `3`, and the line broke where the directive had cut the
+text node. It was silent because a swallowed directive is not an error. `lib/directives.test.ts` pins
+both halves — no inline directive is parsed whatever follows the colon, the three block ones still are —
+and walks every lesson and exercise prompt in `content/` asserting the parser swallows nothing, which is
+a prose-integrity guard in the same family as the reference report's zero-dangling assertion.
 
 **The embedded font is not cosmetic.** A PDF carries its own type, and pdfmake's bundled Roboto has no
 `U+2192` — `→` appears in the lesson prose over a hundred times and printed as an empty box.

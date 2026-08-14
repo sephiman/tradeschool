@@ -358,7 +358,7 @@ m19-l2   W       g-cross-margin               …osiciones comparten un mismo fo
 m19-l2   W       g-liquidation                «liquidación»
 m19-l2   W       g-cascade                    …ían independientes pueden caer como una única «cascada».
 m20-l1   W       g-timeframe                  …acertar pronto, porque casi todo lo demás —tu «temporalidad», tu factura de comisiones, incluso tu sueño— …
-m20-l1   W       g-breakout                   un day trader toma una «ruptura» matinal a las 09
+m20-l1   W       g-breakout                   un day trader toma una «ruptura» matinal a las 09:00, la gestiona un par de ho…
 m20-l1   W       g-setup                      …r los estilos, no lo ingenioso que parezca el «setup» ni la moneda que te toque operar.
 m20-l1   W       g-spread                     «spread»
 m20-l1   W       g-fee                        «comisión»

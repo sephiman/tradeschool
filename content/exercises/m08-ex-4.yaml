@@ -234,8 +234,8 @@ variants:
   - id: weekend-break-weight
     kind: true_false
     prompt:
-      en: "A breakout printed at 04:00 on a Sunday deserves the same trust as the same break in a busy weekday session."
-      es: "Una ruptura impresa a las 04:00 de un domingo merece la misma confianza que la misma ruptura en una sesión concurrida de día laborable."
+      en: "A breakout printed at 4 a.m. on a Sunday deserves the same trust as the same break in a busy weekday session."
+      es: "Una ruptura impresa a las 4 de la madrugada de un domingo merece la misma confianza que la misma ruptura en una sesión concurrida de día laborable."
     answer: false
     explanation:
       en: "In the dead hours the book is thin, so far less size is needed to shove price through an obvious level — false breaks cluster in exactly these windows. The level may simply have been pushed through empty air, and it snaps back when real volume returns."

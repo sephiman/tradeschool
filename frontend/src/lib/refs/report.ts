@@ -1,8 +1,8 @@
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
-import remarkDirective from "remark-directive";
 import type { Root } from "mdast";
+import { remarkBlockDirectives } from "@/lib/directives";
 import { annotateLessonRefs, type RefMark } from "@/lib/glossary/annotate";
 import { buildRefRegistry, type RefModule } from "@/lib/refs/registry";
 
@@ -19,7 +19,7 @@ import { buildRefRegistry, type RefModule } from "@/lib/refs/registry";
  * course's prose-integrity guard, not a rendering detail.
  */
 
-const processor = unified().use(remarkParse).use(remarkGfm).use(remarkDirective);
+const processor = unified().use(remarkParse).use(remarkGfm).use(remarkBlockDirectives);
 
 export interface RefReportLesson {
   /** Display id — what mentions are written in, and what self-reference means. */

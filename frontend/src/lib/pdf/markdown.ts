@@ -1,11 +1,11 @@
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
-import remarkDirective from "remark-directive";
 import type { Content, ContentStack, ContentText, TableCell } from "pdfmake/interfaces";
 import type { PhrasingContent, Root, RootContent, TableContent } from "mdast";
 // Type-only import: this is what teaches mdast about `containerDirective` / `leafDirective` nodes.
 import type {} from "mdast-util-directive";
+import { remarkBlockDirectives } from "@/lib/directives";
 import { GLOSSARY_TERM, LESSON_REF } from "@/lib/glossary/annotate";
 import { CALLOUT_ID, DEST, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
 import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
@@ -17,7 +17,7 @@ import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
  * of a rule, not a second copy of the server-side stripping.
  */
 
-const processor = unified().use(remarkParse).use(remarkGfm).use(remarkDirective);
+const processor = unified().use(remarkParse).use(remarkGfm).use(remarkBlockDirectives);
 
 export interface MarkdownRenderers {
   /** MUST throw for an unknown figure: one that cannot be rendered has to fail the export. */

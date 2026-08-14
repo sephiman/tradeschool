@@ -207,8 +207,8 @@ variants:
           en: "Nothing is needed: a 24/7 market gives you time to recover calmly."
           es: "No hace falta nada: un mercado 24/7 da tiempo para recuperarse."
     explanation:
-      en: "At 03:00 on a Sunday the market is still open and your tilt still has somewhere to go — funding does not close anything and no venue watches your losing streak for you. So build the bell: a fixed daily loss limit that ends the session when hit, no exceptions, plus a short mandatory cooldown after any loss. Your next position is never larger than normal."
-      es: "A las 03:00 de un domingo el mercado sigue abierto y tu tilt aún tiene a dónde ir: el funding no cierra nada y ningún venue vigila tu racha perdedora por ti. Así que constrúyete la campana: un límite fijo de pérdida diaria que cierra la sesión al alcanzarse, sin excepciones, más un enfriamiento obligatorio corto tras cualquier pérdida. Tu siguiente posición nunca es mayor de lo normal."
+      en: "At 3 a.m. on a Sunday the market is still open and your tilt still has somewhere to go — funding does not close anything and no venue watches your losing streak for you. So build the bell: a fixed daily loss limit that ends the session when hit, no exceptions, plus a short mandatory cooldown after any loss. Your next position is never larger than normal."
+      es: "A las 3 de la madrugada de un domingo el mercado sigue abierto y tu tilt aún tiene a dónde ir: el funding no cierra nada y ningún venue vigila tu racha perdedora por ti. Así que constrúyete la campana: un límite fijo de pérdida diaria que cierra la sesión al alcanzarse, sin excepciones, más un enfriamiento obligatorio corto tras cualquier pérdida. Tu siguiente posición nunca es mayor de lo normal."
   - id: revenge-loop-order
     kind: ordering
     prompt:

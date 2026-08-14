@@ -2,15 +2,15 @@ import { describe, expect, it } from "vitest";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
-import remarkDirective from "remark-directive";
 import type { Root } from "mdast";
 import type { GlossaryEntry } from "@/api/course";
+import { remarkBlockDirectives } from "@/lib/directives";
 import { annotateLesson, GLOSSARY_TERM, type TermMark } from "@/lib/glossary/annotate";
 import { buildTermIndex, derivedVariants } from "@/lib/glossary/terms";
 
 /** The annotator's promises: which occurrence is marked, and which are deliberately left alone. */
 
-const processor = unified().use(remarkParse).use(remarkGfm).use(remarkDirective);
+const processor = unified().use(remarkParse).use(remarkGfm).use(remarkBlockDirectives);
 
 function entry(id: string, term: string, extra: Partial<GlossaryEntry> = {}): GlossaryEntry {
   return { id, term, origin: "m01-l1", originTitle: null, definition: "d", ...extra };

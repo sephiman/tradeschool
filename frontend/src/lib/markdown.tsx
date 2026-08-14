@@ -1,8 +1,8 @@
 import { type ReactNode } from "react";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
-import remarkDirective from "remark-directive";
 import type { Root } from "mdast";
+import { remarkBlockDirectives } from "@/lib/directives";
 import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
 import type { TermMatcher } from "@/lib/glossary/terms";
 import type { RefKind, RefRegistry } from "@/lib/refs/registry";
@@ -166,7 +166,7 @@ export function LessonMarkdown({
   };
   return (
     <Markdown
-      remarkPlugins={[remarkGfm, remarkDirective, annotate, remarkDirectiveToHast]}
+      remarkPlugins={[remarkGfm, remarkBlockDirectives, annotate, remarkDirectiveToHast]}
       components={buildComponents(renderExercise, renderFigure, renderTerm, renderLessonRef)}
     >
       {markdown}

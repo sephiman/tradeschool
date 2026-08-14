@@ -54,6 +54,17 @@ describe("LessonMarkdown", () => {
     expect(html).not.toContain("|---|");
     expect(html).toContain("overflow-x-auto");
   });
+
+  it("prints a clock time and a ratio whole — no inline directive eats the colon", () => {
+    const prose = renderToStaticMarkup(
+      <LessonMarkdown
+        markdown={"Tu stop está vivo a las 03:00, y el desequilibrio es 3:1."}
+        renderExercise={() => null}
+        renderFigure={() => null}
+      />,
+    );
+    expect(prose).toContain("a las 03:00, y el desequilibrio es 3:1.");
+  });
 });
 
 describe("LessonMarkdown lesson references", () => {
