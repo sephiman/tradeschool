@@ -1,8 +1,11 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { act, type ReactElement } from "react";
 import { createRoot } from "react-dom/client";
 import { MemoryRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { coursePath, HOME_PATH } from "@/components/layout/nav";
+import { manifestLessons, manifestModules } from "@/test/courseContent";
 
 /**
  * Page URLs are course-scoped, and the pre-scoping URLs still land somewhere.
@@ -76,29 +79,13 @@ describe("page URLs carry the course", () => {
   });
 });
 
-/** Same reproduction rule as above: the vacated-id table App.tsx implements, not App.tsx itself. */
-function mountRenumbered(entry: string): string {
+/** The module/lesson routes as App.tsx declares them — reproduced, not imported, as above. */
+function mountContent(entry: string): string {
   host = document.createElement("div");
   document.body.appendChild(host);
-  const modules: Record<string, string> = { m31: "m15", m32: "m16", m33: "m28", m34: "m21" };
-  const lessons: Record<string, string> = { "m31-l2": "m15-l2", "m34-l2": "m21-l2" };
   const tree: ReactElement = (
     <MemoryRouter initialEntries={[entry]}>
       <Routes>
-        {Object.entries(modules).map(([old, now]) => (
-          <Route
-            key={old}
-            path={coursePath(`/modules/${old}`)}
-            element={<Navigate to={coursePath(`/modules/${now}`)} replace />}
-          />
-        ))}
-        {Object.entries(lessons).map(([old, now]) => (
-          <Route
-            key={old}
-            path={coursePath(`/lessons/${old}`)}
-            element={<Navigate to={coursePath(`/lessons/${now}`)} replace />}
-          />
-        ))}
         <Route path={coursePath("/modules/:moduleId")} element={<Where />} />
         <Route path={coursePath("/lessons/:lessonId")} element={<Where />} />
       </Routes>
@@ -110,18 +97,28 @@ function mountRenumbered(entry: string): string {
   return host.querySelector('[data-testid="where"]')?.textContent ?? "";
 }
 
-describe("the 2026-08-10 renumbering's vacated ids", () => {
+describe("a display id names its current holder", () => {
+  /** Both renumbering outcomes: an id reused by the permutation, and the four re-issued by append. */
   it.each([
-    ["/modules/m31", "/modules/m15"],
-    ["/modules/m34", "/modules/m21"],
-    ["/lessons/m31-l2", "/lessons/m15-l2"],
-    ["/lessons/m34-l2", "/lessons/m21-l2"],
-  ])("a bookmark of %s lands on %s", (old, now) => {
-    expect(mountRenumbered(coursePath(old))).toBe(coursePath(now));
+    "/modules/m17", // reused by the permutation: old m17 (derivatives) is m19 now, macro owns m17
+    "/modules/m31", // re-issued by append: old m31 (trendlines) is m15 now, the order book owns m31
+    "/modules/m32",
+    "/modules/m33",
+    "/modules/m34",
+    "/lessons/m31-l1",
+    "/lessons/m32-l1",
+    "/lessons/m33-l1",
+    "/lessons/m34-l1",
+  ])("%s serves its page and is not redirected away", (path) => {
+    expect(mountContent(coursePath(path))).toBe(coursePath(path));
   });
 
-  it("a REUSED old id is a live page, not a redirect (the permutation makes it ambiguous)", () => {
-    // Old m17 (derivatives) was renumbered to m19, and macro now owns m17: the URL stays.
-    expect(mountRenumbered(coursePath("/modules/m17"))).toBe(coursePath("/modules/m17"));
+  /** The grep-level half, like `api/urls.test.ts`: the cases above can only name ids that exist today. */
+  it("App.tsx hard-codes no content id, which a static route would shadow", () => {
+    const source = readFileSync(resolve(__dirname, "App.tsx"), "utf8");
+    // Any id, not just a live one: ids are append-only, so today's vacant id is tomorrow's module.
+    const hardCoded = [...source.matchAll(/\bm\d\d(-(l|ex-)\d+)?\b/g)].map((m) => m[0]);
+    const live = new Set([...manifestModules(), ...manifestLessons()].map((entry) => entry.id));
+    expect(hardCoded.map((id) => (live.has(id) ? `${id} (live)` : id))).toEqual([]);
   });
 });

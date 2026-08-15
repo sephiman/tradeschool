@@ -367,11 +367,12 @@ Pre-scoping page URLs redirect (`/glossary` → `/courses/crypto-futures/glossar
 so old bookmarks land and the address bar corrects itself. `App.routes.test.tsx` pins that table.
 nginx needs no change: `try_files $uri /index.html` already serves any depth.
 
-The one-time 2026-08-10 renumbering (see `content/README.md`) vacated four module ids, and bookmarks
-to those redirect too: `/modules/m31→m15`, `m32→m16`, `m33→m28`, `m34→m21`, plus their lessons. The
-other sixteen renumbered ids were *reused* by the permutation, so those old URLs now open a different
-(live) module — a redirect there is impossible in principle, since the URL cannot say which era it
-was bookmarked in.
+A bookmark from before the one-time 2026-08-10 renumbering (see `content/README.md`) does *not*
+redirect: the permutation reused sixteen ids outright, and append-only growth has since re-issued the
+four it vacated (`m31`–`m34` now hold the order book, the venue premium, footprint and the SMC
+dialect), so every old id names a live page and the URL cannot say which era it was bookmarked in. A
+display id always resolves to its current holder. Per-id redirects were removed for that reason and
+must not come back: the route is a static segment, so it would shadow the live module.
 
 ## Which build am I running?
 

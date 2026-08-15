@@ -10,10 +10,10 @@ backend/.ruff_cache/
 backend/.mypy_cache/
 
 # Node / frontend
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
-frontend/*.tsbuildinfo
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
 
 # Editors / OS
 .idea/
