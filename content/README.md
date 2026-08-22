@@ -237,3 +237,61 @@ inputs alone do not qualify — 60.000 × a 0,005% rate is still ugly), run the 
 grid until it is green. The structurally-heavy trio (m23-ex-5 and quiz variants m23-ex-2
 `three-bills`, m24-ex-4 `slippage-worked`) is exempted BY NAME in the test with its flag note — an
 exemption that stops matching real content fails the suite.
+
+### Numbers follow the locale's own conventions
+
+Every number in a locale's text is written the way that locale writes numbers: `60,300` / `0.1 BTC` /
+`3.7R` in `en/`, `60.300` / `0,1 BTC` / `3,7R` in `es/` — in lesson prose AND in `exercises/*.yaml`,
+whose per-locale strings you write by hand (the figure-coupling test only formats the numbers it
+anchors). The 2026-08-22 correctness pass found m27's EN prose and its four EN exercise texts written
+in Spanish conventions and converted them; a change there shows up as context-snippet churn in
+`glossary-links.en.txt` / `lesson-refs.en.txt`, which is expected and reviewed, never a moved link.
+
+Two numbers must also agree ACROSS locales: the same facts, and the same count of them. An ES option
+that quietly drops a figure its EN twin states (m30-ex-3's `800`) leaves the two readers with
+different evidence for the same keyed answer.
+
+#### GENERATED numbers are formatted for you (2026-08-22)
+
+The rule above is about text you type. Numbers a generator *substitutes* — a calculation prompt's
+`{notional}`, its option labels, its worked solution — used to print raw Python in both books
+(`70000 USDT`, `0.0005`, `35.00` inside Spanish prose). They now go through one formatter,
+`backend/src/tradeschool/content/numbers.py`, which the app, the PDF and the answer key all read
+downstream of; nothing formats a number in TypeScript. So when authoring a calculation:
+
+* **Write the prompt around the substitution, not around a shape.** `{notional}` arrives as `70,000`
+  or `70.000` already. Never pre-format inside the template, and never add your own separators.
+* **State rates as rates.** A parameter listed in its formula's `percent_args` is *held* as a fraction
+  (`0.0005` — what the arithmetic multiplies by) and *stated* as a percentage (`0.05%` — what an
+  exchange shows). The prompt sentence must read correctly with a percentage in the slot: "the taker
+  fee is **{fee_rate}**" gives "the taker fee is 0.02%", and in ES the article has to follow ("es
+  **del** {fee_rate}"). Which args are rates is declared on the FORMULA in `formulas.py`, not in the
+  YAML, so a prompt cannot drift from the units its own arithmetic uses.
+* **ES percent spacing is `0,05%`, not `0,05 %`.** Split house convention, settled 2026-08-22 on the
+  lessons this layer quizzes against: m04-l1, m19-l1, m21-l1, m22-l1 and m21-ex-1 all print no space.
+  m07-l1, m23-l1 and m32-l1 use one and were left alone — they are authored prose, not generated.
+* `win_rate` (m25) is deliberately NOT a percentage: both prompts define it as "the fraction of trades
+  that end in profit". Recorded in `test_exercise_numbers.py` so a later sweep re-decides it rather
+  than assuming it was an oversight.
+
+`backend/tests/test_exercise_numbers.py` holds the layer: no generated string carries the other
+locale's number form, the answer key quotes a label the option list actually shows, and every rate
+reaches the prompt as a percentage with the worked solution converting it back exactly once.
+
+#### …and so is the prose hung off them (2026-08-22)
+
+Localizing the numbers left an ES worked solution ending on `= 0,6 units` and `= 35 (you pay)`. The
+prose a step hangs off its formula — a unit on the result, a verdict in parentheses, a closing
+sentence about what the number does *not* tell you — now comes from `LocalizedText` constants in
+`formulas.py`, collected in `LOCALIZED_PROSE`. Adding a new one is a two-language constant or it
+does not compile into a phrase at all, which is the failure mode the sibling `MISTAKE_TRANSLATIONS_ES`
+table (English-keyed, silent English fallback) still has — its one gap, m23-ex-5's `charge the taker
+fee on one fill instead of both`, was found and filled in the same pass and is now guarded.
+
+**What stays English on purpose:** the formula skeleton's *identifiers* (`funding`, `notional`,
+`gross`, `taker buy volume`) and the glosses inside an expression (`(price move)`, `(distance from
+entry to stop)`, `round-trips`). Those are the **formula reminder's** vocabulary, and it already
+renders them in Spanish (`bruto = cantidad × (var. precio)`) — so an ES learner currently reads a
+Spanish reminder above an English-skeleton solution. Closing that is one decision about identifiers
+across every line of every `explain`, not a phrase sweep; half-translating an expression line
+(`cost = fee×notional×2 × idas y vueltas`) reads worse than either end of it. Flagged, not done.

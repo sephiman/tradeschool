@@ -208,7 +208,7 @@ variants:
         correct: true
         text:
           en: "Buying lifted the running total by 13,500 while price fell 800."
-          es: "La compra elevó el total acumulado 13.500 mientras el precio caía."
+          es: "La compra elevó el total acumulado 13.500 mientras el precio caía 800."
       - id: b
         text:
           en: "Selling intensified, since price and CVD both hit new extremes."

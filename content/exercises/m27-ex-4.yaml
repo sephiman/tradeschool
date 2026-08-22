@@ -157,7 +157,7 @@ variants:
       es: "Clasificar las operaciones en seguidas/no-seguidas es lo que distingue un fallo del sistema de uno de ejecución, que es la diferencia entre ajustar la estrategia y machacar disciplina. La revisión califica tus decisiones, no el mercado: no produce listas de monedas ni permisos para subir el tamaño."
   - id: risk-tiers-precondition
     prompt:
-      en: "You want to move from a flat 1% per trade to risk tiers — 0,5–1% on ordinary setups, up to 2% on your best ones. What has to be true first?"
+      en: "You want to move from a flat 1% per trade to risk tiers — 0.5–1% on ordinary setups, up to 2% on your best ones. What has to be true first?"
       es: "Quieres pasar de un 1% plano por operación a niveles de riesgo: 0,5–1% en los setups normales y hasta el 2% en los mejores. ¿Qué tiene que ser cierto antes?"
     options:
       - id: a

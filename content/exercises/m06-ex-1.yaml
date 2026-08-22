@@ -3,7 +3,7 @@ type: calculation
 formula: liquidation_price
 prompt:
   en: "You open a **{side}** position at an entry price of **{entry}** with **{leverage}×** leverage (isolated margin). The maintenance-margin rate is **{mmr}**. What is the liquidation price?"
-  es: "Abres una posición **{side}** a un precio de entrada de **{entry}** con **{leverage}×** de apalancamiento (margen aislado). La tasa de margen de mantenimiento es **{mmr}**. ¿Cuál es el precio de liquidación?"
+  es: "Abres una posición **{side}** a un precio de entrada de **{entry}** con **{leverage}×** de apalancamiento (margen aislado). La tasa de margen de mantenimiento es del **{mmr}**. ¿Cuál es el precio de liquidación?"
 params:
   entry: { kind: choice, values: ["10000", "20000", "40000", "60000"] }
   leverage: { kind: choice, values: ["5", "10", "20", "25"] }
@@ -11,7 +11,7 @@ params:
   side: { kind: choice, values: ["long", "short"] }
 tolerance: { rel: "0.001" }
 round: 2
-unit: price
+unit: { en: "price", es: "precio" }
 explanation:
   en: "Isolated liquidation (fees ignored): a long is liquidated below entry by your margin cushion, a short above it. Higher leverage shrinks the cushion, so liquidation sits closer to entry."
   es: "Liquidación aislada (sin comisiones): un long se liquida por debajo de la entrada según tu colchón de margen, un short por encima. A más apalancamiento, menor colchón, así que la liquidación queda más cerca de la entrada."

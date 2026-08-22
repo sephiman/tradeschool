@@ -265,7 +265,7 @@ exceptions:
   fig-m27-trade-anatomy:
     lessons: [m27-l1]
     why: >-
-      The sizing chain (1% of 10.000 = 100 USDT; risk 1.000 -> 0,1 BTC; 3,7R) is arithmetic chosen to
+      The sizing chain (1% of 10,000 = 100 USDT; risk 1,000 -> 0.1 BTC; 3.7R) is arithmetic chosen to
       teach cleanly. The figure's own prices make it unreadable, so the lesson states the shape is
       what to read.
     guard_phrase: {en: "generated setup", es: "setup generado"}

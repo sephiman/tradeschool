@@ -2,6 +2,11 @@
 """Parametric calculation generator: the seed samples parameters, a named formula grades the value.
 
 The result plus three common-error distractors become shuffled options (§D.8b). `Decimal` end to end.
+
+**Raw inside, localized at the edge.** Sampling, the formula and the distractor filter all work in
+canonical `Decimal`; the locale's separators go on only where a string leaves for a reader — the
+prompt, the option labels, the worked solution. That boundary is what lets the friendly-numbers guard
+sweep the parameter space in exact arithmetic while the ES book still reads `70.000` and `0,05%`.
 """
 
 from __future__ import annotations
@@ -13,6 +18,7 @@ from typing import Annotated, ClassVar, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from tradeschool.content.numbers import format_number, format_param
 from tradeschool.content.schema import LocalizedText
 from tradeschool.exercises.base import (
     ExerciseGenerator,
@@ -68,7 +74,10 @@ class CalculationConfig(BaseModel):
     params: dict[str, ParamSpec]
     tolerance: Tolerance = Tolerance()
     round: int = 2
-    unit: str | None = None
+    #: Printed beside every option and in the answer key, so it is text a learner READS. A bare
+    #: string means the unit is the same in both books — true of a ticker (`USDT`) or a symbol
+    #: (`%`), not of a word (`units`, `contracts`), which takes the two-language mapping form.
+    unit: LocalizedText | str | None = None
     explanation: LocalizedText | None = None
 
     @model_validator(mode="after")
@@ -152,6 +161,32 @@ def _options_for_params(
     return expected, options, correct_id, diag
 
 
+def _display_params(config: CalculationConfig, params: dict[str, object], locale: str) -> dict[str, str]:
+    """Sampled params as the prompt states them: rates as percentages, everything else grouped.
+
+    Which args are rates comes from the FORMULA, never from the content, so a prompt cannot state
+    `0.05%` while its arithmetic quietly means something else.
+    """
+    rates = set(get_formula(config.formula).percent_args)
+    return {name: format_param(value, locale, percent=name in rates) for name, value in params.items()}
+
+
+def _unit_text(unit: LocalizedText | str | None, locale: str) -> str | None:
+    """The unit as this reader sees it. A bare string is locale-neutral by declaration."""
+    if isinstance(unit, LocalizedText):
+        return unit.get(locale)
+    return unit
+
+
+def _display_options(options: list[dict[str, str]], locale: str) -> list[dict[str, str]]:
+    """Canonical option values turned into the labels the learner reads — the ONE place that happens.
+
+    `generate` and `grade` both come through here, so the key can only ever quote a label the option
+    list actually shows (see `test_generators.py`'s option/key agreement test).
+    """
+    return [{"id": o["id"], "value": format_number(Decimal(o["value"]), locale)} for o in options]
+
+
 class CalculationGenerator(ExerciseGenerator):
     type: ClassVar[ExerciseType] = ExerciseType.CALCULATION
 
@@ -161,13 +196,13 @@ class CalculationGenerator(ExerciseGenerator):
     def generate(self, config: BaseModel, seed: int, locale: str) -> GeneratedInstance:
         assert isinstance(config, CalculationConfig)
         params, _expected, options, _correct_id, _diag = _mc_options(config, seed)
-        prompt = config.prompt.get(locale).format(**params)
+        prompt = config.prompt.get(locale).format(**_display_params(config, params, locale))
         return GeneratedInstance(
             prompt=prompt,
             payload={
                 "kind": "multiple_choice",
-                "options": options,
-                "unit": config.unit,
+                "options": _display_options(options, locale),
+                "unit": _unit_text(config.unit, locale),
                 "formula": config.formula,
             },
         )
@@ -180,7 +215,8 @@ class CalculationGenerator(ExerciseGenerator):
         if not isinstance(chosen, str):
             raise InvalidAnswerError("expected an 'optionId' string")
         params, expected, options, correct_id, diag = _mc_options(config, seed)
-        steps = get_formula(config.formula).explain(params, expected)
+        options = _display_options(options, locale)  # the key quotes labels, so it reads the same list
+        steps = get_formula(config.formula).explain(params, expected, locale)
         mistake = diag.get(chosen)
         if chosen != correct_id and mistake:
             chosen_val = next((o["value"] for o in options if o["id"] == chosen), None)
@@ -217,6 +253,11 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
     "take the gross move only (forget fees)": "tomar solo el movimiento bruto (olvidar las comisiones)",
     "charge the fee on one fill instead of both": (
         "cobrar la comisión en una sola operación en lugar de ambas"
+    ),
+    # m23-ex-5's near-twin of the line above ("taker fee", not "fee"). It was the ONE label with no
+    # ES entry, so an ES learner picking that distractor was told the mistake in English.
+    "charge the taker fee on one fill instead of both": (
+        "cobrar la comisión taker en una sola ejecución en lugar de ambas"
     ),
     "read the price move the wrong way round": "calcular la variación de precio al revés",
     "misread the circulating supply (~1.5x)": "leer mal la oferta circulante (~1.5x)",

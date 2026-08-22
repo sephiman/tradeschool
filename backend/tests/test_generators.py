@@ -9,7 +9,7 @@ import pytest
 
 from tradeschool.exercises.base import InvalidAnswerError
 from tradeschool.exercises.calculation import CalculationGenerator, _mc_options
-from tradeschool.exercises.formulas import _fmt, get_formula
+from tradeschool.exercises.formulas import _num, get_formula
 from tradeschool.exercises.quiz import QuizGenerator
 
 QUIZ_RAW = {
@@ -102,8 +102,11 @@ def test_phase2_formula_explanations_include_the_result() -> None:
     for name, params in cases.items():
         f = get_formula(name)
         result = f.compute(params)
-        steps = f.explain(params, result)
-        assert steps and any(_fmt(result) in s for s in steps), name
+        # In BOTH locales: the worked solution is printed for a reader, so its numbers carry that
+        # reader's separators, and the value it ends on must still be the graded one.
+        for locale in ("en", "es"):
+            steps = f.explain(params, result, locale)
+            assert steps and any(_num(locale)(result) in s for s in steps), (name, locale)
 
 
 def test_quiz_is_seed_deterministic_and_hides_solution() -> None:
@@ -141,15 +144,15 @@ def test_calculation_is_multiple_choice_with_diagnosable_distractors() -> None:
     assert isinstance(opts, list) and len(opts) == 4
     values = [o["value"] for o in opts]
     assert len(set(values)) == 4  # four distinct options
-    assert "18100.00" in values  # the correct value is one of them
+    assert "18,100.00" in values  # the correct value is one of them, EN-formatted
     for o in opts:
         assert set(o.keys()) == {"id", "value"}  # neither the correct flag nor the diagnosis leaks
 
     _p, _e, options, correct_id, _diag = _mc_options(config, 1)
     good = gen.grade(config, seed=1, answer={"optionId": correct_id}, locale="en")
     assert good.correct is True
-    assert good.correct_answer == {"optionId": correct_id, "value": "18100.00"}
-    assert any("18100" in step for step in good.solution_steps)
+    assert good.correct_answer == {"optionId": correct_id, "value": "18,100.00"}
+    assert any("18,100" in step for step in good.solution_steps)
 
     wrong_id = next(o["id"] for o in options if o["id"] != correct_id)
     bad = gen.grade(config, seed=1, answer={"optionId": wrong_id}, locale="en")
@@ -165,8 +168,10 @@ def test_calculation_distractors_stay_on_the_plausible_side() -> None:
     # none is eliminable by that heuristic alone (§D.8b).
     gen = CalculationGenerator()
     config = gen.parse_config(CALC_RAW)
+    # Read off the CANONICAL options: `_mc_options` is the raw side of the layer, and the
+    # magnitude property is about the values, not about how a locale prints them.
     _p, _e, options, _cid, _d = _mc_options(config, 1)
-    assert all(float(o["value"]) < 20000 for o in options)
+    assert all(Decimal(o["value"]) < 20000 for o in options)
 
 
 def test_quiz_true_false() -> None:

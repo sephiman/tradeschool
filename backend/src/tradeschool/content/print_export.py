@@ -139,10 +139,12 @@ def _quiz_answer(
 
 
 def _calculation_answer(
-    _payload: Mapping[str, object], result: GradeResult, config: BaseModel
+    payload: Mapping[str, object], result: GradeResult, _config: BaseModel
 ) -> dict[str, object]:
     revealed = revealed_mapping(result)
-    unit = getattr(config, "unit", None)
+    # Read from the PAYLOAD, not the config: the payload's unit is already the reader's own
+    # ("unidades", not "units"), and this module's rule is that the key quotes what is published.
+    unit = payload.get("unit")
     return {
         "kind": "calculation",
         "optionIds": [str(revealed["optionId"])],

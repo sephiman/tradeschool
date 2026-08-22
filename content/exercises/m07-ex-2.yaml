@@ -3,7 +3,7 @@ type: calculation
 formula: net_pnl
 prompt:
   en: "You go **{side}** on an altcoin: **{quantity}** contracts, entry price **{entry}**, and you close at **{exit}**. The taker fee is **{fee_rate}**, charged on both fills. What is your net PnL, in USDT?"
-  es: "Vas **{side}** en una altcoin: **{quantity}** contratos, precio de entrada **{entry}**, y cierras en **{exit}**. La comisión taker es **{fee_rate}**, cobrada en ambas ejecuciones. ¿Cuál es tu PnL neto, en USDT?"
+  es: "Vas **{side}** en una altcoin: **{quantity}** contratos, precio de entrada **{entry}**, y cierras en **{exit}**. La comisión taker es del **{fee_rate}**, cobrada en ambas ejecuciones. ¿Cuál es tu PnL neto, en USDT?"
 params:
   # exit's grid is offset 250 from entry's for the same reason as m07-ex-1 (no zero-move draw).
   entry: { kind: int_range, min: 1000, max: 4000, step: 500 }

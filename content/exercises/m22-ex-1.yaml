@@ -3,14 +3,14 @@ type: calculation
 formula: position_size_from_risk
 prompt:
   en: "Your account equity is **{equity}** USDT and you risk **{risk_pct}** of it on this trade. Your stop sits **{stop_distance}** away from your entry (in price). How many units should you buy so that being stopped out loses exactly your risk budget?"
-  es: "El capital de tu cuenta es de **{equity}** USDT y arriesgas **{risk_pct}** de él en esta operación. Tu stop está a **{stop_distance}** de tu entrada (en precio). ¿Cuántas unidades debes comprar para que, si te salta el stop, pierdas exactamente tu presupuesto de riesgo?"
+  es: "El capital de tu cuenta es de **{equity}** USDT y arriesgas el **{risk_pct}** de él en esta operación. Tu stop está a **{stop_distance}** de tu entrada (en precio). ¿Cuántas unidades debes comprar para que, si te salta el stop, pierdas exactamente tu presupuesto de riesgo?"
 params:
   equity: { kind: int_range, min: 2000, max: 20000, step: 2000 }
   risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }
   stop_distance: { kind: choice, values: ["50", "100", "250", "500"] }
 tolerance: { rel: "0.01" }
 round: 4
-unit: units
+unit: { en: "units", es: "unidades" }
 explanation:
   en: "First the risk budget in money: equity × risk %. Then divide it by the stop distance — the loss per unit if you are stopped out. That quotient is the position size: hold it, and hitting the stop costs exactly your budget. A wider stop forces a smaller size for the same risk."
   es: "Primero el presupuesto de riesgo en dinero: capital × % de riesgo. Luego divídelo por la distancia del stop, la pérdida por unidad si te saltan. Ese cociente es el tamaño de posición: mantenlo y tocar el stop cuesta exactamente tu presupuesto. Un stop más ancho fuerza un tamaño menor para el mismo riesgo."

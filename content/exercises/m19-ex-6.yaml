@@ -199,7 +199,7 @@ variants:
       - id: a
         correct: true
         text:
-          en: "24/7 trading — no overnight pause, so cascades fire at 3am unopposed."
+          en: "24/7 trading — no overnight pause, so cascades fire at 3 a.m. unopposed."
           es: "Operar 24/7: sin pausa nocturna, las cascadas se disparan sin oposición."
       - id: b
         correct: true

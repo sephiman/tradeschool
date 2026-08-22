@@ -10,7 +10,7 @@ params:
   stop_distance: { kind: choice, values: ["50", "100", "250", "500"] }
 tolerance: { rel: "0.01" }
 round: 4
-unit: units
+unit: { en: "units", es: "unidades" }
 explanation:
   en: "The size falls out of the plan, it is not chosen. Risk budget in money is equity × risk %; divide it by the stop distance — the loss per unit if you are stopped — and the quotient is the size. Hold exactly that many units and hitting the stop costs exactly your budget, regardless of price or leverage. Stop first, size second: reverse the order and you are guessing."
   es: "El tamaño sale del plan, no se elige. El presupuesto de riesgo en dinero es capital × % de riesgo; divídelo por la distancia del stop —la pérdida por unidad si te saltan— y el cociente es el tamaño. Mantén exactamente esas unidades y tocar el stop cuesta exactamente tu presupuesto, sin importar el precio ni el apalancamiento. Primero el stop, después el tamaño: invierte el orden y estás adivinando."

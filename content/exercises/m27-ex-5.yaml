@@ -42,14 +42,14 @@ variants:
           es: "Casi nada: 6 operaciones son ruido y no una muestra que juzgar."
       - id: c
         text:
-          en: "The win rate is 66,7%, and that is the number to plan around."
+          en: "The win rate is 66.7%, and that is the number to plan around."
           es: "El acierto es del 66,7%, y ese es el número con el que planificar."
       - id: d
         text:
           en: "It is broken: a system that loses a third of the time should be scrapped."
           es: "Está roto: un sistema que pierde un tercio de las veces se desecha."
     explanation:
-      en: "A tiny sample is dominated by luck: a good system easily shows early losers and a bad one early winners, so neither the optimistic nor the pessimistic reading survives. Judgement waits for a real sample — dozens of trades (m25), not a handful — and until then 66,7% is an artefact of six coin flips."
+      en: "A tiny sample is dominated by luck: a good system easily shows early losers and a bad one early winners, so neither the optimistic nor the pessimistic reading survives. Judgement waits for a real sample — dozens of trades (m25), not a handful — and until then 66.7% is an artefact of six coin flips."
       es: "Una muestra diminuta la domina la suerte: un buen sistema muestra perdedoras temprano con facilidad y uno malo, ganadoras, así que no sobrevive ni la lectura optimista ni la pesimista. El juicio espera una muestra real —decenas de operaciones (m25), no un puñado— y hasta entonces el 66,7% es un artefacto de seis lanzamientos."
   - id: first-size
     prompt:
@@ -157,7 +157,7 @@ variants:
       es: "Valida en demo o tamaño mínimo, sobre una muestra real, recordando que la demo te favorece: sin slippage real ni miedo real. Saltar al tamaño completo es lo contrario de validar: es pagar la matrícula completa por una afirmación sin probar, y hace que la primera racha perdedora sea la más cara."
   - id: graded-sample-split
     prompt:
-      en: "Your journal has 40 trades: 12 graded 'A' averaging +1,4R and 28 graded 'B' averaging +0,1R. Does this justify raising risk to 2% on A setups?"
+      en: "Your journal has 40 trades: 12 graded 'A' averaging +1.4R and 28 graded 'B' averaging +0.1R. Does this justify raising risk to 2% on A setups?"
       es: "Tu diario tiene 40 operaciones: 12 calificadas «A» con una media de +1,4R y 28 calificadas «B» con una media de +0,1R. ¿Justifica eso subir el riesgo al 2% en los setups A?"
     options:
       - id: a
@@ -178,7 +178,7 @@ variants:
           en: "It does not matter; risk tiers are personal preference, not evidence."
           es: "Da igual: los niveles de riesgo son preferencia personal, no pruebas."
     explanation:
-      en: "This is m25's sample-size problem sharpened: grading splits an already small record into even smaller ones, and a dozen trades can easily average +1,4R by chance. The temptation is to declare the tier ladder proven on exactly the lucky run that made you feel like a grader. Keep grading at a flat 1% and let the per-grade samples grow."
+      en: "This is m25's sample-size problem sharpened: grading splits an already small record into even smaller ones, and a dozen trades can easily average +1.4R by chance. The temptation is to declare the tier ladder proven on exactly the lucky run that made you feel like a grader. Keep grading at a flat 1% and let the per-grade samples grow."
       es: "Es el problema del tamaño de muestra de m25 agudizado: calificar parte un registro ya pequeño en muestras aún menores, y una docena de operaciones puede dar una media de +1,4R por puro azar. La tentación es declarar la escala probada justo con la racha de suerte que te hizo sentirte capaz de calificar. Sigue calificando con un 1% plano y deja crecer las muestras."
   - id: validation-stages-match
     kind: matching

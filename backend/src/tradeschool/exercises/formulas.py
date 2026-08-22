@@ -11,7 +11,61 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from decimal import Decimal
 
+from tradeschool.content.numbers import format_number, format_percent
+from tradeschool.content.schema import LocalizedText
+
 FormulaParams = Mapping[str, object]
+
+
+# --- the prose a worked solution hangs off its formula --------------------------------------------
+# A step is a formula skeleton plus prose: a unit on the result, a verdict in parentheses, sometimes
+# a closing sentence that says what the number does NOT tell you. The numbers were localized on
+# 2026-08-22; the prose followed, because an ES reader was still being told `(you pay)` and `units`.
+#
+# What stays English, deliberately: the skeleton's IDENTIFIERS (`funding`, `notional`, `gross`,
+# `taker buy volume`) and the glosses inside an expression (`(price move)`). Those are the formula
+# reminder's vocabulary — and it already renders them in Spanish ("bruto = cantidad por var.
+# precio"), so aligning the two is one decision about identifiers, not a phrase-by-phrase sweep.
+# Half-translating an expression line would read worse than either end of that choice.
+#
+# `LocalizedText` rather than an English-keyed dict: a phrase cannot be constructed without both
+# languages, so the failure mode of the sibling `MISTAKE_TRANSLATIONS_ES` table — an entry silently
+# missing and falling back to English — is unrepresentable here.
+
+_PAYS = LocalizedText(en="you pay", es="pagas")
+_RECEIVES = LocalizedText(en="you receive", es="recibes")
+_NO_TRANSFER = LocalizedText(en="no transfer", es="sin transferencia")
+_MILLION = LocalizedText(en="million", es="millones")
+_MILLION_USD = LocalizedText(en="million USD", es="millones de USD")
+_FDV_ASIDE = LocalizedText(
+    en="what the cap would be if EVERY token were circulating",
+    es="lo que sería el market cap si TODOS los tokens circularan",
+)
+_UNITS = LocalizedText(en="units", es="unidades")
+_PER_TRADE = LocalizedText(en="per trade", es="por operación")
+_NET_BUYING = LocalizedText(en="net aggressive BUYING", es="COMPRA agresiva neta")
+_NET_SELLING = LocalizedText(en="net aggressive SELLING", es="VENTA agresiva neta")
+_BALANCED_FLOW = LocalizedText(en="balanced flow", es="flujo equilibrado")
+_TOTAL_VOLUME = LocalizedText(
+    en="Total volume for the period was {total} — that is a different figure, and it is the one "
+    "that tells you nothing about direction.",
+    es="El volumen total del periodo fue {total}: esa es otra cifra distinta, y es la que no te "
+    "dice nada sobre la dirección.",
+)
+_ABSOLUTE_GAP = LocalizedText(en="the absolute gap is {gap}", es="el hueco absoluto es {gap}")
+_PREMIUM_ASIDE = LocalizedText(
+    en="The percentage is the figure worth quoting: an absolute gap means nothing until you know "
+    "what price it is a gap ON.",
+    es="El porcentaje es la cifra que merece la pena citar: un hueco absoluto no significa nada "
+    "hasta que sabes SOBRE qué precio es el hueco.",
+)
+
+#: Every phrase above, so a guard can enumerate them rather than restate them (see
+#: `tests/test_exercise_numbers.py::test_no_worked_solution_prose_reaches_an_es_reader_in_english`).
+LOCALIZED_PROSE: tuple[LocalizedText, ...] = (
+    _PAYS, _RECEIVES, _NO_TRANSFER, _MILLION, _MILLION_USD, _FDV_ASIDE, _UNITS, _PER_TRADE,
+    _NET_BUYING, _NET_SELLING, _BALANCED_FLOW, _TOTAL_VOLUME, _ABSOLUTE_GAP, _PREMIUM_ASIDE,
+)
 
 
 def _dec(value: object) -> Decimal:
@@ -20,13 +74,27 @@ def _dec(value: object) -> Decimal:
     return Decimal(str(value))
 
 
-def _fmt(value: Decimal) -> str:
-    """Compact decimal string: no scientific notation, trailing zeros trimmed."""
-    normalized = value.normalize()
-    text = format(normalized, "f")
-    if "." in text:
-        text = text.rstrip("0").rstrip(".")
-    return text or "0"
+def _num(locale: str) -> Callable[[Decimal], str]:
+    """This locale's compact decimal: no scientific notation, trailing zeros trimmed, grouped
+    thousands and the right decimal mark. Bound once per `explain` call, as `fmt`."""
+
+    def render(value: Decimal) -> str:
+        text = format(value.normalize(), "f")
+        if "." in text:
+            text = text.rstrip("0").rstrip(".")
+        return format_number(Decimal(text or "0"), locale)
+
+    return render
+
+
+def _as_fraction(label: str, rate: Decimal, locale: str) -> str:
+    """The %-to-fraction step, stated once at the head of a worked solution.
+
+    The prompt states a rate the way an exchange does (`0.05%`); every line below multiplies by the
+    fraction (`0.0005`). Converting in the reader's head is exactly the mistake this line prevents,
+    and doing it on paper is the skill the exercise is really teaching.
+    """
+    return f"{label} = {format_percent(rate, locale)} = {_num(locale)(rate)}"
 
 
 # A distractor is a (diagnosis, value) pair: a value a learner reaches by a specific, named mistake.
@@ -39,8 +107,13 @@ Distractor = tuple[str, Decimal]
 class Formula:
     id: str
     arg_names: tuple[str, ...]
+    #: Args that ARE rates: held as a fraction, stated to the learner as a percentage the way an
+    #: exchange shows it. The formula owns this, not the content — `rate` is a rate wherever it is
+    #: sampled — so a prompt cannot drift from the units its own arithmetic uses.
+    percent_args: tuple[str, ...]
     compute: Callable[[FormulaParams], Decimal]
-    explain: Callable[[FormulaParams, Decimal], list[str]]
+    #: (params, result, locale) -> the worked solution, with this locale's numbers in it.
+    explain: Callable[[FormulaParams, Decimal, str], list[str]]
     # (params, correct_result) -> candidate wrong answers, each tagged with the mistake that yields it
     distractors: Callable[[FormulaParams, Decimal], list[Distractor]]
 
@@ -58,7 +131,8 @@ def _liquidation_compute(p: FormulaParams) -> Decimal:
     return entry * factor
 
 
-def _liquidation_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _liquidation_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     entry = _dec(p["entry"])
     leverage = _dec(p["leverage"])
     mmr = _dec(p["mmr"])
@@ -68,10 +142,11 @@ def _liquidation_explain(p: FormulaParams, result: Decimal) -> list[str]:
     sign = "−" if side == "long" else "+"
     op = "+" if side == "long" else "−"
     return [
+        _as_fraction("mmr", mmr, locale),
         f"liq = entry × (1 {sign} 1/leverage {op} mmr)   [{side}]",
-        f"    = {_fmt(entry)} × (1 {sign} 1/{_fmt(leverage)} {op} {_fmt(mmr)})",
-        f"    = {_fmt(entry)} × {_fmt(factor)}",
-        f"    = {_fmt(result)}",
+        f"    = {fmt(entry)} × (1 {sign} 1/{fmt(leverage)} {op} {fmt(mmr)})",
+        f"    = {fmt(entry)} × {fmt(factor)}",
+        f"    = {fmt(result)}",
     ]
 
 
@@ -87,15 +162,18 @@ def _funding_compute(p: FormulaParams) -> Decimal:
     return notional * rate * sign
 
 
-def _funding_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _funding_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     notional = _dec(p["notional"])
     rate = _dec(p["rate"])
     side = str(p["side"])
-    who = "you pay" if result > 0 else ("you receive" if result < 0 else "no transfer")
+    verdict = _PAYS if result > 0 else (_RECEIVES if result < 0 else _NO_TRANSFER)
+    who = verdict.get(locale)
     return [
+        _as_fraction("rate", rate, locale),
         f"funding = notional × rate × (+1 long / −1 short)   [{side}]",
-        f"        = {_fmt(notional)} × {_fmt(rate)} × {'+1' if side == 'long' else '−1'}",
-        f"        = {_fmt(result)}   ({who})",
+        f"        = {fmt(notional)} × {fmt(rate)} × {'+1' if side == 'long' else '−1'}",
+        f"        = {fmt(result)}   ({who})",
     ]
 
 
@@ -109,16 +187,17 @@ def _initial_margin_compute(p: FormulaParams) -> Decimal:
     return entry * quantity / leverage
 
 
-def _initial_margin_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _initial_margin_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     entry = _dec(p["entry"])
     quantity = _dec(p["quantity"])
     leverage = _dec(p["leverage"])
     notional = entry * quantity
     return [
         "margin = (entry × quantity) / leverage",
-        f"       = ({_fmt(entry)} × {_fmt(quantity)}) / {_fmt(leverage)}",
-        f"       = {_fmt(notional)} / {_fmt(leverage)}",
-        f"       = {_fmt(result)}",
+        f"       = ({fmt(entry)} × {fmt(quantity)}) / {fmt(leverage)}",
+        f"       = {fmt(notional)} / {fmt(leverage)}",
+        f"       = {fmt(result)}",
     ]
 
 
@@ -136,7 +215,8 @@ def _net_pnl_compute(p: FormulaParams) -> Decimal:
     return gross - fees
 
 
-def _net_pnl_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _net_pnl_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     entry = _dec(p["entry"])
     exit_ = _dec(p["exit"])
     quantity = _dec(p["quantity"])
@@ -145,13 +225,14 @@ def _net_pnl_explain(p: FormulaParams, result: Decimal) -> list[str]:
     direction = Decimal(1) if side == "long" else Decimal(-1)
     gross = quantity * (exit_ - entry) * direction
     fees = fee_rate * quantity * (entry + exit_)
-    move = f"{_fmt(exit_)} − {_fmt(entry)}" if side == "long" else f"{_fmt(entry)} − {_fmt(exit_)}"
+    move = f"{fmt(exit_)} − {fmt(entry)}" if side == "long" else f"{fmt(entry)} − {fmt(exit_)}"
     return [
+        _as_fraction("fee_rate", fee_rate, locale),
         f"gross = quantity × (price move)   [{side}]",
-        f"      = {_fmt(quantity)} × ({move}) = {_fmt(gross)}",
-        f"fees  = fee_rate × quantity × (entry + exit) = {_fmt(fee_rate)} × {_fmt(quantity)} "
-        f"× {_fmt(entry + exit_)} = {_fmt(fees)}",
-        f"net   = gross − fees = {_fmt(gross)} − {_fmt(fees)} = {_fmt(result)}",
+        f"      = {fmt(quantity)} × ({move}) = {fmt(gross)}",
+        f"fees  = fee_rate × quantity × (entry + exit) = {fmt(fee_rate)} × {fmt(quantity)} "
+        f"× {fmt(entry + exit_)} = {fmt(fees)}",
+        f"net   = gross − fees = {fmt(gross)} − {fmt(fees)} = {fmt(result)}",
     ]
 
 
@@ -163,12 +244,13 @@ def _market_cap_compute(p: FormulaParams) -> Decimal:
     return _dec(p["price"]) * _dec(p["circulating"])
 
 
-def _market_cap_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _market_cap_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     price, circ = _dec(p["price"]), _dec(p["circulating"])
     return [
         "market cap = price × circulating supply",
-        f"           = {_fmt(price)} × {_fmt(circ)} million",
-        f"           = {_fmt(result)} million USD",
+        f"           = {fmt(price)} × {fmt(circ)} {_MILLION.get(locale)}",
+        f"           = {fmt(result)} {_MILLION_USD.get(locale)}",
     ]
 
 
@@ -176,12 +258,13 @@ def _fdv_compute(p: FormulaParams) -> Decimal:
     return _dec(p["price"]) * _dec(p["max_supply"])
 
 
-def _fdv_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _fdv_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     price, mx = _dec(p["price"]), _dec(p["max_supply"])
     return [
         "FDV = price × max (fully diluted) supply",
-        f"    = {_fmt(price)} × {_fmt(mx)} million",
-        f"    = {_fmt(result)} million USD   (what the cap would be if EVERY token were circulating)",
+        f"    = {fmt(price)} × {fmt(mx)} {_MILLION.get(locale)}",
+        f"    = {fmt(result)} {_MILLION_USD.get(locale)}   ({_FDV_ASIDE.get(locale)})",
     ]
 
 
@@ -195,17 +278,19 @@ def _position_size_compute(p: FormulaParams) -> Decimal:
     return equity * risk_pct / stop_distance
 
 
-def _position_size_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _position_size_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     equity = _dec(p["equity"])
     risk_pct = _dec(p["risk_pct"])
     stop_distance = _dec(p["stop_distance"])
     risk_amount = equity * risk_pct
     return [
+        _as_fraction("risk %", risk_pct, locale),
         "risk amount = equity × risk %",
-        f"            = {_fmt(equity)} × {_fmt(risk_pct)} = {_fmt(risk_amount)}",
+        f"            = {fmt(equity)} × {fmt(risk_pct)} = {fmt(risk_amount)}",
         "quantity = risk amount / (distance from entry to stop)",
-        f"         = {_fmt(risk_amount)} / {_fmt(stop_distance)}",
-        f"         = {_fmt(result)} units",
+        f"         = {fmt(risk_amount)} / {fmt(stop_distance)}",
+        f"         = {fmt(result)} {_UNITS.get(locale)}",
     ]
 
 
@@ -219,16 +304,17 @@ def _expectancy_compute(p: FormulaParams) -> Decimal:
     return win_rate * avg_win - (Decimal(1) - win_rate) * avg_loss
 
 
-def _expectancy_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _expectancy_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     win_rate = _dec(p["win_rate"])
     avg_win = _dec(p["avg_win"])
     avg_loss = _dec(p["avg_loss"])
     loss_rate = Decimal(1) - win_rate
     return [
         "expectancy = win% × avg win − loss% × avg loss   (loss% = 1 − win%)",
-        f"           = {_fmt(win_rate)} × {_fmt(avg_win)} − {_fmt(loss_rate)} × {_fmt(avg_loss)}",
-        f"           = {_fmt(win_rate * avg_win)} − {_fmt(loss_rate * avg_loss)}",
-        f"           = {_fmt(result)} per trade",
+        f"           = {fmt(win_rate)} × {fmt(avg_win)} − {fmt(loss_rate)} × {fmt(avg_loss)}",
+        f"           = {fmt(win_rate * avg_win)} − {fmt(loss_rate * avg_loss)}",
+        f"           = {fmt(result)} {_PER_TRADE.get(locale)}",
     ]
 
 
@@ -241,20 +327,15 @@ def _net_delta_compute(p: FormulaParams) -> Decimal:
     return _dec(p["taker_buy"]) - _dec(p["taker_sell"])
 
 
-def _net_delta_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _net_delta_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     buy, sell = _dec(p["taker_buy"]), _dec(p["taker_sell"])
-    if result > 0:
-        who = "net aggressive BUYING"
-    elif result < 0:
-        who = "net aggressive SELLING"
-    else:
-        who = "balanced flow"
+    lean = _NET_BUYING if result > 0 else (_NET_SELLING if result < 0 else _BALANCED_FLOW)
     return [
         "delta = taker buy volume − taker sell volume",
-        f"      = {_fmt(buy)} − {_fmt(sell)}",
-        f"      = {_fmt(result)}   ({who})",
-        f"Total volume for the period was {_fmt(buy + sell)} — that is a different figure, and it is "
-        f"the one that tells you nothing about direction.",
+        f"      = {fmt(buy)} − {fmt(sell)}",
+        f"      = {fmt(result)}   ({lean.get(locale)})",
+        _TOTAL_VOLUME.get(locale).format(total=fmt(buy + sell)),
     ]
 
 
@@ -268,16 +349,19 @@ def _venue_premium_compute(p: FormulaParams) -> Decimal:
     return (other - ref) / ref * Decimal(100)
 
 
-def _venue_premium_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _venue_premium_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     ref, other = _dec(p["price_a"]), _dec(p["price_b"])
     gap = other - ref
     return [
         "premium % = (other venue − reference venue) / reference venue × 100",
-        f"          = ({_fmt(other)} − {_fmt(ref)}) / {_fmt(ref)} × 100",
-        f"          = {_fmt(gap)} / {_fmt(ref)} × 100        [the absolute gap is {_fmt(gap)}]",
-        f"          = {_fmt(result.quantize(Decimal('0.001')))} %",
-        "The percentage is the figure worth quoting: an absolute gap means nothing until you know "
-        "what price it is a gap ON.",
+        f"          = ({fmt(other)} − {fmt(ref)}) / {fmt(ref)} × 100",
+        f"          = {fmt(gap)} / {fmt(ref)} × 100        "
+        f"[{_ABSOLUTE_GAP.get(locale).format(gap=fmt(gap))}]",
+        # The one hand-written percent left in the layer, space and all: m32-ex-1 carries
+        # `unit: "%"`, which both surfaces render as `value + " %"` beside these very options.
+        f"          = {fmt(result.quantize(Decimal('0.001')))} %",
+        _PREMIUM_ASIDE.get(locale),
     ]
 
 
@@ -396,26 +480,32 @@ def _style_net_compute(p: FormulaParams) -> Decimal:
     return gross - cost
 
 
-def _style_net_explain(p: FormulaParams, result: Decimal) -> list[str]:
+def _style_net_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
     notional, gp, fr, style = _dec(p["notional"]), _dec(p["gross_pct"]), _dec(p["fee_rate"]), str(p["style"])
     fundr, fi, rt = _dec(p["funding_rate"]), _dec(p["funding_intervals"]), _dec(p["round_trips"])
     gross = notional * gp
     base_fee = fr * notional * 2
     cost = _style_cost(style, base_fee, notional, fundr, fi, rt)
     if style == "scalper":
-        cost_line = f"cost = fee×notional×2 × round-trips = {_fmt(base_fee)} × {_fmt(rt)} = {_fmt(cost)}"
+        cost_line = f"cost = fee×notional×2 × round-trips = {fmt(base_fee)} × {fmt(rt)} = {fmt(cost)}"
     elif style == "swing":
         fund = fundr * notional * fi
         cost_line = (
-            f"cost = one round-trip {_fmt(base_fee)} + funding "
-            f"{_fmt(fundr)}×{_fmt(notional)}×{_fmt(fi)}={_fmt(fund)} = {_fmt(cost)}"
+            f"cost = one round-trip {fmt(base_fee)} + funding "
+            f"{fmt(fundr)}×{fmt(notional)}×{fmt(fi)}={fmt(fund)} = {fmt(cost)}"
         )
     else:
-        cost_line = f"cost = one round-trip fee = fee×notional×2 = {_fmt(cost)}"
+        cost_line = f"cost = one round-trip fee = fee×notional×2 = {fmt(cost)}"
+    # Three rates in one prompt, so they convert together rather than three lines deep: funding is
+    # named even for the styles that pay none, so the reader sees WHY their cost line has no funding.
+    rates = [_as_fraction("move", gp, locale), _as_fraction("fee_rate", fr, locale),
+             _as_fraction("funding_rate", fundr, locale)]
     return [
-        f"gross = notional × move = {_fmt(notional)} × {_fmt(gp)} = {_fmt(gross)}   [{style}]",
+        "   ".join(rates),
+        f"gross = notional × move = {fmt(notional)} × {fmt(gp)} = {fmt(gross)}   [{style}]",
         cost_line,
-        f"net = gross − cost = {_fmt(gross)} − {_fmt(cost)} = {_fmt(result)}",
+        f"net = gross − cost = {fmt(gross)} − {fmt(cost)} = {fmt(result)}",
     ]
 
 
@@ -455,6 +545,7 @@ FORMULAS: dict[str, Formula] = {
     "liquidation_price": Formula(
         id="liquidation_price",
         arg_names=("entry", "leverage", "mmr", "side"),
+        percent_args=("mmr",),
         compute=_liquidation_compute,
         explain=_liquidation_explain,
         distractors=_liquidation_distractors,
@@ -462,6 +553,7 @@ FORMULAS: dict[str, Formula] = {
     "funding_payment": Formula(
         id="funding_payment",
         arg_names=("notional", "rate", "side"),
+        percent_args=("rate",),
         compute=_funding_compute,
         explain=_funding_explain,
         distractors=_funding_distractors,
@@ -469,6 +561,7 @@ FORMULAS: dict[str, Formula] = {
     "initial_margin": Formula(
         id="initial_margin",
         arg_names=("entry", "quantity", "leverage"),
+        percent_args=(),
         compute=_initial_margin_compute,
         explain=_initial_margin_explain,
         distractors=_initial_margin_distractors,
@@ -476,6 +569,7 @@ FORMULAS: dict[str, Formula] = {
     "net_pnl": Formula(
         id="net_pnl",
         arg_names=("entry", "exit", "quantity", "side", "fee_rate"),
+        percent_args=("fee_rate",),
         compute=_net_pnl_compute,
         explain=_net_pnl_explain,
         distractors=_net_pnl_distractors,
@@ -483,6 +577,7 @@ FORMULAS: dict[str, Formula] = {
     "market_cap": Formula(
         id="market_cap",
         arg_names=("price", "circulating"),
+        percent_args=(),
         compute=_market_cap_compute,
         explain=_market_cap_explain,
         distractors=_market_cap_distractors,
@@ -490,6 +585,7 @@ FORMULAS: dict[str, Formula] = {
     "fdv": Formula(
         id="fdv",
         arg_names=("price", "max_supply"),
+        percent_args=(),
         compute=_fdv_compute,
         explain=_fdv_explain,
         distractors=_fdv_distractors,
@@ -497,6 +593,7 @@ FORMULAS: dict[str, Formula] = {
     "position_size_from_risk": Formula(
         id="position_size_from_risk",
         arg_names=("equity", "risk_pct", "stop_distance"),
+        percent_args=("risk_pct",),
         compute=_position_size_compute,
         explain=_position_size_explain,
         distractors=_position_size_distractors,
@@ -504,6 +601,7 @@ FORMULAS: dict[str, Formula] = {
     "expectancy": Formula(
         id="expectancy",
         arg_names=("win_rate", "avg_win", "avg_loss"),
+        percent_args=(),
         compute=_expectancy_compute,
         explain=_expectancy_explain,
         distractors=_expectancy_distractors,
@@ -511,6 +609,7 @@ FORMULAS: dict[str, Formula] = {
     "net_delta": Formula(
         id="net_delta",
         arg_names=("taker_buy", "taker_sell"),
+        percent_args=(),
         compute=_net_delta_compute,
         explain=_net_delta_explain,
         distractors=_net_delta_distractors,
@@ -518,6 +617,7 @@ FORMULAS: dict[str, Formula] = {
     "venue_premium_pct": Formula(
         id="venue_premium_pct",
         arg_names=("price_a", "price_b"),
+        percent_args=(),
         compute=_venue_premium_compute,
         explain=_venue_premium_explain,
         distractors=_venue_premium_distractors,
@@ -526,6 +626,7 @@ FORMULAS: dict[str, Formula] = {
         id="style_net_result",
         arg_names=("notional", "gross_pct", "style", "fee_rate", "round_trips",
                    "funding_rate", "funding_intervals"),
+        percent_args=("gross_pct", "fee_rate", "funding_rate"),
         compute=_style_net_compute,
         explain=_style_net_explain,
         distractors=_style_net_distractors,

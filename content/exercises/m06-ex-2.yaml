@@ -3,7 +3,7 @@ type: calculation
 formula: liquidation_price
 prompt:
   en: "A trader goes **{leverage}× {side}** on an altcoin from an entry of **{entry}** (isolated). Maintenance margin is **{mmr}**. At what price is the position liquidated?"
-  es: "Un trader entra **{leverage}× {side}** en una altcoin desde una entrada de **{entry}** (aislado). El margen de mantenimiento es **{mmr}**. ¿A qué precio se liquida la posición?"
+  es: "Un trader entra **{leverage}× {side}** en una altcoin desde una entrada de **{entry}** (aislado). El margen de mantenimiento es del **{mmr}**. ¿A qué precio se liquida la posición?"
 params:
   entry: { kind: choice, values: ["100", "200", "400", "600", "1000", "2000", "4000"] }
   leverage: { kind: choice, values: ["5", "10", "20", "50"] }
@@ -13,7 +13,7 @@ params:
   side: { kind: choice, values: ["long", "short"] }
 tolerance: { rel: "0.001" }
 round: 2
-unit: price
+unit: { en: "price", es: "precio" }
 explanation:
   en: "Same isolated formula, lower-priced asset. The higher the leverage, the thinner the margin cushion (≈ 1/leverage), so the liquidation price sits closer to entry and a smaller move is enough to trigger it."
   es: "La misma fórmula aislada con un activo de menor precio. Cuanto mayor es el apalancamiento, más fino es el colchón de margen (≈ 1/apalancamiento), así que el precio de liquidación queda más cerca de la entrada y basta un movimiento más pequeño para dispararlo."

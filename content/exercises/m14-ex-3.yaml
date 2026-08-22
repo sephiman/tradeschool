@@ -183,7 +183,7 @@ variants:
         correct: true
         text:
           en: "The first is about 4.5× normal volume; the second is a lull below average."
-          es: "La primera es unas 4,5× lo normal; la segunda es una calma."
+          es: "La primera es unas 4,5× lo normal; la segunda, una calma bajo la media."
     explanation:
       en: "The absolute figure is noise; the ratio to normal is the signal. A raw volume number has no meaning on its own, which is why volume is read against its own recent average and why the bigger market's 45,000 is quiet rather than impressive. Faced with any volume bar, ask first: is this bar taller or shorter than the ones around it?"
       es: "La cifra absoluta es ruido; la proporción respecto a lo normal es la señal. Un número de volumen en bruto no significa nada por sí solo, y por eso el volumen se lee contra su propia media reciente y por eso los 45.000 del mercado grande son calma y no algo impresionante. Ante cualquier barra de volumen, pregunta primero: ¿es más alta o más baja que las de su alrededor?"

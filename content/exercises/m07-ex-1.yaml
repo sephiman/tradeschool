@@ -3,7 +3,7 @@ type: calculation
 formula: net_pnl
 prompt:
   en: "You open a **{side}** position of **{quantity}** BTC at an entry price of **{entry}** and close it at **{exit}**. The taker fee is **{fee_rate}**, charged on both the opening and the closing fill. What is your net PnL, in USDT?"
-  es: "Abres una posición **{side}** de **{quantity}** BTC a un precio de entrada de **{entry}** y la cierras en **{exit}**. La comisión taker es **{fee_rate}**, cobrada tanto en la ejecución de apertura como en la de cierre. ¿Cuál es tu PnL neto, en USDT?"
+  es: "Abres una posición **{side}** de **{quantity}** BTC a un precio de entrada de **{entry}** y la cierras en **{exit}**. La comisión taker es del **{fee_rate}**, cobrada tanto en la ejecución de apertura como en la de cierre. ¿Cuál es tu PnL neto, en USDT?"
 params:
   # exit sits on a grid offset 500 from entry's, so no draw has exit == entry — there the
   # "read the move the wrong way round" distractor collapses onto the answer (test_mental_cost).

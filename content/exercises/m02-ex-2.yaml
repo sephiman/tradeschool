@@ -173,8 +173,8 @@ variants:
       es: "Una orden de mercado recorre el libro, tomando cada nivel por turno del mejor al peor. Por eso el tamaño en un libro ilíquido se ejecuta cada vez peor: la orden se come su propia liquidez."
   - id: slippage-calc
     prompt:
-      en: "You saw 2.00 on screen and your market buy for 2,000 units filled at an average of 2.026. What was the slippage, and what would a limit buy at 2.00 have done instead?"
-      es: "Veías 2,00 en pantalla y tu compra a mercado de 2.000 unidades se ejecutó a una media de 2,026. ¿Cuál fue el slippage y qué habría hecho en su lugar una compra límite a 2,00?"
+      en: "You saw 2.00 on screen — 500 units were on offer there — and your market buy for 2,000 units filled at an average of 2.026. What was the slippage, and what would a limit buy at 2.00 have done instead?"
+      es: "Veías 2,00 en pantalla —con 500 unidades ofrecidas ahí— y tu compra a mercado de 2.000 unidades se ejecutó a una media de 2,026. ¿Cuál fue el slippage y qué habría hecho en su lugar una compra límite a 2,00?"
     options:
       - id: a
         text:

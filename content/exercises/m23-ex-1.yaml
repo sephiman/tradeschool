@@ -47,7 +47,7 @@ variants:
         correct: true
         text:
           en: "Seconds to a few minutes, and often dozens or hundreds of trades a day."
-          es: "De segundos a unos pocos minutos, y a menudo decenas al día."
+          es: "De segundos a unos pocos minutos, y a menudo decenas o cientos al día."
     explanation:
       en: "Scalping means very short holds — seconds to a few minutes — and often dozens or hundreds of trades a day. Holding for a day is day trading; holding for days is swing trading. And crypto has no open or close to hold between, which is why the styles are defined by duration rather than by a session."
       es: "El scalping son tenencias muy cortas —de segundos a pocos minutos— y a menudo decenas o cientos de operaciones al día. Mantener un día es day trading; mantener varios días es swing trading. Y el cripto no tiene apertura ni cierre entre los que mantener, por eso los estilos se definen por duración y no por una sesión."

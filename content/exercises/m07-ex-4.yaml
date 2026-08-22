@@ -132,7 +132,7 @@ variants:
   - id: paid-twice
     prompt:
       en: "Your taker fee is 0.05%, charged on notional. You open and later close a position with 10,000 USDT of notional on each fill. Ignoring the price change, roughly how much do you pay in fees over the round trip?"
-      es: "Tu comisión taker es del 0,05 %, cobrada sobre el nocional. Abres y más tarde cierras una posición con 10 000 USDT de nocional en cada ejecución. Ignorando el cambio de precio, ¿cuánto pagas aproximadamente en comisiones en el ida y vuelta?"
+      es: "Tu comisión taker es del 0,05 %, cobrada sobre el nocional. Abres y más tarde cierras una posición con 10.000 USDT de nocional en cada ejecución. Ignorando el cambio de precio, ¿cuánto pagas aproximadamente en comisiones en el ida y vuelta?"
     options:
       - id: a
         text:
@@ -153,7 +153,7 @@ variants:
           es: "Depende del apalancamiento: más apalancamiento, menos comisiones."
     explanation:
       en: "0.05% of 10,000 is 5 USDT per fill, and the fee lands on both the open and the close, so about 10 USDT round trip. It is charged on notional whether the trade wins or loses, and leverage raises the bill by letting you carry a bigger notional — it never lowers it."
-      es: "El 0,05 % de 10 000 son 5 USDT por ejecución, y la comisión cae tanto en la apertura como en el cierre, así que unos 10 USDT en el ida y vuelta. Se cobra sobre el nocional gane o pierda la operación, y el apalancamiento sube la factura al permitirte llevar más nocional: nunca la baja."
+      es: "El 0,05 % de 10.000 son 5 USDT por ejecución, y la comisión cae tanto en la apertura como en el cierre, así que unos 10 USDT en el ida y vuelta. Se cobra sobre el nocional gane o pierda la operación, y el apalancamiento sube la factura al permitirte llevar más nocional: nunca la baja."
   - id: funding-not-always-longs
     kind: true_false
     prompt:

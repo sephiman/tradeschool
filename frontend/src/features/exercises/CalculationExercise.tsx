@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/primitives";
 import { FormulaReminder } from "@/features/exercises/FormulaReminder";
 import { InlineCalculator } from "@/features/exercises/InlineCalculator";
 import { cn } from "@/lib/cn";
+import { matchOptionValue } from "@/lib/numbers";
 
 // Practice passes onSubmit (select → submit → grade); exams pass `deferred` (capture-only, no button).
 export function CalculationExercise({
@@ -22,7 +23,7 @@ export function CalculationExercise({
   onSubmit?: (answer: Answer) => void;
   deferred?: Deferred;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showCalc, setShowCalc] = useState(false);
   const [selected, setSelected] = useState<string | null>(
     deferred?.value && "optionId" in deferred.value ? deferred.value.optionId : null,
@@ -34,17 +35,11 @@ export function CalculationExercise({
   };
 
   const handleUseResult = (calcVal: string) => {
+    // The calculator's own display is raw JS; the option labels arrive formatted for the locale
+    // ("70.000", "35,00"), so they have to be read back through the locale before comparing.
     const valNum = parseFloat(calcVal);
     if (isNaN(valNum)) return;
-
-    // Find option with matching value
-    const match = options.find((opt) => {
-      const optStr = String(opt.value);
-      if (optStr === calcVal) return true;
-      const optNum = parseFloat(optStr);
-      return !isNaN(optNum) && Math.abs(optNum - valNum) < 0.001;
-    });
-
+    const match = matchOptionValue(options, valNum, i18n.language);
     if (match) {
       choose(match.id);
     }

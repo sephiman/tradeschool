@@ -204,7 +204,7 @@ variants:
         correct: true
         text:
           en: "The reaction is judged on candles at a location, not a name (m08-l2)."
-          es: "La reacción se juzga por las velas en una ubicación, no por el nombre."
+          es: "La reacción se juzga por las velas en una ubicación, no por el nombre (m08-l2)."
       - id: d
         text:
           en: "Nothing stays the same: zone entries replace level ones, so the stop moves."

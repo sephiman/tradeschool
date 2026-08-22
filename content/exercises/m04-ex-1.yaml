@@ -3,7 +3,7 @@ type: calculation
 formula: funding_payment
 prompt:
   en: "You are holding a **{side}** perpetual position with a notional value of **{notional} USDT** when funding is charged. The funding rate is **{rate}**. What is your funding payment, in USDT? (A negative result means you RECEIVE funding.)"
-  es: "Mantienes una posición perpetua **{side}** con un valor nocional de **{notional} USDT** cuando se cobra el funding. La tasa de funding es **{rate}**. ¿Cuál es tu pago de funding, en USDT? (Un resultado negativo significa que RECIBES funding.)"
+  es: "Mantienes una posición perpetua **{side}** con un valor nocional de **{notional} USDT** cuando se cobra el funding. La tasa de funding es del **{rate}**. ¿Cuál es tu pago de funding, en USDT? (Un resultado negativo significa que RECIBES funding.)"
 params:
   notional: { kind: int_range, min: 2000, max: 20000, step: 500 }
   rate: { kind: choice, values: ["0.0001", "0.0005", "0.001", "-0.0004"] }
@@ -12,5 +12,5 @@ tolerance: { abs: "0.5" }
 round: 2
 unit: USDT
 explanation:
-  en: "Funding = notional × rate × (+1 for a long, −1 for a short). A positive result is money you pay out; a negative result is funding you receive. A positive rate means longs pay shorts, so a long pays and a short receives."
-  es: "Funding = nocional × tasa × (+1 si largo, −1 si corto). Un resultado positivo es dinero que pagas; uno negativo es funding que recibes. Una tasa positiva significa que los largos pagan a los cortos, así que un largo paga y un corto recibe."
+  en: "Funding = notional × rate × (+1 for a long, −1 for a short). A positive result is money you pay out; a negative result is funding you receive. A positive rate means longs pay shorts, so a long pays and a short receives. Exchanges quote funding as a percentage (0.05%, not 0.0005), so convert it once before you multiply — two places left. In your head it is easier the other way round: 1% of the notional is a hundredth of it, and every funding rate you will meet is a small slice of that."
+  es: "Funding = nocional × tasa × (+1 si largo, −1 si corto). Un resultado positivo es dinero que pagas; uno negativo es funding que recibes. Una tasa positiva significa que los largos pagan a los cortos, así que un largo paga y un corto recibe. Los exchanges cotizan el funding en porcentaje (0,05%, no 0,0005), así que conviértelo una vez antes de multiplicar: dos lugares a la izquierda. De cabeza sale mejor al revés: el 1% del nocional es su centésima parte, y toda tasa de funding que verás es una porción pequeña de eso."

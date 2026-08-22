@@ -143,6 +143,20 @@ def _shape(payload: Mapping[str, Any]) -> dict[str, Any]:
     return {**ids, **numbers, "choices": payload.get("choices"), "kind": payload.get("kind")}
 
 
+def _canonical(numeric_value: object, locale: str) -> object:
+    """A printed number back to the value it states, so the two books can be compared as numbers.
+
+    `numericValue` is a LABEL — the exact string the answer key prints, `35,00` in the ES book and
+    `35.00` in the EN one. The two books still owe each other the same VALUE, which is what stripping
+    each locale's separators checks. Spelled out here rather than imported: a guard that borrowed the
+    formatter's own separator table would agree with it by construction.
+    """
+    if not isinstance(numeric_value, str):
+        return numeric_value
+    group, decimal = (".", ",") if locale == "es" else (",", ".")
+    return numeric_value.replace(group, "").replace(decimal, ".")
+
+
 def test_the_two_locales_print_the_same_instances() -> None:
     """Same seeds, same instance, different words — both books pose identical questions."""
     en = {ex["id"]: ex for ex in printed("en")}
@@ -152,8 +166,12 @@ def test_the_two_locales_print_the_same_instances() -> None:
         assert exercise["seed"] == es[eid]["seed"]
         assert _shape(exercise["payload"]) == _shape(es[eid]["payload"]), f"{eid} differs per locale"
         # And the same answer: the key points at the same options and the same bars in both books.
-        for key in ("kind", "optionIds", "order", "pairs", "value", "numericValue", "label"):
+        for key in ("kind", "optionIds", "order", "pairs", "value", "label"):
             assert exercise["answer"].get(key) == es[eid]["answer"].get(key), f"{eid}: {key}"
+        # The one key that is a printed number rather than an id: same value, each book's separators.
+        assert _canonical(exercise["answer"].get("numericValue"), "en") == _canonical(
+            es[eid]["answer"].get("numericValue"), "es"
+        ), f"{eid}: numericValue"
         assert [a["index"] for a in exercise["answer"].get("anchors", [])] == [
             a["index"] for a in es[eid]["answer"].get("anchors", [])
         ]

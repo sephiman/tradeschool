@@ -86,20 +86,20 @@ variants:
       es: "Comprar el toque da por hecho que el nivel aguanta; esperar la reacción exige pruebas y te deja rechazar la operación si la reacción nunca llega. Fíjate en lo que no hace: no garantiza nada, y te cuesta un precio peor que el toque. Pagas ese poco de precio a cambio de pruebas."
   - id: r-multiple
     prompt:
-      en: "You risk 1R and your target is 3,7R away. Entry 60.300, stop 59.300 (risk 1.000). Roughly where is the target?"
+      en: "You risk 1R and your target is 3.7R away. Entry 60,300, stop 59,300 (risk 1,000). Roughly where is the target?"
       es: "Arriesgas 1R y tu objetivo está a 3,7R. Entrada 60.300, stop 59.300 (riesgo 1.000). ¿Dónde está aproximadamente el objetivo?"
     options:
       - id: a
         correct: true
-        text: { en: "Around 64.000 (about 3.700 above the entry)", es: "Alrededor de 64.000 (unos 3.700 sobre la entrada)" }
+        text: { en: "Around 64,000 (about 3,700 above the entry)", es: "Alrededor de 64.000 (unos 3.700 sobre la entrada)" }
       - id: b
-        text: { en: "Around 59.300 (at the stop itself)", es: "Alrededor de 59.300 (en el propio stop)" }
+        text: { en: "Around 59,300 (at the stop itself)", es: "Alrededor de 59.300 (en el propio stop)" }
       - id: c
-        text: { en: "Around 60.700 (about 400 above entry)", es: "Alrededor de 60.700 (unos 400 sobre la entrada)" }
+        text: { en: "Around 60,700 (about 400 above entry)", es: "Alrededor de 60.700 (unos 400 sobre la entrada)" }
       - id: d
-        text: { en: "Around 71.000 (about 10.700 above)", es: "Alrededor de 71.000 (unos 10.700 arriba)" }
+        text: { en: "Around 71,000 (about 10,700 above)", es: "Alrededor de 71.000 (unos 10.700 arriba)" }
     explanation:
-      en: "1R is the stop distance, 1.000. 3,7R ≈ 3.700 above the 60.300 entry ≈ 64.000. The wrong answers each mistake what R measures: 0,4R away, R below entry instead of above, and 10,7R. Expressing targets in R keeps every trade comparable regardless of price."
+      en: "1R is the stop distance, 1,000. 3.7R ≈ 3,700 above the 60,300 entry ≈ 64,000. The wrong answers each mistake what R measures: 0.4R away, R below entry instead of above, and 10.7R. Expressing targets in R keeps every trade comparable regardless of price."
       es: "1R es la distancia del stop, 1.000. 3,7R ≈ 3.700 por encima de la entrada de 60.300 ≈ 64.000. Cada respuesta errónea confunde qué mide la R: 0,4R de distancia, 1R por debajo en vez de por encima, y 10,7R. Expresar objetivos en R mantiene toda operación comparable sin importar el precio."
   - id: context-first
     prompt:

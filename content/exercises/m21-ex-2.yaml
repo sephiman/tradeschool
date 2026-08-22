@@ -3,8 +3,8 @@ type: quiz
 variants:
   - id: leg-liquidation
     prompt:
-      en: "You are long 1 BTC spot and short 1 BTC of perpetual, with 20,000 USDT of collateral behind the short. BTC rallies 30%. What happens?"
-      es: "Tienes 1 BTC en spot y un corto de 1 BTC de perpetuo, con 20.000 USDT de colateral detrás del corto. El BTC sube un 30%. ¿Qué pasa?"
+      en: "You are long 1 BTC spot bought at 60,000 and short 1 BTC of perpetual against it, with 15,000 USDT of collateral behind the short. BTC rallies 30%. What happens?"
+      es: "Tienes 1 BTC en spot comprado a 60.000 y un corto de 1 BTC de perpetuo contra él, con 15.000 USDT de colateral detrás del corto. El BTC sube un 30%. ¿Qué pasa?"
     options:
       - id: a
         text:
@@ -24,8 +24,8 @@ variants:
           en: "Funding turns strongly positive, which covers the short's losses."
           es: "El funding se vuelve muy positivo y eso cubre las pérdidas del corto."
     explanation:
-      en: "The exchange does not liquidate wholes. It liquidates positions, against the margin in their own account, and it does not know your spot exists — m06's mechanics unchanged. The short is 18,000 down against 20,000 of collateral, so it goes long before the rally ends, and the spot never rescues it. You end up holding the winning leg of a hedge whose losing leg was closed at the worst possible price. Delta-neutral is not margin-neutral."
-      es: "El exchange no liquida conjuntos. Liquida posiciones, contra el margen de su propia cuenta, y no sabe que tu spot existe: la mecánica de m06 sin cambios. El corto pierde 18.000 contra 20.000 de colateral, así que se va mucho antes de que el rally termine, y el spot no lo rescata nunca. Acabas con la pata ganadora de una cobertura cuya pata perdedora se cerró al peor precio posible. Delta neutral no es margen neutral."
+      en: "The exchange does not liquidate wholes. It liquidates positions, against the margin in their own account, and it does not know your spot exists — m06's mechanics unchanged. 15,000 behind a 60,000 short is 4× leverage, so m06's formula puts liquidation at 60,000 × (1 + 1/4 − 0.005) = 74,700, about 24.5% up: the short is closed with its collateral wiped while the rally is still going, and the spot leg runs on to be 18,000 up. The spot never rescues it. You end up holding the winning leg of a hedge whose losing leg was closed at the worst possible price. Delta-neutral is not margin-neutral."
+      es: "El exchange no liquida conjuntos. Liquida posiciones, contra el margen de su propia cuenta, y no sabe que tu spot existe: la mecánica de m06 sin cambios. 15.000 detrás de un corto de 60.000 son 4× de apalancamiento, así que la fórmula de m06 pone la liquidación en 60.000 × (1 + 1/4 − 0,005) = 74.700, un 24,5% arriba: el corto se cierra con su colateral barrido mientras el rally sigue, y la pata de spot continúa hasta ganar 18.000. El spot no lo rescata nunca. Acabas con la pata ganadora de una cobertura cuya pata perdedora se cerró al peor precio posible. Delta neutral no es margen neutral."
   - id: how-to-survive-it
     prompt:
       en: "How do you actually protect a cash-and-carry against the short leg being liquidated?"

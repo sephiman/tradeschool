@@ -175,6 +175,22 @@ Open <http://localhost:5173>, register an account, and review the full course:
   test (the last candles cannot predict the answer); every classification chart is guarded by the
   credibility test (the final candles are ambient noise, never a synthetic spike) plus a
   structure-matches-label test asserting the on-screen geometry really encodes the answer.
+- **Generated numbers are printed for the reader, and rates are printed as rates:** authored text has
+  always been written per locale, but numbers a generator *substitutes* — a calculation prompt's
+  parameters, its option labels, its worked solution — used to emit raw Python into both books, so an
+  ES page could carry `70000 USDT` and `0.0005` inside Spanish prose. One formatter
+  (`content/numbers.py`) now serves the app, the PDF and the answer key alike; nothing formats a number
+  in TypeScript, and the frontend's only counterpart is a *parser*, so the inline calculator can tell
+  which option `70.000` is. Rates go one step further: they are **held as a fraction** (what the
+  arithmetic multiplies by) and **stated as a percentage** (what an exchange actually shows you), with
+  the worked solution converting `0.05% = 0.0005` back exactly once — which is itself the skill.
+  Declared on the formula rather than in the content, so a prompt cannot drift from its own units.
+  The prose hung off those numbers is localized too — the unit on a result, the verdict in
+  parentheses, the closing sentence about what the figure does *not* tell you — so an ES worked
+  solution no longer ends on `= 0,6 units`; only the formula skeleton's identifiers stay English.
+  `tests/test_exercise_numbers.py` holds all of it: no generated string carries the other locale's
+  number form, no worked-solution prose reaches an ES reader in English, and the key always quotes a
+  label the option list shows.
 - **The answer's *shape* never reveals it:** a longer, more carefully-hedged option is the oldest tell in
   multiple choice, and writing distractors as throwaways is what creates it. So each distractor names a
   concrete but *wrong* mechanism — ideally a misconception the course explicitly warns about — and the

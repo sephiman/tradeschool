@@ -3,7 +3,7 @@ type: quiz
 variants:
   - id: move-stop-away
     prompt:
-      en: "You are long from 60.300 with a stop at 59.300. Price falls to 59.500 and looks likely to hit the stop. You slide the stop down to 58.000 to 'give it room'. What did you just do?"
+      en: "You are long from 60,300 with a stop at 59,300. Price falls to 59,500 and looks likely to hit the stop. You slide the stop down to 58,000 to 'give it room'. What did you just do?"
       es: "Estás largo desde 60.300 con el stop en 59.300. El precio cae a 59.500 y parece que va a tocar el stop. Deslizas el stop a 58.000 para «darle espacio». ¿Qué acabas de hacer?"
     options:
       - id: a
@@ -28,7 +28,7 @@ variants:
       es: "Mover el stop en contra es el pecado capital de la gestión en vivo: convierte una pérdida conocida y presupuestada en una abierta. No reduce el riesgo: el tamaño de la posición no cambia, así que un stop más ancho es una pérdida estrictamente mayor en dinero. El stop solo se mueve a favor; ensancharlo es como un riesgo del 1% se vuelve una liquidación."
   - id: breakeven-legit
     prompt:
-      en: "Long from 60.300, stop 59.300. Price rises to 62.300, then pulls back and forms a clear higher low at 61.200. Moving your stop up to break-even (60.300) is:"
+      en: "Long from 60,300, stop 59,300. Price rises to 62,300, then pulls back and forms a clear higher low at 61,200. Moving your stop up to break-even (60,300) is:"
       es: "Largo desde 60.300, stop 59.300. El precio sube a 62.300, luego retrocede y forma un mínimo más alto claro en 61.200. Subir tu stop a break-even (60.300) es:"
     options:
       - id: a
@@ -49,11 +49,11 @@ variants:
           en: "Pointless — a break-even stop can only ever produce a zero result."
           es: "Inútil: un stop en break-even solo puede producir un resultado de cero."
     explanation:
-      en: "The stop moving in the trade's favour, justified by fresh structure, is exactly the legitimate case: the higher low at 61.200 is the chart's own evidence that 60.300 should no longer trade. The rule forbids moving a stop AWAY, not moving it up behind a confirmed low, and a break-even stop still leaves the whole upside to target open."
+      en: "The stop moving in the trade's favour, justified by fresh structure, is exactly the legitimate case: the higher low at 61,200 is the chart's own evidence that 60,300 should no longer trade. The rule forbids moving a stop AWAY, not moving it up behind a confirmed low, and a break-even stop still leaves the whole upside to target open."
       es: "El stop moviéndose a favor de la operación, justificado por estructura nueva, es justo el caso legítimo: el mínimo más alto en 61.200 es la prueba del propio gráfico de que 60.300 ya no debería negociarse. La regla prohíbe mover el stop EN CONTRA, no subirlo tras un mínimo confirmado, y un stop en break-even deja intacto todo el recorrido al objetivo."
   - id: breakeven-fear
     prompt:
-      en: "Long from 60.300, stop 59.300, target 64.000. One green candle prints to 60.600 (still well inside the range, no new structure). You snap the stop to break-even. Most likely result?"
+      en: "Long from 60,300, stop 59,300, target 64,000. One green candle prints to 60,600 (still well inside the range, no new structure). You snap the stop to break-even. Most likely result?"
       es: "Largo desde 60.300, stop 59.300, objetivo 64.000. Se imprime una vela verde hasta 60.600 (aún dentro del rango, sin estructura nueva). Pegas el stop a break-even. ¿Resultado más probable?"
     options:
       - id: a
@@ -71,10 +71,10 @@ variants:
       - id: d
         correct: true
         text:
-          en: "A noise wick taps 60.300, stops you out, and the move runs without you."
+          en: "A noise wick taps 60,300, stops you out, and the move runs without you."
           es: "Una mecha de ruido toca 60.300 y el movimiento corre sin ti."
     explanation:
-      en: "Moving to break-even before any new structure chokes the trade: 60.300 is still inside the band price is oscillating in, so you have placed the stop where noise alone will reach it. You exit for zero — not a profit — and the position is gone before the idea had room to play out. Break-even is earned by a higher low, not by the first green candle."
+      en: "Moving to break-even before any new structure chokes the trade: 60,300 is still inside the band price is oscillating in, so you have placed the stop where noise alone will reach it. You exit for zero — not a profit — and the position is gone before the idea had room to play out. Break-even is earned by a higher low, not by the first green candle."
       es: "Mover a break-even antes de cualquier estructura nueva ahoga la operación: 60.300 sigue dentro de la banda en la que oscila el precio, así que has puesto el stop donde el ruido solo ya llega. Sales por cero —no con beneficio— y la posición desaparece antes de que la idea tuviera espacio. El break-even se gana con un mínimo más alto, no con la primera vela verde."
   - id: do-nothing
     prompt:
@@ -165,7 +165,7 @@ variants:
       es: "Los parciales son una herramienta legítima pero no un regalo: limitan el recorrido de la parte que vendiste, así que en muchas operaciones la R media baja a cambio de menos carga emocional y una curva más suave. Es una elección, y pertenece al plan, no al calor del momento."
   - id: daily-stop-scenario
     prompt:
-      en: "Your plan says: risk 1% per trade (100 USDT on a 10.000 USDT account) and a daily stop at −2% (200 USDT). Today you have taken two full stop-outs, so you are −200 USDT. An hour later a textbook setup appears. What does the plan say you do?"
+      en: "Your plan says: risk 1% per trade (100 USDT on a 10,000 USDT account) and a daily stop at −2% (200 USDT). Today you have taken two full stop-outs, so you are −200 USDT. An hour later a textbook setup appears. What does the plan say you do?"
       es: "Tu plan dice: arriesgar el 1% por operación (100 USDT en una cuenta de 10.000 USDT) y un freno diario en −2% (200 USDT). Hoy has encajado dos stops completos, así que estás en −200 USDT. Una hora después aparece un setup de manual. ¿Qué dice el plan que hagas?"
     options:
       - id: a

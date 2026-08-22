@@ -9,12 +9,14 @@ anchors, so a reseed or re-anchor of that figure fails here naming the m04 prose
 
 from __future__ import annotations
 
+from decimal import Decimal
 from pathlib import Path
 
 import pytest
 import yaml
 
 from tradeschool.config import get_settings
+from tradeschool.content.numbers import format_number
 from tradeschool.content.registry import load_registry
 from tradeschool.content.schema import LOCALES
 
@@ -23,9 +25,14 @@ _LIQ_FACTOR_10X = 1 - 0.10 + 0.005
 
 
 def _fmt(value: float, locale: str) -> str:
-    """The way the prose prints these numbers: thousands separators, decimals only when real."""
-    text = f"{value:,.2f}" if value % 1 else f"{int(value):,}"
-    return text.translate({44: ".", 46: ","}) if locale == "es" else text
+    """The way the prose prints these numbers: thousands separators, decimals only when real.
+
+    Deliberately the exercise layer's own formatter (2026-08-22): one course, one way to print a
+    number. If hand-written prose and generated exercises ever disagree about that, this guard is
+    where it surfaces, rather than on a page showing both.
+    """
+    number = Decimal(f"{value:.2f}") if value % 1 else Decimal(int(value))
+    return format_number(number, locale)
 
 
 def _flat(markdown: str) -> str:

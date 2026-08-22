@@ -9,7 +9,7 @@ params:
   max_supply: { kind: int_range, min: 500, max: 6000, step: 500 }
 tolerance: { rel: "0.005" }
 round: 2
-unit: million USD
+unit: { en: "million USD", es: "millones de USD" }
 explanation:
   en: "FDV = price × max supply. It values every token that will ever exist at today's price — the hypothetical ceiling. When the FDV dwarfs the market cap, most of the supply is still to be released and price must absorb that future dilution."
   es: "FDV = precio × oferta máxima. Valora al precio de hoy todos los tokens que llegarán a existir: el techo hipotético. Cuando la FDV empequeñece al market cap, la mayor parte de la oferta aún está por liberarse y el precio tendrá que absorber esa dilución futura."

@@ -107,20 +107,20 @@ variants:
           es: "Nada: la inflación afecta a la oferta máxima, no al valor de mercado."
       - id: b
         text:
-          en: "Fall about 30%, because more supply always drags price down in step."
-          es: "Bajar un 30%, porque más oferta siempre arrastra el precio en la misma medida."
+          en: "Fall about 30%, the same figure the supply grows by."
+          es: "Bajar un 30%, lo mismo que crece la oferta."
       - id: c
         text:
-          en: "Rise about 30%, which already shows as a downtrend on the candles."
-          es: "Subir un 30%, algo que ya se ve como una bajista en las velas."
+          en: "Rise about 30%, to offset the new supply arriving."
+          es: "Subir un 30%, para compensar la oferta nueva."
       - id: d
         correct: true
         text:
-          en: "Rise about 30%, just to offset the new supply arriving."
-          es: "Subir alrededor de un 30%, solo para compensar la oferta nueva."
+          en: "Fall about 23% — the same total spread over 30% more tokens."
+          es: "Bajar un 23%: el mismo total repartido entre un 30% más de tokens."
     explanation:
-      en: "Market value is price × circulating supply, so if supply grows 30%, price must climb ~30% just to keep the same total — an inflation headwind you only see by reading the schedule. It is not automatically a price drop, and it does not show up on a candlestick chart by itself, which is precisely what makes it easy to miss."
-      es: "El valor de mercado es precio × oferta circulante, así que si la oferta crece un 30%, el precio debe subir ~30% solo para mantener el mismo total: un viento en contra que solo ves leyendo el calendario. No es automáticamente una caída del precio, y no aparece por sí solo en un gráfico de velas, que es justo lo que lo hace fácil de pasar por alto."
+      en: "Market value is price × circulating supply, so spreading the same total over 30% more tokens leaves price at 1/1.30 of where it started — 77% of it, a 23% fall, without one holder changing their mind. Falling 30% would be subtracting the inflation rate where you have to divide by it. And 'rise about 30%' answers a different question — that is what MARKET VALUE has to do for the price to hold flat, which is to say 30% of fresh buying just to stand still. Either way the drag is invisible on a candlestick; only the emission schedule shows it to you."
+      es: "El valor de mercado es precio × oferta circulante, así que repartir el mismo total entre un 30% más de tokens deja el precio en 1/1,30 de donde estaba —el 77% de aquello, una caída del 23%—, sin que ningún tenedor cambie de opinión. Bajar un 30% sería restar la tasa de inflación donde hay que dividir por ella. Y «subir un 30%» responde a otra pregunta: eso es lo que tiene que hacer el VALOR DE MERCADO para que el precio se mantenga plano, es decir, un 30% de compra nueva solo para no moverse. En cualquier caso el lastre es invisible en un gráfico de velas; solo te lo muestra el calendario de emisión."
   - id: cliff-numbers
     prompt:
       en: "A token has 100 million circulating at $2.00 and trades about 8 million tokens a day. A cliff unlocks a 20-million-token investor tranche on one date. What has just happened to the book?"
