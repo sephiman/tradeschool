@@ -97,12 +97,19 @@ def _sample_params(config: CalculationConfig, seed: int) -> dict[str, object]:
 def _mc_options(
     config: CalculationConfig, seed: int
 ) -> tuple[dict[str, object], Decimal, list[dict[str, str]], str, dict[str, str | None]]:
-    """Shuffled options for a seed: (params, result, options, correct id, {option id -> mistake}).
+    """Shuffled options for a seed: (params, result, options, correct id, {option id -> mistake})."""
+    params = _sample_params(config, seed)
+    return (params, *_options_for_params(config, params, seed * 1000 + 7))
+
+
+def _options_for_params(
+    config: CalculationConfig, params: dict[str, object], order_seed: int
+) -> tuple[Decimal, list[dict[str, str]], str, dict[str, str | None]]:
+    """Options for known params (the mental-cost guard sweeps the whole space through this).
 
     Distractors are deduped after rounding and held to the same order of magnitude, so none is
     eliminable by size alone.
     """
-    params = _sample_params(config, seed)
     formula = get_formula(config.formula)
     expected = formula.compute(params)
     q = Decimal(10) ** -config.round
@@ -131,7 +138,7 @@ def _mc_options(
 
     entries: list[tuple[Decimal, str | None]] = [(correct_r, None), *picks]
     order = list(range(len(entries)))
-    rng_for(seed * 1000 + 7).shuffle(order)
+    rng_for(order_seed).shuffle(order)
     options: list[dict[str, str]] = []
     diag: dict[str, str | None] = {}
     correct_id = "o0"
@@ -142,7 +149,7 @@ def _mc_options(
         diag[oid] = mistake
         if mistake is None:
             correct_id = oid
-    return params, expected, options, correct_id, diag
+    return expected, options, correct_id, diag
 
 
 class CalculationGenerator(ExerciseGenerator):
@@ -202,8 +209,8 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
     "use the wrong side (flip the sign)": "usar el lado equivocado (invertir el signo)",
     "count two funding intervals": "contar dos intervalos de financiación",
     "count only half an interval": "contar solo medio intervalo",
-    "forget to divide by leverage (use the full notional)": (
-        "olvidar dividir entre el apalancamiento (usar el notional completo)"
+    "compute the margin for only half the position": (
+        "calcular el margen de solo media posición"
     ),
     "divide by leverage minus one": "dividir entre apalancamiento menos uno",
     "divide by leverage plus one": "dividir entre apalancamiento más uno",
@@ -219,8 +226,10 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
     "use a supply figure ~1.4x too large": "usar una cifra de oferta ~1.4x mayor",
     "slip a decimal on the price (~0.9x)": "deslizar un decimal en el precio (~0.9x)",
     "double the risk percentage": "duplicar el porcentaje de riesgo",
-    "halve the stop distance": "reducir a la mitad la distancia al stop",
-    "assume 1% risk instead of the given percentage": "asumir un riesgo del 1% en lugar del porcentaje dado",
+    "halve the risk percentage": "reducir a la mitad el porcentaje de riesgo",
+    "slip a decimal and size ten times too small": (
+        "correr un decimal y calcular un tamaño diez veces menor"
+    ),
     "use the win rate for losses too (forget 1 - win%)": (
         "usar la tasa de acierto para las pérdidas (olvidar 1 - win%)"
     ),

@@ -220,3 +220,20 @@ quotes m06-l1's entry, 10× liquidation and cascade wick), `backend/tests/test_c
 derives the reused values from the same coupled anchors and demands both lessons print them — so a
 re-anchor of the source lesson fails naming the borrower, instead of quietly stranding it (which is
 exactly what the 2026-08-02 pass did to m04 until 2026-08-10).
+
+## Exercise numbers: friendly by design (the mental-cost guard)
+
+Calculation exercises draw random parameters, so the digits a learner meets are a property of the
+GRID, not of any instance — and since 2026-08-22 the grids are co-designed so that **every drawable
+combination** lands every solver-visible value (intermediates and final) at mental cost:
+multiplicative results terminate at ≤1 decimal (≤2 below 10) and fit — themselves or their double —
+in 3 significant digits; additive steps only need alignment. The same guard demands that all three
+named-mistake distractors survive dedupe on every draw (a collapsed one used to ship as a generic
+"arithmetic slip" filler) and that options stay ≥4 display quanta apart.
+
+`backend/tests/test_mental_cost.py` enforces all of it over the full parameter space of every
+calculation exercise. When adding or editing one: pick step sizes and rate choices **jointly** (round
+inputs alone do not qualify — 60.000 × a 0,005% rate is still ugly), run the guard, and adjust the
+grid until it is green. The structurally-heavy trio (m23-ex-5 and quiz variants m23-ex-2
+`three-bills`, m24-ex-4 `slippage-worked`) is exempted BY NAME in the test with its flag note — an
+exemption that stops matching real content fails the suite.

@@ -194,8 +194,8 @@ variants:
       es: "El movimiento bruto del precio es solo la materia prima. Todo lo de en medio se resta antes de que algo llegue a tu saldo, y por eso un movimiento apenas positivo puede acabar en pérdida."
   - id: three-percentages
     prompt:
-      en: "You go long 1 BTC at 20,000 with 5× leverage (4,000 margin), hold three days and close at 20,400. Fees are 22.22 USDT and funding cost 18 USDT. Which set of numbers describes the trade?"
-      es: "Te pones largo 1 BTC en 20.000 con 5× de apalancamiento (4.000 de margen), lo mantienes tres días y cierras en 20.400. Las comisiones son 22,22 USDT y el funding costó 18 USDT. ¿Qué conjunto de números describe la operación?"
+      en: "You go long 1 BTC at 20,000 with 5× leverage (4,000 margin), hold three days and close at 20,400. Fees are 22 USDT and funding cost 18 USDT. Which set of numbers describes the trade?"
+      es: "Te pones largo 1 BTC en 20.000 con 5× de apalancamiento (4.000 de margen), lo mantienes tres días y cierras en 20.400. Las comisiones son 22 USDT y el funding costó 18 USDT. ¿Qué conjunto de números describe la operación?"
     options:
       - id: a
         text:
@@ -215,8 +215,8 @@ variants:
           en: "+10% gross on margin and +9.0% net, with the fees charged on margin."
           es: "+10% bruto sobre margen y +9,0% neto, con las comisiones cobradas sobre el margen."
     explanation:
-      en: "Gross PnL is 400; net is 400 − 22.22 − 18 = 359.78. That is 1.80% of the 20,000 notional and 9.0% of the 4,000 margin — three different percentages for one trade, and only net-on-margin is what your balance actually did. Costs are charged against notional, which is exactly why leverage magnifies them alongside the gain."
-      es: "El PnL bruto es 400; el neto es 400 − 22,22 − 18 = 359,78. Eso es el 1,80% del nocional de 20.000 y el 9,0% del margen de 4.000: tres porcentajes distintos para una operación, y solo el neto sobre margen es lo que hizo de verdad tu saldo. Los costes se cobran contra el nocional, y por eso el apalancamiento los amplifica junto a la ganancia."
+      en: "Gross PnL is 400; net is 400 − 22 − 18 = 360. That is 1.80% of the 20,000 notional and 9.0% of the 4,000 margin — three different percentages for one trade, and only net-on-margin is what your balance actually did. Costs are charged against notional, which is exactly why leverage magnifies them alongside the gain."
+      es: "El PnL bruto es 400; el neto es 400 − 22 − 18 = 360. Eso es el 1,80% del nocional de 20.000 y el 9,0% del margen de 4.000: tres porcentajes distintos para una operación, y solo el neto sobre margen es lo que hizo de verdad tu saldo. Los costes se cobran contra el nocional, y por eso el apalancamiento los amplifica junto a la ganancia."
   - id: small-move-loss
     prompt:
       en: "Same 20,000 USDT notional position and same three-day hold, but the move is only +0.15% (+30 USDT gross). Fees are ~22 USDT and funding ~18 USDT. What is the result?"

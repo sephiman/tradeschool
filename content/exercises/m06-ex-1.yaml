@@ -5,9 +5,9 @@ prompt:
   en: "You open a **{side}** position at an entry price of **{entry}** with **{leverage}×** leverage (isolated margin). The maintenance-margin rate is **{mmr}**. What is the liquidation price?"
   es: "Abres una posición **{side}** a un precio de entrada de **{entry}** con **{leverage}×** de apalancamiento (margen aislado). La tasa de margen de mantenimiento es **{mmr}**. ¿Cuál es el precio de liquidación?"
 params:
-  entry: { kind: int_range, min: 8000, max: 60000, step: 100 }
-  leverage: { kind: choice, values: ["3", "5", "10", "20", "25"] }
-  mmr: { kind: choice, values: ["0.004", "0.005", "0.0075"] }
+  entry: { kind: choice, values: ["10000", "20000", "40000", "60000"] }
+  leverage: { kind: choice, values: ["5", "10", "20", "25"] }
+  mmr: { kind: choice, values: ["0.005", "0.01"] }
   side: { kind: choice, values: ["long", "short"] }
 tolerance: { rel: "0.001" }
 round: 2

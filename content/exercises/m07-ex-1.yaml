@@ -5,11 +5,13 @@ prompt:
   en: "You open a **{side}** position of **{quantity}** BTC at an entry price of **{entry}** and close it at **{exit}**. The taker fee is **{fee_rate}**, charged on both the opening and the closing fill. What is your net PnL, in USDT?"
   es: "Abres una posición **{side}** de **{quantity}** BTC a un precio de entrada de **{entry}** y la cierras en **{exit}**. La comisión taker es **{fee_rate}**, cobrada tanto en la ejecución de apertura como en la de cierre. ¿Cuál es tu PnL neto, en USDT?"
 params:
-  entry: { kind: int_range, min: 25000, max: 45000, step: 500 }
-  exit: { kind: int_range, min: 25000, max: 45000, step: 500 }
-  quantity: { kind: choice, values: ["0.1", "0.25", "0.5"] }
+  # exit sits on a grid offset 500 from entry's, so no draw has exit == entry — there the
+  # "read the move the wrong way round" distractor collapses onto the answer (test_mental_cost).
+  entry: { kind: int_range, min: 25000, max: 45000, step: 2500 }
+  exit: { kind: int_range, min: 25500, max: 45500, step: 2500 }
+  quantity: { kind: choice, values: ["0.1", "0.5"] }
   side: { kind: choice, values: ["long"] }
-  fee_rate: { kind: choice, values: ["0.0002", "0.0004", "0.00055"] }
+  fee_rate: { kind: choice, values: ["0.0002", "0.0004"] }
 tolerance: { abs: "1" }
 round: 2
 unit: USDT

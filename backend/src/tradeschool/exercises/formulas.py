@@ -309,10 +309,13 @@ def _funding_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
 
 
 def _initial_margin_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
+    # 2026-08-22 (test_mental_cost): the old "forget to divide by leverage" candidate is lev-times the
+    # answer, so the same-order-of-magnitude filter dropped it on most draws above ~8x and a
+    # generic filler took its slot. Every candidate here survives that filter for every draw.
     notional = _dec(p["entry"]) * _dec(p["quantity"])
     lev = _dec(p["leverage"])
     return [
-        ("forget to divide by leverage (use the full notional)", notional),
+        ("compute the margin for only half the position", notional / lev / 2),
         ("divide by leverage minus one", notional / (lev - 1) if lev > 1 else notional * 2),
         ("divide by leverage plus one", notional / (lev + 1)),
     ]
@@ -347,12 +350,16 @@ def _fdv_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
 
 
 def _position_size_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
+    # 2026-08-22 (test_mental_cost): the old trio was structurally broken — "halve the stop
+    # distance" equals "double the risk percentage" for EVERY draw, and "assume 1%" equals the
+    # answer whenever the given risk is 1%, so a generic filler shipped on every instance. These
+    # three are pairwise distinct and inside the magnitude filter for all params.
     risk_amount = _dec(p["equity"]) * _dec(p["risk_pct"])
     stop = _dec(p["stop_distance"])
     return [
         ("double the risk percentage", 2 * risk_amount / stop),
-        ("halve the stop distance", risk_amount / (stop / 2)),
-        ("assume 1% risk instead of the given percentage", _dec(p["equity"]) * Decimal("0.01") / stop),
+        ("halve the risk percentage", risk_amount / 2 / stop),
+        ("slip a decimal and size ten times too small", risk_amount / stop / 10),
     ]
 
 

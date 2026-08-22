@@ -5,9 +5,13 @@ prompt:
   en: "Over many trades your **win rate is {win_rate}** (the fraction of trades that end in profit). Your average winning trade makes **{avg_win} USDT** and your average losing trade loses **{avg_loss} USDT**. What is the expectancy per trade?"
   es: "A lo largo de muchas operaciones tu **win rate es {win_rate}** (la fracción de operaciones que acaban en ganancia). Tu operación ganadora media gana **{avg_win} USDT** y tu operación perdedora media pierde **{avg_loss} USDT**. ¿Cuál es la esperanza (expectancy) por operación?"
 params:
-  win_rate: { kind: choice, values: ["0.45", "0.5", "0.55"] }
-  avg_win: { kind: int_range, min: 120, max: 320, step: 10 }
-  avg_loss: { kind: int_range, min: 90, max: 240, step: 10 }
+  # 0.5 is out: there the "use the win rate for losses too" distractor equals the answer. The
+  # loss grid sits clearly above the win grid so every draw's expectancy is decisively negative —
+  # near-zero draws size-filter the "add the losing side" distractor away (test_mental_cost); the
+  # profitable mirror of this exercise is m25-ex-2.
+  win_rate: { kind: choice, values: ["0.45", "0.55"] }
+  avg_win: { kind: int_range, min: 120, max: 200, step: 40 }
+  avg_loss: { kind: int_range, min: 320, max: 400, step: 40 }
 tolerance: { abs: "1" }
 round: 2
 unit: USDT

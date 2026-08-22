@@ -5,9 +5,11 @@ prompt:
   en: "A trader goes **{leverage}× {side}** on an altcoin from an entry of **{entry}** (isolated). Maintenance margin is **{mmr}**. At what price is the position liquidated?"
   es: "Un trader entra **{leverage}× {side}** en una altcoin desde una entrada de **{entry}** (aislado). El margen de mantenimiento es **{mmr}**. ¿A qué precio se liquida la posición?"
 params:
-  entry: { kind: int_range, min: 100, max: 5000, step: 10 }
+  entry: { kind: choice, values: ["100", "200", "400", "600", "1000", "2000", "4000"] }
   leverage: { kind: choice, values: ["5", "10", "20", "50"] }
-  mmr: { kind: choice, values: ["0.005", "0.01"] }
+  # 0.005 only: with 0.01 the 50x draws land 1/leverage == 2*mmr, where the "double the cushion"
+  # and "wrong mmr sign" distractors collapse into one value (test_mental_cost).
+  mmr: { kind: choice, values: ["0.005"] }
   side: { kind: choice, values: ["long", "short"] }
 tolerance: { rel: "0.001" }
 round: 2

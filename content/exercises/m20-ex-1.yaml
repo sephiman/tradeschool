@@ -6,7 +6,7 @@ prompt:
   es: "Un token cotiza a **{price} USD** y su oferta circulante es de **{circulating} millones de tokens**. ¿Cuál es su capitalización de mercado? Da la respuesta en millones de USD."
 params:
   price: { kind: choice, values: ["0.5", "1.2", "3.5", "12", "85"] }
-  circulating: { kind: int_range, min: 50, max: 1500, step: 10 }
+  circulating: { kind: int_range, min: 100, max: 1500, step: 100 }
 tolerance: { rel: "0.005" }
 round: 2
 unit: million USD

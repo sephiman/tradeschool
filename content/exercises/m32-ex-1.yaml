@@ -7,8 +7,11 @@ prompt:
   en: "At the same instant, BTC trades at **{price_a} USDT** on the reference venue and at **{price_b} USDT** (converted) on a regional venue. What is the regional venue's premium, as a percentage?"
   es: "En el mismo instante, BTC cotiza a **{price_a} USDT** en el exchange de referencia y a **{price_b} USDT** (convertido) en un exchange regional. ¿Cuál es la prima del exchange regional, en porcentaje?"
 params:
-  price_a: { kind: int_range, min: 59000, max: 60000, step: 200 }
-  price_b: { kind: int_range, min: 60200, max: 61000, step: 200 }
+  # price_a is pinned to one round reference: params sample independently, so a friendly premium
+  # for EVERY draw needs a fixed denominator (this is also the explanation's own 60,000 / 900 /
+  # 1.5% worked example). price_b's grid keeps the premium on clean half-percent steps, 1%-2.5%.
+  price_a: { kind: choice, values: ["60000"] }
+  price_b: { kind: int_range, min: 60600, max: 61500, step: 300 }
 tolerance: { rel: "0.001" }
 round: 3
 unit: "%"

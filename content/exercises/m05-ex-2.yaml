@@ -5,9 +5,9 @@ prompt:
   en: "A trader shorts **{quantity}** units of an altcoin priced at **{entry}** USDT, using **{leverage}×** leverage. What is the initial margin (in USDT) required to open this position?"
   es: "Un trader abre un short de **{quantity}** unidades de una altcoin cotizada a **{entry}** USDT, usando **{leverage}×** de apalancamiento. ¿Cuál es el margen inicial (en USDT) necesario para abrir esta posición?"
 params:
-  entry: { kind: int_range, min: 800, max: 6000, step: 20 }
-  quantity: { kind: choice, values: ["0.1", "0.25", "0.5", "1", "2"] }
-  leverage: { kind: choice, values: ["3", "5", "10", "20", "25"] }
+  entry: { kind: int_range, min: 800, max: 6000, step: 100 }
+  quantity: { kind: choice, values: ["0.1", "0.5", "1", "2"] }
+  leverage: { kind: choice, values: ["5", "10", "20", "25"] }
 tolerance: { rel: "0.005" }
 round: 2
 unit: USDT

@@ -6,7 +6,7 @@ prompt:
   es: "Un token cotiza a **{price} USD** y su oferta máxima es de **{max_supply} millones de tokens** (todos los que existirán jamás). ¿Cuál es su valoración totalmente diluida (FDV)? Da la respuesta en millones de USD."
 params:
   price: { kind: choice, values: ["0.5", "1.2", "3.5", "12", "85"] }
-  max_supply: { kind: int_range, min: 500, max: 8000, step: 50 }
+  max_supply: { kind: int_range, min: 500, max: 6000, step: 500 }
 tolerance: { rel: "0.005" }
 round: 2
 unit: million USD

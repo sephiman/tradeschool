@@ -28,18 +28,18 @@ variants:
       es: "Esperanza = win% × ganancia media − loss% × pérdida media. Combina con qué frecuencia ganas con cuánto ganas y pierdes en una media por operación: positiva significa que gana dinero con el tiempo, negativa que pierde. No es el win rate —que es solo una de sus entradas—, ni una pérdida máxima, ni las probabilidades de la próxima operación."
   - id: low-winrate-better
     prompt:
-      en: "System A wins 35% of trades, average win 300, average loss 100. System B wins 80% of trades, average win 40, average loss 300. Which is the better system to trade?"
-      es: "El sistema A gana el 35% de las operaciones, ganancia media 300, pérdida media 100. El sistema B gana el 80%, ganancia media 40, pérdida media 300. ¿Cuál es el mejor sistema para operar?"
+      en: "System A wins 25% of trades, average win 500, average loss 100. System B wins 75% of trades, average win 60, average loss 300. Which is the better system to trade?"
+      es: "El sistema A gana el 25% de las operaciones, ganancia media 500, pérdida media 100. El sistema B gana el 75%, ganancia media 60, pérdida media 300. ¿Cuál es el mejor sistema para operar?"
     options:
       - id: a
         text:
-          en: "System B — an 80% win rate clearly makes it the more profitable one."
-          es: "El sistema B: un 80% de acierto lo hace claramente más rentable."
+          en: "System B — a 75% win rate clearly makes it the more profitable one."
+          es: "El sistema B: un 75% de acierto lo hace claramente más rentable."
       - id: b
         correct: true
         text:
-          en: "System A — its expectancy is +40 a trade against B's −28."
-          es: "El sistema A: su esperanza es +40 por operación frente a −28 del B."
+          en: "System A — its expectancy is +50 a trade against B's −30."
+          es: "El sistema A: su esperanza es +50 por operación frente a −30 del B."
       - id: c
         text:
           en: "System B — winning more often always means running a lower risk."
@@ -49,8 +49,8 @@ variants:
           en: "Impossible to say without knowing the leverage each one is traded with."
           es: "Imposible decirlo sin saber con qué apalancamiento se opera cada uno."
     explanation:
-      en: "A's expectancy = 0.35 × 300 − 0.65 × 100 = +40; B's = 0.80 × 40 − 0.20 × 300 = −28. Despite its low win rate A makes money, while B loses it despite winning four times out of five: the high win rate did not save B, because its losers are far bigger than its winners. Win rate and payoff only mean something together — and leverage is irrelevant to which system has an edge."
-      es: "La esperanza de A = 0,35 × 300 − 0,65 × 100 = +40; la de B = 0,80 × 40 − 0,20 × 300 = −28. Pese a su win rate bajo, A gana dinero, mientras que B lo pierde aunque acierte cuatro de cada cinco: el win rate alto no salvó a B, porque sus perdedoras son mucho mayores que sus ganadoras. El win rate y el payoff solo significan algo juntos, y el apalancamiento no influye en qué sistema tiene edge."
+      en: "A's expectancy = 0.25 × 500 − 0.75 × 100 = +50; B's = 0.75 × 60 − 0.25 × 300 = −30. Despite its low win rate A makes money, while B loses it despite winning three times out of four: the high win rate did not save B, because its losers are far bigger than its winners. Win rate and payoff only mean something together — and leverage is irrelevant to which system has an edge."
+      es: "La esperanza de A = 0,25 × 500 − 0,75 × 100 = +50; la de B = 0,75 × 60 − 0,25 × 300 = −30. Pese a su win rate bajo, A gana dinero, mientras que B lo pierde aunque acierte tres de cada cuatro: el win rate alto no salvó a B, porque sus perdedoras son mucho mayores que sus ganadoras. El win rate y el payoff solo significan algo juntos, y el apalancamiento no influye en qué sistema tiene edge."
   - id: winrate-payoff-match
     kind: matching
     prompt:
