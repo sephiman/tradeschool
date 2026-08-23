@@ -13,9 +13,14 @@ async def _auth(client: AsyncClient) -> None:
     await client.post("/api/auth/login", json=CREDS)
 
 
-async def _module_order(client: AsyncClient) -> list[str]:
+async def _module_order(client: AsyncClient, *, examinable_only: bool = False) -> list[str]:
     course = (await client.get("/api/course")).json()
-    return [m["id"] for b in course["blocks"] for m in b["modules"]]
+    return [
+        m["id"]
+        for b in course["blocks"]
+        for m in b["modules"]
+        if not examinable_only or m["exercisesTotal"] > 0
+    ]
 
 
 async def test_global_exam_covers_every_module_in_order(content_client: AsyncClient) -> None:
@@ -25,8 +30,11 @@ async def test_global_exam_covers_every_module_in_order(content_client: AsyncCli
     assert exam["status"] == "open"
 
     q_modules = [q["moduleId"] for q in exam["questions"]]
-    # One question per module, and exactly the canonical module order.
-    assert q_modules == await _module_order(content_client)
+    # One question per module WITH A BANK, in exactly the canonical module order. The epilogue (m35)
+    # carries no exercises, so it is the one module a global exam skips — `_scope_modules` filters on
+    # the playable bank, which is why no exam-side list has to learn about it.
+    assert q_modules == await _module_order(content_client, examinable_only=True)
+    assert "m35" in await _module_order(content_client) and "m35" not in q_modules
     assert len(q_modules) == len(set(q_modules))  # no module twice
 
     # Statement only — never a solution before submission.
@@ -49,9 +57,10 @@ async def test_a_block_exam_scores_per_block_and_reveals_unanswered(content_clie
     """A block exam samples one question per module and scores cleanly, unanswered included.
 
     RETIRED with the 2026-08-10 block-g→block-f merge: the one-question-exam edge this test used to
-    pin via the single-module block-g (no `EXAM_EMPTY`, no zero division at n=1). No single-module
-    block exists in the course any more, so that edge is untestable against real content; what
-    remains pinned is the same scoring path on f — m34's question now sampled under its new block.
+    pin via the single-module block-g (no `EXAM_EMPTY`, no zero division at n=1). The block-g letter
+    is back as the epilogue, but its one module has no exercises, so it pins the EMPTY edge instead
+    (below) and never the n=1 one; what remains pinned here is the same scoring path on f — m34's
+    question now sampled under its new block.
     """
     await _auth(content_client)
     exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-f"})).json()
@@ -77,6 +86,14 @@ async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncC
     assert m34[0]["blockId"] == "block-f"  # block-g merged into block-f, 2026-08-10
     # ...and it sampled from m34's own bank, not from somewhere else.
     assert m34[0]["exerciseId"] in {"m34-ex-1", "m34-ex-2", "m34-ex-3", "m34-ex-4"}
+
+
+async def test_a_block_with_no_exercises_cannot_be_examined(content_client: AsyncClient) -> None:
+    """The epilogue block is real content with nothing to grade: 409 EXAM_EMPTY, not an empty exam."""
+    await _auth(content_client)
+    resp = await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-g"})
+    assert resp.status_code == 409
+    assert resp.json()["code"] == "EXAM_EMPTY"
 
 
 async def test_bad_block_scope_rejected(content_client: AsyncClient) -> None:

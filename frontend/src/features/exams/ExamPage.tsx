@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { getCourse } from "@/api/course";
+import { getCourse, type CourseBlock } from "@/api/course";
 import {
   examHistory,
   getCurrentExam,
@@ -14,6 +14,11 @@ import { coursePath } from "@/components/layout/nav";
 
 function pct(score: number | null): string {
   return score == null ? "—" : `${Math.round(score * 100)}%`;
+}
+
+/** The blocks an exam can be scoped to: one with no exercise bank anywhere in it is not one. */
+function examinable(blocks: CourseBlock[] | undefined): CourseBlock[] {
+  return (blocks ?? []).filter((b) => b.modules.some((m) => m.exercisesTotal > 0));
 }
 
 export function ExamPage() {
@@ -70,7 +75,9 @@ export function ExamPage() {
           <div>
             <p className="mb-2 text-sm font-medium">{t("exam.startBlock")}</p>
             <div className="grid gap-2 sm:grid-cols-2">
-              {course?.blocks.map((b) => (
+              {/* A block whose modules carry no exercise bank has nothing to grade — the epilogue
+                  (block G) is one — and the server answers EXAM_EMPTY. Don't offer the button. */}
+              {examinable(course?.blocks).map((b) => (
                 <Button
                   key={b.id}
                   variant="secondary"

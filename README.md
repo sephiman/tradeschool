@@ -75,13 +75,13 @@ cd frontend && npm install && npm run dev
 
 Open <http://localhost:5173>, register an account, and review the full course:
 
-- **34 modules across 7 blocks, 43 lessons** (nine modules carry a second lesson), through a
+- **35 modules across 7 blocks, 44 lessons** (nine modules carry a second lesson), through a
   capstone (m27) that assembles everything into a **complete trading plan** — one worked trade end to
   end (top-down protocol, sizing from the stop, live management, and the **daily stop** that closes a
   losing day), then the journal, the risk tiers that only a journal can earn, validation and the step
-  to real money — and on into **order flow** (block F). Each lesson is bilingual (ES + EN)
-  with server-generated, server-graded exercises, end to end: lesson → attempt → answer → grading
-  with the instantiated solution → progress & statistics.
+  to real money — and on into **order flow** (block F) and a closing **epilogue** (block G, m35).
+  Each lesson is bilingual (ES + EN) with server-generated, server-graded exercises, end to end:
+  lesson → attempt → answer → grading with the instantiated solution → progress & statistics.
 - **The arc closes: read → size → verify → execute.** Three late modules finish it, each placed where
   its material belongs — and since the one-time 2026-08-10 renumbering (see `content/README.md`) the
   ids read in that same order, while permanent identity lives on each entity's `key`.
@@ -126,10 +126,11 @@ Open <http://localhost:5173>, register an account, and review the full course:
   envelopes above it* rather than as a signal. It also carries a **mandatory disambiguation**: the
   volatility squeeze here and m19-l2's liquidity squeeze are unrelated mechanisms sharing a word, and
   the glossary entry for `squeeze` is a homonym with numbered senses because of it.
-- **The SMC dialect, mapped onto mechanics** (m34, block F's closing module — a block of its own,
-  block-g, until the 2026-08-10 merge; its whole thesis is mapping SMC vocabulary onto the mechanics
-  block F just taught, so it reads as F's coda): learners arrive from fintwit knowing *order
-  block*, *FVG*, *BOS*, *liquidity grab*, *premium/discount* — vocabulary the course never named though
+- **The SMC dialect, mapped onto mechanics** (m34, block F's closing module — a block of its own until
+  the 2026-08-10 merge, which is where the block-g letter now free for the epilogue came from; its
+  whole thesis is mapping SMC vocabulary onto the mechanics block F just taught, so it reads as F's
+  coda): learners arrive from fintwit knowing *order block*, *FVG*, *BOS*, *liquidity grab*,
+  *premium/discount* — vocabulary the course never named though
   it already taught most of the substance. This closing module does for that lexicon what m08-l2's candle
   dictionary does for named candle patterns: each term is mapped onto a mechanic plus a location, never
   as a standalone signal. An **order block** is the origin zone of an impulse — m08-l1's shelf of resting
@@ -143,6 +144,28 @@ Open <http://localhost:5173>, register an account, and review the full course:
   no zones fitted in hindsight; no retracement numerology past what m13 already allows. The stance is
   that the dialect is worth reading because the crowd speaks it, not because it predicts — the same
   focal-point logic m13 and m10-l1 use, with the same expiry date.
+- **The coda: an epilogue that hands back the pen** (m35, *After this book* — block G, the one block
+  in the course that holds a single module on purpose, because an epilogue is an island by nature).
+  Four movements. An **honest inventory** of what the reader now has, up to the most valuable
+  possession of the lot — telling a claim with a mechanism from one without — beside the equally
+  honest limit that **no page gave them experience**, only the criteria to accumulate it without
+  ruining themselves. **The default path, which is to deepen here**: screen time, m27's journal
+  growing the sample m28 demands, re-reading (which is what un-completing a lesson is for), and the
+  structural warning that protects everything before it — the temptation after a course is *more
+  tactics*, and more tactics over the same sample is m28's overfitting in human form. **The two
+  ladders that exist and are not this one**: the quantitative one (modelled transaction costs,
+  fractional sizing, measured microstructure, statistical arbitrage, walk-forward validation, regime
+  classification — each one line, each glossed, each the industrialized form of something this book
+  taught by eye) closed with the honesty that it is *another profession, not level two of this one*,
+  and the other-instruments one (options, the natural neighbour m21-l2 already named, with the same
+  frontier sentence still standing). And **what the reader will be swimming against**: signals, VIP
+  channels, the course that *does* promise — read with the tool the book gave them, *ask for the
+  mechanism*, plus the one mechanism always readable even when the strategy's is hidden, namely the
+  incentive of whoever is selling it. It carries **no exercises and no figures**, declared in its own
+  prose and in the manifest rather than left to be noticed (everything else is examined because
+  everything else can be checked), and its cross-references act as a farewell index. The last
+  sentence quotes m26 back at the reader: *may the only closing bell you get remain the one you build
+  yourself*.
 - **The conditions, not only the chart:** open interest read with price, funding as positioning, and
   the **basis** (perp vs spot) as a leverage-mania thermometer whose violent dislocations mark
   squeeze exhaustion; liquidity maps; the **session map inside the 24/7 clock** (where liquidity
@@ -253,8 +276,9 @@ Open <http://localhost:5173>, register an account, and review the full course:
   (m24), and one complete trade with its level, entry, stop and target drawn (m27). Every reference is
   checked to resolve in both languages, and no spec may sit unembedded.
 - **Exams** (`/exams`): a sampled, graded run over the exercise bank — one question per module,
-  **global** (every module) or **per-block**, each instantiated with a fresh seed. One attempt per
-  question, free navigation, **no feedback until submission**; everything (your answer, the correct
+  **global** (every module that has a bank, so the epilogue is skipped) or **per-block** (offered only
+  for blocks that have one), each instantiated with a fresh seed. One attempt per question, free
+  navigation, **no feedback until submission**; everything (your answer, the correct
   answer, the worked solution) is revealed together at the end, with an overall + per-block/per-module
   breakdown (no pass/fail). Sessions are resumable and their seeds persist, so old reviews reproduce
   exactly. **Exam attempts are a separate lane** — they never touch practice statistics or course
@@ -578,7 +602,7 @@ in the language being browsed — cover, table of contents with page numbers, bl
 with their summaries, every lesson's prose, callouts and figures, **the lesson's exercises after its
 prose, and an answer key at the back**, and it is **navigable**: bookmarks, a clickable contents, term
 links into the glossary and exercise ↔ answer cross-links (see below). ~261 pages (EN) / ~274 (ES):
-43 lessons, 34 figures, 147 exercises, 30 of which print a chart. Every lesson starts on a new page,
+44 lessons, 34 figures, 147 exercises, 30 of which print a chart. Every lesson starts on a new page,
 and the answer key is a table-of-contents entry with a resolved page number. The running footer carries the course **subtitle** (`course.subtitle`, the book's short name — the full title would wrap), the
 **top-level section the page belongs to** (the block, or the answer key) and the page number, so a page
 found loose still says where it came from; the cover and the contents precede the first block and name

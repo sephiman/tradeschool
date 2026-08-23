@@ -167,7 +167,7 @@ async def test_the_export_carries_no_reading_estimate(content_client: AsyncClien
         data = (await content_client.get(f"/api/course/export{query}")).json()
         modules = [m for block in data["blocks"] for m in block["modules"]]
         lessons = [lesson for m in modules for lesson in m["lessons"]]
-        assert len(lessons) == 43
+        assert len(lessons) == 44
         offenders = sorted(
             {key for node in (*data["blocks"], *modules, *lessons) for key in node if "eading" in key}
         )

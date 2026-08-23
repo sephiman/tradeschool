@@ -1442,6 +1442,7 @@ terms:
   en: channel
   es: canal
   origin: m31-l1
+  link_except: [epilogue-l1]  # "VIP channels" / "canales VIP", not a price channel
   definition:
     en: >-
       A trendline plus a parallel projected from the opposite extreme. It describes a regularity that

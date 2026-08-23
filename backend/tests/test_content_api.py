@@ -35,12 +35,12 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
 
     data = (await content_client.get("/api/course/export?lang=en")).json()
     assert data["locale"] == "en"
-    assert len(data["blocks"]) == 6  # block-g merged into block-f, 2026-08-10
+    assert len(data["blocks"]) == 7  # block-g is the epilogue, appended 2026-08-23
     modules = [m for b in data["blocks"] for m in b["modules"]]
-    assert len(modules) == 34
+    assert len(modules) == 35
     lessons = [lesson for m in modules for lesson in m["lessons"]]
-    # 34 modules, nine of which carry a second lesson -> 43 in total.
-    assert len(lessons) == 43
+    # 35 modules, nine of which carry a second lesson -> 44 in total.
+    assert len(lessons) == 44
     # In display order — ascending since the 2026-08-10 renumbering made id order == reading order.
     assert [m["id"] for m in modules if len(m["lessons"]) == 2] == [
         "m03", "m08", "m09", "m15", "m19", "m21", "m22", "m23", "m27",
@@ -78,7 +78,7 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
     lessons = [lesson for m in modules for lesson in m["lessons"]]
     # The same walk of the manifest as the single-locale export, so the two cannot carry different
     # modules — for a document whose job is to be a faithful copy, that is the defect that matters.
-    assert len(default["blocks"]) == 6 and len(modules) == 34 and len(lessons) == 43
+    assert len(default["blocks"]) == 7 and len(modules) == 35 and len(lessons) == 44
 
     # Every localized field is paired, and each side matches the single-locale document exactly.
     for locale in ("en", "es"):
@@ -149,7 +149,7 @@ async def test_course_tree_shape(content_client: AsyncClient) -> None:
     await _auth(content_client)
     course = (await content_client.get("/api/course")).json()
     assert [b["id"] for b in course["blocks"]] == [
-        "block-a", "block-b", "block-c", "block-d", "block-e", "block-f",
+        "block-a", "block-b", "block-c", "block-d", "block-e", "block-f", "block-g",
     ]
 
     # Root course identity for the header (localized; sourced from the manifest).

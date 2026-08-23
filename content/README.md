@@ -20,7 +20,9 @@ lesson-refs.*.txt     GENERATED, reviewed, frozen: every mXX / mXX-lN mention in
 ## Lesson markdown
 
 GFM plus exactly three **block** directives: `:::note{type=info|warning|tip}` … `:::` for a callout,
-`::figure{id=…}` and `::exercise{id=…}` on their own line. There is no inline `:name` dialect — it is
+`::figure{id=…}` and `::exercise{id=…}` on their own line. Many lessons carry no figure; exactly one
+carries no `::exercise` either — `m35-l1`, the epilogue — and that absence is declared in the lesson's
+own prose and in the manifest rather than left to be noticed. There is no inline `:name` dialect — it is
 deleted in `frontend/src/lib/directives.ts` — so prose may write a colon followed by anything (`03:00`,
 `3:1`, `R:R`) and every surface prints it whole. A colon in prose was NOT always safe: the inline
 dialect used to eat `:00`, and the fix is a parser one, so nothing here needs escaping.

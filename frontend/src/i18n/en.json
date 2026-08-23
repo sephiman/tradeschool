@@ -32,7 +32,7 @@
     "block": "Block exam",
     "startTitle": "Start an exam",
     "startGlobal": "Start global exam",
-    "startGlobalHint": "One question from every module of the course.",
+    "startGlobalHint": "One question from every module the course examines.",
     "startBlock": "Or a single block:",
     "historyTitle": "Past exams",
     "noHistory": "No exams yet.",

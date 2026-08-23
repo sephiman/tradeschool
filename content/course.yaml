@@ -1089,3 +1089,44 @@ blocks:
       - id: m34-ex-4
         key: m30-ex-4
         type: quiz
+# The epilogue, and the one block in the course that holds a single module on purpose. Block f's own
+# single-module era (block-g, merged 2026-08-10) was a THEMATIC block that had outgrown the shape —
+# the SMC dialect belonged next to the order-flow material it renames, so merging it made the
+# dependency graph read better. An epilogue is the opposite case: it is an island by nature. It sits
+# after the last thing the course teaches, it teaches nothing itself, and there is no theme for it to
+# join — folding it into block f would put "after this book" inside "order flow and microstructure".
+#
+# Numbering: m35 is consecutive and block-g is the next free letter, so the permanent
+# numbering-continuity invariant in test_content_manifest.py holds unmodified — this is exactly the
+# append the rule was written for (content/README.md).
+#
+# `assumes` is the short ADVISORY list, on the same criterion as block f's: the modules a reader would
+# be lost without, not every module cited. The epilogue's own argument leans on m27 (the journal that
+# grows the sample) and m28 (the sample size that makes it mean anything); the farewell index of
+# references in the prose — m16, m21-l2, m22, m24, m26, m31, m32, m34 — is a set of pointers back, not
+# a prerequisite list, and putting it here would pad the hint until nobody reads it.
+- id: block-g
+  title:
+    en: Epilogue
+    es: Epílogo
+  modules:
+  - id: m35
+    key: epilogue
+    title:
+      en: After this book
+      es: Después de este libro
+    summary:
+      en: 'What the course did and did not give you, the one path that needs nothing new (screen time, the journal, re-reading), the two ladders that exist and are not this one — quantitative and other instruments — and how to read the ecosystem outside with the tool the book gave you. No exercises: an epilogue examines nothing.'
+      es: 'Qué te ha dado el curso y qué no, el único camino que no necesita nada nuevo (horas de pantalla, el diario, releer), las dos escaleras que existen y no son esta —la cuantitativa y la de otros instrumentos— y cómo leer el ecosistema de fuera con la herramienta que te ha dado el libro. Sin ejercicios: un epílogo no examina nada.'
+    assumes:
+    - m27
+    - m28
+    lessons:
+      # The only lesson in the course with NO exercises, declared rather than left to be noticed: the
+      # lesson says so in its own prose too. Everything else is examined because everything else can
+      # be checked; an epilogue hands back the pen. The 147↔147 print bijection is unchanged by it.
+    - id: m35-l1
+      key: epilogue-l1
+      title:
+        en: After this book
+        es: Después de este libro

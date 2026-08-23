@@ -37,11 +37,12 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     # The single course today owns all existing content under a stable id.
     assert registry.manifest.course.id == "crypto-futures"
     assert registry.manifest.course.title.en and registry.manifest.course.description.es
-    # 34 modules across 6 blocks. (The old "block G is the trailing single-module block" guard was
+    # 35 modules across 7 blocks. (The old "block G is the trailing single-module block" guard was
     # RETIRED 2026-08-10 when block-g merged into block-f — the SMC dialect is now f's closing
-    # module, not a block of its own; the numbering-continuity invariant below replaces it.)
-    assert len(registry.manifest.blocks) == 6
-    assert len(registry.manifest.iter_modules()) == 34
+    # module, not a block of its own; the numbering-continuity invariant below replaces it. The
+    # letter came back 2026-08-23 for the epilogue, whose single-module shape is pinned below.)
+    assert len(registry.manifest.blocks) == 7
+    assert len(registry.manifest.iter_modules()) == 35
     # Numbering continuity — a PERMANENT invariant for any future restructure, not just today's:
     # (a) module display numbers run m01..m34 strictly consecutive, ascending across every block
     #     boundary, with no gaps; permanent identity (seeds, progress) lives on `key`, never here.
@@ -62,6 +63,15 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     assert [m.id for m in block_e.modules] == ["m22", "m23", "m24", "m25", "m26", "m27", "m28"]
     assert next(m for m in block_d.modules if m.id == "m21").key == "m34"
     assert next(m for m in block_e.modules if m.id == "m28").key == "m33"
+    # The epilogue: one module on purpose (an epilogue is an island — see the manifest comment), a
+    # semantic key, and the course's only lesson with no exercises.
+    block_g = next(b for b in registry.manifest.blocks if b.id == "block-g")
+    assert [m.id for m in block_g.modules] == ["m35"]
+    assert block_g.modules[0].key == "epilogue"
+    assert [lesson.exercises for lesson in block_g.modules[0].lessons] == [[]]
+    assert [
+        lesson.id for _, lesson in registry.manifest.iter_lessons() if not lesson.exercises
+    ] == ["m35-l1"]
     # Every authored lesson exists in both languages (load_registry enforces it).
     for locale in ("en", "es"):
         assert "m06-l1" in registry.markdown[locale]

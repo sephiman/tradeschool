@@ -32,7 +32,7 @@
     "block": "Examen de bloque",
     "startTitle": "Empezar un examen",
     "startGlobal": "Empezar examen global",
-    "startGlobalHint": "Una pregunta de cada módulo del curso.",
+    "startGlobalHint": "Una pregunta de cada módulo que el curso examina.",
     "startBlock": "O un solo bloque:",
     "historyTitle": "Exámenes anteriores",
     "noHistory": "Aún no hay exámenes.",
