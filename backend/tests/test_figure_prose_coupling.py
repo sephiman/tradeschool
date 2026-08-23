@@ -189,7 +189,16 @@ def test_every_coupled_number_appears_in_every_lesson_that_quotes_it(
     figure_id: str, spec: dict[str, Any], anchor: dict[str, Any]
 ) -> None:
     if not anchor.get("in_prose", True) or "prose" not in anchor:
-        pytest.skip("value-checked only: too small a number to search for meaningfully")
+        # One reason per skipped anchor: the three shapes that are checked by VALUE and deliberately
+        # not searched for in the prose. A shared message here would hide which of the three applied.
+        if "prose" not in anchor:
+            pytest.skip(f"{anchor['what']}: a min/max band, not a printed number — nothing to search for")
+        if anchor.get("panel"):
+            pytest.skip(
+                f"{anchor['what']} panel {anchor['panel']}: the shared-seed twin of a value the prose "
+                f"asserts once, on panel 0"
+            )
+        pytest.skip(f"{anchor['what']}: value-checked only — too small an integer to search for meaningfully")
     # An anchor may narrow the figure's lesson list: two lessons can embed one figure and quote
     # different amounts of it (m09-l1 is the map and prints the support and the spring; m09-l2 walks
     # every phase), and demanding the whole chart from the lesson that needs two numbers would push

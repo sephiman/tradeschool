@@ -1716,8 +1716,12 @@ terms:
     es: >-
       La fecha en la que liquida un futuro con fecha o una opción. Los perpetuos no tienen, y aun así
       se mueven en los vencimientos de otros contratos, porque las coberturas se deshacen en el perpetuo.
+  # The naive EN plural is "expirys", so the plural was never marked; ES derives "vencimientos" fine.
+  match:
+    en: [expiry, expiries]
   link_except:
-    en: [m30-l1, m31-l2]  # "its expiry date" — a zone's and a Fibonacci level's, not a contract's
+    en: [m30-l1, m31-l2, m18-l1]  # "its expiry date" — a zone's and a Fibonacci level's, not a
+                                  # contract's; and "lockup expiries" is a lock-up ending, as in ES
     es: [m18-l1]   # "vencimientos de bloqueo" — a lock-up ending, not a contract settling
 
 - id: g-sell-the-news

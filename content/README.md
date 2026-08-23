@@ -223,6 +223,22 @@ derives the reused values from the same coupled anchors and demands both lessons
 re-anchor of the source lesson fails naming the borrower, instead of quietly stranding it (which is
 exactly what the 2026-08-02 pass did to m04 until 2026-08-10).
 
+### Doc comments on the code behind all this
+
+The house rule is **one line** — Python docstrings and TS `/** */` alike, no `Args:`/`@param` block
+restating a signature, no design history (git has that), with one extra clause allowed when a real
+trap would cause a bug if forgotten. That is the rule for functions, classes and methods, and it is
+what the code does. **Module** headers are the standing exception, and the exception is earned rather
+than granted: a `patterns/*.py` injector opens with several paragraphs because that header IS the
+injector's contract — which lesson it serves, the label families an exercise may ask for, the negative
+control that makes the question falsifiable, what is generated versus derived from it, and which way
+the geometry mirrors — and that narrative has nowhere else to live, since the manifest only names ids
+and the tests only assert consequences. The same licence covers a module in `content/` that owns a
+cross-cutting invariant (`numbers.py`, `print_export.py`). Everything below module level stays one
+line unless it is recording a trap: `patterns/base.py`'s `Diagonal`, `diagonals.py`'s
+`clamp_close_inside` and `multi_timeframe.py`'s `aggregate` are what "a trap worth a clause" looks
+like in practice, and they are the shape to copy — not the length.
+
 ## Exercise numbers: friendly by design (the mental-cost guard)
 
 Calculation exercises draw random parameters, so the digits a learner meets are a property of the

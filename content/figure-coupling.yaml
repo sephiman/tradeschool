@@ -28,8 +28,10 @@
 #
 # An anchor states EITHER `prose` (+ optional `tol` relative, default 0.01, or `abstol`) for a number
 # the lessons print, OR `min`/`max` for a band that keeps a qualitative claim ("about three times")
-# honest. `in_prose: false` skips the text search — use it for small integers (RSI readings, ratios)
-# where searching for "9" or "3" would match anything and prove nothing.
+# honest. `in_prose: false` skips the text search, for two reasons: small integers (RSI readings,
+# ratios) where searching for "9" or "3" would match anything and prove nothing, and the second panel
+# of an `identical_through` pair, whose value the prose already states once via panel 0. A band anchor
+# has no `prose` to search for at all. The test names which of the three it skipped for.
 #
 # An anchor may also narrow `lessons` to a subset of the figure's own list. Two lessons can embed the
 # same figure and quote different amounts of it — m09-l1 is the map and prints only the support and

@@ -195,6 +195,21 @@ def test_exclusions_can_be_per_locale_and_are_reported_per_locale() -> None:
     assert term.all_excluded_lessons() == ["m13-l1"]
 
 
+def test_one_lesson_may_be_a_false_friend_in_both_locales() -> None:
+    """g-expiry's lock-up lesson: the duplicate check is per locale, so the pair is not a typo."""
+    term = GlossaryTerm(
+        id="g-a", en="a", es="a", origin="m01-l1", definition=_def(),
+        link_except=LocaleLessons(en=["m13-l1", "m18-l1"], es=["m18-l1"]),
+    )
+    assert term.excluded_lessons("en") == ["m13-l1", "m18-l1"]
+    assert term.excluded_lessons("es") == ["m18-l1"]
+    with pytest.raises(ValidationError, match=r"duplicate lesson in link_except \(en\)"):
+        GlossaryTerm(
+            id="g-a", en="a", es="a", origin="m01-l1", definition=_def(),
+            link_except=LocaleLessons(en=["m13-l1", "m13-l1"]),
+        )
+
+
 @pytest.mark.parametrize(
     ("variants", "message"),
     [([], "empty list"), ([" a"], "blank or padded"), (["a", "a"], "duplicate variant")],

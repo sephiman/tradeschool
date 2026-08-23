@@ -31,7 +31,7 @@ content/    course.yaml manifest (course → blocks → modules → lessons → 
             content trees + figures + figure-coupling.yaml (the lesson numbers that are rounded
             values of a figure's generated output) + glossary.yaml (the bilingual term list, which
             refers into the lessons and never coins); see content/README.md for the stable-ID /
-            namespacing convention and the worked-numbers-follow-the-figure rule
+            namespacing convention, the worked-numbers-follow-the-figure rule and the doc-comment rule
 docker-compose.yml  .env.example  LICENSE
 ```
 
@@ -527,8 +527,8 @@ rule with two lifetimes:
 A term is never linked in the lesson it points back at — a link to an entry that points back at the
 page you are reading is a loop. That occurrence still **spends** the term's one slot in the book, so
 a term the course first uses inside its own lesson gets no PDF link at all while remaining a tooltip
-everywhere else in the app. Today that is 108 of 178 terms in EN and 117 in ES: the book carries 70
-term links (EN) / 59 (ES) against 643 / 562 tooltips.
+everywhere else in the app. Today that is 111 of 178 terms in EN and 119 in ES: the book carries 67
+term links (EN) / 57 (ES) against 661 / 579 tooltips.
 
 Every decision is recorded in `content/glossary-links.<locale>.txt`, a **frozen golden** that a
 content change diffs loudly instead of moving links in silence — that diff is where a false positive

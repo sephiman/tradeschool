@@ -144,9 +144,12 @@ class GlossaryTerm(BaseModel):
                 locale
             ):
                 raise ValueError(f"glossary {self.id!r}: link is off for {locale}, so it needs no rules")
-        excluded = self.all_excluded_lessons()
-        if len(set(excluded)) != len(excluded):
-            raise ValueError(f"glossary {self.id!r}: duplicate lesson in link_except")
+        # Per locale, not merged: a word can be a false friend in BOTH languages (g-expiry's lock-up
+        # lesson), and a merged check reads that legitimate pair as a typo.
+        for locale in ("en", "es"):
+            excluded = self.excluded_lessons(locale)
+            if len(set(excluded)) != len(excluded):
+                raise ValueError(f"glossary {self.id!r}: duplicate lesson in link_except ({locale})")
         return self
 
 
