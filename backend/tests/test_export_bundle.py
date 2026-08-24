@@ -42,8 +42,8 @@ from scripts.export_bundle import (  # noqa: E402
     build_figure_specs,
     build_glossary,
     build_manifest,
-    build_readme,
     build_reading_seconds,
+    build_readme,
     canonical_bytes,
     content_fingerprint,
     inventory_violations,
@@ -414,9 +414,11 @@ def _fingerprint_from_documented_recipe(files: dict[str, str]) -> str:
 
 
 #: Each clause the README must carry for the reimplementation above to be derivable from it.
+#: Substance only — never markdown emphasis, or reformatting the section would fail the build.
 DOCUMENTED_RECIPE_CLAUSES = (
     "sorted keys",
-    '`(",", ":")` separators',
+    '`(",", ":")`',
+    "separators",
     "UTF-8",
     "non-ASCII characters as themselves",
     "one trailing newline",

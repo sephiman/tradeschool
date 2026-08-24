@@ -22,6 +22,7 @@ produced artifacts that were actually built from unstaged edits.
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -35,6 +36,7 @@ if str(_BACKEND) not in sys.path:
 from scripts.export_contracts_to_android import (  # noqa: E402
     DELIVERED_DIRS,
     MANIFEST_NAME,
+    REQUIRED_CONTRACT_DIRS,
     DeliveryError,
     deliver,
     git_head,
@@ -55,7 +57,11 @@ def source(tmp_path: Path) -> Path:
     (dist / "bundle" / "manifest.json").write_text(
         json.dumps({"bundleFormatVersion": 1, "contentFingerprint": "f" * 64}), encoding="utf-8"
     )
-    (dist / "contracts" / "prng-vectors").mkdir(parents=True)
+    # Every contract directory, because the export refuses a partial set — see the test below.
+    for name in REQUIRED_CONTRACT_DIRS:
+        directory = dist / "contracts" / name
+        directory.mkdir(parents=True)
+        (directory / "README.md").write_text(f"# {name}\n", encoding="utf-8")
     (dist / "contracts" / "prng-vectors" / "seedsequence.tsv").write_text("seed\n0\n", encoding="utf-8")
     return dist
 
@@ -203,3 +209,31 @@ def test_every_dirty_path_is_reported_exactly_once(dirty_repo: Path) -> None:
     assert set(changes) == {
         ".gitignore", "with space.txt", "a.txt", "b.txt", "untracked.txt",
     }
+
+
+# --- the contract set is complete, or there is no delivery -----------------------------------------
+
+
+@pytest.mark.parametrize("absent", sorted(REQUIRED_CONTRACT_DIRS))
+def test_a_missing_contract_directory_stops_the_whole_delivery(
+    source: Path, target: Path, absent: str
+) -> None:
+    """A forgotten exporter must not ship quietly.
+
+    `contracts/` arrives in the other repository as a manifest of exactly what was sent, which is
+    indistinguishable from a complete one: nothing over there can notice an absent directory. So the
+    refusal has to happen on this side, and it has to name the script that would have filled it.
+    """
+    shutil.rmtree(source / "contracts" / absent)
+    with pytest.raises(DeliveryError, match="contract set is incomplete") as refusal:
+        deliver(source, target)
+    assert absent in str(refusal.value)
+    assert REQUIRED_CONTRACT_DIRS[absent] in str(refusal.value), "name the script that fills it"
+    assert not (target / "contracts").exists(), "a refused delivery writes nothing"
+
+
+def test_every_required_contract_directory_is_delivered(source: Path, target: Path) -> None:
+    manifest = deliver(source, target)
+    for name in REQUIRED_CONTRACT_DIRS:
+        assert (target / "contracts" / name).is_dir(), name
+        assert f"contracts/{name}/README.md" in manifest["files"], name

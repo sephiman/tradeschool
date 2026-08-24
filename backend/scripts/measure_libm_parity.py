@@ -205,8 +205,9 @@ def _sample_index(m: Measured, per_fn: int) -> np.ndarray:
 
 _TSV_HEADER = (
     "# TradeSchool Phase W1 — libm parity artifact\n"
-    "# Produced by backend/scripts/measure_libm_parity.py; the Kotlin-side contract is in\n"
-    "# backend/scripts/measure_libm_parity_kotlin_side.md (runnable reference: kotlin_side/).\n"
+    "# Produced by backend/scripts/measure_libm_parity.py. The contract the Android port reads is\n"
+    "# contracts/libm-parity/README.md, staged by scripts/export_libm_parity.py; the runnable\n"
+    "# reference is kotlin_side/LibmParityCheck.java, which ships beside it.\n"
     "# Columns: fn, input, numpy, libm — each an IEEE-754 double's exact bit pattern, big-endian.\n"
     "# `numpy` is the value the goldens were captured from and the value a port must reproduce.\n"
     "# `libm` is math.exp/math.log, i.e. the platform C library, recorded so the artifact shows\n"

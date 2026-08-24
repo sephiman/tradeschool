@@ -1,7 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 //
-// The JVM half of Phase W1's libm-parity measurement, and the executable form of the spec in
-// ../measure_libm_parity_kotlin_side.md.
+// The JVM half of Phase W1's libm-parity measurement, and the executable form of the contract in
+// dist/contracts/libm-parity/README.md, which ships beside this file in the Android repository.
+//
+// NOTE ON THE VERDICT BELOW. This program answers W1's question — "is StrictMath bit-identical to
+// the Python reference?" — and the measured answer is NO: ~5% of `exp` inputs and ~0.8% of `log`
+// inputs differ, always by one ulp. So a non-zero exit here is the EXPECTED result, not a
+// regression, and nothing should wire it to a build. The project's binding contract is the rounded
+// payload in contracts/generation-goldens/, which a full-ulp perturbation was measured not to move.
 //
 // Reads an artifact from `measure_libm_parity.py`, evaluates StrictMath.exp/log on each recorded
 // input and compares to the `numpy` column BIT FOR BIT. StrictMath is fdlibm, identical on every JVM

@@ -141,7 +141,7 @@ def _synth_spec(panel: FigurePanel, key: str) -> FigureSpec:
 
 
 def iter_figure_items(seeds: tuple[int, ...] = PROBE_SEEDS) -> Iterator[WorkItem]:
-    """Figure mode: every injector × label over `seeds`, plus every FROZEN content figure.
+    """Figure mode: every injector and label over `seeds`, plus every FROZEN content figure.
 
     The synthesized panels make this a sweep rather than a spot check; the frozen ones are the figures
     that actually ship.

@@ -45,6 +45,15 @@ DEFAULT_SOURCE = REPO / "dist"
 #: "touches nothing outside these" promise is one list rather than a habit.
 DELIVERED_DIRS = ("bundle", "contracts")
 
+#: Every contract directory that must exist before a delivery, and the script that produces it.
+#: Without this, forgetting one exporter ships a `contracts/` that looks complete: the Android repo
+#: receives a manifest listing exactly what it was sent and has no way to know what it was not.
+REQUIRED_CONTRACT_DIRS = {
+    "prng-vectors": "export_prng_vectors.py",
+    "generation-goldens": "export_generation_goldens.py",
+    "libm-parity": "export_libm_parity.py",
+}
+
 MANIFEST_NAME = "EXPORT_MANIFEST.json"
 
 #: What a dirty export means, carried in the manifest itself rather than left to a reader's memory.
@@ -138,9 +147,20 @@ def deliver(source: Path, target: Path, *, now: str | None = None) -> dict[str, 
     for name in DELIVERED_DIRS:
         if not (source / name).is_dir():
             raise DeliveryError(
-                f"{source / name} does not exist — run `export_bundle.py`, "
-                f"`export_prng_vectors.py` and `export_generation_goldens.py` first"
+                f"{source / name} does not exist — run `export_bundle.py` and every script in "
+                f"{sorted(REQUIRED_CONTRACT_DIRS.values())} first"
             )
+    absent = {
+        name: script
+        for name, script in sorted(REQUIRED_CONTRACT_DIRS.items())
+        if not (source / "contracts" / name).is_dir()
+    }
+    if absent:
+        detail = ", ".join(f"{name}/ (`{script}`)" for name, script in absent.items())
+        raise DeliveryError(
+            f"the contract set is incomplete — missing {detail}. Delivering a partial `contracts/` "
+            f"would give the Android repository a manifest it cannot tell is short."
+        )
 
     bundle_manifest = json.loads((source / "bundle" / "manifest.json").read_text(encoding="utf-8"))
 

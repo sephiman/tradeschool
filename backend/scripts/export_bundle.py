@@ -475,9 +475,32 @@ h{MAX_HEADING_DEPTH}; callout tones are {", ".join(f"`{t}`" for t in CALLOUT_TON
 
 ## Verifying this bundle
 
-Every file's sha256 is in `manifest.json` under `files`, and `contentFingerprint` is the sha256 of the
-canonical JSON of that map (sorted keys, `(",", ":")` separators, UTF-8). `manifest.json` is the one
-file not in its own list.
+Every file's sha256 is in `manifest.json` under `files`, and `contentFingerprint` is the sha256 of
+the canonical JSON of that map. `manifest.json` is the one file not in its own list, because it
+carries the digest taken over that very map and cannot contain its own.
+
+**The canonical bytes, in full** — this is the serialization every file in the bundle is written
+with, and a port reproduces the fingerprint from this description alone:
+
+1. the map is `{{relative POSIX path: sha256 hex}}`, with **sorted keys**;
+2. `(",", ":")` **separators** — no space after either;
+3. encoded **UTF-8**, writing non-ASCII characters as themselves rather than `\\uXXXX` escapes;
+4. then **one trailing newline** (`0x0A`) appended to those bytes before hashing.
+
+Step 4 is the one a port drops, and it is invisible: hashing without it yields a completely
+different digest that looks just as plausible. The whole recipe, in Python:
+
+```python
+sha256(
+    json.dumps(files, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    + b"\\n"
+)
+```
+
+This is **not** the recipe behind the digests in `contracts/generation-goldens/`, which hashes
+ASCII-escaped bytes with no trailing newline and is frozen by fingerprints committed in the web
+repo's suite. The two are separate on purpose: a port needs both and must not share one serializer
+between them.
 
 The export also proves, per locale, that the words in these ASTs and in this glossary are exactly the
 words the web serves from the same content — a multiset diff that must come out empty. See
