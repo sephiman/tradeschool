@@ -32,6 +32,12 @@ multi-attempt ones. So the loops are instrumented — by rebinding what each loo
 touching production code — the seeds that go round more than once are found, and those documents are
 in the file with their iteration counts in the README.
 
+**The configs travel with the digests.** A golden is a promise about a document, and a document is a
+config plus a seed — so `configs/` carries the exact config behind every line, serialized the way the
+bundle serializes content and hashed beside it. `targets` feeds `rng.integers(0, len(targets))`: a
+port that rebuilds a config from this file's prose instead of reading those bytes can match every
+field and still generate a different document from every seed.
+
 **One synthetic case pins how a double becomes text.** The hash is over JSON, so every double in a
 payload is serialized, and CPython writes `repr()` — the shortest string that round-trips. The JVM's
 `Double.toString` round-trips too and disagrees: `0.0001`, the display quantum of every momentum
@@ -50,9 +56,10 @@ import argparse
 import hashlib
 import importlib
 import json
+import re
 import sys
 import time
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -63,6 +70,7 @@ for _extra in (_BACKEND, _BACKEND / "src"):
     if str(_extra) not in sys.path:
         sys.path.insert(0, str(_extra))
 
+from scripts.export_bundle import canonical_bytes  # noqa: E402
 from scripts.generation_workload import (  # noqa: E402
     CONTENT_DIR,
     DIVERGENCE_INDICATORS,
@@ -73,9 +81,15 @@ from scripts.generation_workload import (  # noqa: E402
 )
 from tradeschool.exercises.charts.patterns.registry import all_injectors, get_injector  # noqa: E402
 from tradeschool.exercises.figures import build_figure, load_figures  # noqa: E402
-from tradeschool.exercises.pattern_chart import PatternChartConfig  # noqa: E402
+from tradeschool.exercises.pattern_chart import (  # noqa: E402
+    PatternChartConfig,
+    PatternChartGenerator,
+)
 from tradeschool.exercises.pattern_chart import _instantiate as pattern_instantiate  # noqa: E402
-from tradeschool.exercises.synthetic_chart import SyntheticChartConfig  # noqa: E402
+from tradeschool.exercises.synthetic_chart import (  # noqa: E402
+    SyntheticChartConfig,
+    SyntheticChartGenerator,
+)
 from tradeschool.exercises.synthetic_chart import _instantiate as divergence_instantiate  # noqa: E402
 
 DEFAULT_OUT = _BACKEND.parent / "dist" / "contracts" / "generation-goldens"
@@ -141,18 +155,23 @@ def _config_and_kind(identifier: str) -> tuple[object, str]:
     return pattern_config(injector.name, labels, list(targets)), "pattern"
 
 
-def raw_for_id(identifier: str) -> object:
-    """The generator's own return value for one id — a tuple, before any envelope is put round it.
+def raw_from_config(config: object, kind: str, seed: int) -> object:
+    """The generator's own return value for one config and seed — the ONE instantiation site.
 
-    The two `cast`s are the price of `generation_workload`'s config builders returning `object`, which
-    they do so that module stays importable without the generator types; the parse they wrap has
-    already validated the config.
+    Separate from `raw_for_id` so a config read back from a frozen file goes through exactly the code
+    an id does. The two `cast`s are the price of `generation_workload`'s config builders returning
+    `object`, which they do so that module stays importable without the generator types; the parse
+    they wrap has already validated the config.
     """
-    config, kind = _config_and_kind(identifier)
-    seed = int(identifier.rsplit(":", 1)[1])
     if kind == "divergence":
         return divergence_instantiate(cast("SyntheticChartConfig", config), seed)
     return pattern_instantiate(cast("PatternChartConfig", config), seed)
+
+
+def raw_for_id(identifier: str) -> object:
+    """One id's raw generator result, a tuple, before any envelope is put round it."""
+    config, kind = _config_and_kind(identifier)
+    return raw_from_config(config, kind, int(identifier.rsplit(":", 1)[1]))
 
 
 def envelope_of(kind: str, result: object) -> Any:
@@ -224,6 +243,111 @@ def svg_figure_ids() -> list[str]:
 
 def figure_panel_count() -> int:
     return sum(len(spec.panels) for spec in load_figures(CONTENT_DIR).values())
+
+
+# --- the frozen configs ----------------------------------------------------------------------------
+
+#: The configs' own directory inside the goldens, and the index carrying their hashes.
+CONFIG_DIR_NAME = "configs"
+CONFIG_INDEX_NAME = "INDEX.tsv"
+
+#: A path component is a registry name, an injector label or a `DivergenceType` value. All three are
+#: identifiers today; this refuses the day one of them grows a slash or a dot, rather than writing
+#: outside the directory.
+_SAFE_COMPONENT = re.compile(r"^[a-z0-9_]+$")
+
+
+def config_key_of(identifier: str) -> str | None:
+    """The config half of a document id — everything before the seed — or `None` if it has no config.
+
+    Two shapes have none, and both are named rather than filtered by accident: the formatter case has
+    no generator behind it at all, and a `frozen:` figure's config is its own YAML in
+    `content/figures/`, which already travels in the bundle.
+    """
+    if identifier == FORMATTER_ID or identifier.startswith("frozen:"):
+        return None
+    return identifier.rsplit(":", 1)[0]
+
+
+def config_relative_path(key: str) -> str:
+    """Where one config is written — derived from the key, so the two can never disagree."""
+    parts = key.split(":")
+    components = (
+        ("divergence", parts[1], parts[2]) if parts[0] == "divergence" else ("pattern", parts[0], parts[1])
+    )
+    for component in components:
+        if not _SAFE_COMPONENT.match(component):
+            raise ValueError(f"config key {key!r} has a component unusable as a path: {component!r}")
+    return "/".join(components) + ".json"
+
+
+def parse_config_document(document: Mapping[str, Any], kind: str) -> object:
+    """A frozen config file's JSON, back through the generator's own `parse_config`.
+
+    The same door the content loader uses, so "lossless" cannot mean lossless against a parser
+    nothing else runs.
+    """
+    if kind == "divergence":
+        return SyntheticChartGenerator().parse_config(document)
+    return PatternChartGenerator().parse_config(document)
+
+
+def config_documents(identifiers: Iterable[str]) -> dict[str, Any]:
+    """`config key -> config as JSON` for every id that has one, in first-appearance order.
+
+    Derived from the ids actually exported rather than from a second enumeration of the registry: the
+    frozen set cannot then drift from the digests it is supposed to explain.
+    """
+    documents: dict[str, Any] = {}
+    for identifier in identifiers:
+        key = config_key_of(identifier)
+        if key is None or key in documents:
+            continue
+        config, _kind = _config_and_kind(key)
+        documents[key] = cast("PatternChartConfig | SyntheticChartConfig", config).model_dump(mode="json")
+    return documents
+
+
+def write_configs(out: Path, documents: Mapping[str, Any]) -> list[tuple[str, str, str]]:
+    """Write one file per config plus the index. Returns the index's `(key, path, sha256)` rows.
+
+    The bundle's serialization, not this file's: `canonical_json` is frozen by 90 committed
+    fingerprints and escapes non-ASCII, while a config is content and travels the way the bundle's
+    content does. The two differ, so the choice is imported rather than retyped.
+    """
+    rows: list[tuple[str, str, str]] = []
+    for key, document in documents.items():
+        relative = config_relative_path(key)
+        path = out / CONFIG_DIR_NAME / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        payload = canonical_bytes(document)
+        path.write_bytes(payload)
+        rows.append((key, relative, hashlib.sha256(payload).hexdigest()))
+    rows.sort()
+    (out / CONFIG_DIR_NAME / CONFIG_INDEX_NAME).write_text(
+        "\n".join(
+            [
+                "# FROZEN CONFIGS — the exact input behind every digest in `exercise-mode.tsv`.",
+                "#",
+                "# A document id is `<config>:<seed>`, so a port strips the trailing seed and reads the",
+                "# file named here. The bytes are the bundle's canonical serialization — sorted keys, no",
+                "# spaces, real UTF-8, one trailing newline — and `sha256` is over exactly those bytes.",
+                "#",
+                "# CONSUME THEM BYTE-IDENTICALLY, never `equivalent`. `targets` feeds",
+                "# `rng.integers(0, len(targets))`, so that list's LENGTH decides which label a seed lands",
+                "# on: a config meaning the same thing with a different target count generates a different",
+                "# document from every seed at once. Defaults are written out (`indicator`, `explanation`",
+                "# as `null`) so a port never has to guess one.",
+                "#",
+                "# Held to the committed goldens by `backend/tests/test_generation_config_freeze.py`.",
+                "config\tpath\tsha256",
+                *(f"{key}\t{relative}\t{digest}" for key, relative, digest in rows),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return rows
 
 
 # --- the retry loops -------------------------------------------------------------------------------
@@ -557,6 +681,10 @@ def main(argv: list[str] | None = None) -> int:
 
     out: Path = args.out
     out.mkdir(parents=True, exist_ok=True)
+
+    # Derived from the ids just exported, so the frozen set explains exactly these digests.
+    frozen_configs = config_documents(exercise)
+    config_rows = write_configs(out, frozen_configs)
     by_loop: dict[str, list[RetryFinding]] = {}
     for finding in findings:
         by_loop.setdefault(finding.loop, []).append(finding)
@@ -713,6 +841,30 @@ def main(argv: list[str] | None = None) -> int:
         f"Injectors: {len(all_injectors())} pattern injectors plus the divergence generator, whose two",
         "oscillators (`rsi`, `macd`) take different retry paths and so count as two configs.",
         "",
+        "## The frozen configs",
+        "",
+        f"`{CONFIG_DIR_NAME}/` carries the {len(config_rows)} configs these documents were generated",
+        f"from — one JSON file each, with `{CONFIG_DIR_NAME}/{CONFIG_INDEX_NAME}` naming every one",
+        "beside the sha256 of its own bytes. A document id is `<config>:<seed>`, so strip the trailing",
+        "seed and what remains names the file:",
+        "",
+        "```",
+        "fakeout:multi:7                    -> configs/pattern/fakeout/multi.json",
+        "divergence:macd:bearish_hidden:149 -> configs/divergence/macd/bearish_hidden.json",
+        "```",
+        "",
+        "**Consume them byte-identically, never re-declared as equivalent.** `targets` feeds",
+        "`rng.integers(0, len(targets))`, so the LENGTH of that list decides which label a seed lands",
+        "on — a config that means the same thing with one target fewer generates a different document",
+        "from every seed at once, and the digests above would all move together with nothing to say",
+        "why. That is why the divergence generator carries a three-target `golden` config beside its",
+        "five-target ones, and why the defaults are written out rather than left to a port's idea of",
+        "them: `indicator` and `explanation` are `null` here, explicitly.",
+        "",
+        "The serialization is the BUNDLE's canonical form — sorted keys, no spaces, real UTF-8, one",
+        "trailing newline — not the digest recipe above, which escapes non-ASCII and ends without a",
+        "newline. Two canonical forms, and mixing them is a silent wrong hash.",
+        "",
         "## Retry-loop seeds",
         "",
         "Three loops rebuild a chart when the plant they wanted did not land. A port that gets the",
@@ -793,6 +945,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"exercise-mode.tsv   {len(exercise)} documents  (never move)")
     print(f"figures.tsv         {len(figures)} documents  (move with content, with a note)")
     print(f"formatter-cases.tsv {len(FORMATTER_CASES)} doubles, both languages measured")
+    print(f"{CONFIG_DIR_NAME + '/':<20}{len(config_rows)} frozen configs  (consume byte-identically)")
     print(f"total documents     {len(exercise) + len(figures)}")
     print()
     for loop in RETRY_LOOPS:
