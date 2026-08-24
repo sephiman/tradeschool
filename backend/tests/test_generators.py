@@ -4,8 +4,11 @@
 from __future__ import annotations
 
 from decimal import Decimal
+from pathlib import Path
 
 import pytest
+import yaml
+from pydantic import ValidationError
 
 from tradeschool.exercises.base import InvalidAnswerError
 from tradeschool.exercises.calculation import CalculationGenerator, _mc_options
@@ -39,7 +42,6 @@ CALC_RAW = {
         "mmr": {"kind": "choice", "values": ["0.005"]},
         "side": {"kind": "choice", "values": ["long"]},
     },
-    "tolerance": {"rel": "0.001"},
     "round": 2,
 }
 
@@ -276,3 +278,30 @@ def test_quiz_variant_selection_is_deterministic() -> None:
     assert prompts <= {"one", "two"}
     again = gen.generate(config, seed=3, locale="en").prompt
     assert again == gen.generate(config, seed=3, locale="en").prompt
+
+
+# --- retired fields ------------------------------------------------------------------------------
+
+_CONTENT = Path(__file__).resolve().parents[2] / "content"
+
+#: Fields the schema once carried and no longer accepts. Both halves are asserted — the schema
+#: rejects it AND no content file ships it — because otherwise "removed" just means "ignored".
+RETIRED_EXERCISE_FIELDS = ("tolerance",)
+
+
+@pytest.mark.parametrize("field", RETIRED_EXERCISE_FIELDS)
+def test_a_retired_field_is_rejected_by_the_schema(field: str) -> None:
+    """`extra="forbid"` must actually fire: a stale YAML fails loudly, never silently."""
+    raw = {**CALC_RAW, field: {"rel": "0.001"}}
+    with pytest.raises(ValidationError):
+        CalculationGenerator().parse_config(raw)
+
+
+@pytest.mark.parametrize("field", RETIRED_EXERCISE_FIELDS)
+def test_no_exercise_yaml_still_declares_a_retired_field(field: str) -> None:
+    offenders = [
+        path.name
+        for path in sorted((_CONTENT / "exercises").glob("*.yaml"))
+        if field in (yaml.safe_load(path.read_text(encoding="utf-8")) or {})
+    ]
+    assert not offenders, f"{field!r} was retired from the schema but still sits in: {offenders}"

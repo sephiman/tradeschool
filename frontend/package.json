@@ -12,7 +12,8 @@
     "lint": "tsc -b --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepare": "cd .. && husky"
+    "prepare": "cd .. && husky",
+    "export:bundle-ast": "node scripts/export-ast.mjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.2",

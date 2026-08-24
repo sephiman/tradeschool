@@ -12,6 +12,8 @@ from __future__ import annotations
 import numpy as np
 from numpy.typing import NDArray
 
+from tradeschool.exercises.charts.numerics import rowwise_mean_and_centred_slope
+
 Floats = NDArray[np.float64]
 
 
@@ -127,5 +129,7 @@ def squeeze_momentum(high: Floats, low: Floats, close: Floats, period: int = 20)
     deviation = close - (donchian + sma(close, period)) / 2.0
     window = _rolling(deviation, period)
     x_centred = np.arange(period, dtype=np.float64) - (period - 1) / 2.0
-    slope = (window - window.mean(axis=1, keepdims=True)) @ x_centred / float((x_centred**2).sum())
-    return np.asarray(window.mean(axis=1) + slope * x_centred[-1], dtype=np.float64)
+    # The regression is `numerics`, not a `@`: a matrix product is a BLAS call, so its kernel and its
+    # use of fused multiply-add are the machine's choice rather than this file's.
+    row_mean, slope = rowwise_mean_and_centred_slope(window, x_centred)
+    return np.asarray(row_mean + slope * x_centred[-1], dtype=np.float64)

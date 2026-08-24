@@ -8,7 +8,6 @@ params:
   notional: { kind: int_range, min: 2000, max: 20000, step: 500 }
   rate: { kind: choice, values: ["0.0001", "0.0005", "0.001", "-0.0004"] }
   side: { kind: choice, values: ["long", "short"] }
-tolerance: { abs: "0.5" }
 round: 2
 unit: USDT
 explanation:

@@ -61,6 +61,11 @@ select = ["E", "F", "I", "UP", "B", "C4", "SIM", "RUF"]
 "alembic/versions/*" = ["E501"]
 # Formula explanations intentionally use the math glyphs × and − in the step-by-step display.
 "src/tradeschool/exercises/formulas.py" = ["RUF001"]
+# Same reason, one level down: these write the summation contract the Kotlin port has to copy, and a
+# closed-form OLS reads as arithmetic only in Σ x̄ − · notation. ASCII would obscure the one thing
+# these docstrings exist to state precisely.
+"src/tradeschool/exercises/charts/numerics.py" = ["RUF002"]
+"scripts/*" = ["RUF002"]
 
 [tool.mypy]
 python_version = "3.14"

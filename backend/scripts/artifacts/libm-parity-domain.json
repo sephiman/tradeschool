@@ -1,0 +1,15 @@
+{
+  "domains": {
+    "exp": {
+      "distinct_inputs": 962953,
+      "max": 10.971821753532202,
+      "min": -1.171322817050716
+    },
+    "log": {
+      "distinct_inputs": 1071664,
+      "max": 58210.542127762856,
+      "min": 0.7446321471830036
+    }
+  },
+  "note": "The closed interval each function is actually called on in the generation path. A from-scratch exp/log only has to be right here \u2014 but it has to be right for every double in here, not just the ones this sweep happened to hit."
+}

@@ -9,7 +9,6 @@ params:
   leverage: { kind: choice, values: ["5", "10", "20", "25"] }
   mmr: { kind: choice, values: ["0.005", "0.01"] }
   side: { kind: choice, values: ["long", "short"] }
-tolerance: { rel: "0.001" }
 round: 2
 unit: { en: "price", es: "precio" }
 explanation:

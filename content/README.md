@@ -27,6 +27,20 @@ deleted in `frontend/src/lib/directives.ts` — so prose may write a colon follo
 `3:1`, `R:R`) and every surface prints it whole. A colon in prose was NOT always safe: the inline
 dialect used to eat `:00`, and the fix is a parser one, so nothing here needs escaping.
 
+### The app can render exactly these blocks, and the export enforces it
+
+The native Android app reads lessons from a bundle, not from this backend, and it has a renderer for a
+**closed** list of block kinds: h1-h3, paragraphs, bold, italic, inline code, bullet and numbered
+lists, blockquotes, GFM tables (with column alignment), the three callout tones, the two slots, and the
+annotator's glossary and lesson-reference marks. Anything else renders as *nothing* — a hole in the
+page, with no error anywhere.
+
+So `backend/scripts/export_bundle.py` refuses to write a bundle containing another kind, naming the
+lesson and the node. In practice that means: **no fenced code blocks, no images, no links, no hard line
+breaks, no horizontal rules, no raw HTML, no strikethrough, no footnotes, and no `####`.** None of them
+appears in the course today, which is why the list is closed rather than aspirational; if a lesson needs
+one, the app needs a renderer for it first. See `phase-w2-bundle-and-contracts.md`.
+
 ## The glossary
 
 `glossary.yaml` **refers, it does not teach.** Every entry distils the lesson that teaches the term
@@ -313,3 +327,21 @@ renders them in Spanish (`bruto = cantidad × (var. precio)`) — so an ES learn
 Spanish reminder above an English-skeleton solution. Closing that is one decision about identifiers
 across every line of every `explain`, not a phrase sweep; half-translating an expression line
 (`cost = fee×notional×2 × idas y vueltas`) reads worse than either end of it. Flagged, not done.
+
+### `tolerance` is retired (2026-08-24, one-time)
+
+Every calculation YAML but one used to declare `tolerance: { rel: … }` or `{ abs: … }` — how close a
+free-typed answer had to be to count as correct. That input mode is gone: `calculation` has graded by
+CHOICE for a long time (four shuffled options, three of them named mistakes), so the field was
+validated on load and then never read by anything. It has been removed from the schema and from the
+17 YAMLs that carried it.
+
+Removed rather than kept as a statement of intent, for two reasons: a schema field nothing reads
+invites the belief that it does something, and the Android port would otherwise have copied it into
+the exercise bundle. Nothing about grading changed — there was nothing to change.
+
+If free numeric input ever returns, its tolerance belongs beside that input's own contract, with a
+test in the same commit. Until then `RETIRED_EXERCISE_FIELDS` in
+`backend/tests/test_generators.py` asserts both halves of the retirement: the schema rejects the
+field, and no `content/exercises/*.yaml` still ships it. The reasoning also sits beside the schema it
+left, in `backend/src/tradeschool/exercises/calculation.py`.

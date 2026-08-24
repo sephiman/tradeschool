@@ -182,6 +182,12 @@ GOLDEN = {
     "multi_timeframe:1": "70976889cd226292",
     "multi_timeframe:2": "faea307085fde6ad",
     "multi_timeframe:3": "ecbc9f3fbc7b408a",
+    # NOT re-captured on 2026-08-24, which is the finding of Phase W1. `np.polyfit` and
+    # `squeeze_momentum`'s `@` left the generation path for the fixed-order forms in
+    # `charts/numerics.py`, and every hash here was expected to move. None did: the raw floats shift by
+    # up to 3e-11 relative, far below the 2-decimal quantum these prices are rounded to. Three
+    # FIGURE-mode payloads did move and are pinned in `test_generation_numerics.py`. Recorded because a
+    # reader who knows the fit was replaced would otherwise assume these were quietly adapted.
 }
 
 _SEEDS = range(4)

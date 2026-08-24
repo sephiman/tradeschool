@@ -7,7 +7,6 @@ prompt:
 params:
   price: { kind: choice, values: ["0.5", "1.2", "3.5", "12", "85"] }
   circulating: { kind: int_range, min: 100, max: 1500, step: 100 }
-tolerance: { rel: "0.005" }
 round: 2
 unit: { en: "million USD", es: "millones de USD" }
 explanation:

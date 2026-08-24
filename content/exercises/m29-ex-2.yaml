@@ -7,7 +7,6 @@ prompt:
 params:
   taker_buy: { kind: int_range, min: 1100, max: 1500, step: 50 }
   taker_sell: { kind: int_range, min: 400, max: 700, step: 50 }
-tolerance: { abs: "1" }
 round: 2
 unit: { en: "contracts", es: "contratos" }
 explanation:

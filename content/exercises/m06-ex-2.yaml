@@ -11,7 +11,6 @@ params:
   # and "wrong mmr sign" distractors collapse into one value (test_mental_cost).
   mmr: { kind: choice, values: ["0.005"] }
   side: { kind: choice, values: ["long", "short"] }
-tolerance: { rel: "0.001" }
 round: 2
 unit: { en: "price", es: "precio" }
 explanation:

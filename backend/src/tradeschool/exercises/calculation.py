@@ -60,10 +60,10 @@ class ChoiceSpec(BaseModel):
 ParamSpec = Annotated[IntRangeSpec | ChoiceSpec, Field(discriminator="kind")]
 
 
-class Tolerance(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    rel: str | None = None
-    abs: str | None = None
+# RETIRED 2026-08-24: `tolerance: {rel|abs}` — how close a free-typed answer had to be. Grading has
+# been CHOICE-based since long before, so nothing read it; it was declared on 17 YAMLs, validated on
+# load and dropped. Removed rather than kept as intent, because the bundle would have carried it.
+# `tests/test_generators.py::RETIRED_EXERCISE_FIELDS` keeps it from creeping back.
 
 
 class CalculationConfig(BaseModel):
@@ -72,7 +72,6 @@ class CalculationConfig(BaseModel):
     prompt: LocalizedText
     formula: str
     params: dict[str, ParamSpec]
-    tolerance: Tolerance = Tolerance()
     round: int = 2
     #: Printed beside every option and in the answer key, so it is text a learner READS. A bare
     #: string means the unit is the same in both books — true of a ticker (`USDT`) or a symbol

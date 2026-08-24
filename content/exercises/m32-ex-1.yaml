@@ -12,7 +12,6 @@ params:
   # 1.5% worked example). price_b's grid keeps the premium on clean half-percent steps, 1%-2.5%.
   price_a: { kind: choice, values: ["60000"] }
   price_b: { kind: int_range, min: 60600, max: 61500, step: 300 }
-tolerance: { rel: "0.001" }
 round: 3
 unit: "%"
 explanation:

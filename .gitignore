@@ -11,7 +11,6 @@ backend/.mypy_cache/
 
 # Node / frontend
 node_modules/
-dist/
 .vite/
 *.tsbuildinfo
 
@@ -20,3 +19,20 @@ dist/
 .vscode/
 .DS_Store
 *.log
+
+# Generated output, BOTH halves of the repo: the frontend build and every `backend/scripts/export_*.py`
+# artifact (bundle, prng-vectors, generation-goldens, reports). Narrowing this to `frontend/dist/`
+# would silently start committing the bundle.
+dist/
+
+# The complete exp/log input stream (~120 MB), regenerated with `measure_libm_parity.py --full`. The
+# committed sample plus the summary's digests over it are the reviewable artifact.
+backend/scripts/artifacts/libm-parity-full.tsv
+
+# Machine-local files, by the `.local` suffix Vite already uses. Mainly
+# `verify_golden_stability.py --dump digest.local.json`, which only means anything next to another
+# machine's copy.
+*.local.json
+
+# JVM build output: `scripts/kotlin_side/*.java` runs from source and emits nothing, but `javac` does.
+*.class

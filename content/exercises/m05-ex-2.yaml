@@ -8,7 +8,6 @@ params:
   entry: { kind: int_range, min: 800, max: 6000, step: 100 }
   quantity: { kind: choice, values: ["0.1", "0.5", "1", "2"] }
   leverage: { kind: choice, values: ["5", "10", "20", "25"] }
-tolerance: { rel: "0.005" }
 round: 2
 unit: USDT
 explanation:

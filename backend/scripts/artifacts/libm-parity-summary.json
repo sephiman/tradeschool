@@ -1,0 +1,58 @@
+{
+  "documents_generated": 9233,
+  "documents_refused": 0,
+  "environment": {
+    "libc": "glibc 2.44",
+    "machine": "x86_64",
+    "numpy": "2.5.1",
+    "platform": "Linux-7.2.0-1-cachyos-x86_64-with-glibc2.44",
+    "python": "3.14.7"
+  },
+  "functions": {
+    "exp": {
+      "calls": 142049,
+      "digests": {
+        "inputs": "ac1370feba7fd04d9806464a6cfdef76b82dc70a2885e19df8dfc24ea5f43bc1",
+        "libm": "d8b418954f9101a4b411d6fb35483665cad760f5258614e281e67e34f4865788",
+        "numpy": "d8b418954f9101a4b411d6fb35483665cad760f5258614e281e67e34f4865788"
+      },
+      "distinct_inputs": 962953,
+      "domain_error_inputs": 0,
+      "finite_input_max": 10.971821753532202,
+      "finite_input_min": -1.171322817050716,
+      "first_mismatches": [],
+      "nan_inputs": 0,
+      "negative_infinity_inputs": 0,
+      "numpy_vs_libm_mismatches": 0,
+      "positive_infinity_inputs": 0,
+      "subnormal_inputs": 0,
+      "values_seen": 4227213
+    },
+    "log": {
+      "calls": 99602,
+      "digests": {
+        "inputs": "c80507950eb877f6762c663562036fce1f484281f338983e7345ecf8d8d8567f",
+        "libm": "2481bfbad502f6fb69ef2e5ef03d63f7e450600dfd25adb175d4fc1a9cd7db4b",
+        "numpy": "2481bfbad502f6fb69ef2e5ef03d63f7e450600dfd25adb175d4fc1a9cd7db4b"
+      },
+      "distinct_inputs": 1071664,
+      "domain_error_inputs": 0,
+      "finite_input_max": 58210.542127762856,
+      "finite_input_min": 0.7446321471830036,
+      "first_mismatches": [],
+      "nan_inputs": 0,
+      "negative_infinity_inputs": 0,
+      "numpy_vs_libm_mismatches": 0,
+      "positive_infinity_inputs": 0,
+      "subnormal_inputs": 0,
+      "values_seen": 2522465
+    }
+  },
+  "probe_seeds": 50,
+  "refusals": [],
+  "sample_artifact": "libm-parity-sample.tsv",
+  "sample_rows": 20049,
+  "sample_rows_per_function_cap": 10000,
+  "sweep_seconds": 31.9,
+  "total_distinct_inputs": 2034617
+}

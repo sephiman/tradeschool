@@ -8,7 +8,6 @@ params:
   win_rate: { kind: choice, values: ["0.3", "0.4"] }
   avg_win: { kind: int_range, min: 450, max: 700, step: 50 }
   avg_loss: { kind: int_range, min: 90, max: 150, step: 30 }
-tolerance: { abs: "1" }
 round: 2
 unit: USDT
 explanation:

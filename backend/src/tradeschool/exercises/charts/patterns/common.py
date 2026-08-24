@@ -11,6 +11,7 @@ from collections.abc import Iterable
 import numpy as np
 from numpy.typing import NDArray
 
+from tradeschool.exercises.charts.numerics import detrend_linear
 from tradeschool.exercises.charts.patterns.base import LevelGuard
 from tradeschool.exercises.charts.types import Series
 
@@ -48,10 +49,14 @@ def shape_from_points(points: list[tuple[float, float]], n: int) -> Floats:
 
 
 def detrended_noise(rng: np.random.Generator, n: int, sigma: float) -> Floats:
-    """A driftless noise path: a random walk with its own net linear drift removed."""
+    """A driftless noise path: a random walk with its own net linear drift removed.
+
+    The fit is `numerics.detrend_linear`, not `np.polyfit` — the latter went through LAPACK, whose
+    kernel the CPU picks at load time (see `charts/numerics.py`).
+    """
     walk = np.cumsum(rng.normal(0.0, sigma, n))
     x = np.arange(n, dtype=float)
-    return walk - np.polyval(np.polyfit(x, walk, 1), x)
+    return detrend_linear(x, walk)
 
 
 def bounded_noise(rng: np.random.Generator, n: int, amp: float, base_sigma: float = 0.006) -> Floats:

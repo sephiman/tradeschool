@@ -798,6 +798,106 @@ cd backend
 uv run tradeschool reset-password <username>   # prompts twice for the new password (Argon2-hashed)
 ```
 
+## Cross-machine numeric stability
+
+The chart generators are float maths, and the Android port's Kotlin generators will be verified against
+cross-language goldens — so "the same seed gives the same chart" has to hold across *machines*, not just
+across runs. Two things in the stack could break that without anything in this repository changing:
+NumPy links `scipy-openblas` built with `DYNAMIC_ARCH` (the BLAS/LAPACK kernel is chosen from the CPU's
+feature bits at load time), and NumPy's own `exp`/`log` kernels dispatch on SIMD width. Neither is
+visible from the source, so the only honest way to know is to run the same sweep on two different
+microarchitectures and compare.
+
+```bash
+cd backend
+uv run python scripts/verify_golden_stability.py                 # one digest, ~40 s
+uv run python scripts/verify_golden_stability.py --dump digest.local.json   # + every fingerprint
+uv run python scripts/verify_golden_stability.py --seeds 4       # a fast smoke run
+```
+
+It prints **one digest** over every fingerprint of the whole generation workload — exercise mode and
+figure mode, every injector, every label, 50 probe seeds, plus the 33 generated content figures — next
+to the CPU model, the OpenBLAS build string, the SIMD level NumPy chose, glibc and NumPy versions. It
+also re-checks all **90 committed fingerprints** (the 84 in `tests/test_golden_exercise_mode.py` plus
+the 6 pins in `tests/test_generation_numerics.py`) and reports them separately from the digest, because
+"the digest differs but the committed fingerprints hold" and "both differ" are very different
+diagnoses: the first says this machine computes different numbers, the second says the numbers moved
+here too. **Exit code is 0 only if all 90 hold.**
+
+**Identical digests plus a zero exit code, on two machines of different microarchitectures, is the
+pass** — that pair certifies the whole surface a cross-language golden would rest on. If the digests
+differ, run both with `--dump` and diff the two files: the keys are `mode:injector:label:seed`, so the
+diff names the injector to look at. A difference is not necessarily a bug in this repo — it is more
+likely one of the two dispatch points above — but it does mean a cross-language golden cannot be
+defined until it is understood.
+
+One subtlety worth knowing before trusting the digest: it hashes each whole generated document, while a
+committed fingerprint hashes a named sub-structure of one, so the digest does not *contain* the
+committed values. What it contains is the same generated **documents** — all 84 golden ones verified
+byte-identical inside the sweep, which is why the workload sweeps the goldens' own 3-target divergence
+config alongside the 5-target one. Change that list and four golden documents drop out of the sweep.
+
+The workload is defined once, in `backend/scripts/generation_workload.py`, and shared with
+`scripts/measure_libm_parity.py` (which records what reaches `np.exp`/`np.log`) so the two scripts
+cannot drift into measuring different things. The reasoning behind all of it, including why there is no
+hand-written `exp`/`log` and why `np.polyfit` and the one `@` are gone, is in
+`phase-w1-numeric-sanitization.md`.
+
+## The Android bundle and the port's contracts
+
+The native Android app (`tradeschool-android`) reads the course from a **bundle** instead of calling
+this backend, and its Kotlin generators are verified against **contract artifacts** exported from
+here. Four commands build all of it; the reasoning is in `phase-w2-bundle-and-contracts.md`.
+
+```bash
+cd backend
+uv run python scripts/export_bundle.py                    # -> dist/bundle/       (~4 s)
+uv run python scripts/export_prng_vectors.py              # -> dist/contracts/prng-vectors/
+uv run python scripts/export_generation_goldens.py        # -> dist/contracts/generation-goldens/  (~32 s)
+uv run python scripts/export_contracts_to_android.py --target /path/to/tradeschool-android
+```
+
+`dist/` is git-ignored: these are build outputs, and the copy that gets committed is the one in the
+Android repository, next to an `EXPORT_MANIFEST.json` saying which commit of this repo produced it.
+
+**The bundle is half TypeScript, and that is deliberate.** The lesson ASTs can only come from the
+frontend — the directive dialect, the ONE glossary/reference annotator and the tap point between it and
+the hast hints all live in `frontend/src/lib/`, and re-deriving any of them in Python would be the same
+drift this repo refuses when it captures figures in a browser rather than drawing charts twice. So
+`export_bundle.py` owns `content/` (through the registry the app already builds at startup), writes an
+input file, and drives `frontend/scripts/export-ast.mjs` with it — one command, two halves that cannot
+disagree about which content version they are on. That script loads the module graph through Vite's own
+SSR pipeline, so the `@/` alias and the TypeScript settings are the project's rather than a second
+configuration; no dependency was added to either half.
+
+The ASTs are the mdast **after** the annotator and **before** `remarkDirectiveToHast`: glossary and
+lesson-reference marks are pre-planted (the web's first-occurrence-per-lesson policy, which is the one
+that means anything on a phone), `::figure`/`::exercise` are still directive nodes, and source
+positions are stripped. `src/lib/bundle/ast.test.ts` fails if either end of that tap point moves, and
+ties the planted marks to `content/glossary-links.<locale>.txt` and `content/lesson-refs.<locale>.txt`
+lesson for lesson — so the app can never tooltip a word no reviewer has seen.
+
+Two guards decide whether a bundle gets written at all:
+
+* **The block inventory.** `BLOCK_INVENTORY` is the closed set of node kinds the app can render, and an
+  unknown one renders as *nothing* — so a lesson that acquired a fenced code block, an image, a hard
+  line break or an `####` heading would ship as a hole in the page with nothing to notice it. Every
+  node of all 88 lesson ASTs is checked and the export fails naming the lesson and the node.
+* **The multiset text diff.** The export re-reads what it wrote and compares its words against the
+  words `/export` serves from the same content, per locale, prose and glossary. Zero, or no bundle.
+  Reading back from disk is the point: that is what catches a lost node, a mangled `→` or a stale file.
+
+```
+uv run python scripts/export_bundle.py --verify-only   # re-check a bundle without rewriting it
+uv run python scripts/export_generation_goldens.py --dump-id fakeout:multi:0   # the bytes that were hashed
+```
+
+**The goldens reuse the committed fingerprints' own recipe**, so the first 16 hex digits of a line
+*are* the fingerprint `tests/test_golden_exercise_mode.py` has committed, where it has one. Two files,
+two promises: `exercise-mode.tsv` never moves, `figures.tsv` moves only with content and only with a
+note. `backend/tests/test_generation_goldens.py` asserts the overlap for all 84 goldens and the 4
+checkable pins, which is what stops the artifact and the suite becoming two opinions.
+
 ## Deployment
 
 Copy `.env.example` to `.env` and fill it in (create the dedicated Postgres DB + user first, on the shared

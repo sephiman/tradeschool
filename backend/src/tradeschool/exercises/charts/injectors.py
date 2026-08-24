@@ -14,6 +14,7 @@ from numpy.typing import NDArray
 
 from tradeschool.exercises.charts.engine import regime_sigma, trend_walk_close
 from tradeschool.exercises.charts.indicators import macd, rsi
+from tradeschool.exercises.charts.numerics import detrend_linear
 from tradeschool.exercises.charts.types import DivergenceType
 
 Floats = NDArray[np.float64]
@@ -184,8 +185,9 @@ class RsiDivergenceInjector(PatternInjector):
             step_sigma = sigma0 * (0.6**attempt)
             walk = np.cumsum(rng.normal(0.0, step_sigma, n))
             # Detrend (remove the noise's own net drift) but keep variance everywhere, so the
-            # candles never go dead-flat at the ends.
-            noise = walk - np.polyval(np.polyfit(x, walk, 1), x)
+            # candles never go dead-flat at the ends. `detrend_linear`, not `np.polyfit`: the latter
+            # solved this through LAPACK (see `charts/numerics.py`).
+            noise = detrend_linear(x, walk)
             close_visible = np.exp(np.log(base_price) + shape + noise)
             _apply_ambient_tail(rng, close_visible)
             full, s1, s2 = assemble(close_visible)

@@ -8,7 +8,6 @@ params:
   equity: { kind: int_range, min: 10000, max: 100000, step: 10000 }
   risk_pct: { kind: choice, values: ["0.005", "0.01", "0.02"] }
   stop_distance: { kind: choice, values: ["50", "100", "250", "500"] }
-tolerance: { rel: "0.01" }
 round: 4
 unit: { en: "units", es: "unidades" }
 explanation:

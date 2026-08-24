@@ -12,7 +12,6 @@ params:
   quantity: { kind: choice, values: ["0.1", "0.5"] }
   side: { kind: choice, values: ["long"] }
   fee_rate: { kind: choice, values: ["0.0002", "0.0004"] }
-tolerance: { abs: "1" }
 round: 2
 unit: USDT
 explanation:
