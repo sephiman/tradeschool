@@ -316,14 +316,23 @@ def cpython_mt_state(seed: int) -> dict[str, Any]:
 
 
 def cpython_rows(seed: int) -> list[dict[str, Any]]:
-    """One row per primitive call, in a fixed program, each on its OWN generator.
+    """One row per primitive call, in a fixed program, one generator per FAMILY.
 
-    Own generator per primitive, because a port debugging `getrandbits` should not have to reproduce
-    `random()` first to get to it.
+    A fresh `random.Random(seed)` per (primitive, arg) family, because a port debugging `getrandbits`
+    should not have to reproduce `random()` first to get to it — and then that ONE generator advances
+    across the family's rows.
+
+    Both halves are load-bearing, and the second was once wrong: the `random` family built its
+    generator inside the loop, so every row held draw 0 and 15,984 of 16,000 exported rows described
+    no CPython behaviour at all. It survived because nothing asserted that a column advances.
+    `test_every_cpython_family_reproduces_one_sequential_generator` now does, for every family.
     """
     rows: list[dict[str, Any]] = []
-    for index, value in enumerate(random.Random(seed).random() for _ in range(DRAWS_PER_SEED)):
-        rows.append({"primitive": "random", "arg": "", "index": index, "value": hex64(value)})
+    generator = random.Random(seed)
+    for index in range(DRAWS_PER_SEED):
+        rows.append(
+            {"primitive": "random", "arg": "", "index": index, "value": hex64(generator.random())}
+        )
     for bits in (1, 4, 15, 16, 31, 32, 53, 64):
         generator = random.Random(seed)
         for index in range(DRAWS_PER_PARAM):

@@ -48,12 +48,14 @@ from scripts.export_prng_vectors import (  # noqa: E402
     ZIGGURAT_NOR_R,
     build_all,
     cpython_mt_state,
+    cpython_rows,
     mixed_rows,
     normal_rows,
     pcg64_state_from_words,
     quiz_layout_rows,
     seed_state_words,
 )
+from scripts.measure_libm_parity import hex64  # noqa: E402  the one definition of a double's bits
 
 
 def test_the_seeding_chain_is_reproduced_from_the_exported_words() -> None:
@@ -172,6 +174,82 @@ def test_the_normal_rows_reproduce_the_draw_they_record() -> None:
     for row, value in zip(rows, expected.tolist(), strict=True):
         assert float(row["value"]) == value
         assert row["hex"] == "0x" + np.float64(value).tobytes()[::-1].hex()
+
+
+def _cpython_families(seed: int) -> dict[tuple[str, str], list[str]]:
+    """The exported rows grouped as `(primitive, arg) -> values in index order`."""
+    families: dict[tuple[str, str], list[str]] = {}
+    for row in cpython_rows(seed):
+        families.setdefault((row["primitive"], row["arg"]), []).append(row["value"])
+    return families
+
+
+def _replay(primitive: str, argument: str, seed: int, count: int) -> list[str]:
+    """The same primitive, `count` times, from ONE `random.Random(seed)`.
+
+    The independent reference: stdlib is the specification here, so a family that disagrees with this
+    is a bug in the exporter rather than a difference of opinion.
+    """
+    generator = random.Random(seed)
+    values: list[str] = []
+    for _ in range(count):
+        if primitive == "random":
+            values.append(hex64(generator.random()))
+        elif primitive == "getrandbits":
+            values.append(str(generator.getrandbits(int(argument))))
+        elif primitive == "_randbelow":
+            values.append(str(generator._randbelow(int(argument))))  # type: ignore[attr-defined]
+        elif primitive == "choice":
+            values.append(str(generator.choice(list(range(int(argument))))))
+        elif primitive == "shuffle":
+            order = list(range(int(argument)))
+            generator.shuffle(order)
+            values.append(",".join(str(v) for v in order))
+        elif primitive == "randint":
+            low, high = (int(part) for part in argument.split(","))
+            values.append(str(generator.randint(low, high)))
+        elif primitive == "randrange":
+            values.append(str(generator.randrange(int(argument))))
+        else:
+            raise AssertionError(f"unknown primitive {primitive!r}")
+    return values
+
+
+def test_every_cpython_family_advances_within_a_seed() -> None:
+    """No family may emit one value repeated for a whole seed.
+
+    This is the defect the Android port found: the `random` family built a FRESH `Random(seed)` per
+    row instead of drawing from one, so all 1000 rows held draw 0 and no correct port could match
+    them. A constant column is the signature of a generator constructed inside the loop, and it is
+    cheap to rule out for every family at once.
+    """
+    for seed in VECTOR_SEEDS[:3]:
+        for (primitive, argument), values in _cpython_families(seed).items():
+            if len(values) < 2:
+                continue
+            # A one-bit draw legitimately repeats a lot, so the test is "not CONSTANT", not "all
+            # distinct": a family with any variation is advancing.
+            assert len(set(values)) > 1, (
+                f"seed {seed} {primitive}({argument}) emitted {len(values)} rows all equal to "
+                f"{values[0]!r} — the generator is being re-created inside the loop"
+            )
+
+
+def test_every_cpython_family_reproduces_one_sequential_generator() -> None:
+    """The stronger property, and the one that closes the bug class rather than this instance.
+
+    Each family restarts from a fresh `Random(seed)` — that is the file's documented contract — and
+    then draws SEQUENTIALLY. Replaying the primitive from stdlib must reproduce the exported column
+    exactly, for every family, so a generator hoisted into the wrong scope cannot pass anywhere.
+    """
+    for seed in VECTOR_SEEDS[:3]:
+        for (primitive, argument), values in _cpython_families(seed).items():
+            expected = _replay(primitive, argument, seed, len(values))
+            assert values == expected, (
+                f"seed {seed} {primitive}({argument}) does not reproduce a single sequential "
+                f"generator; first divergence at index "
+                f"{next(i for i, (a, b) in enumerate(zip(values, expected, strict=True)) if a != b)}"
+            )
 
 
 def test_the_quiz_layout_vectors_come_from_the_generator_itself() -> None:
