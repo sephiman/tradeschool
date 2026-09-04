@@ -131,7 +131,11 @@ async def _open_sessions(
 
 
 async def _attempts_of(session: AsyncSession, exam_id: uuid.UUID) -> list[Attempt]:
-    rows = await session.scalars(select(Attempt).where(Attempt.exam_session_id == exam_id))
+    """Ordered by id so the fallback path below is deterministic. The database has no inherent row
+    order, and an unordered fetch made two renders of one exam disagree wherever the sort key tied."""
+    rows = await session.scalars(
+        select(Attempt).where(Attempt.exam_session_id == exam_id).order_by(Attempt.id)
+    )
     return list(rows.all())
 
 
@@ -145,6 +149,20 @@ async def _abandon(session: AsyncSession, exam: ExamSession) -> None:
 
 def _canonical_order(registry: CourseRegistry) -> dict[str, int]:
     return {module.id: i for i, (_, module) in enumerate(registry.manifest.iter_modules())}
+
+
+#: Where a session's frozen question order lives, inside the `rules` JSONB it already has. A list of
+#: exercise KEYS, in the order the exam was assembled — one per module, so the keys are unique within
+#: a session.
+QUESTION_ORDER = "questionOrder"
+
+
+def _frozen_order(exam: ExamSession) -> dict[str, int] | None:
+    """The order this exam was assembled in, or `None` for a session written before it was frozen."""
+    order = exam.rules.get(QUESTION_ORDER)
+    if not isinstance(order, list) or not order:
+        return None
+    return {str(key): index for index, key in enumerate(order)}
 
 
 def _result_for_view(registry: CourseRegistry, result: dict[str, object]) -> dict[str, object]:
@@ -168,14 +186,26 @@ def _build_view(
     locale: str,
     reveal: bool,
 ) -> ExamView:
-    order = _canonical_order(registry)
-
     def display_id(a: Attempt) -> str:
         return registry.exercise_id_for_key(a.exercise_id) or a.exercise_id
 
-    def sort_key(a: Attempt) -> int:
-        loc = registry.exercise_location(display_id(a))
-        return order.get(loc[1], 10_000) if loc else 10_000
+    # The order is FROZEN at assembly and read back here, rather than re-derived from today's manifest.
+    # Re-deriving made an exam disagree with itself: the sort ran over the CURRENT module order, so a
+    # display renumbering — which this repo supports on purpose, keys being permanent and ids not —
+    # reordered the questions of an exam already sitting in review, and the `index` the UI paginates
+    # by moved under it. Attempts store the permanent key, so the frozen list survives a renumbering.
+    frozen = _frozen_order(session_obj)
+    if frozen is not None:
+        def sort_key(a: Attempt) -> int:
+            return frozen.get(a.exercise_id, len(frozen))
+    else:
+        # Sessions assembled before the order was frozen. Same derivation as before, and `_attempts_of`
+        # now orders by id so the ties this produces resolve the same way on every render.
+        canonical = _canonical_order(registry)
+
+        def sort_key(a: Attempt) -> int:
+            loc = registry.exercise_location(display_id(a))
+            return canonical.get(loc[1], 10_000) if loc else 10_000
 
     rules = _rules(session_obj)
     scope = str(rules.get("scope", "global"))
@@ -268,6 +298,7 @@ async def start_exam(
     session.add(exam)
     await session.flush()  # assign exam.id for the attempt FK
 
+    question_keys: list[str] = []
     for _b_id, module_id in modules:
         exercise_id = secrets.choice(registry.playable_module_exercises(module_id))
         config = registry.get_exercise_config(exercise_id)
@@ -276,10 +307,12 @@ async def start_exam(
         generator = get_generator(exercise_type)
         seed = secrets.randbelow(_SEED_SPACE)
         instance = generator.generate(cfg, seed, locale)
+        exercise_key = registry.exercise_key(exercise_id)
+        question_keys.append(exercise_key)
         session.add(
             Attempt(
                 user_id=user_id,
-                exercise_id=registry.exercise_key(exercise_id),  # rows store the permanent key
+                exercise_id=exercise_key,  # rows store the permanent key
                 seed=seed,
                 instance_snapshot={
                     "type": exercise_type.value,
@@ -290,19 +323,34 @@ async def start_exam(
                 exam_session_id=exam.id,
             )
         )
+    # `modules` is in canonical order, so this IS the order the exam was assembled in — recorded now
+    # rather than re-derived at every render. Additive: it goes in the `rules` JSONB the session
+    # already has, so no schema migration, and a session written before this reads as `None`.
+    exam.rules = {**exam.rules, QUESTION_ORDER: question_keys}
     await session.commit()
     return _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
 
 
-async def current_exam(
+async def open_exams(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, course_id: str, locale: str
-) -> ExamView | None:
-    """The single most-recent open session (resume), if any."""
-    open_sessions = await _open_sessions(session, user_id, course_id)
-    if not open_sessions:
-        return None
-    exam = open_sessions[0]
-    return _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
+) -> list[ExamView]:
+    """EVERY open sitting, newest first — not just the most recent one.
+
+    `start_exam` only closes an open session of the SAME scope, so starting a block exam while a
+    global one is unfinished leaves two open at once. The old `current_exam` returned
+    `open_sessions[0]`, which meant the older sitting stayed open forever with no route in the UI that
+    could reach it: the learner's half-finished exam was still consuming its questions and could
+    neither be resumed nor abandoned.
+
+    Listing them is preferred over the other available fix — closing the others when a new exam
+    starts — because that one silently destroys work the learner never asked to discard, and the
+    moment it would happen (starting an exam of a different scope) is not a moment they are thinking
+    about the other one. The Android app already lists every open sitting; this is the web following.
+    """
+    return [
+        _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
+        for exam in await _open_sessions(session, user_id, course_id)
+    ]
 
 
 async def render_exam(

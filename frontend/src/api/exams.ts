@@ -79,8 +79,15 @@ export async function startExam(scope: ExamScope, blockId?: string): Promise<Exa
   return data;
 }
 
-export async function getCurrentExam(): Promise<ExamSession | null> {
-  const { data } = await apiClient.get<ExamSession | null>(`${COURSE_PATH}/exams/current`);
+/**
+ * EVERY open sitting, newest first.
+ *
+ * This replaced a `/current` that answered with the newest one alone. Starting an exam only closes an
+ * open one of the same scope, so a global and a block exam can be open at once — and the older of the
+ * two then had no route in the UI that could reach it, to resume or to abandon.
+ */
+export async function getOpenExams(): Promise<ExamSession[]> {
+  const { data } = await apiClient.get<ExamSession[]>(`${COURSE_PATH}/exams/open`);
   return data;
 }
 

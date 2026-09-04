@@ -33,15 +33,20 @@ if str(_BACKEND) not in sys.path:
 from scripts.export_generation_goldens import (  # noqa: E402
     FORMATTER_CASES,
     FORMATTER_ID,
+    KNOWN_UNQUANTIZED,
     LOOPS_WITH_NO_RETRY_FOUND,
     MULTI_SEEDS,
+    PAYLOAD_SCALES,
     RETRY_LOOPS,
     SINGLE_SEEDS,
+    Unquantized,
     canonical_json,
     document_sha256,
+    document_violations,
     exercise_documents,
     figure_documents,
     formatter_document,
+    quantization_failures,
     retry_iterations,
     scan_retry_loops,
 )
@@ -229,3 +234,88 @@ def test_each_loop_declares_what_an_iteration_means_in_it() -> None:
         assert len(loop.counts.split()) > 8, f"{loop.name}: `counts` must say what it counts"
         assert loop.injectors, loop.name
     assert retry_iterations.__doc__
+
+
+# --- the quantization vaccine ----------------------------------------------------------------------
+
+
+def _sweep_violations() -> tuple[list[Unquantized], list[str]]:
+    """Every finding over a small but complete sweep: some exercise seeds, and ALL the figures.
+
+    All the figures on purpose — `KNOWN_UNQUANTIZED` is entirely figure documents, so a narrower
+    sweep would report a pinned entry as retired for no reason but the sweep's size.
+    """
+    unrounded: list[Unquantized] = []
+    undeclared: list[str] = []
+    for key, document in list(exercise_documents((0, 1, 2), (0,))) + list(figure_documents()):
+        found, unknown = document_violations(key, document)
+        unrounded.extend(found)
+        undeclared.extend(unknown)
+    return unrounded, undeclared
+
+
+def test_no_float_reaches_a_digest_at_a_scale_the_payload_does_not_declare() -> None:
+    """The export's own gate, run in the suite: only the pinned debt, and every bit of it."""
+    unrounded, undeclared = _sweep_violations()
+    assert quantization_failures(unrounded, undeclared) == []
+
+
+def test_an_injector_that_forgets_to_round_a_level_is_caught() -> None:
+    """The class the check exists for: `lv.price` is copied verbatim, so nothing else would notice."""
+    clean = {"series": {"close": [1.0]}, "levels": [{"price": 100.25, "label": "", "kind": "level"}]}
+    assert document_violations("x", {"p": clean}) == ([], [])
+
+    raw = json.loads(json.dumps(clean))
+    raw["levels"][0]["price"] = 100.25 + 1 / 3
+    unrounded, undeclared = document_violations("x", {"p": raw})
+    assert undeclared == []
+    assert [finding.key for finding in unrounded] == ["x[0] levels[].price"]
+    assert "not at 2dp" in str(unrounded[0])
+
+
+def test_a_float_at_an_undeclared_path_is_a_failure_of_its_own() -> None:
+    """A new pane cannot ship unquantized by being unlisted — that is what closes the set."""
+    _unrounded, undeclared = document_violations("x", {"p": {"newpane": [0.5]}})
+    assert undeclared == ["x[0] newpane[]: 1 float(s) at a path with no declared scale"]
+    assert "newpane[]" not in PAYLOAD_SCALES
+
+
+def test_the_vaccine_holds_with_no_exceptions() -> None:
+    """The pin is empty, and that is the state this repository intends to stay in.
+
+    It held m15's four interpolated diagonal anchors until `diagonals.extended()` started rounding
+    them. A key reappearing here is a deliberate, dated decision to ship float noise for a while —
+    never a default — so it is asserted rather than assumed.
+    """
+    assert KNOWN_UNQUANTIZED == {}
+
+
+def test_a_pinned_debt_that_stopped_firing_has_to_be_retired() -> None:
+    """Both directions, or a temporary exemption quietly becomes a permanent one.
+
+    Exercised with a synthetic pin: the real set is empty, and the machinery still has to work the
+    day somebody adds one.
+    """
+    pinned = {"frozen:fig-x[0] levels[].price": "an interpolation nobody rounds"}
+    failures = quantization_failures([], [], pinned)
+    assert len(failures) == 1
+    assert "retire the note" in failures[0]
+
+    # ...and while it IS firing, the pin silences that one and nothing else.
+    offender = Unquantized(
+        where="frozen:fig-x[0]", path="levels[].price", scale=2, first=1.005, count=1
+    )
+    other = Unquantized(where="frozen:fig-y[0]", path="levels[].price", scale=2, first=2.005, count=1)
+    assert quantization_failures([offender], [], pinned) == []
+    # The key runs up to the ": N value(s)" the message appends; the id itself carries a colon.
+    assert [f.split(": ")[0] for f in quantization_failures([offender, other], [], pinned)] == [
+        "frozen:fig-y[0] levels[].price"
+    ]
+
+
+def test_every_pinned_key_names_a_document_and_a_declared_path() -> None:
+    """A pin whose path is not in the table would silence nothing and mislead a reader."""
+    for key in KNOWN_UNQUANTIZED:
+        identifier, path = key.rsplit(" ", 1)
+        assert identifier.startswith("frozen:") and identifier.endswith("]"), key
+        assert path in PAYLOAD_SCALES, key

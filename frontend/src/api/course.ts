@@ -20,6 +20,8 @@ export interface CourseLesson {
   id: string;
   order: number;
   title: string;
+  /** Two or three sentences of what it teaches — what a reference card to this lesson shows. */
+  summary: string;
   completed: boolean;
   /** This lesson's reading time in seconds; every aggregate is a sum of these (see readingTime.ts). */
   readingSeconds: number;

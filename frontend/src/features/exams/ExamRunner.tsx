@@ -12,6 +12,7 @@ import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
 import { coursePath } from "@/components/layout/nav";
+import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -95,6 +96,7 @@ export function ExamRunner() {
   const deferred = { value: answers[q.attemptId] ?? null, onChange: (a: Answer) => setAnswer(q.attemptId, a) };
 
   return (
+    <ProseReferenceHost>
     <div className="mx-auto max-w-2xl space-y-4">
       <div className="flex items-center justify-between gap-2">
         <h1 className="text-lg font-semibold">
@@ -180,5 +182,6 @@ export function ExamRunner() {
         </Button>
       </div>
     </div>
+    </ProseReferenceHost>
   );
 }

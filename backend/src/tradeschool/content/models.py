@@ -70,8 +70,17 @@ class Exercise(SkeletonModel):
         Enum(ExerciseType, name="exercise_type", native_enum=True), nullable=False
     )
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
-    # Hash of the generator config; a substantial change means a NEW id, but this flags drift.
-    content_hash: Mapped[str | None] = mapped_column(String, nullable=True)
+    # RETIRED 2026-09-04: `content_hash` — a hash of the generator config, meant to flag drift when an
+    # exercise changed without getting a new id. Nothing ever wrote it and nothing ever read it, so
+    # every row in every database has held NULL since the table was created; the drift it was going to
+    # catch is caught instead by the frozen configs in `dist/contracts/generation-goldens/configs/`
+    # and by the bundle's `contentFingerprint`, both of which cover the whole config rather than a
+    # hash nobody computed. Same treatment as `calculation.tolerance`.
+    #
+    # The physical column is deliberately LEFT IN PLACE: dropping it is a one-line
+    # `op.drop_column("exercises", "content_hash")` and this pass was scoped to additive migrations
+    # only. It is nullable and unreferenced, so it costs a byte of catalogue and nothing else.
+    # `tests/test_content_reconcile.py::RETIRED_EXERCISE_COLUMNS` keeps it from creeping back.
 
 
 class LessonCompletion(Base):

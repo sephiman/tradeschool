@@ -206,6 +206,10 @@ class CourseRegistry:
                         "id": lesson.id,
                         "order": l_index,
                         "title": lesson.title.get(locale),
+                        # Carried in the tree, not fetched per reference: the reader hovers a `m19-l2`
+                        # in prose and the card has to be there in the same frame. 44 summaries is a
+                        # few kilobytes on a payload that already lists every lesson and exercise.
+                        "summary": lesson.summary.get(locale),
                         "completed": lesson.id in completed_lesson_ids,
                         "readingSeconds": self.lesson_reading_seconds(lesson.id, locale),
                         "exercises": [self._exercise_dict(ex) for ex in lesson.exercises],
@@ -260,6 +264,7 @@ class CourseRegistry:
                             {
                                 "id": lesson.id,
                                 "title": localized(lesson.title),
+                                "summary": localized(lesson.summary),
                                 "markdown": prose(lesson.id),
                             }
                             for lesson in module.lessons
@@ -461,6 +466,7 @@ def load_registry(content_dir: Path) -> CourseRegistry:
     )
     glossary = load_glossary(content_dir, lesson_keys, taken_ids)
     _check_glossary_never_coins(glossary, markdown)
+    _check_summaries_never_coin(manifest, glossary, markdown)
 
     return CourseRegistry(
         manifest=manifest,
@@ -469,6 +475,43 @@ def load_registry(content_dir: Path) -> CourseRegistry:
         figures=figures,
         glossary=glossary,
     )
+
+
+def _check_summaries_never_coin(
+    manifest: Manifest, glossary: Glossary, markdown: dict[str, dict[str, str]]
+) -> None:
+    """A lesson's summary may not use a glossary term its own lesson never uses.
+
+    The glossary's rule keeps the course from coining vocabulary across the whole book; this is the
+    same promise per lesson. A summary is the first thing a reader sees about a lesson — in the app it
+    is what a tapped reference shows — so a term that appears there and nowhere in the prose below
+    promises a definition the lesson never delivers.
+
+    The two sides are matched asymmetrically, on purpose. Detection in the SUMMARY is on word
+    boundaries, because a substring hit there ("range" inside "arrange") would fail a summary that is
+    perfectly fine. Presence in the PROSE is a plain substring, so an inflection answers for its stem
+    ("liquidations" for "liquidation") — the same laxness `_check_glossary_never_coins` already has,
+    and in the direction where a false hit costs nothing.
+    """
+    offences: list[str] = []
+    for locale in LOCALES:
+        terms = [
+            (term.id, " ".join(term.term(locale).split()).split(" (")[0])
+            for term in glossary.terms
+        ]
+        for _module, lesson in manifest.iter_lessons():
+            summary = " ".join(lesson.summary.get(locale).split())
+            prose = " ".join(markdown[locale][lesson.id].split()).casefold()
+            for term_id, needle in terms:
+                if not re.search(rf"(?<!\w){re.escape(needle)}(?!\w)", summary, re.IGNORECASE):
+                    continue
+                if needle.casefold() not in prose:
+                    offences.append(f"{lesson.id} ({locale}) uses {needle!r} ({term_id})")
+    if offences:
+        raise ContentError(
+            "lesson summaries that use a glossary term their own lesson never uses "
+            "(a summary never coins either): " + ", ".join(offences)
+        )
 
 
 def _check_glossary_never_coins(glossary: Glossary, markdown: dict[str, dict[str, str]]) -> None:

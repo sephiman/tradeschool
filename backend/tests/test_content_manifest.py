@@ -15,6 +15,7 @@ from tradeschool.content.schema import (
     Manifest,
     ManifestBlock,
     ManifestCourse,
+    ManifestLesson,
     ManifestModule,
 )
 
@@ -156,3 +157,126 @@ def test_unknown_assumes_rejected() -> None:
                 )
             ],
         )
+
+
+# --- lesson summaries -----------------------------------------------------------------------------
+
+
+def test_every_lesson_carries_a_summary_in_both_locales() -> None:
+    """A summary is required content, not an optional decoration — the app has a slot for it."""
+    registry = load_registry(get_settings().content_dir)
+    for _module, lesson in registry.manifest.iter_lessons():
+        for locale in ("en", "es"):
+            summary = lesson.summary.get(locale)
+            assert summary.strip(), f"{lesson.id} ({locale}) has an empty summary"
+            # Two or three sentences. The floor catches a placeholder; the ceiling catches a summary
+            # that has quietly become the lesson again. A terminator is only a terminator when
+            # whitespace or the end follows it, which is what keeps `9.5%` and `0.618` out of the count.
+            assert 120 <= len(summary) <= 800, f"{lesson.id} ({locale}) is {len(summary)} chars"
+            sentences = len(re.findall(r"[.!?](?=\s|$)", summary))
+            assert 2 <= sentences <= 4, f"{lesson.id} ({locale}) reads as {sentences} sentences"
+
+
+def test_a_summary_never_coins_a_term_its_own_lesson_does_not_use() -> None:
+    """The glossary's promise, per lesson: a summary may not introduce vocabulary the prose lacks.
+
+    Load-bearing because a summary is the first thing a reader sees about a lesson — in the app it is
+    what a tapped lesson reference shows — so a term appearing only there promises a definition the
+    lesson never delivers.
+    """
+    from tradeschool.content.registry import _check_summaries_never_coin
+
+    registry = load_registry(get_settings().content_dir)
+    # The real course passes; this is the assertion the content itself has to keep meeting.
+    _check_summaries_never_coin(registry.manifest, registry.glossary, registry.markdown)
+
+
+def test_the_summary_guard_fires_on_a_term_the_lesson_never_uses() -> None:
+    """Red on purpose: the guard is worthless if it says yes to everything."""
+    from tradeschool.content.glossary import Glossary, GlossaryTerm
+    from tradeschool.content.registry import ContentError, _check_summaries_never_coin
+
+    def _lesson(summary: str) -> ManifestLesson:
+        return ManifestLesson(id="m01-l1", title=_t("t"), summary=LocalizedText(en=summary, es=summary))
+
+    def _manifest(lesson: ManifestLesson) -> Manifest:
+        return Manifest(
+            course=ManifestCourse(id="c", title=_t("t"), subtitle=_t("s"), description=_t("d")),
+            blocks=[
+                ManifestBlock(
+                    id="block-a",
+                    title=_t("b"),
+                    modules=[ManifestModule(id="m01", title=_t("m"), summary=_t("s"), lessons=[lesson])],
+                )
+            ],
+        )
+
+    glossary = Glossary(
+        terms=[
+            GlossaryTerm(
+                id="g-funding",
+                en="funding",
+                es="funding",
+                origin="m01-l1",
+                definition=LocalizedText(en="d", es="d"),
+            )
+        ]
+    )
+    markdown = {"en": {"m01-l1": "a lesson about candles"}, "es": {"m01-l1": "a lesson about candles"}}
+
+    clean = _lesson("This lesson is about candles and what a candle hides from you.")
+    _check_summaries_never_coin(_manifest(clean), glossary, markdown)
+
+    coined = _lesson("This lesson is about funding, which the prose below never mentions at all.")
+    with pytest.raises(ContentError, match="never coins either"):
+        _check_summaries_never_coin(_manifest(coined), glossary, markdown)
+
+
+def test_the_summary_guard_does_not_fire_on_a_substring_or_an_inflection() -> None:
+    """The two asymmetries the matcher is built on, each shown to matter.
+
+    A term found as a SUBSTRING of a longer word in the summary would fail a summary that is fine;
+    an inflection in the PROSE answering for its stem is the laxness the glossary rule already has.
+    """
+    from tradeschool.content.glossary import Glossary, GlossaryTerm
+    from tradeschool.content.registry import _check_summaries_never_coin
+
+    def _lesson(summary: str) -> ManifestLesson:
+        return ManifestLesson(id="m01-l1", title=_t("t"), summary=LocalizedText(en=summary, es=summary))
+
+    def _manifest(lesson: ManifestLesson) -> Manifest:
+        return Manifest(
+            course=ManifestCourse(id="c", title=_t("t"), subtitle=_t("s"), description=_t("d")),
+            blocks=[
+                ManifestBlock(
+                    id="block-a",
+                    title=_t("b"),
+                    modules=[ManifestModule(id="m01", title=_t("m"), summary=_t("s"), lessons=[lesson])],
+                )
+            ],
+        )
+
+    def _glossary(term: str) -> Glossary:
+        return Glossary(
+            terms=[
+                GlossaryTerm(
+                    id="g-x", en=term, es=term, origin="m01-l1", definition=LocalizedText(en="d", es="d")
+                )
+            ]
+        )
+
+    # "range" inside "arrange" is not a use of the term.
+    substring = {"en": {"m01-l1": "nothing here"}, "es": {"m01-l1": "nothing here"}}
+    _check_summaries_never_coin(
+        _manifest(_lesson("You arrange the orders before you ever open a position at all.")),
+        _glossary("range"),
+        substring,
+    )
+
+    # "liquidations" in the prose answers for the term "liquidation" in the summary.
+    inflected = {"en": {"m01-l1": "cascading liquidations"}, "es": {"m01-l1": "cascading liquidations"}}
+    _check_summaries_never_coin(
+        _manifest(_lesson("A liquidation is a forced close, and it is the whole of this lesson.")),
+        _glossary("liquidation"),
+        inflected,
+    )

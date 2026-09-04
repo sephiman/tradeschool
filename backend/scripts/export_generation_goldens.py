@@ -38,6 +38,17 @@ bundle serializes content and hashed beside it. `targets` feeds `rng.integers(0,
 port that rebuilds a config from this file's prose instead of reading those bytes can match every
 field and still generate a different document from every seed.
 
+**Nothing reaches a digest at a scale the payload does not declare.** Every series here is rounded
+where it is built — 2dp for prices, 4dp for the oscillator panes — which makes quantization a
+convention spread over a dozen injectors rather than a rule, and for the three fields copied out of an
+injector verbatim (`levels`, `bands`, `diagonals`) there is no enforcement at all. A raw double is not
+wrong arithmetic; it is seventeen significant digits of float noise the Kotlin port has to reproduce
+bit for bit, failing a whole file for a reason no reader of the file could find. So `PAYLOAD_SCALES`
+declares the scale of every float a chart payload may carry, an undeclared path is a failure too, and
+the export writes nothing if any value disagrees. It holds today with **no exceptions**:
+`KNOWN_UNQUANTIZED` is empty, and the one debt it ever carried — m15's interpolated diagonal anchors —
+was paid on 2026-09-04.
+
 **One synthetic case pins how a double becomes text.** The hash is over JSON, so every double in a
 payload is serialized, and CPython writes `repr()` — the shortest string that round-trips. The JVM's
 `Double.toString` round-trips too and disagrees: `0.0001`, the display quantum of every momentum
@@ -615,6 +626,174 @@ def _count_awkward_floats(document: object) -> int:
     return 0
 
 
+# --- the quantization vaccine ----------------------------------------------------------------------
+
+#: Two scales, and every float in a payload is at one of them. 2dp is the reader-facing quantum for
+#: anything with magnitude — a price, a volume, an RSI, an open-interest or CVD level. 4dp is for the
+#: small signed series whose display quantum IS `0.0001`: MACD and momentum. That quantum is also what
+#: `synthetic:formatter-shortest-repr` pins, because it is where the JVM's notation stops matching
+#: CPython's.
+MAGNITUDE_SCALE = 2
+SIGNED_SERIES_SCALE = 4
+
+#: Every float a chart payload may carry, by the path that carries it, and the scale it must already
+#: be at. `[]` is a list index; `overlays.*` is any overlay the injector chose to name.
+#:
+#: Closed on purpose, the way `export_bundle.BLOCK_INVENTORY` is: a float at an undeclared path is a
+#: violation too, so a new pane cannot ship unquantized merely by being unlisted.
+#:
+#: Rounding happens where each series is built, which makes it a CONVENTION spread over a dozen
+#: injectors rather than a rule — and for three fields there is no enforcement at all:
+#: `levels[].price`, `bands[]` and `diagonals[]` are copied out of the injector verbatim by both
+#: `pattern_chart._instantiate` and `figures._panel_payload`. An injector that forgets its
+#: `round(..., 2)` there puts a raw double into a digest. That is not wrong arithmetic — it is
+#: seventeen significant digits of float noise that the Kotlin port has to reproduce bit for bit,
+#: failing a whole file for a reason no reader of the file could find.
+PAYLOAD_SCALES: dict[str, int] = {
+    "series.open[]": MAGNITUDE_SCALE,
+    "series.high[]": MAGNITUDE_SCALE,
+    "series.low[]": MAGNITUDE_SCALE,
+    "series.close[]": MAGNITUDE_SCALE,
+    "series.volume[]": MAGNITUDE_SCALE,
+    "context.series.open[]": MAGNITUDE_SCALE,
+    "context.series.high[]": MAGNITUDE_SCALE,
+    "context.series.low[]": MAGNITUDE_SCALE,
+    "context.series.close[]": MAGNITUDE_SCALE,
+    "context.series.volume[]": MAGNITUDE_SCALE,
+    "overlays.*[]": MAGNITUDE_SCALE,
+    "levels[].price": MAGNITUDE_SCALE,
+    "bands[].low": MAGNITUDE_SCALE,
+    "bands[].high": MAGNITUDE_SCALE,
+    "diagonals[].start_price": MAGNITUDE_SCALE,
+    "diagonals[].end_price": MAGNITUDE_SCALE,
+    "rsi[]": MAGNITUDE_SCALE,
+    "oi[]": MAGNITUDE_SCALE,
+    "cvd[]": MAGNITUDE_SCALE,
+    "macd.line[]": SIGNED_SERIES_SCALE,
+    "macd.signal[]": SIGNED_SERIES_SCALE,
+    "macd.hist[]": SIGNED_SERIES_SCALE,
+    "momentum[]": SIGNED_SERIES_SCALE,
+    "momentum_state[]": SIGNED_SERIES_SCALE,
+}
+
+#: How many offending paths to name before saying how many more there were.
+_MAX_VIOLATIONS_SHOWN = 40
+
+#: Fields known NOT to be at their declared scale yet, and what it costs to close each.
+#:
+#: **Empty, and that is the point.** It held five entries — the `diagonals[].end_price` of m15's four
+#: figures — from 2026-09-03 until 2026-09-04, when `diagonals.extended()` started rounding the
+#: interpolation it re-anchors a line with. The vaccine now holds with no exceptions at all.
+#:
+#: The mechanism stays because the next finding will want it, and because it is what makes a pin
+#: temporary: a key here that stops firing fails the export with `retire the note`, so a debt cannot
+#: quietly become permanent by being paid and forgotten. `quantization_failures` takes the pins as an
+#: argument so that machinery is still tested with this dict empty.
+KNOWN_UNQUANTIZED: dict[str, str] = {}
+
+
+@dataclass(frozen=True)
+class Unquantized:
+    """One field of one document carrying values coarser rounding was supposed to have removed."""
+
+    where: str
+    path: str
+    scale: int
+    first: float
+    count: int
+
+    @property
+    def key(self) -> str:
+        return f"{self.where} {self.path}"
+
+    def __str__(self) -> str:
+        return (
+            f"{self.key}: {self.count} value(s) not at {self.scale}dp, "
+            f"first {self.first!r} (rounds to {round(self.first, self.scale)!r})"
+        )
+
+
+def _payload_floats(node: object, path: str) -> Iterator[tuple[str, float]]:
+    """Every float in a payload with the path that carries it, list indices collapsed to `[]`."""
+    if isinstance(node, float):
+        yield path, node
+    elif isinstance(node, dict):
+        for key, value in node.items():
+            # An overlay's name is the injector's (`ema20`, `kc_upper`), not a fixed vocabulary.
+            child = "overlays.*" if path == "overlays" else (f"{path}.{key}" if path else str(key))
+            yield from _payload_floats(value, child)
+    elif isinstance(node, list | tuple):
+        for value in node:
+            yield from _payload_floats(value, f"{path}[]")
+
+
+def quantization_violations(payload: object, *, where: str) -> tuple[list[Unquantized], list[str]]:
+    """One chart payload's unquantized fields, and any float at a path with no declared scale.
+
+    Grouped by PATH, not per value: an unrounded series is 130 identical complaints otherwise, and
+    the first offending value plus a count says everything the second one would. The two lists are
+    separate because they are different failures — the first can be pinned as debt, the second is a
+    field nobody has declared a scale for and there is nothing to pin it to.
+    """
+    unrounded: dict[str, tuple[float, int]] = {}
+    undeclared: dict[str, int] = {}
+    for path, value in _payload_floats(payload, ""):
+        scale = PAYLOAD_SCALES.get(path)
+        if scale is None:
+            undeclared[path] = undeclared.get(path, 0) + 1
+        elif value != round(value, scale):
+            first, count = unrounded.get(path, (value, 0))
+            unrounded[path] = (first, count + 1)
+    return (
+        [
+            Unquantized(where=where, path=path, scale=PAYLOAD_SCALES[path], first=first, count=count)
+            for path, (first, count) in sorted(unrounded.items())
+        ],
+        [f"{where} {path}: {count} float(s) at a path with no declared scale"
+         for path, count in sorted(undeclared.items())],
+    )
+
+
+def document_violations(identifier: str, document: object) -> tuple[list[Unquantized], list[str]]:
+    """The same check over whichever envelope a document wears — a panel list, or one payload at `p`.
+
+    The envelope's own fields carry no float: `label` and `t` are strings, `s1`/`s2` and every
+    `ann[].index` are ints. `FORMATTER_ID` never reaches here; its `p` is a table of deliberately
+    awkward doubles, which is the one document in the file that is not a chart.
+    """
+    panels = document if isinstance(document, list) else [cast("Mapping[str, Any]", document).get("p")]
+    unrounded: list[Unquantized] = []
+    undeclared: list[str] = []
+    for index, panel in enumerate(panels):
+        found, unknown = quantization_violations(panel, where=f"{identifier}[{index}]")
+        unrounded.extend(found)
+        undeclared.extend(unknown)
+    return unrounded, undeclared
+
+
+def quantization_failures(
+    unrounded: list[Unquantized],
+    undeclared: list[str],
+    pinned: Mapping[str, str] | None = None,
+) -> list[str]:
+    """What must stop the export: a new offender, an undeclared field, or a note nobody retired.
+
+    `pinned` defaults to `KNOWN_UNQUANTIZED`, which is empty — the parameter exists so the retirement
+    half stays under test now that there is nothing real to retire.
+    """
+    pins = KNOWN_UNQUANTIZED if pinned is None else pinned
+    seen = {finding.key for finding in unrounded}
+    return (
+        [str(finding) for finding in unrounded if finding.key not in pins]
+        + undeclared
+        + [
+            f"{key}: listed in KNOWN_UNQUANTIZED but now clean — retire the note ({why})"
+            for key, why in sorted(pins.items())
+            if key not in seen
+        ]
+    )
+
+
 # --- files -----------------------------------------------------------------------------------------
 
 
@@ -660,9 +839,18 @@ def main(argv: list[str] | None = None) -> int:
           flush=True)
     exercise: dict[str, str] = {}
     awkward = 0
+    unrounded: list[Unquantized] = []
+    undeclared: list[str] = []
+
+    def check(key: str, document: object) -> None:
+        found, unknown = document_violations(key, document)
+        unrounded.extend(found)
+        undeclared.extend(unknown)
+
     for key, document in exercise_documents(multi_seeds, single_seeds):
         exercise[key] = document_sha256(document)
         awkward += _count_awkward_floats(document)
+        check(key, document)
     swept = len(exercise)
 
     print(f"scanning {args.scan} seeds for retry-loop documents ...", flush=True)
@@ -671,13 +859,38 @@ def main(argv: list[str] | None = None) -> int:
     for key, document in retry_documents(findings):
         if key not in exercise:
             exercise[key] = document_sha256(document)
+            check(key, document)
         retry_keys.append(key)
 
     identifier, document = formatter_document()
     exercise[identifier] = document_sha256(document)
 
     print("building figure documents ...", flush=True)
-    figures = {key: document_sha256(document) for key, document in figure_documents()}
+    figures: dict[str, str] = {}
+    for key, figure in figure_documents():
+        figures[key] = document_sha256(figure)
+        check(key, figure)
+
+    # Before anything is written: a digest over float noise is a golden a port can never match, and
+    # one of the two files it lands in promises never to move.
+    failures = quantization_failures(unrounded, undeclared)
+    if failures:
+        shown = "\n  ".join(failures[:_MAX_VIOLATIONS_SHOWN])
+        more = (
+            ""
+            if len(failures) <= _MAX_VIOLATIONS_SHOWN
+            else f"\n  ... and {len(failures) - _MAX_VIOLATIONS_SHOWN} more"
+        )
+        print(
+            f"\nQUANTIZATION CHECK FAILED — {len(failures)} field(s) disagree with the scales the "
+            f"payload declares, so no goldens were written:\n  {shown}{more}",
+            file=sys.stderr,
+        )
+        return 2
+    print(
+        f"quantization      OK  ({len(PAYLOAD_SCALES)} declared scales, "
+        f"{len(KNOWN_UNQUANTIZED)} pinned as debt)"
+    )
 
     out: Path = args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -734,6 +947,17 @@ def main(argv: list[str] | None = None) -> int:
                 "a new resolution leg) or an accident. Phase W1 moved exactly one line of this file,",
                 "by one 0.0001 step in one momentum value, and wrote down why. Move one the same way:",
                 "with the reason recorded beside it.",
+                "",
+                "RECAPTURED 2026-09-04 — four lines, all four of m15's diagonal figures:",
+                "  frozen:fig-m15-channel, frozen:fig-m15-trendline, frozen:fig-m15-triangle,",
+                "  frozen:fig-m15-wedge.",
+                "Cause: `diagonals.extended()` re-anchors a drawn line to a figure's right edge and takes",
+                "the new `end_price` from `price_at`, an interpolation. Every injector rounds the anchors",
+                "it draws to 2dp; this one was not rounded, so nine raw doubles reached these digests —",
+                "float noise a Kotlin port has to reproduce bit for bit and cannot. It now rounds. Only",
+                "the FIGURE path calls `extended`, which is why `exercise-mode.tsv` never carried this",
+                "and did not move. Found by the export's own quantization check on its first green run;",
+                "carried as the single entry in `KNOWN_UNQUANTIZED` until this recapture emptied it.",
                 "",
                 "Also coupled: `content/figure-coupling.yaml` declares which lesson prose quotes which",
                 "of these generated values, and `backend/tests/test_figure_prose_coupling.py` fails",

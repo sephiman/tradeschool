@@ -26,7 +26,7 @@ PAIRS = [
     (f"/api/courses/{COURSE}/lessons/m01-l1", "/api/lessons/m01-l1"),
     (f"/api/courses/{COURSE}/modules/m01", "/api/modules/m01"),
     (f"/api/courses/{COURSE}/exams", "/api/exams"),
-    (f"/api/courses/{COURSE}/exams/current", "/api/exams/current"),
+    (f"/api/courses/{COURSE}/exams/open", "/api/exams/open"),
     (f"/api/courses/{COURSE}/stats/me", "/api/stats/me"),
     (f"/api/courses/{COURSE}/stats/global", "/api/stats/global"),
 ]

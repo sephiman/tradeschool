@@ -218,15 +218,14 @@ class CalculationGenerator(ExerciseGenerator):
         steps = get_formula(config.formula).explain(params, expected, locale)
         mistake = diag.get(chosen)
         if chosen != correct_id and mistake:
-            chosen_val = next((o["value"] for o in options if o["id"] == chosen), None)
             # Name the specific error the chosen distractor corresponds to (§D.8b).
-            if locale == "es":
-                mistake_text = _translate_mistake_es(mistake)
-                prefix = f"Elegiste {chosen_val} — resultado de " if chosen_val else ""
-                steps = [*steps, f"{prefix}{mistake_text}."]
-            else:
-                prefix = f"You picked {chosen_val} — result of " if chosen_val else ""
-                steps = [*steps, f"{prefix}{mistake} (what you get if you {mistake})."]
+            phrase = _translate_mistake_es(mistake) if locale == "es" else mistake
+            # RETIRED 2026-09-04: the `if chosen_val else ""` half of this sentence. `mistake` comes
+            # from `diag`, whose keys ARE the option ids, so reaching here proves `chosen` is one of
+            # `options` and the value is always found. The branch was unreachable and shipped a
+            # half-sentence if it ever were not.
+            chosen_val = next(o["value"] for o in options if o["id"] == chosen)
+            steps = [*steps, mistake_sentence(locale).format(value=chosen_val, mistake=phrase)]
         correct_value = next(o["value"] for o in options if o["id"] == correct_id)
         return GradeResult(
             correct=chosen == correct_id,
@@ -234,6 +233,29 @@ class CalculationGenerator(ExerciseGenerator):
             solution_steps=steps,
             explanation=config.explanation.get(locale) if config.explanation else None,
         )
+
+
+#: The sentence a wrong calculation answer is diagnosed with, per locale. `{value}` is the option the
+#: learner picked and `{mistake}` the named mistake already in their language.
+#:
+#: Named — and exported in the bundle's `error-phrases.json` — because the Android port prints the same
+#: diagnosis and had to write its own copy of these two sentences, which is two places for one wording
+#: to drift.
+#:
+#: The two locales are NOT the same shape, and that is grammar rather than oversight. Every EN phrase
+#: is a bare verb phrase ("forget the maintenance-margin term"), so "result of forget the …" is broken
+#: English — which is what the old EN sentence's trailing "(what you get if you …)" was repairing, at
+#: the cost of printing the phrase twice. "if you" takes the verb phrase directly. The ES phrases are
+#: infinitives ("olvidar el término …"), which "resultado de" takes directly and "si" does not.
+MISTAKE_SENTENCES: dict[str, str] = {
+    "en": "You picked {value} — that is what you get if you {mistake}.",
+    "es": "Elegiste {value} — resultado de {mistake}.",
+}
+
+
+def mistake_sentence(locale: str) -> str:
+    """The diagnosis sentence for a reader, defaulting to English the way the rest of grading does."""
+    return MISTAKE_SENTENCES["es" if locale == "es" else "en"]
 
 
 MISTAKE_TRANSLATIONS_ES: dict[str, str] = {

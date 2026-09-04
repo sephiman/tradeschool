@@ -49,16 +49,20 @@ async def start_exam(
     return ExamSessionOut.build(view)
 
 
-@router.get("/current", response_model=ExamSessionOut | None)
-async def current_exam(
+# RETIRED 2026-09-04: `GET /current`, which answered with the most recent open sitting only. Starting
+# an exam closes an open one of the SAME scope, so a global and a block exam can be open at once and
+# the older of the two had no route that could reach it. `/open` answers with all of them; the UI
+# resumes the first, which is what `/current` used to return.
+@router.get("/open", response_model=list[ExamSessionOut])
+async def open_exams(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
     lang: LangQuery = None,
-) -> ExamSessionOut | None:
-    view = await service.current_exam(session, registry, user.id, course, _locale(lang, user))
-    return ExamSessionOut.build(view) if view else None
+) -> list[ExamSessionOut]:
+    views = await service.open_exams(session, registry, user.id, course, _locale(lang, user))
+    return [ExamSessionOut.build(view) for view in views]
 
 
 @router.get("", response_model=list[ExamHistoryItem])

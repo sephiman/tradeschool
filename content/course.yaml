@@ -35,6 +35,20 @@ blocks:
       title:
         en: What crypto actually is
         es: Qué es realmente cripto
+      summary:
+        en: >-
+          A blockchain is a shared ledger with no central operator, settlement that is final, and ownership
+          proven by a private key — the three properties that give you both self-custody and no safety net.
+          Bitcoin, altcoins and stablecoins are not one asset class, and durable value comes only from
+          demand for a real use, credible scarcity and network effects. Two beginner myths are priced here:
+          that market cap is real money, and that "stablecoin" means guaranteed.
+        es: >-
+          Una blockchain es un libro contable compartido sin operador central, con transacciones
+          irreversibles y una propiedad que se prueba con una clave privada: las tres propiedades que te dan
+          a la vez la autocustodia y ninguna red de seguridad. Bitcoin, altcoins y stablecoins no son la
+          misma clase de activo, y el valor duradero solo viene de la demanda por un uso real, la escasez
+          creíble y los efectos de red. Aquí se pagan dos mitos de principiante: creer que el market cap es
+          dinero real y que "stablecoin" significa garantizado.
       exercises:
       - id: m01-ex-1
         type: quiz
@@ -54,6 +68,21 @@ blocks:
       title:
         en: What an exchange is and who holds your coins
         es: Qué es un exchange y quién guarda tus monedas
+      summary:
+        en: >-
+          An exchange turns one asset into another, but for as long as your coins sit on a CEX the exchange
+          is holding them and your balance is an IOU. A market order buys certainty of execution at the cost
+          of price and a limit order does the reverse, while the depth of the order book decides how much
+          slippage that choice costs you. The account controls here — an authenticator app, scoped API keys,
+          a withdrawal address whitelist — all exist for one reason: not to be un-hackable, but to stop a
+          single failure emptying the account.
+        es: >-
+          Un exchange convierte un activo en otro, pero mientras tus monedas estén en un CEX es el exchange
+          quien las guarda y tu saldo es un pagaré. Una orden de mercado compra certeza de ejecución a costa
+          del precio y una orden limitada hace lo contrario, y la profundidad del libro de órdenes decide
+          cuánto slippage te cuesta esa elección. Las medidas de la cuenta —app de autenticación, API keys
+          con permisos limitados, lista blanca de direcciones de retiro— existen todas por una razón: no
+          para ser imposible de hackear, sino para que un solo fallo no vacíe la cuenta.
       exercises:
       - id: m02-ex-1
         type: quiz
@@ -78,6 +107,19 @@ blocks:
       title:
         en: Reading a price chart
         es: Leer un gráfico de precio
+      summary:
+        en: >-
+          A candle summarises one period with four numbers — open, high, low and close — and the
+          body-versus-wick distinction is most of the reading: a wick is price that was touched and
+          rejected. The timeframe decides how much that candle is worth, because a higher one took more
+          participants and more money to form. Volume adds participation rather than direction, which is why
+          the same breakout on triple the average volume and on half of it are different statements.
+        es: >-
+          Una vela resume un periodo con cuatro números —apertura, máximo, mínimo y cierre— y la distinción
+          entre cuerpo y mecha es casi toda la lectura: una mecha es precio que se tocó y fue rechazado. La
+          temporalidad decide cuánto vale esa vela, porque una más alta ha necesitado más participantes y
+          más dinero para formarse. El volumen añade participación, no dirección, y por eso la misma ruptura
+          con el triple del volumen medio y con la mitad son afirmaciones distintas.
       exercises:
       - id: m03-ex-1
         type: quiz
@@ -91,6 +133,22 @@ blocks:
       title:
         en: Trend, range, and levels
         es: Tendencia, rango y niveles
+      summary:
+        en: >-
+          A trend is a sequence rather than a direction — higher highs and higher lows — and it breaks only
+          when a pullback undercuts the previous higher low, not when price dips. A range is balance and the
+          market's default state, and the tactics are opposites: trade with a trend, fade the edges of a
+          range, so the first question is always "trending or ranging, on my timeframe?". Support and
+          resistance are bands, not lines, they flip roles once broken, and on a thin 24/7 book a break on
+          the wick alone is worth waiting out until a candle closes beyond the zone.
+        es: >-
+          Una tendencia es una secuencia, no una dirección —máximos más altos y mínimos más altos—, y se
+          rompe solo cuando un retroceso perfora el mínimo más alto anterior, no cuando el precio cae. Un
+          rango es equilibrio y el estado por defecto del mercado, y las tácticas son opuestas: operar a
+          favor de la tendencia y contra los extremos del rango, así que la primera pregunta es siempre
+          "¿tendencia o rango, en mi temporalidad?". Los soportes y las resistencias son bandas, no líneas,
+          se invierten de rol al romperse, y en un libro poco profundo 24/7 una ruptura solo por la mecha
+          conviene esperarla hasta que una vela cierre más allá de la zona.
       exercises:
       - id: m03-ex-5
         type: quiz
@@ -115,6 +173,22 @@ blocks:
       title:
         en: Perpetual futures
         es: Futuros perpetuos
+      summary:
+        en: >-
+          A perpetual future is a contract with no expiry date: you never touch the coin, the exchange
+          settles only the difference in the contract's value, and a short is exactly as native as a long.
+          Because no expiry anchors it to spot, funding — a payment between longs and shorts every eight
+          hours — is the manufactured replacement, and the crowded side can pay 0.3% of its notional a day
+          for the privilege. Liquidation tracks the mark price and never the last price, which is why a wick
+          on one thin venue does not end a position the chart makes look doomed.
+        es: >-
+          Un futuro perpetuo es un contrato sin fecha de vencimiento: nunca tocas la moneda, el exchange
+          solo liquida la diferencia en el valor del contrato y un corto es exactamente tan nativo como un
+          largo. Como no hay vencimiento que lo ancle al spot, el funding —un pago entre largos y cortos
+          cada ocho horas— es el sustituto fabricado, y el lado saturado puede pagar el 0,3% de su nocional
+          al día por estar ahí. Las liquidaciones siguen el precio de marca y nunca el último precio, y por
+          eso una mecha en una sola plataforma fina no termina una posición que el gráfico hace parecer
+          condenada.
       exercises:
       - id: m04-ex-1
         type: calculation
@@ -138,6 +212,22 @@ blocks:
       title:
         en: Leverage and margin
         es: Apalancamiento y margen
+      summary:
+        en: >-
+          Leverage changes exactly one thing: how much notional you control per dollar of margin. It does
+          not raise the expected return of a trade — the price still has to move the same direction by the
+          same amount — it scales gains and losses symmetrically and moves your liquidation closer to entry,
+          until at 50× the whole cushion is about 2% of price. Initial margin is the price of admission and
+          maintenance margin the eviction line; isolated margin caps the damage at the stake you chose,
+          while cross margin quietly puts the entire balance behind the position.
+        es: >-
+          El apalancamiento cambia exactamente una cosa: cuánto nocional controlas por cada dólar de margen.
+          No aumenta el rendimiento esperado de una operación —el precio sigue teniendo que moverse en la
+          misma dirección y la misma cantidad—: escala ganancias y pérdidas de forma simétrica y acerca tu
+          liquidación a la entrada, hasta que a 50× todo el colchón es en torno al 2% del precio. El margen
+          inicial es el precio de entrada y el de mantenimiento el umbral de liquidación forzosa; el margen
+          aislado limita el daño a la cantidad que elegiste, mientras que el cruzado pone sin avisar todo el
+          saldo detrás de la posición.
       exercises:
       - id: m05-ex-1
         type: calculation
@@ -161,6 +251,22 @@ blocks:
       title:
         en: How liquidation is calculated
         es: Cómo se calcula la liquidación
+      summary:
+        en: >-
+          Liquidation is the exchange force-closing a position because equity fell to the maintenance
+          margin, and on a linear perpetual its price is arithmetic you can do before entering: `entry × (1
+          − 1/leverage + mmr)` for a long, mirrored for a short. Higher leverage is a thinner cushion —
+          about 9.5% away at 10×, 1.5% at 50× — which is how an account dies inside ordinary noise with the
+          direction right all along. And because a forced close is a real order hitting the book,
+          liquidations feed the next ones into a cascade, worst in thin alt-books and on quiet weekends.
+        es: >-
+          La liquidación es el exchange cerrando a la fuerza una posición porque el equity cayó al margen de
+          mantenimiento, y en un perpetuo lineal su precio es una cuenta que puedes hacer antes de entrar:
+          `entrada × (1 − 1/apalancamiento + mmr)` para un long, y la imagen espejo para un short. A más
+          apalancamiento, más fino el colchón —alrededor de un 9,5% a 10×, un 1,5% a 50×—, y así es como una
+          cuenta muere dentro del ruido normal con la dirección bien acertada desde el principio. Y como un
+          cierre forzoso es una orden real contra el libro, cada liquidación alimenta la siguiente en una
+          cascada, peor en libros finos de alts y en fines de semana tranquilos.
       exercises:
       - id: m06-ex-1
         type: calculation
@@ -185,6 +291,20 @@ blocks:
       title:
         en: The PnL you actually keep
         es: El PnL que de verdad te quedas
+      summary:
+        en: >-
+          Unrealized PnL is a mark-to-market estimate the next candle can erase; realized PnL is the booked
+          change your balance keeps. What separates them is two fees and funding — the taker rate is charged
+          on notional at the open and again at the close, and funding accrues every eight hours, overnight
+          and at weekends included. Net is `gross − fees − funding`, which is how a +2% move becomes +1.80%
+          on notional and a +0.15% move becomes a loss.
+        es: >-
+          El PnL no realizado es una estimación a precio de mercado que la siguiente vela puede borrar; el
+          realizado es el cambio contabilizado que tu saldo conserva. Lo que los separa son dos comisiones y
+          el funding: la tarifa taker se cobra sobre el nocional al abrir y otra vez al cerrar, y el funding
+          se devenga cada ocho horas, de madrugada y en fin de semana incluidos. El neto es `bruto −
+          comisiones − funding`, y así un movimiento del +2% se queda en +1,80% sobre el nocional y uno del
+          +0,15% acaba en pérdida.
       exercises:
       - id: m07-ex-1
         type: calculation
@@ -213,6 +333,22 @@ blocks:
       title:
         en: Price structure
         es: Estructura de precio
+      summary:
+        en: >-
+          Support and resistance are shelves of resting orders that memory leaves behind, which is why they
+          are zones a few candles wide rather than lines. A breakout is genuine only once a body closes
+          beyond the level and holds — often retesting it in role reversal — while a fakeout pokes through
+          the orders piled just past the level and closes back inside. The swing sequence says who is
+          winning without asking an indicator: HH/HL up, LH/LL down, and the first swing to violate it is a
+          change of character, which is a question about control rather than an answer.
+        es: >-
+          Los soportes y las resistencias son estantes de órdenes en reposo que deja la memoria, y por eso
+          son zonas de unas cuantas velas de ancho y no líneas. Una ruptura solo es genuina cuando un cuerpo
+          cierra más allá del nivel y aguanta —a menudo retesteándolo por inversión de roles—, mientras que
+          un fakeout asoma por las órdenes apiladas justo pasado el nivel y cierra de vuelta dentro. La
+          secuencia de swings dice quién va ganando sin preguntarle a ningún indicador: HH/HL arriba, LH/LL
+          abajo, y el primer swing que la viola es un cambio de carácter, que es una pregunta sobre el
+          control y no una respuesta.
       exercises:
       - id: m08-ex-1
         type: pattern_chart
@@ -226,6 +362,21 @@ blocks:
       title:
         en: 'The reaction: reading candles at a level'
         es: 'La reacción: leer velas en un nivel'
+      summary:
+        en: >-
+          A candle is the footprint of order flow, and almost all of it reduces to two mechanics: a
+          rejection — a long wick pushed to a price and thrown back — and an overrun, an engulfing body that
+          steamrolled the one before it. A third category matters just as much: the doji and the small-range
+          candle carry no message at all. Location is 90% of the signal, so the same hammer is information
+          at a defended level and noise in open space — there are not sixty patterns, there are two
+          mechanics wearing sixty names.
+        es: >-
+          Una vela es la huella del flujo de órdenes, y casi todo se reduce a dos mecánicas: un rechazo —una
+          mecha larga empujada hasta un precio y devuelta— y un overrun, un cuerpo envolvente que arrolla al
+          anterior. Una tercera categoría importa igual: el doji y la vela de rango pequeño no llevan
+          mensaje alguno. La ubicación es el 90 % de la señal, así que el mismo martillo es información en
+          un nivel defendido y ruido en espacio abierto: no hay sesenta patrones, hay dos mecánicas con
+          sesenta nombres.
       exercises:
       - id: m08-ex-5
         type: pattern_chart
@@ -247,6 +398,22 @@ blocks:
       title:
         en: 'Wyckoff: accumulation and distribution'
         es: 'Wyckoff: acumulación y distribución'
+      summary:
+        en: >-
+          Wyckoff reads a sideways range as a large player working an order in slices, because size cannot
+          be bought or sold at once without moving the price against itself. The cycle runs accumulation →
+          markup → distribution → markdown, and the phases A–E name the interior life of one range. The two
+          tells are the spring — a false break below support that recovers, inside accumulation — and the
+          upthrust above resistance inside distribution; both are the same trap, because a break everyone
+          can see attracts exactly the orders a big player needs on the opposite side.
+        es: >-
+          Wyckoff lee un rango lateral como un gran participante trabajando una orden en porciones, porque
+          el tamaño no se compra ni se vende de golpe sin mover el precio en contra. El ciclo va acumulación
+          → markup → distribución → markdown, y las fases A–E nombran la vida interior de un solo rango. Las
+          dos pistas son el spring —una falsa ruptura por debajo del soporte que se recupera, dentro de la
+          acumulación— y el upthrust por encima de la resistencia dentro de la distribución; ambos son la
+          misma trampa, porque una ruptura que todos ven atrae justo las órdenes que un gran participante
+          necesita en el lado contrario.
       exercises:
       - id: m09-ex-1
         type: pattern_chart
@@ -260,6 +427,22 @@ blocks:
       title:
         en: Accumulation and distribution, phase by phase
         es: Acumulación y distribución, fase por fase
+      summary:
+        en: >-
+          One accumulation range walked end to end: phase A stops the prior downtrend and draws the two
+          boundaries, phase B is the long churn that builds the cause, phase C is the spring and its test,
+          phase D is price no longer visiting the floor, and phase E is the markup leaving the range.
+          Distribution is the same story upside down, with an upthrust — the UTAD — where the spring was.
+          The skill is reading the prior trend and the recovery before the move that would prove you right:
+          a stab below support that keeps falling was never a spring, it was a breakdown.
+        es: >-
+          Un rango de acumulación recorrido de principio a fin: la fase A detiene la tendencia bajista
+          previa y dibuja los dos límites, la fase B es el ir y venir largo que construye la causa, la fase
+          C es el spring y su prueba, la fase D es el precio dejando de visitar el suelo, y la fase E es el
+          markup abandonando el rango. La distribución es la misma historia del revés, con un upthrust —el
+          UTAD— donde estaba el spring. La habilidad es leer la tendencia previa y la recuperación antes del
+          movimiento que te daría la razón: un pinchazo bajo el soporte que sigue cayendo nunca fue un
+          spring, fue una ruptura bajista.
       exercises:
       - id: m09-ex-5
         type: pattern_chart
@@ -279,6 +462,23 @@ blocks:
       title:
         en: Moving averages and trend
         es: Medias móviles y tendencia
+      summary:
+        en: >-
+          A moving average collapses the last N closes into one line that trails price: an SMA weights every
+          close in its window equally and lurches when the oldest one drops out, while an EMA lets old
+          prices decay and so turns sooner, at the cost of more noise. Read the regime from three things —
+          slope, where price sits, and the order of a fast and a slow line — and treat a golden or death
+          cross as a lagging confirmation rather than an entry. The lag is arithmetic and not a setting to
+          tune away, which is why a flat MA in a range delivers whipsaw: a string of losses dressed up as
+          signals.
+        es: >-
+          Una media móvil condensa los últimos N cierres en una línea que sigue al precio por detrás: una
+          SMA pondera igual cada cierre de su ventana y da un tirón cuando el más antiguo sale, mientras que
+          una EMA deja decaer los precios antiguos y por eso gira antes, a costa de más ruido. Lee el
+          régimen con tres cosas —la pendiente, dónde está el precio y el orden de una línea rápida y una
+          lenta— y trata un cruce dorado o de la muerte como una confirmación rezagada, no como una entrada.
+          El retardo es aritmética y no un ajuste que se pueda quitar, y por eso una MM plana en un rango
+          entrega whipsaw: una ristra de pérdidas disfrazadas de señales.
       exercises:
       - id: m10-ex-1
         type: pattern_chart
@@ -304,6 +504,24 @@ blocks:
       title:
         en: 'Oscillators: RSI and MACD'
         es: 'Osciladores: RSI y MACD'
+      summary:
+        en: >-
+          RSI compares the average size of recent up moves with recent down moves and folds the ratio onto a
+          0–100 scale, so it measures how lopsided the last 14 bars have been, not whether price is high.
+          MACD is the gap between a fast and a slow EMA plus a signal line and a histogram, and its two
+          crosses are different news: a signal-line cross is a momentum wobble, a zero-line cross is the two
+          EMAs changing order. The expensive misreading is "overbought = sell" — in a strong trend RSI stays
+          pinned at its extreme for weeks — so read an oscillator as context that confirms a level you
+          already had, never as a standalone trigger.
+        es: >-
+          El RSI compara el tamaño medio de las subidas recientes con el de las bajadas y pliega el cociente
+          en una escala de 0 a 100, así que mide cuán desequilibradas han sido las últimas 14 velas, no si
+          el precio está alto. El MACD es la distancia entre una EMA rápida y una lenta más una línea de
+          señal y un histograma, y sus dos cruces son noticias distintas: el de la línea de señal es un
+          bache de momentum, el de la línea de cero es que las dos EMAs cambian de orden. La lectura cara es
+          "sobrecompra = vender" —en una tendencia fuerte el RSI se queda clavado en su extremo durante
+          semanas—, así que lee un oscilador como contexto que confirma un nivel que ya tenías, nunca como
+          un disparador autónomo.
       exercises:
       - id: m11-ex-1
         type: pattern_chart
@@ -330,6 +548,23 @@ blocks:
       title:
         en: Reading divergences
         es: Leer divergencias
+      summary:
+        en: >-
+          A divergence is a disagreement between price and a momentum oscillator: a regular divergence
+          compares two extremes and warns of a reversal, a hidden divergence appears on a pullback and
+          points to continuation. It works because an oscillator measures rate of change, so it sees the
+          last push being made by fewer participants before price does — and it fails in a strong trend,
+          which can print divergence after divergence and keep going. In open space a divergence is noise;
+          the same divergence into a level the chart already respects is a signal, because the level is
+          doing the work.
+        es: >-
+          Una divergencia es un desacuerdo entre el precio y un oscilador de momentum: la regular compara
+          dos extremos y avisa de un giro, la oculta aparece en un retroceso y apunta a continuación.
+          Funciona porque un oscilador mide un ritmo de cambio y ve antes que el precio que el último
+          empujón lo hacen menos participantes; y falla en una tendencia fuerte, capaz de imprimir
+          divergencia tras divergencia y seguir adelante. En espacio abierto una divergencia es ruido; la
+          misma divergencia contra un nivel que el gráfico ya respeta es una señal, porque el trabajo lo
+          hace el nivel.
       exercises:
       - id: m12-ex-1
         type: synthetic_chart
@@ -353,6 +588,23 @@ blocks:
       title:
         en: Fibonacci retracements
         es: Retrocesos de Fibonacci
+      summary:
+        en: >-
+          Fibonacci retracements slice one clean impulse leg into ratios that estimate how deep a pullback
+          runs — 0.382 shallow, 0.5 the midpoint, 0.618 the deep golden one — and 0.5 to 0.618 is read as a
+          zone rather than a line. Anchor the tool from the start of the impulse to its end: drawn
+          backwards, the shallow and deep levels swap places and every reading off them is wrong. No
+          mechanism forces a market to respect 61.8%; the levels work because they are watched and because
+          they sometimes coincide with a round number or an old support, so a fib with nothing else near it
+          is a guess with a decimal attached.
+        es: >-
+          Los retrocesos de Fibonacci dividen un tramo de impulso limpio en ratios que estiman hasta dónde
+          llega un retroceso —0,382 superficial, 0,5 el punto medio, 0,618 el profundo "dorado"—, y el
+          0,5–0,618 se lee como una zona y no como una línea. Ancla la herramienta desde el inicio del
+          impulso hasta su final: dibujada al revés, los niveles superficial y profundo se intercambian y
+          toda lectura que hagas sale mal. Ningún mecanismo obliga a un mercado a respetar el 61,8 %; los
+          niveles funcionan porque están vigilados y porque a veces coinciden con un número redondo o un
+          soporte antiguo, así que un fib sin nada más cerca es una conjetura con un decimal pegado.
       exercises:
       - id: m13-ex-1
         type: pattern_chart
@@ -377,6 +629,23 @@ blocks:
       title:
         en: Volume and confirmation
         es: Volumen y confirmación
+      summary:
+        en: >-
+          Volume counts transactions, so it measures participation and never direction — and it only means
+          anything read against its own recent average, because the absolute figure is noise and the ratio
+          to normal is the signal. Its most useful job is telling a real breakout from a fakeout: the price
+          geometry of the two is identical, and only the bars underneath separate them. Heavy volume with no
+          movement is absorption, thinning volume into new highs is a warning that participation is fading,
+          and the habit that ties it all together is confluence — structure, indicator and volume agreeing
+          before you act.
+        es: >-
+          El volumen cuenta transacciones, así que mide participación y nunca dirección, y solo significa
+          algo leído contra su propia media reciente, porque la cifra absoluta es ruido y la señal es la
+          proporción respecto a lo normal. Su trabajo más útil es distinguir una ruptura real de un fakeout:
+          la geometría de precio de ambas es idéntica y solo las barras de debajo las separan. Mucho volumen
+          sin movimiento es absorción, un volumen que se adelgaza hacia nuevos máximos avisa de que la
+          participación se apaga, y el hábito que lo une todo es la confluencia: que la estructura, el
+          indicador y el volumen coincidan antes de actuar.
       exercises:
       - id: m14-ex-1
         type: pattern_chart
@@ -411,6 +680,22 @@ blocks:
       title:
         en: Trendlines and channels
         es: Líneas de tendencia y canales
+      summary:
+        en: >-
+          A horizontal level claims a price mattered; a trendline claims a constant rate of advance, and
+          nobody's order rests at a moving price — which is why the diagonal is the weakest instrument in
+          this course. Draw it with discipline: two touches propose and the third validates, declare whether
+          you anchor on wicks or bodies and keep it, and a line you redraw every week was never a line. Read
+          a break the way you read any other, by the body and by the participation behind it, and remember
+          that a channel only describes a regularity that has held — trading it is the bet that it persists.
+        es: >-
+          Un nivel horizontal afirma que un precio importó; una línea de tendencia afirma un ritmo constante
+          de avance, y la orden de nadie descansa en un precio que se mueve, y por eso la diagonal es el
+          instrumento más débil de este curso. Trázala con disciplina: dos toques proponen y el tercero
+          valida, declara si te anclas en mechas o en cuerpos y mantenlo, y una línea que redibujas cada
+          semana nunca fue una línea. Lee la ruptura como cualquier otra, por el cuerpo y por la
+          participación que la acompaña, y recuerda que un canal solo describe una regularidad que se ha
+          cumplido: operarlo es la apuesta de que continúa.
       exercises:
       - id: m15-ex-1
         key: m31-ex-1
@@ -429,6 +714,24 @@ blocks:
       title:
         en: Wedges and directional compression
         es: Cuñas y compresión direccional
+      summary:
+        en: >-
+          A wedge or a triangle is m08-l2's narrow candle at the scale of a pattern: twenty bars of
+          compression between two converging lines, and the six named shapes are one object seen from six
+          angles, separated only by how the convergence is shared. The canon's "rising wedges break down" is
+          two claims in one coat — the exhaustion of a rhythm is observable and real, the direction it
+          resolves in is statistics without a mechanism. Compression resolves into expansion because that is
+          what compression is, but a coil that has not resolved yet is not a signal: read the break by the
+          body and the volume, and treat the base-height target as a convention rather than a promise.
+        es: >-
+          Una cuña o un triángulo es la vela estrecha de m08-l2 a escala de patrón: veinte barras de
+          compresión entre dos líneas que convergen, y las seis figuras con nombre son un solo objeto visto
+          desde seis ángulos, separadas solo por cómo se reparte la convergencia. El «las cuñas ascendentes
+          rompen a la baja» del canon son dos afirmaciones en una: el agotamiento de un ritmo es observable
+          y real, la dirección en que se resuelve es estadística sin mecanismo. La compresión se resuelve en
+          expansión porque eso es lo que la compresión es, pero una compresión que aún no se ha resuelto no
+          es una señal: lee la ruptura por el cuerpo y el volumen, y trata el objetivo de la altura de la
+          base como una convención y no como una promesa.
       exercises:
       - id: m15-ex-5
         key: m31-ex-5
@@ -457,6 +760,22 @@ blocks:
       title:
         en: 'Volatility cycles: compression, expansion and the squeeze'
         es: 'Ciclos de volatilidad: compresión, expansión y el squeeze'
+      summary:
+        en: >-
+          Volatility clusters, so a quiet market is not a safe market — it is a market that has not moved
+          yet. Bollinger measures how far the closes scatter and Keltner how far a bar travels, and the two
+          rulers coming apart is the point: when the Bollinger band sits entirely inside the Keltner channel
+          the market is in a squeeze, and the exit from it is the expansion. Compression says an expansion
+          is coming and never says which way, so read the direction from the break — and keep this squeeze
+          apart from the liquidity squeeze of m19-l2, which shares the word and no mechanism at all.
+        es: >-
+          La volatilidad se agrupa, así que un mercado tranquilo no es un mercado seguro: es un mercado que
+          todavía no se ha movido. Bollinger mide cuánto se dispersan los cierres y Keltner cuánto recorre
+          una barra, y lo interesante es que las dos reglas se separen: cuando la banda de Bollinger queda
+          enteramente dentro del canal de Keltner el mercado está en squeeze, y la salida es la expansión.
+          La compresión dice que viene una expansión y nunca dice hacia dónde, así que la dirección la lees
+          de la ruptura; y mantén este squeeze aparte del de liquidez de m19-l2, que comparte la palabra y
+          ningún mecanismo.
       exercises:
       - id: m16-ex-1
         key: m32-ex-1
@@ -488,6 +807,24 @@ blocks:
       title:
         en: Macro and capital flow
         es: Macro y flujo de capital
+      summary:
+        en: >-
+          Bitcoin dominance is a share, not a price: it can rise 50% to 56% while Bitcoin itself falls 10%,
+          because the alts bled faster — so it only means something read next to whether the total market is
+          rising or falling. The ETH/BTC ratio strips out the move the whole space shares and works as a
+          thermometer for risk appetite, and capital tends to rotate BTC → ETH → large caps → small caps,
+          which is a tendency and never a timetable. Crypto trades as a risk-on asset against rates and the
+          dollar, it never closes so it reacts to macro alone at night and at weekends, and some volatility
+          is scheduled: be flat or small into an event you cannot price.
+        es: >-
+          La dominancia de Bitcoin es una cuota, no un precio: puede subir del 50% al 56% mientras el propio
+          Bitcoin cae un 10%, porque las alts sangraron más rápido, así que solo significa algo leída junto
+          a si el mercado total sube o baja. El ratio ETH/BTC elimina el movimiento que todo el espacio
+          comparte y sirve de termómetro del apetito por el riesgo, y el capital tiende a rotar BTC → ETH →
+          alts grandes → alts pequeñas, que es una tendencia y nunca un calendario. Cripto cotiza como
+          activo risk-on frente a los tipos y al dólar, no cierra nunca y por eso reacciona sola a la macro
+          de noche y en fin de semana, y parte de la volatilidad está programada: ponte plano o pequeño ante
+          un evento que no puedes valorar.
       exercises:
       - id: m17-ex-1
         key: m15-ex-1
@@ -517,6 +854,23 @@ blocks:
       title:
         en: Mass sentiment
         es: Sentimiento de masas
+      summary:
+        en: >-
+          The Fear & Greed index is a composite from 0 to 100, and about half its weight — volatility, and
+          momentum and volume — is computed from price itself, so it is largely the chart you already have,
+          relabelled as a feeling. Extreme greed says the buy side is already all-in and extreme fear says
+          the panic selling is largely spent, which makes each a contrarian zone rather than a moment.
+          Extremes persist for weeks, so never treat 8 or 92 as an entry button, and never count a greedy
+          reading as independent confirmation of a rising price — that is one reason counted twice.
+        es: >-
+          El índice de miedo y codicia es un compuesto de 0 a 100, y en torno a la mitad de su peso —la
+          volatilidad, y el momentum y el volumen— se calcula a partir del propio precio, así que es en
+          buena medida el gráfico que ya tienes, reetiquetado como sentimiento. La codicia extrema dice que
+          el lado comprador ya está dentro del todo y el miedo extremo que la venta de pánico está casi
+          agotada, lo que hace de cada uno una zona contraria y no un momento. Los extremos persisten
+          durante semanas, así que no trates nunca el 8 o el 92 como un botón de entrada, ni cuentes una
+          lectura de codicia como confirmación independiente de un precio que sube: es una razón contada dos
+          veces.
       exercises:
       - id: m18-ex-1
         key: m16-ex-1
@@ -547,6 +901,24 @@ blocks:
       title:
         en: Derivatives data and liquidity
         es: Datos de derivados y liquidez
+      summary:
+        en: >-
+          Open interest counts contracts currently open, so its change says whether a move is backed by
+          fresh positions or is just old ones unwinding — and it means nothing until you read it against
+          price over the same window, which gives four readings. The funding rate is the manufactured tether
+          that holds a perpetual near spot, and its sign names the crowded side, the one willing to bleed to
+          stay in: the daily number is a cost, the extreme is the information. The basis is that same
+          crowding measured directly as the perp's price minus spot, and a violent premium spike inside a
+          fast move is forced flow, which unlike conviction runs out.
+        es: >-
+          El open interest cuenta los contratos abiertos, así que su cambio dice si un movimiento está
+          respaldado por posiciones nuevas o son solo viejas que se deshacen, y no significa nada hasta que
+          lo lees contra el precio en la misma ventana, lo que da cuatro lecturas. El funding rate es el
+          anclaje fabricado que mantiene un perpetuo cerca del spot, y su signo nombra al lado concurrido,
+          el que está dispuesto a sangrar por seguir dentro: el número diario es un coste, el extremo es la
+          información. La base es esa misma saturación medida directamente como el precio del perpetuo menos
+          el spot, y un pico violento de prima dentro de un movimiento rápido es flujo forzado, que a
+          diferencia de la convicción se agota.
       exercises:
       - id: m19-ex-1
         key: m17-ex-1
@@ -562,6 +934,24 @@ blocks:
       title:
         en: Liquidity maps and squeezes
         es: Mapas de liquidez y squeezes
+      summary:
+        en: >-
+          Liquidity is resting orders waiting to be filled; liquidation is the exchange force-closing a
+          leveraged position — they pile up in the same places, which is why the two words get tangled.
+          Stops and liquidation prices cluster just beyond a recent high and a recent low because everyone
+          reasons alike, and a large player who needs to fill size sweeps that pool and reclaims the level
+          within a candle or two. A sweep becomes a squeeze when the pool is crowded and leveraged — build,
+          trigger, cascade, exhaustion — so the honest edge is fading the exhaustion, never chasing a
+          cascade whose fuel is a finite pool of trapped positions.
+        es: >-
+          La liquidez son órdenes en reposo esperando ejecutarse; la liquidación es el exchange cerrando a
+          la fuerza una posición apalancada, y se apilan en los mismos sitios, que es por lo que las dos
+          palabras se enredan. Los stops y los precios de liquidación se agrupan justo pasados el máximo y
+          el mínimo obvios porque todos razonan igual, y un jugador grande que necesita ejecutar tamaño
+          barre esa bolsa y recupera el nivel en una o dos velas. Un barrido se convierte en un squeeze
+          cuando la bolsa está concurrida y apalancada —acumulación, disparo, cascada, agotamiento—, así que
+          la ventaja honesta es operar el agotamiento y nunca perseguir una cascada cuyo combustible es una
+          bolsa finita de posiciones atrapadas.
       exercises:
       - id: m19-ex-5
         key: m17-ex-5
@@ -590,6 +980,24 @@ blocks:
       title:
         en: Reading tokenomics
         es: Leer la tokenómica
+      summary:
+        en: >-
+          Tokenomics is the supply side a chart cannot show: circulating supply is what trades today, total
+          supply is everything minted, max supply is the ceiling, and the gap between circulating and max is
+          future supply already queued to arrive. Market cap is price × circulating and FDV is price × max,
+          so one token at one price carries two valuations that can differ by ten times — a modest cap
+          sitting under a gigantic FDV is a bill that has not arrived yet. Emission dilutes holders
+          mechanically whether or not anyone changes their mind, and a large scheduled unlock is a supply
+          shock that overrides a clean setup, so read the calendar before you trust the pattern.
+        es: >-
+          La tokenómica es la cara de la oferta que un gráfico no puede mostrar: la oferta circulante es lo
+          que se negocia hoy, la total es todo lo emitido, la máxima es el techo, y el hueco entre
+          circulante y máxima es oferta futura que ya hace cola para llegar. El market cap es precio ×
+          circulante y la FDV es precio × máxima, así que un mismo token a un mismo precio lleva dos
+          valoraciones que pueden diferir en diez veces: un cap modesto bajo una FDV gigantesca es una
+          factura que todavía no ha llegado. La emisión diluye a los poseedores de forma mecánica cambie o
+          no alguien de opinión, y un unlock grande y programado es un shock de oferta que invalida un setup
+          limpio, así que lee el calendario antes de fiarte del patrón.
       exercises:
       - id: m20-ex-1
         key: m18-ex-1
@@ -627,6 +1035,24 @@ blocks:
       title:
         en: 'The carry: funding and basis as a strategy'
         es: 'El carry: funding y base como estrategia'
+      summary:
+        en: >-
+          The cash-and-carry is delta-neutral by construction — buy the spot, short the perpetual — and it
+          earns because positive funding means longs pay shorts, which at an ordinary rate is about 5% a
+          year on the capital it ties up. It is not free money but a thin-margin business with fat tails:
+          funding flips sign and bills you on the same clock, both legs are claims on a venue, and above all
+          delta-neutral is not margin-neutral — the exchange liquidates a position against its own
+          collateral and does not know your spot leg exists. The yield is also a leverage-mania thermometer,
+          and a crowded carry is a carry paying less.
+        es: >-
+          El cash-and-carry es delta neutral por construcción —compra el spot, ponte corto en el perpetuo— y
+          gana porque un funding positivo significa que los largos pagan a los cortos, lo que a una tasa
+          normal son alrededor de un 5% anual sobre el capital que inmoviliza. No es dinero gratis sino un
+          negocio de margen fino con colas gordas: el funding cambia de signo y te cobra con el mismo reloj,
+          las dos patas son derechos frente a una plataforma y, sobre todo, delta neutral no es margen
+          neutral: el exchange liquida una posición contra su propio colateral y no sabe que tu pata de spot
+          existe. El rendimiento es además un termómetro de la manía del apalancamiento, y un carry
+          concurrido es un carry que paga menos.
       exercises:
       - id: m21-ex-1
         key: m34-ex-1
@@ -639,6 +1065,25 @@ blocks:
       title:
         en: 'The calendar: events with known mechanics'
         es: 'El calendario: eventos con mecánica conocida'
+      summary:
+        en: >-
+          A scheduled event predicts conditions and never direction: how liquid and how volatile the market
+          is about to be, and who may be forced to trade. A token unlock is public supply arriving in a
+          book, so size it against the depth rather than the market cap and expect it to be anticipated —
+          what is known gets positioned for, which is the mechanism behind "sell the news", where the
+          confirmed event is the moment of maximum incoming demand to sell into. Quarterly and options
+          expiries drop mechanical flow onto the perpetual, and the last item on the calendar is the venue
+          itself: outages arrive exactly when volume spikes, and the liquidation engine does not go down
+          when the app does.
+        es: >-
+          Un evento programado predice condiciones y nunca dirección: cuánta liquidez y cuánta volatilidad
+          va a haber, y a quién pueden obligar a operar. Un unlock de tokens es oferta pública llegando a un
+          libro, así que mídelo contra la profundidad y no contra la capitalización, y cuenta con que se
+          anticipe: lo conocido se posiciona de antemano, que es el mecanismo del «vender la noticia», donde
+          el evento confirmado es el momento de máxima demanda entrante a la que vender. Los vencimientos
+          trimestrales y de opciones vuelcan flujo mecánico sobre el perpetuo, y el último punto del
+          calendario es la propia plataforma: las caídas llegan justo cuando se dispara el volumen, y el
+          motor de liquidación no se cae cuando se cae la app.
       exercises:
       - id: m21-ex-3
         key: m34-ex-3
@@ -668,6 +1113,24 @@ blocks:
       title:
         en: Managing risk
         es: Gestionar el riesgo
+      summary:
+        en: >-
+          Risk a fixed small fraction of the account on every trade — commonly 1% — because losing runs are
+          normal and a fraction of a shrinking balance sizes you down automatically. Size the position from
+          the stop rather than the other way round: risk budget ÷ stop distance gives the units, so a wider
+          stop forces a smaller position for the same money. Leverage is not the risk dial, since the size
+          already came from the stop; the one criterion for choosing it is that liquidation must never
+          become your effective stop. Measure results in R, and remember drawdown is asymmetric — a 50% loss
+          needs a 100% gain to recover, not 50%.
+        es: >-
+          Arriesga una fracción fija y pequeña de la cuenta en cada operación —normalmente el 1%—, porque
+          las rachas de pérdidas son normales y una fracción de un saldo que encoge te reduce el tamaño
+          automáticamente. Dimensiona la posición desde el stop y no al revés: presupuesto de riesgo ÷
+          distancia del stop da las unidades, así que un stop más ancho fuerza una posición más pequeña para
+          el mismo dinero. El apalancamiento no es el mando del riesgo, porque el tamaño ya salió del stop;
+          el único criterio para elegirlo es que la liquidación nunca llegue a ser tu stop efectivo. Mide
+          los resultados en R y recuerda que el drawdown es asimétrico: una pérdida del 50% necesita una
+          ganancia del 100% para recuperarse, no del 50%.
       exercises:
       - id: m22-ex-1
         key: m19-ex-1
@@ -686,6 +1149,24 @@ blocks:
       title:
         en: Portfolio risk
         es: Riesgo de cartera
+      summary:
+        en: >-
+          Sizing each trade on its own assumes the trades are independent, and correlation is what breaks
+          that assumption: two positions at +1 are not two bets, they are the same bet held twice. Three
+          correlated alt longs sized at 1% each are one 3% bet in three costumes, and they all hit their
+          stops inside a single candle instead of arriving spread out over time. In a drawdown crypto
+          correlations snap toward +1 and most alts have a beta above 1 to BTC, so cap the correlated
+          cluster rather than the line, count independent bets rather than tickers, and ask what a −10%
+          market would cost you right now.
+        es: >-
+          Dimensionar cada operación por separado da por hecho que son independientes, y la correlación es
+          lo que rompe esa suposición: dos posiciones en +1 no son dos apuestas, son la misma apuesta
+          mantenida dos veces. Tres largos correlacionados en alts dimensionados al 1% cada uno son una sola
+          apuesta del 3% con tres trajes, y saltan sus stops dentro de una misma vela en lugar de llegar
+          repartidos en el tiempo. En un drawdown las correlaciones del cripto saltan hacia +1 y la mayoría
+          de las alts tienen una beta superior a 1 frente a BTC, así que limita el grupo correlacionado y no
+          la línea, cuenta apuestas independientes y no tickers, y pregúntate cuánto te costaría ahora mismo
+          un mercado un 10% abajo.
       exercises:
       - id: m22-ex-5
         key: m19-ex-5
@@ -709,6 +1190,24 @@ blocks:
       title:
         en: 'Trading styles: scalping, day trading, swing'
         es: 'Estilos de trading: scalping, day trading, swing'
+      summary:
+        en: >-
+          What separates a scalper, a day trader and a swing trader is how long they hold and how often they
+          trade, and that one choice decides the timeframe, the cost and the mistakes each is exposed to.
+          The two costs answer to different clocks: fees are charged per fill and scale with the number of
+          trades, while funding is charged on a clock and scales with time held — so the same 300 USDT move
+          nets 180, 292 and 274 depending only on the style that took it. Frequency is a cost, not a
+          strategy, and the 24/7 clock still has a shape: weight a signal by the session it printed in, and
+          pick the style your schedule and temperament can actually run.
+        es: >-
+          Lo que separa a un scalper, un day trader y un swing trader es cuánto mantienen y con qué
+          frecuencia operan, y esa única elección decide la temporalidad, el coste y los errores a los que
+          cada uno se expone. Los dos costes responden a relojes distintos: las comisiones se cobran por
+          ejecución y escalan con el número de operaciones, mientras que el funding se cobra por reloj y
+          escala con el tiempo mantenido, así que el mismo movimiento de 300 USDT deja 180, 292 y 274 según
+          solo el estilo que lo tomó. La frecuencia es un coste, no una estrategia, y el reloj 24/7 sigue
+          teniendo forma: pondera una señal por la sesión en que se imprimió y elige el estilo que tu
+          horario y tu temperamento puedan sostener de verdad.
       exercises:
       - id: m23-ex-1
         key: m20-ex-1
@@ -730,6 +1229,23 @@ blocks:
       title:
         en: Multi-timeframe analysis
         es: Análisis multitemporal
+      summary:
+        en: >-
+          A chart has no opinion, it has its frame's opinion: one 4-hour candle is sixteen 15-minute candles
+          aggregated, so a higher frame is lossy compression rather than new information — it throws away
+          the path. Levels do not move when you change the dropdown; only the noise around them does, which
+          is the honest reason to look higher. The higher frame sets the context and the lower one the
+          execution, never the reverse, because the expensive error is trading a lower-frame trend that is a
+          pullback on the frame above it — and opening chart after chart until one agrees with the position
+          you already hold is shopping, not analysis.
+        es: >-
+          Un gráfico no tiene opinión, tiene la opinión de su temporalidad: una vela de 4h son dieciséis
+          velas de 15m agregadas, así que una temporalidad mayor es compresión con pérdidas y no información
+          nueva —tira a la basura el camino—. Los niveles no se mueven al cambiar el desplegable; solo
+          cambia el ruido que los rodea, y esa es la razón honesta para mirar más arriba. La temporalidad
+          superior pone el contexto y la inferior la ejecución, nunca al revés, porque el error caro es
+          operar en la menor una tendencia que en la mayor es un pullback; y abrir gráfico tras gráfico
+          hasta que alguno te dé la razón sobre la posición que ya tienes es ir de compras, no analizar.
       exercises:
       - id: m23-ex-6
         key: m20-ex-6
@@ -759,6 +1275,24 @@ blocks:
       title:
         en: Getting the order you meant
         es: Conseguir la orden que querías
+      summary:
+        en: >-
+          Every order either takes a resting order or becomes one, and that decides everything: a market
+          order buys immediacy and gives up price control, a limit order does the reverse. The trap is the
+          protective stop-limit — in a fast drop price gaps past your limit, the order rests above the
+          market unfilled, and you are still in a position with no automatic exit, so protective stops are
+          stop-market. Tag every exit reduce-only on a perp so a mis-sized close cannot flip you short, and
+          remember slippage is what a market order costs in a thin book — you do not get the market price
+          there, you become it.
+        es: >-
+          Toda orden o toma una orden en reposo o se convierte en una, y eso lo decide todo: una orden de
+          mercado compra inmediatez y renuncia al control del precio, una limitada hace lo contrario. La
+          trampa es el stop-limit de protección: en una caída rápida el precio se salta tu límite, la orden
+          se queda sin ejecutar por encima del mercado y sigues dentro de la posición sin salida automática,
+          así que los stops de protección van a stop-market. Etiqueta como reduce-only cada salida en un
+          perpetuo para que un cierre mal dimensionado no te dé la vuelta a corto, y recuerda que el
+          slippage es lo que cuesta una orden de mercado en un libro poco profundo: allí no consigues el
+          precio de mercado, te conviertes en él.
       exercises:
       - id: m24-ex-1
         key: m21-ex-1
@@ -788,6 +1322,23 @@ blocks:
       title:
         en: Whether the system actually makes money
         es: Si el sistema gana dinero de verdad
+      summary:
+        en: >-
+          Win rate counts your wins and ignores their size; payoff measures their size and ignores how often
+          they arrive — only expectancy, `win% × average win − loss% × average loss`, says whether a system
+          makes money. Set it to zero and you get the break-even win rate, `1 ÷ (1 + payoff)`, which is a
+          floor rather than a target because fees and funding raise it. Losing streaks are arithmetic, not
+          malfunctions — at a 40% win rate, five losses in a row is about one in thirteen — and a handful of
+          trades is variance, so decide the rules before the emotion arrives and let a real sample, never a
+          bad afternoon, change your mind.
+        es: >-
+          El win rate cuenta tus ganadoras e ignora su tamaño; el payoff mide su tamaño e ignora con qué
+          frecuencia llegan: solo la esperanza, `win% × ganancia media − loss% × pérdida media`, dice si un
+          sistema gana dinero. Iguálala a cero y sale el win rate de equilibrio, `1 ÷ (1 + payoff)`, que es
+          un suelo y no un objetivo porque las comisiones y el funding lo suben. Las rachas de pérdidas son
+          aritmética y no averías —con un win rate del 40%, cinco seguidas son alrededor de una de cada
+          trece— y un puñado de operaciones es varianza, así que decide las reglas antes de que llegue la
+          emoción y deja que te haga cambiar de opinión una muestra real, nunca una mala tarde.
       exercises:
       - id: m25-ex-1
         key: m22-ex-1
@@ -818,6 +1369,26 @@ blocks:
       title:
         en: When the mistake isn't the chart
         es: Cuando el error no está en el gráfico
+      summary:
+        en: >-
+          Most accounts are destroyed by four ordinary emotional patterns rather than by bad analysis, and
+          each arrives wearing a reasonable sentence: "I just need one good trade to get back to even", "let
+          me give it room", "I'm reading it perfectly right now", "I'm missing it". They share a shape — the
+          calm plan you made while flat is overruled by an in-the-moment self running on fear, greed or
+          wounded pride — which is why the fix is never more willpower but pre-commitment: a daily loss
+          limit, a stop that only ever moves toward profit, a size that does not change with a streak, and
+          no entry without a stated invalidation. The feeling itself is the alarm: it is the signal to fall
+          back on the rule, not to override it.
+        es: >-
+          La mayoría de las cuentas las destruyen cuatro patrones emocionales corrientes y no un mal
+          análisis, y cada uno llega con una frase razonable puesta: «solo necesito una buena operación para
+          volver a estar en paz», «voy a darle margen», «ahora mismo lo estoy leyendo perfecto», «me lo
+          estoy perdiendo». Comparten una forma —al plan tranquilo que hiciste estando plano lo anula un yo
+          del momento movido por el miedo, la codicia o el orgullo herido—, y por eso el remedio nunca es
+          más fuerza de voluntad sino el compromiso previo: un límite de pérdida diaria, un stop que solo se
+          mueve hacia el beneficio, un tamaño que no cambia con una racha y ninguna entrada sin una
+          invalidación declarada. El propio sentimiento es la alarma: es la señal para apoyarte en la regla,
+          no para saltártela.
       exercises:
       - id: m26-ex-1
         key: m23-ex-1
@@ -851,6 +1422,25 @@ blocks:
       title:
         en: Anatomy of one complete trade
         es: Anatomía de una operación completa
+      summary:
+        en: >-
+          One trade end to end, with the decisions made before money is at risk: the daily chart gives the
+          context, three independent reasons make 60,000 confluence, the reaction at the level is the
+          trigger, and the stop goes where the idea is dead rather than where the loss feels tolerable. Size
+          comes last, from the stop — risk budget ÷ stop distance — and once the position is live the
+          hardest skill is doing almost nothing, with the stop moving to break-even only against a
+          structural test and never away from the trade. A second, separate limit closes the day: a daily
+          stop set in the plan, before the losing day, that does not consult you when you are least able to
+          answer.
+        es: >-
+          Una operación de principio a fin, con las decisiones tomadas antes de arriesgar dinero: el gráfico
+          diario da el contexto, tres razones independientes hacen de 60.000 una confluencia, la reacción en
+          el nivel es el trigger, y el stop va donde la idea está muerta y no donde la pérdida resulta
+          tolerable. El tamaño llega el último, desde el stop —presupuesto de riesgo ÷ distancia del stop—,
+          y con la posición viva la habilidad más difícil es no hacer casi nada, moviendo el stop a
+          break-even solo con un test estructural y nunca en contra de la operación. Un segundo límite,
+          separado, cierra el día: un freno diario fijado en el plan antes del día malo, que no te consulta
+          cuando menos capaz eres de responder.
       exercises:
       - id: m27-ex-1
         key: m24-ex-1
@@ -866,6 +1456,24 @@ blocks:
       title:
         en: The journal, validation, and real money
         es: El diario, la validación y el dinero real
+      summary:
+        en: >-
+          Memory lies, so the journal is the only instrument that can tell you the truth: setup, plan,
+          execution against that plan, and the result in R rather than dollars, so a hundred trades become
+          one distribution you can judge. The weekly review sorts every trade into followed the plan or did
+          not, which separates two failures that look identical as a red number and need opposite responses
+          — a broken system needs study, a broken execution needs discipline. Validate where being wrong is
+          free, remember demo tests the process and never the fear, and step to real money at a size where a
+          full −1R is trivial, scaling only on what the record proves and never to win a loss back.
+        es: >-
+          La memoria miente, así que el diario es el único instrumento que puede decirte la verdad: setup,
+          plan, ejecución frente a ese plan y el resultado en R y no en dólares, para que cien operaciones
+          se conviertan en una distribución que puedas juzgar. La revisión semanal ordena cada operación en
+          seguí el plan o no lo seguí, lo que separa dos fallos que como número rojo parecen idénticos y
+          piden respuestas opuestas: un sistema roto pide estudio, una ejecución rota pide disciplina.
+          Valida donde equivocarse es gratis, recuerda que la demo prueba el proceso y nunca el miedo, y da
+          el paso al dinero real con un tamaño en el que un −1R completo sea trivial, escalando solo con lo
+          que demuestre el registro y nunca para recuperar una pérdida.
       exercises:
       - id: m27-ex-4
         key: m24-ex-4
@@ -895,6 +1503,25 @@ blocks:
       title:
         en: Validating a system
         es: Validar un sistema
+      summary:
+        en: >-
+          Expectancy was an assumption until something tested it, and a backtest is honest only under three
+          conditions: the rules written down before you look, bar by bar with no scrolling back — because an
+          eye that has seen the outcome cannot unsee it — and every trade logged in R. Sample size is the
+          hard part: a fair coin gives twelve wins in twenty one time in four, so dozens say nothing and
+          hundreds begin to speak, the band closing only with the square root of the sample. Overfitting is
+          the cardinal sin, because every parameter you add is one more degree of freedom for the past to
+          agree with you, and the defence is to fit on one half of the history and test on the half you
+          never touched.
+        es: >-
+          La esperanza matemática era una suposición hasta que algo la puso a prueba, y un backtest solo es
+          honesto bajo tres condiciones: las reglas escritas antes de mirar, barra a barra y sin retroceder
+          —porque un ojo que ha visto el desenlace no puede dejar de verlo— y cada operación registrada en
+          R. El tamaño de la muestra es lo difícil: una moneda justa da doce aciertos de veinte una de cada
+          cuatro veces, así que las decenas no dicen nada y los cientos empiezan a hablar, y la banda solo
+          se cierra con la raíz cuadrada de la muestra. El sobreajuste es el pecado capital, porque cada
+          parámetro que añades es un grado de libertad más para que el pasado te dé la razón, y la defensa
+          es ajustar en una mitad del histórico y probar en la mitad que no tocaste.
       exercises:
       - id: m28-ex-1
         key: m33-ex-1
@@ -926,6 +1553,23 @@ blocks:
       title:
         en: What order flow adds
         es: Qué añade el flujo de órdenes
+      summary:
+        en: >-
+          Everything before this came from five numbers a candle keeps and the forty thousand trades it
+          discards — two opposite hours, one distributing and one absorbing, print the same candle. Order
+          flow is the data that separates them: a maker offers a price and rests, a taker accepts it and is
+          the aggressor, and delta is taker buy volume minus taker sell volume, so volume answers how many
+          showed up while delta answers which side was pressing. Read delta as pressure and never as
+          direction — the aggressor is often the retail order, the stop firing or the liquidation, while the
+          patient maker absorbing it is the size that knows what it is doing.
+        es: >-
+          Todo lo anterior salía de los cinco números que guarda una vela y de las cuarenta mil operaciones
+          que descarta: dos horas opuestas, una distribuyendo y otra absorbiendo, dibujan la misma vela. El
+          flujo de órdenes es el dato que las separa: un maker ofrece un precio y espera, un taker lo acepta
+          y es el agresor, y el delta es el volumen de compra taker menos el de venta taker, así que el
+          volumen responde cuántos aparecieron y el delta qué lado presionaba. Lee el delta como presión y
+          nunca como dirección: el agresor es a menudo la orden minorista, los stops que saltan o las
+          liquidaciones, mientras que el maker paciente que absorbe es el tamaño que sabe lo que hace.
       exercises:
       - id: m29-ex-1
         key: m25-ex-1
@@ -954,6 +1598,24 @@ blocks:
       title:
         en: 'CVD: construction and divergence'
         es: 'CVD: construcción y divergencia'
+      summary:
+        en: >-
+          CVD is delta kept as a running total, so its level is arbitrary and only its shape is read — where
+          it turned, and where it sits against the last swing. It upgrades m14's absorption from an
+          inference to a reading: price flat or falling while CVD climbs means aggressive buyers really are
+          pressing and something is taking the other side of all of it. A CVD divergence is m12's logic one
+          layer closer to the trades — price makes a lower low while CVD makes a higher low — and it leads
+          because aggression is spent before price moves; the third case, where CVD simply agrees, is the
+          most common and calling it a divergence because you wanted one is the error to train out.
+        es: >-
+          El CVD es el delta llevado como total corriente, así que su nivel es arbitrario y solo se lee su
+          forma: dónde giró y dónde está respecto al último swing. Mejora la absorción de m14 de inferencia
+          a lectura: un precio plano o cayendo mientras el CVD sube significa que los compradores agresivos
+          presionan de verdad y que algo está tomando el otro lado de todo eso. Una divergencia de CVD es la
+          lógica de m12 una capa más cerca de las operaciones —el precio hace un mínimo más bajo y el CVD
+          uno más alto— y se adelanta porque la agresión se gasta antes de que el precio se mueva; el tercer
+          caso, en el que el CVD simplemente coincide, es el más común, y llamarlo divergencia porque
+          querías una es el error que hay que quitarse.
       exercises:
       - id: m30-ex-1
         key: m26-ex-1
@@ -984,6 +1646,26 @@ blocks:
       title:
         en: 'The order book: depth and imbalance'
         es: 'El libro de órdenes: profundidad y desequilibrio'
+      summary:
+        en: >-
+          The order book is the other half of the market: not trades that happened but resting limit orders
+          waiting, and unlike everything else in this course it is an instantaneous snapshot with no history
+          in it. Depth decides what a trade actually costs you through slippage, a wall is a conspicuously
+          large resting order that acts as a floor only while it is there — it can be cancelled in a
+          millisecond, and spoofing is exactly that — and imbalance is a crowding read, the flimsiest in the
+          block. It also explains m17's scheduled release: market makers pull their quotes ahead of a timed
+          event, so the first violent candle is a thin book being crossed rather than an opinion about the
+          news.
+        es: >-
+          El libro de órdenes es la otra mitad del mercado: no operaciones que ocurrieron sino órdenes
+          limitadas en reposo esperando y, a diferencia de todo lo demás en este curso, es una instantánea
+          inmediata sin nada de historia dentro. La profundidad decide lo que de verdad te cuesta una
+          operación por el slippage, un muro es una orden en reposo llamativamente grande que actúa como
+          suelo solo mientras está ahí —se cancela en un milisegundo, y el spoofing es exactamente eso— y el
+          desequilibrio es una lectura de saturación, la menos sólida del bloque. También explica la
+          publicación programada de m17: los creadores de mercado retiran sus cotizaciones ante un evento
+          con hora fijada, así que la primera vela violenta es un libro poco profundo siendo cruzado y no
+          una opinión sobre la noticia.
       exercises:
       - id: m31-ex-1
         key: m27-ex-1
@@ -1007,6 +1689,24 @@ blocks:
       title:
         en: Premium between venues
         es: La prima entre exchanges
+      summary:
+        en: >-
+          There is no single price for Bitcoin, only a price on each venue, and the gap between two of them
+          is the premium between venues — quoted as a percentage of the reference venue, because 900 means
+          nothing until you know what it is 900 of. It has two very different causes worth telling apart:
+          regional demand arriving somewhere first, which is genuinely informative, and transfer friction —
+          capital controls, slow banking, a paused withdrawal queue — which is the price of a barrier rather
+          than a demand signal. Arbitrage does not eliminate a premium, it caps it at the cost of doing it,
+          so read the change rather than the level and treat it as a flow reading, never a buy signal.
+        es: >-
+          No hay un único precio de Bitcoin, solo un precio en cada exchange, y el hueco entre dos de ellos
+          es la prima entre exchanges, que se cita como porcentaje del exchange de referencia porque 900 no
+          significa nada hasta que sabes de qué son 900. Tiene dos causas muy distintas que conviene
+          separar: la demanda regional que llega antes a un sitio, que sí es informativa, y la fricción para
+          mover valor —controles de capital, vías bancarias lentas, una cola de retiros parada—, que es el
+          precio de una barrera y no una señal de demanda. El arbitraje no elimina una prima, la topa al
+          coste de hacerlo, así que lee el cambio y no el nivel, y trátala como lectura de flujo y nunca
+          como señal de compra.
       exercises:
       - id: m32-ex-1
         key: m28-ex-1
@@ -1034,6 +1734,24 @@ blocks:
       title:
         en: Footprint charts and volume profile
         es: Gráficos de footprint y perfil de volumen
+      summary:
+        en: >-
+          A footprint and a volume profile rotate the usual chart: they organise volume by price instead of
+          by time. A footprint breaks one candle open into what traded at each level inside it — m29's delta
+          resolved by price rather than summed over the period — while a volume profile does the same across
+          a session and gives you the POC, the price with the most volume, and the value area that holds the
+          bulk of it. That is an upgrade on eyeballed support and resistance, because a high-volume node is
+          a price many participants actually agreed on rather than a line you chose; the trap is believing
+          finer data is more certainty, and treating the POC as a magnet that must be hit.
+        es: >-
+          Un footprint y un perfil de volumen giran el gráfico habitual: organizan el volumen por precio en
+          lugar de por tiempo. El footprint abre una vela y muestra lo que se negoció en cada nivel dentro
+          de ella —el delta de m29 resuelto por precio en vez de sumado en el periodo— mientras que el
+          perfil de volumen hace lo mismo a lo largo de una sesión y te da el POC, el precio con más
+          volumen, y el área de valor que contiene el grueso. Es una mejora sobre unos soportes y
+          resistencias puestos a ojo, porque un nodo de volumen alto es un precio en el que muchos
+          participantes se pusieron de acuerdo de verdad y no una línea que elegiste; la trampa es creer que
+          un dato más fino es más certeza, y tratar el POC como un imán al que hay que llegar.
       exercises:
       - id: m33-ex-1
         key: m29-ex-1
@@ -1076,6 +1794,24 @@ blocks:
       title:
         en: The SMC dialect (order blocks, FVG, BOS)
         es: El dialecto SMC (order blocks, FVG, BOS)
+      summary:
+        en: >-
+          The SMC dialect is a dictionary rather than a system: an order block is the impulse's origin zone,
+          a fair value gap is a span crossed inside a single candle, a liquidity grab is m19-l2's sweep, and
+          BOS and CHoCH are the two breaks of m08-l1's ladder. Every one of them is a mechanic you already
+          have, and the order matters most for the origin zone — the break comes first, or the candles
+          before it are an ordinary pullback and a zone can be found on any chart. Learn it because the
+          crowd speaks it, not because it predicts: a claim that names an actor and a motive rather than a
+          mechanism explains every outcome equally well, which means it predicts none of them.
+        es: >-
+          El dialecto SMC es un diccionario más que un sistema: un order block es la zona de origen del
+          impulso, un fair value gap es un tramo cruzado dentro de una sola vela, un liquidity grab es el
+          barrido de m19-l2, y BOS y CHoCH son las dos rupturas de la escalera de m08-l1. Cada uno es una
+          mecánica que ya tienes, y el orden importa sobre todo en la zona de origen: la ruptura va primero,
+          o las velas anteriores son un pullback corriente y entonces puede encontrarse una zona en
+          cualquier gráfico. Apréndelo porque la masa lo habla, no porque prediga: una afirmación que nombra
+          un actor y un motivo en lugar de un mecanismo explica igual de bien todos los desenlaces, lo que
+          significa que no predice ninguno.
       exercises:
       - id: m34-ex-1
         key: m30-ex-1
@@ -1130,3 +1866,21 @@ blocks:
       title:
         en: After this book
         es: Después de este libro
+      summary:
+        en: >-
+          What you take from the book is the ability to read a chart by mechanism rather than by shape, to
+          size from the stop, and to validate a process before paying for it — but the most valuable
+          possession is the one that looks least like a technique: telling a claim with a mechanism from one
+          without. No page has given you experience, so the default path is to stay where you are and do it
+          more times, growing the journal until the sample can say something. Resist the day-after
+          temptation to collect more tactics, which is overfitting in human form, and read every signal sold
+          to you — and the incentives of whoever is selling it — with the same question you would ask of a
+          level.
+        es: >-
+          Lo que te llevas del libro es leer un gráfico por su mecanismo y no por su forma, dimensionar
+          desde el stop y validar un proceso antes de pagarlo, pero lo más valioso es lo que menos se parece
+          a una técnica: distinguir una afirmación con mecanismo de una sin él. Ninguna página te ha dado
+          experiencia, así que el camino por defecto es quedarte donde estás y hacerlo más veces, dejando
+          crecer el diario hasta que la muestra pueda decir algo. Resiste la tentación del día siguiente de
+          coleccionar más tácticas, que es el sobreajuste en forma humana, y lee cada señal que te vendan —y
+          los incentivos de quien te la vende— con la misma pregunta que le harías a un nivel.

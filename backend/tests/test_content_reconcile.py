@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 from __future__ import annotations
 
+import pytest
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -26,7 +27,11 @@ def _t(text: str) -> LocalizedText:
 
 def _lesson(lesson_id: str, with_exercise: bool = False) -> ManifestLesson:
     ex = [ManifestExercise(id=f"{lesson_id}-ex", type=ExerciseType.QUIZ)] if with_exercise else []
-    return ManifestLesson(id=lesson_id, title=_t(lesson_id), exercises=ex)
+    # `summary` is required on a lesson, so a fixture that omits it is not a lesson the app could
+    # ever be handed. Reconcile does not read it; it is here because the model is the contract.
+    return ManifestLesson(
+        id=lesson_id, title=_t(lesson_id), summary=_t(f"what {lesson_id} teaches"), exercises=ex
+    )
 
 
 def _manifest(modules: list[ManifestModule]) -> Manifest:
@@ -116,8 +121,8 @@ async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
         title=_t("A"),
         summary=_t("a"),
         lessons=[
-            ManifestLesson(id="lA", title=_t("lA"), exercises=[ex]),
-            ManifestLesson(id="lB", title=_t("lB"), exercises=[]),
+            ManifestLesson(id="lA", title=_t("lA"), summary=_t("what lA teaches"), exercises=[ex]),
+            ManifestLesson(id="lB", title=_t("lB"), summary=_t("what lB teaches"), exercises=[]),
         ],
     )
     await reconcile(_manifest([module]), session)
@@ -151,10 +156,11 @@ async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
         title=_t("A"),
         summary=_t("a"),
         lessons=[
-            ManifestLesson(id="lA", title=_t("lA"), exercises=[]),
+            ManifestLesson(id="lA", title=_t("lA"), summary=_t("what lA teaches"), exercises=[]),
             ManifestLesson(
                 id="lB",
                 title=_t("lB"),
+                summary=_t("what lB teaches"),
                 exercises=[ManifestExercise(id="lB-ex", type=ExerciseType.QUIZ), ex],
             ),
         ],
@@ -178,3 +184,17 @@ async def test_reconcile_reactivates_returned_content(session: AsyncSession) -> 
     # The same id reappearing flips it back to active.
     await reconcile(v1, session)
     assert (await session.get(Module, "mA")).active is True
+
+
+#: Columns removed from the ORM model on purpose. The physical column may still exist (see the note in
+#: `content/models.py`), but nothing in the application may address it again.
+RETIRED_EXERCISE_COLUMNS = ("content_hash",)
+
+
+@pytest.mark.parametrize("column", RETIRED_EXERCISE_COLUMNS)
+def test_a_retired_exercise_column_stays_off_the_model(column: str) -> None:
+    """`content_hash` was declared, never written and never read — the drift guard that never ran."""
+    from tradeschool.content.models import Exercise
+
+    assert column not in Exercise.__table__.columns, f"{column} came back onto the model"
+    assert not hasattr(Exercise, column), f"{column} is addressable again as an attribute"

@@ -23,11 +23,17 @@ export fails naming the lesson, the path to the node and the kind. This is the g
 future web content inside what the app can draw, and `tests/test_export_bundle.py` asserts it says no
 to each way that could break, one test per kind.
 
-**The multiset text diff.** The AST half re-reads what it wrote and compares the words in it against
-the words `/api/courses/{course}/export` serves from the same content, per locale, prose and glossary.
-It must come out empty. That catches the failure modes a bundle crossing a repository boundary
-actually has and none of which is loud: a text node dropped while splitting it around a mark, a lost
-node, a re-encoded `→`, a stale file from a partial export.
+**The text checks.** The AST half re-reads what it wrote and holds it against the web twice. A
+multiset diff compares the words in it with the words `/api/courses/{course}/export` serves from the
+same content, per locale, prose and glossary; a block diff compares each lesson, block for block and
+in order, with the page `LessonMarkdown` actually paints. Both must come out empty. Between them they
+catch the failure modes a bundle crossing a repository boundary actually has and none of which is
+loud: a text node dropped while splitting it around a mark, a lost node, a re-encoded `→`, a stale
+file from a partial export, a paragraph in the wrong place, a soft break that became a hard one.
+
+Two checks and not one because the multiset alone cannot be asked about whitespace (it splits on it),
+about order (it is a bag), or about a change to the parser itself (its reference comes off that same
+parser). The block diff's reference is the rendered DOM, which shares no code with the bundle's path.
 
 Usage (from `backend/`):
     uv run python scripts/export_bundle.py
@@ -53,9 +59,15 @@ for _extra in (_BACKEND / "src",):
     if str(_extra) not in sys.path:
         sys.path.insert(0, str(_extra))
 
+from pydantic import BaseModel  # noqa: E402
+
 from tradeschool.content.registry import CourseRegistry, _theory_only, load_registry  # noqa: E402
 from tradeschool.content.schema import LOCALES  # noqa: E402
-from tradeschool.exercises.calculation import MISTAKE_TRANSLATIONS_ES  # noqa: E402
+from tradeschool.exercises.calculation import (  # noqa: E402
+    MISTAKE_SENTENCES,
+    MISTAKE_TRANSLATIONS_ES,
+)
+from tradeschool.exercises.types import ExerciseType  # noqa: E402
 
 #: The repo root, and the two trees this script bridges.
 REPO = _BACKEND.parent
@@ -65,7 +77,13 @@ DEFAULT_OUT = REPO / "dist" / "bundle"
 
 #: Bumped when the bundle's SHAPE changes in a way a shipped app would misread. Content changes move
 #: the fingerprint, not this: an app pins the format it can parse and the fingerprint it last saw.
-BUNDLE_FORMAT_VERSION = 1
+#:
+#: v2 (2026-09-04) — three changes, one of them breaking. Per-lesson `summary` in the manifest; a new
+#: `exercises/references.json`; and a calculation's `params` become an ORDERED LIST where they were a
+#: map, which is the breaking one and the reason this is a version bump rather than an additive
+#: release. `docs/bundle-format-changelog.md` is the full account and `docs/bundle-v2-app-spec.md` is
+#: what the Android app has to do to consume it.
+BUNDLE_FORMAT_VERSION = 2
 
 #: The AST export's multiset text diff goes in a sibling `reports/` directory, never inside the
 #: bundle: it is a verification report ABOUT the bundle, not content the app reads, and everything
@@ -73,6 +91,10 @@ BUNDLE_FORMAT_VERSION = 1
 def diff_report_path(out: Path) -> Path:
     return out.parent / "reports" / "bundle-text-diff.json"
 
+
+#: Where the TypeScript half writes the resolved references it finds in exercise prose. Named here
+#: because both halves address it: this script asks for it and then checks every offset in it.
+EXERCISE_REFS_FILE = "exercises/references.json"
 
 #: `figure-coupling.yaml` goes in verbatim, under its own name — it is a reviewed content file, and
 #: the app's own figure/prose agreement checks (should it ever grow them) read the same declarations.
@@ -247,6 +269,7 @@ def build_manifest(registry: CourseRegistry, *, files: dict[str, str]) -> dict[s
                         "key": lesson.key,
                         "order": lesson_order,
                         "title": _localized(lesson.title),
+                        "summary": _localized(lesson.summary),
                         "exercises": [
                             {
                                 "id": exercise.id,
@@ -310,11 +333,34 @@ def build_manifest(registry: CourseRegistry, *, files: dict[str, str]) -> dict[s
     }
 
 
+def exported_config(exercise_type: ExerciseType, config: BaseModel) -> dict[str, Any]:
+    """One config as the generator parsed it, with the one field whose ORDER the bundle would lose.
+
+    `canonical_bytes` sorts every key it serializes, which is what makes the fingerprint reproducible
+    — and what silently rewrites a calculation's `params`. `calculation._sample_params` draws one
+    value per parameter from ONE seeded rng, walking them in declaration order, so the order IS the
+    question asked: nine of the eighteen calculation YAMLs declare a non-alphabetical order, and a
+    port reading a sorted dict samples a different exercise from the same seed. m23-ex-5 changes four
+    of its seven parameters that way, `style` among them.
+
+    So they leave as an ordered LIST. A list survives key sorting, and a port that ignores the change
+    fails to parse rather than quietly asking the wrong question — which is the only reason to prefer
+    it to an `order` field beside the dict.
+    """
+    document: dict[str, Any] = config.model_dump(mode="json")
+    if exercise_type is ExerciseType.CALCULATION:
+        document["params"] = [{"name": name, **spec} for name, spec in document["params"].items()]
+    return document
+
+
 def build_exercise_configs(registry: CourseRegistry) -> dict[str, Any]:
     """All 147 configs as the generators parsed them, so the port validates against the same shape."""
     return {
         "configs": {
-            exercise_id: {"type": exercise_type.value, "config": config.model_dump(mode="json")}
+            exercise_id: {
+                "type": exercise_type.value,
+                "config": exported_config(exercise_type, config),
+            }
             for exercise_id, (exercise_type, config) in sorted(registry.exercise_configs.items())
         }
     }
@@ -365,6 +411,10 @@ def build_error_phrases() -> dict[str, Any]:
     return {
         "kind": "calculation-error-phrases",
         "keyedBy": "en",
+        # The sentence the phrase is printed in, so the app stops writing its own. `{value}` is the
+        # option the learner picked, `{mistake}` the phrase below in their language. The two locales
+        # are different shapes on purpose — see `calculation.MISTAKE_SENTENCES`.
+        "sentences": dict(sorted(MISTAKE_SENTENCES.items())),
         "phrases": [
             {"key": english, "en": english, "es": spanish}
             for english, spanish in sorted(MISTAKE_TRANSLATIONS_ES.items())
@@ -443,6 +493,10 @@ This is the whole course as the native app reads it — no backend, no network. 
 **{BUNDLE_FORMAT_VERSION}**; the content fingerprint is `contentFingerprint` in `manifest.json`, and
 is not repeated here because this file is digested into it.
 
+Version 2 adds a per-lesson `summary` to the manifest and an `exercises/references.json`, and changes
+a calculation config's `params` from a map to an ORDERED LIST — the order is the question asked, and a
+map loses it to key sorting. A v1 reader must not parse a v2 bundle.
+
 {summary}
 
 ## Layout
@@ -503,9 +557,29 @@ repo's suite. The two are separate on purpose: a port needs both and must not sh
 between them.
 
 The export also proves, per locale, that the words in these ASTs and in this glossary are exactly the
-words the web serves from the same content — a multiset diff that must come out empty. See
-`phase-w2-bundle-and-contracts.md` in the web repo.
+words the web serves from the same content — a multiset diff that must come out empty — and that each
+lesson matches the page the web paints block for block and in order, whitespace included. See
+`docs/verification-blind-spots.md` in the web repo.
 """
+
+
+def localized_strings(node: object, path: str = "") -> Iterator[tuple[str, dict[str, str]]]:
+    """Every `{en, es}` pair inside a config, with the path that carries it.
+
+    Generic rather than a list of per-generator field names: a new exercise type's prose is exercise
+    prose the day it is authored, and a hand-kept list would leave it unannotated until somebody
+    remembered to extend it. The path addresses the EXPORTED config, so it reads straight into
+    `exercises/configs.json`.
+    """
+    if isinstance(node, dict):
+        if set(node) == set(LOCALES) and all(isinstance(value, str) for value in node.values()):
+            yield path, {locale: node[locale] for locale in LOCALES}
+            return
+        for key, value in node.items():
+            yield from localized_strings(value, f"{path}.{key}" if path else str(key))
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            yield from localized_strings(value, f"{path}[{index}]")
 
 
 def build_ast_input(registry: CourseRegistry) -> dict[str, Any]:
@@ -546,6 +620,15 @@ def build_ast_input(registry: CourseRegistry) -> dict[str, Any]:
             for locale in LOCALES
         },
         "glossary": {locale: registry.glossary_entries(locale) for locale in LOCALES},
+        # Exercise prose names modules by id ("the spring of m09"), and until now only LESSON prose
+        # arrived at the app with those resolved — so the app carried a second detector to find them
+        # (`ExerciseReferences.kt`'s own regex). These are every localized string in every config,
+        # addressed by the path they sit at in `exercises/configs.json`.
+        "exerciseTexts": [
+            {"exerciseId": exercise_id, "path": path, "text": text}
+            for exercise_id, (exercise_type, config) in sorted(registry.exercise_configs.items())
+            for path, text in localized_strings(exported_config(exercise_type, config))
+        ],
     }
 
 
@@ -574,11 +657,13 @@ def _run_ast_export(out: Path, *, verify: bool, emit: bool = True) -> None:
     ast_input = out / ".ast-input.json"
     report = diff_report_path(out)
     report.parent.mkdir(parents=True, exist_ok=True)
+    (out / "exercises").mkdir(parents=True, exist_ok=True)
     command = [
         "npm", "run", "--silent", "export:bundle-ast", "--",
         "--input", str(ast_input),
         "--out", str(out / "ast"),
         "--glossary-dir", str(out / "glossary"),
+        "--refs-out", str(out / EXERCISE_REFS_FILE),
         "--diff-report", str(report),
     ]
     if not verify:
@@ -627,6 +712,50 @@ def _check_inventory(out: Path, registry: CourseRegistry) -> int:
     return checked
 
 
+def _check_exercise_refs(out: Path, registry: CourseRegistry) -> int:
+    """Every mark's offsets must cut the mention out of the string the bundle actually carries.
+
+    The TypeScript half reads them back against its own input; this reads them back against the file
+    that shipped. Two different strings would mean the config was written from one content version
+    and the marks from another, which is precisely the split-brain a two-step export has and this
+    one-command export exists to prevent — and it would land as a chip on the wrong word.
+    """
+    document = json.loads((out / EXERCISE_REFS_FILE).read_text(encoding="utf-8"))
+    configs = json.loads((out / "exercises" / "configs.json").read_text(encoding="utf-8"))["configs"]
+    texts = {
+        (exercise_id, path): text
+        for exercise_id, entry in configs.items()
+        for path, text in localized_strings(entry["config"])
+    }
+    violations: list[str] = []
+    checked = 0
+    for exercise_id, by_locale in document["references"].items():
+        for locale, by_path in by_locale.items():
+            for path, marks in by_path.items():
+                source = texts.get((exercise_id, path), {}).get(locale)
+                if source is None:
+                    violations.append(f"{exercise_id} {locale} {path}: no such string in configs.json")
+                    continue
+                for mark in marks:
+                    cut = source[mark["start"] : mark["end"]]
+                    if cut != mark["mention"]:
+                        violations.append(
+                            f"{exercise_id} {locale} {path}: offsets name {cut!r}, "
+                            f"mark says {mark['mention']!r}"
+                        )
+                    checked += 1
+    if violations:
+        shown = "\n  ".join(violations[:20])
+        raise BundleError(
+            f"{len(violations)} exercise reference(s) do not sit where their offsets say:\n  {shown}"
+        )
+    known = {exercise.id for _m, _l, exercise in registry.manifest.iter_exercises()}
+    unknown = sorted(set(document["references"]) - known)
+    if unknown:
+        raise BundleError(f"exercise references for exercises the manifest does not declare: {unknown}")
+    return checked
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -657,6 +786,8 @@ def main(argv: list[str] | None = None) -> int:
         _run_ast_export(out, verify=not args.no_verify, emit=False)
         checked = _check_inventory(out, registry)
         print(f"block inventory   OK  ({checked} lesson ASTs)")
+        marks = _check_exercise_refs(out, registry)
+        print(f"exercise refs     OK  ({marks} marks, offsets read back from the shipped strings)")
         manifest = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
         current = _bundle_files(out)
         if current != manifest["files"]:
@@ -689,6 +820,8 @@ def main(argv: list[str] | None = None) -> int:
         _run_ast_export(out, verify=not args.no_verify)
         checked = _check_inventory(out, registry)
         print(f"block inventory   OK  ({checked} lesson ASTs, {len(BLOCK_INVENTORY)} allowed kinds)")
+        marks = _check_exercise_refs(out, registry)
+        print(f"exercise refs     OK  ({marks} marks, offsets read back from the shipped strings)")
         (out / ".ast-input.json").unlink(missing_ok=True)
 
     (out / "README.md").write_text(

@@ -1,11 +1,11 @@
-import { type ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Root } from "mdast";
 import { remarkBlockDirectives } from "@/lib/directives";
 import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
 import type { TermMatcher } from "@/lib/glossary/terms";
-import type { RefKind, RefRegistry } from "@/lib/refs/registry";
+import type { RefKind, RefRegistry, RefTarget } from "@/lib/refs/registry";
 import { cn } from "@/lib/cn";
 
 /** Turn remark-directive nodes into plain elements carrying data-* hints for the `components` map. */
@@ -174,12 +174,41 @@ export function LessonMarkdown({
   );
 }
 
-/** Inline prose (e.g. an exercise prompt) with the same styling but no directives. */
+/**
+ * How a resolved reference is drawn, handed down so `Prose` can mark mentions without this module
+ * importing a component out of `features/`.
+ */
+export interface ReferenceRendering {
+  registry: RefRegistry;
+  render: (target: RefTarget, children: ReactNode) => ReactNode;
+}
+
+const ReferenceRenderingContext = createContext<ReferenceRendering | null>(null);
+
+/** Wrap the surfaces whose prose should carry reference marks; absent, prose renders as plain text. */
+export const ReferenceRenderingProvider = ReferenceRenderingContext.Provider;
+
+/**
+ * Inline prose (an exercise prompt, an option, an explanation) with the same styling but no directives.
+ *
+ * Reference marks come from the SAME annotator a lesson's body uses, so `m19-l2` in a question is the
+ * same affordance as `m19-l2` in the prose above it. Nothing is self-skipped here, unlike a lesson: an
+ * exercise is read inside an exam as readily as inside its own lesson, and in an exam there is no page
+ * for a mention to be self-referential to — which is also what the bundle ships to the Android app.
+ */
 export function Prose({ markdown }: { markdown: string }) {
+  const references = useContext(ReferenceRenderingContext);
+  const annotate = () => (tree: Root) => {
+    if (references) annotateLessonRefs(tree, { lessonId: "", registry: references.registry });
+  };
+  const renderRef = (_kind: RefKind, refId: string, children: ReactNode): ReactNode => {
+    const target = references?.registry.resolve(refId);
+    return target && references ? references.render(target, children) : children;
+  };
   return (
     <Markdown
-      remarkPlugins={[remarkGfm]}
-      components={buildComponents(() => null, () => null, (_id, children) => children, (_kind, _refId, children) => children)}
+      remarkPlugins={references ? [remarkGfm, annotate] : [remarkGfm]}
+      components={buildComponents(() => null, () => null, (_id, children) => children, renderRef)}
     >
       {markdown}
     </Markdown>

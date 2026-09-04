@@ -60,13 +60,13 @@ def dot_left_to_right(a: Floats, b: Floats) -> float:
 
 
 def ols_slope_intercept(x: Floats, w: Floats) -> tuple[float, float]:
-    """Least-squares line through (x, w), closed form. Replaces `np.polyfit(x, w, 1)`.
+    """Least-squares line through (x, w), closed form.
 
         slope = Σ (xᵢ−x̄)(wᵢ−w̄) / Σ (xᵢ−x̄)(xᵢ−x̄)      intercept = w̄ − slope·x̄
 
     One left-to-right pass with both sums advancing together; the two divisions happen at the end.
-    Degenerate input (every x identical) gives slope `0.0`, so `detrend_linear` centres on w̄.
     """
+    # The `np.polyfit(x, w, 1)` this replaced, whose LAPACK `lstsq` picked its kernel from the CPU.
     xs = np.asarray(x, dtype=np.float64).ravel().tolist()
     ws = np.asarray(w, dtype=np.float64).ravel().tolist()
     if len(xs) != len(ws):
@@ -85,6 +85,7 @@ def ols_slope_intercept(x: Floats, w: Floats) -> tuple[float, float]:
         numerator += dx * (ws[i] - w_bar)
         denominator += dx * dx
 
+    # Degenerate input (every x identical) gives slope 0.0, so `detrend_linear` centres on the mean.
     slope = numerator / denominator if denominator != 0.0 else 0.0
     return slope, w_bar - slope * x_bar
 
@@ -98,11 +99,8 @@ def detrend_linear(x: Floats, w: Floats) -> Floats:
 
 
 def rowwise_mean_and_centred_slope(window: Floats, x_centred: Floats) -> tuple[Floats, Floats]:
-    """Each row's mean and its slope against the zero-centred `x_centred`, in one pass per row.
-
-    Replaces `squeeze_momentum`'s `window.mean(axis=1)` and its `@`. The row-mean subtraction is a
-    no-op in exact arithmetic (`x_centred` sums to zero) but not in floating point, so it stays.
-    """
+    """Each row's mean and its slope against the zero-centred `x_centred`, in one pass per row."""
+    # Replaces `squeeze_momentum`'s `window.mean(axis=1)` and its `@`.
     rows = np.asarray(window, dtype=np.float64).tolist()
     xs = np.asarray(x_centred, dtype=np.float64).ravel().tolist()
     period = len(xs)
@@ -118,6 +116,8 @@ def rowwise_mean_and_centred_slope(window: Floats, x_centred: Floats) -> tuple[F
         row_mean = total / float(len(row))
         numerator = 0.0
         for j in range(period):
+            # Subtracting the row mean is a no-op in exact arithmetic (`x_centred` sums to zero) and
+            # is NOT one in floating point, so it stays — the contract is the order, not the algebra.
             numerator += (row[j] - row_mean) * xs[j]
         means[i] = row_mean
         slopes[i] = numerator / denominator if denominator != 0.0 else 0.0

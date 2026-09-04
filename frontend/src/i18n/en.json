@@ -28,6 +28,11 @@
     "intro": "A sampled, graded run over the exercise bank — one question per module, revealed all at once at the end.",
     "inProgress": "Exam in progress",
     "resume": "Resume",
+    "conflictTitle": "An exam is already open",
+    "conflictBody": "Starting a new one abandons it. It will not be graded or saved.",
+    "conflictAnswered": "{{done}} of {{total}} answered",
+    "conflictResume": "Continue the open exam",
+    "conflictStartNew": "Start a new one",
     "global": "Global exam",
     "block": "Block exam",
     "startTitle": "Start an exam",
@@ -132,6 +137,14 @@
     "closeDefinition": "Close the definition",
     "sense": "{{index}}. ",
     "loadFailed": "The glossary could not be loaded."
+  },
+  "reference": {
+    "kindModule": "Module",
+    "kindLesson": "Lesson",
+    "inModule": "In",
+    "goToModule": "Go to module",
+    "goToLesson": "Go to lesson",
+    "close": "Close the reference"
   },
   "exercise": {
     "comingSoon": "Interactive exercise — arrives in the next increment.",

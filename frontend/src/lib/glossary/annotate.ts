@@ -180,7 +180,9 @@ function annotateText(
  *
  *  `block` is the prose unit the node belongs to — the paragraph or table cell — so a report can
  *  quote a sentence of context around a mark that is alone in its own inline node (`**m22**`). */
-function eligibleText(tree: Root): { parent: Parent; index: number; node: Text; block: Parent }[] {
+export function eligibleText(
+  tree: Root,
+): { parent: Parent; index: number; node: Text; block: Parent }[] {
   const found: { parent: Parent; index: number; node: Text; block: Parent }[] = [];
   const walk = (parent: Parent, block: Parent): void => {
     parent.children.forEach((child, index) => {
@@ -214,10 +216,17 @@ function present(terms: TermMatcher[], haystack: string): TermMatcher[] {
  * `fig-m11-…` and `m08-ex-6` are not mentions of m11 or m08. This is the ONE detector for lesson
  * references; the dangling guard works because detection is by SHAPE and resolution then has to
  * answer for every hit, rather than a resolver-driven scan that could not see what it missed.
+ *
+ * LOWERCASE ONLY, unlike the term pattern beside it, and the one place the two dialects part. `M15`
+ * in trading prose is a fifteen-minute timeframe, not module 15 — an idiom this very course teaches
+ * in m23-l2 — so a case-insensitive `m\d{2}` links a chart timeframe to a module and does it inside
+ * the sentence explaining timeframes. Nothing in the course is written that way today, which is why
+ * this costs no golden movement; it is the FIRST author who writes "the M15 chart" that it is for.
+ * The Android port reached the same rule independently (`ExerciseReferences.kt`) before this did.
  */
-const REF_PATTERN = new RegExp(
+export const REF_PATTERN = new RegExp(
   `(?<![${WORD}])${NOT_HYPHENATED.before}m\\d{2}(?:-l\\d+)?(?![${WORD}])${NOT_HYPHENATED.after}`,
-  "giu",
+  "gu",
 );
 
 /** One reference decision, as the golden report records it — linked, self-skipped, or dangling. */

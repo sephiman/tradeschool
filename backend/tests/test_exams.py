@@ -114,7 +114,7 @@ async def test_answer_is_deferred_and_resumable(content_client: AsyncClient) -> 
     assert r.status_code == 204
 
     # Resume: the open session comes back with the stored answer and still no solution.
-    current = (await content_client.get("/api/exams/current")).json()
+    current = (await content_client.get("/api/exams/open")).json()[0]
     assert current is not None and current["id"] == exam["id"]
     resumed_q0 = next(q for q in current["questions"] if q["attemptId"] == q0["attemptId"])
     assert resumed_q0["answered"] is True
@@ -163,8 +163,8 @@ async def test_same_scope_restart_abandons_prior(content_client: AsyncClient) ->
     second = (await content_client.post("/api/exams", json={"scope": "global"})).json()
     assert first["id"] != second["id"]
 
-    # Only the newest open session is current; the prior one was abandoned.
-    current = (await content_client.get("/api/exams/current")).json()
+    # Only one sitting is open; the prior one of the same scope was abandoned.
+    current = (await content_client.get("/api/exams/open")).json()[0]
     assert current["id"] == second["id"]
     # Abandoned sessions count toward nothing — history stays empty until something is submitted.
     assert (await content_client.get("/api/exams")).json() == []
@@ -221,3 +221,65 @@ async def test_exam_attempts_do_not_contaminate_practice_stats(content_client: A
     assert global_after == global_before
     # Course-page mastery + the started/Continue signal are unmoved too (full isolation).
     assert course_after == course_before
+
+
+async def test_every_open_sitting_is_reachable_not_just_the_newest(content_client: AsyncClient) -> None:
+    """Two scopes can be open at once, and the older one used to have no route in the UI.
+
+    `start_exam` closes an open session only of the SAME scope, so a block exam started while a global
+    one is unfinished leaves both open. The old `/current` answered with the newest alone, which left
+    the other consuming its questions with no way to resume or abandon it.
+    """
+    await _auth(content_client)
+    globally = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    per_block = (
+        await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})
+    ).json()
+    assert globally["id"] != per_block["id"]
+
+    open_sittings = (await content_client.get("/api/exams/open")).json()
+    assert [s["id"] for s in open_sittings] == [per_block["id"], globally["id"]], "newest first"
+    # Both are genuinely still in progress: each renders, rather than 409-ing as a closed session does.
+    for sitting in open_sittings:
+        assert (await content_client.get(f"/api/exams/{sitting['id']}")).status_code == 200
+
+    # And starting a third of one scope closes only that scope's sitting.
+    again = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    still_open = [s["id"] for s in (await content_client.get("/api/exams/open")).json()]
+    assert set(still_open) == {again["id"], per_block["id"]}
+
+
+async def test_question_order_is_frozen_at_assembly(content_client: AsyncClient) -> None:
+    """The order is recorded when the exam is built, not re-derived from the manifest at each render."""
+    await _auth(content_client)
+    exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    first = [q["exerciseId"] for q in exam["questions"]]
+
+    # Every render agrees with the assembly, including the reveal path after submission.
+    rendered = (await content_client.get(f"/api/exams/{exam['id']}")).json()
+    assert [q["exerciseId"] for q in rendered["questions"]] == first
+    assert [q["index"] for q in rendered["questions"]] == list(range(len(first)))
+    submitted = (await content_client.post(f"/api/exams/{exam['id']}/submit", json={})).json()
+    assert [q["exerciseId"] for q in submitted["questions"]] == first
+    reviewed = (await content_client.get(f"/api/exams/{exam['id']}/review")).json()
+    assert [q["exerciseId"] for q in reviewed["questions"]] == first
+
+
+async def test_a_different_block_of_the_same_scope_abandons_nothing(content_client: AsyncClient) -> None:
+    """The abandon rule is scope AND block, and the web's confirmation dialog is built on exactly it.
+
+    `ExamPage` asks before starting only when an open sitting shares both, so if the server ever
+    widened this to "any open block exam" the web would abandon a sitting it never warned about.
+    """
+    await _auth(content_client)
+    first = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    second = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-b"})).json()
+
+    still_open = {s["id"] for s in (await content_client.get("/api/exams/open")).json()}
+    assert still_open == {first["id"], second["id"]}, "a different block must not be abandoned"
+
+    # ...and the same block does abandon, which is the branch the dialog exists to warn about.
+    third = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    after = {s["id"] for s in (await content_client.get("/api/exams/open")).json()}
+    assert after == {third["id"], second["id"]}
+    assert (await content_client.get(f"/api/exams/{first['id']}")).status_code == 409

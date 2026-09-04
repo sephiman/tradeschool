@@ -165,6 +165,42 @@ def test_calculation_is_multiple_choice_with_diagnosable_distractors() -> None:
         gen.grade(config, seed=1, answer={"value": "18100"}, locale="en")  # free numeric input is gone
 
 
+def test_the_diagnosis_names_the_mistake_once_in_both_locales() -> None:
+    """The EN sentence used to print the phrase twice: "result of X (what you get if you X)".
+
+    "result of forget the maintenance-margin term" is broken English, because every EN phrase is a bare
+    verb phrase — so the trailing parenthetical was a grammatical repair that read as a stutter. The two
+    locales take different shapes for that reason and both are now named in `MISTAKE_SENTENCES`.
+    """
+    from tradeschool.exercises.calculation import MISTAKE_SENTENCES, _translate_mistake_es
+
+    gen = CalculationGenerator()
+    config = gen.parse_config(CALC_RAW)
+    _p, _e, options, correct_id, diag = _mc_options(config, 1)
+    wrong_id = next(o["id"] for o in options if o["id"] != correct_id and diag.get(o["id"]))
+    phrase = diag[wrong_id]
+    assert phrase, "the fixture needs a distractor with a named mistake behind it"
+
+    english = gen.grade(config, seed=1, answer={"optionId": wrong_id}, locale="en").solution_steps
+    diagnosis = next(step for step in english if phrase in step)
+    assert diagnosis.count(phrase) == 1, f"the mistake is named twice: {diagnosis!r}"
+    assert diagnosis.startswith("You picked ") and diagnosis.endswith(f"if you {phrase}.")
+
+    spanish = gen.grade(config, seed=1, answer={"optionId": wrong_id}, locale="es").solution_steps
+    translated = _translate_mistake_es(phrase)
+    assert translated != phrase, "the fixture's mistake must have an ES translation to be a real check"
+    es_diagnosis = next(step for step in spanish if translated in step)
+    assert es_diagnosis.count(translated) == 1
+    assert phrase not in es_diagnosis, "the ES diagnosis must not leak the English phrase"
+
+    # The exported templates must be the sentences grading actually printed, or the app would render
+    # a wording this repository no longer uses.
+    picked = diagnosis.removeprefix("You picked ").split(" — ")[0]
+    assert MISTAKE_SENTENCES["en"].format(value=picked, mistake=phrase) == diagnosis
+    es_picked = es_diagnosis.removeprefix("Elegiste ").split(" — ")[0]
+    assert MISTAKE_SENTENCES["es"].format(value=es_picked, mistake=translated) == es_diagnosis
+
+
 def test_calculation_distractors_stay_on_the_plausible_side() -> None:
     # A long's liquidation is below entry; every option (incl. distractors) must stay below entry, so
     # none is eliminable by that heuristic alone (§D.8b).

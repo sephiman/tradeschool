@@ -10,6 +10,7 @@ import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
 import { coursePath } from "@/components/layout/nav";
+import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -87,6 +88,7 @@ export function ExamReview() {
   const scopeName = exam.scope === "global" ? t("exam.global") : (exam.blockTitle ?? t("exam.block"));
 
   return (
+    <ProseReferenceHost>
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
         <Link to={coursePath("/exams")} className="text-sm text-primary hover:underline">
@@ -191,5 +193,6 @@ export function ExamReview() {
         })}
       </div>
     </div>
+    </ProseReferenceHost>
   );
 }

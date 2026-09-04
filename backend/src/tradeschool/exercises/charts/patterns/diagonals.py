@@ -20,6 +20,10 @@ import numpy as np
 from tradeschool.exercises.charts.patterns.base import Diagonal
 from tradeschool.exercises.charts.types import Series
 
+#: Anchor prices are drawn at the same 2dp every series in a chart payload is rounded to, so a
+#: projection has to land there too — see `extended`.
+ANCHOR_SCALE = 2
+
 #: A close within this fraction of the line counts as sitting ON it — the thickness of the pencil.
 #: Diagonals are drawn by hand and by eye, so an exact-touch criterion would describe no real trendline.
 TOUCH_MARGIN = 0.008
@@ -66,7 +70,11 @@ def extended(d: Diagonal, end: int) -> Diagonal:
         start=d.start,
         end=end,
         start_price=d.start_price,
-        end_price=price_at(d, end),
+        # An injector rounds every anchor it draws; this one is INTERPOLATED, so without the same
+        # rounding it reached a figure's payload as a raw double — seventeen digits of float noise the
+        # Kotlin port has to reproduce bit for bit and cannot. Only the figure path calls `extended`,
+        # which is why `exercise-mode.tsv` never carried it and `figures.tsv` did.
+        end_price=round(price_at(d, end), ANCHOR_SCALE),
         label=d.label,
         kind=d.kind,
     )

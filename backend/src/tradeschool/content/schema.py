@@ -51,6 +51,10 @@ class ManifestExercise(KeyedEntity):
 class ManifestLesson(KeyedEntity):
     model_config = ConfigDict(extra="forbid")
     title: LocalizedText
+    #: Two or three sentences of what this lesson teaches, in the lesson's own words. Required, and
+    #: bound by the same never-coins rule as the glossary: a summary may not use a term its own
+    #: lesson's prose never uses (`registry._check_summaries_never_coin`).
+    summary: LocalizedText
     exercises: list[ManifestExercise] = Field(default_factory=list)
 
 

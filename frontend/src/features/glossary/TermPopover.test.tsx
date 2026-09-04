@@ -95,7 +95,10 @@ function marks(): HTMLElement[] {
 }
 
 function panel(): HTMLElement | null {
-  return document.querySelector<HTMLElement>('[role="tooltip"]');
+  // By id, not by role: a hovered panel is a `tooltip` and a pinned one is a `dialog`, because a
+  // pinned panel holds focusable content (a card's links, a reference's "go to") that a tooltip may
+  // not. The role itself is asserted below rather than assumed by the selector.
+  return document.getElementById("glossary-term-popover");
 }
 
 /**
@@ -241,5 +244,21 @@ describe("on a touch screen, where hover does not exist", () => {
       close?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
     expect(panel()).toBeNull();
+  });
+});
+
+describe("what the panel announces itself as", () => {
+  it("is a tooltip while hovered and a dialog once pinned, and names itself either way", () => {
+    lesson("The funding is paid hourly.");
+    hover(marks()[0]);
+    expect(panel()?.getAttribute("role")).toBe("tooltip");
+    expect(panel()?.getAttribute("aria-labelledby")).toBe("glossary-term-popover-title");
+    // The card's own title carries that id, so the name is whatever is actually showing.
+    expect(document.getElementById("glossary-term-popover-title")?.textContent).toBe("funding");
+
+    tap(marks()[0]);
+    // Pinned, the panel holds the card's links; a `tooltip` may not contain focusable content, so it
+    // becomes a non-modal dialog rather than staying a tooltip with unreachable children.
+    expect(panel()?.getAttribute("role")).toBe("dialog");
   });
 });

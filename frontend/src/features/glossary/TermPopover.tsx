@@ -30,6 +30,8 @@ import { cn } from "@/lib/cn";
  */
 
 const PANEL_ID = "glossary-term-popover";
+/** Every card's own title carries this id, so the panel can name itself with one `aria-labelledby`. */
+const PANEL_TITLE_ID = "glossary-term-popover-title";
 /** Panel width, and the margin it keeps from the viewport edge. */
 const PANEL_WIDTH = 320;
 const EDGE = 8;
@@ -45,6 +47,8 @@ interface Shown {
 
 interface TermPopoverApi {
   shownKey: string | null;
+  /** Tapped or activated rather than hovered — the state in which the panel holds focus. */
+  shownPinned: boolean;
   show(key: string, content: ReactNode, anchor: HTMLElement, pinned: boolean): void;
   hide(force: boolean): void;
   toggle(key: string, content: ReactNode, anchor: HTMLElement): void;
@@ -60,6 +64,9 @@ export function usePopover(): TermPopoverApi | null {
 
 /** The id the panel renders under, so a trigger can point `aria-describedby` at it while shown. */
 export const POPOVER_PANEL_ID = PANEL_ID;
+
+/** The id a card puts on its own title line; the panel is labelled by whatever is showing. */
+export const POPOVER_TITLE_ID = PANEL_TITLE_ID;
 
 /** Where the panel goes: under the term, flipped above when the term sits low, clamped on both sides. */
 function place(anchor: DOMRect): { left: number; top?: number; bottom?: number } {
@@ -95,7 +102,9 @@ function TermCard({ entry, entries }: { entry: GlossaryEntry; entries: Map<strin
 
   return (
     <>
-      <p className="font-semibold text-gray-900 dark:text-gray-100">{entry.term}</p>
+      <p id={PANEL_TITLE_ID} className="font-semibold text-gray-900 dark:text-gray-100">
+        {entry.term}
+      </p>
       {entry.aliasOf && (
         <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
           {t("glossary.aliasHint")} <span className="font-medium">{entry.aliasOf.term}</span>
@@ -177,7 +186,14 @@ export function TermPopoverHost({
   }, [shown, hide]);
 
   const api = useMemo<TermPopoverApi>(
-    () => ({ shownKey: shown?.key ?? null, show, hide, toggle, entries }),
+    () => ({
+      shownKey: shown?.key ?? null,
+      shownPinned: shown?.pinned ?? false,
+      show,
+      hide,
+      toggle,
+      entries,
+    }),
     [shown, show, hide, toggle, entries],
   );
 
@@ -188,7 +204,11 @@ export function TermPopoverHost({
         <div
           ref={panel}
           id={PANEL_ID}
-          role="tooltip"
+          // A hovered panel is a tooltip; a pinned one holds a focusable action (a reference's "go
+          // to", a glossary card's links) and is a non-modal dialog, which is what makes that action
+          // reachable rather than merely present.
+          role={shown.pinned ? "dialog" : "tooltip"}
+          aria-labelledby={PANEL_TITLE_ID}
           style={{ position: "fixed", width: PANEL_WIDTH, maxWidth: `calc(100vw - ${EDGE * 2}px)`, ...place(shown.anchor) }}
           className="z-50 rounded-lg border border-border bg-white p-3 shadow-lg dark:border-gray-700 dark:bg-gray-900 oled:border-oled-line-strong oled:bg-oled-bg"
         >

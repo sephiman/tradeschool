@@ -37,6 +37,7 @@ from scripts.export_bundle import (  # noqa: E402
     CALLOUT_TONES,
     LEAF_SLOTS,
     MAX_HEADING_DEPTH,
+    build_ast_input,
     build_error_phrases,
     build_exercise_configs,
     build_figure_specs,
@@ -48,7 +49,10 @@ from scripts.export_bundle import (  # noqa: E402
     content_fingerprint,
     inventory_violations,
     load_content_registry,
+    localized_strings,
 )
+
+from tradeschool.exercises.types import ExerciseType  # noqa: E402
 
 # --- a tree that uses every allowed node kind, which is the inventory written as data -------------
 
@@ -301,10 +305,51 @@ def test_every_declared_exercise_config_is_exported_as_the_engine_consumes_it(re
     assert set(configs["configs"]) == set(registry.exercise_configs)
     assert len(configs["configs"]) == len(registry.manifest.iter_exercises())
     for exercise_id, entry in configs["configs"].items():
-        declared = registry.exercise_configs[exercise_id]
-        assert entry["type"] == declared[0].value
-        assert entry["config"] == declared[1].model_dump(mode="json"), exercise_id
+        exercise_type, config = registry.exercise_configs[exercise_id]
+        assert entry["type"] == exercise_type.value
+        expected = config.model_dump(mode="json")
+        # `params` is the ONE field the export reshapes, and only for a calculation: a dict loses the
+        # declaration order that `_sample_params` walks. Everything else must be the parsed model
+        # verbatim, so the reshaping is named here rather than allowed to spread unnoticed.
+        if "params" in expected and exercise_type is ExerciseType.CALCULATION:
+            assert entry["config"]["params"] == [
+                {"name": name, **spec} for name, spec in expected.pop("params").items()
+            ], exercise_id
+            expected["params"] = entry["config"]["params"]
+        assert entry["config"] == expected, exercise_id
         assert "tolerance" not in entry["config"], f"{exercise_id}: the retired field came back"
+
+
+def test_a_calculation_s_params_reach_the_bundle_in_the_order_the_yaml_declares(registry: Any) -> None:
+    """Param ORDER is the question asked, and the bundle's own serializer sorts every key it sees.
+
+    `calculation._sample_params` draws one value per parameter from ONE seeded rng, walking them in
+    declaration order — so a port reading them in any other order samples a different exercise from
+    the same seed, silently and completely. Nine of the eighteen calculation YAMLs declare an order
+    that is not alphabetical, which is exactly what `canonical_bytes` would rewrite them to.
+
+    Asserted through `canonical_bytes`, not on the dict in memory: the sorting is the hazard, so a
+    check that never serializes would pass on a bundle that ships the wrong order.
+    """
+    written = json.loads(canonical_bytes(build_exercise_configs(registry)).decode())
+    checked, reordered = 0, 0
+    for exercise_id, (exercise_type, config) in registry.exercise_configs.items():
+        if exercise_type is not ExerciseType.CALCULATION:
+            continue
+        declared = list(config.params)
+        exported = written["configs"][exercise_id]["config"]["params"]
+        assert [entry["name"] for entry in exported] == declared, exercise_id
+        for entry, name in zip(exported, declared, strict=True):
+            assert {k: v for k, v in entry.items() if k != "name"} == config.params[
+                name
+            ].model_dump(mode="json"), f"{exercise_id}/{name}"
+        checked += 1
+        reordered += declared != sorted(declared)
+    assert checked == 18, f"expected 18 calculation exercises, found {checked}"
+    assert reordered == 9, (
+        f"{reordered} of them declare a non-alphabetical order; if this moved, the test below it "
+        "is no longer exercising the hazard it was written for"
+    )
 
 
 def test_every_figure_is_exported_as_a_spec_and_never_as_pixels(registry: Any) -> None:
@@ -446,3 +491,43 @@ def test_the_readme_states_every_clause_the_recipe_needs(registry: Any) -> None:
     body = section[1]
     missing = [clause for clause in DOCUMENTED_RECIPE_CLAUSES if clause not in body]
     assert not missing, f"the fingerprint recipe no longer states: {missing}"
+
+
+def test_every_localized_string_in_a_config_is_offered_to_the_annotator(registry: Any) -> None:
+    """The exercise prose the TypeScript half marks references in — found by SHAPE, not by field name.
+
+    A per-generator list of prose fields is a list somebody has to remember to extend, and the cost
+    of forgetting is an exercise whose module mentions are dead text while every other exercise's are
+    tappable. So the walker takes any `{en, es}` pair of strings, and the paths it reports address
+    `exercises/configs.json` directly.
+    """
+    configs = build_exercise_configs(registry)["configs"]
+    offered = {
+        (entry["exerciseId"], entry["path"]) for entry in build_ast_input(registry)["exerciseTexts"]
+    }
+    assert offered, "no exercise prose was offered for annotation at all"
+    for exercise_id, entry in configs.items():
+        for path, text in localized_strings(entry["config"]):
+            assert (exercise_id, path) in offered, f"{exercise_id} {path} is prose nothing will mark"
+            assert set(text) == {"en", "es"}
+
+    # The shapes that actually carry references, named so a refactor that flattens one is loud.
+    quiz = {path for path, _ in localized_strings(configs["m01-ex-1"]["config"])}
+    assert "variants[0].prompt" in quiz
+    assert "variants[0].options[0].text" in quiz
+    assert "variants[0].explanation" in quiz
+    calculation = {path for path, _ in localized_strings(configs["m06-ex-1"]["config"])}
+    assert {"prompt", "explanation", "unit"} <= calculation
+
+
+def test_the_exercise_prose_paths_resolve_against_the_exported_config(registry: Any) -> None:
+    """A path is only useful if it reads back — and `params` changed shape under it this release."""
+    configs = build_exercise_configs(registry)["configs"]
+    for entry in build_ast_input(registry)["exerciseTexts"]:
+        config: Any = configs[entry["exerciseId"]]["config"]
+        for step in entry["path"].split("."):
+            name, _, indexes = step.partition("[")
+            config = config[name]
+            for index in (i for i in indexes.rstrip("]").split("][") if i):
+                config = config[int(index)]
+        assert config == entry["text"], f"{entry['exerciseId']} {entry['path']}"

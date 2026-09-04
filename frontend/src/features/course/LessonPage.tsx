@@ -8,7 +8,8 @@ import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
 import { LessonFigure } from "@/features/course/LessonFigure";
 import { GlossaryTerm, TermPopoverHost } from "@/features/glossary/TermPopover";
-import { LessonRefLink } from "@/features/course/LessonRefLink";
+import { ReferenceLink } from "@/features/references/ReferenceLink";
+import { ReferenceProvider } from "@/features/references/ReferenceProvider";
 import { buildTermIndex } from "@/lib/glossary/terms";
 import { buildRefRegistry, refModulesFromCourse } from "@/lib/refs/registry";
 import { currentAndNext, flattenLessons, stepLabel } from "@/features/course/courseNav";
@@ -141,6 +142,7 @@ export function LessonPage() {
       </div>
       <div className="mt-4">
         <TermPopoverHost entries={entriesById}>
+          <ReferenceProvider registry={refRegistry}>
           <LessonMarkdown
             markdown={lesson.markdown}
             renderExercise={(id) => {
@@ -156,9 +158,10 @@ export function LessonPage() {
             renderLessonRef={(_kind, refId, children) => {
               // The same resolve that decided to mark it; a race with a stale registry falls back to text.
               const target = refRegistry?.resolve(refId);
-              return target ? <LessonRefLink target={target}>{children}</LessonRefLink> : children;
+              return target ? <ReferenceLink target={target}>{children}</ReferenceLink> : children;
             }}
           />
+          </ReferenceProvider>
         </TermPopoverHost>
       </div>
       {/* End-of-lesson panel. The button is the *only* thing that marks a lesson read — nothing is

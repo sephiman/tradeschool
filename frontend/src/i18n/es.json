@@ -28,6 +28,11 @@
     "intro": "Un examen muestreado y calificado sobre el banco de ejercicios: una pregunta por módulo, revelado todo junto al final.",
     "inProgress": "Examen en curso",
     "resume": "Continuar",
+    "conflictTitle": "Ya tienes un examen abierto",
+    "conflictBody": "Empezar uno nuevo lo abandona. No se calificará ni se guardará.",
+    "conflictAnswered": "{{done}} de {{total}} respondidas",
+    "conflictResume": "Continuar el examen abierto",
+    "conflictStartNew": "Empezar uno nuevo",
     "global": "Examen global",
     "block": "Examen de bloque",
     "startTitle": "Empezar un examen",
@@ -133,6 +138,14 @@
     "sense": "{{index}}. ",
     "loadFailed": "No se ha podido cargar el glosario."
   },
+  "reference": {
+    "kindModule": "Módulo",
+    "kindLesson": "Lección",
+    "inModule": "En",
+    "goToModule": "Ir al módulo",
+    "goToLesson": "Ir a la lección",
+    "close": "Cerrar la referencia"
+  },
   "exercise": {
     "comingSoon": "Ejercicio interactivo — llega en el siguiente incremento.",
     "start": "Empezar ejercicio",
@@ -165,7 +178,7 @@
     "formula": "Fórmula"
   },
   "exerciseType": {
-    "quiz": "Test",
+    "quiz": "Cuestionario",
     "calculation": "Cálculo",
     "synthetic_chart": "Gráfico",
     "fixture_chart": "Gráfico",

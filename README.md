@@ -32,6 +32,8 @@ content/    course.yaml manifest (course → blocks → modules → lessons → 
             values of a figure's generated output) + glossary.yaml (the bilingual term list, which
             refers into the lessons and never coins); see content/README.md for the stable-ID /
             namespacing convention, the worked-numbers-follow-the-figure rule and the doc-comment rule
+docs/       the bundle format changelog and its app-side consumption spec, plus what a check
+            turned out not to be able to say and what was added instead
 docker-compose.yml  .env.example  LICENSE
 ```
 
@@ -461,7 +463,7 @@ The two shapes are discriminated by their top-level key, so a consumer never has
 {"locales": ["en", "es"],
  "blocks": [{"id": "block-f", "title": {"en": "Order flow and microstructure", "es": "Flujo de órdenes y microestructura"},
    "modules": [{"id": "m34", "title": {…}, "summary": {…},
-     "lessons": [{"id": "m34-l1", "title": {…}, "markdown": {"en": "# The SMC…", "es": "# El dialecto…"}}]}]}]}
+     "lessons": [{"id": "m34-l1", "title": {…}, "summary": {…}, "markdown": {"en": "# The SMC…", "es": "# El dialecto…"}}]}]}]}
 
 // lang=es  ->  plain strings, one language
 {"locale": "es", "blocks": [{"id": "block-f", "title": "Flujo de órdenes y microestructura", "modules": [{…}]}]}
@@ -473,6 +475,11 @@ so you can see where each generated chart belongs.
 
 Both shapes also carry a `glossary` — a flat list under `lang=…`, and `{"en": […], "es": […]}` in the
 bilingual document, matching how the localized fields pair.
+
+A lesson's `summary` is two or three sentences of what it teaches, authored per locale against that
+locale's own prose rather than translated from the other. It is bound by the same **never-coins** rule
+as the glossary, one level down: a summary may not use a glossary term its own lesson's prose never
+uses, and content load fails naming the lesson if one does.
 
 ### The glossary
 
@@ -860,6 +867,13 @@ uv run python scripts/export_contracts_to_android.py --target /path/to/tradescho
 `dist/` is git-ignored: these are build outputs, and the copy that gets committed is the one in the
 Android repository, next to an `EXPORT_MANIFEST.json` saying which commit of this repo produced it.
 
+**The bundle is at format version 2**, and the app gates on that number, so shipping it is a
+coordinated release. `docs/bundle-format-changelog.md` says what moved and why;
+`docs/bundle-v2-app-spec.md` is the checklist the Android side works from. In short: every lesson now
+carries a `summary` in both locales, `exercises/references.json` carries the module references found
+in exercise prose already resolved, and a calculation's `params` became an ordered **list** — the one
+breaking change, because their order is the question the exercise asks and a sorted map lost it.
+
 **The bundle is half TypeScript, and that is deliberate.** The lesson ASTs can only come from the
 frontend — the directive dialect, the ONE glossary/reference annotator and the tap point between it and
 the hast hints all live in `frontend/src/lib/`, and re-deriving any of them in Python would be the same
@@ -883,14 +897,28 @@ Two guards decide whether a bundle gets written at all:
   unknown one renders as *nothing* — so a lesson that acquired a fenced code block, an image, a hard
   line break or an `####` heading would ship as a hole in the page with nothing to notice it. Every
   node of all 88 lesson ASTs is checked and the export fails naming the lesson and the node.
-* **The multiset text diff.** The export re-reads what it wrote and compares its words against the
-  words `/export` serves from the same content, per locale, prose and glossary. Zero, or no bundle.
+* **The text checks, both of them.** The export re-reads what it wrote and holds it against the web
+  twice. A multiset diff compares its words with the words `/export` serves from the same content, per
+  locale, prose and glossary; a block diff compares each lesson with the page `LessonMarkdown`
+  actually paints, block for block and in order, whitespace included. Zero on both, or no bundle.
   Reading back from disk is the point: that is what catches a lost node, a mangled `→` or a stale file.
+
+  Two and not one because the multiset alone cannot be asked about whitespace (it splits on it), about
+  order (it is a bag), or about a change to the parser (its reference came off that same parser). The
+  block diff's reference is the rendered DOM, which shares no code with the bundle's path. Both blind
+  spots, and the quantization one below, are written up in `docs/verification-blind-spots.md`.
 
 ```
 uv run python scripts/export_bundle.py --verify-only   # re-check a bundle without rewriting it
 uv run python scripts/export_generation_goldens.py --dump-id fakeout:multi:0   # the bytes that were hashed
 ```
+
+The goldens export also refuses to write anything carrying a float at a scale the payload does not
+declare: `PAYLOAD_SCALES` names the scale of every field (2dp for anything with magnitude, 4dp for MACD
+and momentum), and an undeclared path fails too. It holds with **no exceptions** — `KNOWN_UNQUANTIZED`
+is empty. The one debt it ever carried was m15's interpolated diagonal anchors, paid on 2026-09-04 by
+rounding in `diagonals.extended()`; that recapture moved four lines of `figures.tsv` and nothing else.
+A raw double is not wrong arithmetic; it is float noise the port has to reproduce bit for bit and cannot.
 
 **The goldens reuse the committed fingerprints' own recipe**, so the first 16 hex digits of a line
 *are* the fingerprint `tests/test_golden_exercise_mode.py` has committed, where it has one. Two files,

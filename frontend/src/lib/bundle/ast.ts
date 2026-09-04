@@ -34,6 +34,9 @@ const processor = unified().use(remarkParse).use(remarkGfm).use(remarkBlockDirec
 /** The tap point, written into the bundle's own index so an artifact says where it was taken. */
 export const BUNDLE_AST_TAP = "mdast after lib/glossary/annotate, before markdown.tsx's remarkDirectiveToHast";
 
+/** Named in the exercise-reference file so a port can see the two mark types share one detector. */
+export const BUNDLE_REF_DETECTOR = "lib/glossary/annotate.ts REF_PATTERN over lib/refs/registry.ts";
+
 /** The two per-locale indexes the annotator needs, built once for a whole locale rather than per lesson. */
 export interface AnnotationInputs {
   terms: TermMatcher[];

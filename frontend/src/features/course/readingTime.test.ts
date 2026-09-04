@@ -55,6 +55,7 @@ function module(id: string, lessons: TimedLesson[]): CourseModule {
       id: `${id}-l${i + 1}`,
       order: i + 1,
       title: `${id} lesson ${i + 1}`,
+      summary: `what ${id} lesson ${i + 1} teaches`,
       completed: l.completed,
       readingSeconds: l.readingSeconds,
       exercises: [],
